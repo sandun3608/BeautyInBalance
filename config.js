@@ -12,4 +12,4 @@
   (Make sure there is NO slash at the very end of the URL)
 */
 
-const GLOBAL_API_URL = "http://localhost:5000";
+const GLOBAL_API_URL = "https://beautyinbalance.onrender.com";

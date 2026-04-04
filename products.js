@@ -296,7 +296,7 @@ const defaultProducts = [
 ];
 
 // Backend API url
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://beautyinbalance.onrender.com/api';
 const API_URL = BASE_URL + '/products';
 
 let customProducts = JSON.parse(localStorage.getItem('luxury_bakery_custom_products')) || [];
