@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — Beauty in Balance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Elegant Centered Register Layout */
+    body {
+      background-color: #faf9f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: var(--font-sans);
+    }
+
+    .register-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      position: relative;
+    }
+
+    .register-container h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 5px;
+    }
+
+    .register-container p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #555;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .register-btn {
+      width: 100%;
+      background-color: var(--brown);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    .register-btn:hover {
+      background-color: var(--gold);
+    }
+
+    .error-msg {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .success-msg {
+      color: #2e7d32;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .switch-auth {
+      display: inline-block;
+      margin-top: 20px;
+      color: #777;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .switch-auth:hover {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h1>Create Account</h1>
+    <p>Join Beauty in Balance for a curated skin journey</p>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="John Doe" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="john@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="••••••••" required />
+      </div>
+
+      <div class="error-msg" id="error-box"></div>
+      <div class="success-msg" id="success-box">Account created successfully! Redirecting...</div>
+
+      <button type="submit" class="register-btn" id="register-btn">Sign Up</button>
+    </form>
+
+    <a href="login.html" class="switch-auth">Already have an account? Login here</a>
+    <br>
+    <a href="index.html" class="switch-auth" style="margin-top: 10px; font-size: 12px;">← Return to Storefront</a>
+  </div>
+
+  <script>
+    const registerForm = document.getElementById('register-form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const errorBox = document.getElementById('error-box');
+    const successBox = document.getElementById('success-box');
+    const registerBtn = document.getElementById('register-btn');
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      errorBox.style.display = 'none';
+      successBox.style.display = 'none';
+
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        errorBox.textContent = 'Passwords do not match.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      registerBtn.textContent = 'Creating Account...';
+      registerBtn.disabled = true;
+
+      try {
+        const response = await fetch('http://localhost:5000/api/users/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: nameInput.value,
+            email: emailInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          successBox.style.display = 'block';
+          localStorage.setItem('userToken', data.token);
+          localStorage.setItem('userInfo', JSON.stringify({
+            name: data.name,
+            email: data.email,
+            isAdmin: data.isAdmin
+          }));
+
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 2000);
+        } else {
+          errorBox.textContent = data.message || 'Registration failed.';
+          errorBox.style.display = 'block';
+        }
+
+      } catch (err) {
+        console.error(err);
+        errorBox.textContent = "Cannot connect to server.";
+        errorBox.style.display = 'block';
+      } finally {
+        registerBtn.textContent = 'Sign Up';
+        registerBtn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shipping & Delivery Policies | Beauty in Balance Sri Lanka</title>
+  <meta name="description" content="Read our shipping, return and authenticity policies. Enjoy fast island-wide delivery in Sri Lanka for 100% genuine cosmetics and skincare products." />
+  <meta name="keywords" content="cosmetics delivery sri lanka, skincare shipping colombo, genuine beauty products sl, ordinary sri lanka cash on delivery" />
+  <meta name="author" content="Beauty in Balance" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Policies Page Styles */
+    .policy-hero {
+      padding: 120px 48px 60px;
+      text-align: center;
+      background: var(--white);
+    }
+    .policy-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 6vw, 64px);
+      color: var(--brown);
+      margin-bottom: 20px;
+    }
+    .policy-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .policy-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 48px 100px;
+    }
+
+    @media (max-width: 600px) {
+      .policy-container { padding: 0 24px 80px; }
+    }
+
+    /* Accordion Style Sections */
+    .policy-section {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 40px;
+    }
+
+    .policy-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .policy-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--beige-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--gold);
+    }
+
+    .policy-header h2 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: var(--brown);
+    }
+
+    .policy-content {
+      padding-left: 70px;
+    }
+
+    @media (max-width: 600px) {
+      .policy-content { padding-left: 0; }
+      .policy-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+
+    .policy-text {
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .policy-text ul {
+      margin-top: 15px;
+      list-style: none;
+    }
+
+    .policy-text li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .policy-text li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* Guarantee Box */
+    .guarantee-box {
+      background: var(--brown);
+      color: white;
+      padding: 60px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .guarantee-box h3 {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .guarantee-box p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    .stamp {
+      margin-bottom: 20px;
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      border: 2px dashed rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <ul class="nav-main">
+        <li><a href="index.html">Home</a></li>
+        <li class="has-drop">
+          <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+          <ul class="drop-menu">
+            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
+            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="policies.html" class="active">Policies</a></li>
+      </ul>
+
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <div class="nav-icons">
+        <a href="mailto:beautyinbalancesupport@gmail.com" class="ic-btn" aria-label="Email Us" title="beautyinbalancesupport@gmail.com">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <a href="dashboard.html" class="ic-btn" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top">
+      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="policies.html">Policies</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3>Cart (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty">
+      <p>Your cart is currently empty.</p>
+      <a href="shop.html" class="btn-dark">Continue Shopping</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="policy-hero">
+      <p>Trust & Transparency</p>
+      <h1>Our Policies & Standards</h1>
+    </section>
+
+    <!-- CONTENT -->
+    <div class="policy-container">
+      
+      <!-- AUTHENTICITY -->
+      <div class="policy-section">
+        <div class="policy-header">
+          <div class="policy-icon">✨</div>
+          <h2>Our Authenticity Standard</h2>
+        </div>
+        <div class="policy-content">
+          <div class="policy-text">
+            <p>At **Beauty in Balance**, we take pride in offering only the most genuine skincare collections from world-renowned brands. Transparency is at the core of our business.</p>
+            <ul>
+              <li>We only import products directly from official distributors in **Canada (CA)** and **Great Britain (GB)**.</li>
+              <li>Every product comes with its original batch code, which you can verify online.</li>
+              <li>We never source from local wholesale markets or duplicate manufacturers.</li>
+              <li>What you get is exactly what you would buy from a pharmacy in London or Toronto.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY -->
+      <div class="policy-section">
+        <div class="policy-header">
+          <div class="policy-icon">🚚</div>
+          <h2>Delivery & Orders</h2>
+        </div>
+        <div class="policy-content">
+          <div class="policy-text">
+            <p>We provide island-wide delivery across Sri Lanka using our trusted logistics partners.</p>
+            <ul>
+              <li>**Colombo 1-15 & Suburbs:** Delivery within 24-48 hours.</li>
+              <li>**Outstation Areas:** Delivery within 2-4 working days.</li>
+              <li>**Courier Tracking:** You will receive a tracking link via SMS once your order is dispatched.</li>
+              <li>**Packing:** All products are packaged in bubble-wrap and high-quality boxes to prevent leaks or damage.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="policy-section">
+        <div class="policy-header">
+          <div class="policy-icon">💵</div>
+          <h2>Payment Options</h2>
+        </div>
+        <div class="policy-content">
+          <div class="policy-text">
+            <p>We offer multiple convenient payment methods to cater to your needs.</p>
+            <ul>
+              <li>**Cash on Delivery (COD):** Available island-wide. Pay when you receive your package.</li>
+              <li>**Bank Transfer:** Secure direct bank transfers. Please send the slip via WhatsApp after payment.</li>
+              <li>**Card Payments:** Secure online checkout available during the order process.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RETURNS & REFUNDS -->
+      <div class="policy-section">
+        <div class="policy-header">
+          <div class="policy-icon">🔄</div>
+          <h2>Returns & Refunds</h2>
+        </div>
+        <div class="policy-content">
+          <div class="policy-text">
+            <p>Your satisfaction is our priority. Please read our return conditions below:</p>
+            <ul>
+              <li>Returns are accepted within **7 days** of delivery if the product was damaged during shipping.</li>
+              <li>For hygiene reasons, we cannot accept returns on products that have been **opened or used**.</li>
+              <li>If you receive a wrong product, we will replace it free of charge.</li>
+              <li>Refunds will be processed to your bank account within 3-5 working days after receiving the returned item.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- GUARANTEE BOX -->
+      <div class="guarantee-box">
+        <div class="stamp">100%<br>Authentic</div>
+        <h3>The Original Choice.</h3>
+        <p>Your skin deserves the best. We guarantee that every drop, every cream, and every serum we sell is original and imported for your beauty in balance.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>© 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const overlay = document.getElementById('overlay') || (() => {
+      const el = document.createElement('div');
+      el.className = 'overlay';
+      el.id = 'overlay';
+      document.body.appendChild(el);
+      return el;
+    })();
+
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+
+    document.getElementById('cart-open').addEventListener('click', () => {
+      document.getElementById('cart-drawer').classList.add('open');
+      overlay.classList.add('show');
+    });
+    overlay.addEventListener('click', closeAll);
+    document.getElementById('cart-close')?.addEventListener('click', closeAll);
+  </script>
+  <script src="products.js"></script>
+
+</body>
+</html>

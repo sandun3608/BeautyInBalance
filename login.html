@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Beauty in Balance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Elegant Centered Login Layout */
+    body {
+      background-color: #faf9f7; /* Soft aesthetic background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: var(--font-sans);
+    }
+
+    .login-container {
+      background: white;
+      padding: 50px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+
+    .login-container h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 5px;
+    }
+
+    .login-container p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .login-btn {
+      width: 100%;
+      background-color: var(--brown);
+      color: white;
+      border: none;
+      padding: 16px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      background-color: var(--gold);
+    }
+
+    .error-msg {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 25px;
+      color: #777;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .back-home:hover {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Login</h1>
+    <p>Sign in to access your dashboard</p>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="admin@beauty.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+
+      <div class="error-msg" id="error-box"></div>
+
+      <button type="submit" class="login-btn" id="login-btn">Sign In</button>
+    </form>
+
+    <a href="register.html" class="back-home" style="display: block; margin-top: 15px;">New customer? Create an account</a>
+    <a href="index.html" class="back-home">← Return to Storefront</a>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorBox = document.getElementById('error-box');
+    const loginBtn = document.getElementById('login-btn');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      errorBox.style.display = 'none';
+      loginBtn.textContent = 'Authenticating...';
+      loginBtn.disabled = true;
+
+      try {
+        const response = await fetch('http://localhost:5000/api/users/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: emailInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Success! Save the VIP pass heavily guarded in local storage
+          localStorage.setItem('userToken', data.token);
+          localStorage.setItem('userInfo', JSON.stringify({
+            name: data.name,
+            email: data.email,
+            isAdmin: data.isAdmin
+          }));
+
+          // Redirect based on role
+          if (data.isAdmin) {
+             window.location.href = 'admin.html';
+          } else {
+             window.location.href = 'index.html'; // Or user dashboard
+          }
+        } else {
+          // Display the server's rejection reason
+          errorBox.textContent = data.message || 'Invalid email or password.';
+          errorBox.style.display = 'block';
+        }
+
+      } catch (err) {
+        console.error(err);
+        errorBox.textContent = "Cannot connect to server. Ensure 'node server.js' is running.";
+        errorBox.style.display = 'block';
+      } finally {
+        loginBtn.textContent = 'Sign In';
+        loginBtn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

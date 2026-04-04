@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Dashboard | Beauty in Balance Sri Lanka</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <ul class="nav-main">
+        <li><a href="index.html">Home</a></li>
+        <li class="has-drop">
+          <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+          <ul class="drop-menu">
+            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
+            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <div class="nav-icons">
+        <button class="ic-btn" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+        <a href="mailto:beautyinbalancesupport@gmail.com" class="ic-btn" aria-label="Email Us" title="beautyinbalancesupport@gmail.com">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <!-- User Icon -->
+        <a href="dashboard.html" class="ic-btn" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+        </button>
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== OVERLAY ===== -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top">
+      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="policies.html">Policies</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3>Cart (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty">
+      <p>Your cart is currently empty.</p>
+      <a href="shop.html" class="btn-dark">Continue Shopping</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="dashboard-container">
+      <!-- SIDEBAR -->
+      <aside class="db-sidebar">
+        <div class="db-user-info">
+          <div class="db-avatar">S</div>
+          <h4>Sarah Perera</h4>
+          <p>sarah.p@email.com</p>
+        </div>
+        <nav class="db-nav">
+          <ul>
+            <li><a href="#" class="db-nav-link active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Overview
+            </a></li>
+            <li><a href="#" class="db-nav-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Orders
+            </a></li>
+            <li><a href="#" class="db-nav-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Wishlist
+            </a></li>
+            <li><a href="#" class="db-nav-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Addresses
+            </a></li>
+            <li><a href="#" class="db-nav-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              Settings
+            </a></li>
+            <li style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
+              <a href="#" class="db-nav-link" style="color: #d93025;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="db-main">
+        <div class="db-welcome">
+          <h2>Hello, Sarah!</h2>
+          <p>Welcome to your personal beauty dashboard. Track your orders and manage your skin profile here.</p>
+        </div>
+
+        <!-- STATS -->
+        <div class="db-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+            </div>
+            <div class="stat-info">
+              <h5>Total Orders</h5>
+              <div class="stat-val">12</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="stat-info">
+              <h5>Wishlist</h5>
+              <div class="stat-val">5 Items</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="stat-info">
+              <h5>Balance</h5>
+              <div class="stat-val">Rs. 0.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT ORDERS -->
+        <div class="db-section">
+          <div class="db-sec-header">
+            <h3>Recent Orders</h3>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="db-table-wrap">
+            <table class="db-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#ORD-7821</td>
+                  <td>Mar 22, 2024</td>
+                  <td>Rs. 8,600</td>
+                  <td><span class="status-pill status-delivered">Delivered</span></td>
+                </tr>
+                <tr>
+                  <td>#ORD-7543</td>
+                  <td>Mar 15, 2024</td>
+                  <td>Rs. 5,200</td>
+                  <td><span class="status-pill status-shipped">Shipped</span></td>
+                </tr>
+                <tr>
+                  <td>#ORD-7120</td>
+                  <td>Feb 28, 2024</td>
+                  <td>Rs. 12,450</td>
+                  <td><span class="status-pill status-delivered">Delivered</span></td>
+                </tr>
+                <tr>
+                  <td>#ORD-6890</td>
+                  <td>Feb 10, 2024</td>
+                  <td>Rs. 4,800</td>
+                  <td><span class="status-pill status-pending">Processing</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RECOMMENDED FOR HER (Personalized) -->
+         <div class="hp-products-section" style="padding: 0; margin-top: 20px;">
+           <div class="db-sec-header" style="border:none; padding-left:0;">
+             <h3 style="font-size: 24px;">Recommended For Your Skin</h3>
+           </div>
+           <div class="hp-grid-container" style="grid-template-columns: repeat(3, 1fr); gap: 15px;">
+              <a href="#" class="hp-prod-card">
+                <div class="hp-prod-img"><img src="ordinary/1.png" alt="Niacinamide"></div>
+                <p class="hp-prod-name">Niacinamide 10% + Zinc 1%</p>
+                <p class="hp-prod-price">Rs. 3,800</p>
+              </a>
+              <a href="#" class="hp-prod-card">
+                <div class="hp-prod-img"><img src="cerave/2.png" alt="Cleanser"></div>
+                <p class="hp-prod-name">Hydrating Cleanser</p>
+                <p class="hp-prod-price">Rs. 6,800</p>
+              </a>
+              <a href="#" class="hp-prod-card">
+                <div class="hp-prod-img"><img src="ordinary/12.png" alt="Barrier"></div>
+                <p class="hp-prod-name">Barrier Support Serum</p>
+                <p class="hp-prod-price">Rs. 5,200</p>
+              </a>
+           </div>
+         </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>© 2024 Beauty in Balance | Lanka's Premier Skincare Destination.</p>
+      <div class="footer-payment">
+        <span class="pay-icon" style="opacity: 0.8;">Cash on Delivery</span>
+        <span class="pay-icon" style="opacity: 0.8;">Bank Transfer</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    /* ── HEADER SCROLL ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    /* ── SEARCH ── */
+    $('search-open').addEventListener('click', () => { $('search-drop').classList.add('open'); $('search-inp').focus(); });
+    $('search-close').addEventListener('click', () => $('search-drop').classList.remove('open'));
+
+    const overlay = document.getElementById('overlay');
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay?.classList.remove('show');
+    }
+    
+    document.getElementById('cart-open')?.addEventListener('click', () => {
+      document.getElementById('cart-drawer')?.classList.add('open');
+      overlay?.classList.add('show');
+    });
+    
+    document.getElementById('ham-open')?.addEventListener('click', () => {
+      document.getElementById('mobile-drawer')?.classList.add('open');
+      overlay?.classList.add('show');
+    });
+
+    overlay?.addEventListener('click', closeAll);
+    document.getElementById('cart-close')?.addEventListener('click', closeAll);
+    document.getElementById('ham-close')?.addEventListener('click', closeAll);
+  </script>
+</body>
+</html>

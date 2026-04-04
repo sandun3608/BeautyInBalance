@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy Original Skincare | Beauty in Balance Sri Lanka</title>
+  <meta name="description" content="Buy 100% genuine The Ordinary, CeraVe and premium skincare imported to Sri Lanka. Fast delivery in Colombo & island-wide. Best cosmetics shop in Sri Lanka." />
+  <meta name="keywords" content="buy original ordinary serum, cerave cleanser colombo, best skincare products lanka, authentic beauty products sri lanka, order cosmetics sl, buy makeup colombo" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Buy Authentic Skincare | Beauty in Balance Sri Lanka" />
+  <meta property="og:description" content="Get 100% genuine The Ordinary, CeraVe and Premium skin treatments imported to Sri Lanka. Fast delivery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Product Detail Custom Styles */
+    .pd-container {
+      max-width: 1400px;
+      margin: 120px auto 80px;
+      padding: 0 48px;
+    }
+
+    @media (max-width: 900px) {
+      .pd-container { padding: 0 24px; margin-top: 100px; }
+    }
+
+    .pd-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .pd-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Left: Image & Gallery */
+    .pd-media-side {
+      position: sticky;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pd-img-wrap {
+      background: var(--beige-light);
+      border-radius: 30px;
+      overflow: hidden;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .pd-img-wrap img#main-prod-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+    }
+
+    /* Thumbnails */
+    .pd-gallery {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      background: var(--beige-light);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      overflow: hidden;
+      padding: 10px;
+      transition: all 0.3s;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .thumb.active {
+      border-color: var(--gold);
+      box-shadow: 0 4px 10px rgba(198,151,90,0.1);
+    }
+
+    .thumb.active img, .thumb:hover img {
+      opacity: 1;
+    }
+
+    /* Right: Details */
+    .pd-info {
+       display: flex;
+       flex-direction: column;
+       gap: 30px;
+    }
+
+    .breadcrumbs {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: -10px;
+    }
+
+    .pd-title {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      color: var(--brown);
+      line-height: 1.1;
+    }
+
+    .pd-price {
+      font-size: 28px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .pd-desc-short {
+      font-size: 18px;
+      color: var(--text);
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+    }
+
+    /* Benefits Section */
+    .pd-section-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--brown);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pd-benefits-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .pd-benefits-list { grid-template-columns: 1fr; }
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--beige-light);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text);
+      border: 1px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .benefit-item:hover {
+      border-color: var(--gold);
+      transform: translateX(5px);
+    }
+
+    .benefit-icon {
+      color: var(--gold);
+      font-size: 18px;
+    }
+
+    /* How to Use */
+    .usage-box {
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px dashed var(--border);
+    }
+
+    .usage-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* Authenticity Badge */
+    .auth-badge {
+       display: flex;
+       align-items: center;
+       gap: 15px;
+       padding: 20px;
+       background: #ecfdf5;
+       border-radius: 15px;
+       border: 1px solid #10b981;
+       color: #065f46;
+    }
+
+    .auth-icon {
+      width: 44px;
+      height: 44px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Cart Controls */
+    .pd-controls {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .qty-input {
+      width: 80px;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+      font-weight: 700;
+      background: var(--white);
+    }
+
+    .btn-add-cart {
+      flex-grow: 1;
+      padding: 18px;
+      background: var(--brown);
+      color: var(--white);
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-add-cart:hover {
+      background: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(198,151,90,0.2);
+    }
+
+    /* Recommendations Section */
+    .rec-section {
+      max-width: 1400px;
+      margin: 100px auto;
+      padding: 0 48px;
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <ul class="nav-main">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+      <div class="nav-icons">
+        <a href="mailto:beautyinbalancesupport@gmail.com" class="ic-btn" aria-label="Email Us" title="beautyinbalancesupport@gmail.com">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <a href="dashboard.html" class="ic-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <button class="ic-btn cart-ic" id="cart-open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top">
+      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="policies.html">Policies</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3>Cart (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty">
+      <p>Your cart is currently empty.</p>
+      <a href="shop.html" class="btn-dark">Continue Shopping</a>
+    </div>
+  </div>
+
+  <main>
+    <div id="pd-root">
+       <!-- Dynamic content here -->
+       <div style="text-align:center; padding: 200px 0;">Loading Product Details...</div>
+    </div>
+
+    <!-- Recommendations -->
+    <section class="rec-section">
+      <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--brown);">You May Also Like</h2>
+      <div class="rec-grid" id="rec-grid">
+         <!-- Simulating some items -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>© 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="products.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const params = new URLSearchParams(window.location.search);
+    const prodId = params.get('id');
+
+    function switchImg(src, thumb) {
+      const main = $('main-prod-img');
+      gsap.to(main, { opacity: 0, scale: 0.95, duration: 0.2, onComplete: () => {
+        main.src = src;
+        gsap.to(main, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" });
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      }});
+    }
+
+    function renderProduct() {
+      const product = productsData.find(p => p.id === prodId || p.name === prodId); // Fallback for old name-based IDs
+      
+      if (!product) {
+        $('pd-root').innerHTML = '<div style="text-align:center; padding: 200px 0; font-size: 24px;">Product Not Found. <br><a href="shop.html" style="color:var(--gold)">Return to Shop</a></div>';
+        return;
+      }
+
+      document.title = product.name + " — Beauty in Balance";
+
+      const benefitsHtml = (product.benefits || ['Guaranteed Original', 'High Stability', 'Cruelty Free'])
+        .map(b => `<div class="benefit-item"><span class="benefit-icon">✦</span> ${b}</div>`)
+        .join('');
+
+      const thumbsHtml = (product.images || [product.img])
+        .map((img, idx) => `<div class="thumb ${idx===0?'active':''}" onclick="switchImg('${img}', this)"><img src="${img}"></div>`)
+        .join('');
+
+      $('pd-root').innerHTML = `
+        <div class="pd-container">
+          <div class="pd-grid">
+            <!-- Left: Media -->
+            <div class="pd-media-side">
+              <div class="pd-img-wrap">
+                <img id="main-prod-img" src="${product.img}" alt="${product.name}">
+              </div>
+              <div class="pd-gallery">
+                ${thumbsHtml}
+              </div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="pd-info">
+              <div class="breadcrumbs">Home / Shop / ${product.cat.toUpperCase()} / ${product.filter.toUpperCase()}</div>
+              <h1 class="pd-title">${product.name}</h1>
+              <div class="pd-price">Rs. ${product.price.toLocaleString()}</div>
+              
+              <div class="pd-desc-short">
+                ${product.desc || 'Premium skincare formula imported directly from CA & GB. Guaranteed 100% authentic and original.'}
+              </div>
+
+              <div class="pd-section">
+                <div class="pd-section-title">
+                   <svg viewBox="0 0 24 24" width="24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813-6.113.157 4.846 3.754-1.817 5.844L12 15l4.996 3.568-1.817-5.844 4.846-3.754-6.113-.157Z"/></svg>
+                   The Benefits
+                </div>
+                <div class="pd-benefits-list">
+                   ${benefitsHtml}
+                </div>
+              </div>
+
+              <div class="usage-box">
+                <div class="pd-section-title">How to Use</div>
+                <div class="usage-text">
+                  ${product.howToUse || 'Apply a small amount to the target area once or twice daily after cleaning the skin. Patch test recommended before use.'}
+                </div>
+              </div>
+
+              <div class="auth-badge">
+                 <div class="auth-icon">✔</div>
+                 <div class="auth-text">
+                    <strong style="display:block;">${product.cat === 'ordinary' ? 'DECIEM Certified' : 'Brand Certified'}</strong>
+                    <span style="font-size: 13px; opacity: 0.8;">${product.authenticity || 'Imported directly from Europe/Canada. Guaranteed Original.'}</span>
+                 </div>
+              </div>
+
+              <div class="pd-controls">
+                 <input type="number" id="qty-input" value="1" min="1" class="qty-input">
+                 <button class="btn-add-cart" onclick="addToCart('${product.id}', document.getElementById('qty-input').value)">Add to Bag</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      `;
+
+      renderRecs(product.cat);
+    }
+
+    function renderRecs(category) {
+       const recs = productsData.filter(p => p.cat === category && (p.id !== prodId)).slice(0, 4);
+       $('rec-grid').innerHTML = recs.map(p => `
+          <a href="product.html?id=${p.id || p.name}" class="hp-prod-card" style="text-decoration:none; color:inherit;">
+            <div class="hp-prod-img" style="background:var(--beige-light); border-radius:15px; padding:20px; aspect-ratio:1/1;">
+               <img src="${p.img}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+            <p style="font-weight:600; margin-top:15px; font-size:15px;">${p.name}</p>
+            <p style="color:var(--gold); font-weight:700;">Rs. ${p.price.toLocaleString()}</p>
+          </a>
+       `).join('');
+    }
+
+    renderProduct();
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const overlay = document.getElementById('overlay') || (() => {
+      const el = document.createElement('div');
+      el.className = 'overlay';
+      el.id = 'overlay';
+      document.body.appendChild(el);
+      return el;
+    })();
+
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+
+    document.getElementById('cart-open').addEventListener('click', () => {
+      document.getElementById('cart-drawer').classList.add('open');
+      overlay.classList.add('show');
+    });
+
+    overlay.addEventListener('click', closeAll);
+    document.getElementById('cart-close')?.addEventListener('click', closeAll);
+  </script>
+</body>
+</html>
