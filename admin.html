@@ -749,17 +749,29 @@
     const pImgPlaceholder = document.getElementById('p-img-placeholder');
     const pImgUrlInput = document.getElementById('p-img');
 
-    // Handle File Selection & Base64
+    // Handle File Selection with Compression
     pFileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (event) => {
-                const base64 = event.target.result;
-                pImgPreview.src = base64;
-                pImgPreview.style.display = 'block';
-                pImgPlaceholder.style.display = 'none';
-                pImgUrlInput.value = base64;
+                const imgObj = new Image();
+                imgObj.onload = () => {
+                   const canvas = document.createElement('canvas');
+                   const ctx = canvas.getContext('2d');
+                   // Max width 800px for dashboard performance
+                   const scale = 800 / imgObj.width;
+                   canvas.width = 800;
+                   canvas.height = imgObj.height * scale;
+                   ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
+                   
+                   const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7); // 70% quality
+                   pImgPreview.src = compressedBase64;
+                   pImgPreview.style.display = 'block';
+                   pImgPlaceholder.style.display = 'none';
+                   pImgUrlInput.value = compressedBase64;
+                };
+                imgObj.src = event.target.result;
             };
             reader.readAsDataURL(file);
         }
