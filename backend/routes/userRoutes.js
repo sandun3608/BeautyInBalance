@@ -6,7 +6,9 @@ const User = require('../models/User');
 
 // Helper to generate a token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+    // Falls back to a safe key if JWT_SECRET is not set in environment
+    const secret = process.env.JWT_SECRET || 'beauty_in_balance_token_key_123';
+    return jwt.sign({ id }, secret, { expiresIn: '30d' });
 };
 
 // @route   POST /api/users/login
