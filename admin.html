@@ -818,14 +818,23 @@
       sendBtn.textContent = 'Saving to Cloud...';
       sendBtn.disabled = true;
 
+      const mainImg = document.getElementById('p-img').value;
+      const galleryInput = document.getElementById('p-images').value;
+      let galleryArr = galleryInput.split(',').map(s => s.trim()).filter(s => s);
+      
+      // CRITICAL FIX: If user uploaded a new photo, ensure it's in the gallery too
+      if (mainImg && galleryArr.indexOf(mainImg) === -1) {
+          galleryArr.unshift(mainImg); // Put it at the beginning
+      }
+
       const productData = {
         name: document.getElementById('p-name').value,
         cat: document.getElementById('p-cat').value,
         price: Number(document.getElementById('p-price').value),
         id: document.getElementById('p-id-field').value,
         discount: Number(document.getElementById('p-discount').value),
-        img: document.getElementById('p-img').value,
-        images: document.getElementById('p-images').value.split(',').map(s => s.trim()).filter(s => s),
+        img: mainImg,
+        images: galleryArr,
         desc: document.getElementById('p-desc').value,
         howToUse: document.getElementById('p-usage').value,
         benefits: document.getElementById('p-benefits').value.split(',').map(s => s.trim()).filter(s => s),
