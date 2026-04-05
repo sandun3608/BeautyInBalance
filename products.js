@@ -397,6 +397,68 @@ async function logVisit() {
 logVisit();
 
 // --- SHOPPING CART LOGIC ---
+// --- AVURUDU SALE RENDERING ---
+function renderAvuruduSale() {
+    const container = document.getElementById('avurudu-sale-container');
+    if (!container) return; // Only run if the element exists
+
+    // Filter products for the sale (example: first 4 Ordinary products with a discount > 0)
+    const saleProducts = productsData.filter(p => (p.cat === 'ordinary' || p.cat === 'cerave') && p.discount > 0).slice(0, 4);
+    
+    // If no discounted products found yet, just take some from Ordinary
+    const finalSale = saleProducts.length > 0 ? saleProducts : productsData.filter(p => p.cat === 'ordinary').slice(0, 4);
+
+    container.innerHTML = `
+    <div class="container overflow-hidden">
+      <div class="avurudu-sale-card" style="background-image: url('new year/Happy Sinhala and Tamil New Year Wishes Instagram Post.png'); border-radius: 40px; overflow: hidden; padding: 60px 40px; position: relative;">
+        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.15); pointer-events:none;"></div>
+        
+        <div class="row align-items-center" style="position: relative; z-index: 2;">
+          <div class="col-lg-5 mb-5 mb-lg-0 text-center text-lg-start">
+            <span class="sale-badge" style="background:#d32f2f; color:#fff; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(211,47,47,0.3);">Avurudu Mega Sale</span>
+            <h2 style="font-family: var(--font-fancy); font-size: clamp(3rem, 6vw, 4.5rem); color: #fff; line-height: 1.1; margin-bottom: 25px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Sinhala & Tamil <br> New Year Offer</h2>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 35px; max-width: 450px;">Celebrate the season with festive glow! Exclusive 5% discount on all your skincare essentials. Limited time only.</p>
+            
+            <div class="offer-timer d-flex gap-3 mb-4 justify-content-center justify-content-lg-start">
+              <div style="background:#fff; width:70px; height:70px; border-radius:15px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 15px 35px rgba(0,0,0,0.2);">
+                <span style="font-size:24px; font-weight:800; color:#d32f2f; line-height:1;">12</span>
+                <span style="font-size:10px; text-transform:uppercase; font-weight:700; color:#777; margin-top:2px;">Days</span>
+              </div>
+              <div style="background:#fff; width:70px; height:70px; border-radius:15px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 15px 35px rgba(0,0,0,0.2);">
+                <span style="font-size:24px; font-weight:800; color:#d32f2f; line-height:1;">08</span>
+                <span style="font-size:10px; text-transform:uppercase; font-weight:700; color:#777; margin-top:2px;">Hours</span>
+              </div>
+              <div style="background:#fff; width:70px; height:70px; border-radius:15px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 15px 35px rgba(0,0,0,0.2);">
+                <span style="font-size:24px; font-weight:800; color:#d32f2f; line-height:1;">45</span>
+                <span style="font-size:10px; text-transform:uppercase; font-weight:700; color:#777; margin-top:2px;">Mins</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-7">
+            <div class="row g-3">
+              ${finalSale.map(prod => `
+                <div class="col-6 col-md-3">
+                  <div class="sale-prod-mini" style="background:#fff; border-radius:25px; padding:15px; text-align:center; height:100%; transition:0.4s; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.1);">
+                    <div style="position:absolute; top:12px; right:12px; background:#d32f2f; color:#fff; font-size:10px; font-weight:800; padding:4px 8px; border-radius:8px; z-index:5; box-shadow: 0 5px 10px rgba(211,47,47,0.2);">5% OFF</div>
+                    <div style="width:100%; height:120px; margin-bottom:15px; cursor:pointer;" onclick="location.href='product.html?id=${prod.id}'">
+                      <img src="${prod.img}" style="width:100%; height:100%; object-fit:contain;">
+                    </div>
+                    <div style="font-size:12px; font-weight:800; color:#333; margin-bottom:8px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; line-height:1.3; height:32px;">${prod.name}</div>
+                    <div style="font-size:14px; font-weight:800; color:#d32f2f; margin-bottom:12px;">Rs. ${prod.price.toLocaleString()}</div>
+                    <button onclick="addToCart('${prod.id}')" style="background:var(--dark); color:#fff; border:none; width:100%; padding:10px; border-radius:12px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; cursor:pointer; transition:0.3s; margin:0;" 
+                            onmouseover="this.style.background='var(--gold)', this.style.color='#000'" onmouseout="this.style.background='var(--dark)', this.style.color='#fff'">Buy Now</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+}
+
 let shoppingCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
 
 function saveCart() {
