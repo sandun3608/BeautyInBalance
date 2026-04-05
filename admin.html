@@ -834,7 +834,7 @@
 
       try {
         const method = editingId ? 'PUT' : 'POST';
-        const url = editingId ? `${API_URL}/${editingId}` : API_URL;
+        const url = editingId ? `${BASE_URL}/products/${editingId}` : `${BASE_URL}/products`;
         const res = await fetch(url, {
           method,
           headers: {
@@ -888,7 +888,7 @@
     window.deleteProduct = async (id) => {
         if(!confirm("Delete this product?")) return;
         try {
-            const res = await fetch(`${API_URL}/${id}`, {
+            const res = await fetch(`${BASE_URL}/products/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
             });
