@@ -850,11 +850,12 @@
           await fetchDatabaseProducts();
           renderInventory();
         } else {
-          alert('Failed to save product.');
+          const errBody = await res.json();
+          alert('Failed to save product: ' + (errBody.message || 'Unknown Server Error'));
         }
       } catch (err) {
         console.error(err);
-        alert('Server Error.');
+        alert('Server unreachable or unexpected error occurred.');
       } finally {
         sendBtn.textContent = 'Save Product';
         sendBtn.disabled = false;
