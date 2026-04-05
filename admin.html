@@ -372,7 +372,7 @@
       <div class="admin-logo">Beauty in Balance <span>CMS</span></div>
       <nav class="admin-nav">
         <ul>
-          <li><a href="#" id="nav-dashboard" class="admin-nav-link active">
+          <li><div id="nav-dashboard" class="admin-nav-link active" style="cursor: pointer;" onclick="window.switchTab('dashboard', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7" />
                 <rect x="14" y="3" width="7" height="7" />
@@ -380,41 +380,41 @@
                 <rect x="14" y="14" width="7" height="7" />
               </svg>
               Dashboard
-            </a></li>
-          <li><a href="#" id="nav-inventory" class="admin-nav-link">
+            </div></li>
+          <li><div id="nav-inventory" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('inventory', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
                 <path d="m3.3 7 8.7 5 8.7-5M12 22V12" />
               </svg>
               Inventory
-            </a></li>
-          <li><a href="#" id="nav-orders" class="admin-nav-link">
+            </div></li>
+          <li><div id="nav-orders" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('orders', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <path d="M16 10a4 4 0 0 1-8 0" />
               </svg>
               Orders
-            </a></li>
-          <li><a href="#" id="nav-analytics" class="admin-nav-link">
+            </div></li>
+          <li><div id="nav-analytics" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('analytics', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 3v18h18" />
                 <path d="m19 9-5 5-4-4-3 3" />
               </svg>
               Analytics
-            </a></li>
-          <li><a href="#" id="nav-support" class="admin-nav-link">
+            </div></li>
+          <li><div id="nav-support" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('support', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
               Inquiries
-            </a></li>
-          <li><a href="#" id="nav-logout" class="admin-nav-link" style="color: #ff5252; margin-top: 10px;">
+            </div></li>
+          <li><div id="nav-logout" class="admin-nav-link" style="color: #ff5252; margin-top: 10px; cursor: pointer;" onclick="window.handleLogout()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
               </svg>
               Sign Out
-            </a></li>
+            </div></li>
           <li style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--admin-border);">
             <a href="index.html" class="admin-nav-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
