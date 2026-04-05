@@ -875,79 +875,39 @@
         </div>
       </div>
       
-      <div class="hp-grid-container">
-        <!-- Row 1 -->
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Hydrating Cleanser"></div>
-          <p class="hp-prod-name">Hydrating Cleanser (236ml)</p>
-          <p class="hp-prod-price">Rs. 6,800</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/Niacinamide (30ml) Rs.3800.png" alt="Niacinamide"></div>
-          <p class="hp-prod-name">Niacinamide 10% + Zinc 1% (30ml)</p>
-          <p class="hp-prod-price">Rs. 3,800</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/Aha bha peeling solution (30ml) Rs.5200.png" alt="AHA BHA"></div>
-          <p class="hp-prod-name">AHA 30% + BHA 2% Peeling Solution</p>
-          <p class="hp-prod-price">Rs. 5,200</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png" alt="Rose Hip"></div>
-          <p class="hp-prod-name">100% Organic Rose Hip Oil</p>
-          <p class="hp-prod-price">Rs. 5,600</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/Soothing and barrier support serum (30ml)  Rs.5200.png" alt="Barrier Serum"></div>
-          <p class="hp-prod-name">Soothing & Barrier Support Serum</p>
-          <p class="hp-prod-price">Rs. 5,200</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-
-        <!-- Row 2 -->
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/Retinol 0.5 in squalane (30ml)  Rs.5500.png" alt="Retinol"></div>
-          <p class="hp-prod-name">Retinol 0.5% in Squalane (30ml)</p>
-          <p class="hp-prod-price">Rs. 5,500</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)  Rs.5200.png" alt="Ascorbyl"></div>
-          <p class="hp-prod-name">Ascorbic Acid 8% + Alpha Arbutin 2%</p>
-          <p class="hp-prod-price">Rs. 5,200</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png" alt="Lash Serum"></div>
-          <p class="hp-prod-name">Multi-Peptide Lash And Brow Serum</p>
-          <p class="hp-prod-price">Rs. 4,800</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="cerave prodcut/Renewing SA Cleanser (237ml) Rs.7200.png" alt="Renewing SA"></div>
-          <p class="hp-prod-name">Renewing SA Cleanser (237ml)</p>
-          <p class="hp-prod-price">Rs. 7,200</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
-        </a>
-        <a href="shop.html" class="hp-prod-card">
-          <div class="avurudu-discount-tag">5% OFF</div>
-          <div class="hp-prod-img"><img src="cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png" alt="Oil Cleanser"></div>
-          <p class="hp-prod-name">Hydrating Forming Oil Cleanser</p>
-          <p class="hp-prod-price">Rs. 8,000</p>
-          <div class="hp-prod-buy-btn">BUY NOW</div>
+      <div class="hp-grid-container" id="avurudu-sale-grid">
+        <!-- Populated dynamically by JS -->
+      </div>
+      
+      <script>
+        function renderAvuruduSale() {
+          const grid = document.getElementById('avurudu-sale-grid');
+          if(!grid || !productsData) return;
+          grid.innerHTML = '';
+          
+          // Show up to 10 products for the mega sale
+          const saleProducts = productsData.slice(0, 10);
+          
+          saleProducts.forEach(prod => {
+            const card = document.createElement('a');
+            card.href = 'shop.html';
+            card.className = 'hp-prod-card';
+            card.innerHTML = `
+              <div class="avurudu-discount-tag">5% OFF</div>
+              <div class="hp-prod-img"><img src="${prod.img}" alt="${prod.name}"></div>
+              <p class="hp-prod-name">${prod.name}</p>
+              <p class="hp-prod-price">Rs. ${prod.price.toLocaleString()}</p>
+              <div class="hp-prod-buy-btn" onclick="event.preventDefault(); addToCart('${prod.id}', 1); const cartBtn = document.getElementById('cart-open'); if(cartBtn) cartBtn.click();">BUY NOW</div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+        
+        // Wait for productsData to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+          setTimeout(renderAvuruduSale, 500);
+        });
+      </script>
         </a>
       </div>
     </section>
