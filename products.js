@@ -328,9 +328,9 @@ async function discoverBackend() {
 
 // Step 6: Fetch from Database
 async function fetchDatabaseProducts() {
-    const tableBody = document.getElementById('inventory-table');
-    if (tableBody) tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:50px;">Detecting Cloud Connection...</td></tr>';
-    
+    if (window.DB_FETCH_RUNNING) return; 
+    window.DB_FETCH_RUNNING = true;
+
     await discoverBackend();
     const API_URL = BASE_URL + '/products';
     try {
@@ -376,6 +376,8 @@ async function fetchDatabaseProducts() {
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
+    } finally {
+        window.DB_FETCH_COMPLETED = true;
     }
 }
 
