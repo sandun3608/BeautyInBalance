@@ -143,17 +143,54 @@
     <a href="index.html" class="back-home">← Return to Storefront</a>
   </div>
 
+  <!-- Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Preview Environment Badge -->
+  <div class="preview-badge" id="preview-badge" style="display: none;">
+    <div class="preview-dot"></div>
+    Preview System Online
+  </div>
+
   <script>
     const loginForm = document.getElementById('login-form');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const errorBox = document.getElementById('error-box');
     const loginBtn = document.getElementById('login-btn');
+    const toastContainer = document.getElementById('toast-container');
+    const previewBadge = document.getElementById('preview-badge');
+
+    // Show Preview Badge if on Render/Vercel
+    if (window.location.hostname.includes('render') || window.location.hostname.includes('vercel')) {
+        previewBadge.style.display = 'flex';
+    }
+
+    function showToast(title, message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `
+            <div class="toast-icon">${type === 'success' ? '✓' : '✕'}</div>
+            <div class="toast-content">
+                <div class="toast-title">${title}</div>
+                <div class="toast-message">${message}</div>
+            </div>
+        `;
+        toastContainer.appendChild(toast);
+        
+        // Trigger animation
+        setTimeout(() => toast.classList.add('active'), 10);
+        
+        // Remove after 5 seconds
+        setTimeout(() => {
+            toast.classList.remove('active');
+            setTimeout(() => toast.remove(), 400);
+        }, 5000);
+    }
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      errorBox.style.display = 'none';
       loginBtn.textContent = 'Authenticating...';
       loginBtn.disabled = true;
 
@@ -170,7 +207,8 @@
         const data = await response.json();
 
         if (response.ok) {
-          // Success! Save the VIP pass heavily guarded in local storage
+          showToast('Welcome Back', 'Redirecting to your dashboard...', 'success');
+          
           localStorage.setItem('userToken', data.token);
           localStorage.setItem('userInfo', JSON.stringify({
             name: data.name,
@@ -178,22 +216,20 @@
             isAdmin: data.isAdmin
           }));
 
-          // Redirect based on role
-          if (data.isAdmin) {
-             window.location.href = 'admin.html';
-          } else {
-             window.location.href = 'index.html'; // Or user dashboard
-          }
+          setTimeout(() => {
+            if (data.isAdmin) {
+               window.location.href = 'admin.html';
+            } else {
+               window.location.href = 'index.html';
+            }
+          }, 1500);
         } else {
-          // Display the server's rejection reason
-          errorBox.textContent = data.message || 'Invalid email or password.';
-          errorBox.style.display = 'block';
+          showToast('Login Failed', data.message || 'Invalid email or password.', 'error');
         }
 
       } catch (err) {
         console.error(err);
-        errorBox.textContent = "Cannot connect to server. Ensure 'node server.js' is running.";
-        errorBox.style.display = 'block';
+        showToast('Connection Error', 'Backend server reached but failed to respond.', 'error');
       } finally {
         loginBtn.textContent = 'Sign In';
         loginBtn.disabled = false;
