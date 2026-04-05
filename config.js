@@ -1,15 +1,23 @@
 // ==========================================
-// BEAUTY IN BALANCE - GLOBAL CONFIGURATION
+// BEAUTY IN BALANCE - SMART CONFIGURATION
 // ==========================================
 
-/* 
-  STEP 1: 
-  When you are testing on your computer, leave this as 'http://localhost:5000'
+const getApiUrl = () => {
+  // If we're on localhost, use the local server
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:5000';
+  }
+  
+  // Otherwise, use the deployed Render server
+  // YOU CAN MANUALLY CHANGE THIS TO YOUR RENDER URL BELOW
+  return 'https://beautyinbalance.onrender.com';
+};
 
-  STEP 2:
-  Once you deploy your server to Render, change this line to your free Render URL!
-  Example: const GLOBAL_API_URL = "https://beauty-in-balance-server.onrender.com";
-  (Make sure there is NO slash at the very end of the URL)
-*/
+const GLOBAL_API_URL = getApiUrl();
+const BASE_URL = `${GLOBAL_API_URL}/api`;
 
-const GLOBAL_API_URL = "https://beautyinbalance.onrender.com";
+// Export values globally so they're accessible everywhere
+window.GLOBAL_API_URL = GLOBAL_API_URL;
+window.BASE_URL = BASE_URL;
+
+console.log(`[Config] API Target: ${GLOBAL_API_URL} 🚀`);

@@ -2,118 +2,60 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Re-enable buffering but keep it safe
-mongoose.set('bufferCommands', true);
+// Force IPv4 for Atlas Connectivity 
+mongoose.set('bufferCommands', false);
 
-// Database Connection Function
 const connectDB = async () => {
     try {
-        if (!process.env.MONGO_URI) {
-            throw new Error('MONGO_URI is not defined in environment variables.');
-        }
-
-        console.log('Attempting to connect to MongoDB...');
-        const conn = await mongoose.connect(process.env.MONGO_URI, {
-            family: 4,
-            tlsAllowInvalidCertificates: true,
-            serverSelectionTimeoutMS: 5000
+        if (!process.env.MONGO_URI) throw new Error('MONGO_URI missing in .env');
+        
+        console.log('--- DB CONNECTION ATTEMPT ---');
+        await mongoose.connect(process.env.MONGO_URI, {
+            serverSelectionTimeoutMS: 10000,
+            family: 4 
         });
-
-        console.log(`MongoDB Connected: ${conn.connection.host} ✅`);
-        
-    } catch (error) {
-        console.error('CRITICAL: MongoDB connection failed ❌');
-        console.error('Error Details:', error.message);
-        console.log('HINT: Check your Atlas IP Whitelist (add 0.0.0.0/0 for testing).');
-        
-        // Don't kill the process immediately so logs can be read on Render
-        setTimeout(() => process.exit(1), 5000); 
+        console.log('✅ DATABASE CONNECTED SUCCESSFULLY');
+    } catch (err) {
+        console.error('❌ MONGODB ERROR:', err.message);
+        console.log('HINT: Add 0.0.0.0/0 to your MongoDB Atlas IP Whitelist.');
     }
 };
 
-// Import Routes
-const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const inquiryRoutes = require('./routes/inquiryRoutes');
-const statsRoutes = require('./routes/statsRoutes');
-const path = require('path');
+connectDB();
 
-// Middleware
-const allowedOrigins = [
-    'https://beauty-in-balance-phi.vercel.app',
-    'https://beauty-in-balance-frontend.onrender.com', // In case they use the Render static service
-    'http://localhost:5500',
-    'http://127.0.0.1:5500',
-    'http://localhost:5000'
-];
+app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
+app.use(express.json({ limit: '50mb' })); // Increased limit for HQ images
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            // For testing, we can allow all, but let's be specific for Vercel
-            // return callback(new Error(msg), false); 
-            return callback(null, true); // Fallback: allow all for now to ensure it works
-        }
-        return callback(null, true);
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-    credentials: true
-}));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
-
-// API Routes
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/inquiries', inquiryRoutes);
-app.use('/api/stats', statsRoutes);
-
-// Move static files AFTER API routes to prevent blocking
-app.use(express.static(path.join(__dirname, '.')));
-
-// Fix: Serve HTML files for specific routes if needed
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/api/debug-files', (req, res) => {
-    const fs = require('fs');
-    try {
-        const files = fs.readdirSync(__dirname);
-        res.json({
-            cwd: process.cwd(),
-            dirname: __dirname,
-            files: files
-        });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
-
-// Root API Status
-app.get('/api', (req, res) => {
+// Status API
+app.get('/api/status', (req, res) => {
     res.json({ 
-        message: 'Welcome to Beauty in Balance API',
-        dbStatus: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
+        online: true, 
+        db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+        env: process.env.NODE_ENV || 'development'
     });
 });
 
-// Run the connection handler
-connectDB().catch(err => {
-    console.error('Initial DB Connect Error:', err.message);
+// Import Routes
+app.use('/api/products', require('./routes/productRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/orders', require('./routes/orderRoutes'));
+app.use('/api/inquiries', require('./routes/inquiryRoutes'));
+app.use('/api/stats', require('./routes/statsRoutes'));
+
+// Static Frontend
+app.use(express.static(path.join(__dirname, '.')));
+
+app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start the server immediately so Render health checks pass
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT} 🚀`);
-    console.log(`Access the API at: http://localhost:${PORT}/api`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 SERVER LIVE: http://localhost:${PORT}`);
 });

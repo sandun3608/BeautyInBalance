@@ -298,48 +298,20 @@ const defaultProducts = [
 // Global products data used by the UI
 let productsData = [...defaultProducts];
 
-// Backend API url
-let BASE_URL = "https://beautyinbalance.onrender.com/api";
-const TRY_2 = "https://beautyinbalance.onrender.com/api";
-const TRY_3 = "https://beautyinbalance.onrender.com/api";
+// Use Global URL defined in config.js
+const API_URL = `${window.BASE_URL || 'http://localhost:5000/api'}/products`;
 
-async function discoverBackend() {
-    if (window.API_DISCOVERED) return; 
-    const targets = [BASE_URL, TRY_2, TRY_3];
-    for (let url of targets) {
-        try {
-            console.log("Probing API:", url);
-            // Use a short timeout for probing
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 3000); // 3s timeout
-            
-            const res = await fetch(url + '/products', { signal: controller.signal });
-            clearTimeout(id);
-            
-            if (res.ok) {
-                BASE_URL = url;
-                window.API_DISCOVERED = true;
-                console.log("Successfully connected to:", BASE_URL);
-                return;
-            }
-        } catch (e) {
-            console.warn("Probe failed for:", url);
-        }
-    }
-    console.error("CRITICAL: All backend endpoints failed.");
-}
-
-// Step 6: Fetch from Database
+// Fetch from Database
 async function fetchDatabaseProducts() {
     if (window.DB_FETCH_RUNNING) return; 
     window.DB_FETCH_RUNNING = true;
 
-    await discoverBackend();
-    const API_URL = BASE_URL + '/products';
     try {
+        console.log("Fetching from:", API_URL);
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Backend responded with error: ' + response.status);
+        if (!response.ok) throw new Error('API unreachable: ' + response.status);
         const dbProducts = await response.json();
+
         
         if (dbProducts && dbProducts.length > 0) {
             // Re-map the variable names slightly if they differ between DB and Frontend

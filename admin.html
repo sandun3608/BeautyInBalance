@@ -716,9 +716,9 @@
   </div>  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
-    // DEFENSIVE FIX: Force the correct production URL to bypass caching
-    window.GLOBAL_API_URL = "https://beautyinbalance.onrender.com";
-    window.BASE_URL = "https://beautyinbalance.onrender.com/api";
+    // Config.js handles the URLs automatically now 🚀
+    const BASE_URL = window.BASE_URL || 'http://localhost:5000/api';
+
     
     // Tab Switching Logic
     const navLinks = document.querySelectorAll('.admin-nav-link[data-tab]');
@@ -867,7 +867,7 @@
       try {
         const method = editingId ? 'PUT' : 'POST';
         const url = editingId ? `${BASE_URL}/products/${editingId}` : `${BASE_URL}/products`;
-        console.log("Fetching URL:", url, "Method:", method); // DEBUG
+        console.log("Fetching URL:", url, "Method:", method);
         const res = await fetch(url, {
           method,
           headers: {
@@ -878,14 +878,17 @@
         });
 
         if (res.ok) {
+
           showToast(editingId ? 'Product Updated Successfully!' : 'New Product Added!');
           closeModal();
           await fetchDatabaseProducts();
           renderInventory();
         } else {
           const errBody = await res.json();
+          console.error("Cloud Reject (Status " + res.status + "):", errBody);
           alert('Failed to save product: ' + (errBody.message || 'Unknown Server Error'));
         }
+
       } catch (err) {
         console.error("Critical Fetch Error:", err);
         alert('Server unreachable: ' + (err.message || 'Unknown Network Error'));

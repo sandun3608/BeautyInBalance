@@ -1,29 +1,26 @@
-previews:
-  generation: automatic
-  expireAfterDays: 7
-
 services:
-  # --- BACKEND SERVICE (Serves both API and Frontend) ---
+  # --- BACKEND + FULLSTACK SERVICE ---
   - type: web
-    name: BeautyInBalance
+    name: BeautyInBalance-Standard
     runtime: node
     plan: free
     buildCommand: npm install
     startCommand: node server.js
     envVars:
       - key: MONGO_URI
-        sync: false
+        sync: false # Set this in Render Dashboard!
       - key: JWT_SECRET
-        sync: false
+        value: supersecret123
       - key: NODE_VERSION
         value: 20.0.0
 
-  # --- FRONTEND SERVICE (Optional, but good for static performance) ---
+  # --- OPTIONAL: FRONTEND ONLY (Optional, can just use the web service above) ---
   - type: static
-    name: BeautyInBalance-Frontend
+    name: BeautyInBalance-UIPage
     runtime: static
-    buildCommand: "" 
-    publishPath: "." 
-    envVars:
-      - key: GLOBAL_API_URL
-        value: https://beautyinbalance.onrender.com
+    buildCommand: ""
+    publishPath: "."
+    headers:
+      - path: "/*"
+        name: Access-Control-Allow-Origin
+        value: "*"
