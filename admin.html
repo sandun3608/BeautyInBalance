@@ -873,10 +873,10 @@
           <td>Rs. ${prod.price.toLocaleString()}</td>
           <td>${prod.discount || 0}%</td>
           <td><span style="color: ${prod.stock < 10 ? '#ff9800' : '#4caf50'}">${prod.stock}</span></td>
-          <td style="white-space: nowrap;">
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <button class="action-btn btn-edit" onclick="openModal('${prod._id || prod.id}')">Edit</button>
-              <button class="action-btn btn-del" onclick="deleteProduct('${prod._id || prod.id}')">Delete</button>
+          <td style="white-space: nowrap; width: 220px;">
+            <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start;">
+              <button class="action-btn btn-edit" style="margin: 0; min-width: 80px;" onclick="openModal('${prod._id || prod.id}')">Edit</button>
+              <button class="action-btn btn-del" style="margin: 0; min-width: 80px;" onclick="deleteProduct('${prod._id || prod.id}')">Delete</button>
             </div>
           </td>
         `;
