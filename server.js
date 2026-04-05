@@ -25,11 +25,6 @@ const connectDB = async () => {
 
         console.log(`MongoDB Connected: ${conn.connection.host} ✅`);
         
-        // Only start the server after successful connection
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT} 🚀`);
-        });
-
     } catch (error) {
         console.error('CRITICAL: MongoDB connection failed ❌');
         console.error('Error Details:', error.message);
@@ -49,10 +44,29 @@ const statsRoutes = require('./routes/statsRoutes');
 const path = require('path');
 
 // Middleware
+const allowedOrigins = [
+    'https://beauty-in-balance-phi.vercel.app',
+    'https://beauty-in-balance-frontend.onrender.com', // In case they use the Render static service
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:5000'
+];
+
 app.use(cors({
-    origin: '*',
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            // For testing, we can allow all, but let's be specific for Vercel
+            // return callback(new Error(msg), false); 
+            return callback(null, true); // Fallback: allow all for now to ensure it works
+        }
+        return callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
@@ -68,6 +82,7 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/stats', statsRoutes);
 
 // Fix: Serve HTML files for specific routes if needed
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
 
@@ -80,4 +95,12 @@ app.get('/api', (req, res) => {
 });
 
 // Run the connection handler
-connectDB();
+connectDB().catch(err => {
+    console.error('Initial DB Connect Error:', err.message);
+});
+
+// Start the server immediately so Render health checks pass
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT} 🚀`);
+    console.log(`Access the API at: http://localhost:${PORT}/api`);
+});

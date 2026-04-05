@@ -3,34 +3,27 @@ previews:
   expireAfterDays: 7
 
 services:
-  # --- BACKEND SERVICE ---
+  # --- BACKEND SERVICE (Serves both API and Frontend) ---
   - type: web
-    name: beauty-in-balance-api
+    name: BeautyInBalance
     runtime: node
-    plan: starter
-    rootDir: backend
+    plan: free
     buildCommand: npm install
     startCommand: node server.js
     envVars:
-      - key: PORT
-        value: 5000
       - key: MONGO_URI
-        sync: false # Render will ask for this during setup
+        sync: false
       - key: JWT_SECRET
-        sync: false # Render will ask for this during setup
+        sync: false
       - key: NODE_VERSION
-        value: 18.0.0
-    previews:
-      plan: starter
+        value: 20.0.0
 
-  # --- FRONTEND SERVICE ---
+  # --- FRONTEND SERVICE (Optional, but good for static performance) ---
   - type: static
-    name: beauty-in-balance-frontend
+    name: BeautyInBalance-Frontend
     runtime: static
-    buildCommand: "" # No build step needed for vanilla HTML
-    publishPath: "." # The root of the repo
+    buildCommand: "" 
+    publishPath: "." 
     envVars:
       - key: GLOBAL_API_URL
-        value: https://beauty-in-balance-api.onrender.com # This will be used in config.js
-    previews:
-      generation: automatic
+        value: https://beautyinbalance.onrender.com
