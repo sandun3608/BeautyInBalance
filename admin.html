@@ -764,8 +764,9 @@
       if (tabName === 'dashboard') fetchDashboardSummary();
     };
 
-    // Attach explicit listeners
-    document.addEventListener('DOMContentLoaded', () => {
+    // Attach listeners function
+    function initDashboardListeners() {
+      console.log('Dashboard Init: Attaching listeners...');
       const navMapping = {
         'nav-dashboard': 'dashboard',
         'nav-inventory': 'inventory',
@@ -778,10 +779,11 @@
         const el = document.getElementById(id);
         if (el) {
           console.log('Attaching listener to:', id);
-          el.addEventListener('click', (e) => {
+          el.onclick = (e) => {
             e.preventDefault();
             window.switchTab(tab, el);
-          });
+            return false;
+          };
         } else {
           console.error('Could not find nav element:', id);
         }
@@ -789,12 +791,20 @@
 
       const logoutBtn = document.getElementById('nav-logout');
       if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
+        logoutBtn.onclick = (e) => {
           e.preventDefault();
           handleLogout();
-        });
+          return false;
+        };
       }
-    });
+    }
+
+    // Run initialization immediately if DOM is ready, otherwise wait
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDashboardListeners);
+    } else {
+      initDashboardListeners();
+    }
 
     const BASE_URL = window.BASE_URL || 'https://beautyinbalance.onrender.com/api';
 

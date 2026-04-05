@@ -362,12 +362,17 @@ fetchDatabaseProducts();
 // Visitor Tracking
 async function logVisit() {
     try {
-        fetch(BASE_URL + '/stats/visit', {
+        const url = (window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : null));
+        if (!url) return;
+        
+        fetch(url + '/stats/visit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ page: window.location.pathname.split('/').pop() || 'index.html' })
         });
-    } catch (e) {}
+    } catch (e) {
+        console.warn("LogVisit failed (likely offline or missing BASE_URL):", e);
+    }
 }
 logVisit();
 
