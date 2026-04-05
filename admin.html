@@ -1061,6 +1061,7 @@
         fetchOrders();
         fetchDashboardSummary();
         fetchInquiries();
+        renderInventory();
       } catch (err) {
         console.error("Dashboard Initialization Failed:", err);
         renderInventory(); // Show default products as fallback

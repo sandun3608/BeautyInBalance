@@ -295,6 +295,9 @@ const defaultProducts = [
   }
 ];
 
+// Global products data used by the UI
+let productsData = [...defaultProducts];
+
 // Backend API url
 let BASE_URL = "https://beautyinbalance.onrender.com/api";
 const TRY_2 = "https://beautyinbalance.onrender.com/api";
