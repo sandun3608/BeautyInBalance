@@ -51,6 +51,7 @@ router.post('/', protect, async (req, res) => {
     }
 
     try {
+        console.log("Saving product with image:", req.body.img ? req.body.img.substring(0, 50) + "..." : "EMPTY");
         const product = new Product({
             name: req.body.name,
             cat: req.body.cat,
@@ -63,6 +64,7 @@ router.post('/', protect, async (req, res) => {
             benefits: req.body.benefits || [],
             howToUse: req.body.howToUse,
             authenticity: req.body.authenticity,
+            id: req.body.id || 'p-' + Date.now(),
             discount: req.body.discount || 0
         });
 

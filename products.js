@@ -309,16 +309,26 @@ async function fetchDatabaseProducts() {
         if (!response.ok) throw new Error('Network response not ok');
         const dbProducts = await response.json();
         
-        // If we successfully get products from the database, we replace the hardcoded ones
         if (dbProducts && dbProducts.length > 0) {
             // Re-map the variable names slightly if they differ between DB and Frontend
             const mappedDbProducts = dbProducts.map(p => ({
                 ...p,
                 id: p.id || p._id // Prioritize human-readable ID if available
             }));
+
+            // MERGE: Keep default products, but override them if DB has updated versions, and add NEW ones from DB
+            const updatedProductsData = [...defaultProducts];
             
-            // Override the default products with the LIVE Database products
-            productsData = mappedDbProducts;
+            mappedDbProducts.forEach(dbProd => {
+                const index = updatedProductsData.findIndex(p => (p.id && (p.id === dbProd.id)) || p.name === dbProd.name);
+                if (index !== -1) {
+                    updatedProductsData[index] = dbProd; // Override existing
+                } else {
+                    updatedProductsData.unshift(dbProd); // Add as new at the top
+                }
+            });
+
+            productsData = updatedProductsData;
             
             // Re-trigger the render functions if they exist on the page
             if (typeof renderLatestArrivals === 'function') {
@@ -327,12 +337,12 @@ async function fetchDatabaseProducts() {
             if (typeof renderProducts === 'function') {
                 renderProducts(productsData);
             }
-            if (typeof renderProduct === 'function') {
-                renderProduct();
+            if (typeof renderAvuruduSale === 'function') {
+                renderAvuruduSale();
             }
         }
     } catch (error) {
-        console.log("Using hardcoded frontend products because Backend is offline or hasn't started yet.");
+        console.log("Using hardcoded frontend products because Backend is offline or hasn't started yet.", error);
     }
 }
 
