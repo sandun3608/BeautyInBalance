@@ -296,12 +296,12 @@ const defaultProducts = [
 ];
 
 // Backend API url
-let BASE_URL = (typeof GLOBAL_API_URL !== 'undefined') ? GLOBAL_API_URL + '/api' : 'https://beautyinbalance.onrender.com/api';
-const TRY_2 = 'https://beauty-in-balance-api.onrender.com/api'; 
-const TRY_3 = 'https://beauty-in-balance.onrender.com/api'; 
+let BASE_URL = "https://beautyinbalance.onrender.com/api";
+const TRY_2 = "https://beautyinbalance.onrender.com/api";
+const TRY_3 = "https://beautyinbalance.onrender.com/api";
 
 async function discoverBackend() {
-    if (window.API_DISCOVERED) return; // Only do once
+    if (window.API_DISCOVERED) return; 
     const targets = [BASE_URL, TRY_2, TRY_3];
     for (let url of targets) {
         try {

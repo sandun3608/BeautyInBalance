@@ -716,6 +716,10 @@
   </div>  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
+    // DEFENSIVE FIX: Force the correct production URL to bypass caching
+    window.GLOBAL_API_URL = "https://beautyinbalance.onrender.com";
+    window.BASE_URL = "https://beautyinbalance.onrender.com/api";
+    
     // Tab Switching Logic
     const navLinks = document.querySelectorAll('.admin-nav-link[data-tab]');
     const contents = document.querySelectorAll('.admin-content');
@@ -863,6 +867,7 @@
       try {
         const method = editingId ? 'PUT' : 'POST';
         const url = editingId ? `${BASE_URL}/products/${editingId}` : `${BASE_URL}/products`;
+        console.log("Fetching URL:", url, "Method:", method); // DEBUG
         const res = await fetch(url, {
           method,
           headers: {
@@ -882,8 +887,8 @@
           alert('Failed to save product: ' + (errBody.message || 'Unknown Server Error'));
         }
       } catch (err) {
-        console.error(err);
-        alert('Server unreachable or unexpected error occurred.');
+        console.error("Critical Fetch Error:", err);
+        alert('Server unreachable: ' + (err.message || 'Unknown Network Error'));
       } finally {
         sendBtn.textContent = 'Save Product';
         sendBtn.disabled = false;
