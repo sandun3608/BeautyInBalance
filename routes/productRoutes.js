@@ -20,6 +20,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+// ⚡ IMPORTANT: /seed-now MUST BE BEFORE /:id or Express matches "seed-now" as an :id
+// @route   GET /api/products/seed-now (NUCLEAR RESET 🔥)
+router.get('/seed-now', async (req, res) => {
+    try {
+        console.log("🔥 NUCLEAR RESET TRIGGERED! PURGING CLOUD DB...");
+        const seed = require('../extracted_products');
+        await Product.deleteMany({});
+        const result = await Product.insertMany(seed.map(p => ({ ...p, stock: p.stock || 50, discount: p.discount || 0 })));
+        res.json({ message: 'CLOUD DB FULLY RESET & RE-SEEDED!', count: result.length });
+    } catch (err) {
+        res.status(500).json({ message: 'Reset Failed!', error: err.message });
+    }
+});
+
 // @route   GET /api/products/:id
 router.get('/:id', async (req, res) => {
     try {
@@ -34,7 +48,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// @route   POST /api/products (THE FIX ⚡)
+// @route   POST /api/products
 router.post('/', protect, async (req, res) => {
     try {
         console.log("--- ATTEMPTING TO SAVE PRODUCT ---");
@@ -107,19 +121,6 @@ router.delete('/:id', protect, async (req, res) => {
         }
     } catch (e) {
         res.status(500).json({ message: 'Delete failed.' });
-    }
-});
-
-// @route   GET /api/products/seed-now (NUCLEAR RESET 🔥)
-router.get('/seed-now', async (req, res) => {
-    try {
-        console.log("🔥 NUCLEAR RESET TRIGGERED! PURGING CLOUD DB...");
-        const seed = require('../extracted_products');
-        await Product.deleteMany({});
-        const result = await Product.insertMany(seed.map(p => ({ ...p, stock: p.stock || 50, discount: p.discount || 0 })));
-        res.json({ message: 'CLOUD DB FULLY RESET & RE-SEEDED!', count: result.length });
-    } catch (err) {
-        res.status(500).json({ message: 'Reset Failed!', error: err.message });
     }
 });
 
