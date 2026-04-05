@@ -358,18 +358,15 @@ async function fetchDatabaseProducts() {
             });
 
             productsData = updatedProductsData;
-            
-            // Re-trigger the render functions if they exist on the page
-            if (typeof renderLatestArrivals === 'function') {
-                renderLatestArrivals();
-            }
-            if (typeof renderProducts === 'function') {
-                renderProducts(productsData);
-            }
-            if (typeof renderAvuruduSale === 'function') {
-                renderAvuruduSale();
-            }
         }
+
+        // --- FINAL RENDERING (ALWAYS DO THIS) ---
+        if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
+        if (typeof renderProduct === 'function') renderProduct();
+        if (typeof renderProducts === 'function') renderProducts(productsData);
+        if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
+
     } catch (error) {
         console.warn("Using hardcoded products because Backend is offline or hasn't started yet.", error);
         
