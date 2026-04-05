@@ -1042,9 +1042,19 @@
             options: commonOptions
         });
     }
-
-    fetchDashboardSummary();
-    renderInventory();
+    // DASHBOARD INITIALIZATION
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await fetchDatabaseProducts();
+        renderInventory();
+        fetchOrders();
+        fetchDashboardSummary();
+        fetchInquiries();
+      } catch (err) {
+        console.error("Dashboard Initialization Failed:", err);
+        renderInventory(); // Show default products as fallback
+      }
+    });
   </script>
 
 

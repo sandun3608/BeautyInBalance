@@ -371,7 +371,14 @@ async function fetchDatabaseProducts() {
             }
         }
     } catch (error) {
-        console.log("Using hardcoded frontend products because Backend is offline or hasn't started yet.", error);
+        console.warn("Using hardcoded products because Backend is offline or hasn't started yet.", error);
+        
+        // CRITICAL FALLBACK: If DB fails, restore the inventory table and other renders
+        if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
+        if (typeof renderProduct === 'function') renderProduct();
+        if (typeof renderProducts === 'function') renderProducts(productsData);
+        if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
     }
 }
 
