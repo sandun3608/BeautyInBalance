@@ -79,7 +79,7 @@ router.post('/', protect, async (req, res) => {
 // @access  Private
 router.put('/:id', protect, async (req, res) => {
     // --- BYPASS DASHBOARD DATA FOR TESTING ---
-    if (req.user && req.user.email === 'admin@test.com') {
+    if (req.user && (req.user.email === 'admin@test.com' || req.user.email === 'nipuni@beauty.com')) {
         return res.json({ _id: req.params.id, ...req.body });
     }
 
