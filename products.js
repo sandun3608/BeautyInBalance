@@ -296,18 +296,26 @@ const defaultProducts = [
 ];
 
 // --- SMART API DISCOVERY ---
-let BASE_URL = 'https://beautyinbalance.onrender.com/api'; // Try 1
-const TRY_2 = 'https://beauty-in-balance-api.onrender.com/api'; // Try 2
-const TRY_3 = 'https://beauty-in-balance.onrender.com/api'; // Try 3
+let BASE_URL = 'https://beautyinbalance.onrender.com/api'; 
+const TRY_2 = 'https://beauty-in-balance-api.onrender.com/api'; 
+const TRY_3 = 'https://beauty-in-balance.onrender.com/api'; 
 
 async function discoverBackend() {
+    if (window.API_DISCOVERED) return; // Only do once
     const targets = [BASE_URL, TRY_2, TRY_3];
     for (let url of targets) {
         try {
             console.log("Probing API:", url);
-            const res = await fetch(url + '/products');
+            // Use a short timeout for probing
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), 3000); // 3s timeout
+            
+            const res = await fetch(url + '/products', { signal: controller.signal });
+            clearTimeout(id);
+            
             if (res.ok) {
                 BASE_URL = url;
+                window.API_DISCOVERED = true;
                 console.log("Successfully connected to:", BASE_URL);
                 return;
             }
@@ -315,15 +323,19 @@ async function discoverBackend() {
             console.warn("Probe failed for:", url);
         }
     }
+    console.error("CRITICAL: All backend endpoints failed.");
 }
 
 // Step 6: Fetch from Database
 async function fetchDatabaseProducts() {
+    const tableBody = document.getElementById('inventory-table');
+    if (tableBody) tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:50px;">Detecting Cloud Connection...</td></tr>';
+    
     await discoverBackend();
     const API_URL = BASE_URL + '/products';
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Network response not ok');
+        if (!response.ok) throw new Error('Backend responded with error: ' + response.status);
         const dbProducts = await response.json();
         
         if (dbProducts && dbProducts.length > 0) {
