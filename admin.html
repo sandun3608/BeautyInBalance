@@ -717,35 +717,40 @@
   <script src="products.js"></script>
   <script>
     // Config.js handles the URLs automatically now 🚀
-    const BASE_URL = window.BASE_URL || 'http://localhost:5000/api';
+    const BASE_URL = window.BASE_URL || 'https://beautyinbalance.onrender.com/api';
 
-    
-    // Tab Switching Logic
-    const navLinks = document.querySelectorAll('.admin-nav-link[data-tab]');
-    const contents = document.querySelectorAll('.admin-content');
-    const viewTitle = document.getElementById('view-title');
+    // Tab Switching Logic — wrapped in DOMContentLoaded to ensure elements exist
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('.admin-nav-link[data-tab]');
+      const contents = document.querySelectorAll('.admin-content');
+      const viewTitle = document.getElementById('view-title');
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetTab = link.dataset.tab;
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetTab = link.dataset.tab;
 
-        // Update UI
-        navLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+          // Update nav active state
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
 
-        contents.forEach(c => c.classList.remove('active'));
-        document.getElementById('tab-' + targetTab).classList.add('active');
+          // Show correct tab content
+          contents.forEach(c => c.classList.remove('active'));
+          document.getElementById('tab-' + targetTab).classList.add('active');
 
-        // Update Header Title
-        viewTitle.innerText = targetTab.charAt(0).toUpperCase() + targetTab.slice(1) + (targetTab === 'dashboard' ? ' Overview' : ' Management');
+          // Update header title
+          const titles = { dashboard: 'Dashboard Overview', inventory: 'Inventory Management', orders: 'Orders Management', analytics: 'Analytics', customers: 'Customers', support: 'Inquiries' };
+          viewTitle.innerText = titles[targetTab] || targetTab;
 
-        if (targetTab === 'inventory') renderInventory();
-        if (targetTab === 'orders') fetchOrders();
-        if (targetTab === 'analytics') fetchDashboardSummary();
-        if (targetTab === 'support') fetchInquiries();
-      });
-    });
+          // Fetch data for each section
+          if (targetTab === 'inventory') renderInventory();
+          if (targetTab === 'orders') fetchOrders();
+          if (targetTab === 'analytics') fetchDashboardSummary();
+          if (targetTab === 'support') fetchInquiries();
+          if (targetTab === 'dashboard') fetchDashboardSummary();
+        });
+      }); // end navLinks.forEach
+    }); // end DOMContentLoaded for tabs
 
     const addProductForm = document.getElementById('add-product-form');
     const pModal = document.getElementById('product-modal');
@@ -1064,10 +1069,9 @@
         fetchOrders();
         fetchDashboardSummary();
         fetchInquiries();
-        renderInventory();
       } catch (err) {
         console.error("Dashboard Initialization Failed:", err);
-        renderInventory(); // Show default products as fallback
+        if (typeof renderInventory === 'function') renderInventory();
       }
     });
   </script>
