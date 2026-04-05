@@ -83,6 +83,19 @@ app.use('/api/stats', statsRoutes);
 
 // Fix: Serve HTML files for specific routes if needed
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/api/debug-files', (req, res) => {
+    const fs = require('fs');
+    try {
+        const files = fs.readdirSync(__dirname);
+        res.json({
+            cwd: process.cwd(),
+            dirname: __dirname,
+            files: files
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
 
