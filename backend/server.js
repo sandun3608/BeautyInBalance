@@ -6,28 +6,39 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Improve Debugging: Fail fast instead of buffering for 10 seconds
-mongoose.set('bufferCommands', false);
+// Re-enable buffering but keep it safe
+mongoose.set('bufferCommands', true);
 
-// Check if MONGO_URI is missing
-if (!process.env.MONGO_URI) {
-    console.warn('WARNING: process.env.MONGO_URI is not defined! Ensure it is set in your .env or Render dashboard.');
-} else {
-    console.log('MONGO_URI found, attempting connection...');
-}
+// Database Connection Function
+const connectDB = async () => {
+    try {
+        if (!process.env.MONGO_URI) {
+            throw new Error('MONGO_URI is not defined in environment variables.');
+        }
 
-// Database Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/beautyInBalance', {
-  family: 4,
-  tlsAllowInvalidCertificates: true,
-  serverSelectionTimeoutMS: 5000
-})
-  .then(() => console.log('MongoDB connection successful! ✅'))
-  .catch((err) => {
-      console.error('CRITICAL: MongoDB connection error ❌');
-      console.error('Details:', err.message);
-      console.log('HINT: Check your Atlas IP Whitelist (add 0.0.0.0/0 for testing).');
-  });
+        console.log('Attempting to connect to MongoDB...');
+        const conn = await mongoose.connect(process.env.MONGO_URI, {
+            family: 4,
+            tlsAllowInvalidCertificates: true,
+            serverSelectionTimeoutMS: 5000
+        });
+
+        console.log(`MongoDB Connected: ${conn.connection.host} ✅`);
+        
+        // Only start the server after successful connection
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT} 🚀`);
+        });
+
+    } catch (error) {
+        console.error('CRITICAL: MongoDB connection failed ❌');
+        console.error('Error Details:', error.message);
+        console.log('HINT: Check your Atlas IP Whitelist (add 0.0.0.0/0 for testing).');
+        
+        // Don't kill the process immediately so logs can be read on Render
+        setTimeout(() => process.exit(1), 5000); 
+    }
+};
 
 // Import Routes
 const productRoutes = require('./routes/productRoutes');
@@ -50,10 +61,11 @@ app.use('/api/stats', statsRoutes);
 
 // Basic Route for Testing
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to Beauty in Balance API' });
+    res.json({ 
+        message: 'Welcome to Beauty in Balance API',
+        dbStatus: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
+    });
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Run the connection handler
+connectDB();
