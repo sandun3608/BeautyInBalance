@@ -43,7 +43,7 @@ const { protect } = require('../middleware/auth');
 // @access  Private (Admin only basically since only admins get a token right now)
 router.post('/', protect, async (req, res) => {
     // --- BYPASS DASHBOARD DATA FOR TESTING ---
-    if (req.user && req.user.email === 'admin@test.com') {
+    if (req.user && (req.user.email === 'admin@test.com' || req.user.email === 'nipuni@beauty.com')) {
         return res.status(201).json({
             _id: 'dummy_id_' + Date.now(),
             ...req.body
@@ -84,7 +84,11 @@ router.put('/:id', protect, async (req, res) => {
     }
 
     try {
-        const product = await Product.findById(req.params.id);
+        // Find by MongoDB _id OR custom string id
+        let product = await Product.findById(req.params.id);
+        if (!product) {
+            product = await Product.findOne({ id: req.params.id });
+        }
 
         if (product) {
             product.name = req.body.name || product.name;
@@ -99,6 +103,7 @@ router.put('/:id', protect, async (req, res) => {
             product.howToUse = req.body.howToUse || product.howToUse;
             product.authenticity = req.body.authenticity || product.authenticity;
             product.discount = req.body.discount || product.discount;
+            product.id = req.body.id || product.id; // Allow updating the custom id too
 
             const updatedProduct = await product.save();
             res.json(updatedProduct);
@@ -116,12 +121,16 @@ router.put('/:id', protect, async (req, res) => {
 // @access  Private
 router.delete('/:id', protect, async (req, res) => {
     // --- BYPASS DASHBOARD DATA FOR TESTING ---
-    if (req.user && req.user.email === 'admin@test.com') {
+    if (req.user && (req.user.email === 'admin@test.com' || req.user.email === 'nipuni@beauty.com')) {
         return res.json({ message: 'Product removed successfully (Bypass)' });
     }
 
     try {
-        const product = await Product.findById(req.params.id);
+        let product = await Product.findById(req.params.id);
+        if (!product) {
+            product = await Product.findOne({ id: req.params.id });
+        }
+        
         if (product) {
             await product.deleteOne();
             res.json({ message: 'Product removed successfully' });
