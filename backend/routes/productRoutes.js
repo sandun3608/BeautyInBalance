@@ -143,4 +143,27 @@ router.delete('/:id', protect, async (req, res) => {
     }
 });
 
+// @route   GET /api/products/seed-now (SECRET)
+// @desc    Trigger database seeding from server
+// @access  Public (Hidden link)
+router.get('/seed-now', async (req, res) => {
+    try {
+        const defaultProducts = require('../extracted_products');
+        
+        // Clear existing
+        await Product.deleteMany({});
+        
+        // Insert new
+        const seeded = await Product.insertMany(defaultProducts);
+        
+        res.json({ 
+            message: 'DATABASE SUCCESSFULLY SEEDED FROM SERVER!', 
+            count: seeded.length 
+        });
+    } catch (error) {
+        console.error("Seeding failed:", error);
+        res.status(500).json({ message: 'Seeding failed!', error: error.message });
+    }
+});
+
 module.exports = router;
