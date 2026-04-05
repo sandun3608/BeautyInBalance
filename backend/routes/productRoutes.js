@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
 
 // @route   GET /api/products
@@ -24,7 +25,15 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:id', async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
+        let product;
+        if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+            product = await Product.findById(req.params.id);
+        }
+        
+        if (!product) {
+            product = await Product.findOne({ id: req.params.id });
+        }
+
         if (product) {
             res.json(product);
         } else {
@@ -73,8 +82,11 @@ router.post('/', protect, async (req, res) => {
 // @access  Private
 router.put('/:id', protect, async (req, res) => {
     try {
-        // Find by MongoDB _id OR custom string id
-        let product = await Product.findById(req.params.id);
+        let product;
+        if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+            product = await Product.findById(req.params.id);
+        }
+        
         if (!product) {
             product = await Product.findOne({ id: req.params.id });
         }
@@ -86,13 +98,13 @@ router.put('/:id', protect, async (req, res) => {
             product.price = req.body.price || product.price;
             product.img = req.body.img || product.img;
             product.images = req.body.images || product.images;
-            product.stock = req.body.stock || product.stock;
+            product.stock = req.body.stock !== undefined ? req.body.stock : product.stock;
             product.desc = req.body.desc || product.desc;
             product.benefits = req.body.benefits || product.benefits;
             product.howToUse = req.body.howToUse || product.howToUse;
             product.authenticity = req.body.authenticity || product.authenticity;
-            product.discount = req.body.discount || product.discount;
-            product.id = req.body.id || product.id; // Allow updating the custom id too
+            product.discount = req.body.discount !== undefined ? req.body.discount : product.discount;
+            product.id = req.body.id || product.id;
 
             const updatedProduct = await product.save();
             res.json(updatedProduct);
@@ -110,7 +122,11 @@ router.put('/:id', protect, async (req, res) => {
 // @access  Private
 router.delete('/:id', protect, async (req, res) => {
     try {
-        let product = await Product.findById(req.params.id);
+        let product;
+        if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+            product = await Product.findById(req.params.id);
+        }
+        
         if (!product) {
             product = await Product.findOne({ id: req.params.id });
         }
