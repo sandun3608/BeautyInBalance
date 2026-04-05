@@ -1130,18 +1130,25 @@
         });
     }
     // DASHBOARD INITIALIZATION
-    document.addEventListener('DOMContentLoaded', async () => {
+    async function safetyInit() {
+      console.log("SAFETY INIT RUNNING...");
       try {
-        await fetchDatabaseProducts();
-        renderInventory();
-        fetchOrders();
-        fetchDashboardSummary();
-        fetchInquiries();
+        if (typeof fetchDatabaseProducts === 'function') await fetchDatabaseProducts();
+        if (typeof renderInventory === 'function') renderInventory();
+        if (typeof fetchOrders === 'function') fetchOrders();
+        if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
+        if (typeof fetchInquiries === 'function') fetchInquiries();
+        
+        // Re-run listener attachment just in case
+        if (typeof initDashboardListeners === 'function') initDashboardListeners();
       } catch (err) {
         console.error("Dashboard Initialization Failed:", err);
-        if (typeof renderInventory === 'function') renderInventory();
       }
-    });
+    }
+
+    document.addEventListener('DOMContentLoaded', safetyInit);
+    // Tertiary backup: force run after 1.5s if not done
+    setTimeout(safetyInit, 1500);
   </script>
 
 
