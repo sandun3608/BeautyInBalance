@@ -42,14 +42,6 @@ const { protect } = require('../middleware/auth');
 // @desc    Create a new product
 // @access  Private (Admin only basically since only admins get a token right now)
 router.post('/', protect, async (req, res) => {
-    // --- BYPASS DASHBOARD DATA FOR TESTING ---
-    if (req.user && (req.user.email === 'admin@test.com' || req.user.email === 'nipuni@beauty.com')) {
-        return res.status(201).json({
-            _id: 'dummy_id_' + Date.now(),
-            ...req.body
-        });
-    }
-
     try {
         console.log("Saving product with image:", req.body.img ? req.body.img.substring(0, 50) + "..." : "EMPTY");
         const product = new Product({
@@ -80,11 +72,6 @@ router.post('/', protect, async (req, res) => {
 // @desc    Update a product
 // @access  Private
 router.put('/:id', protect, async (req, res) => {
-    // --- BYPASS DASHBOARD DATA FOR TESTING ---
-    if (req.user && (req.user.email === 'admin@test.com' || req.user.email === 'nipuni@beauty.com')) {
-        return res.json({ _id: req.params.id, ...req.body });
-    }
-
     try {
         // Find by MongoDB _id OR custom string id
         let product = await Product.findById(req.params.id);
@@ -122,11 +109,6 @@ router.put('/:id', protect, async (req, res) => {
 // @desc    Delete a product
 // @access  Private
 router.delete('/:id', protect, async (req, res) => {
-    // --- BYPASS DASHBOARD DATA FOR TESTING ---
-    if (req.user && (req.user.email === 'admin@test.com' || req.user.email === 'nipuni@beauty.com')) {
-        return res.json({ message: 'Product removed successfully (Bypass)' });
-    }
-
     try {
         let product = await Product.findById(req.params.id);
         if (!product) {

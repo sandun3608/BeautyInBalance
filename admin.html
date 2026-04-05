@@ -760,17 +760,23 @@
                 imgObj.onload = () => {
                    const canvas = document.createElement('canvas');
                    const ctx = canvas.getContext('2d');
-                   // Max width 800px for dashboard performance
-                   const scale = 800 / imgObj.width;
-                   canvas.width = 800;
-                   canvas.height = imgObj.height * scale;
-                   ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
                    
-                   const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7); // 70% quality
+                   // Perfect aspect ratio maintainance with max 1000px
+                   let width = imgObj.width;
+                   let height = imgObj.height;
+                   if (width > 1000) {
+                       height = Math.round((height * 1000) / width);
+                       width = 1000;
+                   }
+                   canvas.width = width;
+                   canvas.height = height;
+                   ctx.drawImage(imgObj, 0, 0, width, height);
+                   
+                   const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8); 
                    pImgPreview.src = compressedBase64;
                    pImgPreview.style.display = 'block';
                    pImgPlaceholder.style.display = 'none';
-                   pImgUrlInput.value = compressedBase64;
+                   pImgUrlInput.value = compressedBase64; // This is the gold!
                 };
                 imgObj.src = event.target.result;
             };
@@ -832,12 +838,12 @@
       sendBtn.disabled = true;
 
       const mainImg = document.getElementById('p-img').value;
-      const galleryInput = document.getElementById('p-images').value;
-      let galleryArr = galleryInput.split(',').map(s => s.trim()).filter(s => s);
+      const galleryVal = document.getElementById('p-images').value;
+      let galleryArr = galleryVal.split(',').map(s => s.trim()).filter(s => s);
       
-      // CRITICAL FIX: If user uploaded a new photo, ensure it's in the gallery too
-      if (mainImg && galleryArr.indexOf(mainImg) === -1) {
-          galleryArr.unshift(mainImg); // Put it at the beginning
+      // If no gallery images provided but we have a main image, make main image the first gallery item
+      if (galleryArr.length === 0 && mainImg) {
+          galleryArr = [mainImg];
       }
 
       const productData = {
@@ -846,7 +852,7 @@
         price: Number(document.getElementById('p-price').value),
         id: document.getElementById('p-id-field').value,
         discount: Number(document.getElementById('p-discount').value),
-        img: mainImg,
+        img: mainImg || (galleryArr.length > 0 ? galleryArr[0] : ''),
         images: galleryArr,
         desc: document.getElementById('p-desc').value,
         howToUse: document.getElementById('p-usage').value,
