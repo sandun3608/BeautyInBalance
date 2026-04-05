@@ -6,14 +6,28 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Improve Debugging: Fail fast instead of buffering for 10 seconds
+mongoose.set('bufferCommands', false);
+
+// Check if MONGO_URI is missing
+if (!process.env.MONGO_URI) {
+    console.warn('WARNING: process.env.MONGO_URI is not defined! Ensure it is set in your .env or Render dashboard.');
+} else {
+    console.log('MONGO_URI found, attempting connection...');
+}
+
 // Database Connection
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/beautyInBalance', {
   family: 4,
   tlsAllowInvalidCertificates: true,
   serverSelectionTimeoutMS: 5000
 })
-  .then(() => console.log('MongoDB connection successful!'))
-  .catch((err) => console.log('MongoDB connection error: ', err));
+  .then(() => console.log('MongoDB connection successful! ✅'))
+  .catch((err) => {
+      console.error('CRITICAL: MongoDB connection error ❌');
+      console.error('Details:', err.message);
+      console.log('HINT: Check your Atlas IP Whitelist (add 0.0.0.0/0 for testing).');
+  });
 
 // Import Routes
 const productRoutes = require('./routes/productRoutes');
