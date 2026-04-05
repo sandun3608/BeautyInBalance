@@ -296,31 +296,30 @@ const defaultProducts = [
 ];
 
 // --- SMART API DISCOVERY ---
-let BASE_URL = 'https://beautyinbalance.onrender.com/api'; // Primary
-const ALT_URL = 'https://beauty-in-balance-api.onrender.com/api'; // Secondary
+let BASE_URL = 'https://beautyinbalance.onrender.com/api'; // Try 1
+const TRY_2 = 'https://beauty-in-balance-api.onrender.com/api'; // Try 2
+const TRY_3 = 'https://beauty-in-balance.onrender.com/api'; // Try 3
 
 async function discoverBackend() {
-    try {
-        console.log("Checking PRIMARY api...");
-        const res = await fetch(BASE_URL + '/products');
-        if (res.ok) return; // Primary is fine
-    } catch (e) {
-        console.warn("Primary API failed, trying ALTERNATE...");
+    const targets = [BASE_URL, TRY_2, TRY_3];
+    for (let url of targets) {
         try {
-            const res2 = await fetch(ALT_URL + '/products');
-            if (res2.ok) {
-                BASE_URL = ALT_URL;
-                console.log("Switched to secondary API:", BASE_URL);
+            console.log("Probing API:", url);
+            const res = await fetch(url + '/products');
+            if (res.ok) {
+                BASE_URL = url;
+                console.log("Successfully connected to:", BASE_URL);
+                return;
             }
-        } catch (e2) {
-            console.error("All API endpoints unreachable.");
+        } catch (e) {
+            console.warn("Probe failed for:", url);
         }
     }
 }
 
 // Step 6: Fetch from Database
 async function fetchDatabaseProducts() {
-    await discoverBackend(); // Detect working URL first
+    await discoverBackend();
     const API_URL = BASE_URL + '/products';
     try {
         const response = await fetch(API_URL);
