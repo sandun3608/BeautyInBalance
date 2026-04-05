@@ -148,7 +148,7 @@ router.delete('/:id', protect, async (req, res) => {
 // @access  Public (Hidden link)
 router.get('/seed-now', async (req, res) => {
     try {
-        const defaultProducts = require('../extracted_products');
+        const defaultProducts = require('../../extracted_products');
         
         // Clear existing
         await Product.deleteMany({});
