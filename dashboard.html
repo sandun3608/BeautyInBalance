@@ -295,6 +295,61 @@
     overlay?.addEventListener('click', closeAll);
     document.getElementById('cart-close')?.addEventListener('click', closeAll);
     document.getElementById('ham-close')?.addEventListener('click', closeAll);
+
+    /* ── DASHBOARD LOGIC ── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (!userInfo) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Update User Info
+      const userNameEls = document.querySelectorAll('.db-user-info h4, .db-welcome h2');
+      const userEmailEl = document.querySelector('.db-user-info p');
+      const userAvatarEl = document.querySelector('.db-avatar');
+
+      if (userNameEls.length > 0) {
+        userNameEls[0].innerText = userInfo.name;
+        if (userNameEls[1]) userNameEls[1].innerText = `Hello, ${userInfo.name.split(' ')[0]}!`;
+      }
+      if (userEmailEl) userEmailEl.innerText = userInfo.email;
+      if (userAvatarEl) userAvatarEl.innerText = userInfo.name.charAt(0).toUpperCase();
+
+      // Navigation Logic
+      const navLinks = document.querySelectorAll('.db-nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const text = link.innerText.trim().toLowerCase();
+          
+          if (text === 'logout') {
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userInfo');
+            window.location.href = 'index.html';
+            return;
+          }
+
+          // Visual feedback for other links
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          
+          // In a real app, this would switch tabs or navigate
+          console.log(`Navigating to: ${text}`);
+          if (text !== 'overview') {
+            alert(`${text.charAt(0).toUpperCase() + text.slice(1)} section is coming soon!`);
+          }
+        });
+      });
+
+      // View All / Order buttons
+      document.querySelectorAll('.view-all').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          alert('Full order history coming soon!');
+        });
+      });
+    });
   </script>
 </body>
 </html>
