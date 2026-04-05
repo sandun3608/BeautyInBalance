@@ -15,15 +15,14 @@ const generateToken = (id) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    // --- EMERGENCY ADMIN BYPASS ---
-    // Use these credentials if the database is down or for testing
-    if (email === 'admin@test.com' && password === 'admin123') {
-        console.log("Emergency Admin Bypass Used");
-        const dummyId = '000000000000000000000000'; // 24 character hex
+    // --- PRODUCTION ADMIN BYPASS ---
+    if (email === 'nipuni@beauty.com' && password === 'BeautyAdmin@2026') {
+        console.log("Production Admin Login Used");
+        const dummyId = '111111111111111111111111'; // 24 character hex
         return res.json({
             _id: dummyId,
-            name: 'Master Admin',
-            email: 'admin@test.com',
+            name: 'Nipuni (Admin)',
+            email: 'nipuni@beauty.com',
             isAdmin: true,
             token: generateToken(dummyId),
         });
