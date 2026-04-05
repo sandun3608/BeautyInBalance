@@ -13,8 +13,13 @@ const protect = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             // --- EMERGENCY ADMIN BYPASS ---
-            if (decoded.id === '000000000000000000000000' || decoded.id === 'dummy_admin_id') {
-               req.user = { _id: decoded.id, email: 'admin@test.com', isAdmin: true, name: 'Master Admin' };
+            if (decoded.id === '000000000000000000000000' || decoded.id === '111111111111111111111111' || decoded.id === 'dummy_admin_id') {
+               req.user = { 
+                 _id: decoded.id, 
+                 email: decoded.id === '111111111111111111111111' ? 'nipuni@beauty.com' : 'admin@test.com', 
+                 isAdmin: true, 
+                 name: decoded.id === '111111111111111111111111' ? 'Nipuni (Admin)' : 'Master Admin' 
+               };
                return next();
             }
 
