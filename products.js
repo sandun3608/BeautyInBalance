@@ -295,15 +295,33 @@ const defaultProducts = [
   }
 ];
 
-// Backend API url
-const BASE_URL = 'https://beauty-in-balance-api.onrender.com/api';
-const API_URL = BASE_URL + '/products';
+// --- SMART API DISCOVERY ---
+let BASE_URL = 'https://beautyinbalance.onrender.com/api'; // Primary
+const ALT_URL = 'https://beauty-in-balance-api.onrender.com/api'; // Secondary
 
-let customProducts = JSON.parse(localStorage.getItem('luxury_bakery_custom_products')) || [];
-let productsData = [...customProducts, ...defaultProducts]; 
+async function discoverBackend() {
+    try {
+        console.log("Checking PRIMARY api...");
+        const res = await fetch(BASE_URL + '/products');
+        if (res.ok) return; // Primary is fine
+    } catch (e) {
+        console.warn("Primary API failed, trying ALTERNATE...");
+        try {
+            const res2 = await fetch(ALT_URL + '/products');
+            if (res2.ok) {
+                BASE_URL = ALT_URL;
+                console.log("Switched to secondary API:", BASE_URL);
+            }
+        } catch (e2) {
+            console.error("All API endpoints unreachable.");
+        }
+    }
+}
 
 // Step 6: Fetch from Database
 async function fetchDatabaseProducts() {
+    await discoverBackend(); // Detect working URL first
+    const API_URL = BASE_URL + '/products';
     try {
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error('Network response not ok');
