@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Inquiry = require('../models/Inquiry');
 const { protect } = require('../middleware/auth');
 
@@ -34,6 +35,10 @@ router.get('/', protect, async (req, res) => {
 // @access  Private
 router.put('/:id/read', protect, async (req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid Inquiry ID format' });
+        }
+
         const inquiry = await Inquiry.findById(req.params.id);
         if (inquiry) {
             inquiry.isRead = true;
@@ -43,7 +48,8 @@ router.put('/:id/read', protect, async (req, res) => {
             res.status(404).json({ message: 'Not found' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        console.error("Inquiry mark read error:", error);
+        res.status(500).json({ message: 'Server error marking inquiry as read' });
     }
 });
 

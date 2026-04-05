@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Order = require('../models/Order');
 const { protect } = require('../middleware/auth');
 
@@ -55,6 +56,10 @@ router.get('/', protect, async (req, res) => {
 // @access  Private
 router.put('/:id/deliver', protect, async (req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid Order ID format' });
+        }
+
         const order = await Order.findById(req.params.id);
         if (order) {
             order.isDelivered = true;
@@ -64,7 +69,8 @@ router.put('/:id/deliver', protect, async (req, res) => {
             res.status(404).json({ message: 'Order not found' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        console.error("Order Delivery Error:", error);
+        res.status(500).json({ message: 'Server error updating order' });
     }
 });
 
