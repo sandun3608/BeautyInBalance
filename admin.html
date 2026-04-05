@@ -372,7 +372,7 @@
       <div class="admin-logo">Beauty in Balance <span>CMS</span></div>
       <nav class="admin-nav">
         <ul>
-          <li><a href="#" class="admin-nav-link active" onclick="switchTab('dashboard'); return false;">
+          <li><a href="#" class="admin-nav-link active" onclick="switchTab('dashboard', this); return false;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7" />
                 <rect x="14" y="3" width="7" height="7" />
@@ -381,14 +381,14 @@
               </svg>
               Dashboard
             </a></li>
-          <li><a href="#" class="admin-nav-link" onclick="switchTab('inventory'); return false;">
+          <li><a href="#" class="admin-nav-link" onclick="switchTab('inventory', this); return false;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
                 <path d="m3.3 7 8.7 5 8.7-5M12 22V12" />
               </svg>
               Inventory
             </a></li>
-          <li><a href="#" class="admin-nav-link" onclick="switchTab('orders'); return false;">
+          <li><a href="#" class="admin-nav-link" onclick="switchTab('orders', this); return false;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                 <line x1="3" y1="6" x2="21" y2="6" />
@@ -396,14 +396,14 @@
               </svg>
               Orders
             </a></li>
-          <li><a href="#" class="admin-nav-link" onclick="switchTab('analytics'); return false;">
+          <li><a href="#" class="admin-nav-link" onclick="switchTab('analytics', this); return false;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 3v18h18" />
                 <path d="m19 9-5 5-4-4-3 3" />
               </svg>
               Analytics
             </a></li>
-          <li><a href="#" class="admin-nav-link" onclick="switchTab('support'); return false;">
+          <li><a href="#" class="admin-nav-link" onclick="switchTab('support', this); return false;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
@@ -706,21 +706,16 @@
   </div>  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
-    // ✅ GLOBAL TAB SWITCHER - bulletproof onclick approach
-    window.switchTab = function(tabName) {
-      // Hide all content
-      document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
-      // Show selected
-      var el = document.getElementById('tab-' + tabName);
+    // ✅ GLOBAL TAB SWITCHER
+    window.switchTab = function(tabName, el) {
+      document.querySelectorAll('.admin-content').forEach(function(c) { c.classList.remove('active'); });
+      var tab = document.getElementById('tab-' + tabName);
+      if (tab) tab.classList.add('active');
+      document.querySelectorAll('.admin-nav-link').forEach(function(l) { l.classList.remove('active'); });
       if (el) el.classList.add('active');
-      // Update nav active
-      document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      // Update title
       var titles = { dashboard: 'Dashboard Overview', inventory: 'Inventory Management', orders: 'Orders Management', analytics: 'Analytics', support: 'Inquiries' };
       var titleEl = document.getElementById('view-title');
       if (titleEl) titleEl.innerText = titles[tabName] || tabName;
-      // Load data
       if (tabName === 'inventory') renderInventory();
       if (tabName === 'orders') fetchOrders();
       if (tabName === 'analytics') fetchDashboardSummary();
