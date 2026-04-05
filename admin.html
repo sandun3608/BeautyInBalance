@@ -673,8 +673,18 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Main Image URL / Path</label>
-            <input type="text" id="p-img" placeholder="images/product.png" />
+            <label>Product Image</label>
+            <div style="display: flex; gap: 15px; align-items: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px dashed var(--admin-border);">
+              <div id="image-preview-container" style="width: 80px; height: 80px; background: rgba(0,0,0,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--admin-border);">
+                <img id="p-img-preview" src="" style="width: 100%; height: 100%; object-fit: contain; display: none;">
+                <span id="p-img-placeholder" style="font-size: 10px; color: var(--admin-muted); text-align: center;">No Image</span>
+              </div>
+              <div style="flex: 1;">
+                 <input type="file" id="p-img-file" accept="image/*" style="display: none;">
+                 <button type="button" class="admin-btn" style="background: rgba(255,255,255,0.1); color: #fff; width: 100%; margin-bottom: 8px;" onclick="document.getElementById('p-img-file').click()">Choose Photo</button>
+                 <input type="text" id="p-img" placeholder="Or paste image URL here..." style="font-size: 11px; padding: 6px;">
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label>Additional Gallery Images (Comma separated URLs)</label>
@@ -703,9 +713,7 @@
         </div>
       </form>
     </div>
-  </div>
-
-  <script src="products.js"></script>
+  </div>  <script src="products.js"></script>
   <script>
     // Tab Switching Logic
     const navLinks = document.querySelectorAll('.admin-nav-link[data-tab]');
@@ -729,484 +737,291 @@
 
         if (targetTab === 'inventory') renderInventory();
         if (targetTab === 'orders') fetchOrders();
+        if (targetTab === 'analytics') fetchDashboardSummary();
+        if (targetTab === 'support') fetchInquiries();
       });
     });
 
-    // Fetch Live Orders
-    async function fetchOrders() {
-      const ordersTable = document.getElementById('orders-table');
-      if (!ordersTable) return;
-      
-      ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px;">Loading Live Orders...</td></tr>';
-      
-      try {
-        const res = await fetch(BASE_URL + '/orders', {
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-          }
-        });
-        
-        if (res.ok) {
-          const orders = await res.json();
-          ordersTable.innerHTML = '';
-          
-          if (orders.length === 0) {
-             ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px;">No active orders yet.</td></tr>';
-             return;
-          }
+    const addProductForm = document.getElementById('add-product-form');
+    const pModal = document.getElementById('product-modal');
+    const pFileInput = document.getElementById('p-img-file');
+    const pImgPreview = document.getElementById('p-img-preview');
+    const pImgPlaceholder = document.getElementById('p-img-placeholder');
+    const pImgUrlInput = document.getElementById('p-img');
 
-          orders.forEach(order => {
-             const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join('<br>');
-             const tr = document.createElement('tr');
-             
-             // Extract first name safely
-             let cName = 'Guest Customer';
-             if (order.customerInfo && order.customerInfo.firstName) {
-                cName = order.customerInfo.firstName + ' ' + order.customerInfo.lastName;
-             }
-             
-             tr.innerHTML = `
-               <td style="font-weight:600;">${order._id.substring(order._id.length - 6).toUpperCase()}</td>
-               <td>${cName}</td>
-               <td style="font-size:13px; line-height:1.5;">${itemsSummary}</td>
-               <td style="font-weight:bold; color:var(--gold);">Rs. ${order.totalPrice.toLocaleString()}</td>
-               <td><span class="status-pill ${order.isDelivered ? 'status-delivered' : 'status-shipped'}" style="${order.isDelivered ? 'background:#e8f5e9; color:#4caf50;' : 'background:#fff3e0; color:#ff9800;'}">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
-               <td>
-                 ${!order.isDelivered ? `<button class="action-btn btn-edit" onclick="markDelivered('${order._id}')">Mark Built</button>` : `<span style="font-size:12px;color:#aaa;">Completed</span>`}
-               </td>
-             `;
-             ordersTable.appendChild(tr);
-          });
+    // Handle File Selection & Base64
+    pFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64 = event.target.result;
+                pImgPreview.src = base64;
+                pImgPreview.style.display = 'block';
+                pImgPlaceholder.style.display = 'none';
+                pImgUrlInput.value = base64;
+            };
+            reader.readAsDataURL(file);
         }
-      } catch (err) {
-        console.error(err);
-        ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:red;">Failed to retrieve orders. Server offline.</td></tr>';
-      }
-    }
+    });
 
-    // Mark Order as Delivered
-    async function markDelivered(orderId) {
-       if(!confirm("Mark this order as Delievered?")) return;
-       try {
-         const res = await fetch(BASE_URL + '/orders/' + orderId + '/deliver', {
-            method: 'PUT',
-            headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-            }
-         });
-         if (res.ok) {
-            fetchOrders(); // refresh table
-         }
-       } catch (err) {
-         console.error(err);
-         alert("Failed to mark delivered.");
-       }
-    }
-
-    // Populate Inventory from products.js
-    function renderInventory() {
-      const tableBody = document.getElementById('inventory-table');
-      tableBody.innerHTML = '';
-
-      productsData.forEach((prod, index) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><img src="${prod.img}" class="prod-thumb" alt="${prod.name}"></td>
-          <td>${prod.name}</td>
-          <td style="text-transform: capitalize;">${prod.cat}</td>
-          <td>Rs. ${prod.price.toLocaleString()}</td>
-          <td>${prod.discount ? `${prod.discount}%` : '0%'}</td>
-          <td><span style="color: ${prod.stock < 10 ? '#ff9800' : '#4caf50'}">${prod.stock} in stock</span></td>
-          <td style="white-space: nowrap;">
-            <div style="display: flex; gap: 0;">
-              <button class="action-btn btn-edit" onclick="editProduct('${prod.id}')">Edit</button>
-              <button class="action-btn btn-del" onclick="deleteProduct('${prod.id}')">Delete</button>
-            </div>
-          </td>
-        `;
-        tableBody.appendChild(tr);
-      });
-    }
-
-    // Connect Delete Logic to Backend
-    async function deleteProduct(productId) {
-      if (!confirm("Are you sure you want to permanently delete this item from your Cloud Database?")) return;
-
-      try {
-        const response = await fetch(BASE_URL + '/products/' + productId, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-          }
-        });
-
-        if (response.ok) {
-          alert("Product Deleted from Cloud.");
-          // Update the array locally or reload
-          productsData = productsData.filter(p => p.id !== productId);
-          renderInventory();
+    pImgUrlInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (val) {
+           pImgPreview.src = val; pImgPreview.style.display = 'block'; pImgPlaceholder.style.display = 'none';
         } else {
-          alert('Failed to delete product. Only true Master Admins can delete.');
+           pImgPreview.style.display = 'none'; pImgPlaceholder.style.display = 'block';
         }
-      } catch (err) {
-        console.error(err);
+    });
+
+    let editingId = null; 
+
+    window.openModal = (prodId = null) => {
+      editingId = prodId;
+      addProductForm.reset();
+      pImgPreview.style.display = 'none';
+      pImgPlaceholder.style.display = 'block';
+      pModal.style.display = 'flex';
+      
+      if (prodId) {
+        document.querySelector('#product-modal h3').innerText = 'Edit Skincare Product';
+        const prod = productsData.find(p => p._id === prodId || p.id === prodId);
+        if (prod) {
+          document.getElementById('p-name').value = prod.name;
+          document.getElementById('p-cat').value = prod.cat;
+          document.getElementById('p-price').value = prod.price;
+          document.getElementById('p-id-field').value = prod.id;
+          document.getElementById('p-discount').value = prod.discount || 0;
+          document.getElementById('p-img').value = prod.img;
+          document.getElementById('p-images').value = (prod.images || []).join(', ');
+          document.getElementById('p-desc').value = prod.desc || '';
+          document.getElementById('p-usage').value = prod.howToUse || '';
+          document.getElementById('p-benefits').value = (prod.benefits || []).join(', ');
+          document.getElementById('p-stock').value = prod.stock || 50;
+
+          if (prod.img) {
+             pImgPreview.src = prod.img;
+             pImgPreview.style.display = 'block';
+             pImgPlaceholder.style.display = 'none';
+          }
+        }
+      } else {
+        document.querySelector('#product-modal h3').innerText = 'Add New Skincare Product';
       }
-    }
+    };
 
-    // Modal Logic
-    const modal = document.getElementById('product-modal');
-    const modalTitle = modal.querySelector('h3');
-    let editMode = false;
-    let currentEditId = null;
+    window.closeModal = () => { pModal.style.display = 'none'; editingId = null; };
 
-    function openModal(isEdit = false, prodData = null) { 
-        editMode = isEdit;
-        currentEditId = isEdit ? prodData.id : null;
-        modalTitle.innerText = isEdit ? 'Edit Product Details' : 'Add New Skincare Product';
-        
-        if (isEdit) {
-            document.getElementById('p-name').value = prodData.name;
-            document.getElementById('p-price').value = prodData.price;
-            document.getElementById('p-cat').value = prodData.cat;
-            document.getElementById('p-id-field').value = prodData.id;
-            document.getElementById('p-img').value = prodData.img;
-            document.getElementById('p-images').value = (prodData.images || []).join(', ');
-            document.getElementById('p-desc').value = prodData.desc || '';
-            document.getElementById('p-usage').value = prodData.howToUse || '';
-            document.getElementById('p-stock').value = prodData.stock || 50;
-            document.getElementById('p-discount').value = prodData.discount || 0;
-            // benefits etc if you want
-        } else {
-            document.getElementById('add-product-form').reset();
-        }
-        modal.style.display = 'flex'; 
-    }
-    function closeModal() { modal.style.display = 'none'; }
-
-    async function editProduct(id) {
-       // Find product in productsData
-       const prod = productsData.find(p => p.id === id);
-       if (prod) openModal(true, prod);
-    }
-
-    // Add Product Form
-    // Add Product Form Secured Connection
-    document.getElementById('add-product-form').addEventListener('submit', async (e) => {
+    addProductForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      const sendBtn = document.querySelector('#add-product-form button[type="submit"]');
+      const sendBtn = addProductForm.querySelector('button[type="submit"]');
       sendBtn.textContent = 'Saving to Cloud...';
       sendBtn.disabled = true;
 
-      const newProduct = {
+      const productData = {
         name: document.getElementById('p-name').value,
-        price: parseInt(document.getElementById('p-price').value),
         cat: document.getElementById('p-cat').value,
-        img: document.getElementById('p-img').value || 'new/1.png',
-        stock: parseInt(document.getElementById('p-stock').value) || 50,
+        price: Number(document.getElementById('p-price').value),
         id: document.getElementById('p-id-field').value,
-        discount: parseInt(document.getElementById('p-discount').value) || 0,
+        discount: Number(document.getElementById('p-discount').value),
+        img: document.getElementById('p-img').value,
+        images: document.getElementById('p-images').value.split(',').map(s => s.trim()).filter(s => s),
         desc: document.getElementById('p-desc').value,
         howToUse: document.getElementById('p-usage').value,
-        images: document.getElementById('p-images').value.split(',').map(img => img.trim()).filter(img => img),
-        benefits: document.getElementById('p-benefits').value.split(',').map(b => b.trim())
+        benefits: document.getElementById('p-benefits').value.split(',').map(s => s.trim()).filter(s => s),
+        stock: Number(document.getElementById('p-stock').value)
       };
 
       try {
-        const urlArray = editMode ? [BASE_URL + '/products/' + currentEditId, 'PUT'] : [BASE_URL + '/products', 'POST'];
-        const response = await fetch(urlArray[0], {
-          method: urlArray[1],
+        const method = editingId ? 'PUT' : 'POST';
+        const url = editingId ? `${API_URL}/${editingId}` : API_URL;
+        const res = await fetch(url, {
+          method,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('userToken')
           },
-          body: JSON.stringify(newProduct)
+          body: JSON.stringify(productData)
         });
 
-        if (response.ok) {
-          const cloudData = await response.json();
-          alert(editMode ? 'Product Updated successfully!' : 'Product safely inserted into MongoDB Atlas!');
-          
-          // Render it locally so we don't need a full page refresh
-          productsData.unshift({
-            id: cloudData._id,
-            name: cloudData.name,
-            price: cloudData.price,
-            cat: cloudData.cat,
-            img: cloudData.img
-          });
-
+        if (res.ok) {
+          showToast(editingId ? 'Product Updated Successfully!' : 'New Product Added!');
           closeModal();
+          await fetchDatabaseProducts();
           renderInventory();
-          document.getElementById('add-product-form').reset();
         } else {
-          alert('Security Block: You are not authorized or there was a server error.');
+          alert('Failed to save product.');
         }
       } catch (err) {
         console.error(err);
-        alert('Server unreachable. Ensure Node backend is running.');
+        alert('Server Error.');
       } finally {
         sendBtn.textContent = 'Save Product';
         sendBtn.disabled = false;
       }
     });
 
-    // Tab switching expansion
-    navLinks.forEach(link => {
-       link.addEventListener('click', () => {
-         const targetTab = link.dataset.tab;
-         if (targetTab === 'inventory') renderInventory();
-         if (targetTab === 'orders') fetchOrders();
-         if (targetTab === 'support') fetchInquiries();
-       });
-    });
+    function renderInventory() {
+      const tableBody = document.getElementById('inventory-table');
+      tableBody.innerHTML = '';
+      productsData.forEach(prod => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><img src="${prod.img}" class="prod-thumb"></td>
+          <td>${prod.name}</td>
+          <td style="text-transform: capitalize;">${prod.cat}</td>
+          <td>Rs. ${prod.price.toLocaleString()}</td>
+          <td>${prod.discount || 0}%</td>
+          <td><span style="color: ${prod.stock < 10 ? '#ff9800' : '#4caf50'}">${prod.stock}</span></td>
+          <td>
+            <button class="action-btn btn-edit" onclick="openModal('${prod._id || prod.id}')">Edit</button>
+            <button class="action-btn btn-del" onclick="deleteProduct('${prod._id || prod.id}')">Del</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
 
-    // MARK: REAL INQUIRIES
+    window.deleteProduct = async (id) => {
+        if(!confirm("Delete this product?")) return;
+        try {
+            const res = await fetch(`${API_URL}/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+            });
+            if(res.ok) {
+                showToast("Product Deleted");
+                await fetchDatabaseProducts();
+                renderInventory();
+            }
+        } catch(e) { console.error(e); }
+    };
+
+    async function fetchOrders() {
+      const ordersTable = document.getElementById('orders-table');
+      ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
+      try {
+        const res = await fetch(BASE_URL + '/orders', {
+          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+        });
+        const orders = await res.json();
+        ordersTable.innerHTML = '';
+        orders.forEach(order => {
+          const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${order._id.substring(order._id.length - 6).toUpperCase()}</td>
+            <td>${order.customerInfo.firstName}</td>
+            <td style="font-size:12px;">${itemsSummary}</td>
+            <td>Rs. ${order.totalPrice.toLocaleString()}</td>
+            <td><span style="color:${order.isDelivered ? '#4caf50' : '#ff9800'}">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
+            <td>${!order.isDelivered ? `<button class="admin-btn" onclick="markDelivered('${order._id}')">Deliver</button>` : 'OK'}</td>
+          `;
+          ordersTable.appendChild(tr);
+        });
+      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="6">Failed to load.</td></tr>'; }
+    }
+
+    window.markDelivered = async (id) => {
+        try {
+            await fetch(`${BASE_URL}/orders/${id}/deliver`, {
+                method: 'PUT',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+            });
+            fetchOrders();
+        } catch(e) { console.error(e); }
+    };
+
     async function fetchInquiries() {
-       const table = document.querySelector('#tab-support tbody');
-       table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">Loading Live Inquiries...</td></tr>';
-       
-       try {
-         const res = await fetch(BASE_URL + '/inquiries', {
-           headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
-         });
-         const data = await res.json();
-         table.innerHTML = '';
-         
-         if (data.length === 0) {
-            table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">No messages yet.</td></tr>';
-            return;
-         }
-
-         data.forEach(msg => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${new Date(msg.createdAt).toLocaleDateString()}</td>
-              <td>${msg.name}</td>
-              <td>${msg.email}</td>
-              <td><span title="${msg.message}">${msg.message.substring(0, 30)}...</span></td>
-              <td>${msg.isRead ? '<span style="color:#aaa;">Read</span>' : `
-                 <button class="admin-btn" onclick="markMessageRead('${msg._id}')">Mark Read</button>
-              `}</td>
-            `;
-            table.appendChild(tr);
-         });
-       } catch (err) {
-         table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:red;">Failed to load inquiries.</td></tr>';
-       }
+      const table = document.querySelector('#tab-support tbody');
+      table.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading Inquiries...</td></tr>';
+      try {
+        const res = await fetch(BASE_URL + '/inquiries', {
+          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+        });
+        const data = await res.json();
+        table.innerHTML = '';
+        data.forEach(msg => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(msg.createdAt).toLocaleDateString()}</td>
+            <td>${msg.name}</td>
+            <td>${msg.email}</td>
+            <td>${msg.message.substring(0, 30)}...</td>
+            <td><button class="admin-btn" onclick="markRead('${msg._id}')">${msg.isRead ? 'Read' : 'Mark Read'}</button></td>
+          `;
+          table.appendChild(tr);
+        });
+      } catch (err) { table.innerHTML = '<tr><td colspan="5">Failed to load.</td></tr>'; }
     }
 
-    async function markMessageRead(id) {
-       try {
-         await fetch(BASE_URL + '/inquiries/' + id + '/read', {
-           method: 'PUT',
-           headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
-         });
-         fetchInquiries();
-       } catch (e) {
-         console.error(e);
-       }
-    }
+    window.markRead = async (id) => {
+        await fetch(`${BASE_URL}/inquiries/${id}/read`, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+        });
+        fetchInquiries();
+    };
 
-    function handleLogout() {
-       if (confirm("Are you sure you want to log out?")) {
-          localStorage.removeItem('userToken');
-          localStorage.removeItem('userInfo');
-          window.location.href = 'login.html';
-       }
-    }
-
-    // MARK: NOTIFICATION POLLING
-    let lastOrderCount = -1;
-    let lastInquiryCount = -1;
-
-    async function checkNotifications() {
-       try {
-         const opt = { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') } };
-         const [orderRes, inquiryRes] = await Promise.all([
-           fetch(BASE_URL + '/orders', opt),
-           fetch(BASE_URL + '/inquiries', opt)
-         ]);
-
-         if (orderRes.ok && inquiryRes.ok) {
-           const orders = await orderRes.json();
-           const inquiries = await inquiryRes.json();
-
-           // Check for New Orders
-           if (lastOrderCount !== -1 && orders.length > lastOrderCount) {
-              showToast("New Order Received! (" + (orders.length - lastOrderCount) + " New)");
-              if (document.getElementById('tab-orders').classList.contains('active')) fetchOrders();
-           }
-           
-           // Check for New Inquiries
-           if (lastInquiryCount !== -1 && inquiries.length > lastInquiryCount) {
-              showToast("New Customer Inquiry! Check Support Tab.");
-              if (document.getElementById('tab-support').classList.contains('active')) fetchInquiries();
-           }
-
-           lastOrderCount = orders.length;
-           lastInquiryCount = inquiries.length;
-         }
-       } catch (err) {
-         console.log("Polling error:", err);
-       }
-    }
+    function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
 
     function showToast(msg) {
-       const toast = document.getElementById('admin-notification');
-       toast.innerText = msg;
-       toast.style.display = 'flex';
-       
-       // Play sound effect if you want, but simple visual is enough
-       setTimeout(() => { toast.style.display = 'none'; }, 6000);
+        const toast = document.getElementById('admin-notification');
+        toast.innerText = msg;
+        toast.style.display = 'flex';
+        setTimeout(() => { toast.style.display = 'none'; }, 5000);
     }
 
-    // Start polling every 10 seconds
-    setInterval(checkNotifications, 10000);
-    // Initial Counts
-    checkNotifications();
-
-    // MARK: DASHBOARD SUMMARY
-    let visitsChartInstance = null;
-    let ordersChartInstance = null;
-    let salesChartInstance = null;
-
+    let visitsChartInstance = null, ordersChartInstance = null, salesChartInstance = null;
     async function fetchDashboardSummary() {
        try {
          const res = await fetch(BASE_URL + '/stats/summary', {
            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
          });
          const data = await res.json();
-         
          document.getElementById('stat-sales').innerText = 'Rs. ' + data.totalSales.toLocaleString();
          document.getElementById('stat-orders').innerText = data.totalOrders;
          document.getElementById('stat-users').innerText = data.totalUsers;
          document.getElementById('stat-visits').innerText = data.totalVisits;
 
          const topProdBody = document.getElementById('top-products-table');
-         topProdBody.innerHTML = '';
-         if(data.topProducts) {
-           data.topProducts.forEach(tp => {
-              const tr = document.createElement('tr');
-              tr.innerHTML = `<td>${tp.name}</td><td>${tp.qty} units</td>`;
-              topProdBody.appendChild(tr);
-           });
-         }
+         topProdBody.innerHTML = data.topProducts.map(tp => `<tr><td>${tp.name}</td><td>${tp.qty} units</td></tr>`).join('');
 
          const activityBody = document.getElementById('activity-log');
-         activityBody.innerHTML = '';
-         if(data.recentActivity) {
-           data.recentActivity.forEach(act => {
-              const tr = document.createElement('tr');
-              tr.innerHTML = `
-                 <td>${act.event}</td>
-                 <td>${act.user}</td>
-                 <td>${act.details}</td>
-                 <td>${new Date(act.time).toLocaleTimeString()}</td>
-              `;
-              activityBody.appendChild(tr);
-           });
-         }
+         activityBody.innerHTML = data.recentActivity.map(act => `
+            <tr><td>${act.event}</td><td>${act.user}</td><td>${act.details}</td><td>${new Date(act.time).toLocaleTimeString()}</td></tr>
+         `).join('');
 
-         // --- RENDER CHARTS ---
-         if (data.graphData) {
-            renderCharts(data.graphData);
-         }
-       } catch (e) {
-         console.error("Summary error:", e);
-       }
+         if (data.graphData) renderCharts(data.graphData);
+       } catch (e) { console.error(e); }
     }
 
     function renderCharts(graphData) {
-        const visitLabels = graphData.dailyVisits.map(v => v._id);
-        const visitCounts = graphData.dailyVisits.map(v => v.count);
-
-        const orderLabels = graphData.dailyOrders.map(o => o._id);
-        const orderCounts = graphData.dailyOrders.map(o => o.count);
-        const orderSales = graphData.dailyOrders.map(o => o.sales);
-
-        const commonOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#a0a0a0' } },
-                x: { grid: { display: false }, ticks: { color: '#a0a0a0' } }
-            },
-            plugins: { legend: { display: false } }
-        };
-
-        // Visits Chart (Bar)
+        const commonOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
         if (visitsChartInstance) visitsChartInstance.destroy();
         visitsChartInstance = new Chart(document.getElementById('visitsChart'), {
             type: 'bar',
-            data: {
-                labels: visitLabels,
-                datasets: [{
-                    label: 'Visits',
-                    data: visitCounts,
-                    backgroundColor: 'rgba(198, 151, 90, 0.4)',
-                    borderColor: 'rgba(198, 151, 90, 1)',
-                    borderWidth: 2,
-                    borderRadius: 5
-                }]
-            },
+            data: { labels: graphData.dailyVisits.map(v => v._id), datasets: [{ label: 'Visits', data: graphData.dailyVisits.map(v => v.count), backgroundColor: 'rgba(198, 151, 90, 0.4)' }] },
             options: commonOptions
         });
-
-        // Orders Chart (Line)
         if (ordersChartInstance) ordersChartInstance.destroy();
         ordersChartInstance = new Chart(document.getElementById('ordersChart'), {
             type: 'line',
-            data: {
-                labels: orderLabels,
-                datasets: [{
-                    label: 'Orders',
-                    data: orderCounts,
-                    borderColor: '#2196f3',
-                    backgroundColor: 'rgba(33, 150, 243, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 4
-                }]
-            },
+            data: { labels: graphData.dailyOrders.map(o => o._id), datasets: [{ label: 'Orders', data: graphData.dailyOrders.map(o => o.count), borderColor: '#2196f3', fill: true }] },
             options: commonOptions
         });
-
-        // Sales Performance Chart (Line)
         if (salesChartInstance) salesChartInstance.destroy();
         salesChartInstance = new Chart(document.getElementById('salesChart'), {
             type: 'line',
-            data: {
-                labels: orderLabels,
-                datasets: [{
-                    label: 'Daily Sales (LKR)',
-                    data: orderSales,
-                    borderColor: '#4caf50',
-                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 4
-                }]
-            },
-            options: {
-                ...commonOptions,
-                plugins: { legend: { display: true, labels: { color: '#e0e0e0' } } }
-            }
+            data: { labels: graphData.dailyOrders.map(o => o._id), datasets: [{ label: 'Sales', data: graphData.dailyOrders.map(o => o.sales), borderColor: '#4caf50', fill: true }] },
+            options: commonOptions
         });
     }
 
-    // Tab switching for Analytics
-    navLinks.forEach(link => {
-       link.addEventListener('click', () => {
-         const targetTab = link.dataset.tab;
-         if (targetTab === 'analytics') fetchDashboardSummary(); // refresh charts when entering analytics
-       });
-    });
-
-    // Initial render
     fetchDashboardSummary();
     renderInventory();
   </script>
+
 
   <div id="admin-notification">New Notification</div>
 </body>
