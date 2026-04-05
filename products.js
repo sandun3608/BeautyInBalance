@@ -295,8 +295,8 @@ const defaultProducts = [
   }
 ];
 
-// --- SMART API DISCOVERY ---
-let BASE_URL = 'https://beautyinbalance.onrender.com/api'; 
+// Backend API url
+let BASE_URL = (typeof GLOBAL_API_URL !== 'undefined') ? GLOBAL_API_URL + '/api' : 'https://beautyinbalance.onrender.com/api';
 const TRY_2 = 'https://beauty-in-balance-api.onrender.com/api'; 
 const TRY_3 = 'https://beauty-in-balance.onrender.com/api'; 
 
