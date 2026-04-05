@@ -70,7 +70,7 @@ router.post('/', protect, async (req, res) => {
         res.status(201).json(createdProduct);
     } catch (error) {
         console.error("Create product err:", error);
-        res.status(500).json({ message: 'Server error saving product.' });
+        res.status(500).json({ message: error.message || 'Server error saving product.' });
     }
 });
 
@@ -112,7 +112,7 @@ router.put('/:id', protect, async (req, res) => {
         }
     } catch (error) {
         console.error("Update product err:", error);
-        res.status(500).json({ message: 'Server error updating product.' });
+        res.status(500).json({ message: error.message || 'Server error updating product.' });
     }
 });
 
