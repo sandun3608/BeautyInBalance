@@ -71,15 +71,15 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-// Serve static files from the project root
-app.use(express.static(path.join(__dirname, '.')));
-
 // API Routes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/stats', statsRoutes);
+
+// Move static files AFTER API routes to prevent blocking
+app.use(express.static(path.join(__dirname, '.')));
 
 // Fix: Serve HTML files for specific routes if needed
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
