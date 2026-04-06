@@ -836,9 +836,8 @@
                    canvas.width = width;
                    canvas.height = height;
 
-                   // Fill with white background (prevents black background if transparency is lost)
-                   ctx.fillStyle = "#ffffff";
-                   ctx.fillRect(0, 0, width, height);
+                   // Empty background (preserves transparency for PNGs)
+                   ctx.clearRect(0, 0, width, height);
                    
                    ctx.drawImage(imgObj, 0, 0, width, height);
                    
