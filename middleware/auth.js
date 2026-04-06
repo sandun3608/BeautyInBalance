@@ -7,7 +7,7 @@ const protect = async (req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
-            const secret = process.env.JWT_SECRET || 'supersecret123';
+            const secret = process.env.JWT_SECRET || 'beauty_in_balance_token_key_123';
             const decoded = jwt.verify(token, secret);
 
             // EMERGENCY ADMIN BYPASS (Matches the login logic)
