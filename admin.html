@@ -835,9 +835,15 @@
                    }
                    canvas.width = width;
                    canvas.height = height;
+
+                   // Fill with white background (prevents black background if transparency is lost)
+                   ctx.fillStyle = "#ffffff";
+                   ctx.fillRect(0, 0, width, height);
+                   
                    ctx.drawImage(imgObj, 0, 0, width, height);
                    
-                   const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8); 
+                   // Use PNG to preserve transparency (or JPEG if you prefer smaller size but white background)
+                   const compressedBase64 = canvas.toDataURL('image/png'); 
                    pImgPreview.src = compressedBase64;
                    pImgPreview.style.display = 'block';
                    pImgPlaceholder.style.display = 'none';
