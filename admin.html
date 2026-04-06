@@ -1017,10 +1017,15 @@
 
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
+      if (!ordersTable) return;
       ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
+      
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
       try {
         const res = await fetch(BASE_URL + '/orders', {
-          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+          headers: { 'Authorization': 'Bearer ' + token }
         });
         const orders = await res.json();
         ordersTable.innerHTML = '';
@@ -1052,10 +1057,15 @@
 
     async function fetchInquiries() {
       const table = document.querySelector('#tab-support tbody');
+      if (!table) return;
       table.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading Inquiries...</td></tr>';
+
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
       try {
         const res = await fetch(BASE_URL + '/inquiries', {
-          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+          headers: { 'Authorization': 'Bearer ' + token }
         });
         const data = await res.json();
         table.innerHTML = '';
@@ -1092,9 +1102,12 @@
 
     let visitsChartInstance = null, ordersChartInstance = null, salesChartInstance = null;
     async function fetchDashboardSummary() {
+       const token = localStorage.getItem('userToken');
+       if (!token) { window.location.href = 'login.html'; return; }
+
        try {
          const res = await fetch(BASE_URL + '/stats/summary', {
-           headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+           headers: { 'Authorization': 'Bearer ' + token }
          });
          const data = await res.json();
          document.getElementById('stat-sales').innerText = 'Rs. ' + data.totalSales.toLocaleString();
