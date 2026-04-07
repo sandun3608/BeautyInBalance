@@ -349,6 +349,7 @@ async function fetchDatabaseProducts() {
         }
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
+        window.DB_FETCH_COMPLETED = true;
         if (typeof renderInventory === 'function') renderInventory();
         if (typeof renderRoundCategories === 'function') renderRoundCategories();
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
@@ -361,6 +362,7 @@ async function fetchDatabaseProducts() {
         console.warn("Using hardcoded products because Backend is offline or hasn't started yet.", error);
         
         // CRITICAL FALLBACK: If DB fails, restore the inventory table and other renders
+        window.DB_FETCH_COMPLETED = true;
         if (typeof renderInventory === 'function') renderInventory();
         if (typeof renderRoundCategories === 'function') renderRoundCategories();
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
@@ -368,8 +370,6 @@ async function fetchDatabaseProducts() {
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
-    } finally {
-        window.DB_FETCH_COMPLETED = true;
     }
 }
 

@@ -366,6 +366,10 @@
       const product = productsData.find(p => p.id === prodId || p.name === prodId); // Fallback for old name-based IDs
       
       if (!product) {
+        // If DB is still fetching, don't show "Not Found" yet. Wait for fetch to call renderProduct() again.
+        if (window.DB_FETCH_RUNNING && !window.DB_FETCH_COMPLETED) {
+          return;
+        }
         $('pd-root').innerHTML = '<div style="text-align:center; padding: 200px 0; font-size: 24px;">Product Not Found. <br><a href="shop.html" style="color:var(--gold)">Return to Shop</a></div>';
         return;
       }
