@@ -215,7 +215,7 @@ const defaultProducts = [
   { 
     id: 'ord-nmf-ha-30',
     name: 'Natural Moisturizing Factors + HA (30ml)', price: 8000, cat: 'ordinary', filter: 'moisturizers', 
-    images: ['the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png'], img: 'the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png',
+    images: ['the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png'], img: 'the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png',
     desc: 'An essential, non-greasy surface hydrator packed with elements naturally present in the skin—amino acids, dermal lipids, and hyaluronic acid. Designed as a universal protective outer shield, it supplements the skin\'s impaired Natural Moisturizing Factors (NMF) to provide immediate, prolonged soothing hydration and dramatically improve barrier strength without a heavy feel.',
     benefits: ['Immediate Hydration', 'Barrier Support', 'Non-greasy formula'],
     howToUse: 'Apply after serums as needed for effective surface hydration.',
