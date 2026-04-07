@@ -7,13 +7,25 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI, {
-  family: 4,
-  tlsAllowInvalidCertificates: true,
-  serverSelectionTimeoutMS: 5000
-})
-  .then(() => console.log('MongoDB connection successful!'))
-  .catch((err) => console.log('MongoDB connection error: ', err));
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error("FATAL ERROR: MONGO_URI is not defined in environment variables!");
+} else {
+  // Try cleaning up the URI if it contains hidden characters or extra quotes from .env
+  const cleanURI = mongoURI.trim().replace(/^"(.*)"$/, '$1');
+  
+  mongoose.connect(cleanURI, {
+    family: 4, // Force IPv4 to avoid potential local IPv6 issues
+    serverSelectionTimeoutMS: 15000, // Wait longer for initial connect
+    connectTimeoutMS: 15000,
+  })
+    .then(() => console.log('✅ MongoDB connection successful!'))
+    .catch((err) => {
+      console.error('❌ MongoDB connection error: ', err.message);
+      console.error('Stack Trace:', err.stack);
+    });
+}
 
 // Import Routes
 const productRoutes = require('./routes/productRoutes');

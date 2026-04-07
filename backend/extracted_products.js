@@ -95,7 +95,7 @@ const defaultProducts = [
   { 
     id: 'ord-rosehip-30',
     name: '100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)', price: 5600, cat: 'ordinary', filter: 'face-oils', 
-    images: ['the ordinary/100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png'], img: 'the ordinary/100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png',
+    images: ['the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png'], img: 'the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png',
     desc: 'An exquisite, 100% organic, cold-pressed oil that deeply hydrates the skin while supporting a healthy, radiant complexion. Rich in linoleic acid, linolenic acid, and pro-vitamin A, this luxurious daily oil actively targets visible signs of photo-aging, balances uneven skin tone, reduces dullness, and boosts overall skin resilience for a glowing, youthful finish.',
     benefits: ['Deeply Hydrates', 'Improves Skin Tone', 'Anti-aging properties'],
     howToUse: 'Apply once a day to the face, ideally in the PM after application of water-based treatments.',
