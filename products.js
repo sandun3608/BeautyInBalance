@@ -1,5 +1,14 @@
 // Finalized Product Database with Organized Cerave Assets
 const defaultProducts = [
+  { 
+    id: 'cer-am-spf30',
+    name: 'AM Facial Moisturizing Lotion SPF 30 (89ml)', price: 6500, cat: 'cerave', filter: 'sunscreen', 
+    images: ['cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png'], img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png',
+    desc: 'A morning skincare multitasker, featuring three essential ceramides, hydrating hyaluronic acid and soothing niacinamide, plus our patented MVE Delivery Technology to supply much-needed moisture throughout the day. Offering Broad Spectrum sunscreen, our moisturizer with SPF 30 features InVisibleZinc Technology.',
+    benefits: ['Broad Spectrum SPF 30', 'Provides All-Day Hydration', 'Restores Skin Barrier'],
+    howToUse: 'Apply liberally 15 minutes before sun exposure. Reapply at least every 2 hours.',
+    authenticity: '100% Genuine Direct Import.'
+  },
   // CeraVe Cleaners - Organized Set (Updated)
   { 
     id: 'cer-acne-control',
