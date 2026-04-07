@@ -2187,6 +2187,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     grid-column: 1 / -1 !important; /* Spans full width (2 columns) */
     height: 220px !important; /* Make it a bit taller/larger as it's at the top */
     order: -1 !important; /* Force it to the top */
+    margin-bottom: 16px !important; /* Consistent gap between this and the next row */
   }
   .edc-small:nth-of-type(4) { display: block !important; }
 
