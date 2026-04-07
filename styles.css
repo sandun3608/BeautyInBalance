@@ -2434,7 +2434,9 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .excl-dynamic-grid { grid-template-columns: 1fr; }
   .edc-wide-top { grid-column: span 1; }
   
-  .shade-options { grid-template-columns: 1fr 1fr; }
+  .shade-options { grid-template-columns: 1fr 1fr; gap: 15px; }
+  .shade-img-wrap { width: 120px; height: 60px; }
+  .shade-opt p { font-size: 11px !important; }
   
   .ann-track span { font-size: 10px; padding-right: 40px; }
   
