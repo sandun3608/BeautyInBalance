@@ -170,58 +170,43 @@
     <!-- ===== SECTION 1: ROUND CATEGORY LIST ===== -->
     <section class="round-list-section">
       <div class="round-list-track" id="round-track">
-        
-        <a href="category.html?cat=cleansers" class="round-item">
-          <div class="round-img"><img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Cleansers" /></div>
-          <span>Cleansers</span>
-        </a>
-
-        <a href="category.html?cat=serums" class="round-item">
-          <div class="round-img"><img src="the ordinary/Niacinamide (30ml) Rs.3800.png" alt="Serums & Hydration" /></div>
-          <span>Serums &amp; Hydration</span>
-        </a>
-
-        <a href="category.html?cat=acids" class="round-item">
-          <div class="round-img"><img src="the ordinary/Aha bha peeling solution (30ml) Rs.5200.png" alt="Exfoliating Acids" /></div>
-          <span>Exfoliating Acids</span>
-        </a>
-
-        <a href="category.html?cat=retinoids" class="round-item">
-          <div class="round-img"><img src="the ordinary/Retinol 1 in squalane (30ml)  Rs.6200.png" alt="Retinoids & Anti-Aging" /></div>
-          <span>Retinoids &amp; Anti-Aging</span>
-        </a>
-
-        <a href="category.html?cat=moisturizers" class="round-item">
-          <div class="round-img"><img src="the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png" alt="Moisturizers" /></div>
-          <span>Moisturizers</span>
-        </a>
-
-        <a href="category.html?cat=face-oils" class="round-item">
-          <div class="round-img"><img src="the ordinary/100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png" alt="Face Oils" /></div>
-          <span>Face Oils</span>
-        </a>
-
-        <a href="category.html?cat=eye-care" class="round-item">
-          <div class="round-img"><img src="the ordinary/Caffeine solution (30ml)  Rs.4600.png" alt="Eye Care" /></div>
-          <span>Eye Care</span>
-        </a>
-
-        <a href="category.html?cat=targeted" class="round-item">
-          <div class="round-img"><img src="the ordinary/Azelaic Acid Suspension 10% (30ml)  Rs.7200.png" alt="Targeted Care" /></div>
-          <span>Targeted Care</span>
-        </a>
-
-        <a href="category.html?cat=bodycare" class="round-item">
-          <div class="round-img"><img src="cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png" alt="Body Care" /></div>
-          <span>Body Care</span>
-        </a>
-
-        <a href="category.html?cat=sunscreen" class="round-item">
-          <div class="round-img"><img src="cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png" alt="Protection" /></div>
-          <span>Protection (SPF)</span>
-        </a>
-
+        <!-- Dynamically injected by productsData -->
       </div>
+      <script>
+        function renderRoundCategories() {
+          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
+          const track = document.getElementById('round-track');
+          if (!track) return;
+          
+          const categoriesObj = [
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'images/placeholder.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'images/placeholder.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'images/placeholder.png' },
+            { id: 'retinoids', name: 'Retinoids & Anti-Aging', defaultImg: 'images/placeholder.png' },
+            { id: 'moisturizers', name: 'Moisturizers', defaultImg: 'images/placeholder.png' },
+            { id: 'face-oils', name: 'Face Oils', defaultImg: 'images/placeholder.png' },
+            { id: 'eye-care', name: 'Eye Care', defaultImg: 'images/placeholder.png' },
+            { id: 'targeted', name: 'Targeted Care', defaultImg: 'images/placeholder.png' },
+            { id: 'bodycare', name: 'Body Care', defaultImg: 'images/placeholder.png' },
+            { id: 'sunscreen', name: 'Protection (SPF)', defaultImg: 'images/placeholder.png' }
+          ];
+
+          track.innerHTML = categoriesObj.map(cat => {
+            // Find first product in this category to use its image
+            const prod = productsData.find(p => p.filter === cat.id || (p.name && p.name.toLowerCase().includes(cat.name.split(' ')[0].toLowerCase())));
+            let imgUrl = prod ? prod.img : cat.defaultImg;
+            return `
+              <a href="category.html?cat=${cat.id}" class="round-item">
+                <div class="round-img"><img src="${imgUrl}" alt="${cat.name}" onerror="this.src='${cat.defaultImg}'" /></div>
+                <span>${cat.name}</span>
+              </a>
+            `;
+          }).join('');
+        }
+        
+        // Initial render for fallback
+        document.addEventListener('DOMContentLoaded', () => { setTimeout(renderRoundCategories, 300); });
+      </script>
     </section>
 
     <!-- ===== SECTION 2: HERO SLIDESHOW ===== -->

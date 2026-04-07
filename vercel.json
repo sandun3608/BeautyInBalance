@@ -1,31 +1,8 @@
 {
   "version": 2,
   "name": "beauty-in-balance",
-  "builds": [
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "about.html", "use": "@vercel/static" },
-    { "src": "shop.html", "use": "@vercel/static" },
-    { "src": "product.html", "use": "@vercel/static" },
-    { "src": "admin.html", "use": "@vercel/static" },
-    { "src": "login.html", "use": "@vercel/static" },
-    { "src": "register.html", "use": "@vercel/static" },
-    { "src": "cart.html", "use": "@vercel/static" },
-    { "src": "checkout.html", "use": "@vercel/static" },
-    { "src": "contact.html", "use": "@vercel/static" },
-    { "src": "policies.html", "use": "@vercel/static" },
-    { "src": "styles.css", "use": "@vercel/static" },
-    { "src": "*.js", "use": "@vercel/static" },
-    { "src": "images/**", "use": "@vercel/static" },
-    { "src": "the ordinary/**", "use": "@vercel/static" },
-    { "src": "cerave prodcut/**", "use": "@vercel/static" },
-    { "src": "assets/**", "use": "@vercel/static" },
-    { "src": "1slide/**", "use": "@vercel/static" },
-    { "src": "t1/**", "use": "@vercel/static" },
-    { "src": "vedio/**", "use": "@vercel/static" },
-    { "src": "bottle/**", "use": "@vercel/static" },
-    { "src": "before/**", "use": "@vercel/static" },
-    { "src": "new year/**", "use": "@vercel/static" }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "routes": [
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/$1" }

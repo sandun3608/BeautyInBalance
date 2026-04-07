@@ -372,7 +372,7 @@
       <div class="admin-logo">Beauty in Balance <span>CMS</span></div>
       <nav class="admin-nav">
         <ul>
-          <li><a href="#" class="admin-nav-link active" data-tab="dashboard">
+          <li><div id="nav-dashboard" class="admin-nav-link active" style="cursor: pointer;" onclick="window.switchTab('dashboard', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7" />
                 <rect x="14" y="3" width="7" height="7" />
@@ -380,51 +380,41 @@
                 <rect x="14" y="14" width="7" height="7" />
               </svg>
               Dashboard
-            </a></li>
-          <li><a href="#" class="admin-nav-link" data-tab="inventory">
+            </div></li>
+          <li><div id="nav-inventory" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('inventory', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path
-                  d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                <path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
                 <path d="m3.3 7 8.7 5 8.7-5M12 22V12" />
               </svg>
               Inventory
-            </a></li>
-          <li><a href="#" class="admin-nav-link" data-tab="orders">
+            </div></li>
+          <li><div id="nav-orders" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('orders', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <path d="M16 10a4 4 0 0 1-8 0" />
               </svg>
               Orders
-            </a></li>
-          <li><a href="#" class="admin-nav-link" data-tab="customers">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-              Customers
-            </a></li>
-          <li><a href="#" class="admin-nav-link" data-tab="analytics">
+            </div></li>
+          <li><div id="nav-analytics" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('analytics', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 3v18h18" />
                 <path d="m19 9-5 5-4-4-3 3" />
               </svg>
               Analytics
-            </a></li>
-          <li><a href="#" class="admin-nav-link" data-tab="support">
+            </div></li>
+          <li><div id="nav-support" class="admin-nav-link" style="cursor: pointer;" onclick="window.switchTab('support', this)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
               </svg>
               Inquiries
-            </a></li>
-          <li><a href="#" class="admin-nav-link" onclick="handleLogout()" style="color: #ff5252; margin-top: 10px;">
+            </div></li>
+          <li><div id="nav-logout" class="admin-nav-link" style="color: #ff5252; margin-top: 10px; cursor: pointer;" onclick="window.handleLogout()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
               </svg>
               Sign Out
-            </a></li>
+            </div></li>
           <li style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--admin-border);">
             <a href="index.html" class="admin-nav-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -444,12 +434,21 @@
         <h2 id="view-title">Dashboard Overview</h2>
         <div class="admin-user">
           <div style="text-align: right;">
-            <p style="font-size: 13px; font-weight: 600;">Store Admin</p>
-            <p style="font-size: 11px; color: var(--admin-muted);">Super User</p>
+            <p style="font-size: 13px; font-weight: 600;" id="admin-user-name">Store Admin</p>
+            <p style="font-size: 11px; color: var(--admin-muted);" id="admin-user-email">Super User</p>
           </div>
-          <div class="admin-avatar">A</div>
+          <div class="admin-avatar" id="admin-user-initial">A</div>
         </div>
       </div>
+      <script>
+        // Set user info
+        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+        if (userInfo.name) {
+          document.getElementById('admin-user-name').innerText = userInfo.name;
+          document.getElementById('admin-user-email').innerText = userInfo.email;
+          document.getElementById('admin-user-initial').innerText = userInfo.name.charAt(0).toUpperCase();
+        }
+      </script>
 
       <!-- DASHBOARD TAB -->
       <div id="tab-dashboard" class="admin-content active">
@@ -524,7 +523,7 @@
         <div class="admin-section">
           <div class="admin-sec-head">
             <h3>Product Management</h3>
-            <button class="admin-btn" onclick="openModal()">+ Add New Product</button>
+            <button class="admin-btn" onclick="window.openModal()">+ Add New Product</button>
           </div>
           <div class="admin-table-wrap">
             <table class="admin-table">
@@ -650,11 +649,28 @@
           </div>
           <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div>
-              <label>Category</label>
+          <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <div>
+              <label>Brand</label>
               <select id="p-cat">
                 <option value="ordinary">The Ordinary</option>
                 <option value="cerave">CeraVe</option>
                 <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label>Sub-Category</label>
+              <select id="p-filter">
+                <option value="cleansers">Cleansers</option>
+                <option value="serums">Serums & Hydration</option>
+                <option value="acids">Exfoliating Acids</option>
+                <option value="retinoids">Retinoids</option>
+                <option value="moisturizers">Moisturizers</option>
+                <option value="face-oils">Face Oils</option>
+                <option value="eye-care">Eye Care</option>
+                <option value="targeted">Targeted Care</option>
+                <option value="bodycare">Body Care</option>
+                <option value="sunscreen">Sunscreen</option>
               </select>
             </div>
             <div>
@@ -716,32 +732,98 @@
   </div>  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
-    // Tab Switching Logic
-    const navLinks = document.querySelectorAll('.admin-nav-link[data-tab]');
-    const contents = document.querySelectorAll('.admin-content');
-    const viewTitle = document.getElementById('view-title');
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetTab = link.dataset.tab;
-
-        // Update UI
-        navLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-
-        contents.forEach(c => c.classList.remove('active'));
-        document.getElementById('tab-' + targetTab).classList.add('active');
-
-        // Update Header Title
-        viewTitle.innerText = targetTab.charAt(0).toUpperCase() + targetTab.slice(1) + (targetTab === 'dashboard' ? ' Overview' : ' Management');
-
-        if (targetTab === 'inventory') renderInventory();
-        if (targetTab === 'orders') fetchOrders();
-        if (targetTab === 'analytics') fetchDashboardSummary();
-        if (targetTab === 'support') fetchInquiries();
+    // ✅ GLOBAL TAB SWITCHER
+    window.switchTab = function(tabName, el) {
+      console.log('Switching to tab:', tabName);
+      
+      // Hide all content
+      document.querySelectorAll('.admin-content').forEach(function(c) { 
+        c.classList.remove('active'); 
+        c.style.display = 'none';
       });
-    });
+      
+      // Show selected content
+      var tab = document.getElementById('tab-' + tabName);
+      if (tab) {
+        tab.classList.add('active');
+        tab.style.display = 'block';
+      }
+      
+      // Deactivate all nav links
+      document.querySelectorAll('.admin-nav-link').forEach(function(l) { 
+        l.classList.remove('active'); 
+      });
+      
+      // Activate clicked link
+      if (el) {
+        el.classList.add('active');
+      } else {
+        var link = document.getElementById('nav-' + tabName);
+        if (link) link.classList.add('active');
+      }
+
+      var titles = { 
+        dashboard: 'Dashboard Overview', 
+        inventory: 'Inventory Management', 
+        orders: 'Orders Management', 
+        analytics: 'Analytics', 
+        support: 'Inquiries' 
+      };
+      
+      var titleEl = document.getElementById('view-title');
+      if (titleEl) titleEl.innerText = titles[tabName] || tabName;
+
+      // Trigger data refresh based on tab
+      if (tabName === 'inventory') renderInventory();
+      if (tabName === 'orders') fetchOrders();
+      if (tabName === 'analytics') fetchDashboardSummary();
+      if (tabName === 'support') fetchInquiries();
+      if (tabName === 'dashboard') fetchDashboardSummary();
+    };
+
+    // Attach listeners function
+    function initDashboardListeners() {
+      console.log('Dashboard Init: Attaching listeners...');
+      const navMapping = {
+        'nav-dashboard': 'dashboard',
+        'nav-inventory': 'inventory',
+        'nav-orders': 'orders',
+        'nav-analytics': 'analytics',
+        'nav-support': 'support'
+      };
+
+      Object.entries(navMapping).forEach(([id, tab]) => {
+        const el = document.getElementById(id);
+        if (el) {
+          console.log('Attaching listener to:', id);
+          el.onclick = (e) => {
+            e.preventDefault();
+            window.switchTab(tab, el);
+            return false;
+          };
+        } else {
+          console.error('Could not find nav element:', id);
+        }
+      });
+
+      const logoutBtn = document.getElementById('nav-logout');
+      if (logoutBtn) {
+        logoutBtn.onclick = (e) => {
+          e.preventDefault();
+          handleLogout();
+          return false;
+        };
+      }
+    }
+
+    // Run initialization immediately if DOM is ready, otherwise wait
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDashboardListeners);
+    } else {
+      initDashboardListeners();
+    }
+
+    // BASE_URL is already defined in config.js
 
     const addProductForm = document.getElementById('add-product-form');
     const pModal = document.getElementById('product-modal');
@@ -761,18 +843,23 @@
                    const canvas = document.createElement('canvas');
                    const ctx = canvas.getContext('2d');
                    
-                   // Perfect aspect ratio maintainance with max 1000px
+                   // Perfect aspect ratio maintainance with max 600px to reduce payload size
                    let width = imgObj.width;
                    let height = imgObj.height;
-                   if (width > 1000) {
-                       height = Math.round((height * 1000) / width);
-                       width = 1000;
+                   if (width > 600) {
+                       height = Math.round((height * 600) / width);
+                       width = 600;
                    }
                    canvas.width = width;
                    canvas.height = height;
+
+                   // Empty background (preserves transparency)
+                   ctx.clearRect(0, 0, width, height);
+                   
                    ctx.drawImage(imgObj, 0, 0, width, height);
                    
-                   const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8); 
+                   // Use WEBP to preserve transparency while drastically reducing size
+                   const compressedBase64 = canvas.toDataURL('image/webp', 0.8); 
                    pImgPreview.src = compressedBase64;
                    pImgPreview.style.display = 'block';
                    pImgPlaceholder.style.display = 'none';
@@ -808,20 +895,25 @@
         if (prod) {
           document.getElementById('p-name').value = prod.name;
           document.getElementById('p-cat').value = prod.cat;
+          document.getElementById('p-filter').value = prod.filter || 'cleansers';
           document.getElementById('p-price').value = prod.price;
           document.getElementById('p-id-field').value = prod.id;
           document.getElementById('p-discount').value = prod.discount || 0;
-          document.getElementById('p-img').value = prod.img;
-          document.getElementById('p-images').value = (prod.images || []).join(', ');
+          document.getElementById('p-img').value = prod.img || '';
+          document.getElementById('p-images').value = (prod.images && Array.isArray(prod.images) ? prod.images : []).join(', ');
           document.getElementById('p-desc').value = prod.desc || '';
           document.getElementById('p-usage').value = prod.howToUse || '';
-          document.getElementById('p-benefits').value = (prod.benefits || []).join(', ');
-          document.getElementById('p-stock').value = prod.stock || 50;
+          document.getElementById('p-benefits').value = (prod.benefits && Array.isArray(prod.benefits) ? prod.benefits : []).join(', ');
+          document.getElementById('p-stock').value = prod.stock || 0;
 
-          if (prod.img) {
-             pImgPreview.src = prod.img;
+          const imageToShow = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : '');
+          if (imageToShow && imageToShow !== 'undefined') {
+             pImgPreview.src = imageToShow;
              pImgPreview.style.display = 'block';
              pImgPlaceholder.style.display = 'none';
+          } else {
+             pImgPreview.style.display = 'none';
+             pImgPlaceholder.style.display = 'block';
           }
         }
       } else {
@@ -849,6 +941,7 @@
       const productData = {
         name: document.getElementById('p-name').value,
         cat: document.getElementById('p-cat').value,
+        filter: document.getElementById('p-filter').value,
         price: Number(document.getElementById('p-price').value),
         id: document.getElementById('p-id-field').value,
         discount: Number(document.getElementById('p-discount').value),
@@ -863,6 +956,7 @@
       try {
         const method = editingId ? 'PUT' : 'POST';
         const url = editingId ? `${BASE_URL}/products/${editingId}` : `${BASE_URL}/products`;
+        console.log("Fetching URL:", url, "Method:", method);
         const res = await fetch(url, {
           method,
           headers: {
@@ -873,17 +967,20 @@
         });
 
         if (res.ok) {
+
           showToast(editingId ? 'Product Updated Successfully!' : 'New Product Added!');
           closeModal();
           await fetchDatabaseProducts();
           renderInventory();
         } else {
           const errBody = await res.json();
+          console.error("Cloud Reject (Status " + res.status + "):", errBody);
           alert('Failed to save product: ' + (errBody.message || 'Unknown Server Error'));
         }
+
       } catch (err) {
-        console.error(err);
-        alert('Server unreachable or unexpected error occurred.');
+        console.error("Critical Fetch Error:", err);
+        alert('Server unreachable: ' + (err.message || 'Unknown Network Error'));
       } finally {
         sendBtn.textContent = 'Save Product';
         sendBtn.disabled = false;
@@ -891,26 +988,38 @@
     });
 
     function renderInventory() {
-      const tableBody = document.getElementById('inventory-table');
-      tableBody.innerHTML = '';
-      productsData.forEach(prod => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><img src="${prod.img}" class="prod-thumb"></td>
-          <td>${prod.name}</td>
-          <td style="text-transform: capitalize;">${prod.cat}</td>
-          <td>Rs. ${prod.price.toLocaleString()}</td>
-          <td>${prod.discount || 0}%</td>
-          <td><span style="color: ${prod.stock < 10 ? '#ff9800' : '#4caf50'}">${prod.stock}</span></td>
-          <td style="white-space: nowrap; width: 220px;">
-            <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start;">
-              <button class="action-btn btn-edit" style="margin: 0; min-width: 80px;" onclick="openModal('${prod._id || prod.id}')">Edit</button>
-              <button class="action-btn btn-del" style="margin: 0; min-width: 80px;" onclick="deleteProduct('${prod._id || prod.id}')">Delete</button>
-            </div>
-          </td>
-        `;
-        tableBody.appendChild(tr);
-      });
+      try {
+        const tableBody = document.getElementById('inventory-table');
+        if (!tableBody) return;
+        tableBody.innerHTML = '';
+        
+        if (!productsData || productsData.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px;">No products found in inventory.</td></tr>';
+            return;
+        }
+
+        productsData.forEach(prod => {
+          const tr = document.createElement('tr');
+          const pId = prod._id || prod.id;
+          tr.innerHTML = `
+            <td><img src="${prod.img || 'images/placeholder.png'}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
+            <td>${prod.name || 'Unnamed Product'}</td>
+            <td style="text-transform: capitalize;">${prod.cat || 'Uncategorized'}</td>
+            <td>Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td>${prod.discount || 0}%</td>
+            <td><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
+            <td style="white-space: nowrap; width: 220px;">
+              <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start;">
+                <button class="action-btn btn-edit" style="margin: 0; min-width: 80px;" onclick="window.openModal('${pId}')">Edit</button>
+                <button class="action-btn btn-del" style="margin: 0; min-width: 80px;" onclick="window.deleteProduct('${pId}')">Delete</button>
+              </div>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error("Critical Error in renderInventory:", err);
+      }
     }
 
     window.deleteProduct = async (id) => {
@@ -930,10 +1039,15 @@
 
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
+      if (!ordersTable) return;
       ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
+      
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
       try {
         const res = await fetch(BASE_URL + '/orders', {
-          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+          headers: { 'Authorization': 'Bearer ' + token }
         });
         const orders = await res.json();
         ordersTable.innerHTML = '';
@@ -965,10 +1079,15 @@
 
     async function fetchInquiries() {
       const table = document.querySelector('#tab-support tbody');
+      if (!table) return;
       table.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading Inquiries...</td></tr>';
+
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
       try {
         const res = await fetch(BASE_URL + '/inquiries', {
-          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+          headers: { 'Authorization': 'Bearer ' + token }
         });
         const data = await res.json();
         table.innerHTML = '';
@@ -1005,9 +1124,12 @@
 
     let visitsChartInstance = null, ordersChartInstance = null, salesChartInstance = null;
     async function fetchDashboardSummary() {
+       const token = localStorage.getItem('userToken');
+       if (!token) { window.location.href = 'login.html'; return; }
+
        try {
          const res = await fetch(BASE_URL + '/stats/summary', {
-           headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+           headers: { 'Authorization': 'Bearer ' + token }
          });
          const data = await res.json();
          document.getElementById('stat-sales').innerText = 'Rs. ' + data.totalSales.toLocaleString();
@@ -1049,18 +1171,25 @@
         });
     }
     // DASHBOARD INITIALIZATION
-    document.addEventListener('DOMContentLoaded', async () => {
+    async function safetyInit() {
+      console.log("SAFETY INIT RUNNING...");
       try {
-        await fetchDatabaseProducts();
-        renderInventory();
-        fetchOrders();
-        fetchDashboardSummary();
-        fetchInquiries();
+        if (typeof fetchDatabaseProducts === 'function') await fetchDatabaseProducts();
+        if (typeof renderInventory === 'function') renderInventory();
+        if (typeof fetchOrders === 'function') fetchOrders();
+        if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
+        if (typeof fetchInquiries === 'function') fetchInquiries();
+        
+        // Re-run listener attachment just in case
+        if (typeof initDashboardListeners === 'function') initDashboardListeners();
       } catch (err) {
         console.error("Dashboard Initialization Failed:", err);
-        renderInventory(); // Show default products as fallback
       }
-    });
+    }
+
+    document.addEventListener('DOMContentLoaded', safetyInit);
+    // Tertiary backup: force run after 1.5s if not done
+    setTimeout(safetyInit, 1500);
   </script>
 
 

@@ -1,5 +1,14 @@
 // Finalized Product Database with Organized Cerave Assets
 const defaultProducts = [
+  { 
+    id: 'cer-am-spf30',
+    name: 'AM Facial Moisturizing Lotion SPF 30 (89ml)', price: 6500, cat: 'cerave', filter: 'sunscreen', 
+    images: ['cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png'], img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png',
+    desc: 'A morning skincare multitasker, featuring three essential ceramides, hydrating hyaluronic acid and soothing niacinamide, plus our patented MVE Delivery Technology to supply much-needed moisture throughout the day. Offering Broad Spectrum sunscreen, our moisturizer with SPF 30 features InVisibleZinc Technology.',
+    benefits: ['Broad Spectrum SPF 30', 'Provides All-Day Hydration', 'Restores Skin Barrier'],
+    howToUse: 'Apply liberally 15 minutes before sun exposure. Reapply at least every 2 hours.',
+    authenticity: '100% Genuine Direct Import.'
+  },
   // CeraVe Cleaners - Organized Set (Updated)
   { 
     id: 'cer-acne-control',
@@ -39,7 +48,7 @@ const defaultProducts = [
   },
   { 
     id: 'cer-hydrating-oil',
-    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'cleansers', 
+    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'bodycare', 
     images: ['cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png'], img: 'cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png',
     desc: 'A luxurious, beautifully transforming oil-to-foam cleanser perfectly tailored for extremely dry, sensitive, or atopic-prone skin. Infused with squalane oil and rich triglycerides, it softly melts away dirt and impurities without leaving a greasy residue. The skin is instantly replenished with deep hydration, resulting in a supremely soft and comfortable skin barrier.',
     benefits: ['Oil-to-Foam Texture', 'Deeply Nourishing Squalane', 'Ultra-Mild Cleansing'],
@@ -48,7 +57,7 @@ const defaultProducts = [
   },
   { 
     id: 'cer-psoriasis',
-    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'cleansers', 
+    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'bodycare', 
     images: ['cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png'], img: 'cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png',
     desc: 'A highly specialized, therapeutic body and face wash formulated to relieve discomfort associated with psoriasis. Medicated with 2% Salicylic Acid to gently remove scaling, and infused with Lactic Acid and Niacinamide, it actively calms stubborn redness, intense itching, and visible flaking. Promotes calmer, visibly smoother, and comfortably restored skin.',
     benefits: ['Relieves Itching & Redness', 'Removes Scales', 'Therapeutic Formula'],
@@ -295,48 +304,23 @@ const defaultProducts = [
   }
 ];
 
-// Backend API url
-let BASE_URL = (typeof GLOBAL_API_URL !== 'undefined') ? GLOBAL_API_URL + '/api' : 'https://beautyinbalance.onrender.com/api';
-const TRY_2 = 'https://beauty-in-balance-api.onrender.com/api'; 
-const TRY_3 = 'https://beauty-in-balance.onrender.com/api'; 
+// Global products data used by the UI
+let productsData = [...defaultProducts];
 
-async function discoverBackend() {
-    if (window.API_DISCOVERED) return; // Only do once
-    const targets = [BASE_URL, TRY_2, TRY_3];
-    for (let url of targets) {
-        try {
-            console.log("Probing API:", url);
-            // Use a short timeout for probing
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), 3000); // 3s timeout
-            
-            const res = await fetch(url + '/products', { signal: controller.signal });
-            clearTimeout(id);
-            
-            if (res.ok) {
-                BASE_URL = url;
-                window.API_DISCOVERED = true;
-                console.log("Successfully connected to:", BASE_URL);
-                return;
-            }
-        } catch (e) {
-            console.warn("Probe failed for:", url);
-        }
-    }
-    console.error("CRITICAL: All backend endpoints failed.");
-}
+// Use Global URL defined in config.js
+const API_URL = `${window.BASE_URL || 'http://localhost:5000/api'}/products`;
 
-// Step 6: Fetch from Database
+// Fetch from Database
 async function fetchDatabaseProducts() {
     if (window.DB_FETCH_RUNNING) return; 
     window.DB_FETCH_RUNNING = true;
 
-    await discoverBackend();
-    const API_URL = BASE_URL + '/products';
     try {
+        console.log("Fetching from:", API_URL);
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Backend responded with error: ' + response.status);
+        if (!response.ok) throw new Error('API unreachable: ' + response.status);
         const dbProducts = await response.json();
+
         
         if (dbProducts && dbProducts.length > 0) {
             // Re-map the variable names slightly if they differ between DB and Frontend
@@ -347,8 +331,12 @@ async function fetchDatabaseProducts() {
 
             // MERGE: Keep default products, but override them if DB has updated versions, and add NEW ones from DB
             const updatedProductsData = [...defaultProducts];
-            
             mappedDbProducts.forEach(dbProd => {
+                // HOTFIX: If the DB returns the old 'cleansers' category for these bodycare items, force them to 'bodycare'
+                if ((dbProd.id === 'cer-hydrating-oil' || dbProd.id === 'cer-psoriasis') && dbProd.filter === 'cleansers') {
+                    dbProd.filter = 'bodycare';
+                }
+
                 const index = updatedProductsData.findIndex(p => (p.id && (p.id === dbProd.id)) || p.name === dbProd.name);
                 if (index !== -1) {
                     updatedProductsData[index] = dbProd; // Override existing
@@ -362,7 +350,9 @@ async function fetchDatabaseProducts() {
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
         if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderRoundCategories === 'function') renderRoundCategories();
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
+        if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
@@ -372,7 +362,9 @@ async function fetchDatabaseProducts() {
         
         // CRITICAL FALLBACK: If DB fails, restore the inventory table and other renders
         if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderRoundCategories === 'function') renderRoundCategories();
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
+        if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
@@ -387,12 +379,17 @@ fetchDatabaseProducts();
 // Visitor Tracking
 async function logVisit() {
     try {
-        fetch(BASE_URL + '/stats/visit', {
+        const url = (window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : null));
+        if (!url) return;
+        
+        fetch(url + '/stats/visit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ page: window.location.pathname.split('/').pop() || 'index.html' })
         });
-    } catch (e) {}
+    } catch (e) {
+        console.warn("LogVisit failed (likely offline or missing BASE_URL):", e);
+    }
 }
 logVisit();
 
