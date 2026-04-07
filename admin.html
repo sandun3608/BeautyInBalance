@@ -212,12 +212,24 @@
     .admin-btn {
       background: var(--gold);
       color: #000;
-      padding: 8px 20px;
-      border-radius: 6px;
+      padding: 12px 28px;
+      border-radius: 8px;
       font-weight: 700;
-      font-size: 12px;
+      font-size: 13px;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-btn:hover {
+      background: #b5864a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(198, 151, 90, 0.4);
     }
 
     .admin-table-wrap {
@@ -306,10 +318,17 @@
 
     .modal-box {
       background: var(--admin-dark);
-      width: 500px;
-      padding: 30px;
-      border-radius: 16px;
+      width: 90%;
+      max-width: 700px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      padding: 40px;
+      border-radius: 20px;
       border: 1px solid var(--admin-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
     }
 
     .modal-box h3 {
@@ -647,8 +666,6 @@
             <label>Product Name</label>
             <input type="text" id="p-name" placeholder="e.g. Squalane Cleanser" required />
           </div>
-          <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div>
           <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
             <div>
               <label>Brand</label>
