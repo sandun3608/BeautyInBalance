@@ -2156,9 +2156,25 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .round-item { 
     width: calc((100% - 36px) / 4) !important; /* Forces 4 items per viewport width */
     min-width: calc((100% - 36px) / 4) !important;
-    gap: 6px !important; 
+    gap: 4px !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
   }
-  .round-img { width: 68px !important; height: 68px !important; }
+  .round-img { width: 66px !important; height: 66px !important; }
+  .round-item > span { 
+    font-size: 9px !important; 
+    letter-spacing: -0.02em !important;
+    line-height: 1.1 !important;
+    white-space: normal !important;
+    max-width: 100% !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important; /* Limit to 2 lines */
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    margin-top: 2px !important;
+  }
 
   /* Exclusive Collection — Clean 5-item Grid (1 large + 4 small) */
   .excl-dynamic-grid {
