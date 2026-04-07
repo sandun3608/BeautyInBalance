@@ -324,10 +324,11 @@
         grid.innerHTML = '';
         
         // The Ordinary first row (4 items), CeraVe second row (4 items)
-        // Hydrating Cleanser first, then other CeraVe products
+        // SA Smoothing Cleanser first, Hydrating Cleanser second, rest of CeraVe excluding SPF30
+        const ceraveSA = productsData.filter(p => p.id === 'cer-sa-smoothing');
         const ceraveHydrating = productsData.filter(p => p.id === 'cer-hydrating');
-        const ceraveOthers = productsData.filter(p => p.cat === 'cerave' && p.id !== 'cer-hydrating');
-        const cerave = [...ceraveHydrating, ...ceraveOthers];
+        const ceraveOthers = productsData.filter(p => p.cat === 'cerave' && p.id !== 'cer-sa-smoothing' && p.id !== 'cer-hydrating' && p.id !== 'cer-am-spf30');
+        const cerave = [...ceraveSA, ...ceraveHydrating, ...ceraveOthers];
         const ordinary = productsData.filter(p => p.cat === 'ordinary');
         const latest = [...ordinary.slice(0, 4), ...cerave.slice(0, 4)];
         
