@@ -2181,7 +2181,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     display: block !important;
     background: var(--beige-light) !important;
   }
-  .edc-tall-right { display: none !important; } /* Only show 4 items for 2x2 symmetry */
+  /* Show 5th item at the top as a featured full-width card */
+  .edc-tall-right { 
+    display: block !important; 
+    grid-column: 1 / -1 !important; /* Spans full width (2 columns) */
+    height: 220px !important; /* Make it a bit taller/larger as it's at the top */
+    order: -1 !important; /* Force it to the top */
+  }
   .edc-small:nth-of-type(4) { display: block !important; }
 
   .edc-img { 
