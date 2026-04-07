@@ -132,7 +132,7 @@ const defaultProducts = [
   { 
     id: 'ord-ascorbic-arbutin-30',
     name: 'Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)', price: 5200, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Ascorbic Acid 8%25 + Alpha Arbutin 2%25 (30ml)  Rs.5200.png'], img: 'the ordinary/Ascorbic Acid 8%25 + Alpha Arbutin 2%25 (30ml)  Rs.5200.png',
+    images: ['the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png'], img: 'the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png',
     desc: 'A water-free, stable formulation combining two of the most powerful brightening agents in skincare: pure Vitamin C (Ascorbic Acid) and Alpha Arbutin. This dual-action powerhouse visibly brightens the skin tone, fades dark spots and post-blemish marks, and provides intense antioxidant protection against environmental stressors, resulting in a flawless glow.',
     benefits: ['Brightens Complexion', 'Fades Dark Spots', 'Antioxidant Support'],
     howToUse: 'Apply a few drops to face in the AM and PM as part of your skincare regimen. Avoid use around eyes.',
@@ -179,7 +179,7 @@ const defaultProducts = [
   { 
     id: 'ord-multi-peptide-copper-30',
     name: 'Multi-Peptide + Copper Peptides 1% (30ml)', price: 7800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Multi-Peptide + Copper Peptides 1%25 Serum (30ml)  Rs.7800.png'], img: 'the ordinary/Multi-Peptide + Copper Peptides 1%25 Serum (30ml)  Rs.7800.png',
+    images: ['the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png'], img: 'the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png',
     desc: 'A universal "buffet" serum built to simultaneously address maximum signs of aging. It incorporates a sophisticated array of peptide complexes alongside direct Copper Peptides (1%), all dissolved in a base of 11 skin-friendly amino acids and multiple hyaluronic acid complexes. It intensely boosts collagen, repairs skin damage, and significantly improves facial firmness.',
     benefits: ['Reduces fine lines', 'Promotes facial firmness', 'Supports overall skin health'],
     howToUse: 'Apply to the entire face in the AM and PM after cleaning.',
@@ -296,7 +296,7 @@ const defaultProducts = [
   { 
     id: 'ord-squalane-lip-15',
     name: 'Squalane + Amino Acid Lip Balm (15ml)', price: 3900, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Squalane + Amino Acid Lip Balm (15ml)  Rs.3900.png'], img: 'the ordinary/Squalane + Amino Acid Lip Balm (15ml)  Rs.3900.png',
+    images: ['the ordinary/Squalane %2B Amino Acid Lip Balm (15ml)  Rs.3900.png'], img: 'the ordinary/Squalane %2B Amino Acid Lip Balm (15ml)  Rs.3900.png',
     desc: 'An innovative, deeply conditioning balm utilizing exceptional plant-derived Squalane and fundamental Amino Acids precisely targeted to lock in moisture on the lip barrier. It intensely protects drying, cracking, and peeling lips against harsh temperature changes, delivering instantaneous softness, deep hydration, and sustained smooth protection throughout the entire day.',
     benefits: ['Intense Lip Hydration', 'Locks in moisture', 'Nourishing Amino Acids'],
     howToUse: 'Apply to lips as needed throughout the day for continuous hydration.',
@@ -324,10 +324,19 @@ async function fetchDatabaseProducts() {
         
         if (dbProducts && dbProducts.length > 0) {
             // Re-map the variable names slightly if they differ between DB and Frontend
-            const mappedDbProducts = dbProducts.map(p => ({
-                ...p,
-                id: p.id || p._id // Prioritize human-readable ID if available
-            }));
+            const mappedDbProducts = dbProducts.map(p => {
+                const formatImg = (str) => {
+                    if (!str) return str;
+                    return str.replace(/%25/g, '%').replace(/%2B/g, '+').replace(/%/g, '%25').replace(/\+/g, '%2B');
+                };
+
+                return {
+                    ...p,
+                    id: p.id || p._id, // Prioritize human-readable ID if available
+                    img: formatImg(p.img),
+                    images: p.images ? p.images.map(img => formatImg(img)) : []
+                };
+            });
 
             // MERGE: Keep default products, but override them if DB has updated versions, and add NEW ones from DB
             const updatedProductsData = [...defaultProducts];
