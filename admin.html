@@ -826,23 +826,23 @@
                    const canvas = document.createElement('canvas');
                    const ctx = canvas.getContext('2d');
                    
-                   // Perfect aspect ratio maintainance with max 1000px
+                   // Perfect aspect ratio maintainance with max 600px to reduce payload size
                    let width = imgObj.width;
                    let height = imgObj.height;
-                   if (width > 1000) {
-                       height = Math.round((height * 1000) / width);
-                       width = 1000;
+                   if (width > 600) {
+                       height = Math.round((height * 600) / width);
+                       width = 600;
                    }
                    canvas.width = width;
                    canvas.height = height;
 
-                   // Empty background (preserves transparency for PNGs)
+                   // Empty background (preserves transparency)
                    ctx.clearRect(0, 0, width, height);
                    
                    ctx.drawImage(imgObj, 0, 0, width, height);
                    
-                   // Use PNG to preserve transparency (or JPEG if you prefer smaller size but white background)
-                   const compressedBase64 = canvas.toDataURL('image/png'); 
+                   // Use WEBP to preserve transparency while drastically reducing size
+                   const compressedBase64 = canvas.toDataURL('image/webp', 0.8); 
                    pImgPreview.src = compressedBase64;
                    pImgPreview.style.display = 'block';
                    pImgPlaceholder.style.display = 'none';
