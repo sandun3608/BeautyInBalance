@@ -2160,36 +2160,52 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
   .round-img { width: 68px !important; height: 68px !important; }
 
-  /* Exclusive Collection Layout — Balanced 2x2 Grid for Mobile */
-  .exclusive-section { padding: 40px 16px !important; }
+  /* Exclusive Collection — Clean 5-item Grid (1 large + 4 small) */
   .excl-dynamic-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    grid-template-rows: repeat(2, 180px) !important;
-    gap: 12px !important;
+    display: flex !important;
+    flex-direction: column !important; /* Stack vertically for safety */
+    gap: 16px !important;
+    padding: 0 10px !important;
     height: auto !important;
-    padding: 0 !important;
   }
   .edc-card {
-    grid-column: span 1 !important;
-    grid-row: auto !important;
-    height: 100% !important;
     width: 100% !important;
     border-radius: 12px !important;
     overflow: hidden !important;
     position: relative !important;
-    display: block !important;
     background: var(--beige-light) !important;
+    display: block !important;
   }
-  /* Show 5th item at the top as a featured full-width card */
+  
+  /* Large Featured First */
   .edc-tall-right { 
-    display: block !important; 
-    grid-column: 1 / -1 !important; /* Spans full width (2 columns) */
-    height: 220px !important; /* Make it a bit taller/larger as it's at the top */
-    order: -1 !important; /* Force it to the top */
-    margin-bottom: 16px !important; /* Consistent gap between this and the next row */
+    height: 240px !important; 
+    order: -1 !important; 
   }
-  .edc-small:nth-of-type(4) { display: block !important; }
+
+  /* 2x2 Grid for the rest */
+  .excl-dynamic-grid-inner { 
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  /* Since we can't easily add a wrapper div via CSS only, let's use Grid on the main container with 3 rows */
+  .excl-dynamic-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: auto !important;
+    gap: 16px !important;
+  }
+  .edc-tall-right { 
+    grid-column: 1 / -1 !important; /* Spans across both columns */
+    height: 220px !important;
+    margin-bottom: 4px !important; 
+  }
+  .edc-tall-left, .edc-wide-top, .edc-small:nth-of-type(3), .edc-small:nth-of-type(4) {
+    grid-column: span 1 !important;
+    height: 180px !important;
+  }
 
   .edc-img { 
     height: 100% !important; 
