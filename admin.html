@@ -649,11 +649,28 @@
           </div>
           <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div>
-              <label>Category</label>
+          <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <div>
+              <label>Brand</label>
               <select id="p-cat">
                 <option value="ordinary">The Ordinary</option>
                 <option value="cerave">CeraVe</option>
                 <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label>Sub-Category</label>
+              <select id="p-filter">
+                <option value="cleansers">Cleansers</option>
+                <option value="serums">Serums & Hydration</option>
+                <option value="acids">Exfoliating Acids</option>
+                <option value="retinoids">Retinoids</option>
+                <option value="moisturizers">Moisturizers</option>
+                <option value="face-oils">Face Oils</option>
+                <option value="eye-care">Eye Care</option>
+                <option value="targeted">Targeted Care</option>
+                <option value="bodycare">Body Care</option>
+                <option value="sunscreen">Sunscreen</option>
               </select>
             </div>
             <div>
@@ -878,6 +895,7 @@
         if (prod) {
           document.getElementById('p-name').value = prod.name;
           document.getElementById('p-cat').value = prod.cat;
+          document.getElementById('p-filter').value = prod.filter || 'cleansers';
           document.getElementById('p-price').value = prod.price;
           document.getElementById('p-id-field').value = prod.id;
           document.getElementById('p-discount').value = prod.discount || 0;
@@ -919,6 +937,7 @@
       const productData = {
         name: document.getElementById('p-name').value,
         cat: document.getElementById('p-cat').value,
+        filter: document.getElementById('p-filter').value,
         price: Number(document.getElementById('p-price').value),
         id: document.getElementById('p-id-field').value,
         discount: Number(document.getElementById('p-discount').value),

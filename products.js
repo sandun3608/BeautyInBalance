@@ -39,7 +39,7 @@ const defaultProducts = [
   },
   { 
     id: 'cer-hydrating-oil',
-    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'cleansers', 
+    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'bodycare', 
     images: ['cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png'], img: 'cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png',
     desc: 'A luxurious, beautifully transforming oil-to-foam cleanser perfectly tailored for extremely dry, sensitive, or atopic-prone skin. Infused with squalane oil and rich triglycerides, it softly melts away dirt and impurities without leaving a greasy residue. The skin is instantly replenished with deep hydration, resulting in a supremely soft and comfortable skin barrier.',
     benefits: ['Oil-to-Foam Texture', 'Deeply Nourishing Squalane', 'Ultra-Mild Cleansing'],
@@ -48,7 +48,7 @@ const defaultProducts = [
   },
   { 
     id: 'cer-psoriasis',
-    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'cleansers', 
+    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'bodycare', 
     images: ['cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png'], img: 'cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png',
     desc: 'A highly specialized, therapeutic body and face wash formulated to relieve discomfort associated with psoriasis. Medicated with 2% Salicylic Acid to gently remove scaling, and infused with Lactic Acid and Niacinamide, it actively calms stubborn redness, intense itching, and visible flaking. Promotes calmer, visibly smoother, and comfortably restored skin.',
     benefits: ['Relieves Itching & Redness', 'Removes Scales', 'Therapeutic Formula'],
