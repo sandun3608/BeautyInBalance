@@ -153,6 +153,7 @@
     Preview System Online
   </div>
 
+  <script src="config.js"></script>
   <script>
     const loginForm = document.getElementById('login-form');
     const emailInput = document.getElementById('email');
@@ -196,7 +197,7 @@
       loginBtn.disabled = true;
 
       try {
-        const response = await fetch('https://beautyinbalance.onrender.com/api/users/login', {
+        const response = await fetch(`${BASE_URL}/users/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

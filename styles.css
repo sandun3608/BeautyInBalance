@@ -2038,3 +2038,201 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     padding: 40px 20px;
   }
 }
+
+/* ============================================================
+   MASTER RESPONSIVE FIXES — Universal Mobile Adjustments
+   ============================================================ */
+
+/* 1024px Breakpoint — Tablets & Small Desktops */
+@media (max-width: 1024px) {
+  .nav-wrap { padding: 0 32px; }
+  .nav-main { gap: 20px; }
+  .nav-main > li > a { font-size: 13px; }
+}
+
+/* 768px Breakpoint — Mobile & Portrait Tablets */
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 60px;
+  }
+
+  /* Header & Navigation */
+  .nav-main { display: none; }
+  .ham-btn { display: flex; }
+  .nav-wrap { padding: 0 20px; }
+  .site-logo { font-size: 22px; }
+  .nav-icons { gap: 4px; }
+  .ic-btn { width: 34px; height: 34px; }
+
+  /* Hero Section */
+  .hero-section { height: 65vh; min-height: 450px; aspect-ratio: auto; }
+  .hero-content { left: 24px; bottom: 50px; max-width: calc(100% - 48px); }
+  .hero-title { font-size: 36px; line-height: 1.2; }
+  .hero-desc { font-size: 14px; max-width: 100%; margin-bottom: 30px; }
+  .hero-pills { flex-wrap: wrap; }
+
+  /* Section Spacing */
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+  .latest-section, .exclusive-section, .shade-section, .feedback-section, .hp-products-section {
+    padding-top: 50px; padding-bottom: 50px;
+  }
+
+  /* Product Grids */
+  .latest-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .la-info { padding: 20px 12px; }
+  .la-info h4 { font-size: 15px; min-height: 40px; }
+  .la-tags { margin-bottom: 8px; }
+  .la-price { font-size: 14px; }
+
+  /* Exclusive Collection Layout */
+  .excl-dynamic-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    height: auto;
+    gap: 10px;
+  }
+  .edc-tall-left, .edc-tall-right, .edc-small {
+    grid-column: span 1;
+    grid-row: auto;
+    aspect-ratio: 1;
+  }
+  .edc-wide-top {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  /* Showcase Section (Routine) - High Specificity Fix */
+  .showcase-main { min-height: auto !important; padding-top: 20px !important; }
+  .showcase-container { 
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: center !important; 
+    height: 400px !important; 
+    position: relative !important;
+    padding: 0 !important;
+  }
+  .showcase-image { 
+    width: 220px !important; 
+    height: 100% !important; 
+    margin: 0 !important; 
+    z-index: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .showcase-image img { width: 100% !important; max-width: 100% !important; }
+
+  .showcase-pills {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    display: block !important;
+  }
+  .scp-pill {
+    position: absolute !important;
+    padding: 10px !important;
+    width: 50px !important; 
+    height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    pointer-events: auto !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    margin: 0 !important;
+  }
+  .scp-pill span:not(.scp-icon) { display: none !important; }
+  .scp-icon { margin: 0 !important; width: 24px !important; height: 24px !important; }
+  .scp-icon svg { width: 100% !important; height: 100% !important; }
+
+  /* Precise Positioning with High Priority */
+  .pills-left .scp-pill:nth-child(1) { top: 15% !important; left: 10% !important; } 
+  .pills-left .scp-pill:nth-child(2) { top: 45% !important; left: 5% !important; } 
+  .pills-left .scp-pill:nth-child(3) { top: 75% !important; left: 10% !important; } 
+  
+  .pills-right .scp-pill:nth-child(1) { top: 15% !important; right: 10% !important; } 
+  .pills-right .scp-pill:nth-child(2) { top: 45% !important; right: 5% !important; } 
+  .pills-right .scp-pill:nth-child(3) { top: 75% !important; right: 10% !important; } 
+  
+  .showcase-footer { margin-top: 20px !important; }
+
+  /* Look Section (Hotspots) */
+  .look-container { grid-template-columns: 1fr; gap: 30px; }
+  .look-image-wrap { height: 450px; border-radius: 12px; }
+  .look-sidebar { padding: 0; }
+  .look-product-list { gap: 10px; }
+  .look-product-card { padding: 12px; }
+
+  /* Shade Section */
+  .shade-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .shade-opt { width: 100%; }
+  .shade-img-wrap { width: 80px; height: 40px; }
+  .shade-products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  /* Features Section */
+  .features-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 20px 0;
+  }
+  .feature-item { text-align: center; }
+
+  /* Video Highlights */
+  .vh-row { flex-direction: column !important; gap: 20px; }
+  .vh-media { width: 100%; height: 350px; }
+  .vh-info { padding: 20px 0; text-align: center; }
+  .vh-title { font-size: 24px; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-mid { flex-direction: column; gap: 30px; align-items: center; text-align: center; }
+  .footer-nl { width: 100%; }
+  .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+}
+
+/* 480px Breakpoint — Small Smartphones */
+@media (max-width: 480px) {
+  .site-logo { font-size: 18px; }
+  .hero-title { font-size: 28px; }
+  .hero-section { height: 60vh; }
+  
+  .latest-grid, .shade-products, .features-grid, .footer-top {
+    grid-template-columns: 1fr;
+  }
+  
+  .excl-dynamic-grid { grid-template-columns: 1fr; }
+  .edc-wide-top { grid-column: span 1; }
+  
+  .shade-options { grid-template-columns: 1fr 1fr; }
+  
+  .ann-track span { font-size: 10px; padding-right: 40px; }
+  
+  .btn-dark { width: 100%; padding: 15px; }
+  
+  /* Showcase Fixes for small screens */
+  .showcase-image { width: 180px; }
+  .scp-pill { width: 44px; height: 44px; padding: 8px; }
+  .pills-left .scp-pill:nth-child(2) { left: 2%; }
+  .pills-right .scp-pill:nth-child(2) { right: 2%; }
+
+  .login-container, .register-container {
+    padding: 30px 20px;
+    margin: 20px;
+    max-width: none;
+    width: calc(100% - 40px);
+  }
+}

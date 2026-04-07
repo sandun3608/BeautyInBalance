@@ -404,22 +404,22 @@
            <div class="f-row">
              <div class="f-input-group">
                <label>First Name</label>
-               <input type="text" placeholder="Sarah" required />
+               <input type="text" id="fname" placeholder="Sarah" required />
              </div>
              <div class="f-input-group">
                <label>Last Name</label>
-               <input type="text" placeholder="Perera" required />
+               <input type="text" id="lname" placeholder="Perera" required />
              </div>
            </div>
            
            <div class="f-input-group" style="margin-bottom: 25px;">
              <label>Email Address</label>
-             <input type="email" placeholder="sarah@email.com" required />
+             <input type="email" id="email" placeholder="sarah@email.com" required />
            </div>
 
            <div class="f-input-group" style="margin-bottom: 25px;">
              <label>How can we help?</label>
-             <select>
+             <select id="subject">
                <option>General Inquiry</option>
                <option>Product Recommendation</option>
                <option>Order Inquiries</option>
@@ -429,7 +429,7 @@
 
            <div class="f-input-group" style="margin-bottom: 35px;">
              <label>Your Message</label>
-             <textarea rows="5" placeholder="Share your skin story with us..."></textarea>
+             <textarea id="message" rows="5" placeholder="Share your skin story with us..."></textarea>
            </div>
 
            <button type="submit" class="submit-btn" id="submit-trigger">Send Now</button>
@@ -503,14 +503,14 @@
        e.preventDefault();
        
        const formData = {
-         name: document.getElementById('name').value,
+         name: document.getElementById('fname').value + ' ' + document.getElementById('lname').value,
          email: document.getElementById('email').value,
          subject: document.getElementById('subject').value,
          message: document.getElementById('message').value
        };
 
        try {
-         const response = await fetch('http://localhost:5000/api/inquiries', {
+         const response = await fetch(`${window.BASE_URL || 'http://localhost:5000/api'}/inquiries`, {
            method: 'POST',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(formData)

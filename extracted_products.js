@@ -286,7 +286,7 @@ const defaultProducts = [
   { 
     id: 'ord-squalane-lip-15',
     name: 'Squalane + Amino Acid Lip Balm (15ml)', price: 3900, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Squalane + Amino Acid Lip Balm (15ml)  Rs.3900.png'], img: 'the ordinary/Squalane + Amino Acid Lip Balm (15ml)  Rs.3900.png',
+    images: ['the ordinary/lip burm.png'], img: 'the ordinary/lip burm.png',
     desc: 'An innovative, deeply conditioning balm utilizing exceptional plant-derived Squalane and fundamental Amino Acids precisely targeted to lock in moisture on the lip barrier. It intensely protects drying, cracking, and peeling lips against harsh temperature changes, delivering instantaneous softness, deep hydration, and sustained smooth protection throughout the entire day.',
     benefits: ['Intense Lip Hydration', 'Locks in moisture', 'Nourishing Amino Acids'],
     howToUse: 'Apply to lips as needed throughout the day for continuous hydration.',
