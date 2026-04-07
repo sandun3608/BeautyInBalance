@@ -2126,7 +2126,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .la-card { 
     width: 100% !important; 
     margin: 0 !important; 
-    background: var(--beige-light) !important; /* Unified premium background for the entire card */
+    background: #fff !important; /* Reverted to white background */
     border-radius: 12px !important;
     overflow: hidden !important;
     border: 1px solid rgba(0,0,0,0.03) !important;
