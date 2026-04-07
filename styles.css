@@ -2133,7 +2133,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     gap: 10px !important; /* Space between the two boxes */
   }
   .la-top-box { 
-    background: var(--beige-light) !important; /* Top box for product image */
+    background: #fff !important; /* Set top box to white */
     width: 100% !important;
     aspect-ratio: 1 !important;
     border-radius: 12px !important;
@@ -2142,6 +2142,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     justify-content: center !important;
     overflow: hidden !important;
     position: relative !important;
+    border: 1px solid rgba(0,0,0,0.03) !important;
   }
   .la-img-main { 
     width: 100% !important;
@@ -2157,10 +2158,11 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
   .la-info { 
     padding: 12px 10px !important; 
-    background: var(--beige-light) !important; /* Bottom box for product details */
+    background: #fff !important; /* Set bottom box to white */
     border-radius: 12px !important;
     width: 100% !important;
     text-align: center !important;
+    border: 1px solid rgba(0,0,0,0.03) !important;
   }
   .la-info h4 { font-size: 12px !important; min-height: 32px !important; margin-bottom: 5px !important; color: var(--brown) !important; line-height: 1.2 !important; font-weight: 500 !important; }
   .la-tags { margin-bottom: 6px !important; }
