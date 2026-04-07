@@ -2125,6 +2125,32 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .la-tags { margin-bottom: 8px; }
   .la-price { font-size: 14px; }
 
+  /* Round Category List Fix — Show exactly 4 items */
+  .round-list-section { padding: 15px 0 20px 0 !important; }
+  .round-list-track { 
+    display: flex !important; 
+    gap: 12px !important; 
+    padding: 0 16px !important; 
+    overflow-x: auto !important; 
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .round-item { 
+    width: calc((100% - 36px) / 4) !important; /* Forces 4 items per viewport width */
+    min-width: calc((100% - 36px) / 4) !important;
+    gap: 6px !important; 
+  }
+  .round-img { 
+    width: 68px !important; 
+    height: 68px !important; 
+  }
+  .round-item > span { 
+    font-size: 10px !important; 
+    letter-spacing: -0.01em !important;
+    line-height: 1.2 !important;
+    white-space: normal !important; /* Allow wrapping if name is long */
+    max-width: 100% !important;
+  }
+
   /* Exclusive Collection Layout */
   .excl-dynamic-grid {
     grid-template-columns: repeat(2, 1fr);
