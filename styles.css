@@ -2080,11 +2080,14 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .ic-btn { width: 34px; height: 34px; }
 
   /* Hero Section */
-  .hero-section { height: 65vh; min-height: 450px; aspect-ratio: auto; }
-  .hero-content { left: 24px; bottom: 50px; max-width: calc(100% - 48px); }
-  .hero-title { font-size: 36px; line-height: 1.2; }
-  .hero-desc { font-size: 14px; max-width: 100%; margin-bottom: 30px; }
-  .hero-pills { flex-wrap: wrap; }
+  .hero-section { height: 75vh; min-height: 500px; aspect-ratio: auto; overflow: hidden; }
+  .hero-slide video { object-fit: contain !important; background: #000; } /* Ensure full video is visible without cropping */
+  .hero-bg { height: 100%; display: flex; align-items: center; justify-content: center; background: #000; }
+  .hero-content { left: 50% !important; transform: translateX(-50%) !important; bottom: 40px; width: 90%; max-width: none; text-align: center; }
+  .hero-title { font-size: 32px; line-height: 1.2; margin-bottom: 15px; }
+  .hero-desc { font-size: 13px; max-width: 100%; margin-bottom: 20px; line-height: 1.5; }
+  .hero-pills { flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
+  .btn-hero { padding: 14px 30px !important; font-size: 12px !important; }
 
   /* Section Spacing */
   section { padding-left: 20px !important; padding-right: 20px !important; }
