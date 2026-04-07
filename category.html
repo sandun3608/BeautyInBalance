@@ -172,19 +172,26 @@
         `).join('');
 
         // Filter Products
-        const filtered = productsData.filter(p => p.filter === catId);
-        $('products-heading').innerText = `Our Selected ${data.subtitle}`;
+        window.renderCategoryProducts = function() {
+            if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
+            const filtered = productsData.filter(p => p.filter === catId || (p.name && p.name.toLowerCase().includes(data.subtitle.split(' ')[0].toLowerCase())));
+            $('products-heading').innerText = `Our Selected ${data.subtitle}`;
+            
+            $('product-grid').innerHTML = filtered.map(p => `
+              <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
+                <div class="pc-img"><img src="${p.img}" alt="${p.name}"></div>
+                <div class="pc-info">
+                  <h4>${p.name}</h4>
+                  <div class="pc-price">Rs. ${p.price.toLocaleString()}</div>
+                  <button class="pc-btn">View Details</button>
+                </div>
+              </div>
+            `).join('');
+        };
         
-        $('product-grid').innerHTML = filtered.map(p => `
-          <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
-            <div class="pc-img"><img src="${p.img}" alt="${p.name}"></div>
-            <div class="pc-info">
-              <h4>${p.name}</h4>
-              <div class="pc-price">Rs. ${p.price.toLocaleString()}</div>
-              <button class="pc-btn">View Details</button>
-            </div>
-          </div>
-        `).join('');
+        // Initial call
+        document.addEventListener('DOMContentLoaded', () => { setTimeout(renderCategoryProducts, 300); });
+        renderCategoryProducts();
     }
 
     // Scroll Logic

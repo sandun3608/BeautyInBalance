@@ -337,7 +337,9 @@ async function fetchDatabaseProducts() {
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
         if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderRoundCategories === 'function') renderRoundCategories();
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
+        if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
@@ -347,7 +349,9 @@ async function fetchDatabaseProducts() {
         
         // CRITICAL FALLBACK: If DB fails, restore the inventory table and other renders
         if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderRoundCategories === 'function') renderRoundCategories();
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
+        if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
