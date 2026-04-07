@@ -899,17 +899,21 @@
           document.getElementById('p-price').value = prod.price;
           document.getElementById('p-id-field').value = prod.id;
           document.getElementById('p-discount').value = prod.discount || 0;
-          document.getElementById('p-img').value = prod.img;
-          document.getElementById('p-images').value = (prod.images || []).join(', ');
+          document.getElementById('p-img').value = prod.img || '';
+          document.getElementById('p-images').value = (prod.images && Array.isArray(prod.images) ? prod.images : []).join(', ');
           document.getElementById('p-desc').value = prod.desc || '';
           document.getElementById('p-usage').value = prod.howToUse || '';
-          document.getElementById('p-benefits').value = (prod.benefits || []).join(', ');
-          document.getElementById('p-stock').value = prod.stock || 50;
+          document.getElementById('p-benefits').value = (prod.benefits && Array.isArray(prod.benefits) ? prod.benefits : []).join(', ');
+          document.getElementById('p-stock').value = prod.stock || 0;
 
-          if (prod.img) {
-             pImgPreview.src = prod.img;
+          const imageToShow = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : '');
+          if (imageToShow && imageToShow !== 'undefined') {
+             pImgPreview.src = imageToShow;
              pImgPreview.style.display = 'block';
              pImgPlaceholder.style.display = 'none';
+          } else {
+             pImgPreview.style.display = 'none';
+             pImgPlaceholder.style.display = 'block';
           }
         }
       } else {
