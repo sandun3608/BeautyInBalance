@@ -1197,6 +1197,31 @@
       });
     });
 
+    // Shop the Look Hotspots — Touch/Click Support for Mobile
+    hotspots.forEach((hs, idx) => {
+      // Toggle active state on click/touch
+      hs.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent closing immediately
+        const isActive = hs.classList.contains('active');
+        
+        // Remove active from all
+        hotspots.forEach(h => h.classList.remove('active'));
+        lookCards.forEach(c => c.classList.remove('active'));
+        
+        // Toggle this one
+        if(!isActive) {
+          hs.classList.add('active');
+          if(lookCards[idx]) lookCards[idx].classList.add('active');
+        }
+      });
+    });
+
+    // Close tooltips when clicking outside
+    document.addEventListener('click', () => {
+      hotspots.forEach(h => h.classList.remove('active'));
+      lookCards.forEach(c => c.classList.remove('active'));
+    });
+
     lookCards.forEach((card, idx) => {
       card.addEventListener('mouseenter', () => {
         lookCards.forEach(c => c.classList.remove('active'));
