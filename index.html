@@ -324,7 +324,10 @@
         grid.innerHTML = '';
         
         // The Ordinary first row (4 items), CeraVe second row (4 items)
-        const cerave = productsData.filter(p => p.cat === 'cerave');
+        // Hydrating Cleanser first, then other CeraVe products
+        const ceraveHydrating = productsData.filter(p => p.id === 'cer-hydrating');
+        const ceraveOthers = productsData.filter(p => p.cat === 'cerave' && p.id !== 'cer-hydrating');
+        const cerave = [...ceraveHydrating, ...ceraveOthers];
         const ordinary = productsData.filter(p => p.cat === 'ordinary');
         const latest = [...ordinary.slice(0, 4), ...cerave.slice(0, 4)];
         
