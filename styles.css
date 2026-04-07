@@ -2123,15 +2123,26 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     gap: 12px !important;
     padding: 0 !important;
   }
-  .la-card { width: 100% !important; margin: 0 !important; }
-  .la-info { padding: 12px 8px !important; }
-  .la-info h4 { font-size: 13px !important; min-height: 36px !important; margin-bottom: 5px !important; }
+  .la-card { 
+    width: 100% !important; 
+    margin: 0 !important; 
+    background: var(--beige-light) !important; /* Unified background */
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(0,0,0,0.03) !important;
+  }
+  .la-top-box { background: transparent !important; } /* Remove separate bg if any */
+  .la-info { 
+    padding: 12px 8px !important; 
+    background: transparent !important; /* Match card background */
+  }
+  .la-info h4 { font-size: 13px !important; min-height: 36px !important; margin-bottom: 5px !important; color: var(--brown) !important; }
   .la-tags { margin-bottom: 6px !important; }
-  .la-tag { font-size: 8px !important; padding: 2px 6px !important; }
-  .la-price { font-size: 14px !important; font-weight: 700 !important; }
-  .la-disc-banner { font-size: 10px !important; }
-  .la-cart-btn { width: 36px !important; height: 36px !important; top: 8px !important; right: 8px !important; }
-  .la-cart-btn svg { width: 16px !important; height: 16px !important; }
+  .la-tag { font-size: 8px !important; padding: 2px 6px !important; background: #fff !important; color: var(--gold) !important; border: 1px solid var(--border) !important; }
+  .la-price { font-size: 14px !important; font-weight: 700 !important; color: var(--gold) !important; }
+  .la-disc-banner { font-size: 10px !important; color: var(--muted) !important; }
+  .la-cart-btn { width: 32px !important; height: 32px !important; top: 8px !important; right: 8px !important; background: #fff !important; }
+  .la-cart-btn svg { width: 14px !important; height: 14px !important; }
 
   /* Round Category List Fix — Show exactly 4 items */
   .round-list-section { padding: 15px 0 20px 0 !important; }
