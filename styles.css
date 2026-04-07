@@ -2057,7 +2057,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
 
   /* Header & Navigation */
-  .site-header { position: absolute !important; top: var(--ann-h) !important; width: 100%; border-bottom: 1px solid var(--border); } /* Force scroll with page */
+  .site-header { position: sticky !important; top: 0 !important; width: 100%; border-bottom: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.09) !important; } /* Stay fixed at top on mobile */
   .nav-main { display: none; }
   .ham-btn { display: flex; }
   .nav-wrap { padding: 0 20px; }
