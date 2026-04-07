@@ -2245,16 +2245,14 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     order: 3 !important;
   }
 
-  /* Item 4 & 5: Full Width Spanning Bottom */
+  /* Item 4 & 5: Bottom Items */
   .edc-small:nth-of-type(4) {
     grid-column: 1 / -1 !important;
     height: 200px !important;
     order: 4 !important;
   }
   .edc-tall-right {
-    grid-column: 1 / -1 !important;
-    height: 200px !important;
-    order: 5 !important;
+    display: none !important; /* Hide 5th item on mobile as requested */
   }
 
   /* Premium Vertical Labels (Mirroring Reference) */
