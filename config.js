@@ -8,10 +8,11 @@ const getApiUrl = () => {
     return 'http://localhost:5000';
   }
   
-  // 2. For Production: Use a relative path if possible or fallback to detected origin
-  // If the frontend is hosted on the same Render service as the API, /api just works.
-  // Otherwise, fallback to the current origin on Render.
-  return window.location.origin;
+  // 2. Production or Local File Fallback
+  // If we're on the live site, use the origin. 
+  // If we're opening local files, use the live Render URL.
+  const isLive = window.location.hostname.includes('onrender.com');
+  return isLive ? window.location.origin : 'https://beautyinbalance.onrender.com';
 };
 
 const GLOBAL_API_URL = getApiUrl();

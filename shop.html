@@ -166,6 +166,7 @@
           <li style="margin-bottom:10px;"><a href="shop.html">Shop All</a></li>
           <li style="margin-bottom:10px;"><a href="contact.html">Contact Us</a></li>
           <li style="margin-bottom:10px;"><a href="policies.html" style="color: var(--gold);">Shipping & Policies</a></li>
+          <li style="margin-bottom:10px;"><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li>
         </ul>
       </div>
     </div>
@@ -174,6 +175,7 @@
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
     const $ = id => document.getElementById(id);
@@ -202,7 +204,7 @@
              <img src="${p.img}" alt="${p.name}">
           </div>
           <div class="p-info">
-            <span class="p-cat">${p.filter.replace('-', ' & ')}</span>
+            <span class="p-cat">${(p.filter || 'Skincare').replace(/-/g, ' & ')}</span>
             <h4 class="p-title">${p.name}</h4>
             <div class="p-price">Rs. ${p.price.toLocaleString()}</div>
             <button class="p-action" onclick="location.href='product.html?id=${p.id}'">Get Results</button>

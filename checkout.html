@@ -409,6 +409,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -513,7 +514,7 @@
          };
 
          try {
-           const res = await fetch('http://localhost:5000/api/orders', {
+           const res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
              method: 'POST',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify(orderData)
