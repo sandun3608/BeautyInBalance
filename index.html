@@ -213,8 +213,8 @@
     <section class="hero-section" id="hero">
       <div class="hero-slides" id="hero-slides">
 
-        <!-- Only Video Slide -->
-        <div class="hero-slide active">
+        <!-- Desktop Video Slide -->
+        <div class="hero-slide active desktop-only">
           <div class="hero-bg">
             <video src="1slide/hero-slide.mp4" autoplay loop muted playsinline id="hero-vdo-1"></video>
           </div>
@@ -223,6 +223,37 @@
             <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
             <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
             <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
+          </div>
+        </div>
+
+        <!-- Mobile Image Slider -->
+        <div class="mobile-only mobile-hero-slider">
+          <div class="hero-slide active">
+            <div class="hero-bg"><img src="2slide/s.jpeg" alt="Hero 1"></div>
+            <div class="hero-content">
+              <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
+              <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
+              <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
+              <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
+            </div>
+          </div>
+          <div class="hero-slide">
+            <div class="hero-bg"><img src="2slide/z (1).jpg" alt="Hero 2"></div>
+            <div class="hero-content">
+              <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
+              <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
+              <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
+              <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
+            </div>
+          </div>
+          <div class="hero-slide">
+            <div class="hero-bg"><img src="2slide/z (2).jpg" alt="Hero 3"></div>
+            <div class="hero-content">
+              <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
+              <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
+              <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
+              <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1410,7 +1441,24 @@
     }
   </style>
 
-  <script src="config.js"></script>
-  <script src="products.js"></script>
-  </body>
+    <script src="config.js"></script>
+    <script src="products.js"></script>
+    <script>
+      // Mobile Hero Slider Logic
+      if (window.innerWidth <= 768) {
+        const mobileSlides = document.querySelectorAll('.mobile-hero-slider .hero-slide');
+        let currentSlide = 0;
+
+        function showNextSlide() {
+          mobileSlides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % mobileSlides.length;
+          mobileSlides[currentSlide].classList.add('active');
+        }
+
+        if (mobileSlides.length > 0) {
+          setInterval(showNextSlide, 4000); // Change image every 4 seconds
+        }
+      }
+    </script>
+    </body>
 </html>
