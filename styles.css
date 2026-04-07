@@ -2057,7 +2057,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
 
   /* Header & Navigation */
-  .site-header { position: relative; top: auto; } /* Make nav scroll with page on mobile */
+  .site-header { position: relative !important; top: auto !important; } /* Make nav scroll with page on mobile */
   .nav-main { display: none; }
   .ham-btn { display: flex; }
   .nav-wrap { padding: 0 20px; }
