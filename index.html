@@ -68,13 +68,17 @@
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
       <!-- Left: Navigation Links -->
-      <ul class="nav-main">
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <ul class="nav-main">
         <li><a href="index.html">Home</a></li>
         <li class="has-drop">
           <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
           <ul class="drop-menu">
             <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
+
             <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
             <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
           </ul>
@@ -83,6 +87,7 @@
         <li><a href="contact.html">Contact</a></li>
         <li><a href="policies.html">Policies</a></li>
       </ul>
+      </div>
 
       <!-- Center: Logo -->
       <a href="index.html" class="site-logo">Beauty in Balance</a>
@@ -115,9 +120,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
         </button>
-        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
+
+
+
       </div>
     </nav>
 
@@ -226,40 +231,37 @@
           </div>
         </div>
 
-        <!-- Mobile Image Slider -->
-        <div class="mobile-only mobile-hero-slider">
-          <div class="hero-slide active">
-            <div class="hero-bg"><img src="2slide/s.jpeg" alt="Hero 1"></div>
-            <div class="hero-content">
-              <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
-              <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
-              <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
-              <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
-            </div>
+        <!-- Mobile Image Slides -->
+        <div class="hero-slide active mobile-only" id="mobile-slide-1">
+          <div class="hero-bg"><img src="2slide/s.jpeg" alt="Hero 1"></div>
+          <div class="hero-content">
+            <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
+            <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
+            <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
+            <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
           </div>
-          <div class="hero-slide">
-            <div class="hero-bg"><img src="2slide/z (1).jpg" alt="Hero 2"></div>
-            <div class="hero-content">
-              <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
-              <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
-              <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
-              <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
-            </div>
+        </div>
+        <div class="hero-slide mobile-only" id="mobile-slide-2">
+          <div class="hero-bg"><img src="2slide/z%20(1).jpg" alt="Hero 2"></div>
+          <div class="hero-content">
+            <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
+            <h1 class="hero-title">Effective Results</h1>
+            <p class="hero-desc">Experience the power of science-backed skincare ingredients.</p>
+            <a href="shop.html" class="btn-dark btn-hero">EXPLORE ALL</a>
           </div>
-          <div class="hero-slide">
-            <div class="hero-bg"><img src="2slide/z (2).jpg" alt="Hero 3"></div>
-            <div class="hero-content">
-              <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
-              <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
-              <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
-              <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
-            </div>
+        </div>
+        <div class="hero-slide mobile-only" id="mobile-slide-3">
+          <div class="hero-bg"><img src="2slide/z%20(2).jpg" alt="Hero 3"></div>
+          <div class="hero-content">
+            <div class="hero-pills"><span class="pill">SKINCARE</span><span class="pill">QUALITY</span></div>
+            <h1 class="hero-title">Your Daily Glow</h1>
+            <p class="hero-desc">Nourish your skin with the best-selling essentials.</p>
+            <a href="shop.html" class="btn-dark btn-hero">VIEW PRODUCTS</a>
           </div>
         </div>
       </div>
     </section>
-
-    </section>
+
 
     <!-- ===== SECTION 3: EXCLUSIVE COLLECTION ===== -->
     <section class="exclusive-section">
@@ -346,8 +348,8 @@
     </section>
 
     <!-- Dynamic Rendering Logic -->
-    <script src="config.js"></script>
-    <script src="products.js"></script>
+
+
     <script>
       function renderLatestArrivals() {
         const grid = document.getElementById('latest-arrivals-grid');
@@ -1445,8 +1447,8 @@
     <script src="products.js"></script>
     <script>
       // Mobile Hero Slider Logic
-      if (window.innerWidth <= 768) {
-        const mobileSlides = document.querySelectorAll('.mobile-hero-slider .hero-slide');
+      if (window.innerWidth <= 800) {
+        const mobileSlides = document.querySelectorAll('.hero-slide.mobile-only');
         let currentSlide = 0;
 
         function showNextSlide() {
@@ -1456,6 +1458,9 @@
         }
 
         if (mobileSlides.length > 0) {
+          // Initialize first mobile slide
+          mobileSlides.forEach(s => s.classList.remove('active'));
+          mobileSlides[0].classList.add('active');
           setInterval(showNextSlide, 4000); // Change image every 4 seconds
         }
       }

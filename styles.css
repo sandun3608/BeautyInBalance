@@ -31,8 +31,8 @@ html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; max-width
 .mobile-only { display: none; }
 .desktop-only { display: block; }
 @media (max-width: 768px) {
-  .mobile-only { display: block; }
-  .desktop-only { display: none; }
+  .mobile-only { display: block !important; }
+  .desktop-only { display: none !important; }
 }
 body { font-family: var(--font-sans); color: var(--text); background: var(--white); font-size: 15px; line-height: 1.6; }
 a { text-decoration: none; color: inherit; }
@@ -82,6 +82,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   letter-spacing: 0.12em; color: var(--white); display: block; margin-bottom: 16px;
 }
 
+.nav-left { display: flex; align-items: center; }
 .nav-main { display: flex; align-items: center; gap: 32px; }
 .nav-main > li > a {
   font-size: 14px; font-weight: 400; color: var(--text);
@@ -2076,8 +2077,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     background: rgba(255, 255, 255, 0.85) !important; /* Semi-transparent white */
     backdrop-filter: blur(10px) !important; /* Glassmorphism blur */
     -webkit-backdrop-filter: blur(10px) !important;
-    border-bottom-left-radius: 24px !important; /* Modern Curved Edges */
-    border-bottom-right-radius: 24px !important;
   }
   body { padding-top: var(--nav-h) !important; } /* Push content down to compensate for fixed header */
   .nav-main { display: none; }
@@ -2400,10 +2399,11 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .shade-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 15px;
   }
   .shade-opt { width: 100%; }
-  .shade-img-wrap { width: 110px; height: 55px; }
+  .shade-img-wrap { width: 140px; height: 70px; }
+  .shade-opt p { font-size: 11px !important; }
   .shade-products {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
@@ -2428,6 +2428,11 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .footer-mid { flex-direction: column; gap: 30px; align-items: center; text-align: center; }
   .footer-nl { width: 100%; }
   .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+
+  /* Ensure Sale Cards are white on mobile */
+  .so-card {
+    background: #fff !important;
+  }
 }
 
 /* 480px Breakpoint — Small Smartphones */
