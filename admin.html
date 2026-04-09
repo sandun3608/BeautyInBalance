@@ -758,8 +758,16 @@
                 <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 30px;">
                     <div class="admin-section" style="padding: 25px;">
                         <div class="act-head"><h4>Traffic Momentum</h4></div>
-                        <div style="height: 250px; position: relative; margin-top: 20px;">
-                            <svg id="traffic-svg" width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none">
+                        <div id="traffic-graph-container" style="height: 250px; position: relative; margin-top: 20px; padding: 10px 10px 30px 60px;">
+                            <!-- Y-Axis Labels -->
+                            <div style="position: absolute; left: 0; top: 10px; bottom: 30px; width: 50px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; color: #A0A0A0; font-size: 11px; font-weight: 700; padding-right: 10px; pointer-events: none;">
+                                <span>2.5k</span>
+                                <span>1.5k</span>
+                                <span>500</span>
+                                <span>0</span>
+                            </div>
+                            
+                            <svg id="traffic-svg" width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none" style="display: block; overflow: visible;">
                                 <defs>
                                     <linearGradient id="trafficGradient" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="0%" stop-color="rgba(37, 99, 235, 0.2)"></stop>
@@ -769,6 +777,11 @@
                                 <path id="traffic-path-bg" fill="url(#trafficGradient)" d="M0,250 L800,250"></path>
                                 <path id="traffic-path" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" d="M0,250 L800,250"></path>
                             </svg>
+
+                            <!-- X-Axis Labels -->
+                            <div style="position: absolute; left: 60px; right: 10px; bottom: 0; height: 30px; display: flex; justify-content: space-between; align-items: center; color: #A0A0A0; font-size: 11px; font-weight: 700; pointer-events: none;">
+                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            </div>
                         </div>
                     </div>
                     <div class="admin-section" style="padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
@@ -795,19 +808,24 @@
                 <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; margin-bottom: 30px;">
                     <div class="admin-section" style="padding: 25px;">
                         <div class="act-head"><h4>Sales Geography (SL)</h4></div>
-                        <div style="height: 350px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 20px; margin-top: 15px; position: relative; overflow: hidden;">
-                            <!-- Stylized SL Map -->
-                            <svg viewBox="0 0 150 250" height="90%" style="opacity: 0.9;">
-                                <path d="M75,10 C85,20 100,40 95,60 C90,80 110,120 100,160 C90,200 80,240 60,240 C40,240 20,200 30,160 C40,120 35,80 40,50 C45,20 65,0 75,10 Z" fill="#E8DFD3" stroke="#CFA56A" stroke-width="1.5"></path>
-                                <!-- Heatmap Hotspots -->
-                                <circle cx="55" cy="180" r="10" fill="#CFA56A" fill-opacity="0.6"><animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite" /></circle> <!-- Colombo -->
-                                <circle cx="85" cy="90" r="6" fill="#CFA56A" fill-opacity="0.4"></circle> <!-- Kandy -->
-                                <circle cx="100" cy="140" r="5" fill="#CFA56A" fill-opacity="0.3"></circle> <!-- Badulla -->
-                                <circle cx="35" cy="190" r="4" fill="#CFA56A" fill-opacity="0.3"></circle> <!-- Galle -->
+                        <div style="height: 380px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 20px; margin-top: 15px; position: relative; overflow: hidden; border: 1px solid #eee;">
+                            <!-- Interactive SL Map with Districts -->
+                            <svg id="sl-map-svg" viewBox="0 0 500 800" height="95%" style="filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));">
+                                <!-- Districts using simplified real paths -->
+                                <g id="district-paths" style="cursor: pointer;">
+                                    <path id="dist-colombo" d="m 44.48,578.9 2.6,0.07 -0.85,3.88 1.17,0.77 3.07,-0.34 -0.63,0.87 0.73,0.82 2.1,-0.67 1.16,0.91 1.25,-1.28 0.88,0.78 1.61,-0.27 1.98,2.33 2.36,-0.89 6.19,1.5 1.55,-1.65 1.46,0.39 2.63,-0.87 -0.11,1.34 1.33,2.96 1.97,0.25 6.04,3.27 0.97,-1.17 1.99,1.06 0.69,-0.62 3.04,-0.14 0.12,-5.37 0.96,-2.75 1.43,-0.5 0.75,-1.82 2.38,-0.53 0.45,-1.67 8.55,0.81 0.8,-1.88 1.86,0.31 -2.13,1.87 0.27,0.95 -0.97,-0.12 -1.07,0.97 -0.02,1.35 -1.42,1.26 -0.44,3.8 -0.89,1.71 2.61,0.62 0.96,1.06 1.51,3.83 0.07,2.91 -0.84,0.76 -3.79,0.02 -6.64,3.79 1.6,4.81 -0.11,1.72 -0.75,0.63 -2.32,-0.39 -2.14,-4.49 -0.06,-1.79 -1.01,-0.55 -0.33,-1.62 -1.82,-0.55 -1.12,0.43 -1.7,3.89 -1.18,1.12 -2.76,-1.03 -1.23,-1.74 -1.19,-0.4 -1.95,2.98 -2.54,0.8 0.42,0.67 -1.42,1.29 -0.84,-0.07 -0.22,1.4 -1.33,0.1 -3.79,2.47 -1.92,-0.54 -2,0.53 -1.61,-0.9 -0.6,2.46 -0.71,0.42 -4.99,-0.1 -0.59,-0.67 0.37,-1.11 -1.15,-1.34 -4.95,-2.33 -0.5,0.79 1.44,1.81 2.07,7.84 -0.24,1.76 Z" fill="#CFA56A" stroke="#fff" stroke-width="1" onclick="selectDistrict('Colombo', 'Rs. 450,000')"></path>
+                                    <path id="dist-kandy" d="m 184.7,481.9 1.27,0.79 0.25,2.67 1.15,0.35 1.79,2.11 1.15,0.02 1.30,1.52 2.94,1.27 2.05,2.52 3.3,1.07 2.61,2.42 3.47,0.11 5.47,-0.59 1.54,-1.66 0.15,-3.82 1.09,-2.41 -2.22,-6.31 5.36,-3.48 1.05,0.6 -0.09,1.41 1.55,0.24 2.65,2.99 1.48,-0.02 0.67,1.43 1.99,0.75 0.95,1.58 2.35,0.47 2.33,-2.23 1.32,-0.26 -0.3,-1.51 2.72,-2.49 3.9,-0.65 2.1,-1.89 2.53,-0.46 3.09,1.87 1.73,-1.56 2.29,-0.32 1.72,3.28 0.61,-1.29 1.75,0.71 0.86,-2.47 1.95,-1.57 0.23,-1.59 2.45,0.55 2.91,-0.66 2.89,0.33 Z" fill="#E8DFD3" stroke="#fff" stroke-width="1" onclick="selectDistrict('Kandy', 'Rs. 280,000')"></path>
+                                    <path id="dist-galle" d="m 68.5,687.3 1.94,2.71 1.13,-0.5 0.68,-1.45 1.69,0.04 1.6,0.85 1,2.33 2.09,0.07 4.61,2.32 1.82,2.23 3.41,-0.87 4.81,2.93 2.36,3.26 1.55,0.95 4.71,-0.18 7.31,2.51 3.34,-1 -0.04,-2.62 1.03,0.18 0.69,-1.73 4.23,0.55 1.6,0.74 4.65,4.6 1.58,0.34 3.64,4.55 0.9,0.29 0.74,-3.12 -1.22,-2.69 Z" fill="#E8DFD3" stroke="#fff" stroke-width="1" onclick="selectDistrict('Galle', 'Rs. 195,000')"></path>
+                                    <!-- Northern Province Placeholder -->
+                                    <path id="dist-jaffna" d="m 190.7,72.8 4.93,4.06 -5.31,-1.13 0.38,-2.93 Z" fill="#E8DFD3" stroke="#fff" stroke-width="1" onclick="selectDistrict('Jaffna', 'Rs. 120,000')"></path>
+                                    <!-- Simplified rest of SL -->
+                                    <path d="M75,10 C85,20 200,40 250,150 C300,300 150,550 100,750 L50,750 C0,500 20,200 75,10 Z" fill="#E8DFD3" fill-opacity="0.1" stroke="#ccc" stroke-width="1" style="pointer-events: none;"></path>
+                                </g>
                             </svg>
-                            <div style="position: absolute; bottom: 20px; right: 20px; background: #fff; padding: 10px; border-radius: 12px; box-shadow: var(--shadow-sm);">
-                                <div style="font-size: 11px; font-weight: 700; color: #222;">Western Province</div>
-                                <div style="font-size: 10px; color: var(--admin-accent);">65% of Total Sales</div>
+                            <div id="district-info-card" style="position: absolute; bottom: 20px; right: 20px; background: #fff; padding: 15px; border-radius: 12px; box-shadow: var(--shadow-md); min-width: 150px; border: 1px solid var(--admin-accent-soft);">
+                                <div style="font-size: 11px; font-weight: 700; color: var(--admin-muted); text-transform: uppercase; margin-bottom: 5px;">Region Insight</div>
+                                <div id="dist-name" style="font-size: 16px; font-weight: 800; color: #222;">Colombo</div>
+                                <div id="dist-sales" style="font-size: 14px; color: var(--admin-accent); font-weight: 700;">Rs. 450,000</div>
                             </div>
                         </div>
                     </div>
@@ -1552,6 +1570,19 @@
                 returnCircle.setAttribute('stroke-dashoffset', `-${successVal}`);
             }, 500);
         }
+
+        // 3. Map Initialization
+        window.selectDistrict = function(name, sales) {
+            document.getElementById('dist-name').innerText = name;
+            document.getElementById('dist-sales').innerText = sales;
+            
+            // Highlight selected district
+            document.querySelectorAll('#district-paths path').forEach(p => {
+                if (p.hasAttribute('fill')) p.setAttribute('fill', '#E8DFD3');
+            });
+            const selected = document.getElementById('dist-' + name.toLowerCase());
+            if (selected) selected.setAttribute('fill', '#CFA56A');
+        };
     }
 
     // ✅ SIDEBAR LOGIC
