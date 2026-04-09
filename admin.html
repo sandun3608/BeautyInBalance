@@ -320,28 +320,29 @@
 
     /* Right Sidebar - Luxury Feed */
     .activity-sidebar {
-        background: #fff;
+        background: var(--admin-sidebar-bg);
+        color: #fff;
         padding: 60px 40px;
         overflow-y: auto;
-        border-left: 1px solid var(--admin-border);
+        border-left: 1px solid rgba(255,255,255, 0.05);
     }
 
     .act-sec { margin-bottom: 50px; }
-    .act-head h4 { font-size: 22px; margin: 0; font-weight: 500; font-family: var(--font-serif); color: var(--admin-sidebar-bg); }
+    .act-head h4 { font-size: 22px; margin: 0; font-weight: 500; font-family: var(--font-serif); color: #fff; }
     .act-head .view-all { font-size: 11px; color: var(--admin-accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; text-decoration: none; }
 
     .act-list { display: flex; flex-direction: column; gap: 20px; margin-top: 25px; }
     .act-card {
-        background: var(--admin-accent-soft);
+        background: rgba(255,255,255,0.03);
         padding: 20px;
         border-radius: var(--radius-sm);
         display: flex;
         gap: 18px;
         align-items: center;
         transition: 0.3s;
-        border: 1px solid transparent;
+        border: 1px solid rgba(255,255,255,0.05);
     }
-    .act-card:hover { border-color: var(--admin-accent); background: #fff; transform: translateX(5px); }
+    .act-card:hover { border-color: var(--admin-accent); background: rgba(255,255,255,0.06); transform: translateX(5px); }
 
     .act-date {
         width: 50px;
@@ -356,8 +357,8 @@
         box-shadow: var(--shadow-sm);
     }
 
-    .act-info h5 { margin: 0 0 4px 0; font-size: 15px; font-weight: 600; color: var(--admin-sidebar-bg); }
-    .act-info p { margin: 0; font-size: 12px; color: var(--admin-muted); }
+    .act-info h5 { margin: 0 0 4px 0; font-size: 15px; font-weight: 600; color: #fff; }
+    .act-info p { margin: 0; font-size: 12px; color: rgba(255,255,255,0.5); }
 
     /* Dashboard Layout Grid */
     .db-grid {
@@ -447,6 +448,35 @@
     /* Tab Display Logic */
     .admin-content { display: none; }
     .admin-content.active { display: block; }
+    
+    /* Modals */
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(45, 27, 18, 0.4);
+        backdrop-filter: blur(10px);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-box {
+        background: #F5EEE4; /* BiB Beige */
+        width: 600px;
+        max-width: 90vw;
+        border-radius: var(--radius-md);
+        padding: 50px;
+        position: relative;
+        box-shadow: var(--shadow-lg);
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
   </style>
 </head>
 
@@ -639,7 +669,20 @@
         <!-- RIGHT SIDEBAR -->
         <aside class="activity-sidebar">
           <div class="act-sec">
-              <div class="act-head" style="margin-bottom: 30px;"><h4>Recent Journal</h4></div>
+              <div class="act-head" style="margin-bottom: 30px;"><h4>My Activity</h4></div>
+              
+              <!-- Circular Graph per User Request -->
+              <div class="act-head" style="margin-top: 20px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; font-size: 13px; font-weight: 700; margin-bottom: 15px;">Stock Distribution</div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 25px; display: flex; justify-content: center; align-items: center; margin-bottom: 30px;">
+                  <div class="donut-wrap" style="width: 180px; height: 180px; position: relative;">
+                      <canvas id="sidebarChart"></canvas>
+                      <div class="donut-val" style="color: #fff;">
+                          <span style="color: #fff; font-size: 24px;">85%</span>
+                          <p style="color: rgba(255,255,255,0.5); font-size: 10px;">Available</p>
+                      </div>
+                  </div>
+              </div>
+
               <div class="act-head" style="margin-top: 20px;"><h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Latest Arrivals</h4><a href="#" class="view-all" onclick="window.switchTab('inventory')">Explore</a></div>
               <div class="act-list" id="latest-products-sidebar"></div>
           </div>
@@ -1199,26 +1242,28 @@
 
     function renderTeamChart() {
         if (typeof Chart === 'undefined') return;
-        const ctx = document.getElementById('teamChart');
-        if (!ctx) return;
-        
-        if (chartInstances['team']) chartInstances['team'].destroy();
-        chartInstances['team'] = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['The Ordinary', 'CeraVe', 'Inkey List', 'Other'],
-                datasets: [{
-                    data: [65, 20, 10, 5],
-                    backgroundColor: ['#C6975A', '#2D1B12', '#E8DFD3', '#7A6459'],
-                    borderWidth: 0,
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                cutout: '85%',
-                plugins: { legend: { display: false } },
-                maintainAspectRatio: false
-            }
+        ['teamChart', 'sidebarChart'].forEach(id => {
+            const ctx = document.getElementById(id);
+            if (!ctx) return;
+            
+            if (chartInstances[id]) chartInstances[id].destroy();
+            chartInstances[id] = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['The Ordinary', 'CeraVe', 'Inkey List', 'Other'],
+                    datasets: [{
+                        data: [65, 20, 10, 5],
+                        backgroundColor: ['#C6975A', '#2D1B12', '#E8DFD3', '#7A6459'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    cutout: '85%',
+                    plugins: { legend: { display: false } },
+                    maintainAspectRatio: false
+                }
+            });
         });
     }
 
