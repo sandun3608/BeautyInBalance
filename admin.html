@@ -1435,6 +1435,17 @@
       try {
         initSidebar();
         
+        // 1. INSTANT UI RENDERING
+        window.allOrders = [
+            { _id: 'MOCK1', customerInfo: { firstName: 'Luxury' }, totalPrice: 15400, isDelivered: false },
+            { _id: 'MOCK2', customerInfo: { firstName: 'Aesthetics' }, totalPrice: 22000, isDelivered: true },
+            { _id: 'MOCK3', customerInfo: { firstName: 'Premium' }, totalPrice: 8900, isDelivered: false }
+        ];
+        if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderTeamChart === 'function') renderTeamChart();
+        if (typeof updateRightSidebar === 'function') updateRightSidebar();
+
+        // 2. LIVE DATA SYNC
         // Load everything at once instead of one-by-one
         Promise.all([
             typeof fetchDatabaseProducts === 'function' ? fetchDatabaseProducts() : Promise.resolve(),
