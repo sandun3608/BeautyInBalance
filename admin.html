@@ -75,6 +75,8 @@
       flex-direction: column;
       color: #fff;
       border-right: 1px solid rgba(255,255,255,0.05);
+      width: 280px;
+      flex-shrink: 0;
     }
 
     .admin-logo {
@@ -193,11 +195,12 @@
     .admin-main {
       background: var(--admin-card-bg);
       border-radius: var(--radius-lg);
-      margin: 20px 20px 20px 0; /* Margin on top, bottom, and right */
+      margin: 20px 20px 20px 0;
       display: grid;
       grid-template-columns: 1fr 350px;
       overflow: hidden;
       box-shadow: var(--shadow-md);
+      min-width: 0;
     }
 
     .main-body {
@@ -408,10 +411,24 @@
     /* Notifications */
     #admin-notification {
         position: fixed; bottom: 30px; right: 30px; background: #000; color: #fff;
-        padding: 15px 30px; border-radius: 12px; display: none; z-index: 1000;
+        padding: 15px 30px; border-radius: 12px; display: none; z-index: 10000;
         animation: slideIn 0.4s ease;
     }
     @keyframes slideIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Modals */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+        display: none; align-items: center; justify-content: center;
+        z-index: 9000;
+    }
+    .modal-box {
+        background: #fff; border-radius: var(--radius-lg); padding: 40px;
+        width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
+        position: relative; box-shadow: var(--shadow-lg);
+    }
+    .modal-actions { margin-top: 30px; display: flex; justify-content: flex-end; gap: 12px; }
 
     /* Utility */
     .status-pill { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
@@ -606,346 +623,67 @@
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
 
-        <!-- INVENTORY TAB (Product Management) -->
-        <div id="tab-inventory" class="admin-content">
-            <div class="admin-section" style="background:#fff; border-radius:30px; padding:30px; border:1px solid var(--admin-border);">
-                <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                    <h3 style="margin:0;">Inventory Management</h3>
-                    <button class="w-btn" style="background:var(--admin-sidebar-bg); color:#fff;" onclick="window.openModal()">+ Add Product</button>
-                </div>
-                <div class="admin-table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="inventory-table">
-                             <!-- Dynamically populated -->
-                        </tbody>
-                    </table>
-                </div>
+          <!-- INVENTORY TAB -->
+          <div id="tab-inventory" class="admin-content">
+            <div class="admin-section" style="background:#fff; border-radius:var(--radius-md); padding:30px; border:1px solid var(--admin-border);">
+              <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="margin:0;">Product Management</h3>
+                <button class="admin-btn" onclick="window.openModal()">+ Add New Product</button>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Disc%</th><th>Stock</th><th>Actions</th></tr></thead>
+                  <tbody id="inventory-table"></tbody>
+                </table>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- ORDERS TAB -->
-        <div id="tab-orders" class="admin-content">
-            <div class="admin-section" style="background:#fff; border-radius:30px; padding:30px; border:1px solid var(--admin-border);">
-                <div class="admin-sec-head">
-                    <h3>Recent Customer Orders</h3>
-                </div>
-                <div class="admin-table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Total</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="orders-table">
-                             <!-- Dynamically populated -->
-                        </tbody>
-                    </table>
-                </div>
+          <!-- ORDERS TAB -->
+          <div id="tab-orders" class="admin-content">
+            <div class="admin-section" style="background:#fff; border-radius:var(--radius-md); padding:30px; border:1px solid var(--admin-border);">
+              <div class="admin-sec-head"><h3 style="margin:0;">Active Orders</h3></div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead><tr><th>ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+                  <tbody id="orders-table"></tbody>
+                </table>
+              </div>
             </div>
-        </div>
-      </div>
+          </div>
 
-      <!-- RIGHT SIDEBAR: LATEST PRODUCTS & ACTIVITY -->
-      <aside class="activity-sidebar">
+          <!-- SUPPORT TAB -->
+          <div id="tab-support" class="admin-content">
+            <div class="admin-section" style="background:#fff; border-radius:var(--radius-md); padding:30px; border:1px solid var(--admin-border);">
+              <div class="admin-sec-head"><h3 style="margin:0;">Customer Inquiries</h3></div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Message</th><th>Action</th></tr></thead>
+                  <tbody id="inquiries-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="activity-sidebar">
           <div class="act-sec">
-              <div class="act-head">
-                  <h4>Dashboard Activity</h4>
-              </div>
-              
-              <div class="act-head">
-                  <h4 style="font-size: 14px; opacity: 0.6;">Latest Arrivals</h4>
-                  <a href="#" class="view-all" onclick="window.switchTab('inventory')">View inventory</a>
-              </div>
-              <div class="act-list" id="latest-products-sidebar">
-                  <!-- Product cards will be injected here -->
-                  <div class="act-card">
-                      <div class="act-date" style="background: #e0f2fe; color: #0ea5e9;">✨</div>
-                      <div class="act-info"><h5>Hyaluronic Acid</h5><p>Ordinary • Rs. 3,800</p></div>
-                  </div>
-                  <div class="act-card">
-                      <div class="act-date" style="background: #fdf2f8; color: #db2777;">✨</div>
-                      <div class="act-info"><h5>Retinol 0.5%</h5><p>Ordinary • Rs. 4,200</p></div>
-                  </div>
-              </div>
+              <div class="act-head"><h4>Activity</h4></div>
+              <div class="act-head"><h4 style="font-size: 14px; opacity: 0.6;">Latest Arrivals</h4><a href="#" class="view-all" onclick="window.switchTab('inventory')">View all</a></div>
+              <div class="act-list" id="latest-products-sidebar"></div>
           </div>
-
           <div class="act-sec">
-              <div class="act-head">
-                  <h4 style="font-size: 14px; opacity: 0.6;">Recent Orders</h4>
-                  <a href="#" class="view-all" onclick="window.switchTab('orders')">View all</a>
-              </div>
-              <div class="act-list" id="recent-orders-sidebar">
-                  <!-- Order summaries will be injected here -->
-                  <div class="act-card">
-                      <div class="act-date" style="background: #f0fdf4; color: #16a34a;">ORD</div>
-                      <div class="act-info"><h5>#7821 - Sarah</h5><p>Delivered • Rs. 8,600</p></div>
-                  </div>
-              </div>
+              <div class="act-head"><h4 style="font-size: 14px; opacity: 0.6;">Recent Orders</h4><a href="#" class="view-all" onclick="window.switchTab('orders')">View all</a></div>
+              <div class="act-list" id="recent-orders-sidebar"></div>
           </div>
-
-          <div class="act-sec">
-              <div class="act-head">
-                  <h4 style="font-size: 14px; opacity: 0.6;">Quick Shoutouts</h4>
-              </div>
-              <div class="shoutout-card">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="shout-img">
-                  <div class="shout-info"><h6>Admin Team</h6><p>Welcome to the new dashboard!</p></div>
-              </div>
-          </div>
-      </aside>
-    </main>
-
-      <!-- INVENTORY TAB -->
-      <div id="tab-inventory" class="admin-content">
-        <div class="admin-section">
-          <div class="admin-sec-head">
-            <h3>Product Management</h3>
-            <button class="admin-btn" onclick="window.openModal()">+ Add New Product</button>
-          </div>
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Product Name</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>Disc%</th>
-                  <th>Stock</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="inventory-table">
-                <!-- Populated by JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ANALYTICS TAB (New) -->
-      <div id="tab-analytics" class="admin-content">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
-           <div class="admin-section" style="padding: 20px;">
-              <div class="admin-sec-head" style="border:none; padding: 0 0 20px 0;">
-                <h3 style="font-size:16px;">Daily Site Visits (Last 7 Days)</h3>
-              </div>
-              <div style="height: 300px; position: relative;">
-                <canvas id="visitsChart"></canvas>
-              </div>
-           </div>
-           <div class="admin-section" style="padding: 20px;">
-              <div class="admin-sec-head" style="border:none; padding: 0 0 20px 0;">
-                <h3 style="font-size:16px;">Daily Orders (Last 7 Days)</h3>
-              </div>
-              <div style="height: 300px; position: relative;">
-                <canvas id="ordersChart"></canvas>
-              </div>
-           </div>
-        </div>
-
-        <div class="admin-section" style="padding: 20px;">
-           <div class="admin-sec-head" style="border:none; padding: 0 0 20px 0;">
-             <h3 style="font-size:16px;">Sales Performance Trend</h3>
-           </div>
-           <div style="height: 350px; position: relative;">
-             <canvas id="salesChart"></canvas>
-           </div>
-        </div>
-      </div>
-
-      <!-- ORDERS TAB -->
-      <div id="tab-orders" class="admin-content">
-        <div class="admin-section">
-          <div class="admin-sec-head">
-            <h3>Active Orders</h3>
-          </div>
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Customer</th>
-                  <th>Items</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="orders-table">
-                <!-- Orders will be injected here from the live database -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- INQUIRIES TAB (New) -->
-      <div id="tab-support" class="admin-content">
-        <div class="admin-section">
-          <div class="admin-sec-head">
-            <h3>Customer Inquiries</h3>
-          </div>
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Customer</th>
-                  <th>Email</th>
-                  <th>Message Preview</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Today</td>
-                  <td>Minura L.</td>
-                  <td>minu@mail.com</td>
-                  <td>Is the 1% Retinol available...?</td>
-                  <td><button class="admin-btn" style="background: #2196f3; color: #fff;">Reply</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-    </main>
-  </div>
-  <!-- MODAL FOR ADDING PRODUCT -->
-  <div class="modal-overlay" id="product-modal">
-    <div class="modal-box">
-      <h3>Add New Skincare Product</h3>
-      <form id="add-product-form">
-        <div class="form-grid" style="overflow-y:auto; max-height: 60vh; padding-right: 10px;">
-          <div class="form-group">
-            <label>Product Name</label>
-            <input type="text" id="p-name" placeholder="e.g. Squalane Cleanser" required />
-          </div>
-          <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-            <div>
-              <label>Brand</label>
-              <select id="p-cat">
-                <option value="ordinary">The Ordinary</option>
-                <option value="cerave">CeraVe</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div>
-              <label>Sub-Category</label>
-              <select id="p-filter">
-                <option value="cleansers">Cleansers</option>
-                <option value="serums">Serums & Hydration</option>
-                <option value="acids">Exfoliating Acids</option>
-                <option value="retinoids">Retinoids</option>
-                <option value="moisturizers">Moisturizers</option>
-                <option value="face-oils">Face Oils</option>
-                <option value="eye-care">Eye Care</option>
-                <option value="targeted">Targeted Care</option>
-                <option value="bodycare">Body Care</option>
-                <option value="sunscreen">Sunscreen</option>
-              </select>
-            </div>
-            <div>
-              <label>Price (LKR)</label>
-              <input type="number" id="p-price" placeholder="5000" required />
-            </div>
-          </div>
-          <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div>
-              <label>Unique ID (for URLs)</label>
-              <input type="text" id="p-id-field" placeholder="cer-acne-new" required />
-            </div>
-            <div>
-              <label>Discount (%)</label>
-              <input type="number" id="p-discount" placeholder="5" value="0" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Product Image</label>
-            <div style="display: flex; gap: 15px; align-items: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px dashed var(--admin-border);">
-              <div id="image-preview-container" style="width: 80px; height: 80px; background: rgba(0,0,0,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--admin-border);">
-                <img id="p-img-preview" src="" style="width: 100%; height: 100%; object-fit: contain; display: none;">
-                <span id="p-img-placeholder" style="font-size: 10px; color: var(--admin-muted); text-align: center;">No Image</span>
-              </div>
-              <div style="flex: 1;">
-                 <input type="file" id="p-img-file" accept="image/*" style="display: none;">
-                 <button type="button" class="admin-btn" style="background: rgba(255,255,255,0.1); color: #fff; width: 100%; margin-bottom: 8px;" onclick="document.getElementById('p-img-file').click()">Choose Photo</button>
-                 <input type="text" id="p-img" placeholder="Or paste image URL here..." style="font-size: 11px; padding: 6px;">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Additional Gallery Images (Comma separated URLs)</label>
-            <input type="text" id="p-images" placeholder="images/side1.png, images/side2.png" />
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea id="p-desc" style="width:100%; height:80px; background:rgba(255,255,255,0.05); border:1px solid var(--admin-border); border-radius:6px; color:#fff; padding:10px;"></textarea>
-          </div>
-          <div class="form-group">
-            <label>How to Use</label>
-            <textarea id="p-usage" style="width:100%; height:60px; background:rgba(255,255,255,0.05); border:1px solid var(--admin-border); border-radius:6px; color:#fff; padding:10px;"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Benefits (comma separated)</label>
-            <input type="text" id="p-benefits" placeholder="Cruelty Free, Vegan, No Alcohol" />
-          </div>
-          <div class="form-group">
-            <label>Initial Stock Count</label>
-            <input type="number" id="p-stock" value="50" />
-          </div>
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-          <button type="submit" class="admin-btn">Save Product</button>
-        </div>
-      </form>
+        </aside>
+      </main>
     </div>
-  </div>
 
-  <!-- MODAL FOR CUSTOMER DETAILS -->
-  <div class="modal-overlay" id="customer-modal" style="display: none;">
-    <div class="modal-box">
-      <h3>Customer Order Details</h3>
-      <div id="customer-details-content">
-        <div class="customer-info-grid">
-           <div class="customer-info-item"><label>Full Name</label><p id="view-cust-name">-</p></div>
-           <div class="customer-info-item"><label>Email Address</label><p id="view-cust-email">-</p></div>
-           <div class="customer-info-item"><label>Phone Number</label><p id="view-cust-phone">-</p></div>
-           <div class="customer-info-item"><label>District</label><p id="view-cust-district">-</p></div>
-           <div class="customer-info-item" style="grid-column: span 2;"><label>Full Shipping Address</label><p id="view-cust-address">-</p></div>
-        </div>
-        <div style="margin-top: 25px; border-top: 1px solid var(--admin-border); padding-top: 20px;">
-           <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--gold);">Purchased Items</h4>
-           <div id="view-cust-items" style="max-height: 200px; overflow-y: auto;">
-              <!-- Items injected here -->
-           </div>
-        </div>
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="admin-btn" onclick="document.getElementById('customer-modal').style.display='none'">Close</button>
-      </div>
-    </div>
-  </div>
-v>  <script src="config.js"></script>
+  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
     // ✅ GLOBAL TAB SWITCHER
@@ -1453,12 +1191,15 @@ v>  <script src="config.js"></script>
         }
     }
 
+    const chartInstances = {};
+
     function renderDashboardSalesChart(graphData) {
         if (!graphData || typeof Chart === 'undefined') return;
         const ctx = document.getElementById('dashboardSalesChart');
         if (!ctx) return;
 
-        new Chart(ctx, {
+        if (chartInstances['sales']) chartInstances['sales'].destroy();
+        chartInstances['sales'] = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: graphData.dailyOrders.map(o => o._id),
@@ -1477,9 +1218,7 @@ v>  <script src="config.js"></script>
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
                     y: { beginAtZero: true, grid: { display: false } },
                     x: { grid: { display: false } }
@@ -1493,7 +1232,8 @@ v>  <script src="config.js"></script>
         const ctx = document.getElementById('teamChart');
         if (!ctx) return;
         
-        new Chart(ctx, {
+        if (chartInstances['team']) chartInstances['team'].destroy();
+        chartInstances['team'] = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['Green dove', 'Blue owl', 'Yellow peacock', 'Red eagle'],
@@ -1506,9 +1246,7 @@ v>  <script src="config.js"></script>
             },
             options: {
                 cutout: '80%',
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 maintainAspectRatio: false
             }
         });
@@ -1559,6 +1297,34 @@ v>  <script src="config.js"></script>
     setTimeout(safetyInit, 1500);
   </script>
 
+
+    <!-- PRODUCT MODAL -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-box">
+             <h3>Product Details</h3>
+             <form id="add-product-form">
+                <div class="form-grid" style="overflow-y:auto; max-height: 60vh;">
+                    <div class="form-group"><label>Product Name</label><input type="text" id="p-name" required></div>
+                    <div class="form-group"><label>Brand</label><select id="p-cat"><option value="ordinary">The Ordinary</option><option value="cerave">CeraVe</option></select></div>
+                    <div class="form-group"><label>Price (LKR)</label><input type="number" id="p-price" required></div>
+                    <div class="form-group"><label>Stock</label><input type="number" id="p-stock" value="50"></div>
+                    <div class="form-group"><label>Discount%</label><input type="number" id="p-discount" value="0"></div>
+                    <div class="form-group"><label>Image URL</label><input type="text" id="p-img"><br><input type="file" id="p-img-file" accept="image/*" style="display:none;"><button type="button" class="admin-btn" onclick="document.getElementById('p-img-file').click()" style="width:100%;margin-top:10px;">Upload Image</button></div>
+                    <div id="p-img-preview-box" style="width:80px;height:80px;border:1px dashed #ddd;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:15px;"><img id="p-img-preview" src="" style="width:100%;display:none;"><span id="p-img-placeholder">No Image</span></div>
+                    <div class="form-group"><label>Unique ID</label><input type="text" id="p-id-field" required></div>
+                    <div class="form-group"><label>Description</label><textarea id="p-desc" style="width:100%;height:80px;"></textarea></div>
+                    <input type="hidden" id="p-filter" value="serums">
+                    <input type="hidden" id="p-usage" value="">
+                    <input type="hidden" id="p-benefits" value="">
+                    <input type="hidden" id="p-images" value="">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="window.closeModal()">Cancel</button>
+                    <button type="submit" class="admin-btn">Save Product</button>
+                </div>
+             </form>
+        </div>
+    </div>
 
     <!-- CUSTOMER DETAILS MODAL -->
     <div id="customer-modal" class="modal-overlay">
