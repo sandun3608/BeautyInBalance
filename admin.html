@@ -1307,7 +1307,6 @@
                            
           renderDashboardSalesChart(graphData);
           if (data && data.graphData) renderCharts(data.graphData);
-          if (data) updateRightSidebar(data);
         } catch (e) {
             console.error("Dashboard fetch error:", e);
             renderTeamChart();
@@ -1445,6 +1444,7 @@
         ]).then(() => {
             if (typeof renderInventory === 'function') renderInventory();
             if (typeof renderTeamChart === 'function') renderTeamChart();
+            if (typeof updateRightSidebar === 'function') updateRightSidebar();
             console.log("DASHBOARD LIVE.");
         });
 
