@@ -192,14 +192,16 @@
     /* Main Content Area */
     .admin-main {
       background: var(--admin-card-bg);
-      border-radius: 40px 0 0 40px;
+      border-radius: var(--radius-lg);
+      margin: 20px 20px 20px 0; /* Margin on top, bottom, and right */
       display: grid;
       grid-template-columns: 1fr 350px;
       overflow: hidden;
+      box-shadow: var(--shadow-md);
     }
 
     .main-body {
-        padding: 50px 60px;
+        padding: 40px 50px;
         overflow-y: auto;
     }
 
@@ -659,61 +661,51 @@
         </div>
       </div>
 
-      <!-- RIGHT SIDEBAR: ACTIVITY -->
+      <!-- RIGHT SIDEBAR: LATEST PRODUCTS & ACTIVITY -->
       <aside class="activity-sidebar">
           <div class="act-sec">
               <div class="act-head">
-                  <h4>My activity</h4>
+                  <h4>Dashboard Activity</h4>
               </div>
+              
               <div class="act-head">
-                  <h4 style="font-size: 14px; opacity: 0.6;">Upcoming talks</h4>
-                  <a href="#" class="view-all">View all</a>
+                  <h4 style="font-size: 14px; opacity: 0.6;">Latest Arrivals</h4>
+                  <a href="#" class="view-all" onclick="window.switchTab('inventory')">View inventory</a>
               </div>
-              <div class="act-list">
+              <div class="act-list" id="latest-products-sidebar">
+                  <!-- Product cards will be injected here -->
                   <div class="act-card">
-                      <div class="act-date">13 <span>Apr</span></div>
-                      <div class="act-info"><h5>Real Talk</h5><p>1:00 PM - 1:30 PM • Mary Rose</p></div>
+                      <div class="act-date" style="background: #e0f2fe; color: #0ea5e9;">✨</div>
+                      <div class="act-info"><h5>Hyaluronic Acid</h5><p>Ordinary • Rs. 3,800</p></div>
                   </div>
                   <div class="act-card">
-                      <div class="act-date" style="background: #fff8eb; color: #ff9800;">5 <span>Apr</span></div>
-                      <div class="act-info"><h5>Relationship Expectations</h5><p>4:00 PM - 4:30 PM • Jerome Brown</p></div>
+                      <div class="act-date" style="background: #fdf2f8; color: #db2777;">✨</div>
+                      <div class="act-info"><h5>Retinol 0.5%</h5><p>Ordinary • Rs. 4,200</p></div>
                   </div>
               </div>
           </div>
 
           <div class="act-sec">
               <div class="act-head">
-                  <h4 style="font-size: 14px; opacity: 0.6;">Upcoming meetings</h4>
-                  <a href="#" class="view-all">View all</a>
+                  <h4 style="font-size: 14px; opacity: 0.6;">Recent Orders</h4>
+                  <a href="#" class="view-all" onclick="window.switchTab('orders')">View all</a>
               </div>
-              <div class="act-list">
+              <div class="act-list" id="recent-orders-sidebar">
+                  <!-- Order summaries will be injected here -->
                   <div class="act-card">
-                      <div class="act-date" style="background: #fff8eb; color: #ff9800;">10 <span>Apr</span></div>
-                      <div class="act-info"><h5>Weekly design meeting</h5><p>3:00 PM - 3:30 PM</p></div>
-                  </div>
-                  <div class="act-card">
-                      <div class="act-date" style="background: #fff8eb; color: #ff9800;">12 <span>Apr</span></div>
-                      <div class="act-info"><h5>Team building meetup</h5><p>12:00 PM - 12:30 PM</p></div>
+                      <div class="act-date" style="background: #f0fdf4; color: #16a34a;">ORD</div>
+                      <div class="act-info"><h5>#7821 - Sarah</h5><p>Delivered • Rs. 8,600</p></div>
                   </div>
               </div>
           </div>
 
           <div class="act-sec">
               <div class="act-head">
-                  <h4 style="font-size: 14px; opacity: 0.6;">Latest shoutouts</h4>
-                  <a href="#" class="view-all">View all</a>
+                  <h4 style="font-size: 14px; opacity: 0.6;">Quick Shoutouts</h4>
               </div>
               <div class="shoutout-card">
                   <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="shout-img">
-                  <div class="shout-info"><h6>Adam Willson</h6><p>Invited you to team Design</p></div>
-              </div>
-              <div class="shoutout-card">
-                  <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&q=80" class="shout-img">
-                  <div class="shout-info"><h6>Johnny Fox</h6><p>Invited you to Real talk</p></div>
-              </div>
-              <div class="shoutout-card">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" class="shout-img">
-                  <div class="shout-info"><h6>Alice Turner</h6><p>Invited you to Weekly meeting</p></div>
+                  <div class="shout-info"><h6>Admin Team</h6><p>Welcome to the new dashboard!</p></div>
               </div>
           </div>
       </aside>
@@ -1427,9 +1419,38 @@ v>  <script src="config.js"></script>
          // Update Team Chart (Donut)
          renderTeamChart();
          renderDashboardSalesChart(data.graphData);
+         updateRightSidebar(data);
 
          if (data.graphData) renderCharts(data.graphData);
        } catch (e) { console.error(e); }
+    }
+
+    function updateRightSidebar(data) {
+        // Latest Products
+        const prodList = document.getElementById('latest-products-sidebar');
+        if (prodList && productsData) {
+            const latest = productsData.slice(0, 3);
+            prodList.innerHTML = latest.map(p => `
+                <div class="act-card">
+                    <div class="act-date" style="background: var(--admin-accent-soft); color: var(--admin-accent); overflow: hidden;">
+                        <img src="${p.img}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="act-info"><h5>${p.name.substring(0, 18)}...</h5><p>${p.cat} • Rs. ${p.price.toLocaleString()}</p></div>
+                </div>
+            `).join('');
+        }
+
+        // Recent Orders
+        const orderList = document.getElementById('recent-orders-sidebar');
+        if (orderList && window.allOrders) {
+            const recentOrders = window.allOrders.slice(0, 3);
+            orderList.innerHTML = recentOrders.map(o => `
+                <div class="act-card">
+                    <div class="act-date" style="background: #f0fdf4; color: #16a34a; font-size: 10px;">ORD</div>
+                    <div class="act-info"><h5>#${o._id.substring(o._id.length-4).toUpperCase()} - ${o.customerInfo.firstName}</h5><p>${o.isDelivered ? 'Delivered' : 'Pending'} • Rs. ${o.totalPrice.toLocaleString()}</p></div>
+                </div>
+            `).join('');
+        }
     }
 
     function renderDashboardSalesChart(graphData) {
