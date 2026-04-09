@@ -381,6 +381,30 @@
     .admin-content.active {
       display: block;
     }
+
+    /* Customer View Modal Specific */
+    .customer-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .customer-info-item {
+      background: rgba(255,255,255,0.03);
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .customer-info-item label {
+      display: block;
+      font-size: 10px;
+      color: var(--admin-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .customer-info-item p {
+      font-size: 14px;
+      font-weight: 500;
+    }
   </style>
 </head>
 
@@ -656,7 +680,6 @@
 
     </main>
   </div>
-
   <!-- MODAL FOR ADDING PRODUCT -->
   <div class="modal-overlay" id="product-modal">
     <div class="modal-box">
@@ -747,7 +770,33 @@
         </div>
       </form>
     </div>
-  </div>  <script src="config.js"></script>
+  </div>
+
+  <!-- MODAL FOR CUSTOMER DETAILS -->
+  <div class="modal-overlay" id="customer-modal" style="display: none;">
+    <div class="modal-box">
+      <h3>Customer Order Details</h3>
+      <div id="customer-details-content">
+        <div class="customer-info-grid">
+           <div class="customer-info-item"><label>Full Name</label><p id="view-cust-name">-</p></div>
+           <div class="customer-info-item"><label>Email Address</label><p id="view-cust-email">-</p></div>
+           <div class="customer-info-item"><label>Phone Number</label><p id="view-cust-phone">-</p></div>
+           <div class="customer-info-item"><label>District</label><p id="view-cust-district">-</p></div>
+           <div class="customer-info-item" style="grid-column: span 2;"><label>Full Shipping Address</label><p id="view-cust-address">-</p></div>
+        </div>
+        <div style="margin-top: 25px; border-top: 1px solid var(--admin-border); padding-top: 20px;">
+           <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--gold);">Purchased Items</h4>
+           <div id="view-cust-items" style="max-height: 200px; overflow-y: auto;">
+              <!-- Items injected here -->
+           </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="admin-btn" onclick="document.getElementById('customer-modal').style.display='none'">Close</button>
+      </div>
+    </div>
+  </div>
+v>  <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
     // ✅ GLOBAL TAB SWITCHER
@@ -1095,6 +1144,9 @@
           headers: { 'Authorization': 'Bearer ' + token }
         });
         const orders = await res.json();
+        // Store for viewing details
+        window.allOrders = orders;
+
         ordersTable.innerHTML = '';
         orders.forEach(order => {
           const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
@@ -1105,12 +1157,39 @@
             <td style="font-size:12px;">${itemsSummary}</td>
             <td>Rs. ${order.totalPrice.toLocaleString()}</td>
             <td><span style="color:${order.isDelivered ? '#4caf50' : '#ff9800'}">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
-            <td>${!order.isDelivered ? `<button class="admin-btn" onclick="markDelivered('${order._id}')">Deliver</button>` : 'OK'}</td>
+            <td>
+               <div style="display:flex; gap:10px;">
+                  <button class="admin-btn" style="background:#2196f3; color:#fff; padding: 8px 15px;" onclick="viewCustomerDetails('${order._id}')">View Details</button>
+                  ${!order.isDelivered ? `<button class="admin-btn" style="padding: 8px 15px;" onclick="markDelivered('${order._id}')">Deliver</button>` : '<span style="color:#4caf50; font-weight:bold; align-self:center;">OK</span>'}
+               </div>
+            </td>
           `;
           ordersTable.appendChild(tr);
         });
       } catch (err) { ordersTable.innerHTML = '<tr><td colspan="6">Failed to load.</td></tr>'; }
     }
+
+    window.viewCustomerDetails = (orderId) => {
+        const order = window.allOrders.find(o => o._id === orderId);
+        if(!order) return;
+        
+        const ci = order.customerInfo;
+        document.getElementById('view-cust-name').innerText = ci.firstName + ' ' + ci.lastName;
+        document.getElementById('view-cust-email').innerText = ci.email;
+        document.getElementById('view-cust-phone').innerText = ci.phone;
+        document.getElementById('view-cust-district').innerText = ci.district;
+        document.getElementById('view-cust-address').innerText = ci.address + ', ' + ci.city;
+        
+        const itemsDiv = document.getElementById('view-cust-items');
+        itemsDiv.innerHTML = order.orderItems.map(item => `
+            <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span>${item.qty}x ${item.name}</span>
+                <span style="color:var(--gold);">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+            </div>
+        `).join('');
+        
+        document.getElementById('customer-modal').style.display = 'flex';
+    };
 
     window.markDelivered = async (id) => {
         try {

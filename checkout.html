@@ -493,18 +493,35 @@
          btn.style.opacity = '0.7';
 
          const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+         
+         const firstName = document.getElementById('c-fname').value.trim();
+         const lastName = document.getElementById('c-lname').value.trim();
+         const email = document.getElementById('c-email').value.trim();
+         const address = document.getElementById('c-address').value.trim();
+         const city = document.getElementById('c-city').value.trim();
+         const district = document.getElementById('c-district').value.trim();
+         const phone = document.getElementById('c-phone').value.trim();
+
+         if (!firstName || !lastName || !email || !address || !city || !district || !phone) {
+            alert('⚠️ Please fill in all shipping and contact details before placing your order.');
+            btn.textContent = 'Complete Order';
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            return;
+         }
+
          const orderData = {
            customerInfo: {
-             firstName: document.getElementById('c-fname').value,
-             lastName: document.getElementById('c-lname').value,
-             email: document.getElementById('c-email').value,
-             address: document.getElementById('c-address').value,
-             city: document.getElementById('c-city').value,
-             district: document.getElementById('c-district').value,
-             phone: document.getElementById('c-phone').value,
+             firstName,
+             lastName,
+             email,
+             address,
+             city,
+             district,
+             phone,
            },
            orderItems: currentCart.map(i => ({
-             product: i.id, // we usually pass ID
+             product: i.id, 
              name: i.name,
              qty: i.qty,
              price: i.price
