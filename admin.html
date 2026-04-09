@@ -560,32 +560,33 @@
             <div class="db-grid">
                 <div class="chart-panel" style="display: block; padding: 25px 35px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                        <h3 style="font-family: var(--font-main); font-size: 18px; font-weight: 700; margin: 0; color: var(--admin-text);">Team Executive</h3>
-                        <div style="font-size: 14px; color: var(--admin-text); font-weight: 700;">45 users</div>
+                        <h3 style="font-family: var(--font-main); font-size: 18px; font-weight: 700; margin: 0; color: var(--admin-text);">Stock Distribution</h3>
+                        <div style="font-size: 14px; color: var(--admin-text); font-weight: 700;">450 Items</div>
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center;">
                         <div class="donut-wrap" style="height: 180px; width: 180px; margin: 0 auto;">
                             <canvas id="teamChart"></canvas>
                             <div class="donut-val">
-                                <span id="donut-center-text" style="color: var(--admin-text);">45</span>
+                                <span id="donut-center-text" style="color: var(--admin-text); font-size: 24px;">85%</span>
+                                <p style="font-size: 10px;">Available</p>
                             </div>
                         </div>
                         <div class="progress-list" style="gap: 15px;">
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
-                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #65A30D;"></div>Green dove</div>
-                                <div style="font-size: 13px; font-weight: 700;">10</div>
-                            </div>
-                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2563EB; padding-bottom: 8px;">
-                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #2563EB;"></div>Blue owl</div>
-                                <div style="font-size: 13px; font-weight: 700;">20</div>
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #CFA56A;"></div>The Ordinary</div>
+                                <div style="font-size: 13px; font-weight: 700;">65%</div>
                             </div>
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
-                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #EAB308;"></div>Yellow peacock</div>
-                                <div style="font-size: 13px; font-weight: 700;">7</div>
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #1B1B1E;"></div>CeraVe</div>
+                                <div style="font-size: 13px; font-weight: 700;">20%</div>
                             </div>
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
-                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #DC2626;"></div>Red eagle</div>
-                                <div style="font-size: 13px; font-weight: 700;">8</div>
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #888888;"></div>Inkey List</div>
+                                <div style="font-size: 13px; font-weight: 700;">10%</div>
+                            </div>
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #E8DFD3;"></div>Other Brands</div>
+                                <div style="font-size: 13px; font-weight: 700;">5%</div>
                             </div>
                         </div>
                     </div>
@@ -1257,17 +1258,17 @@
     function renderTeamChart() {
         if (typeof Chart === 'undefined') return;
         
-        // Render Main Team Chart (PBD Multi-colored)
+        // Render Main Stock Chart
         const teamCtx = document.getElementById('teamChart');
         if (teamCtx) {
             if (chartInstances['teamChart']) chartInstances['teamChart'].destroy();
             chartInstances['teamChart'] = new Chart(teamCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Green dove', 'Blue owl', 'Yellow peacock', 'Red eagle'],
+                    labels: ['The Ordinary', 'CeraVe', 'Inkey List', 'Other Brands'],
                     datasets: [{
-                        data: [10, 20, 7, 8],
-                        backgroundColor: ['#65A30D', '#2563EB', '#EAB308', '#DC2626'],
+                        data: [65, 20, 10, 5],
+                        backgroundColor: ['#CFA56A', '#1B1B1E', '#888888', '#E8DFD3'],
                         borderWidth: 0,
                         hoverOffset: 10
                     }]
