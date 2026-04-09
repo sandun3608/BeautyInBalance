@@ -741,22 +741,110 @@
 
           <!-- ANALYTICS TAB -->
           <div id="tab-analytics" class="admin-content">
-            <div class="admin-section">
-                <div class="admin-sec-head" style="margin-bottom: 30px;"><h3>Business Intelligence</h3></div>
-                <div class="db-grid">
-                    <div class="chart-panel" style="grid-template-columns: 1fr;">
-                         <div style="height: 400px;"><canvas id="analyticsSalesChart"></canvas></div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
-                        <div class="admin-stat-card">
-                            <h5>Conversion Rate</h5>
-                            <div class="val">3.4%</div>
-                            <p style="font-size: 11px; color: #16a34a; margin-top: 5px;">↑ 12% vs last month</p>
+            <!-- Analytics Hero Header -->
+            <div style="background: var(--admin-sidebar-bg); border-radius: var(--radius-md); padding: 40px; color: #fff; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="font-family: var(--font-serif); font-size: 28px; margin: 0 0 10px 0;">Executive Analytics</h3>
+                    <p style="opacity: 0.6; font-size: 14px; margin: 0;">Real-time intelligence and market performance metrics.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 5px;">Platform Health</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #34d399;">99.9% Robust</div>
+                </div>
+            </div>
+
+            <div class="db-grid">
+                <!-- Row 1: Traffic & Success -->
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 30px;">
+                    <div class="admin-section" style="padding: 25px;">
+                        <div class="act-head"><h4>Traffic Momentum</h4></div>
+                        <div style="height: 250px; position: relative; margin-top: 20px;">
+                            <svg id="traffic-svg" width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="trafficGradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(37, 99, 235, 0.2)"></stop>
+                                        <stop offset="100%" stop-color="rgba(37, 99, 235, 0)"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <path id="traffic-path-bg" fill="url(#trafficGradient)" d="M0,250 L800,250"></path>
+                                <path id="traffic-path" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" d="M0,250 L800,250"></path>
+                            </svg>
                         </div>
-                        <div class="admin-stat-card">
-                            <h5>Avg. Order Value</h5>
-                            <div class="val">Rs. 8,450</div>
-                            <p style="font-size: 11px; color: #16a34a; margin-top: 5px;">↑ 5% vs last month</p>
+                    </div>
+                    <div class="admin-section" style="padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                        <div class="act-head" style="width: 100%;"><h4>Order Fulfillment</h4></div>
+                        <div style="position: relative; width: 180px; height: 180px; margin: 20px 0;">
+                            <svg width="180" height="180" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f0f0f0" stroke-width="12"></circle>
+                                <circle id="success-circle" cx="50" cy="50" r="40" fill="transparent" stroke="#CFA56A" stroke-width="12" stroke-dasharray="0 251.2"></circle>
+                                <circle id="return-circle" cx="50" cy="50" r="40" fill="transparent" stroke="#1B1B1E" stroke-width="12" stroke-dasharray="0 251.2"></circle>
+                            </svg>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <div style="font-size: 24px; font-weight: 800; color: var(--admin-text);">85%</div>
+                                <div style="font-size: 9px; text-transform: uppercase; color: var(--admin-muted);">Success</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px; font-size: 11px; font-weight: 700; color: var(--admin-muted);">
+                            <span><i style="display:inline-block; width:8px; height:8px; background:#CFA56A; border-radius:2px; margin-right:5px;"></i> Success</span>
+                            <span><i style="display:inline-block; width:8px; height:8px; background:#1B1B1E; border-radius:2px; margin-right:5px;"></i> Returns</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Map & Social Sources -->
+                <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; margin-bottom: 30px;">
+                    <div class="admin-section" style="padding: 25px;">
+                        <div class="act-head"><h4>Sales Geography (SL)</h4></div>
+                        <div style="height: 350px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 20px; margin-top: 15px; position: relative; overflow: hidden;">
+                            <!-- Stylized SL Map -->
+                            <svg viewBox="0 0 150 250" height="90%" style="opacity: 0.9;">
+                                <path d="M75,10 C85,20 100,40 95,60 C90,80 110,120 100,160 C90,200 80,240 60,240 C40,240 20,200 30,160 C40,120 35,80 40,50 C45,20 65,0 75,10 Z" fill="#E8DFD3" stroke="#CFA56A" stroke-width="1.5"></path>
+                                <!-- Heatmap Hotspots -->
+                                <circle cx="55" cy="180" r="10" fill="#CFA56A" fill-opacity="0.6"><animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite" /></circle> <!-- Colombo -->
+                                <circle cx="85" cy="90" r="6" fill="#CFA56A" fill-opacity="0.4"></circle> <!-- Kandy -->
+                                <circle cx="100" cy="140" r="5" fill="#CFA56A" fill-opacity="0.3"></circle> <!-- Badulla -->
+                                <circle cx="35" cy="190" r="4" fill="#CFA56A" fill-opacity="0.3"></circle> <!-- Galle -->
+                            </svg>
+                            <div style="position: absolute; bottom: 20px; right: 20px; background: #fff; padding: 10px; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                                <div style="font-size: 11px; font-weight: 700; color: #222;">Western Province</div>
+                                <div style="font-size: 10px; color: var(--admin-accent);">65% of Total Sales</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section" style="padding: 25px;">
+                        <div class="act-head" style="margin-bottom: 30px;"><h4>Traffic Origin</h4></div>
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- FB -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Facebook Ecosystem</span><span>42%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 42%; background: #3b5998;"></div></div>
+                            </div>
+                            <!-- TikTok -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>TikTok Trends</span><span>28%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 28%; background: #000000;"></div></div>
+                            </div>
+                            <!-- Instagram -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Instagram Aesthetics</span><span>18%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 18%; background: #e1306c;"></div></div>
+                            </div>
+                            <!-- Direct -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Direct / Organic</span><span>12%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 12%; background: var(--admin-accent);"></div></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--admin-border); display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="admin-stat-card" style="padding: 15px;">
+                                <h6 style="font-size: 10px; text-transform: uppercase;">Social ROAS</h6>
+                                <div style="font-size: 18px; font-weight: 800;">4.8x</div>
+                            </div>
+                            <div class="admin-stat-card" style="padding: 15px;">
+                                <h6 style="font-size: 10px; text-transform: uppercase;">CPC Average</h6>
+                                <div style="font-size: 18px; font-weight: 800;">Rs. 24</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -847,7 +935,10 @@
       // Trigger data refresh based on tab
       if (tabName === 'inventory') renderInventory();
       if (tabName === 'orders') fetchOrders();
-      if (tabName === 'analytics') fetchDashboardSummary();
+      if (tabName === 'analytics') {
+          fetchDashboardSummary();
+          if (typeof renderAnalyticsDashboard === 'function') renderAnalyticsDashboard();
+      }
       if (tabName === 'support') fetchInquiries();
       if (tabName === 'dashboard') fetchDashboardSummary();
     };
@@ -1427,6 +1518,42 @@
     function renderCharts(graphData) {
         // ... existing chart logic if needed in other tabs
     }
+    function renderAnalyticsDashboard() {
+        // 1. Traffic Momentum Animation
+        const trafficPath = document.getElementById('traffic-path');
+        const trafficPathBg = document.getElementById('traffic-path-bg');
+        if (trafficPath) {
+            const mockPoints = [220, 180, 210, 150, 190, 80, 120, 50, 90, 30];
+            let d = "M0," + mockPoints[0];
+            mockPoints.forEach((p, i) => {
+                const x = (i / (mockPoints.length - 1)) * 800;
+                d += ` L${x},${p}`;
+            });
+            setTimeout(() => {
+                trafficPath.setAttribute('d', d);
+                if (trafficPathBg) trafficPathBg.setAttribute('d', d + " L800,250 L0,250 Z");
+            }, 300);
+            trafficPath.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            if (trafficPathBg) trafficPathBg.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        }
+
+        // 2. Order Fulfillment Doughnut
+        const successCircle = document.getElementById('success-circle');
+        const returnCircle = document.getElementById('return-circle');
+        if (successCircle) {
+            const successVal = 251.2 * 0.85;
+            const returnVal = 251.2 * 0.08;
+            setTimeout(() => {
+                successCircle.style.transition = 'stroke-dasharray 1.5s ease-out';
+                successCircle.setAttribute('stroke-dasharray', `${successVal} 251.2`);
+                
+                returnCircle.style.transition = 'stroke-dasharray 1s ease-out 0.5s';
+                returnCircle.setAttribute('stroke-dasharray', `${returnVal} 251.2`);
+                returnCircle.setAttribute('stroke-dashoffset', `-${successVal}`);
+            }, 500);
+        }
+    }
+
     // ✅ SIDEBAR LOGIC
     function initSidebar() {
         const toggleBtns = document.querySelectorAll('.toggle-btn');
