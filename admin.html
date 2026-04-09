@@ -638,23 +638,23 @@
                             <button class="chart-tab">1Y</button>
                         </div>
                     </div>
-                    <div id="revenue-graph-container" style="height: 300px; margin-bottom: 50px; position: relative; padding: 20px 20px 40px 20px; background: rgba(0,0,0,0.01); border-radius: 12px; overflow: hidden;">
-                        <!-- Custom SVG Line Chart with Axes -->
-                        <svg id="revenue-svg" width="100%" height="100%" viewBox="0 0 1000 350" preserveAspectRatio="none" style="display: block;">
-                            <!-- Grid Lines -->
-                            <line x1="60" y1="0" x2="1000" y2="0" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
-                            <line x1="60" y1="100" x2="1000" y2="100" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
-                            <line x1="60" y1="200" x2="1000" y2="200" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
-                            <line x1="60" y1="300" x2="1000" y2="300" stroke="rgba(0,0,0,0.08)" stroke-width="2"></line>
-                            
-                            <!-- Y-Axis Labels (Inside SVG) -->
-                            <g fill="#A0A0A0" font-size="24" text-anchor="end">
-                                <text x="50" y="300">0</text>
-                                <text x="50" y="205">15k</text>
-                                <text x="50" y="105">30k</text>
-                                <text x="50" y="20">45k</text>
-                            </g>
+                    <div id="revenue-graph-container" style="height: 300px; margin-bottom: 50px; position: relative; padding: 10px 10px 30px 60px; background: rgba(0,0,0,0.01); border-radius: 12px; overflow: visible;">
+                        <!-- Y-Axis Labels (HTML for zero stretching) -->
+                        <div style="position: absolute; left: 0; top: 10px; bottom: 30px; width: 50px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; color: #A0A0A0; font-size: 11px; font-weight: 700; padding-right: 10px; pointer-events: none;">
+                            <span>45k</span>
+                            <span>30k</span>
+                            <span>15k</span>
+                            <span>0</span>
+                        </div>
 
+                        <!-- Custom SVG Line Chart -->
+                        <svg id="revenue-svg" width="100%" height="100%" viewBox="0 0 1000 300" preserveAspectRatio="none" style="display: block; overflow: visible;">
+                            <!-- Grid Lines -->
+                            <line x1="0" y1="0" x2="1000" y2="0" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
+                            <line x1="0" y1="100" x2="1000" y2="100" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
+                            <line x1="0" y1="200" x2="1000" y2="200" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
+                            <line x1="0" y1="300" x2="1000" y2="300" stroke="rgba(0,0,0,0.08)" stroke-width="2"></line>
+                            
                             <!-- Revenue Path -->
                             <defs>
                                 <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
@@ -662,18 +662,18 @@
                                     <stop offset="100%" stop-color="rgba(198, 151, 90, 0)"></stop>
                                 </linearGradient>
                             </defs>
-                            <path id="revenue-path-bg" fill="url(#chartGradient)" d="M60,300 L60,150 L250,80 L450,120 L650,60 L850,90 L920,10 L1000,40 L1000,300 Z" style="transition: 1s ease;"></path>
-                            <path id="revenue-path" fill="none" stroke="#C6975A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M60,150 L250,80 L450,120 L650,60 L850,90 L920,10 L1000,40" style="transition: 1s ease;"></path>
-                            
-                            <!-- X-Axis Labels (Inside SVG) -->
-                            <g fill="#A0A0A0" font-size="24" text-anchor="middle">
-                                <text x="60" y="330">01 Apr</text>
-                                <text x="300" y="330">05 Apr</text>
-                                <text x="550" y="330">09 Apr</text>
-                                <text x="800" y="330">13 Apr</text>
-                                <text x="960" y="330">Today</text>
-                            </g>
+                            <path id="revenue-path-bg" fill="url(#chartGradient)" d="M0,300 L1000,300 L1000,300 L0,300 Z" style="transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);"></path>
+                            <path id="revenue-path" fill="none" stroke="#C6975A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M0,300 L1000,300" style="transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);"></path>
                         </svg>
+
+                        <!-- X-Axis Labels (HTML for zero stretching) -->
+                        <div style="position: absolute; left: 60px; right: 10px; bottom: 0; height: 30px; display: flex; justify-content: space-between; align-items: center; color: #A0A0A0; font-size: 11px; font-weight: 700; pointer-events: none;">
+                            <span>01 Apr</span>
+                            <span>05 Apr</span>
+                            <span>09 Apr</span>
+                            <span>13 Apr</span>
+                            <span>Today</span>
+                        </div>
                     </div>
                     <!-- Detailed Insight Stats -->
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid #f8f8f8; padding-top: 25px;">
@@ -1365,21 +1365,16 @@
         });
 
         const d = "M" + points.join(" L");
-        svgPath.setAttribute('d', d);
-        if (svgPathBg) {
-            svgPathBg.setAttribute('d', `${d} L1000,300 L60,300 Z`);
-        }
+        
+        // Premium Rise-Up Animation
+        setTimeout(() => {
+            svgPath.setAttribute('d', d);
+            if (svgPathBg) {
+                svgPathBg.setAttribute('d', `${d} L1000,300 L0,300 Z`);
+            }
+        }, 100);
 
-        // Animation for the first load (Drawing the line)
-        if (firstLoadCount === 0) {
-            const length = svgPath.getTotalLength();
-            svgPath.style.strokeDasharray = length + ' ' + length;
-            svgPath.style.strokeDashoffset = length;
-            svgPath.getBoundingClientRect();
-            svgPath.style.transition = 'stroke-dashoffset 2s ease-in-out';
-            svgPath.style.strokeDashoffset = '0';
-            firstLoadCount++;
-        }
+        firstLoadCount++;
 
         // Update Stats based on data
         const totalSales = data.reduce((acc, curr) => acc + curr.sales, 0);
