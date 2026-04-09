@@ -1464,23 +1464,29 @@
     }
 
     // DASHBOARD INITIALIZATION
+    // DASHBOARD INITIALIZATION - Parallel Performance Boost
     async function safetyInit() {
-      console.log("SAFETY INIT RUNNING...");
       try {
         initSidebar();
-        if (typeof fetchDatabaseProducts === 'function') await fetchDatabaseProducts();
-        if (typeof renderInventory === 'function') renderInventory();
-        if (typeof fetchOrders === 'function') fetchOrders();
-        if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
-        if (typeof fetchInquiries === 'function') fetchInquiries();
         
-        // Automatic Refresh Background (Every 30 seconds)
+        // Load everything at once instead of one-by-one
+        Promise.all([
+            typeof fetchDatabaseProducts === 'function' ? fetchDatabaseProducts() : Promise.resolve(),
+            typeof fetchOrders === 'function' ? fetchOrders() : Promise.resolve(),
+            typeof fetchDashboardSummary === 'function' ? fetchDashboardSummary() : Promise.resolve(),
+            typeof fetchInquiries === 'function' ? fetchInquiries() : Promise.resolve()
+        ]).then(() => {
+            if (typeof renderInventory === 'function') renderInventory();
+            console.log("DASHBOARD LIVE.");
+        });
+
+        // Background Updates (Every 30 seconds)
         setInterval(() => {
             fetchDashboardSummary();
             fetchOrders();
         }, 30000);
       } catch (err) {
-        console.error("Dashboard Initialization Failed:", err);
+        console.error("Critical Dashboard Error:", err);
       }
     }
 
