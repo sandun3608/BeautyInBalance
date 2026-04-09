@@ -68,10 +68,14 @@ router.get('/summary', protect, async (req, res) => {
         // Let's count items across all orders
         let itemCounts = {};
         orders.forEach(o => {
-            o.orderItems.forEach(item => {
-                const name = item.name;
-                itemCounts[name] = (itemCounts[name] || 0) + item.qty;
-            });
+            if (o.orderItems) {
+                o.orderItems.forEach(item => {
+                    if (item && item.name) {
+                        const name = item.name;
+                        itemCounts[name] = (itemCounts[name] || 0) + (item.qty || 0);
+                    }
+                });
+            }
         });
 
         // Recent Activity (Mixed orders and inquiries)
@@ -81,8 +85,8 @@ router.get('/summary', protect, async (req, res) => {
         let recentActivity = [
             ...recentOrders.map(o => ({
                 event: 'Order Placed',
-                user: o.customerInfo.firstName,
-                details: o.orderItems.map(i => i.qty + 'x ' + i.name).join(', '),
+                user: o.customerInfo?.firstName || 'Customer',
+                details: (o.orderItems || []).map(i => (i.qty || 0) + 'x ' + (i.name || 'Item')).join(', '),
                 time: o.createdAt
             })),
             ...recentInquiries.map(i => ({

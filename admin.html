@@ -1183,7 +1183,7 @@
         itemsDiv.innerHTML = order.orderItems.map(item => `
             <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <span>${item.qty}x ${item.name}</span>
-                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 0) ).toLocaleString()}</span>
             </div>
         `).join('');
         
@@ -1321,7 +1321,7 @@
                     <div class="act-date" style="background: var(--admin-accent-soft); color: var(--admin-accent); overflow: hidden;">
                         <img src="${p.img}" style="width:100%; height:100%; object-fit:cover;">
                     </div>
-                    <div class="act-info"><h5>${p.name.substring(0, 18)}...</h5><p>${p.cat} • Rs. ${p.price.toLocaleString()}</p></div>
+                    <div class="act-info"><h5>${(p.name || 'Product').substring(0, 18)}...</h5><p>${p.cat || 'Category'} • Rs. ${(p.price || 0).toLocaleString()}</p></div>
                 </div>
             `).join('');
         }
@@ -1333,7 +1333,7 @@
             orderList.innerHTML = recentOrders.map(o => `
                 <div class="act-card">
                     <div class="act-date" style="background: #f0fdf4; color: #16a34a; font-size: 10px;">ORD</div>
-                    <div class="act-info"><h5>#${o._id.substring(o._id.length-4).toUpperCase()} - ${o.customerInfo.firstName}</h5><p>${o.isDelivered ? 'Delivered' : 'Pending'} • Rs. ${o.totalPrice.toLocaleString()}</p></div>
+                    <div class="act-info"><h5># ${(o._id || '').substring((o._id || '').length-4).toUpperCase()} - ${o.customerInfo?.firstName || 'Customer'}</h5><p>${o.isDelivered ? 'Delivered' : 'Pending'} • Rs. ${(o.totalPrice || 0).toLocaleString()}</p></div>
                 </div>
             `).join('');
         }
