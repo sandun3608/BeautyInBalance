@@ -262,6 +262,27 @@
     .admin-stat-card h5 { font-size: 11px; color: var(--admin-muted); font-weight: 500; margin: 4px 0 0 0; }
     .admin-stat-card .val { font-size: 20px; font-weight: 700; color: var(--admin-text); font-family: var(--font-main); }
 
+    /* Chart Tabs */
+    .chart-tab {
+        background: transparent;
+        border: 1px solid var(--admin-border);
+        color: var(--admin-text);
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .chart-tab.active {
+        background: var(--admin-sidebar-bg);
+        color: #fff;
+        border-color: var(--admin-sidebar-bg);
+    }
+    .chart-tab:hover:not(.active) {
+        background: var(--admin-accent-soft);
+    }
+
     /* Welcome Banner - PBD Edition */
     .welcome-banner {
       background: var(--admin-accent);
@@ -607,8 +628,15 @@
             <div class="db-grid" style="margin-top: 30px;">
                 <div class="chart-panel" style="grid-template-columns: 1fr;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                        <h3 style="margin:0; font-family: var(--font-serif); font-size: 22px;">Revenue Momentum</h3>
-                        <div style="font-size: 12px; color: var(--admin-accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Last 30 Days</div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <h3 style="margin:0; font-family: var(--font-serif); font-size: 22px;">Revenue Momentum</h3>
+                            <span style="background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">+24.5% ↑</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="chart-tab active">30D</button>
+                            <button class="chart-tab">7D</button>
+                            <button class="chart-tab">1Y</button>
+                        </div>
                     </div>
                     <div style="height: 300px;">
                         <canvas id="dashboardSalesChart"></canvas>
@@ -1238,6 +1266,11 @@
             const ctx = document.getElementById(id);
             if (!ctx) return;
 
+            const cCtx = ctx.getContext('2d');
+            const gradient = cCtx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(198, 151, 90, 0.4)');
+            gradient.addColorStop(1, 'rgba(198, 151, 90, 0)');
+
             if (chartInstances[id]) chartInstances[id].destroy();
             chartInstances[id] = new Chart(ctx, {
                 type: 'line',
@@ -1247,21 +1280,46 @@
                         label: 'Revenue',
                         data: graphData.dailyOrders.map(o => o.sales),
                         borderColor: '#C6975A',
-                        backgroundColor: 'rgba(198, 151, 90, 0.1)',
+                        backgroundColor: gradient,
                         fill: true,
                         tension: 0.4,
                         borderWidth: 3,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#C6975A'
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: '#C6975A',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1B1B1E',
+                            titleFont: { family: 'DM Sans', size: 12 },
+                            bodyFont: { family: 'DM Sans', size: 14 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(45,27,18,0.05)' } },
-                        x: { grid: { display: false } }
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: 'rgba(0,0,0,0.03)', drawBorder: false },
+                            ticks: { 
+                                color: '#A0A0A0', 
+                                font: { size: 10 },
+                                callback: val => 'Rs. ' + val.toLocaleString()
+                            }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#A0A0A0', font: { size: 10 } }
+                        }
                     }
                 }
             });
