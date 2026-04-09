@@ -499,9 +499,10 @@ function addToCart(prodId, qty = 1) {
     // Open the side drawer if on a page that supports it
     const cartDrawer = document.getElementById('cart-drawer');
     const overlay = document.getElementById('overlay');
+    
     if (cartDrawer && overlay) {
-        cartDrawer.classList.add('active');
-        overlay.classList.add('active');
+        cartDrawer.classList.add('open'); // Fixed: CSS uses .open
+        overlay.classList.add('show');    // Fixed: CSS uses .show
     } else {
         alert(product.name + ' added to your bag!');
     }
