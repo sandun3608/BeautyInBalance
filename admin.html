@@ -558,26 +558,35 @@
             </div>
 
             <div class="db-grid">
-                <div class="chart-panel">
-                    <div style="grid-column: span 1;" class="chart-info">
-                        <h3>Stock Distribution</h3>
-                        <div class="donut-wrap">
-                            <canvas id="teamChart"></canvas>
-                            <div class="donut-val"><span>85%</span><p>Available</p></div>
-                        </div>
+                <div class="chart-panel" style="display: block; padding: 25px 35px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <h3 style="font-family: var(--font-main); font-size: 18px; font-weight: 700; margin: 0; color: var(--admin-text);">Team Executive</h3>
+                        <div style="font-size: 14px; color: var(--admin-text); font-weight: 700;">45 users</div>
                     </div>
-                    <div class="progress-list" style="grid-column: span 1;">
-                        <div class="prog-item">
-                            <div class="prog-head"><span>The Ordinary</span><span>65%</span></div>
-                            <div class="prog-bar-bg"><div class="prog-bar" style="width: 65%; background: var(--admin-accent);"></div></div>
+                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center;">
+                        <div class="donut-wrap" style="height: 180px; width: 180px; margin: 0 auto;">
+                            <canvas id="teamChart"></canvas>
+                            <div class="donut-val">
+                                <span id="donut-center-text" style="color: var(--admin-text);">45</span>
+                            </div>
                         </div>
-                        <div class="prog-item">
-                            <div class="prog-head"><span>CeraVe</span><span>28%</span></div>
-                            <div class="prog-bar-bg"><div class="prog-bar" style="width: 28%; background: var(--admin-sidebar-bg);"></div></div>
-                        </div>
-                        <div class="prog-item">
-                            <div class="prog-head"><span>Other Brands</span><span>7%</span></div>
-                            <div class="prog-bar-bg"><div class="prog-bar" style="width: 7%; background: #E8DFD3;"></div></div>
+                        <div class="progress-list" style="gap: 15px;">
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #65A30D;"></div>Green dove</div>
+                                <div style="font-size: 13px; font-weight: 700;">10</div>
+                            </div>
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2563EB; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #2563EB;"></div>Blue owl</div>
+                                <div style="font-size: 13px; font-weight: 700;">20</div>
+                            </div>
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #EAB308;"></div>Yellow peacock</div>
+                                <div style="font-size: 13px; font-weight: 700;">7</div>
+                            </div>
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #DC2626;"></div>Red eagle</div>
+                                <div style="font-size: 13px; font-weight: 700;">8</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1161,17 +1170,22 @@
            headers: { 'Authorization': 'Bearer ' + token }
          });
          const data = await res.json();
-         // Basic stats are now in static blocks for "Premium Look" but we can update them if they exist
-         const salesEl = document.getElementById('stat-sales');
-         if (salesEl) salesEl.innerText = 'Rs. ' + data.totalSales.toLocaleString();
          
-         // Update Team Chart (Donut)
+         const salesEl = document.getElementById('stat-sales');
+         if (salesEl && data && data.totalSales !== undefined) {
+             salesEl.innerText = 'Rs. ' + data.totalSales.toLocaleString();
+         }
+         
+         // Always render UI independently so layout works despite API failing
          renderTeamChart();
-         renderDashboardSalesChart(data.graphData);
-         updateRightSidebar(data);
+         if (data && data.graphData) renderDashboardSalesChart(data.graphData);
+         if (data) updateRightSidebar(data);
 
-         if (data.graphData) renderCharts(data.graphData);
-       } catch (e) { console.error(e); }
+         if (data && data.graphData) renderCharts(data.graphData);
+       } catch (e) {
+           console.error("Dashboard fetch error:", e);
+           renderTeamChart(); // Ensure fallback UI loads
+       }
     }
 
     function updateRightSidebar(data) {
@@ -1242,20 +1256,42 @@
 
     function renderTeamChart() {
         if (typeof Chart === 'undefined') return;
-        ['teamChart', 'sidebarChart'].forEach(id => {
-            const ctx = document.getElementById(id);
-            if (!ctx) return;
-            
-            if (chartInstances[id]) chartInstances[id].destroy();
-            chartInstances[id] = new Chart(ctx, {
+        
+        // Render Main Team Chart (PBD Multi-colored)
+        const teamCtx = document.getElementById('teamChart');
+        if (teamCtx) {
+            if (chartInstances['teamChart']) chartInstances['teamChart'].destroy();
+            chartInstances['teamChart'] = new Chart(teamCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['The Ordinary', 'CeraVe', 'Inkey List', 'Other'],
+                    labels: ['Green dove', 'Blue owl', 'Yellow peacock', 'Red eagle'],
                     datasets: [{
-                        data: [65, 20, 10, 5],
-                        backgroundColor: ['#C6975A', '#2D1B12', '#E8DFD3', '#7A6459'],
+                        data: [10, 20, 7, 8],
+                        backgroundColor: ['#65A30D', '#2563EB', '#EAB308', '#DC2626'],
                         borderWidth: 0,
                         hoverOffset: 10
+                    }]
+                },
+                options: {
+                    cutout: '70%',
+                    plugins: { legend: { display: false } },
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Render Sidebar Chart (Minimal)
+        const sidebarCtx = document.getElementById('sidebarChart');
+        if (sidebarCtx) {
+            if (chartInstances['sidebarChart']) chartInstances['sidebarChart'].destroy();
+            chartInstances['sidebarChart'] = new Chart(sidebarCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Available', 'Empty'],
+                    datasets: [{
+                        data: [85, 15],
+                        backgroundColor: ['#CFA56A', 'rgba(0,0,0,0.05)'],
+                        borderWidth: 0
                     }]
                 },
                 options: {
@@ -1264,7 +1300,7 @@
                     maintainAspectRatio: false
                 }
             });
-        });
+        }
     }
 
     function renderCharts(graphData) {
