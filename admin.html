@@ -1325,69 +1325,38 @@
 
 
     function renderDashboardSalesChart(graphData) {
-        if (!graphData || typeof Chart === 'undefined') return;
-        ['dashboardSalesChart', 'analyticsSalesChart'].forEach(id => {
-            const ctx = document.getElementById(id);
-            if (!ctx) return;
+        if (!graphData || !graphData.dailyOrders) return;
+        
+        const svgPath = document.getElementById('revenue-path');
+        const svgPathBg = document.getElementById('revenue-path-bg');
+        if (!svgPath) return;
 
-            const cCtx = ctx.getContext('2d');
-            const gradient = cCtx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(198, 151, 90, 0.4)');
-            gradient.addColorStop(1, 'rgba(198, 151, 90, 0)');
+        const data = graphData.dailyOrders;
+        if (data.length === 0) return;
 
-            if (chartInstances[id]) chartInstances[id].destroy();
-            chartInstances[id] = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: graphData.dailyOrders.map(o => o._id),
-                    datasets: [{
-                        label: 'Revenue',
-                        data: graphData.dailyOrders.map(o => o.sales),
-                        borderColor: '#C6975A',
-                        backgroundColor: gradient,
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 3,
-                        pointRadius: 0,
-                        pointHoverRadius: 6,
-                        pointBackgroundColor: '#C6975A',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#1B1B1E',
-                            titleFont: { family: 'DM Sans', size: 12 },
-                            bodyFont: { family: 'DM Sans', size: 14 },
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false
-                        }
-                    },
-                    scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            grid: { color: 'rgba(0,0,0,0.03)', drawBorder: false },
-                            ticks: { 
-                                color: '#A0A0A0', 
-                                font: { size: 10 },
-                                callback: val => 'Rs. ' + val.toLocaleString()
-                            }
-                        },
-                        x: { 
-                            grid: { display: false },
-                            ticks: { color: '#A0A0A0', font: { size: 10 } }
-                        }
-                    }
-                }
-            });
+        const maxVal = Math.max(...data.map(o => o.sales), 50000); // Scale to 50k if lower
+        const chartWidth = 940; // 1000 - 60 padding for axes
+        const chartHeight = 300;
+        const startX = 60;
+
+        let points = [];
+        data.forEach((o, i) => {
+            const x = startX + (i / (data.length - 1)) * chartWidth;
+            const y = chartHeight - (o.sales / maxVal) * chartHeight;
+            points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
         });
+
+        const d = "M" + points.join(" L");
+        svgPath.setAttribute('d', d);
+        if (svgPathBg) {
+            svgPathBg.setAttribute('d', `${d} L1000,300 L60,300 Z`);
+        }
+
+        // Update Stats based on data
+        const totalSales = data.reduce((acc, curr) => acc + curr.sales, 0);
+        const avg = data.length > 0 ? (totalSales / data.length) : 0;
+        const avgEl = document.querySelector('[style*="Avg. Transaction"] + p');
+        if (avgEl) avgEl.innerText = 'Rs. ' + Math.round(avg).toLocaleString();
     }
 
     function renderTeamChart() {
