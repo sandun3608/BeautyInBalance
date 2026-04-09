@@ -563,11 +563,11 @@
             <div class="admin-stats">
               <div class="admin-stat-card">
                   <div class="stat-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                  <div class="stat-content"><div class="val" id="stat-sales">Rs. 0</div><h5>Total Revenue</h5></div>
+                  <div class="stat-content"><div class="val" id="stat-sales">Rs. 245,800</div><h5>Total Revenue</h5></div>
               </div>
               <div class="admin-stat-card">
                   <div class="stat-icon-box" style="background: #f0fdf4; color: #16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
-                  <div class="stat-content"><div class="val" id="stat-orders">0</div><h5>Live Orders</h5></div>
+                  <div class="stat-content"><div class="val" id="stat-orders">84</div><h5>Live Orders</h5></div>
               </div>
               <div class="admin-stat-card">
                   <div class="stat-icon-box" style="background: #eff6ff; color: #2563eb;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -1365,18 +1365,20 @@
 
         const d = "M" + points.join(" L");
         
-        // Immediate set for reliability, then transition will handle the animation
-        svgPath.setAttribute('d', d);
-        if (svgPathBg) {
-            svgPathBg.setAttribute('d', `${d} L1000,300 L0,300 Z`);
-        }
+        // Premium Rise-Up Logic
+        setTimeout(() => {
+            svgPath.setAttribute('d', d);
+            if (svgPathBg) {
+                svgPathBg.setAttribute('d', `${d} L1000,300 L0,300 Z`);
+            }
+        }, 300); // 300ms delay for visual punch after page layout settles
 
         // Update Stats based on data
-        const totalSales = data.reduce((acc, curr) => acc + curr.sales, 0);
+        const totalSales = data.reduce((acc, curr) => acc + (curr.sales || 0), 0);
         const avg = data.length > 0 ? (totalSales / data.length) : 0;
         const avgEl = document.getElementById('stat-avg-trans');
         if (avgEl) {
-            avgEl.innerText = 'Rs. ' + Math.round(avg).toLocaleString();
+            animateValue('stat-avg-trans', 7500, Math.round(avg), 1500, "Rs. ");
         }
     }
 
