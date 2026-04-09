@@ -1154,6 +1154,7 @@
         setTimeout(() => { toast.style.display = 'none'; }, 5000);
     }
 
+    const chartInstances = {};
     let visitsChartInstance = null, ordersChartInstance = null, salesChartInstance = null;
     async function fetchDashboardSummary() {
        const token = localStorage.getItem('userToken');
@@ -1217,7 +1218,7 @@
         }
     }
 
-    const chartInstances = {};
+
 
     function renderDashboardSalesChart(graphData) {
         if (!graphData || typeof Chart === 'undefined') return;
@@ -1256,7 +1257,12 @@
     }
 
     function renderTeamChart() {
-        if (typeof Chart === 'undefined') return;
+        if (typeof Chart === 'undefined') {
+            console.error("Chart.js not loaded!");
+            return;
+        }
+        
+        console.log("Rendering Stock Charts...");
         
         // Render Main Stock Chart
         const teamCtx = document.getElementById('teamChart');
@@ -1268,15 +1274,16 @@
                     labels: ['The Ordinary', 'CeraVe', 'Inkey List', 'Other Brands'],
                     datasets: [{
                         data: [65, 20, 10, 5],
-                        backgroundColor: ['#CFA56A', '#1B1B1E', '#888888', '#E8DFD3'],
-                        borderWidth: 0,
-                        hoverOffset: 10
+                        backgroundColor: ['#CFA56A', '#1B1B1E', '#7A6459', '#D4B996'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
                     }]
                 },
                 options: {
-                    cutout: '70%',
+                    cutout: '60%',
                     plugins: { legend: { display: false } },
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    animation: { duration: 2000 }
                 }
             });
         }
