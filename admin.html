@@ -420,21 +420,28 @@
     .admin-section {
         background: #fff;
         border-radius: var(--radius-md);
-        padding: 40px;
+        padding: 30px; /* Reduced padding for more space */
         border: 1px solid var(--admin-border);
         box-shadow: var(--shadow-sm);
     }
-    .admin-sec-head h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 500; margin: 0; }
+    .admin-sec-head h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin: 0; }
 
-    .admin-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
-    .admin-table th { text-align: left; padding: 15px 20px; font-size: 11px; color: var(--admin-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-    .admin-table tbody tr { background: #fff; transition: 0.3s; }
-    .admin-table tbody tr:hover { transform: scale(1.01); box-shadow: var(--shadow-sm); }
-    .admin-table td { padding: 20px; font-size: 14px; border-top: 1px solid var(--admin-border); border-bottom: 1px solid var(--admin-border); }
-    .admin-table td:first-child { border-left: 1px solid var(--admin-border); border-radius: 12px 0 0 12px; }
-    .admin-table td:last-child { border-right: 1px solid var(--admin-border); border-radius: 0 12px 12px 0; }
+    .admin-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
 
-    .img-cell { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+    .admin-table { width: 100%; border-collapse: separate; border-spacing: 0 5px; }
+    .admin-table th { text-align: left; padding: 12px 15px; font-size: 10px; color: var(--admin-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .admin-table tbody tr { background: #fff; transition: 0.2s; }
+    .admin-table tbody tr:hover { background: #fafafa; }
+    .admin-table td { padding: 12px 15px; font-size: 13px; border-top: 1px solid var(--admin-border); border-bottom: 1px solid var(--admin-border); color: var(--admin-text); }
+    .admin-table td:first-child { border-left: 1px solid var(--admin-border); border-radius: 10px 0 0 10px; }
+    .admin-table td:last-child { border-right: 1px solid var(--admin-border); border-radius: 0 10px 10px 0; }
+
+    .img-cell { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
 
     /* Luxury Buttons */
     .admin-btn {
@@ -1273,15 +1280,15 @@
           const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td>${order._id.substring(order._id.length - 6).toUpperCase()}</td>
-            <td>${order.customerInfo.firstName}</td>
-            <td style="font-size:12px;">${itemsSummary}</td>
-            <td>Rs. ${order.totalPrice.toLocaleString()}</td>
-            <td><span style="color:${order.isDelivered ? '#34d399' : '#fbbf24'}">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
+            <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
+            <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
+            <td style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #777;">${itemsSummary}</td>
+            <td style="font-weight: 700;">Rs. ${order.totalPrice.toLocaleString()}</td>
+            <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
             <td>
-               <div style="display:flex; gap:10px;">
-                  <button class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 8px 15px; border: 1px solid rgba(108, 140, 255, 0.2);" onclick="viewCustomerDetails('${order._id}')">Details</button>
-                  ${!order.isDelivered ? `<button class="admin-btn" style="padding: 8px 15px;" onclick="markDelivered('${order._id}')">Deliver</button>` : '<span style="color:#34d399; font-weight:bold; align-self:center; font-size: 12px;">COMPLETE</span>'}
+               <div style="display:flex; gap:8px;">
+                  <button class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="viewCustomerDetails('${order._id}')">Details</button>
+                  ${!order.isDelivered ? `<button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="markDelivered('${order._id}')">Deliver</button>` : '<span style="color:#10b981; font-weight:bold; align-self:center; font-size: 11px; letter-spacing: 0.05em;">COMPLETED</span>'}
                </div>
             </td>
           `;
