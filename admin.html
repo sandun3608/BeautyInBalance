@@ -710,7 +710,7 @@
               </div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Showcase</th><th>Identity</th><th>Collection</th><th>Value</th><th>Stock</th><th>Action</th></tr></thead>
+                  <thead><tr><th>Showcase</th><th>Identity</th><th>Collection</th><th>Value</th><th>Discount</th><th>Stock</th></tr></thead>
                   <tbody id="inventory-table"></tbody>
                 </table>
               </div>
@@ -1210,12 +1210,6 @@
             <td>Rs. ${(prod.price || 0).toLocaleString()}</td>
             <td>${prod.discount || 0}%</td>
             <td><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
-            <td style="white-space: nowrap; width: 220px;">
-              <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start;">
-                <button class="action-btn btn-edit" style="margin: 0; min-width: 80px;" onclick="window.openModal('${pId}')">Edit</button>
-                <button class="action-btn btn-del" style="margin: 0; min-width: 80px;" onclick="window.deleteProduct('${pId}')">Delete</button>
-              </div>
-            </td>
           `;
           tableBody.appendChild(tr);
         });
