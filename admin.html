@@ -1465,7 +1465,9 @@
         if (typeof renderTeamChart === 'function') renderTeamChart();
         if (typeof updateRightSidebar === 'function') updateRightSidebar();
 
-        // 2. LIVE DATA SYNC
+        // 2. LIVE DATA SYNC (Aggressive)
+        setTimeout(() => { if (typeof updateRightSidebar === 'function') updateRightSidebar(); }, 100);
+        setTimeout(() => { if (typeof updateRightSidebar === 'function') updateRightSidebar(); }, 500);
         // Load everything at once instead of one-by-one
         Promise.all([
             typeof fetchDatabaseProducts === 'function' ? fetchDatabaseProducts() : Promise.resolve(),

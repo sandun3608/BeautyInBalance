@@ -366,6 +366,7 @@ async function fetchDatabaseProducts() {
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
+        if (typeof updateRightSidebar === 'function') updateRightSidebar();
 
     } catch (error) {
         console.warn("Using hardcoded products because Backend is offline or hasn't started yet.", error);
@@ -379,6 +380,7 @@ async function fetchDatabaseProducts() {
         if (typeof renderProduct === 'function') renderProduct();
         if (typeof renderProducts === 'function') renderProducts(productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
+        if (typeof updateRightSidebar === 'function') updateRightSidebar();
     }
 }
 
