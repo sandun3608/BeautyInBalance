@@ -72,7 +72,7 @@
         <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
-        <a href="mailto:info@beautyinbalance.lk" class="ic-btn mobile-only" aria-label="Email">
+        <a href="mailto:beautyinbalancesupport@gmail.com" class="ic-btn mobile-only" aria-label="Email">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </a>
         <ul class="nav-main">
@@ -96,7 +96,6 @@
 
       <!-- Right: Search + Account + Cart -->
       <div class="nav-icons">
-        <!-- Search Icon (Visible on Both) -->
         <button class="ic-btn" id="search-open" aria-label="Search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
         </button>
@@ -121,21 +120,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
         </button>
-
-
-
       </div>
     </nav>
 
-    <!-- Mobile Search Bar (Below Nav) -->
-    <div class="mobile-search-row mobile-only">
-      <div class="m-search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-        <input type="text" placeholder="Search for products..." id="m-search-input" />
-      </div>
-    </div>
-
-    <!-- Search Bar -->
+    <!-- Search Bar Dropdown -->
     <div class="search-drop" id="search-drop">
       <div class="search-inner">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
@@ -146,58 +134,6 @@
       </div>
     </div>
   </header>
-  
-  <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
-  <section class="m-cat-section mobile-only">
-    <div class="m-cat-wrapper">
-      <div class="m-cat-track">
-        <!-- Cleansers -->
-        <div class="m-cat-card" onclick="location.href='shop.html?cat=Cleansers'">
-          <div class="m-cat-info">
-            <h3>Cleansers</h3>
-            <span>12 Items</span>
-          </div>
-          <div class="m-cat-imgs">
-            <img src="cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png" alt="Cleanser">
-            <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Cleanser">
-          </div>
-        </div>
-        <!-- Serums -->
-        <div class="m-cat-card" onclick="location.href='shop.html?cat=Serums'">
-          <div class="m-cat-info">
-            <h3>Serums</h3>
-            <span>28 Items</span>
-          </div>
-          <div class="m-cat-imgs">
-            <img src="the ordinary/Niacinamide (30ml) Rs.3800.png" alt="Serum">
-            <img src="the ordinary/Hyaluronic Acid (30ml) Rs.4800.png" alt="Serum">
-          </div>
-        </div>
-        <!-- Moisturizers -->
-        <div class="m-cat-card" onclick="location.href='shop.html?cat=Moisturizers'">
-          <div class="m-cat-info">
-            <h3>Moisturizers</h3>
-            <span>18 Items</span>
-          </div>
-          <div class="m-cat-imgs">
-            <img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Moisturizer">
-            <img src="the%20ordinary/Azelaic%20Acid%20Suspension%2010%25%20(30ml)%20%20Rs.7200.png" alt="Moisturizer">
-          </div>
-        </div>
-        <!-- Acids (Replacing Sunscreens as it has more data) -->
-        <div class="m-cat-card" onclick="location.href='shop.html?cat=Acids'">
-          <div class="m-cat-info">
-            <h3>Exfoliators</h3>
-            <span>15 Items</span>
-          </div>
-          <div class="m-cat-imgs">
-            <img src="the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png" alt="Acid">
-            <img src="the%20ordinary/Glycolic%20Acid%20Toning%20Solution%20(240ml)%20%20Rs.4800.png" alt="Acid">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== OVERLAY ===== -->
   <div class="overlay" id="overlay"></div>
@@ -225,60 +161,14 @@
     </div>
     <div class="cart-empty">
       <p>Your cart is currently empty.</p>
-      <a href="#" class="btn-dark">Continue Shopping</a>
+      <a href="shop.html" class="btn-dark">Continue Shopping</a>
     </div>
   </div>
 
   <main>
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
-
-
-    <!-- ===== SECTION 1: ROUND CATEGORY LIST ===== -->
-    <section class="round-list-section">
-      <div class="round-list-track" id="round-track">
-        <!-- Dynamically injected by productsData -->
-      </div>
-      <script>
-        function renderRoundCategories() {
-          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
-          const track = document.getElementById('round-track');
-          if (!track) return;
-          
-          const categoriesObj = [
-            { id: 'cleansers', name: 'Cleansers', defaultImg: 'images/placeholder.png' },
-            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'images/placeholder.png' },
-            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'images/placeholder.png' },
-            { id: 'retinoids', name: 'Retinoids & Anti-Aging', defaultImg: 'images/placeholder.png' },
-            { id: 'moisturizers', name: 'Moisturizers', defaultImg: 'images/placeholder.png' },
-            { id: 'face-oils', name: 'Face Oils', defaultImg: 'images/placeholder.png' },
-            { id: 'eye-care', name: 'Eye Care', defaultImg: 'images/placeholder.png' },
-            { id: 'targeted', name: 'Targeted Care', defaultImg: 'images/placeholder.png' },
-            { id: 'bodycare', name: 'Body Care', defaultImg: 'images/placeholder.png' },
-            { id: 'sunscreen', name: 'Protection (SPF)', defaultImg: 'images/placeholder.png' }
-          ];
-
-          track.innerHTML = categoriesObj.map(cat => {
-            // Find first product in this category to use its image
-            const prod = productsData.find(p => p.filter === cat.id || (p.name && p.name.toLowerCase().includes(cat.name.split(' ')[0].toLowerCase())));
-            let imgUrl = prod ? prod.img : cat.defaultImg;
-            return `
-              <a href="category.html?cat=${cat.id}" class="round-item">
-                <div class="round-img"><img src="${imgUrl}" alt="${cat.name}" onerror="this.src='${cat.defaultImg}'" /></div>
-                <span>${cat.name}</span>
-              </a>
-            `;
-          }).join('');
-        }
-        
-        // Initial render for fallback
-        document.addEventListener('DOMContentLoaded', () => { setTimeout(renderRoundCategories, 300); });
-      </script>
-    </section>
-
-    <!-- ===== SECTION 2: HERO SLIDESHOW ===== -->
-    <section class="hero-section" id="hero">
-      <div class="hero-slides" id="hero-slides">
-
+    <section class="hero-section" id="hero-slider">
+      <div class="hero-slides">
         <!-- Desktop Video Slide -->
         <div class="hero-slide active desktop-only">
           <div class="hero-bg">
@@ -331,50 +221,104 @@
         </div>
 
         <!-- Mobile Navigation Arrows (Mobile Only) -->
-        <button class="hero-arr prev mobile-only" id="hero-prev" aria-label="Previous Slide" style="left: 10px; width: 40px; height: 40px; background: rgba(255,255,255,0.7); display: none;">
+        <button class="hero-arr prev mobile-only" id="hero-prev" aria-label="Previous Slide">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <button class="hero-arr next mobile-only" id="hero-next" aria-label="Next Slide" style="right: 10px; width: 40px; height: 40px; background: rgba(255,255,255,0.7); display: none;">
+        <button class="hero-arr next mobile-only" id="hero-next" aria-label="Next Slide">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
-
-        <style>
-          @media (max-width: 768px) {
-            .hero-arr.mobile-only { display: flex !important; align-items: center; justify-content: center; position: absolute; top: 50%; transform: translateY(-50%); border-radius: 50%; border: none; z-index: 100; cursor: pointer; }
-          }
-        </style>
-
-        <script>
-          document.addEventListener('DOMContentLoaded', () => {
-            const mSlides = document.querySelectorAll('.hero-slide.mobile-only');
-            if (mSlides.length === 0) return;
-            
-            let mIdx = 0;
-            const mPrev = document.getElementById('hero-prev');
-            const mNext = document.getElementById('hero-next');
-
-            function showMSlide(index) {
-              mSlides.forEach(s => s.classList.remove('active'));
-              if (index >= mSlides.length) mIdx = 0;
-              else if (index < 0) mIdx = mSlides.length - 1;
-              else mIdx = index;
-              mSlides[mIdx].classList.add('active');
-            }
-
-            if (mPrev) mPrev.addEventListener('click', (e) => { e.preventDefault(); showMSlide(mIdx - 1); });
-            if (mNext) mNext.addEventListener('click', (e) => { e.preventDefault(); showMSlide(mIdx + 1); });
-
-            setInterval(() => {
-              if (window.innerWidth <= 768) {
-                showMSlide(mIdx + 1);
-              }
-            }, 6000);
-          });
-        </script>
       </div>
     </section>
 
+    <!-- ===== MOBILE SEARCH BAR (Ribbon Style) ===== -->
+    <div class="mobile-search-row mobile-only">
+      <div class="m-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="text" placeholder="Search for products..." id="m-search-input" />
+      </div>
+    </div>
 
+    <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
+    <section class="m-cat-section mobile-only">
+      <div class="m-cat-wrapper">
+        <div class="m-cat-track">
+          <!-- Cleansers -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Cleansers'">
+            <div class="m-cat-info">
+              <h3>Cleansers</h3>
+              <span>12 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png" alt="Cleanser">
+              <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Cleanser">
+            </div>
+          </div>
+          <!-- Serums -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Serums'">
+            <div class="m-cat-info">
+              <h3>Serums</h3>
+              <span>28 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Serum">
+              <img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Serum">
+            </div>
+          </div>
+          <!-- Moisturizers -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Moisturizers'">
+            <div class="m-cat-info">
+              <h3>Moisturizers</h3>
+              <span>18 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Moisturizer">
+              <img src="the%20ordinary/Azelaic%20Acid%20Suspension%2010%25%20(30ml)%20%20Rs.7200.png" alt="Moisturizer">
+            </div>
+          </div>
+          <!-- Acids -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Acids'">
+            <div class="m-cat-info">
+              <h3>Exfoliators</h3>
+              <span>15 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png" alt="Acid">
+              <img src="the%20ordinary/Glycolic%20Acid%20Toning%20Solution%20(240ml)%20%20Rs.4800.png" alt="Acid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 1: ROUND CATEGORY LIST ===== -->
+    <section class="round-list-section">
+      <div class="round-list-track" id="round-track">
+        <!-- Dynamically injected by productsData -->
+      </div>
+      <script>
+        function renderRoundCategories() {
+          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
+          const track = document.getElementById('round-track');
+          if (!track) return;
+          
+          const categoriesObj = [
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'images/placeholder.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'images/placeholder.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'images/placeholder.png' },
+            { id: 'retinoids', name: 'Retinoids', defaultImg: 'images/placeholder.png' },
+            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'images/placeholder.png' },
+            { id: 'makeup', name: 'Makeup essentials', defaultImg: 'images/placeholder.png' }
+          ];
+          
+          track.innerHTML = categoriesObj.map(cat => `
+            <a href="shop.html?cat=${cat.id}" class="round-item">
+              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
+              <span>${cat.name}</span>
+            </a>
+          `).join('');
+        }
+      </script>
+    </section>
 
     <!-- ===== SECTION 3: EXCLUSIVE COLLECTION ===== -->
     <section class="exclusive-section">
@@ -382,10 +326,7 @@
         <span class="excl-script">Explore Our</span>
         <h2 class="excl-title">Exclusive Collection</h2>
       </div>
-
       <div class="excl-dynamic-grid">
-
-        <!-- LEFT: Tall portrait card -->
         <a href="shop.html" class="edc-card edc-tall-left">
           <div class="edc-img">
             <img src="t1/g (6).png" alt="Face Oils" />
@@ -395,8 +336,6 @@
             <span class="edc-count">8 items</span>
           </div>
         </a>
-
-        <!-- CENTER TOP: Wide landscape card (INTERNAL SLIDESHOW) -->
         <a href="shop.html" class="edc-card edc-wide-top">
           <div class="edc-img edc-slideshow">
             <img src="t1/slide (1).png" alt="Skin Care 1" />
@@ -408,8 +347,6 @@
             <span class="edc-count">12 items</span>
           </div>
         </a>
-
-        <!-- CENTER BOTTOM LEFT: Small card -->
         <a href="shop.html" class="edc-card edc-small">
           <div class="edc-img">
             <img src="t1/glow booster.png" alt="Glow Boosters" />
@@ -419,8 +356,6 @@
             <span class="edc-count">5 items</span>
           </div>
         </a>
-
-        <!-- CENTER BOTTOM RIGHT: Small card -->
         <a href="shop.html" class="edc-card edc-small">
           <div class="edc-img">
             <img src="t1/macke up remove.png" alt="Makeup Remover" />
@@ -430,835 +365,233 @@
             <span class="edc-count">6 items</span>
           </div>
         </a>
-
-        <!-- RIGHT: Tall portrait card -->
         <a href="shop.html" class="edc-card edc-tall-right">
           <div class="edc-img">
-            <img src="t1/body care.jpg" alt="Makeup" />
+            <img src="t1/sun.png" alt="Sun Care" />
           </div>
           <div class="edc-info">
-            <h3>Makeup</h3>
-            <span class="edc-count">9 items</span>
+            <h3>Sun Care</h3>
+            <span class="edc-count">10 items</span>
           </div>
         </a>
-
       </div>
     </section>
 
-    <!-- ===== SECTION 5: LATEST ARRIVALS GRID ===== -->
+    <!-- ===== SECTION 4: LATEST ARRIVALS ===== -->
     <section class="latest-section">
       <div class="latest-header">
-        <div class="excl-heading" style="margin-bottom: 0;">
-          <span class="excl-script">Discover New</span>
-          <h2 class="excl-title" style="margin-bottom: 0;">Latest Arrivals</h2>
-        </div>
+        <h2>Latest Arrivals</h2>
       </div>
       <div class="latest-grid-wrap">
-        <div class="latest-grid" id="latest-arrivals-grid">
-          <!-- Populated dynamically by JS -->
+        <div class="latest-grid" id="latest-track">
+          <!-- Dynamically Injected -->
         </div>
+      </div>
+      <div class="carousel-nav">
+        <button id="carr-prev">PREV</button>
+        <button id="carr-next">NEXT</button>
       </div>
     </section>
 
-    <!-- Dynamic Rendering Logic -->
-
-
-    <script>
-      function renderLatestArrivals() {
-        const grid = document.getElementById('latest-arrivals-grid');
-        if(!grid) return;
-        grid.innerHTML = '';
-        
-        // The Ordinary first row (4 items), CeraVe second row (4 items)
-        // SA Smoothing Cleanser first, Hydrating Cleanser second, rest of CeraVe excluding SPF30
-        const ceraveSA = productsData.filter(p => p.id === 'cer-sa-smoothing');
-        const ceraveHydrating = productsData.filter(p => p.id === 'cer-hydrating');
-        const ceraveOthers = productsData.filter(p => p.cat === 'cerave' && p.id !== 'cer-sa-smoothing' && p.id !== 'cer-hydrating' && p.id !== 'cer-am-spf30');
-        const cerave = [...ceraveSA, ...ceraveHydrating, ...ceraveOthers];
-        const ordinary = productsData.filter(p => p.cat === 'ordinary');
-        const latest = [...ordinary.slice(0, 4), ...cerave.slice(0, 4)];
-        
-        latest.forEach(prod => {
-          const card = document.createElement('div');
-          card.className = 'la-card';
-          card.innerHTML = `
-            <div class="la-top-box" onclick="location.href='product.html?id=${prod.id}'" style="cursor:pointer; position:relative;">
-              <button class="la-cart-btn" onclick="event.stopPropagation(); addToCart('${prod.id}', 1); const cartBtn = document.getElementById('cart-open'); if(cartBtn) cartBtn.click();" style="position:absolute; top:12px; right:12px; z-index:10; background:#fff; border:1px solid #eee; width:44px; height:44px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:0.3s;" title="Add to Cart" onmouseover="this.style.background='#fdfaf7'; this.style.borderColor='#d4af37'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#fff'; this.style.borderColor='#eee'; this.style.transform='scale(1)';">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1a3c34" stroke-width="1.8" width="20" height="20"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              </button>
-              <div class="la-img-main">
-                <img src="${prod.img}" alt="${prod.name}" />
-                <div class="la-overlay">
-                  <span class="la-o-buy">BUY NOW</span>
-                  <span class="la-o-price">Rs. ${prod.price.toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-            <div class="la-info" onclick="location.href='product.html?id=${prod.id}'" style="cursor:pointer;">
-              <div class="la-tags">
-                <span class="la-tag">NEW</span>
-                <span class="la-tag">${prod.filter ? prod.filter.toUpperCase() : 'SKINCARE'}</span>
-              </div>
-              <h4>${prod.name}</h4>
-              <div class="la-disc-banner">${prod.cat === 'ordinary' ? 'Ordinary Collection' : 'CeraVe Collection'}</div>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
-      }
-      renderLatestArrivals();
-    </script>
-
-
-    <!-- ===== SECTION: PRODUCT SHOWCASE ===== -->
-    <section class="showcase-section">
-      <div class="showcase-header excl-heading" style="margin-bottom: 40px;">
-        <span class="excl-script">The Routine</span>
-        <h2 class="excl-title showcase-title" style="margin-bottom: 10px;">Spotless in 1 Week</h2>
-        <p class="showcase-subtitle">Powered by Anti-Aging Serum for visibly smoother, brighter skin.</p>
-      </div>
-      
-      <div class="showcase-main">
-        <div class="showcase-container">
-          <!-- Floating Pills Left -->
-          <div class="showcase-pills pills-left">
-            <div class="scp-pill">
-              <span class="scp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg></span>
-              <span>Smooths Lines</span>
-            </div>
-            <div class="scp-pill pill-offset">
-              <span class="scp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-              <span>Collagen Boost</span>
-            </div>
-            <div class="scp-pill">
-              <span class="scp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
-              <span>Anti-Aging Shield</span>
-            </div>
-          </div>
-
-          <!-- Center Image Area -->
-          <div class="showcase-image">
-            <div class="si-blur-bg"></div>
-            <img src="bottle/bottle.png" alt="Featured Triple Skincare Set" id="ordinary-showcase-img">
-          </div>
-
-          <!-- Floating Pills Right -->
-          <div class="showcase-pills pills-right">
-            <div class="scp-pill">
-              <span class="scp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg></span>
-              <span>Brightens Skin</span>
-            </div>
-            <div class="scp-pill pill-offset">
-              <span class="scp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v10l4.5 4.5"/><circle cx="12" cy="12" r="10"/></svg></span>
-              <span>48h Hydration</span>
-            </div>
-            <div class="scp-pill">
-              <span class="scp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
-              <span>Fast Absorption</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase-footer">
-            <a href="shop.html" class="btn-dark showcase-btn">View Product</a>
-      </div>
-    </section>
-
-
-    <!-- ===== SECTION 8: FULL MODEL BANNER WITH PRODUCT CARD ===== -->
-
-    <!-- ===== SECTION: SHOP THE LOOK (Interactive Hotspots) ===== -->
-    <section class="look-section">
-      <div class="look-container" style="position: relative; z-index: 1;" id="look-container">
-        <!-- Empty lines removed for clarity -->
-        <!-- Left: Model Image with interactive dots -->
-        <div class="look-image-wrap">
-          <img src="images/hero_1.png" alt="Dynamic Beauty Look" id="look-model-img">
-          
-          <style>
-          .hs-tooltip {
-              position: absolute; bottom: 150%; left: 50%;
-              transform: translateX(-50%) translateY(10px);
-              background: #fff; padding: 8px; border-radius: 8px;
-              box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 6px; align-items: center;
-              width: 100px; opacity: 0; pointer-events: none;
-              transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 100;
-          }
-          .hotspot:hover .hs-tooltip, .hotspot.active .hs-tooltip {
-              opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto;
-          }
-          .hs-tooltip::after {
-              content: ''; position: absolute; top: 100%; left: 50%;
-              margin-left: -5px; border-width: 5px; border-style: solid;
-              border-color: #fff transparent transparent transparent;
-          }
-          .hs-tooltip img {
-              width: 100%; height: 60px; object-fit: contain; border-radius: 4px; background: var(--beige-light);
-          }
-          .hs-tooltip-info { display: flex; flex-direction: column; text-align: center; width: 100%; }
-          .hs-tooltip-info p { font-size: 11px; font-weight: 600; color: var(--brown); margin: 0; line-height: 1.2; }
-          .hs-tooltip-info span { font-size: 11px; color: var(--gold); font-weight: 700; margin-top: 4px; display: block; }
-          
-          /* Routine Section Button */
-          .routine-read-more {
-              background: var(--brown); color: #fff; border: none; padding: 10px 24px; border-radius: 6px; 
-              font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; 
-              cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s ease;
-          }
-          .routine-read-more:hover {
-              background: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 15px rgba(198,151,90,0.3);
-          }
-          </style>
-
-          <div class="hotspot" style="top: 35%; left: 45%;" data-product="0">
-             <div class="hs-tooltip" onclick="location.href='product.html?id=ord-niacinamide-30'">
-                <img src="the ordinary/Niacinamide (30ml) Rs.3800.png" alt="">
-                <div class="hs-tooltip-info"><p>Niacinamide 10%</p><span>Rs. 3,800</span></div>
-             </div>
-          </div>
-          
-          <div class="hotspot" style="top: 52%; left: 62%;" data-product="1">
-             <div class="hs-tooltip" onclick="location.href='product.html?id=ord-aha-bha-30'">
-                <img src="the ordinary/Aha bha peeling solution (30ml) Rs.5200.png" alt="">
-                <div class="hs-tooltip-info"><p>AHA 30% + BHA 2%</p><span>Rs. 5,200</span></div>
-             </div>
-          </div>
-          
-          <div class="hotspot" style="top: 68%; left: 42%;" data-product="2">
-             <div class="hs-tooltip" onclick="location.href='shop.html'">
-                <img src="the ordinary/Squalane + Amino Acid Lip Balm (15ml)  Rs.3900.png" alt="">
-                <div class="hs-tooltip-info"><p>Squalane Lip Balm</p><span>Rs. 3,900</span></div>
-             </div>
-          </div>
-        </div>
-
-        <!-- Right: Coordinated Product Sidebar -->
-        <div class="look-sidebar">
-          <div class="excl-heading" style="text-align: left; margin-bottom: 32px;">
-            <span class="excl-script" style="left: 0; transform: none;">Get Inspired</span>
-            <h2 class="excl-title" style="font-size: clamp(28px, 3.5vw, 40px); padding-top: 24px; margin-bottom: 0;">Shop the Look</h2>
-          </div>
-          <div class="look-product-list">
-            
-            <div class="look-product-card active" data-product="0" onclick="location.href='product.html?id=ord-niacinamide-30'">
-              <div class="lpc-img"><img src="the ordinary/Niacinamide (30ml) Rs.3800.png" alt="Niacinamide"></div>
-              <div class="lpc-info">
-                <p class="lpc-name">Niacinamide 10%</p>
-                <p class="lpc-meta">The Blemish Fighter</p>
-                <p class="lpc-price">Rs. 3,800</p>
-              </div>
-            </div>
-
-            <div class="look-product-card" data-product="1" onclick="location.href='product.html?id=ord-aha-bha-30'">
-              <div class="lpc-img"><img src="the ordinary/Aha bha peeling solution (30ml) Rs.5200.png" alt="Peeling Solution"></div>
-              <div class="lpc-info">
-                <p class="lpc-name">AHA 30% + BHA 2%</p>
-                <p class="lpc-meta">10-Minute Peeling</p>
-                <p class="lpc-price">Rs. 5,200</p>
-              </div>
-            </div>
-
-            <div class="look-product-card" data-product="2" onclick="location.href='shop.html'">
-              <div class="lpc-img"><img src="the ordinary/lip burm.png" alt="Lip Balm"></div>
-              <div class="lpc-info">
-                <p class="lpc-name">Squalane Lip Balm</p>
-                <p class="lpc-meta">Amino Acid Formula</p>
-                <p class="lpc-price">Rs. 3,900</p>
-              </div>
-            </div>
-
-          </div>
-
-          <button class="add-all-btn" onclick="location.href='shop.html'">Add All to Cart — Rs. 11,200</button>
-          <a href="#" style="text-align: center; margin-top: 20px; color: var(--muted); font-size: 13px; text-decoration: underline;">View Usage Guide</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SECTION: PRODUCT SHADE MATCHER ===== -->
-    <section class="shade-section">
-      <div class="shade-header">
-        <div class="excl-heading" style="margin-bottom: 30px;">
-          <span class="excl-script">Perfect Match</span>
-          <h2 class="excl-title shade-title" style="margin-bottom: 0;">Choose Your <span>Routine</span></h2>
-        </div>
-      </div>
-
-      <div class="shade-selector-container">
-        <!-- The Pill Images -->
-        <div class="shade-options">
-          <div class="shade-opt active" data-shade="1">
-            <div class="shade-img-wrap"><img src="images/shade-1.png" alt="Dry Skin"></div>
-            <p>Dry Skin</p>
-          </div>
-          <div class="shade-opt" data-shade="2">
-            <div class="shade-img-wrap"><img src="images/shade-2.png" alt="Oily & Acne"></div>
-            <p>Oily & Acne</p>
-          </div>
-          <div class="shade-opt" data-shade="3">
-            <div class="shade-img-wrap"><img src="images/shade-3.png" alt="Sensitive Skin"></div>
-            <p>Sensitive Skin</p>
-          </div>
-          <div class="shade-opt" data-shade="4">
-            <div class="shade-img-wrap"><img src="images/shade-4.png" alt="Aging/Textured"></div>
-            <p>Aging/Textured</p>
-          </div>
-        </div>
-
-        <!-- The Timeline Slider -->
-        <div class="shade-timeline">
-          <div class="shade-track"></div>
-          <div class="shade-fill" id="shade-fill"></div>
-          <!-- 4 clickable points -->
-          <div class="shade-points" id="shade-pts-container">
-            <div class="shade-pt active" data-pos="0"></div>
-            <div class="shade-pt" data-pos="33.33"></div>
-            <div class="shade-pt" data-pos="66.66"></div>
-            <div class="shade-pt" data-pos="100"></div>
-          </div>
-          <div class="shade-handle" id="shade-handle"></div>
-        </div>
-      </div>
-      
-      <!-- The dynamic content below the slider (A placeholder grid to simulate functionality) -->
-      <div class="shade-products" id="shade-products">
-        <div class="sc-prod-card" data-cat="ordinary" onclick="location.href='product.html?id=ord-niacinamide-30'">
-          <span class="rec-badge">RECOMMENDED</span>
-          <img src="the ordinary/Niacinamide (30ml) Rs.3800.png" alt="Serum">
-          <p>Niacinamide (30ml)</p>
-          <span>Rs. 3,800</span>
-        </div>
-        <div class="sc-prod-card" data-cat="ordinary" onclick="location.href='product.html?id=ord-soothing-barrier-30'">
-          <span class="rec-badge">RECOMMENDED</span>
-          <img src="the ordinary/Soothing and barrier support serum (30ml)  Rs.5200.png" alt="Barrier Serum">
-          <p>Barrier Support Serum</p>
-          <span>Rs. 5,200</span>
-        </div>
-        <div class="sc-prod-card" data-cat="cerave" onclick="location.href='product.html?id=cer-hydrating'">
-          <span class="rec-badge">RECOMMENDED</span>
-          <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Hydrating Cleanser">
-          <p>Hydrating Cleanser</p>
-          <span>Rs. 6,800</span>
-        </div>
-        <div class="sc-prod-card" data-cat="cerave" onclick="location.href='product.html?id=cer-sa-smoothing'">
-          <span class="rec-badge">RECOMMENDED</span>
-          <img src="cerave prodcut/SA Smoothing Cleanser (236ml) Rs.6750.png" alt="SA Cleanser">
-          <p>SA Smoothing Cleanser</p>
-          <span>Rs. 6,750</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SECTION: BEFORE & AFTER SKIN SLIDER ===== -->
+    <!-- ===== SECTION 5: BEFORE & AFTER SLIDER ===== -->
     <section class="ba-slider-section">
       <div class="ba-container">
-        <!-- The After Image (Bottom Layer) -->
         <div class="ba-after-wrap">
-          <img src="before/Brighting boost.png" alt="Clear Skin After">
-          <div class="ba-label lab-after">After</div>
+          <img src="images/after.png" alt="After" />
+          <span class="ba-label lab-after">After</span>
         </div>
-
-        <!-- The Before Image (Top Layer - Clipped) -->
-        <div class="ba-before-wrap" id="ba-before-clip">
-          <img src="before/1.png" alt="Acne Skin Before">
-          <div class="ba-label lab-before">Before</div>
+        <div class="ba-before-wrap" id="ba-before">
+          <img src="images/before.png" alt="Before" />
+          <span class="ba-label lab-before">Before</span>
         </div>
-
-        <!-- The Slider Line -->
-        <div class="ba-line" id="ba-slider-line">
+        <div class="ba-line" id="ba-line">
           <div class="ba-handle"></div>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="ba-range" id="ba-range" />
+      </div>
+    </section>
+
+    <!-- ===== SECTION 6: ROUTINE SHOWCASE ===== -->
+    <section class="showcase-main">
+      <div class="showcase-container">
+        <div class="pills-left">
+          <div class="scp-pill" data-step="1">
+              <span class="scp-icon">✨</span>
+              <span>1. CLEANSE</span>
+          </div>
+          <div class="scp-pill" data-step="2">
+              <span class="scp-icon">💧</span>
+              <span>2. HYDRATE</span>
+          </div>
+          <div class="scp-pill" data-step="3">
+              <span class="scp-icon">🌿</span>
+              <span>3. TREAT</span>
+          </div>
+        </div>
+        <div class="showcase-image">
+          <img src="images/routine-model.png" alt="Routine Model" />
+        </div>
+        <div class="pills-right">
+          <div class="scp-pill" data-step="4">
+              <span class="scp-icon">🪄</span>
+              <span>4. BRIGHTEN</span>
+          </div>
+          <div class="scp-pill" data-step="5">
+              <span class="scp-icon">🧴</span>
+              <span>5. MOISTURIZE</span>
+          </div>
+          <div class="scp-pill" data-step="6">
+              <span class="scp-icon">☀️</span>
+              <span>6. PROTECT</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== SECTION: PRODUCT FEATURES GRAPHICS ===== -->
+    <!-- ===== SECTION 7: SHOP THE LOOK ===== -->
+    <section class="look-section">
+      <div class="look-container">
+        <div class="look-image-wrap">
+          <img src="images/look-model.png" alt="Shop The Look" />
+          <div class="hotspot hs-1" style="top:30%; left:45%;"><div class="hs-pulse"></div></div>
+          <div class="hotspot hs-2" style="top:55%; left:60%;"><div class="hs-pulse"></div></div>
+          <div class="hotspot hs-3" style="top:75%; left:35%;"><div class="hs-pulse"></div></div>
+        </div>
+        <div class="look-sidebar">
+          <span class="look-tag">TRENDING NOW</span>
+          <h2>Shop the Effortless Glow</h2>
+          <div class="look-product-list">
+             <!-- Dynamically injected -->
+          </div>
+          <a href="shop.html" class="btn-dark">SHOP THE COLLECTION</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
+    <section class="video-highlights">
+      <div class="vh-row">
+        <div class="vh-media"><video src="vdo/skincare-routine.mp4" autoplay muted loop playsinline></video></div>
+        <div class="vh-info">
+          <span class="vh-tag">SKINCARE SECRETS</span>
+          <h2 class="vh-title">Master the Art of Layering</h2>
+          <p>Learn how to apply your products for maximum absorption and effectiveness.</p>
+          <a href="#" class="vh-link">WATCH FULL GUIDE</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 9: SHADE FINDER ===== -->
+    <section class="shade-finder">
+      <div class="shade-header">
+        <h2>Find Your Perfect Match</h2>
+        <div class="shade-tabs">
+          <button class="shade-tab active" data-shade="light">LIGHT</button>
+          <button class="shade-tab" data-shade="medium">MEDIUM</button>
+          <button class="shade-tab" data-shade="deep">DEEP</button>
+        </div>
+      </div>
+      <div class="shade-options">
+        <div class="shade-opt active">
+          <div class="shade-img-wrap"><img src="images/shade-1.png" alt="Shade 1"></div>
+          <p>Ivory (110)</p>
+        </div>
+        <div class="shade-opt">
+          <div class="shade-img-wrap"><img src="images/shade-2.png" alt="Shade 2"></div>
+          <p>Nude (120)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 10: CUSTOMER FEEDBACK ===== -->
+    <section class="feedback-section">
+      <div class="fb-header">
+        <h2>What Our Customers Say</h2>
+      </div>
+      <div class="fb-cards">
+        <div class="fb-card">
+          <div class="fb-stars">★★★★★</div>
+          <p class="fb-text">"The Ordinary products really changed my skin. I'm glowing!"</p>
+          <div class="fb-user">
+            <div class="fb-avatar"><img src="images/user1.png" alt="User"></div>
+            <div class="fb-user-info"><h4>Sarah J.</h4><span>Verified Buyer</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 11: FEATURES ===== -->
     <section class="features-section">
       <div class="features-grid">
         <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M12 3v19M5 8h14M8 13l4 4 4-4"/></svg>
-          </div>
-          <h4 class="feature-title">Pure Ingredients</h4>
-          <p class="feature-desc">100% stable active formulas with no hidden fillers.</p>
+          <div class="feat-icon">🚚</div>
+          <h4>FAST DELIVERY</h4>
+          <p>Island-wide shipping within 48 hours.</p>
         </div>
-        
         <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <h4 class="feature-title">Vegan Formula</h4>
-          <p class="feature-desc">Eco-conscious, plant-based science for healthy skin.</p>
+          <div class="feat-icon">✔️</div>
+          <h4>100% AUTHENTIC</h4>
+          <p>Guaranteed genuine products imported directly.</p>
         </div>
-
         <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-          </div>
-          <h4 class="feature-title">Derm Tested</h4>
-          <p class="feature-desc">Clinically proven results for every skin type.</p>
+          <div class="feat-icon">💎</div>
+          <h4>PREMIUM QUALITY</h4>
+          <p>Only the best science-backed skincare brands.</p>
         </div>
-
         <div class="feature-item">
-          <div class="feature-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
-          </div>
-          <h4 class="feature-title">Cruelty Free</h4>
-          <p class="feature-desc">Never tested on animals. Ethically made in CA & GB.</p>
+          <div class="feat-icon">🛡️</div>
+          <h4>SECURE PAYMENT</h4>
+          <p>Safe bank transfers and cash on delivery.</p>
         </div>
       </div>
     </section>
 
-    <!-- ===== SECTION: VIDEO HIGHLIGHTS ===== -->
-    <section class="video-highlights-section">
-      <div class="vh-container">
-        
-        <!-- Feature 1: Text Left, Video Right -->
-        <div class="vh-row vh-reverse">
-          <div class="vh-media vh-media-wide">
-            <video src="vedio/1.mp4" autoplay loop muted playsinline></video>
-          </div>
-          <div class="vh-info">
-            <h2 class="vh-title">Glycolic Acid Toning Solution</h2>
-            <p class="vh-desc">A daily exfoliating toner that helps improve skin clarity, balance uneven skin tone, and correct texture over time. Experience a radiant glow.</p>
-            <a href="product.html?id=ord-glycolic-240" class="btn-dark vh-btn">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-col">
+          <h3>SHOP</h3>
+          <ul>
+            <li><a href="shop.html">Best Sellers</a></li>
+            <li><a href="shop.html">New Arrivals</a></li>
+            <li><a href="shop.html">Special Offers</a></li>
+          </ul>
         </div>
-
-        <!-- Feature 2: Video Left, Text Right -->
-        <div class="vh-row">
-          <div class="vh-media vh-media-tall">
-            <video src="vedio/2.mp4" autoplay loop muted playsinline></video>
-          </div>
-          <div class="vh-info">
-            <h2 class="vh-title">Azelaic Acid Suspension</h2>
-            <p class="vh-desc">A multifunctional brightening formula that reduces the appearance of blemishes, redness, and uneven skin tone while improving texture.</p>
-            <a href="product.html?id=ord-azelaic-10-30" class="btn-dark vh-btn">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
+        <div class="footer-col">
+          <h3>SUPPORT</h3>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="policies.html">Shipping & Returns</a></li>
+            <li><a href="policies.html">FAQ</a></li>
+          </ul>
         </div>
-
-      </div>
-    </section>
-
-    <!-- ===== SECTION: FEEDBACK / TESTIMONIALS ===== -->
-    <section class="feedback-section">
-      <div class="fb-wrapper">
-        <div class="excl-heading" style="margin-bottom: 24px;">
-          <span class="excl-script">Testimonials</span>
-          <h2 class="excl-title fb-title" style="margin-bottom: 0;">What our customers say about our service?</h2>
-        </div>
-        <p class="fb-subtitle">Here are some real stories from people who chose to care for their skin with us.</p>
-        
-        <div class="fb-cards">
-          <!-- Card 1 -->
-          <div class="fb-card">
-            <div class="fb-stars">★★★★★ (5.0)</div>
-            <p class="fb-text">"I was struggling with uneven skin tone for months. The products I ordered arrived very fast and were 100% authentic. Seeing great results already!"</p>
-            <div class="fb-user">
-              <div class="fb-avatar" style="display:flex; align-items:center; justify-content:center; color: var(--brown);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="fb-user-info">
-                <h4>Nethmi Frendo</h4>
-                <span>Colombo</span>
-              </div>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="fb-card">
-            <div class="fb-stars">★★★★★ (5.0)</div>
-            <p class="fb-text">"The delivery was incredibly quick and the packaging was super safe with bubble wrap. Customer service was very friendly. Will definitely buy again."</p>
-            <div class="fb-user">
-              <div class="fb-avatar" style="display:flex; align-items:center; justify-content:center; color: var(--brown);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="fb-user-info">
-                <h4>Imesha Dulanjali</h4>
-                <span>Galle</span>
-              </div>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="fb-card">
-            <div class="fb-stars">★★★★★ (5.0)</div>
-            <p class="fb-text">"I bought the CeraVe hydrating cleanser. The product is genuine and it really helped my dry skin. So happy to find a reliable store in Sri Lanka."</p>
-            <div class="fb-user">
-              <div class="fb-avatar" style="display:flex; align-items:center; justify-content:center; color: var(--brown);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="fb-user-info">
-                <h4>Kasunika Kavihari</h4>
-                <span>Kandy</span>
-              </div>
-            </div>
+        <div class="footer-col">
+          <h3>BEAUTY IN BALANCE</h3>
+          <p>Your destination for authentic, high-quality skincare in Sri Lanka.</p>
+          <div class="footer-social">
+            <a href="#">FB</a><a href="#">IG</a><a href="#">WA</a>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ===== SECTION: AVURUDU MEGA SALE (Shop All Products) ===== -->
-    <section class="hp-products-section avurudu-sale-section">
-      <style>
-        .avurudu-sale-section {
-           background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), url('new%20year/Elegant%20mandalas%20and%20vibrant%20blossoms.png') no-repeat center center;
-           background-size: cover;
-           background-attachment: fixed;
-           position: relative; overflow: hidden;
-           padding-top: 40px; padding-bottom: 80px;
-           border-top: 4px solid #C0392B; border-bottom: 4px solid #C0392B;
-        }
-        .avurudu-scenery { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-
-        /* Moving Decorative Suns (Mandalas) */
-        .moving-sun { position: absolute; opacity: 0.15; animation: spinMandala 100s linear infinite; }
-        .ms-1 { top: 10%; left: 5%; width: 220px; }
-        .ms-2 { top: 40%; right: 5%; width: 180px; animation-direction: reverse; }
-        .ms-3 { bottom: 10%; left: 20%; width: 150px; }
-        @keyframes spinMandala { 100% { transform: rotate(360deg); } }
-
-        .avurudu-header-content { position: relative; z-index: 10; text-align: center; padding-bottom: 50px; }
-        .avurudu-badge {
-           display: inline-block; background: #e74c3c !important; color: #FFF !important; padding: 10px 25px; border-radius: 30px;
-           font-size: 14px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px;
-           box-shadow: 0 5px 15px rgba(231,76,60,0.4); border: 2px solid #fff;
-        }
-        .avurudu-title { 
-           font-family: var(--font-serif); font-size: 52px; color: #5D4037; font-weight: 800; margin-bottom: 10px; line-height: 1;
-           text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
-        }
-        .avurudu-title span { color: #8B4513; }
-        .avurudu-subtitle { 
-           color: #6D4C41; font-size: 18px; font-weight: 600; max-width: 650px; margin: 0 auto 35px; line-height: 1.4;
-           background: rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 10px; display: inline-block;
-        }
-        
-        /* Discount Tag Styles */
-        .avurudu-sale-section .hp-prod-card { position: relative; }
-        .avurudu-discount-tag {
-           position: absolute; top: 0; right: 0;
-           background: #e74c3c; color: #fff;
-           padding: 6px 12px; border-radius: 0 0 0 10px;
-           font-size: 13px; font-weight: 900;
-           z-index: 20; box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
-           border-bottom: 1px solid rgba(255,255,255,0.2);
-           border-left: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .avurudu-sale-section .sub-filter { border-color: #8B4513; background: #fff; color: #5D4037; border-radius: 4px; font-weight: 600; }
-        .avurudu-sale-section .sub-filter.active, .avurudu-sale-section .sub-filter:hover { background: #8B4513; color: #fff; }
-
-        /* Buy Now Button Styles */
-        .hp-prod-buy-btn {
-           margin-top: 15px; background: #2D1B12 !important; color: #fff !important;
-           padding: 13px; text-align: center; font-size: 13px; font-weight: 600;
-           text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px;
-           border: 1.5px solid #2D1B12;
-           transition: all 0.3s ease; display: block !important; width: 100%;
-           visibility: visible !important; opacity: 1 !important;
-        }
-        .hp-prod-buy-btn:hover {
-           background: var(--gold) !important; border-color: var(--gold) !important;
-           transform: translateY(-3px); box-shadow: 0 10px 20px rgba(198,151,90,0.3) !important;
-        }
-      </style>
-
-      <div class="avurudu-scenery">
-        <!-- Spinning Mandala Suns -->
-        <svg class="moving-sun ms-1" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" stroke-width="0.2" opacity="0.3"/>
-          <g fill="#D4AF37" opacity="0.5">
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(0 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(45 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(90 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(135 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(180 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(225 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(270 50 50)"/>
-            <path d="M50 10 C55 25 70 25 75 10 C70 25 70 40 50 45 C30 40 30 25 25 10 C30 25 45 25 50 10" transform="rotate(315 50 50)"/>
-          </g>
-          <circle cx="50" cy="50" r="8" fill="#8B4513" opacity="0.7"/>
-        </svg>
-
-        <svg class="moving-sun ms-2" viewBox="0 0 100 100">
-           <g fill="none" stroke="#8B4513" stroke-width="0.3" opacity="0.4">
-              <circle cx="50" cy="50" r="40"/>
-              <circle cx="50" cy="50" r="30"/>
-              <path d="M50 10 L50 90 M10 50 L90 50 M25 25 L75 75 M75 25 L25 75" stroke-dasharray="2 2"/>
-           </g>
-        </svg>
-
-        <svg class="moving-sun ms-3" viewBox="0 0 100 100">
-           <circle cx="50" cy="50" r="45" fill="none" stroke="#D4AF37" stroke-width="0.5" stroke-dasharray="1 3"/>
-           <path d="M50 5 L55 25 L75 30 L55 35 L50 75 L45 35 L25 30 L45 25 Z" fill="#D4AF37" opacity="0.4"/>
-        </svg>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Beauty in Balance. All Rights Reserved.</p>
       </div>
-
-      <div class="hp-grid-header avurudu-header-content">
-        <span class="avurudu-badge">☀️ Suba Aluth Avuruddak Wewa! ☀️</span>
-        <h2 class="avurudu-title">Happy <span>New Year</span> Sale</h2>
-        <p class="avurudu-subtitle">Celebrate the Sinhala & Tamil New Year with glowing skin. Enjoy exclusive festive discounts up to 5% off on premium skincare imports.</p>
- 
-
-        
-        <!-- Category Filter Options -->
-        <div class="hp-grid-filters" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
-          <a href="shop.html?cat=all" class="sub-filter active">All Products</a>
-          <a href="shop.html?filter=cleansers" class="sub-filter">Cleansers</a>
-          <a href="shop.html?filter=serums" class="sub-filter">Serums</a>
-          <a href="shop.html?filter=acids" class="sub-filter">Acids &amp; Exfoliants</a>
-          <a href="shop.html?filter=retinoids" class="sub-filter">Retinoids</a>
-          <a href="shop.html?filter=moisturizers" class="sub-filter">Moisturisers</a>
-        </div>
-      </div>
-      
-      <div class="hp-grid-container" id="avurudu-sale-grid">
-        <!-- Populated dynamically by JS -->
-      </div>
-      
-      <script>
-        function renderAvuruduSale() {
-          const grid = document.getElementById('avurudu-sale-grid');
-          if(!grid || !window.productsData) return;
-          const productsData = window.productsData;
-
-          grid.innerHTML = '';
-          
-          // Show up to 10 products for the mega sale
-          const saleProducts = productsData.slice(0, 10);
-          
-          saleProducts.forEach(prod => {
-            const card = document.createElement('a');
-            card.href = 'shop.html';
-            card.className = 'hp-prod-card';
-            card.innerHTML = `
-              <div class="avurudu-discount-tag">5% OFF</div>
-              <div class="hp-prod-img"><img src="${prod.img}" alt="${prod.name}"></div>
-              <p class="hp-prod-name">${prod.name}</p>
-              <p class="hp-prod-price">Rs. ${prod.price.toLocaleString()}</p>
-              <div class="hp-prod-buy-btn" onclick="event.preventDefault(); addToCart('${prod.id}', 1); const cartBtn = document.getElementById('cart-open'); if(cartBtn) cartBtn.click();">BUY NOW</div>
-            `;
-            grid.appendChild(card);
-          });
-        }
-        
-        // Wait for productsData to be ready
-        document.addEventListener('DOMContentLoaded', () => {
-          setTimeout(renderAvuruduSale, 500);
-          setTimeout(renderAvuruduSale, 3000);
-
-        // Self-healing check
-        setInterval(() => {
-          const g = document.getElementById('avurudu-sale-grid');
-          if (g && g.innerHTML.trim() === '' && window.productsData && window.productsData.length > 0) {
-            renderAvuruduSale();
-          }
-        }, 5000);
-        });
-      </script>
-    </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- ===== SECTION: SALE DEALS OVERVIEW ===== -->
-    <div class="excl-heading" style="margin: 80px 0 40px;">
-      <span class="excl-script">Shop Premium Quality</span>
-      <h2 class="excl-title" style="margin-bottom: 0;">Your Online Store</h2>
-    </div>
-    
-    <section class="sale-overview">
-      <!-- Card 1 -->
-      <div class="so-card">
-        <h3>Trending Now</h3>
-        <div class="so-img-box">
-          <img src="the ordinary/Retinol 1 in squalane (30ml)  Rs.6200.png" alt="Serum">
-          <div class="so-timer">End in: 12 Days, 04 Hrs, 30 Min</div>
-        </div>
-        <div class="so-links">
-          <a href="shop.html" class="so-link-item">Ending Offers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="shop.html" class="so-link-item">Face Serums <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="so-card">
-        <h3>Week Deals Limited</h3>
-        <div class="so-img-box">
-          <img src="the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png" alt="Rosehip Oil">
-          <div class="so-timer">End in: 05 Days, 10 Hrs, 45 Min</div>
-        </div>
-        <div class="so-links">
-          <a href="shop.html" class="so-link-item">Ending Offers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="shop.html" class="so-link-item">Night Creams <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="so-card">
-        <h3>Featured Products</h3>
-        <div class="so-img-box">
-          <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Hydrating Cleanser">
-          <div class="so-timer">End in: 01 Days, 22 Hrs, 05 Min</div>
-        </div>
-        <div class="so-links">
-          <a href="shop.html" class="so-link-item">Ending Offers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="shop.html" class="so-link-item">Anti-Aging Sets <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SECTION 9: MARQUEE BRAND BAND ===== -->
-    <div class="brand-marquee">
-      <div class="bm-track">
-        <span>Clean Beauty &nbsp;✦&nbsp; Dermatologist Tested &nbsp;✦&nbsp; Cruelty Free &nbsp;✦&nbsp; Vegan Formula &nbsp;✦&nbsp; Sustainably Sourced &nbsp;✦&nbsp; Clean Beauty &nbsp;✦&nbsp; Dermatologist Tested &nbsp;✦&nbsp; Cruelty Free &nbsp;✦&nbsp; Vegan Formula &nbsp;✦&nbsp; Sustainably Sourced &nbsp;✦&nbsp;</span>
-      </div>
-    </div>
-
-    <!-- ===== SECTION 10: NEWSLETTER ===== -->
-    <section class="nl-section">
-      <div class="nl-inner">
-        <h2>Subscribe &amp; Get <span>10% Off</span></h2>
-        <p>Sign up for our newsletter and receive exclusive offers, skincare tips and early access to new launches.</p>
-        <form class="nl-form" id="nl-form">
-          <input type="email" placeholder="Enter your email address" required id="nl-email" />
-          <button type="submit" class="btn-dark">Subscribe</button>
-        </form>
-        <p class="nl-note">By subscribing you agree to our <a href="#">Privacy Policy</a>. You may unsubscribe at any time.</p>
-      </div>
-    </section>
-
+    </footer>
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <div class="footer-top">
-      <div class="footer-brand-col">
-         <a href="index.html" class="footer-logo">Beauty in Balance</a>
-        <p>We believe that beauty is for everyone. Our mission is to offer premium, ethically sourced skincare and makeup products that celebrate individuality.</p>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/beauty.in.balance_?igsh=aTRvd2k0ZjgzMWx1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <a href="#" aria-label="Pinterest">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 0 0 4.77 3.91c-.227.924-.802 2.302-.802 2.302s.58 1.049 1.532.396c.93-.636 1.72-2.154 1.72-2.154A4 4 0 1 0 8 12z"/></svg>
-          </a>
-          <a href="https://www.tiktok.com/@beauty_in_balance_?_r=1&_t=ZS-9597oMhi8cm" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-          </a>
-        </div>
-      </div>
+  <!-- ===== FLOATING EMAIL & WHATSAPP ICONS ===== -->
+  <a href="mailto:beautyinbalancesupport@gmail.com" class="floating-email" aria-label="Email Us">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+  </a>
+  <a href="https://wa.me/94719152136" target="_blank" rel="noopener noreferrer" class="floating-wa" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
-      <div class="footer-col">
-        <h5>Shop</h5>
-        <ul>
-          <li><a href="#">Skin Care</a></li>
-          <li><a href="#">Makeup</a></li>
-          <li><a href="#">Body Care</a></li>
-          <li><a href="#">Sunscreen</a></li>
-          <li><a href="#">Tools &amp; Accessories</a></li>
-          <li><a href="#">Gift Sets</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Quick Links</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop All</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="policies.html">Shipping & Policies</a></li>
-          <li><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Customer Care</h5>
-        <ul>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Shipping &amp; Returns</a></li>
-          <li><a href="#">Order Tracking</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Accessibility</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-mid">
-      <div class="footer-nl">
-        <h5>Newsletter</h5>
-        <form class="footer-nl-form">
-          <input type="email" placeholder="Your email address" />
-          <button type="submit" class="btn-dark" style="border-radius:0 4px 4px 0; padding:10px 18px; font-size:12px;">SUBSCRIBE</button>
-        </form>
-      </div>
-      <div class="footer-lang">
-        <select>
-          <option>English</option>
-          <option>Español</option>
-          <option>Français</option>
-        </select>
-        <select>
-          <option>USD $</option>
-          <option>EUR €</option>
-          <option>GBP £</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2024 Beauty in Balance | Lanka's Premier Skincare Destination.</p>
-      <div class="footer-payment">
-        <span class="pay-icon" style="opacity: 0.8;">Cash on Delivery</span>
-        <span class="pay-icon" style="opacity: 0.8;">Bank Transfer</span>
-        <span class="pay-icon" style="opacity: 0.8;">Koko</span>
-        <span class="pay-icon" style="opacity: 0.8;">Mintpay</span>
-      </div>
-      <a href="#" class="back-top" id="back-top" aria-label="Back to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
-      </a>
-    </div>
-  </footer>
-
+  <script src="config.js"></script>
+  <script src="products.js"></script>
   <script>
-    /* ── UTILS ── */
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
-
-    // Mobile Search Input Redirect
-    const mSearchInput = $('m-search-input');
-    if (mSearchInput) {
-      mSearchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const val = mSearchInput.value.trim();
-          if (val) window.location.href = `shop.html?search=${encodeURIComponent(val)}`;
-        }
-      });
-    }
-
-    /* ── HEADER SCROLL ── */
-    window.addEventListener('scroll', () => {
-      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    /* ── SEARCH ── */
-    $('search-open').addEventListener('click', () => { $('search-drop').classList.add('open'); $('search-inp').focus(); });
-    $('search-close').addEventListener('click', () => $('search-drop').classList.remove('open'));
 
     /* ── MOBILE DRAWER ── */
     $('ham-open').addEventListener('click', () => { $('mobile-drawer').classList.add('open'); overlay.classList.add('show'); });
@@ -1269,6 +602,10 @@
       $('cart-drawer').classList.remove('open');
       overlay.classList.remove('show');
     }
+
+    /* ── SEARCH ── */
+    $('search-open').addEventListener('click', () => { $('search-drop').classList.add('open'); $('search-inp').focus(); });
+    $('search-close').addEventListener('click', () => $('search-drop').classList.remove('open'));
 
     /* ── CART ── */
     const cartBtn = $('cart-open');
@@ -1284,319 +621,58 @@
     }
 
     /* ── HERO SLIDER ── */
-    // Hero Video (Single)
-    const heroVdo = $('hero-vdo-1');
-    if (heroVdo) {
-      heroVdo.play().catch(e => console.log("Autoplay blocked:", e));
-    }
-
-    /* ── FEATURED TABS ── */
-    document.querySelectorAll('.ftab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.ftab-products').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        const target = document.getElementById('fp-' + btn.dataset.ftab);
-        if (target) target.classList.add('active');
-      });
-    });
-
-    /* ── CAROUSEL ── */
-    const track = $('latest-track');
-    const cards = track.querySelectorAll('.la-card');
-    let carPos = 0;
-    const cardW = () => cards[0].offsetWidth + 24;
-    $('carr-prev').addEventListener('click', () => {
-      carPos = Math.max(0, carPos - 1);
-      track.style.transform = `translateX(-${carPos * cardW()}px)`;
-    });
-    $('carr-next').addEventListener('click', () => {
-      carPos = Math.min(cards.length - Math.floor(track.parentElement.offsetWidth / cardW()), carPos + 1);
-      track.style.transform = `translateX(-${carPos * cardW()}px)`;
-    });
-
-    /* ── STEPS TABS ── */
-    document.querySelectorAll('.stab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.step-thumb-item').forEach((el, i) => {
-          el.classList.toggle('active', i === +btn.dataset.step - 1);
-        });
-        btn.classList.add('active');
-      });
-    });
-
-    /* ── MODEL PRODUCT TABS ── */
-    document.querySelectorAll('.mpc-tab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.mpc-tab').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    /* ── NEWSLETTER ── */
-    $('nl-form').addEventListener('submit', e => {
-      e.preventDefault();
-      $('nl-form').innerHTML = '<p class="nl-success">🎉 Thank you! Check your inbox for your 10% discount code.</p>';
-    });
-
-    /* ── BACK TO TOP ── */
-    $('back-top').addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
-    /* ── INTERSECTION OBSERVER ── */
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('fade-in'); obs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.excl-card, .fp-card, .la-card, .round-item').forEach(el => obs.observe(el));
-
-    /* ── SHOP THE LOOK INTERACTION ── */
-    const hotspots = document.querySelectorAll('.hotspot');
-    const lookCards = document.querySelectorAll('.look-product-card');
-
-    hotspots.forEach((hs, idx) => {
-      hs.addEventListener('mouseenter', () => {
-        lookCards.forEach(c => c.classList.remove('active'));
-        hotspots.forEach(h => h.classList.remove('active'));
-        if(lookCards[idx]) lookCards[idx].classList.add('active');
-        hs.classList.add('active');
-      });
-    });
-
-    // Shop the Look Hotspots — Touch/Click Support for Mobile
-    hotspots.forEach((hs, idx) => {
-      // Toggle active state on click/touch
-      hs.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent closing immediately
-        const isActive = hs.classList.contains('active');
-        
-        // Remove active from all
-        hotspots.forEach(h => h.classList.remove('active'));
-        lookCards.forEach(c => c.classList.remove('active'));
-        
-        // Toggle this one
-        if(!isActive) {
-          hs.classList.add('active');
-          if(lookCards[idx]) lookCards[idx].classList.add('active');
-        }
-      });
-    });
-
-    // Close tooltips when clicking outside
-    document.addEventListener('click', () => {
-      hotspots.forEach(h => h.classList.remove('active'));
-      lookCards.forEach(c => c.classList.remove('active'));
-    });
-
-    lookCards.forEach((card, idx) => {
-      card.addEventListener('mouseenter', () => {
-        lookCards.forEach(c => c.classList.remove('active'));
-        hotspots.forEach(h => h.classList.remove('active'));
-        card.classList.add('active');
-        if(hotspots[idx]) hotspots[idx].classList.add('active');
-      });
-    });
-  </script>
-
-
-
-    <!-- BEFORE & AFTER SLIDER JS -->
-    <script>
-      const baContainer = document.querySelector('.ba-container');
-      const baBeforeClip = document.getElementById('ba-before-clip');
-      const baLine = document.getElementById('ba-slider-line');
-
-      if (baContainer && baBeforeClip && baLine) {
-        baContainer.addEventListener('mousemove', (e) => {
-          const rect = baContainer.getBoundingClientRect();
-          let y = (e.clientY - rect.top) / rect.height;
-          y = Math.max(0, Math.min(1, y));
-          const percent = y * 100;
-
-          baBeforeClip.style.clipPath = `inset(0 0 ${100 - percent}% 0)`;
-          baLine.style.top = `${percent}%`;
-        });
-
-        baContainer.addEventListener('touchmove', (e) => {
-          const rect = baContainer.getBoundingClientRect();
-          let y = (e.touches[0].clientY - rect.top) / rect.height;
-          y = Math.max(0, Math.min(1, y));
-          const percent = y * 100;
-          baBeforeClip.style.clipPath = `inset(0 0 ${100 - percent}% 0)`;
-          baLine.style.top = `${percent}%`;
-        });
-      }
-      /* ── CHOOSE YOUR SHADE (TIMELINE LOGIC) ── */
-      const shadeOpts = document.querySelectorAll('.shade-opt');
-      const shadePts = document.querySelectorAll('.shade-pt');
-      const shadeFill = document.getElementById('shade-fill');
-      const shadeHandle = document.getElementById('shade-handle');
-
-      function updateShade(index, percent) {
-        // Update pills
-        shadeOpts.forEach(o => o.classList.remove('active'));
-        shadeOpts[index].classList.add('active');
-        
-        // Update points
-        shadePts.forEach(p => p.classList.remove('active'));
-        shadePts[index].classList.add('active');
-
-        // Update Slider UI
-        shadeFill.style.width = percent + '%';
-        shadeHandle.style.left = percent + '%';
-        
-        // Dynamic products generation for routine
-        const grid = document.getElementById('shade-products');
-        if(grid) {
-            let keywords = [];
-            if(index === 0) keywords = ['Hydrating', 'Natural Moisturizing Factors', 'Hyaluronic', 'Squalane']; // Dry
-            else if(index === 1) keywords = ['Acne', 'Blemish', 'Niacinamide', 'Salicylic', 'Foaming']; // Oily
-            else if(index === 2) keywords = ['Soothing', 'Psoriasis', 'Azelaic']; // Sensitive
-            else keywords = ['Retinol', 'Renewing', 'AHA', 'Peptide']; // Aging
-            
-            let htmlHTML = '';
-            let count = 0;
-            productsData.forEach(p => {
-               if(count < 4 && keywords.some(kw => p.name.toLowerCase().includes(kw.toLowerCase()))) {
-                   htmlHTML += `
-                   <div class="sc-prod-card" data-cat="${p.cat}" onclick="location.href='product.html?id=${p.id}'" style="cursor:pointer; display: flex; flex-direction: column; justify-content: space-between; height: 100%; align-items: center;">
-                     <span class="rating-badge" style="position: absolute; top: 12px; right: 12px; background: #fff; color: #333; padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 4px;"><span style="color: #f5a623; font-size: 12px;">★</span> 5.0</span>
-                     <div style="width: 100%;">
-                       <img src="${p.img}" alt="${p.name}">
-                     </div>
-                     <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 5px;">
-                       <div style="width: 60px; height: 1.5px; background: var(--gold); opacity: 0.4;"></div>
-                       <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;">
-                         <span style="font-size: 8px; font-weight: 700; color: #7A6459; border: 1px solid #E5E0DA; padding: 3px 8px; border-radius: 4px; background: #fff; text-transform: uppercase;">Original</span>
-                         <span style="font-size: 8px; font-weight: 700; color: #7A6459; border: 1px solid #E5E0DA; padding: 3px 8px; border-radius: 4px; background: #fff; text-transform: uppercase;">Vegan</span>
-                       </div>
-                       <button class="routine-read-more">READ MORE</button>
-                     </div>
-                   </div>`;
-                   count++;
-               }
-            });
-            // Fallback if not exactly 4 found
-            if(count === 0){
-               productsData.slice(0, 4).forEach(p => {
-                   htmlHTML += `
-                   <div class="sc-prod-card" data-cat="${p.cat}" onclick="location.href='product.html?id=${p.id}'" style="cursor:pointer; display: flex; flex-direction: column; justify-content: space-between; height: 100%; align-items: center;">
-                     <span class="rating-badge" style="position: absolute; top: 12px; right: 12px; background: #fff; color: #333; padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 4px;"><span style="color: #f5a623; font-size: 12px;">★</span> 5.0</span>
-                     <div style="width: 100%;">
-                       <img src="${p.img}" alt="${p.name}">
-                     </div>
-                     <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 5px;">
-                       <div style="width: 60px; height: 1.5px; background: var(--gold); opacity: 0.4;"></div>
-                       <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;">
-                         <span style="font-size: 8px; font-weight: 700; color: #7A6459; border: 1px solid #E5E0DA; padding: 3px 8px; border-radius: 4px; background: #fff; text-transform: uppercase;">Original</span>
-                         <span style="font-size: 8px; font-weight: 700; color: #7A6459; border: 1px solid #E5E0DA; padding: 3px 8px; border-radius: 4px; background: #fff; text-transform: uppercase;">Vegan</span>
-                       </div>
-                       <button class="routine-read-more">READ MORE</button>
-                     </div>
-                   </div>`;
-               });
-            }
-            grid.innerHTML = htmlHTML;
-
-            grid.style.opacity = '0';
-            grid.style.transform = 'translateY(15px)';
-            grid.style.transition = 'none'; // Instant reset
-            
-            setTimeout(() => {
-                grid.style.transition = 'all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                grid.style.opacity = '1';
-                grid.style.transform = 'translateY(0)';
-            }, 50);
-        }
-      }
-
-      shadeOpts.forEach((opt, idx) => {
-        opt.addEventListener('click', () => {
-           let percent = (idx * 33.33);
-           updateShade(idx, percent);
-        });
-      });
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroSlides = document.querySelectorAll('.hero-slide');
+      if (heroSlides.length === 0) return;
       
-      shadePts.forEach((pt, idx) => {
-        pt.addEventListener('click', () => {
-           let percent = parseFloat(pt.dataset.pos);
-           updateShade(idx, percent);
+      let heroIdx = 0;
+      const hPrev = document.getElementById('hero-prev');
+      const hNext = document.getElementById('hero-next');
+
+      function showHeroSlide(index) {
+        // Find visible slides for current device
+        const isMobile = window.innerWidth <= 768;
+        const visibleSlides = Array.from(heroSlides).filter(s => {
+          return isMobile ? s.classList.contains('mobile-only') : s.classList.contains('desktop-only');
         });
+        
+        if (visibleSlides.length === 0) return;
+        
+        visibleSlides.forEach(s => s.classList.remove('active'));
+        if (index >= visibleSlides.length) heroIdx = 0;
+        else if (index < 0) heroIdx = visibleSlides.length - 1;
+        else heroIdx = index;
+        
+        visibleSlides[heroIdx].classList.add('active');
+      }
+
+      const hPrevBtn = document.getElementById('hero-prev');
+      const hNextBtn = document.getElementById('hero-next');
+      if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
+      if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
+
+      setInterval(() => {
+        showHeroSlide(heroIdx + 1);
+      }, 6000);
+    });
+
+    /* ── BEFORE & AFTER ── */
+    const baRange = $('ba-range');
+    const baBefore = $('ba-before');
+    const baLine = $('ba-line');
+    if (baRange) {
+      baRange.addEventListener('input', (e) => {
+        const val = e.target.value;
+        baBefore.style.clipPath = `inset(0 0 ${100 - val}% 0)`;
+        baLine.style.top = val + '%';
       });
-
-      // Initialize the first tab on page load
-      updateShade(0, 0);
-    </script>
-
-  <!-- ===== FLOATING EMAIL & WHATSAPP ICONS ===== -->
-  <a href="mailto:beautyinbalancesupport@gmail.com" class="floating-email" aria-label="Email Us">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-  </a>
-  <a href="https://wa.me/94719152136" target="_blank" rel="noopener noreferrer" class="floating-wa" aria-label="Chat on WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </a>
-  <style>
-    .floating-wa, .floating-email {
-      position: fixed;
-      right: 30px;
-      z-index: 9999;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .floating-wa {
-      bottom: 30px;
-      background-color: #25D366;
-      box-shadow: 2px 4px 12px rgba(37,211,102,0.4);
-    }
-    .floating-email {
-      bottom: 105px;
-      background-color: #4285F4;
-      box-shadow: 2px 4px 12px rgba(66, 133, 244, 0.4);
-    }
-    .floating-wa:hover, .floating-email:hover {
-      transform: scale(1.1);
-    }
-    @media (max-width: 600px) {
-      .floating-wa, .floating-email {
-        right: 20px;
-        width: 50px;
-        height: 50px;
-      }
-      .floating-wa { bottom: 20px; }
-      .floating-email { bottom: 85px; }
-      .floating-wa svg, .floating-email svg {
-        width: 25px;
-        height: 25px;
-      }
-    }
-  </style>
 
-    <script src="config.js"></script>
-    <script src="products.js"></script>
-    <script>
-      // Mobile Hero Slider Logic
-      if (window.innerWidth <= 800) {
-        const mobileSlides = document.querySelectorAll('.hero-slide.mobile-only');
-        let currentSlide = 0;
+    window.addEventListener('scroll', () => {
+      $('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
 
-        function showNextSlide() {
-          mobileSlides[currentSlide].classList.remove('active');
-          currentSlide = (currentSlide + 1) % mobileSlides.length;
-          mobileSlides[currentSlide].classList.add('active');
-        }
-
-        if (mobileSlides.length > 0) {
-          // Initialize first mobile slide
-          mobileSlides.forEach(s => s.classList.remove('active'));
-          mobileSlides[0].classList.add('active');
-          setInterval(showNextSlide, 4000); // Change image every 4 seconds
-        }
-      }
-    </script>
-    </body>
+    renderRoundCategories();
+  </script>
+</body>
 </html>
