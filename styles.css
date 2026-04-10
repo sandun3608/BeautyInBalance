@@ -2210,11 +2210,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
   .hero-slide video, .hero-bg img {
     border-radius: 0 !important;
-    object-fit: contain !important; /* NO CLIPPING: Shows the full image */
-    object-position: top !important; /* Top is always priority */
+    object-fit: cover !important; /* FIXED TO SIDES: Fills the entire width */
+    object-position: top !important; /* Still prioritizing the top portion */
     height: 100% !important;
     width: 100% !important;
-    background: #fdfdfd !important;
   }
 
   /* Curve the Mobile Drawer (Side Bar) */
