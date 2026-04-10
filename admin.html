@@ -1011,21 +1011,28 @@
       }
     }
 
-    // Run initialization immediately if DOM is ready, otherwise wait
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initDashboardListeners);
-    } else {
-      initDashboardListeners();
+    let addProductForm, pModal, pFileInput, pImgPreview, pImgPlaceholder, pImgUrlInput;
+
+    function initDOMReferences() {
+        addProductForm = document.getElementById('add-product-form');
+        pModal = document.getElementById('product-modal');
+        pFileInput = document.getElementById('p-img-file');
+        pImgPreview = document.getElementById('p-img-preview');
+        pImgPlaceholder = document.getElementById('p-img-placeholder');
+        pImgUrlInput = document.getElementById('p-img');
     }
 
-    // BASE_URL is already defined in config.js
-
-    const addProductForm = document.getElementById('add-product-form');
-    const pModal = document.getElementById('product-modal');
-    const pFileInput = document.getElementById('p-img-file');
-    const pImgPreview = document.getElementById('p-img-preview');
-    const pImgPlaceholder = document.getElementById('p-img-placeholder');
-    const pImgUrlInput = document.getElementById('p-img');
+    // Run initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+          initDashboardListeners();
+          initDOMReferences();
+      });
+    } else {
+      initDashboardListeners();
+      // Even if ready, give a tiny tick for the rest of the HTML to parse if somehow called earlier
+      setTimeout(initDOMReferences, 0);
+    }
 
     // Handle File Selection with Compression
     pFileInput.addEventListener('change', (e) => {
@@ -1078,11 +1085,14 @@
     let editingId = null; 
 
     window.openModal = (prodId = null) => {
+      // Self-healing check: If references weren't caught during init, catch them now
+      if (!pModal || !addProductForm) initDOMReferences();
+
       editingId = prodId;
-      addProductForm.reset();
-      pImgPreview.style.display = 'none';
-      pImgPlaceholder.style.display = 'block';
-      pModal.style.display = 'flex';
+      if (addProductForm) addProductForm.reset();
+      if (pImgPreview) pImgPreview.style.display = 'none';
+      if (pImgPlaceholder) pImgPlaceholder.style.display = 'block';
+      if (pModal) pModal.style.display = 'flex';
       
       if (prodId) {
         document.querySelector('#product-modal h3').innerText = 'Edit Skincare Product';
