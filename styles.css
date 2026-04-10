@@ -2117,46 +2117,75 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     z-index: 5 !important;
   }
 
-  .site-header {
-    background: transparent !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    transition: background 0.4s ease, border 0.4s ease !important;
+  /* Mobile Category Slider (Maximize Style) */
+  .m-cat-section {
+    background: #fff !important;
+    padding: 10px 0 20px 0 !important;
+    margin-top: 0px !important;
   }
   
-  /* Initial State: White Icons/Logo/Ham for dark slides */
-  .site-logo, .ic-btn svg, .ham-btn svg { 
-    color: #FFFFFF !important; 
-    transition: color 0.4s ease !important;
-  }
+  body { padding-top: 92px !important; } /* Header(60) + AnnBar(32) */
 
-  /* Dark Announcement Bar at Very Top */
-  .ann-bar { 
-     display: flex !important; 
-     background: #000000 !important; 
-     height: 32px !important; 
-  }
-  .ann-track span { font-size: 10px !important; }
-
-  body { padding-top: 0 !important; }
-
-  /* Scrolled State: White Background, Dark Icons */
-  .site-header.scrolled {
-    background: rgba(255, 255, 255, 0.98) !important;
-    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+  /* Reset initial header to be slightly opaque so it's visible over the white slider */
+  .site-header {
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
   }
-  .site-header.scrolled .site-logo, 
-  .site-header.scrolled .ic-btn svg, 
-  .site-header.scrolled .ham-btn svg { 
+  .site-logo, .ic-btn svg, .ham-btn svg { 
     color: var(--brown) !important; 
   }
+  .m-cat-wrapper {
+    overflow-x: auto !important;
+    padding: 0 15px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .m-cat-wrapper::-webkit-scrollbar { display: none; }
+  
+  .m-cat-track {
+    display: flex !important;
+    gap: 12px !important;
+  }
+  .m-cat-card {
+    min-width: 200px !important;
+    background: #F9F9F9 !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    border: 1px solid rgba(0,0,0,0.03) !important;
+  }
+  .m-cat-info h3 {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: var(--brown) !important;
+    margin-bottom: 4px !important;
+  }
+  .m-cat-info span {
+    font-size: 11px !important;
+    color: var(--muted) !important;
+  }
+  .m-cat-imgs {
+    display: flex !important;
+    gap: 5px !important;
+  }
+  .m-cat-imgs img {
+    width: 35px !important;
+    height: 45px !important;
+    object-fit: contain !important;
+    background: #fff !important;
+    border-radius: 4px !important;
+    padding: 2px !important;
+  }
 
-  /* Shop the Look Fixes */
+  /* Adjust Header & Body for this section */
+  .site-header { 
+     /* Now it overlays the category slider if we want, 
+        but usually it should be normal and becomes transparent on Hero. 
+        Actually, let's keep it consistent. */
+  }
+
   .look-section { padding: 40px 14px !important; }
   .look-image-wrap { height: 450px !important; border-radius: 16px !important; overflow: visible !important; }
   .look-sidebar { padding: 25px 20px !important; margin-top: 20px !important; }
