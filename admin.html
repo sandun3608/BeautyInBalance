@@ -1000,6 +1000,16 @@
     window.handleLogout = handleLogout;
 
     let editingId = null;
+    window.productsData = window.productsData || [];
+
+    // Explicitly expose functions to window
+    window.renderInventory = renderInventory;
+    window.fetchOrders = fetchOrders;
+    window.fetchInquiries = fetchInquiries;
+    window.fetchDashboardSummary = fetchDashboardSummary;
+    window.renderAnalyticsDashboard = renderAnalyticsDashboard;
+    window.updateRightSidebar = updateRightSidebar;
+    window.renderTeamChart = renderTeamChart;
 
     window.openModal = (prodId = null) => {
       const pModal = document.getElementById('product-modal');
@@ -1134,7 +1144,7 @@
 
         safetyInit();
     }
-
+    window.initApp = initApp;
 
     function renderInventory() {
       try {
@@ -1142,12 +1152,12 @@
         if (!tableBody) return;
         tableBody.innerHTML = '';
         
-        if (!productsData || productsData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px;">No products found in inventory.</td></tr>';
+        if (!window.productsData || window.productsData.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px;">No products found in inventory. (Database Syncing...)</td></tr>';
             return;
         }
 
-        productsData.forEach(prod => {
+        window.productsData.forEach(prod => {
           const tr = document.createElement('tr');
           const pId = String(prod._id || prod.id || '');
           tr.innerHTML = `

@@ -305,10 +305,11 @@ const defaultProducts = [
 ];
 
 // Global products data used by the UI
-let productsData = [...defaultProducts];
+window.productsData = [...defaultProducts];
 
 // Fetch from Database
 async function fetchDatabaseProducts() {
+    window.fetchDatabaseProducts = fetchDatabaseProducts;
     if (window.DB_FETCH_RUNNING) return; 
     window.DB_FETCH_RUNNING = true;
 
@@ -354,7 +355,7 @@ async function fetchDatabaseProducts() {
                 }
             });
 
-            productsData = updatedProductsData;
+            window.productsData = updatedProductsData;
         }
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
@@ -364,7 +365,7 @@ async function fetchDatabaseProducts() {
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
         if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
         if (typeof renderProduct === 'function') renderProduct();
-        if (typeof renderProducts === 'function') renderProducts(productsData);
+        if (typeof renderProducts === 'function') renderProducts(window.productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
         if (typeof updateRightSidebar === 'function') updateRightSidebar();
 
@@ -378,7 +379,7 @@ async function fetchDatabaseProducts() {
         if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
         if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
         if (typeof renderProduct === 'function') renderProduct();
-        if (typeof renderProducts === 'function') renderProducts(productsData);
+        if (typeof renderProducts === 'function') renderProducts(window.productsData);
         if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
         if (typeof updateRightSidebar === 'function') updateRightSidebar();
     }
@@ -411,10 +412,10 @@ function renderAvuruduSale() {
     if (!container) return; // Only run if the element exists
 
     // Filter products for the sale (example: first 4 Ordinary products with a discount > 0)
-    const saleProducts = productsData.filter(p => (p.cat === 'ordinary' || p.cat === 'cerave') && p.discount > 0).slice(0, 4);
+    const saleProducts = window.productsData.filter(p => (p.cat === 'ordinary' || p.cat === 'cerave') && p.discount > 0).slice(0, 4);
     
     // If no discounted products found yet, just take some from Ordinary
-    const finalSale = saleProducts.length > 0 ? saleProducts : productsData.filter(p => p.cat === 'ordinary').slice(0, 4);
+    const finalSale = saleProducts.length > 0 ? saleProducts : window.productsData.filter(p => p.cat === 'ordinary').slice(0, 4);
 
     container.innerHTML = `
     <div class="container overflow-hidden">
@@ -475,7 +476,7 @@ function saveCart() {
 }
 
 function addToCart(prodId, qty = 1) {
-    const product = productsData.find(p => p.id === prodId || p.name === prodId);
+    const product = window.productsData.find(p => p.id === prodId || p.name === prodId);
     if (!product) {
        console.error("Product not found to add:", prodId);
        return;
