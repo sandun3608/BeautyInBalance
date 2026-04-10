@@ -370,11 +370,10 @@ async function fetchDatabaseProducts() {
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
         window.DB_FETCH_COMPLETED = true;
-        
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'updateRightSidebar'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
         ];
         
         renderFuncs.forEach(funcName => {
@@ -394,7 +393,7 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'updateRightSidebar'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
         ];
         renderFuncs.forEach(fn => {
             if (typeof window[fn] === 'function') {
@@ -427,8 +426,8 @@ async function logVisit() {
 logVisit();
 
 // --- SHOPPING CART LOGIC ---
-// --- AVURUDU SALE RENDERING ---
-function renderAvuruduSale() {
+// --- AVURUDU BANNER (FOR OTHER PAGES OR DYNAMIC INJECTION) ---
+function renderAvuruduBannerUI() {
     const container = document.getElementById('avurudu-sale-container');
     if (!container) return; // Only run if the element exists
 
