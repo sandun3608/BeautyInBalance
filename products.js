@@ -335,13 +335,16 @@ async function fetchDatabaseProducts() {
             // Re-map the variable names slightly if they differ between DB and Frontend
             const mappedDbProducts = dbProducts.map(p => {
                 const formatImg = (str) => {
-                    if (!str) return str;
-                    return str.replace(/%25/g, '%').replace(/%2B/g, '+').replace(/%/g, '%25').replace(/\+/g, '%2B');
+                    if (!str) return 'images/placeholder.png';
+                    // Fix common encoding issues and handle spaces
+                    let path = str.replace(/%25/g, '%').replace(/%2B/g, '+');
+                    // Ensure spaces are URL-safe
+                    return path.split('/').map(part => encodeURIComponent(part)).join('/');
                 };
 
                 return {
                     ...p,
-                    id: p.id || p._id, // Prioritize human-readable ID if available
+                    id: p.id || p._id,
                     img: formatImg(p.img),
                     images: Array.isArray(p.images) ? p.images.map(img => formatImg(img)) : [formatImg(p.img)]
                 };

@@ -236,7 +236,7 @@ const defaultProducts = [
   { 
     id: 'ord-pha-lip-serum-15',
     name: 'PHA 5% Exfoliating Lip Serum (15ml)', price: 4600, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png'], img: 'the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png',
+    images: ['the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png'], img: 'the ordinary/PHA 5%25 his Exfoliating Lip Serum (15ml)  Rs.4600.png',
     desc: 'A groundbreaking treatment curated specifically for the sensitive lips utilizing a gentle 5% Polyhydroxy Acid (PHA) concentration. It expertly lifts and buffs away dead skin cells and dryness while intensely infusing hydrating components to leave behind plush, smooth, and naturally plump-looking lips ready for perfect makeup application.',
     benefits: ['Gentle Exfoliation', 'Softens Lips', 'Improves lip texture'],
     howToUse: 'Apply a small amount to lips as needed. Do not rinse off.',
