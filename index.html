@@ -720,8 +720,10 @@
     if (baRange) {
       baRange.addEventListener('input', (e) => {
         const val = e.target.value;
-        baBefore.style.clipPath = `inset(0 0 ${100 - val}% 0)`;
-        baLine.style.top = val + '%';
+        requestAnimationFrame(() => {
+          baBefore.style.clipPath = `inset(0 0 ${100 - val}% 0)`;
+          baLine.style.top = val + '%';
+        });
       });
     }
 
