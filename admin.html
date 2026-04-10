@@ -655,15 +655,15 @@
             <div class="admin-stats">
               <div class="admin-stat-card">
                   <div class="stat-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                  <div class="stat-content"><div class="val" id="stat-sales">Rs. 245,800</div><h5>Total Revenue</h5></div>
+                  <div class="stat-content"><div class="val" id="stat-sales">Rs. 0</div><h5>Total Revenue</h5></div>
               </div>
               <div class="admin-stat-card">
                   <div class="stat-icon-box" style="background: #f0fdf4; color: #16a34a;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
-                  <div class="stat-content"><div class="val" id="stat-orders">84</div><h5>Live Orders</h5></div>
+                  <div class="stat-content"><div class="val" id="stat-orders">0</div><h5>Live Orders</h5></div>
               </div>
               <div class="admin-stat-card">
                   <div class="stat-icon-box" style="background: #eff6ff; color: #2563eb;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                  <div class="stat-content"><div class="val">842</div><h5>Active Clients</h5></div>
+                  <div class="stat-content"><div class="val">0</div><h5>Active Clients</h5></div>
               </div>
               <div class="admin-stat-card">
                   <div class="stat-icon-box" style="background: #fff7ed; color: #ea580c;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
@@ -1407,12 +1407,8 @@
        }
 
        const mockGraphData = {
-          dailyOrders: [
-            { _id: '01 Apr', sales: 15000 }, { _id: '03 Apr', sales: 22000 },
-            { _id: '05 Apr', sales: 18500 }, { _id: '07 Apr', sales: 32400 },
-            { _id: '09 Apr', sales: 26000 }, { _id: '11 Apr', sales: 41000 },
-            { _id: '13 Apr', sales: 38000 }
-          ]
+          dailyOrders: []
+
         };
 
         try {
@@ -1422,8 +1418,8 @@
           const data = await res.json();
           
           if (data) {
-              const sales = data.totalSales || 245800;
-              const orders = data.totalOrders || 84;
+              const sales = data.totalSales || 0;
+              const orders = data.totalOrders || 0;
               animateValue('stat-sales', 0, sales, 1500, "Rs. ");
               animateValue('stat-orders', 0, orders, 1500);
           }
@@ -1528,7 +1524,7 @@
         const avg = data.length > 0 ? (totalSales / data.length) : 0;
         const avgEl = document.getElementById('stat-avg-trans');
         if (avgEl) {
-            animateValue('stat-avg-trans', 7500, Math.round(avg), 1500, "Rs. ");
+            animateValue('stat-avg-trans', 0, Math.round(avg), 1500, "Rs. ");
         }
     }
 
@@ -1536,8 +1532,8 @@
         const svg = document.getElementById('weekly-bar-svg');
         if (!svg) return;
 
-        // Mock growth data for the week
-        const values = [40, 65, 50, 95, 75, 45, 60];
+        // Ready for live data
+        const values = [5, 5, 5, 5, 5, 5, 5];
         const bars = svg.querySelectorAll('rect');
         
         // Use requestAnimationFrame for smoother initial jump
@@ -1558,7 +1554,7 @@
         const trafficPath = document.getElementById('traffic-path');
         const trafficPathBg = document.getElementById('traffic-path-bg');
         if (trafficPath) {
-            const mockPoints = [220, 180, 210, 150, 190, 80, 120, 50, 90, 30];
+            const mockPoints = [250, 250, 250, 250, 250, 250, 250, 250, 250, 250];
             let d = "M0," + mockPoints[0];
             mockPoints.forEach((p, i) => {
                 const x = (i / (mockPoints.length - 1)) * 800;
@@ -1576,8 +1572,8 @@
         const successCircle = document.getElementById('success-circle');
         const returnCircle = document.getElementById('return-circle');
         if (successCircle) {
-            const successVal = 251.2 * 0.85;
-            const returnVal = 251.2 * 0.08;
+            const successVal = 0;
+            const returnVal = 0;
             setTimeout(() => {
                 successCircle.style.transition = 'stroke-dasharray 1.5s ease-out';
                 successCircle.setAttribute('stroke-dasharray', `${successVal} 251.2`);
@@ -1619,12 +1615,8 @@
         document.body.classList.add('ui-ready');
         initSidebar();
         
-        // 1. INSTANT UI RENDERING
-        window.allOrders = [
-            { _id: 'MOCK1', customerInfo: { firstName: 'Luxury' }, totalPrice: 15400, isDelivered: false },
-            { _id: 'MOCK2', customerInfo: { firstName: 'Aesthetics' }, totalPrice: 22000, isDelivered: true },
-            { _id: 'MOCK3', customerInfo: { firstName: 'Premium' }, totalPrice: 8900, isDelivered: false }
-        ];
+        // 1. CLEAN UI INITIALIZATION
+        window.allOrders = [];
         if (typeof renderInventory === 'function') renderInventory();
         if (typeof renderTeamChart === 'function') renderTeamChart();
         if (typeof updateRightSidebar === 'function') updateRightSidebar();
