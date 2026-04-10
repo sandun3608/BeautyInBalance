@@ -13,6 +13,12 @@ services:
         value: supersecret123
       - key: NODE_VERSION
         value: 20.0.0
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
 
   # --- OPTIONAL: FRONTEND ONLY (Optional, can just use the web service above) ---
   - type: static
