@@ -261,7 +261,8 @@
         </div>
       </div>
     </section>
-
+
+
 
     <!-- ===== SECTION 3: EXCLUSIVE COLLECTION ===== -->
     <section class="exclusive-section">
@@ -905,7 +906,9 @@
       <script>
         function renderAvuruduSale() {
           const grid = document.getElementById('avurudu-sale-grid');
-          if(!grid || !productsData) return;
+          if(!grid || !window.productsData) return;
+          const productsData = window.productsData;
+
           grid.innerHTML = '';
           
           // Show up to 10 products for the mega sale
@@ -929,9 +932,16 @@
         // Wait for productsData to be ready
         document.addEventListener('DOMContentLoaded', () => {
           setTimeout(renderAvuruduSale, 500);
+          setTimeout(renderAvuruduSale, 3000);
+
+        // Self-healing check
+        setInterval(() => {
+          const g = document.getElementById('avurudu-sale-grid');
+          if (g && g.innerHTML.trim() === '' && window.productsData && window.productsData.length > 0) {
+            renderAvuruduSale();
+          }
+        }, 5000);
         });
-      </script>
-        </a>
       </div>
     </section>
 
