@@ -134,8 +134,14 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
               Settings
             </a></li>
-            <li style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
-              <a href="#" class="db-nav-link" style="color: #d93025;">
+            <li id="admin-link-item" style="display: none; border-bottom: 2px solid var(--gold); margin-bottom: 10px; padding-bottom: 10px;">
+              <a href="admin.html" class="db-nav-link" style="color: var(--gold); font-weight: bold;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                Admin Panel
+              </a>
+            </li>
+            <li id="logout-item">
+              <a href="#" class="db-nav-link" id="logout-trigger" style="color: #d93025;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Logout
               </a>
@@ -159,7 +165,7 @@
             </div>
             <div class="stat-info">
               <h5>Total Orders</h5>
-              <div class="stat-val">12</div>
+              <div class="stat-val" id="stat-total-orders">0</div>
             </div>
           </div>
           <div class="stat-card">
@@ -168,7 +174,7 @@
             </div>
             <div class="stat-info">
               <h5>Wishlist</h5>
-              <div class="stat-val">5 Items</div>
+              <div class="stat-val" id="stat-wishlist">0 Items</div>
             </div>
           </div>
           <div class="stat-card">
@@ -199,29 +205,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>#ORD-7821</td>
-                  <td>Mar 22, 2024</td>
-                  <td>Rs. 8,600</td>
-                  <td><span class="status-pill status-delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                  <td>#ORD-7543</td>
-                  <td>Mar 15, 2024</td>
-                  <td>Rs. 5,200</td>
-                  <td><span class="status-pill status-shipped">Shipped</span></td>
-                </tr>
-                <tr>
-                  <td>#ORD-7120</td>
-                  <td>Feb 28, 2024</td>
-                  <td>Rs. 12,450</td>
-                  <td><span class="status-pill status-delivered">Delivered</span></td>
-                </tr>
-                <tr>
-                  <td>#ORD-6890</td>
-                  <td>Feb 10, 2024</td>
-                  <td>Rs. 4,800</td>
-                  <td><span class="status-pill status-pending">Processing</span></td>
+                <tr id="empty-orders-row">
+                  <td colspan="4" style="text-align:center; padding: 40px; color: #999; font-style: italic;">No orders found yet.</td>
                 </tr>
               </tbody>
             </table>
@@ -305,43 +290,52 @@
         return;
       }
 
-      // Update User Info
-      const userNameEls = document.querySelectorAll('.db-user-info h4, .db-welcome h2');
-      const userEmailEl = document.querySelector('.db-user-info p');
-      const userAvatarEl = document.querySelector('.db-avatar');
+        // Update User Info
+        const userNameEls = document.querySelectorAll('.db-user-info h4, .db-welcome h2');
+        const userEmailEl = document.querySelector('.db-user-info p');
+        const userAvatarEl = document.querySelector('.db-avatar');
+  
+        if (userNameEls.length > 0) {
+          userNameEls[0].innerText = userInfo.name;
+          if (userNameEls[1]) userNameEls[1].innerText = `Hello, ${userInfo.name.split(' ')[0]}!`;
+        }
+        if (userEmailEl) userEmailEl.innerText = userInfo.email;
+        if (userAvatarEl) userAvatarEl.innerText = userInfo.name.charAt(0).toUpperCase();
 
-      if (userNameEls.length > 0) {
-        userNameEls[0].innerText = userInfo.name;
-        if (userNameEls[1]) userNameEls[1].innerText = `Hello, ${userInfo.name.split(' ')[0]}!`;
-      }
-      if (userEmailEl) userEmailEl.innerText = userInfo.email;
-      if (userAvatarEl) userAvatarEl.innerText = userInfo.name.charAt(0).toUpperCase();
+        // Show Admin link if Admin
+        if (userInfo.isAdmin) {
+          const adminItem = document.getElementById('admin-link-item');
+          if (adminItem) adminItem.style.display = 'block';
+        }
 
-      // Navigation Logic
-      const navLinks = document.querySelectorAll('.db-nav-link');
-      navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const text = link.innerText.trim().toLowerCase();
-          
-          if (text === 'logout') {
-            localStorage.removeItem('userToken');
-            localStorage.removeItem('userInfo');
-            window.location.href = 'index.html';
-            return;
-          }
+        // Navigation Logic
+        const navLinks = document.querySelectorAll('.db-nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            const text = link.innerText.trim().toLowerCase();
+            
+            if (text === 'logout' || link.id === 'logout-trigger') {
+              e.preventDefault();
+              localStorage.removeItem('userToken');
+              localStorage.removeItem('userInfo');
+              window.location.href = 'index.html';
+              return;
+            }
 
-          // Visual feedback for other links
-          navLinks.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          
-          // In a real app, this would switch tabs or navigate
-          console.log(`Navigating to: ${text}`);
-          if (text !== 'overview') {
-            alert(`${text.charAt(0).toUpperCase() + text.slice(1)} section is coming soon!`);
-          }
+            if (link.getAttribute('href') === '#' || link.getAttribute('href') === '') {
+                e.preventDefault();
+                // Visual feedback for other links
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // In a real app, this would switch tabs or navigate
+                console.log(`Navigating to: ${text}`);
+                if (text !== 'overview' && text !== 'admin panel') {
+                  alert(`${text.charAt(0).toUpperCase() + text.slice(1)} section is coming soon!`);
+                }
+            }
+          });
         });
-      });
 
       // View All / Order buttons
       document.querySelectorAll('.view-all').forEach(btn => {

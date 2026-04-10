@@ -64,11 +64,28 @@
 
        <a href="index.html" class="site-logo">Beauty in Balance</a>
 
-       <div class="nav-icons">
-          <button class="ic-btn" id="search-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
-          <button class="ic-btn cart-ic" id="cart-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge">0</span></button>
-          <button class="ic-btn ham-btn" id="ham-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-       </div>
+        <div class="nav-icons">
+           <button class="ic-btn" id="search-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+           <a href="login.html" id="top-account-link" class="ic-btn" aria-label="Account">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+           </a>
+           <script>
+             document.getElementById('top-account-link').addEventListener('click', function(e) {
+               e.preventDefault();
+               const token = localStorage.getItem('userToken');
+               const info = JSON.parse(localStorage.getItem('userInfo') || '{}');
+               if (token && info.isAdmin) {
+                 window.location.href = 'admin.html';
+               } else if (token) {
+                 window.location.href = 'dashboard.html';
+               } else {
+                 window.location.href = 'login.html';
+               }
+             });
+           </script>
+           <button class="ic-btn cart-ic" id="cart-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge">0</span></button>
+           <button class="ic-btn ham-btn" id="ham-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        </div>
      </nav>
 
      <div class="search-drop" id="search-drop">
