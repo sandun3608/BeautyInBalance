@@ -13,8 +13,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard — Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <!-- Chart.js for High-End Analytics -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Navigation Logic - Head Placement for Immediate Interactivity -->
+  <script>
+    console.log("⚡ BiB Admin: Core Logic Loading...");
+    
+    window.switchTab = function(tabName, el) {
+      console.log('🔄 Tab Switch Requested:', tabName);
+      
+      const productModal = document.getElementById('product-modal');
+      const customerModal = document.getElementById('customer-modal');
+      if (productModal) productModal.style.display = 'none';
+      if (customerModal) customerModal.style.display = 'none';
+      
+      document.querySelectorAll('.admin-content').forEach(function(c) { 
+        c.classList.remove('active'); 
+        c.style.display = 'none';
+      });
+      
+      var tab = document.getElementById('tab-' + tabName);
+      if (tab) {
+        tab.classList.add('active');
+        tab.style.display = 'block';
+      }
+      
+      document.querySelectorAll('.admin-nav-link').forEach(function(l) { 
+        l.classList.remove('active'); 
+      });
+      
+      if (el) {
+        el.classList.add('active');
+      } else {
+        var link = document.getElementById('nav-' + tabName);
+        if (link) link.classList.add('active');
+      }
+
+      var titles = { 
+        dashboard: 'Dashboard Overview', 
+        inventory: 'Inventory Management', 
+        orders: 'Orders Management', 
+        analytics: 'Analytics', 
+        support: 'Inquiries' 
+      };
+      
+      var titleEl = document.getElementById('view-title');
+      if (titleEl) titleEl.innerText = titles[tabName] || tabName;
+
+      if (tabName === 'inventory' && typeof renderInventory === 'function') renderInventory();
+      if (tabName === 'orders' && typeof fetchOrders === 'function') fetchOrders();
+      if (tabName === 'analytics') {
+          if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
+          if (typeof renderAnalyticsDashboard === 'function') renderAnalyticsDashboard();
+      }
+      if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
+      if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
+    };
+
+    window.handleLogout = function() {
+      console.log("🚪 Logging out...");
+      localStorage.clear();
+      window.location.href = 'login.html';
+    };
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -137,7 +196,15 @@
       box-shadow: 0 4px 20px rgba(198, 151, 90, 0.3);
     }
 
-    /* Sidebar User Card */
+    /* Force interactive priority for sidebar */
+    .admin-sidebar {
+      position: relative;
+      z-index: 1000 !important;
+      pointer-events: auto !important;
+    }
+    .admin-nav-link {
+      pointer-events: auto !important;
+    }
     .sidebar-user {
         margin-top: auto;
         padding: 18px;
@@ -924,98 +991,13 @@
   <script src="config.js"></script>
   <script src="products.js"></script>
   <script>
-    // ✅ GLOBAL TAB SWITCHER
-    window.switchTab = function(tabName, el) {
-      console.log('Switching to tab:', tabName);
-      
-      // CRITICAL: Clear all modals before switching
-      const productModal = document.getElementById('product-modal');
-      const customerModal = document.getElementById('customer-modal');
-      if (productModal) productModal.style.display = 'none';
-      if (customerModal) customerModal.style.display = 'none';
-      
-      // Hide all content
-      document.querySelectorAll('.admin-content').forEach(function(c) { 
-        c.classList.remove('active'); 
-        c.style.display = 'none';
-      });
-      
-      // Show selected content
-      var tab = document.getElementById('tab-' + tabName);
-      if (tab) {
-        tab.classList.add('active');
-        tab.style.display = 'block';
-      }
-      
-      // Deactivate all nav links
-      document.querySelectorAll('.admin-nav-link').forEach(function(l) { 
-        l.classList.remove('active'); 
-      });
-      
-      // Activate clicked link
-      if (el) {
-        el.classList.add('active');
-      } else {
-        var link = document.getElementById('nav-' + tabName);
-        if (link) link.classList.add('active');
-      }
+    console.log("💎 BiB Admin: DOM Logic Attached");
+    window.onerror = (m,u,l) => console.error(`🔥 ERROR: ${m} at line ${l}`);
 
-      var titles = { 
-        dashboard: 'Dashboard Overview', 
-        inventory: 'Inventory Management', 
-        orders: 'Orders Management', 
-        analytics: 'Analytics', 
-        support: 'Inquiries' 
-      };
-      
-      var titleEl = document.getElementById('view-title');
-      if (titleEl) titleEl.innerText = titles[tabName] || tabName;
-
-      // Trigger data refresh based on tab
-      if (tabName === 'inventory') renderInventory();
-      if (tabName === 'orders') fetchOrders();
-      if (tabName === 'analytics') {
-          fetchDashboardSummary();
-          if (typeof renderAnalyticsDashboard === 'function') renderAnalyticsDashboard();
-      }
-      if (tabName === 'support') fetchInquiries();
-      if (tabName === 'dashboard') fetchDashboardSummary();
-    };
-
-    // Attach listeners function
-    function initDashboardListeners() {
-      console.log('Dashboard Init: Attaching listeners...');
-      const navMapping = {
-        'nav-dashboard': 'dashboard',
-        'nav-inventory': 'inventory',
-        'nav-orders': 'orders',
-        'nav-analytics': 'analytics',
-        'nav-support': 'support'
-      };
-
-      Object.entries(navMapping).forEach(([id, tab]) => {
-        const el = document.getElementById(id);
-        if (el) {
-          console.log('Attaching listener to:', id);
-          el.onclick = (e) => {
-            e.preventDefault();
-            window.switchTab(tab, el);
-            return false;
-          };
-        } else {
-          console.error('Could not find nav element:', id);
-        }
-      });
-
-      const logoutBtn = document.getElementById('nav-logout');
-      if (logoutBtn) {
-        logoutBtn.onclick = (e) => {
-          e.preventDefault();
-          handleLogout();
-          return false;
-        };
-      }
-    }
+    const BASE_URL = window.BASE_URL || 'http://localhost:5000/api';
+    
+    // Explicitly expose handleLogout globally
+    window.handleLogout = handleLogout;
 
     let editingId = null;
 
@@ -1073,9 +1055,8 @@
 
     // Primary DOM Init
     function initApp() {
-        initDashboardListeners(); 
-        
-        // Form Submission setup
+        console.log("🚀 BiB Admin: Initializing App Shell");
+        // Navigation is handled via inline HTML onclick to prevent race conditions
         const addProductForm = document.getElementById('add-product-form');
         if (addProductForm) {
             // Remove previous if any
@@ -1154,7 +1135,6 @@
         safetyInit();
     }
 
-    let editingId = null; 
 
     function renderInventory() {
       try {
@@ -1572,15 +1552,16 @@
         });
 
         window.handleLogout = () => {
-            localStorage.clear();
-            window.location.href = 'login.html';
+          console.log("Logout triggered");
+          localStorage.clear();
+          window.location.href = 'login.html';
         };
     }
 
-    // DASHBOARD INITIALIZATION
-    // DASHBOARD INITIALIZATION - Parallel Performance Boost
     async function safetyInit() {
       try {
+        // Force immediate hover capability
+        document.body.classList.add('ui-ready');
         initSidebar();
         
         // 1. INSTANT UI RENDERING
