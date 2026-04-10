@@ -1170,6 +1170,17 @@
     // Using global BASE_URL from config.js
 
     
+    // Clean up cached name suffixes if any
+    const cleanUIName = () => {
+        const nameElements = [document.getElementById('sidebar-name'), document.querySelector('.welcome-banner h1')];
+        nameElements.forEach(el => {
+            if (el && el.innerText.includes('(Admin)')) {
+                el.innerText = el.innerText.replace('(Admin)', '').trim();
+            }
+        });
+    }
+    cleanUIName();
+    
     window.switchTab = function(tabId, el) {
       console.log("Switching to tab:", tabId);
       // Update Title
