@@ -1127,30 +1127,14 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   text-align: center;
   overflow: hidden;
 }
-.showcase-header { margin-bottom: 60px; }
-.showcase-title { 
-  font-family: var(--font-serif); 
-  font-size: clamp(36px, 5vw, 64px); 
-  color: #000; 
-  margin-bottom: 15px;
-  position: relative;
-  display: inline-block;
-}
-.showcase-title::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 20%;
-  width: 60%;
-  height: 4px;
-  background: #f3a021; /* Gold underline like in sample */
-  border-radius: 2px;
-}
+.showcase-header { margin-bottom: 80px; }
+/* Using .fp-title and .fp-script from styles.css */
+
 .showcase-subtitle { 
   font-size: 16px; 
   color: var(--muted); 
   max-width: 600px; 
-  margin: 0 auto; 
+  margin: 15px auto 0; 
   line-height: 1.6;
 }
 
@@ -1251,8 +1235,26 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
 }
 
-/* ── ALL PRODUCTS GALLERY ── */
-.gallery-section { padding: 80px 48px; background: #fff; }
+.showcase-footer { margin-top: 60px; }
+.showcase-btn {
+  display: inline-block;
+  padding: 18px 45px;
+  background: #2d1b12; /* Brand Ebony */
+  color: #fff;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(45,27,18,0.15);
+}
+.showcase-btn:hover {
+  background: #c6975a; /* Brand Gold */
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(198,151,90,0.3);
+  color: #fff;
+}
 .gallery-header { text-align: center; margin-bottom: 60px; }
 .gallery-tag { 
     display: inline-block; padding: 6px 14px; background: #f0f0f0; border-radius: 40px; 
