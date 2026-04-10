@@ -74,4 +74,26 @@ router.put('/:id/deliver', protect, async (req, res) => {
     }
 });
 
+// @route   DELETE /api/orders/:id
+// @desc    Delete an order
+// @access  Private (Admins Only)
+router.delete('/:id', protect, async (req, res) => {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid Order ID format' });
+        }
+        const order = await Order.findById(req.params.id);
+        if (order) {
+            await Order.findByIdAndDelete(req.params.id);
+            res.json({ message: 'Order removed successfully' });
+        } else {
+            res.status(404).json({ message: 'Order not found' });
+        }
+    } catch (error) {
+        console.error("Order Delete Error:", error);
+        res.status(500).json({ message: 'Server error deleting order' });
+    }
+});
+
+
 module.exports = router;

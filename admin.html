@@ -285,14 +285,14 @@
       overflow: hidden;
       box-shadow: var(--shadow-md);
       min-width: 0;
-      padding-bottom: 100px; /* Extra space for bottom elements */
+      padding-bottom: 250px; /* Massive space to ensure nothing is cut off */
     }
 
     .main-body {
       padding: 40px;
       max-width: 1400px;
       margin: 0 auto;
-      padding-bottom: 80px;
+      padding-bottom: 200px;
       overflow-y: auto;
     }
 
@@ -608,7 +608,7 @@
           <li><div id="nav-orders" class="admin-nav-link" onclick="window.switchTab('orders', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg> Live Orders</div></li>
           <li><div id="nav-analytics" class="admin-nav-link" onclick="window.switchTab('analytics', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Insights</div></li>
           <li><div id="nav-support" class="admin-nav-link" onclick="window.switchTab('support', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Support</div></li>
-          <li style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-bottom: 30px;"><a href="index.html" class="admin-nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> View Website</a></li>
+          <li style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-bottom: 30px;"><div class="admin-nav-link" onclick="window.openSite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> View Website</div></li>
 
         </ul>
       </nav>
@@ -1295,6 +1295,7 @@
                <div style="display:flex; gap:8px;">
                   <button class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="viewCustomerDetails('${order._id}')">Details</button>
                   ${!order.isDelivered ? `<button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="markDelivered('${order._id}')">Deliver</button>` : '<span style="color:#10b981; font-weight:bold; align-self:center; font-size: 11px; letter-spacing: 0.05em;">COMPLETED</span>'}
+                  <button class="admin-btn" style="background:rgba(255, 0, 0, 0.05); color:#ef4444; border: 1px solid rgba(255, 0, 0, 0.1); padding: 6px 12px; font-size: 11px;" onclick="deleteOrder('${order._id}')">Delete</button>
                </div>
             </td>
           `;
@@ -1334,6 +1335,24 @@
             fetchOrders();
         } catch(e) { console.error(e); }
     };
+
+    window.deleteOrder = async (id) => {
+        if(!confirm("Are you sure you want to permanently DELETE this order?")) return;
+        try {
+            const res = await fetch(`${BASE_URL}/orders/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+            });
+            if(res.ok) {
+                showToast("🗑️ Order Deleted Successfully");
+                fetchOrders();
+            } else {
+                alert("Failed to delete order. Check logs.");
+            }
+        } catch(e) { console.error("Order delete error:", e); }
+    };
+
+    window.openSite = () => { window.location.href = 'index.html'; };
 
     async function fetchInquiries() {
       const table = document.querySelector('#tab-support tbody');
