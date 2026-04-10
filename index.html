@@ -430,21 +430,25 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 4: LATEST ARRIVALS ===== -->
-    <section class="latest-section">
-      <div class="latest-header">
-        <h2>Latest Arrivals</h2>
+    <!-- ===== SECTION 4: FEATURED PRODUCTS (SHOPIFY PRESET STYLE) ===== -->
+    <section class="featured-products-section">
+      <div class="fp-header">
+        <span class="fp-script">Discover Our</span>
+        <h2 class="fp-title">Featured Products</h2>
       </div>
-      <div class="latest-grid-wrap">
-        <div class="latest-grid" id="latest-track">
-          <!-- Dynamically Injected -->
+      <div class="fp-carousel-container">
+        <div class="fp-track" id="featured-track">
+          <!-- Dynamically Injected from JS -->
         </div>
-      </div>
-      <div class="carousel-nav">
-        <button id="carr-prev">PREV</button>
-        <button id="carr-next">NEXT</button>
+        <button class="fp-nav prev" id="fp-prev" aria-label="Previous Products">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="fp-nav next" id="fp-next" aria-label="Next Products">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
       </div>
     </section>
+
 
     <!-- ===== SECTION 5: BEFORE & AFTER SLIDER ===== -->
     <section class="ba-slider-section">
@@ -736,7 +740,7 @@
         
         // Render everything once data is ready
         renderRoundCategories();
-        renderLatestArrivals();
+        renderFeaturedProducts();
         renderShopTheLook();
         console.log("Products loaded successfully ✅");
       } catch (err) {
@@ -746,28 +750,42 @@
           productsData = defaultProducts;
           window.productsData = defaultProducts;
           renderRoundCategories();
-          renderLatestArrivals();
+          renderFeaturedProducts();
           renderShopTheLook();
         }
       }
     }
 
-    function renderLatestArrivals() {
-      const track = document.getElementById('latest-track');
+    function renderFeaturedProducts() {
+      const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
-      const latest = productsData.slice(-8).reverse();
-      track.innerHTML = latest.map(p => `
-        <div class="la-card" onclick="location.href='product.html?id=${p._id || p.id}'">
-          <div class="la-top-box">
-             <div class="la-img-main"><img src="${p.img || p.images[0]}" alt="${p.name}"></div>
-             <button class="la-cart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+      
+      // Randomize products
+      const shuffled = [...productsData].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 8);
+      
+      track.innerHTML = selected.map(p => `
+        <div class="fp-item">
+          <div class="fp-img-box" onclick="location.href='product.html?id=${p._id || p.id}'">
+             <img src="${p.img || p.images[0]}" alt="${p.name}">
           </div>
-          <div class="la-info">
-            <h4>${p.name}</h4>
-            <div class="la-price">Rs.${p.price}</div>
+          <button class="fp-bag-btn" onclick="addToCart('${p._id || p.id}')" aria-label="Add to Bag">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+          </button>
+          <div class="fp-details" onclick="location.href='product.html?id=${p._id || p.id}'">
+            <span class="fp-name">${p.name}</span>
+            <div class="fp-price-row">Rs. ${p.price.toLocaleString()}</div>
           </div>
         </div>
       `).join('');
+
+      // Carousel Navigation Logic
+      const nextBtn = document.getElementById('fp-next');
+      const prevBtn = document.getElementById('fp-prev');
+      if (nextBtn && prevBtn) {
+        nextBtn.onclick = () => track.scrollBy({ left: 320, behavior: 'smooth' });
+        prevBtn.onclick = () => track.scrollBy({ left: -320, behavior: 'smooth' });
+      }
     }
 
     function renderShopTheLook() {
