@@ -740,7 +740,10 @@
 
   <div class="admin-container">    <!-- SIDEBAR -->
     <aside class="admin-sidebar">
-      <div class="admin-logo" style="font-size: 32px; font-family: var(--font-serif); color: #fff; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 25px; line-height: 1.1; text-align: center; border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding-bottom: 15px;">Beauty in Balance</div>
+      <div class="admin-logo" style="font-size: 32px; font-family: var(--font-serif); color: #fff; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 25px; line-height: 1.1; display: flex; align-items: center; justify-content: center; gap: 15px; border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding-bottom: 15px;">
+        <img src="favicon.png" alt="Logo" style="height: 45px; width: 45px; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));">
+        <span>Beauty in Balance</span>
+      </div>
       <nav class="admin-nav">
         <ul>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-dashboard" class="admin-nav-link active" onclick="window.switchTab('dashboard', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview</div></li>
@@ -761,12 +764,14 @@
         </ul>
       </nav>
       
-      <div class="sidebar-user" style="padding: 12px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; gap: 12px; transition: all 0.3s ease;">
-        <div class="sidebar-avatar" id="sidebar-initial" style="width: 38px; height: 38px; font-size: 14px; background: var(--gold); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%;">N</div>
+      <div class="sidebar-user" style="padding: 15px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); border-radius: 15px; display: flex; align-items: center; gap: 15px;">
+        <div class="sidebar-avatar" style="position: relative; width: 50px; height: 50px; border: 2px solid var(--gold); border-radius: 50%; overflow: hidden; background: #333;">
+          <img src="favicon.png" alt="Nipuni" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
         <div class="sidebar-user-info">
-          <h5 id="sidebar-name" style="font-size: 14px; color: #fff; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 120px;">Nipuni (Admin)</h5>
-          <p style="font-size: 10px; color: #10b981; margin: 4px 0 0 0; display: flex; align-items: center; gap: 6px; font-weight: 600;">
-            <span class="status-dot" style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; display: inline-block;"></span> Online
+          <h5 id="sidebar-name" style="font-size: 18px; color: #fff; margin: 0; font-weight: 700; letter-spacing: 0.02em;">Nipuni</h5>
+          <p style="font-size: 11px; color: #10b981; margin: 4px 0 0 0; display: flex; align-items: center; gap: 6px; font-weight: 600;">
+            <span class="status-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #10b981;"></span> Online
           </p>
         </div>
       </div>
