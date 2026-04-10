@@ -434,10 +434,10 @@
     }
 
     .admin-table { width: 100%; border-collapse: separate; border-spacing: 0 5px; }
-    .admin-table th { text-align: left; padding: 12px 15px; font-size: 10px; color: var(--admin-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .admin-table th { text-align: left; padding: 10px 8px; font-size: 10px; color: var(--admin-muted); text-transform: uppercase; letter-spacing: 0.1em; }
     .admin-table tbody tr { background: #fff; transition: 0.2s; }
     .admin-table tbody tr:hover { background: #fafafa; }
-    .admin-table td { padding: 12px 15px; font-size: 13px; border-top: 1px solid var(--admin-border); border-bottom: 1px solid var(--admin-border); color: var(--admin-text); }
+    .admin-table td { padding: 10px 8px; font-size: 13px; border-top: 1px solid var(--admin-border); border-bottom: 1px solid var(--admin-border); color: var(--admin-text); }
     .admin-table td:first-child { border-left: 1px solid var(--admin-border); border-radius: 10px 0 0 10px; }
     .admin-table td:last-child { border-right: 1px solid var(--admin-border); border-radius: 0 10px 10px 0; }
 
@@ -710,7 +710,7 @@
               </div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Showcase</th><th>Identity</th><th>Collection</th><th>Value</th><th>Discount</th><th>Stock</th><th>Manage</th></tr></thead>
+                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 150px;">Collection</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
                   <tbody id="inventory-table"></tbody>
                 </table>
               </div>
@@ -1208,9 +1208,9 @@
             <td>${prod.name || 'Unnamed Product'}</td>
             <td style="text-transform: capitalize;">${prod.cat || 'Uncategorized'}</td>
             <td>Rs. ${(prod.price || 0).toLocaleString()}</td>
-            <td>${prod.discount || 0}%</td>
-            <td><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
-            <td>
+            <td style="text-align: center;">${prod.discount || 0}%</td>
+            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
+            <td style="white-space: nowrap;">
               <div style="display: flex; gap: 8px;">
                 <button class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="window.openModal('${pId}')">Edit</button>
                 <button class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px;" onclick="window.deleteProduct('${pId}')">Delete</button>
