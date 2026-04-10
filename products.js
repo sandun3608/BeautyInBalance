@@ -318,12 +318,20 @@ async function fetchDatabaseProducts() {
 
     try {
         console.log("Fetching from:", API_URL);
-        const response = await fetch(API_URL);
+        
+        // Add 5-second timeout to fetch
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const response = await fetch(API_URL, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
         if (!response.ok) throw new Error('API unreachable: ' + response.status);
         const dbProducts = await response.json();
 
-        
-        if (dbProducts && dbProducts.length > 0) {
+        if (Array.isArray(dbProducts) && dbProducts.length > 0) {
+            console.log(`✅ Loaded ${dbProducts.length} products from Database.`);
+            
             // Re-map the variable names slightly if they differ between DB and Frontend
             const mappedDbProducts = dbProducts.map(p => {
                 const formatImg = (str) => {
@@ -335,7 +343,7 @@ async function fetchDatabaseProducts() {
                     ...p,
                     id: p.id || p._id, // Prioritize human-readable ID if available
                     img: formatImg(p.img),
-                    images: p.images ? p.images.map(img => formatImg(img)) : []
+                    images: Array.isArray(p.images) ? p.images.map(img => formatImg(img)) : [formatImg(p.img)]
                 };
             });
 
@@ -356,32 +364,45 @@ async function fetchDatabaseProducts() {
             });
 
             window.productsData = updatedProductsData;
+        } else {
+            console.log("ℹ️ No new products in database, using defaults.");
         }
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
         window.DB_FETCH_COMPLETED = true;
-        if (typeof renderInventory === 'function') renderInventory();
-        if (typeof renderRoundCategories === 'function') renderRoundCategories();
-        if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
-        if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
-        if (typeof renderProduct === 'function') renderProduct();
-        if (typeof renderProducts === 'function') renderProducts(window.productsData);
-        if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
-        if (typeof updateRightSidebar === 'function') updateRightSidebar();
+        
+        const renderFuncs = [
+            'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 
+            'renderCategoryProducts', 'renderProduct', 'renderProducts', 
+            'renderAvuruduSale', 'updateRightSidebar'
+        ];
+        
+        renderFuncs.forEach(funcName => {
+            if (typeof window[funcName] === 'function') {
+                try { window[funcName](window.productsData); } catch(e) { console.error(`Render Error (${funcName}):`, e); }
+            } else if (typeof window.opener !== 'undefined' && typeof window[funcName] === 'function') {
+                 // Fallback for some older scripts
+                 try { window[funcName](); } catch(e) {}
+            }
+        });
 
     } catch (error) {
-        console.warn("Using hardcoded products because Backend is offline or hasn't started yet.", error);
+        console.warn("⚠️ Using hardcoded products fallback.", error.message);
         
-        // CRITICAL FALLBACK: If DB fails, restore the inventory table and other renders
         window.DB_FETCH_COMPLETED = true;
-        if (typeof renderInventory === 'function') renderInventory();
-        if (typeof renderRoundCategories === 'function') renderRoundCategories();
-        if (typeof renderLatestArrivals === 'function') renderLatestArrivals();
-        if (typeof renderCategoryProducts === 'function') renderCategoryProducts();
-        if (typeof renderProduct === 'function') renderProduct();
-        if (typeof renderProducts === 'function') renderProducts(window.productsData);
-        if (typeof renderAvuruduSale === 'function') renderAvuruduSale();
-        if (typeof updateRightSidebar === 'function') updateRightSidebar();
+        // Trigger renders even on failure to ensure UI balance
+        const renderFuncs = [
+            'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 
+            'renderCategoryProducts', 'renderProduct', 'renderProducts', 
+            'renderAvuruduSale', 'updateRightSidebar'
+        ];
+        renderFuncs.forEach(fn => {
+            if (typeof window[fn] === 'function') {
+                try { window[fn](window.productsData); } catch(e) {}
+            }
+        });
+    } finally {
+        window.DB_FETCH_RUNNING = false;
     }
 }
 

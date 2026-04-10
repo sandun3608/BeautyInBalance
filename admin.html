@@ -1007,39 +1007,51 @@
         const tableBody = document.getElementById('inventory-table');
         if (!tableBody) return;
         
-        // Safety Fallback Logic
-        const data = (window.productsData && window.productsData.length > 0) ? window.productsData : fallbackProducts;
+        // Safety Fallback Logic: Prioritize DB data, then hardcoded fallbacks
+        let data = (window.productsData && window.productsData.length > 0) ? window.productsData : fallbackProducts;
+        
+        // If still empty and DB is supposed to be loaded, show a message
+        if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 40px; color: var(--admin-muted);">No products found in the collection.</td></tr>';
+            return;
+        }
+
         tableBody.innerHTML = '';
         
         data.forEach(prod => {
           const tr = document.createElement('tr');
           const pId = String(prod._id || prod.id || '');
+          
+          // Safety for image path
+          const imagePath = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : 'images/placeholder.png');
+
           tr.innerHTML = `
-            <td><img src="${prod.img || 'images/placeholder.png'}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
-            <td>${prod.name || 'Unnamed Product'}</td>
-            <td style="text-transform: capitalize;">${prod.cat || 'Uncategorized'}</td>
-            <td>Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
+            <td style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
+            <td style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
+            <td style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
             <td style="text-align: center;">${prod.discount || 0}%</td>
-            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
-            <td style="white-space: nowrap;">
+            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
+            <td>
               <div style="display: flex; gap: 8px;">
-                <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px; cursor: pointer; position: relative; z-index: 20;" onclick="window.openModal('${pId}')">Edit</button>
-                <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px; cursor: pointer; position: relative; z-index: 20;" onclick="window.deleteProduct('${pId}')">Delete</button>
+                <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="window.openModal('${pId}')">Edit</button>
+                <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px;" onclick="window.deleteProduct('${pId}')">Delete</button>
               </div>
             </td>
           `;
           tableBody.appendChild(tr);
         });
+        console.log("✅ Inventory Rendered:", data.length, "items");
       } catch (err) {
         console.error("Critical Error in renderInventory:", err);
       }
     }
     window.renderInventory = renderInventory;
     
-    // IMMEDIATE RENDER FOR PRODUCTION VISIBILITY
-    setTimeout(renderInventory, 100);
-    setTimeout(renderInventory, 1000);
-    setTimeout(renderInventory, 3000);
+    // Initial Render Actions
+    setTimeout(renderInventory, 500);
+    setTimeout(renderInventory, 2000);
+
     window.fetchOrders = fetchOrders;
     window.fetchInquiries = fetchInquiries;
     window.fetchDashboardSummary = fetchDashboardSummary;
@@ -1182,47 +1194,18 @@
     }
     window.initApp = initApp;
 
-    function renderInventory() {
-      try {
-        const tableBody = document.getElementById('inventory-table');
-        if (!tableBody) return;
-        
-        const data = (window.productsData && window.productsData.length > 0) ? window.productsData : fallbackProducts;
-        tableBody.innerHTML = '';
-        
-        data.forEach(prod => {
-          const tr = document.createElement('tr');
-          const pId = String(prod._id || prod.id || '');
-          tr.innerHTML = `
-            <td><img src="${prod.img || 'images/placeholder.png'}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
-            <td>${prod.name || 'Unnamed Product'}</td>
-            <td style="text-transform: capitalize;">${prod.cat || 'Uncategorized'}</td>
-            <td>Rs. ${(prod.price || 0).toLocaleString()}</td>
-            <td style="text-align: center;">${prod.discount || 0}%</td>
-            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
-            <td style="white-space: nowrap;">
-              <div style="display: flex; gap: 8px;">
-                <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px; cursor: pointer; position: relative; z-index: 20;" onclick="window.openModal('${pId}')">Edit</button>
-                <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px; cursor: pointer; position: relative; z-index: 20;" onclick="window.deleteProduct('${pId}')">Delete</button>
-              </div>
-            </td>
-          `;
-          tableBody.appendChild(tr);
-        });
-      } catch (err) {
-        console.error("Critical Error in renderInventory:", err);
-      }
-    }
-    window.renderInventory = renderInventory;
+    // The redundant renderInventory function here has been removed to prevent overrides.
+
 
     // Self-healing render check
     setInterval(() => {
         const tb = document.getElementById('inventory-table');
-        if (tb && tb.innerHTML.includes('No products found') && window.productsData && window.productsData.length > 0) {
-            console.log("Automatic repair: Products found, re-rendering inventory...");
+        if (tb && tb.innerHTML.trim() === '' && window.productsData && window.productsData.length > 0) {
+            console.log("Automatic repair: Table was empty but data exists. Re-rendering...");
             renderInventory();
         }
-    }, 2000);
+    }, 5000);
+
 
     window.deleteProduct = async (id) => {
         if(!id) { alert("Error: No product ID found."); return; }

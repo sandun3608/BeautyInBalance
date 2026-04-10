@@ -7,6 +7,10 @@ const { protect } = require('../middleware/auth');
 // @route   GET /api/products
 router.get('/', async (req, res) => {
     try {
+        // If DB is not connected, jump to fallback immediately
+        if (mongoose.connection.readyState !== 1) {
+            throw new Error("DB not connected");
+        }
         const products = await Product.find({}).sort({ createdAt: -1 });
         res.json(products);
     } catch (error) {
