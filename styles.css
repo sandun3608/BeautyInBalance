@@ -1220,6 +1220,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
+.showcase-pills-left .pill-tuck {
+  margin-right: -40px; /* Moves closer to center */
+}
+.showcase-pills-right .pill-tuck {
+  margin-left: -40px; /* Moves closer to center */
+}
+
 @media (max-width: 1100px) {
   .showcase-image-wrap { width: 350px; }
   .showcase-pills-left, .showcase-pills-right { gap: 30px; }
