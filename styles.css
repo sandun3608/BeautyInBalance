@@ -2203,7 +2203,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .hero-section {
     margin: 0 !important;
     width: 100% !important;
-    height: 85vh !important;
+    height: 92vh !important; /* Maximized for extreme impact as requested */
     border-radius: 0 !important;
     overflow: hidden !important;
     background: #fdfdfd !important; /* Neutral background for full visibility */
