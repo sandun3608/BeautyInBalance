@@ -992,7 +992,7 @@
   <script src="products.js"></script>
   <script>
     console.log("💎 BiB Admin: DOM Logic Attached");
-    window.onerror = (m,u,l) => console.error(`🔥 ERROR: ${m} at line ${l}`);
+    window.onerror = (m,u,l) => console.error("Error: " + m + " at line " + l);
 
     const BASE_URL = window.BASE_URL || 'http://localhost:5000/api';
     
@@ -1023,11 +1023,11 @@
       if (pImgPlaceholder) pImgPlaceholder.style.display = 'block';
       if (pModal) pModal.style.display = 'flex';
       
-      if (prodId && typeof productsData !== 'undefined') {
+      if (prodId && typeof window.productsData !== 'undefined') {
         const titleH3 = document.querySelector('#product-modal h3');
         if (titleH3) titleH3.innerText = 'Edit Skincare Product';
         
-        const prod = productsData.find(p => p._id === prodId || p.id === prodId);
+        const prod = window.productsData.find(p => p._id === prodId || p.id === prodId);
         if (prod) {
           const fields = {
             'p-name': prod.name,
@@ -1401,7 +1401,7 @@
         const prodList = document.getElementById('latest-products-sidebar');
         if (prodList) {
             // Priority: Live Data -> defaultProducts (from products.js) -> Hardcoded Premium Fallback
-            const source = (typeof productsData !== 'undefined' && productsData.length > 0) ? productsData : 
+            const source = (window.productsData && window.productsData.length > 0) ? window.productsData : 
                           (typeof defaultProducts !== 'undefined' ? defaultProducts : [
                 { name: 'CeraVe Hydrating Cleanser', cat: 'cerave', price: 6800, img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
                 { name: 'Niacinamide 10% + Zinc 1%', cat: 'ordinary', price: 3800, img: 'the ordinary/Niacinamide (30ml) Rs.3800.png' },
