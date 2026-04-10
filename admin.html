@@ -928,6 +928,12 @@
     window.switchTab = function(tabName, el) {
       console.log('Switching to tab:', tabName);
       
+      // CRITICAL: Clear all modals before switching
+      const productModal = document.getElementById('product-modal');
+      const customerModal = document.getElementById('customer-modal');
+      if (productModal) productModal.style.display = 'none';
+      if (customerModal) customerModal.style.display = 'none';
+      
       // Hide all content
       document.querySelectorAll('.admin-content').forEach(function(c) { 
         c.classList.remove('active'); 
@@ -1066,15 +1072,19 @@
     };
 
     // Primary DOM Init
-    document.addEventListener('DOMContentLoaded', () => {
-        initDashboardListeners();
+    function initApp() {
+        initDashboardListeners(); 
         
         // Form Submission setup
         const addProductForm = document.getElementById('add-product-form');
         if (addProductForm) {
-            addProductForm.addEventListener('submit', async (e) => {
+            // Remove previous if any
+            const newForm = addProductForm.cloneNode(true);
+            addProductForm.parentNode.replaceChild(newForm, addProductForm);
+            
+            newForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const sendBtn = addProductForm.querySelector('button[type="submit"]');
+                const sendBtn = newForm.querySelector('button[type="submit"]');
                 const mainImg = document.getElementById('p-img') ? document.getElementById('p-img').value : '';
 
                 if (!mainImg || mainImg.trim() === '') {
@@ -1142,7 +1152,7 @@
         }
 
         safetyInit();
-    });
+    }
 
     let editingId = null; 
 
@@ -1240,7 +1250,7 @@
             <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
             <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
             <td style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #777;">${itemsSummary}</td>
-            <td style="font-weight: 700;">Rs. ${order.totalPrice.toLocaleString()}</td>
+            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td> 
             <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
             <td>
                <div style="display:flex; gap:8px;">
@@ -1618,8 +1628,12 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', safetyInit);
-    setTimeout(safetyInit, 1500);
+    // Single and Final Initialization Trigger
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+        initApp();
+    }
   </script>
 
 
