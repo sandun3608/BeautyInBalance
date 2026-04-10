@@ -31,6 +31,43 @@ router.post('/', async (req, res) => {
         });
 
         const createdOrder = await order.save();
+
+        // --- EMAIL NOTIFICATION (ASYNCHRONOUS) ---
+        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+            const sendEmail = require('../utils/mailer');
+            const itemsList = createdOrder.orderItems.map(i => `<li>${i.qty}x ${i.name} - Rs. ${i.price.toLocaleString()}</li>`).join('');
+            
+            try {
+                await sendEmail({
+                    email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+                    subject: `🛍️ New Order Received! #${createdOrder._id.toString().slice(-6).toUpperCase()}`,
+                    html: `
+                        <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                            <h2 style="color: #b58646;">New Order Notification</h2>
+                            <p>You have received a new order from <strong>${createdOrder.customerInfo.firstName} ${createdOrder.customerInfo.lastName}</strong>.</p>
+                            
+                            <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Order Details</h3>
+                            <ul>${itemsList}</ul>
+                            <p><strong>Total Price:</strong> Rs. ${createdOrder.totalPrice.toLocaleString()}</p>
+                            <p><strong>Payment Method:</strong> ${createdOrder.paymentMethod}</p>
+                            
+                            <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Customer Contact</h3>
+                            <p><strong>Email:</strong> ${createdOrder.customerInfo.email}</p>
+                            <p><strong>Phone:</strong> ${createdOrder.customerInfo.phone}</p>
+                            <p><strong>Address:</strong> ${createdOrder.customerInfo.address}, ${createdOrder.customerInfo.city}</p>
+                            
+                            <div style="margin-top: 30px;">
+                                <a href="https://wa.me/${createdOrder.customerInfo.phone.replace(/[^0-9]/g, '')}" style="background: #25D366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">WhatsApp Customer</a>
+                            </div>
+                        </div>
+                    `
+                });
+                console.log("📧 Order notification email sent successfully!");
+            } catch (err) {
+                console.error("📧 Email sending failed:", err);
+            }
+        }
+
         res.status(201).json(createdOrder);
     } catch (error) {
         console.error("Order Creation Error:", error);

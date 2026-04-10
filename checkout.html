@@ -547,7 +547,14 @@
                   <div style="width:80px; height:80px; background:#10b981; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; margin:0 auto 30px;">✓</div>
                   <h1 style="font-family:var(--font-serif); font-size:48px; color:var(--brown); margin-bottom:15px;">Order Confirmed!</h1>
                   <p style="font-size:18px; color:#555; max-width:500px; margin: 0 auto 40px; line-height:1.6;">Thank you, ${orderData.customerInfo.firstName}! Your order has been securely placed via ${orderedMethod} and is being processed by our team.</p>
-                  <a href="index.html" style="background:var(--dark); color:white; padding:15px 40px; text-decoration:none; border-radius:8px; font-weight:600; letter-spacing:1px;">RETURN TO HOME</a>
+                  
+                  <div style="display:flex; flex-direction:column; gap:15px; align-items:center; margin-bottom:40px;">
+                    <a href="https://wa.me/94719152136?text=Hi!%20I%20just%20placed%20an%20order%20on%20Beauty%20in%20Balance.%20Customer:%20${orderData.customerInfo.firstName}%20${orderData.customerInfo.lastName}.%20Total:%20Rs.%20${window.currentOrderTotal.toLocaleString()}" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#25D366; color:white; padding:15px 30px; text-decoration:none; border-radius:30px; font-weight:700; box-shadow:0 10px 20px rgba(37,211,102,0.2);">
+                      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
+                      CONFIRM VIA WHATSAPP
+                    </a>
+                    <a href="index.html" style="background:var(--dark); color:white; padding:12px 30px; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px; opacity:0.8;">Return to Home</a>
+                  </div>
                 </div>
              `;
            } else {
