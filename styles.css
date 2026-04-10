@@ -199,7 +199,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .btn-hero-light {
   display: inline-block; padding: 18px 48px; border-radius: 2px;
-  background: var(--white); color: var(--brown);
+  background: var(--gold); color: var(--white);
   font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em;
   text-decoration: none; transition: all 0.4s;
   border: 1px solid rgba(0,0,0,0.05);
@@ -244,14 +244,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* ── BUTTONS ── */
 .btn-dark {
   display: inline-flex; align-items: center; justify-content: center;
-  background: var(--brown); color: var(--white);
-  border: 1.5px solid var(--brown);
+  background: var(--gold); color: var(--white);
+  border: 1.5px solid var(--gold);
   font-family: var(--font-sans); font-size: 13px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 13px 30px; border-radius: var(--radius);
-  cursor: pointer; transition: all var(--transition);
+  padding: 14px 28px; transition: all 0.4s; border-radius: var(--radius);
 }
-.btn-dark:hover { background: var(--brown-mid); border-color: var(--brown-mid); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,27,18,0.25); }
+.btn-dark:hover {
+  background: var(--brown); border-color: var(--brown); color: white; transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
 
 /* ── ROUND COLLECTION LIST ── */
 .round-list-section {
@@ -1239,7 +1241,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .showcase-btn {
   display: inline-block;
   padding: 18px 45px;
-  background: #2d1b12; /* Brand Ebony */
+  background: var(--gold); /* Brand Gold */
   color: #fff;
   border-radius: 50px;
   text-transform: uppercase;
@@ -1247,12 +1249,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   font-size: 13px;
   letter-spacing: 0.1em;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(45,27,18,0.15);
+  box-shadow: 0 10px 30px rgba(198,151,90,0.15);
 }
 .showcase-btn:hover {
-  background: #c6975a; /* Brand Gold */
+  background: var(--brown); /* Brand Ebony */
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(198,151,90,0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
   color: #fff;
 }
 .gallery-header { text-align: center; margin-bottom: 60px; }
@@ -1322,11 +1324,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .p-price { font-size: 16px; font-weight: 700; color: var(--brown); margin-top: auto; }
 
 .p-action { 
-    background: var(--brown); color: white; border: none; padding: 12px; 
+    background: var(--gold); color: white; border: none; padding: 12px; 
     border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.1em; transition: all 0.3s; margin-top: 10px;
 }
-.p-card:hover .p-action { background: var(--gold); box-shadow: 0 5px 15px rgba(198,151,90,0.3); }
+.p-card:hover .p-action { 
+    background: var(--brown); box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+}
 
 @media (max-width: 768px) {
     .gallery-header { padding: 0 20px; }
@@ -1427,11 +1431,11 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .hi-footer { display: flex; align-items: center; gap: 30px; margin-top: 20px; }
 .hi-buy-btn { 
-    background: #008a4f; color: white; border: none; padding: 16px 40px; 
+    background: var(--gold); color: white; border: none; padding: 16px 40px; 
     border-radius: 50px; font-weight: 700; font-size: 14px; text-transform: uppercase;
     cursor: pointer; transition: all 0.3s;
 }
-.hi-buy-btn:hover { background: #006b3e; transform: scale(1.05); }
+.hi-buy-btn:hover { background: var(--brown); transform: scale(1.05); }
 
 .hi-price-box { display: flex; align-items: baseline; gap: 15px; }
 .hi-price-now { font-size: 28px; font-weight: 700; color: var(--brown); }
