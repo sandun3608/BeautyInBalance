@@ -995,7 +995,6 @@
     window.onerror = (m,u,l) => console.error("Error: " + m + " at line " + l);
     const BASE_URL = window.BASE_URL || 'http://localhost:5000/api';
     
-    // THE MASTER FALLBACK (Ensures items show even if API stalls)
     const fallbackProducts = [
         { _id: 'FALLBACK1', name: 'AM Facial Moisturizing Lotion', cat: 'cerave', price: 6500, stock: 50, discount: 0, img: 'cerave prodcut/AM Facial Moisturizing Lotion with Sunscreen Rs.6500.png' },
         { _id: 'FALLBACK2', name: 'Acne Control Cleanser', cat: 'cerave', price: 6800, stock: 35, discount: 5, img: 'cerave prodcut/Acne Control Cleanser  Rs.6800.png' },
@@ -1003,12 +1002,44 @@
         { _id: 'FALLBACK4', name: 'Alpha Arbutin 2% + HA', cat: 'ordinary', price: 4800, stock: 45, discount: 0, img: 'the ordinary/Alpha arbutin (30ml)  Rs.4800.png' }
     ];
 
-    window.productsData = (window.productsData && window.productsData.length > 0) ? window.productsData : fallbackProducts;
-    window.handleLogout = handleLogout;
-    let editingId = null;
-
-    // Explicitly expose functions to window
+    function renderInventory() {
+      try {
+        const tableBody = document.getElementById('inventory-table');
+        if (!tableBody) return;
+        
+        // Safety Fallback Logic
+        const data = (window.productsData && window.productsData.length > 0) ? window.productsData : fallbackProducts;
+        tableBody.innerHTML = '';
+        
+        data.forEach(prod => {
+          const tr = document.createElement('tr');
+          const pId = String(prod._id || prod.id || '');
+          tr.innerHTML = `
+            <td><img src="${prod.img || 'images/placeholder.png'}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
+            <td>${prod.name || 'Unnamed Product'}</td>
+            <td style="text-transform: capitalize;">${prod.cat || 'Uncategorized'}</td>
+            <td>Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td style="text-align: center;">${prod.discount || 0}%</td>
+            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#ff9800' : '#4caf50'}">${prod.stock || 0}</span></td>
+            <td style="white-space: nowrap;">
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px; cursor: pointer; position: relative; z-index: 20;" onclick="window.openModal('${pId}')">Edit</button>
+                <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px; cursor: pointer; position: relative; z-index: 20;" onclick="window.deleteProduct('${pId}')">Delete</button>
+              </div>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error("Critical Error in renderInventory:", err);
+      }
+    }
     window.renderInventory = renderInventory;
+    
+    // IMMEDIATE RENDER FOR PRODUCTION VISIBILITY
+    setTimeout(renderInventory, 100);
+    setTimeout(renderInventory, 1000);
+    setTimeout(renderInventory, 3000);
     window.fetchOrders = fetchOrders;
     window.fetchInquiries = fetchInquiries;
     window.fetchDashboardSummary = fetchDashboardSummary;

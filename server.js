@@ -32,7 +32,11 @@ const connectDB = async () => {
 connectDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: '*', // Dynamic origin allowance
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
