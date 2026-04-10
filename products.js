@@ -374,7 +374,7 @@ async function fetchDatabaseProducts() {
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
         window.DB_FETCH_COMPLETED = true;
         const renderFuncs = [
-            'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 
+            'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
             'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
         ];
@@ -394,7 +394,7 @@ async function fetchDatabaseProducts() {
         window.DB_FETCH_COMPLETED = true;
         // Trigger renders even on failure to ensure UI balance
         const renderFuncs = [
-            'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 
+            'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
             'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
         ];
