@@ -993,7 +993,8 @@
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     window.onerror = (m,u,l) => console.error("Error: " + m + " at line " + l);
-    const BASE_URL = window.BASE_URL || 'http://localhost:5000/api';
+    // Using global BASE_URL from config.js
+
     
     const fallbackProducts = [
         { _id: 'FALLBACK1', name: 'AM Facial Moisturizing Lotion', cat: 'cerave', price: 6500, stock: 50, discount: 0, img: 'cerave prodcut/AM Facial Moisturizing Lotion with Sunscreen Rs.6500.png' },
