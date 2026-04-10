@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
         const dummyId = '111111111111111111111111'; // 24 character hex
         return res.json({
             _id: dummyId,
-            name: 'Nipuni (Admin)',
+            name: 'Nipuni',
             email: 'nipuni@beauty.com',
             isAdmin: true,
             token: generateToken(dummyId),

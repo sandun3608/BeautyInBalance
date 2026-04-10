@@ -14,7 +14,7 @@ const protect = async (req, res, next) => {
             if (decoded.id === '111111111111111111111111') {
                 req.user = { 
                     _id: '111111111111111111111111', 
-                    name: 'Nipuni (Admin)', 
+                    name: 'Nipuni', 
                     isAdmin: true 
                 };
                 return next();
