@@ -67,26 +67,28 @@
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <!-- Left: Navigation Links -->
+      <!-- Left: Navigation Links + Email -->
       <div class="nav-left">
         <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
+        <a href="mailto:info@beautyinbalance.lk" class="ic-btn mobile-only" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
         <ul class="nav-main">
-        <li><a href="index.html">Home</a></li>
-        <li class="has-drop">
-          <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-          <ul class="drop-menu">
-            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-
-            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
-          </ul>
-        </li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="policies.html">Policies</a></li>
+        </ul>
       </div>
 
       <!-- Center: Logo -->
@@ -94,7 +96,7 @@
 
       <!-- Right Icons -->
       <div class="nav-icons">
-        <button class="ic-btn" id="search-open" aria-label="Search">
+        <button class="ic-btn desktop-only" id="search-open" aria-label="Search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
         </button>
 
@@ -125,6 +127,14 @@
 
       </div>
     </nav>
+
+    <!-- Mobile Search Bar (Below Nav) -->
+    <div class="mobile-search-row mobile-only">
+      <div class="m-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="text" placeholder="Search for products..." id="m-search-input" />
+      </div>
+    </div>
 
     <!-- Search Bar -->
     <div class="search-drop" id="search-drop">
@@ -1178,6 +1188,17 @@
     /* ── UTILS ── */
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
+
+    // Mobile Search Input Redirect
+    const mSearchInput = $('m-search-input');
+    if (mSearchInput) {
+      mSearchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = mSearchInput.value.trim();
+          if (val) window.location.href = `shop.html?search=${encodeURIComponent(val)}`;
+        }
+      });
+    }
 
     /* ── HEADER SCROLL ── */
     window.addEventListener('scroll', () => {

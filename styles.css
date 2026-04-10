@@ -2075,17 +2075,73 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     z-index: 2000 !important; 
     border-bottom: 1px solid rgba(45,27,18,0.08); 
     box-shadow: 0 4px 30px rgba(0,0,0,0.05) !important; 
-    background: rgba(255, 255, 255, 0.85) !important; /* Semi-transparent white */
-    backdrop-filter: blur(10px) !important; /* Glassmorphism blur */
+    background: rgba(255, 255, 255, 0.95) !important; 
+    backdrop-filter: blur(10px) !important; 
     -webkit-backdrop-filter: blur(10px) !important;
   }
-  body { padding-top: var(--nav-h) !important; } /* Push content down to compensate for fixed header */
-  .nav-main { display: none; }
-  .ham-btn { display: flex; }
-  .nav-wrap { padding: 0 20px; }
-  .site-logo { font-size: 22px; }
-  .nav-icons { gap: 4px; }
-  .ic-btn { width: 34px; height: 34px; }
+
+  /* NEW: Center Logo on Mobile, Group Left/Right Icons */
+  .nav-wrap { 
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: space-between !important; 
+    height: 60px !important;
+    position: relative !important;
+    padding: 0 15px !important;
+  }
+
+  .nav-left { 
+    display: flex !important; 
+    align-items: center !important; 
+    gap: 8px !important; 
+    z-index: 5 !important;
+  }
+
+  .site-logo { 
+    position: absolute !important; 
+    left: 50% !important; 
+    transform: translateX(-50%) !important; 
+    width: auto !important; 
+    margin: 0 !important;
+    font-size: 19px !important;
+    white-space: nowrap !important;
+    pointer-events: auto !important;
+    z-index: 4 !important;
+    text-align: center !important;
+  }
+
+  .nav-icons { 
+    display: flex !important; 
+    align-items: center !important; 
+    gap: 8px !important; 
+    z-index: 5 !important;
+  }
+
+  /* Mobile Search Bar Row */
+  .mobile-search-row {
+    padding: 10px 15px 15px 15px !important;
+    background: rgba(255,255,255,0.95) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  }
+  .m-search-box {
+    display: flex !important;
+    align-items: center !important;
+    background: #f4f4f4 !important;
+    padding: 10px 15px !important;
+    border-radius: 12px !important;
+    gap: 10px !important;
+  }
+  .m-search-box input {
+    background: none !important;
+    border: none !important;
+    width: 100% !important;
+    font-size: 14px !important;
+    outline: none !important;
+    color: var(--brown) !important;
+  }
+  .m-search-box svg { color: var(--muted) !important; flex-shrink: 0 !important; }
+
+  body { padding-top: 125px !important; } /* Compensate for Nav + Search bar height */
 
   /* Shop the Look Fixes */
   .look-section { padding: 40px 14px !important; }
