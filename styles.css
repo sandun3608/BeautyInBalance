@@ -2141,7 +2141,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
   .m-search-box svg { color: var(--muted) !important; flex-shrink: 0 !important; }
 
-  body { padding-top: 125px !important; } /* Compensate for Nav + Search bar height */
+  .ann-bar { display: none !important; }
+  body { padding-top: 110px !important; } /* Adjusted compensation for Nav + Search bar height */
 
   /* Shop the Look Fixes */
   .look-section { padding: 40px 14px !important; }
