@@ -1088,27 +1088,26 @@
         document.querySelector('#product-modal h3').innerText = 'Edit Skincare Product';
         const prod = productsData.find(p => p._id === prodId || p.id === prodId);
         if (prod) {
-          document.getElementById('p-name').value = prod.name;
-          document.getElementById('p-cat').value = prod.cat;
-          document.getElementById('p-filter').value = prod.filter || 'cleansers';
-          document.getElementById('p-price').value = prod.price;
-          document.getElementById('p-id-field').value = prod.id;
-          document.getElementById('p-discount').value = prod.discount || 0;
-          document.getElementById('p-img').value = prod.img || '';
-          document.getElementById('p-images').value = (prod.images && Array.isArray(prod.images) ? prod.images : []).join(', ');
-          document.getElementById('p-desc').value = prod.desc || '';
-          document.getElementById('p-usage').value = prod.howToUse || '';
-          document.getElementById('p-benefits').value = (prod.benefits && Array.isArray(prod.benefits) ? prod.benefits : []).join(', ');
-          document.getElementById('p-stock').value = prod.stock || 0;
+          if (document.getElementById('p-name')) document.getElementById('p-name').value = prod.name || '';
+          if (document.getElementById('p-cat')) document.getElementById('p-cat').value = prod.cat || '';
+          if (document.getElementById('p-filter')) document.getElementById('p-filter').value = prod.filter || 'cleansers';
+          if (document.getElementById('p-price')) document.getElementById('p-price').value = prod.price || 0;
+          if (document.getElementById('p-id-field')) document.getElementById('p-id-field').value = prod.id || '';
+          if (document.getElementById('p-discount')) document.getElementById('p-discount').value = prod.discount || 0;
+          if (document.getElementById('p-img')) document.getElementById('p-img').value = prod.img || '';
+          if (document.getElementById('p-images')) document.getElementById('p-images').value = (prod.images && Array.isArray(prod.images) ? prod.images : []).join(', ');
+          if (document.getElementById('p-desc')) document.getElementById('p-desc').value = prod.desc || '';
+          if (document.getElementById('p-usage')) document.getElementById('p-usage').value = prod.howToUse || '';
+          if (document.getElementById('p-benefits')) document.getElementById('p-benefits').value = (prod.benefits && Array.isArray(prod.benefits) ? prod.benefits : []).join(', ');
+          if (document.getElementById('p-stock')) document.getElementById('p-stock').value = prod.stock || 0;
 
           const imageToShow = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : '');
           if (imageToShow && imageToShow !== 'undefined') {
-             pImgPreview.src = imageToShow;
-             pImgPreview.style.display = 'block';
-             pImgPlaceholder.style.display = 'none';
+             if (pImgPreview) { pImgPreview.src = imageToShow; pImgPreview.style.display = 'block'; }
+             if (pImgPlaceholder) pImgPlaceholder.style.display = 'none';
           } else {
-             pImgPreview.style.display = 'none';
-             pImgPlaceholder.style.display = 'block';
+             if (pImgPreview) pImgPreview.style.display = 'none';
+             if (pImgPlaceholder) pImgPlaceholder.style.display = 'block';
           }
         }
       } else {
