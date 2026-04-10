@@ -2139,11 +2139,9 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     display: block !important;
     border-radius: 0 !important;
   } 
-  .hero-content { left: 50% !important; transform: translateX(-50%) !important; bottom: 50px; width: 90%; max-width: none; text-align: center; z-index: 10; padding: 0 !important; }
-  .hero-title { font-size: 32px; line-height: 1.1; margin-bottom: 12px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
-  .hero-desc { font-size: 13px; max-width: 100%; margin-bottom: 25px; line-height: 1.4; opacity: 0.95; }
-  .hero-pills { flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
-  .btn-hero { padding: 16px 36px !important; font-size: 13px !important; }
+  .hero-content { display: none !important; } /* No shop now/text on mobile as requested */
+  .hero-slide.active .hero-bg img { animation: none !important; transform: none !important; } /* No zoom effect on mobile */
+  .btn-hero { display: none !important; }
 
   /* Section Spacing */
   section:not(.hero-section) { padding-left: 20px !important; padding-right: 20px !important; }

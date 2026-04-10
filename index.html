@@ -268,6 +268,48 @@
             <a href="shop.html" class="btn-dark btn-hero">NEW ARRIVALS</a>
           </div>
         </div>
+
+        <!-- Mobile Navigation Arrows (Mobile Only) -->
+        <button class="hero-arr prev mobile-only" id="hero-prev" aria-label="Previous Slide" style="left: 10px; width: 40px; height: 40px; background: rgba(255,255,255,0.7); display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="hero-arr next mobile-only" id="hero-next" aria-label="Next Slide" style="right: 10px; width: 40px; height: 40px; background: rgba(255,255,255,0.7); display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <style>
+          @media (max-width: 768px) {
+            .hero-arr.mobile-only { display: flex !important; align-items: center; justify-content: center; position: absolute; top: 50%; transform: translateY(-50%); border-radius: 50%; border: none; z-index: 100; cursor: pointer; }
+          }
+        </style>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const mSlides = document.querySelectorAll('.hero-slide.mobile-only');
+            if (mSlides.length === 0) return;
+            
+            let mIdx = 0;
+            const mPrev = document.getElementById('hero-prev');
+            const mNext = document.getElementById('hero-next');
+
+            function showMSlide(index) {
+              mSlides.forEach(s => s.classList.remove('active'));
+              if (index >= mSlides.length) mIdx = 0;
+              else if (index < 0) mIdx = mSlides.length - 1;
+              else mIdx = index;
+              mSlides[mIdx].classList.add('active');
+            }
+
+            if (mPrev) mPrev.addEventListener('click', (e) => { e.preventDefault(); showMSlide(mIdx - 1); });
+            if (mNext) mNext.addEventListener('click', (e) => { e.preventDefault(); showMSlide(mIdx + 1); });
+
+            setInterval(() => {
+              if (window.innerWidth <= 768) {
+                showMSlide(mIdx + 1);
+              }
+            }, 6000);
+          });
+        </script>
       </div>
     </section>
 
