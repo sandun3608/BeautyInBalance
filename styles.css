@@ -2136,22 +2136,25 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
   .m-cat-wrapper {
     overflow-x: auto !important;
-    padding: 0 15px !important;
+    padding: 0 !important; /* Edge to edge */
     -webkit-overflow-scrolling: touch !important;
   }
   .m-cat-wrapper::-webkit-scrollbar { display: none; }
   
   .m-cat-track {
     display: flex !important;
-    gap: 12px !important;
+    gap: 10px !important;
+    padding: 0 10px !important; /* Minimal internal padding */
   }
   .m-cat-card {
-    min-width: 140px !important; /* Slightly narrower to fit 2-ish cards on screen */
+    min-width: 145px !important; 
     background: #F9F9F9 !important;
     border-radius: 12px !important;
     padding: 12px !important;
     display: flex !important;
-    flex-direction: column !important; /* Stack vertically */
+    flex-direction: column !important;
+    align-items: center !important; /* Centered content */
+    text-align: center !important; /* Centered text */
     gap: 12px !important;
     flex-shrink: 0 !important;
     border: 1px solid rgba(0,0,0,0.03) !important;
@@ -2169,16 +2172,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .m-cat-imgs {
     display: flex !important;
     gap: 8px !important;
-    justify-content: center !important; /* Center images at the bottom */
+    justify-content: center !important;
     width: 100% !important;
   }
   .m-cat-imgs img {
-    width: 50% !important; /* Take half width each */
-    height: 60px !important;
+    width: 46% !important;
+    height: 55px !important;
     object-fit: contain !important;
     background: #fff !important;
     border-radius: 6px !important;
-    padding: 4px !important;
+    padding: 3px !important;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   }
 
