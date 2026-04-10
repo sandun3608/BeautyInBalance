@@ -725,7 +725,73 @@
       $('site-header').classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    renderRoundCategories();
+    let productsData = [];
+
+    async function fetchProducts() {
+      try {
+        const res = await fetch(`${BASE_URL}/products`);
+        const data = await res.json();
+        productsData = data;
+        window.productsData = data; 
+        
+        // Render everything once data is ready
+        renderRoundCategories();
+        renderLatestArrivals();
+        renderShopTheLook();
+        console.log("Products loaded successfully ✅");
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        // Fallback to local products if API fails
+        if (typeof defaultProducts !== 'undefined') {
+          productsData = defaultProducts;
+          window.productsData = defaultProducts;
+          renderRoundCategories();
+          renderLatestArrivals();
+          renderShopTheLook();
+        }
+      }
+    }
+
+    function renderLatestArrivals() {
+      const track = document.getElementById('latest-track');
+      if (!track || !productsData.length) return;
+      const latest = productsData.slice(-8).reverse();
+      track.innerHTML = latest.map(p => `
+        <div class="la-card" onclick="location.href='product.html?id=${p._id || p.id}'">
+          <div class="la-top-box">
+             <div class="la-img-main"><img src="${p.img || p.images[0]}" alt="${p.name}"></div>
+             <button class="la-cart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+          </div>
+          <div class="la-info">
+            <h4>${p.name}</h4>
+            <div class="la-price">Rs.${p.price}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderShopTheLook() {
+      const list = document.querySelector('.look-product-list');
+      if (!list || !productsData.length) return;
+      const subset = productsData.slice(0, 3);
+      list.innerHTML = subset.map(p => `
+        <div class="look-product-card" onclick="location.href='product.html?id=${p._id || p.id}'">
+          <img src="${p.img || p.images[0]}" alt="${p.name}">
+          <div class="look-p-info">
+            <h5>${p.name}</h5>
+            <span>Rs.${p.price}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    fetchProducts();
   </script>
+  <style>
+    /* Emergency UI Fix for visibility */
+    .excl-script { color: var(--brown) !important; font-style: italic; font-size: 20px; display: block; margin-bottom: 5px; }
+    .hero-content { z-index: 10 !important; }
+    .hero-title { text-shadow: 0 4px 20px rgba(0,0,0,0.4) !important; }
+  </style>
 </body>
 </html>
