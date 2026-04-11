@@ -405,58 +405,6 @@
 
 
 
-    <!-- ===== SECTION: EXCLUSIVE HIGHLIGHT (DYNAMIC THEME) ===== -->
-    <section class="dynamic-highlight">
-      <div class="dh-container">
-        <!-- Left: Image -->
-        <div class="dh-visual">
-          <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Featured Product">
-        </div>
-
-        <!-- Right: Content -->
-        <div class="dh-content">
-          <div class="dh-promo-marquee">
-            <div class="dh-marquee-track">
-              <span>-15% OFF &nbsp;•&nbsp; BEST SELLER &nbsp;•&nbsp; -15% OFF &nbsp;•&nbsp; BEST SELLER &nbsp;•&nbsp; -15% OFF &nbsp;•&nbsp; BEST SELLER &nbsp;•&nbsp; -15% OFF &nbsp;•&nbsp; BEST SELLER &nbsp;•&nbsp;</span>
-            </div>
-          </div>
-          
-          <div class="dh-tags">
-            <span class="dh-tag">ANTI-AGING</span>
-            <span class="dh-tag">OIL CONTROL</span>
-            <span class="dh-tag">SKIN CARE</span>
-          </div>
-
-          <h2 class="dh-title">Niacinamide 10% + Zinc 1% High-Strength Vitamin</h2>
-          <p class="dh-price">Rs. 3,800.00</p>
-          <p class="dh-desc">A high-strength vitamin and mineral blemish formula that visibly targets uneven skin tone and oiliness. Ideal for all skin types, especially those prone to congestion.</p>
-          
-          <div class="dh-actions">
-            <label>Quantity</label>
-            <div class="dh-qty">
-              <button onclick="changeQty(-1)">−</button>
-              <input type="number" id="dh-qty-val" value="1" readonly>
-              <button onclick="changeQty(1)">+</button>
-            </div>
-            
-            <div class="dh-btns">
-              <button class="dh-btn-bag" onclick="addToCart('ord-nia-30')">ADD TO BAG</button>
-              <button class="dh-btn-buy" onclick="addToCart('ord-nia-30'); location.href='shop.html'">BUY IT NOW</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      function changeQty(amt) {
-        const inp = document.getElementById('dh-qty-val');
-        let val = parseInt(inp.value) + amt;
-        if (val < 1) val = 1;
-        inp.value = val;
-      }
-    </script>
-
     <!-- ===== SECTION 3: EXCLUSIVE COLLECTION ===== -->
     <section class="exclusive-section">
       <div class="excl-heading">
