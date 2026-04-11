@@ -1611,12 +1611,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   margin-bottom: 80px !important;
 }
 
-/* Luxury Tone Items */
+.ps-grid-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .ps-tones-grid {
   display: flex;
   justify-content: space-between;
-  gap: 32px;
-  margin-bottom: 60px;
+  gap: 20px;
+  margin-bottom: 50px;
 }
 
 .ps-tone-item {
@@ -1629,38 +1633,21 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   transition: transform 0.3s ease;
 }
 
-/* Luxury Frame Effect */
+/* Modern Minimalist Frame */
 .ps-pill-outer {
   width: 100%;
   aspect-ratio: 1.8 / 1; 
   border-radius: 120px;
-  padding: 6px;
-  border: 1px solid #f0efed;
-  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-  background: transparent;
-  position: relative;
-}
-
-/* Floating inner border for depth */
-.ps-pill-outer::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border: 1.5px solid transparent;
-  border-radius: 120px;
-  transition: all 0.5s ease;
-  pointer-events: none;
+  padding: 4px;
+  border: 1px solid #e5e0da;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: #ffffff;
 }
 
 .ps-tone-item.active .ps-pill-outer {
-  border-color: #d4bcad;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-}
-
-.ps-tone-item.active .ps-pill-outer::after {
-  top: -4px; left: -4px; right: -4px; bottom: -4px;
-  border-color: rgba(26,60,52,0.15);
-  opacity: 1;
+  border-color: #1a3c34;
+  border-width: 2px;
+  box-shadow: 0 10px 25px rgba(26,60,52,0.1);
 }
 
 .ps-pill-inner {
@@ -1668,8 +1655,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   height: 100%;
   border-radius: 120px;
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-  border: 4px solid #ffffff; /* Inner white border */
 }
 
 .ps-pill-inner img {
@@ -1737,17 +1722,17 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   height: 40px;
 }
 
-/* Slider Thumb Handle - Refined Porcelain Style */
+/* Slider Thumb Handle - Perfectly Centered */
 .ps-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: #ffffff;
-  border: 8px solid #1a3c34;
+  border: 7px solid #1a3c34;
   border-radius: 50%;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-  margin-top: -15px; 
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin-top: -14px; /* Centered on the 1.5px - 2.5px line */
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .ps-range::-webkit-slider-thumb:hover {
