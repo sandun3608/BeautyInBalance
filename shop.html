@@ -139,27 +139,28 @@
 
   <main>
     <!-- ===== SHOP PAGE HEADER ===== -->
-    <section class="gallery-section" style="padding-bottom: 20px;">
-      <div class="gallery-header">
-        <span class="gallery-tag">ORIGINAL IMPORTS</span>
-        <h1 class="gallery-title" style="margin-top:20px;">Shop All Products</h1>
-        <p style="color: var(--muted); margin-top: -10px; margin-bottom: 40px;">Discover the full collection from our world-class brands.</p>
+    <section class="gallery-section" style="padding-top: 80px; padding-bottom: 20px;">
+      <div class="gallery-header" style="text-align: center;">
+        <div class="gallery-badge-pill">CA GB AUTHENTIC IMPORTS</div>
+        <h1 class="gallery-title" style="font-family: var(--font-sans); font-weight: 800; font-size: 56px; margin: 15px 0;">Our Products</h1>
+        <p style="color: #666; font-size: 16px; margin-bottom: 50px;">Premium skincare — The Ordinary & CeraVe — at honest prices</p>
         
         <div class="gallery-filters">
-          <div class="cat-tabs">
+          <div class="cat-tabs" style="justify-content: center; margin-bottom: 30px;">
             <button class="cat-tab active" data-cat="all">All Products</button>
             <button class="cat-tab" data-cat="ordinary">The Ordinary CA</button>
             <button class="cat-tab" data-cat="cerave">CeraVe GB</button>
           </div>
           
-          <div class="sub-filters">
+          <div class="sub-filters" style="justify-content: center;">
             <button class="sub-filter active" data-filter="all">All</button>
-            <button class="sub-filter" data-filter="cleansers">Cleansers</button>
             <button class="sub-filter" data-filter="serums">Serums</button>
             <button class="sub-filter" data-filter="acids">Acids &amp; Exfoliants</button>
             <button class="sub-filter" data-filter="retinoids">Retinoids</button>
             <button class="sub-filter" data-filter="moisturizers">Oils &amp; Moisturisers</button>
-            <button class="sub-filter" data-filter="hair-lash">Lip, Lash &amp; Hair</button>
+            <button class="sub-filter" data-filter="hair-lash">Lip &amp; Lash</button>
+            <button class="sub-filter" data-filter="hair">Hair</button>
+            <button class="sub-filter" data-filter="cleansers">Cleansers</button>
           </div>
         </div>
       </div>
@@ -231,15 +232,17 @@
         const displayPrice = (p.price || 0).toLocaleString();
         
         card.innerHTML = `
+          <div class="p-card-top">
+             <span class="p-card-brand">${p.brand || p.cat.toUpperCase().replace('ORDINARY', 'THE ORDINARY')}</span>
+          </div>
           <div class="p-img-box" onclick="location.href='product.html?id=${p.id}'">
-             <span class="p-badge ${p.cat==='ordinary'?'ord':'cv'}">${p.cat.toUpperCase()}</span>
              <img src="${p.img || 'images/placeholder.png'}" alt="${p.name}" onerror="this.src='images/placeholder.png'">
           </div>
           <div class="p-info">
-            <span class="p-cat">${(p.filter || 'Skincare').replace(/-/g, ' & ')}</span>
             <h4 class="p-title">${p.name}</h4>
+            <span class="p-size">${p.size || '30 ml'}</span>
             <div class="p-price">Rs. ${displayPrice}</div>
-            <button class="p-action" onclick="location.href='product.html?id=${p.id}'">Get Results</button>
+            <button class="p-action" onclick="location.href='product.html?id=${p.id}'">Buy Now</button>
           </div>
         `;
         grid.appendChild(card);
