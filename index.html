@@ -258,12 +258,8 @@
             { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
             { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
             { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'makeup', name: 'Makeup essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
-            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
-            { id: 'eye', name: 'Eye Care', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
-            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
+            { id: 'moisturizers', name: 'Moisturizers', defaultImg: 'cerave%20prodcut/Moisturising%20Lotion%20(236ml)%20%20Rs.5800.png' },
+            { id: 'eye-care', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Multi-Peptide%20Eye%20Serum%20(15ml)%20%20Rs.7500.png' }
           ];
           
           track.innerHTML = categoriesObj.map(cat => `
@@ -404,6 +400,63 @@
 
 
 
+
+    <!-- ===== SECTION: DYNAMIC HIGHLIGHT (SCREENSHOT MATCH) ===== -->
+    <section class="dynamic-center-highlight">
+      <div class="dch-container">
+        <!-- Left: Image -->
+        <div class="dch-visual">
+          <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Featured Product">
+        </div>
+
+        <!-- Right: Content -->
+        <div class="dch-content">
+          <div class="dch-marquee">
+            <div class="dch-marquee-track">
+              <span>-10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp;</span>
+            </div>
+          </div>
+          
+          <div class="dch-tags">
+            <span class="dch-tag">ANTI-AGING</span>
+            <span class="dch-tag">NORMAL</span>
+            <span class="dch-tag">SKIN CARE</span>
+          </div>
+
+          <h1 class="dch-title">Niacinamide 10% + Zinc 1% Intensive Hydrating Treatment</h1>
+          <p class="dch-price">Rs. 3,800.00</p>
+          
+          <div class="dch-desc">
+             Niacinamide 10% + Zinc 1% Intensive Hydrating Treatment harnesses the nourishing power of high-purity vitamins to deliver deep moisture and restore skin's natural radiance. This lightweight yet potent formula penetrates quickly, infusing dehydrated skin with essential elements. Ideal for all skin types, particularly those prone to oiliness or sensitivity, this treatment strengthens the skin barrier while promoting a smoother, more luminous complexion.
+          </div>
+
+          <div class="dch-actions">
+            <div class="dch-qty-label">Quantity</div>
+            <div class="dch-controls">
+                <div class="dch-qty">
+                  <button onclick="changeDchQty(-1)">-</button>
+                  <input type="number" id="dch-qty-val" value="1" readonly>
+                  <button onclick="changeDchQty(1)">+</button>
+                </div>
+                
+                <div class="dch-btns">
+                  <button class="dch-btn-cart" onclick="addToCart('ord-nia-30')">ADD TO CART</button>
+                  <button class="dch-btn-buy" onclick="addToCart('ord-nia-30'); location.href='shop.html'">Buy it now</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function changeDchQty(amt) {
+        const inp = document.getElementById('dch-qty-val');
+        let val = parseInt(inp.value) + amt;
+        if (val < 1) val = 1;
+        inp.value = val;
+      }
+    </script>
 
     <!-- ===== SECTION 3: EXCLUSIVE COLLECTION ===== -->
     <section class="exclusive-section">
