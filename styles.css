@@ -3810,28 +3810,30 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 .ny-timer-badge {
-  position: relative;
-  bottom: auto;
-  left: auto;
-  transform: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background: #ff0000 !important; /* Urgent red as requested */
   color: #fff;
-  padding: 15px;
-  margin: 25px -40px -40px -40px; /* Align to card bottom by overriding padding */
-  font-size: 13px;
+  padding: 8px 35px;
+  border-radius: 18px 18px 0 0;
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   z-index: 5;
-  box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-  transition: all 0.4s ease;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   white-space: nowrap;
   text-align: center;
 }
 
 .ny-card:hover .ny-timer-badge {
+  padding: 10px 50px;
   background: #000 !important;
   color: var(--gold);
+  box-shadow: 0 -8px 25px rgba(255, 0, 0, 0.3);
 }
 
 .ny-list {
