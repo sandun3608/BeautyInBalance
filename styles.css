@@ -358,7 +358,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   position: relative;
   z-index: 60;
   border-bottom: 1px solid var(--border);
-  padding: 15px 0 5px 0;
+  padding: 0 !important;
   background: #F9F4ED; /* Warm beige matching the reference */
 }
 .round-list-track {
@@ -405,16 +405,17 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .round-item:hover .round-img img { transform: scale(1.1); }
 .round-item > span { font-size: 13px; color: var(--brown); text-align: center; white-space: nowrap; font-weight: 500; font-family: var(--font-sans); margin-top: 5px; }
 
-/* â”€â”€ HERO SLIDER â”€â”€ */
+/* ── HERO SLIDER ── */
 .hero-section {
   position: relative; overflow: hidden;
   width: 100%;
-.brands-section { padding: 0 !important; margin: 0; }
-.brands-marquee { width: 100%; overflow: hidden; position: relative; padding: 0; border-top: 1px solid var(--luxury-border); border-bottom: 1px solid var(--luxury-border); background: #fff; line-height: 0; }
+}
+.brands-section { padding: 0 !important; margin: 0; line-height: 0; }
+.brands-marquee { width: 100%; overflow: hidden; position: relative; padding: 0; background: #fff; line-height: 0; height: 16px; display: flex; align-items: center; border: none; }
 .brands-track {
   display: flex;
   width: max-content;
-  gap: 60px;
+  gap: 30px;
   animation: scrollRight 40s linear infinite;
   align-items: center;
 }
@@ -424,9 +425,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   justify-content: center;
   flex-shrink: 0;
   text-decoration: none;
+  height: 100%;
 }
 .brand-item img {
-  height: 16px;
+  height: 12px;
   width: auto;
   opacity: 0.5;
   filter: grayscale(100%);
@@ -551,7 +553,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* â”€â”€ EXCLUSIVE COLLECTION â”€â”€ */
 .exclusive-section {
-  padding: 15px 48px 40px 48px;
+  padding: 60px 48px 80px 48px;
   background: var(--beige-light);
 }
 .excl-heading {
