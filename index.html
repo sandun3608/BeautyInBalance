@@ -602,7 +602,89 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 9: SHADE FINDER (THEME PURITY VER. 2) ===== -->
+
+    <!-- ===== SECTION 8: SHOP THE LOOK (INTERACTIVE) ===== -->
+    <section class="shop-the-look">
+      <div class="stl-header fp-header">
+        <span class="fp-script">Complete the Routine</span>
+        <h2 class="fp-title">Shop The Look</h2>
+      </div>
+      
+      <div class="stl-container">
+        <!-- Visual with Hotspots -->
+        <div class="stl-visual">
+          <div class="stl-img-wrap">
+            <img src="luxury_skin_model_look_1775930288840.png" alt="The Look">
+            
+            <!-- Hotspot: Brows -->
+            <div class="stl-hotspot" style="top: 25%; left: 45%;" data-idx="0">
+              <span class="stl-hotspot-dot"></span>
+            </div>
+            <!-- Hotspot: Cheeks -->
+            <div class="stl-hotspot" style="top: 45%; left: 70%;" data-idx="1">
+              <span class="stl-hotspot-dot"></span>
+            </div>
+            <!-- Hotspot: Lips -->
+            <div class="stl-hotspot" style="top: 68%; left: 42%;" data-idx="2">
+              <span class="stl-hotspot-dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Sidebar -->
+        <div class="stl-sidebar">
+          <div class="stl-list">
+            <!-- Item 1: Brows -->
+            <div class="stl-item" data-idx="0">
+              <div class="stl-item-img">
+                <img src="the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png" alt="Lash Serum">
+              </div>
+              <div class="stl-item-info">
+                <h3>Lash & Brow Serum</h3>
+                <span class="stl-item-price">Rs. 4,800</span>
+                <div class="stl-item-var">Color: Clear</div>
+              </div>
+            </div>
+
+            <!-- Item 2: Cheeks -->
+            <div class="stl-item" data-idx="1">
+              <div class="stl-item-img">
+                <img src="the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png" alt="NMF">
+              </div>
+              <div class="stl-item-info">
+                <h3>Natural Moisturizing Factors</h3>
+                <span class="stl-item-price">Rs. 8,000</span>
+                <div class="stl-item-var">Size: 30ml</div>
+              </div>
+            </div>
+
+            <!-- Item 3: Lips -->
+            <div class="stl-item" data-idx="2">
+              <div class="stl-item-info-row">
+                <div class="stl-item-img">
+                  <img src="the ordinary/lip burm.png" alt="Lip Balm">
+                </div>
+                <div class="stl-item-info">
+                  <h3>Squalane + Amino Lip Balm</h3>
+                  <div class="stl-price-row">
+                    <span class="stl-item-price">Rs. 3,900</span>
+                    <span class="stl-old-price">Rs. 4,500</span>
+                  </div>
+                  <div class="stl-item-var">Flavor: Squalane</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stl-footer">
+            <button class="stl-add-bulk" onclick="addLookToCart()">Add all to Cart — Rs. 16,700</button>
+            <a href="#" class="stl-guide-link">View Usage Guide</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 9 (previously 8): SHADE FINDER (THEME PURITY VER. 2) ===== -->
     <section class="premium-shade-finder">
       <div class="ps-header fp-header">
         <span class="fp-script">Ultimate Glow</span>
@@ -1018,6 +1100,43 @@
     }
 
 
+
+    /* ── SHOP THE LOOK INTERACTIVITY ── */
+    function initShopTheLook() {
+      const hotspots = document.querySelectorAll('.stl-hotspot');
+      const items = document.querySelectorAll('.stl-item');
+      
+      hotspots.forEach(hs => {
+        hs.addEventListener('mouseenter', () => {
+          const idx = hs.getAttribute('data-idx');
+          items.forEach(i => i.style.background = 'transparent');
+          const activeItem = document.querySelector(`.stl-item[data-idx="${idx}"]`);
+          if (activeItem) {
+            activeItem.style.background = 'rgba(198,151,90,0.1)';
+            activeItem.style.borderRadius = '12px';
+          }
+        });
+        hs.addEventListener('mouseleave', () => {
+          items.forEach(i => i.style.background = 'transparent');
+        });
+      });
+    }
+
+    function addLookToCart() {
+      const items = [
+        'ord-lash-brow-5',
+        'ord-nmf-ha-30',
+        'ord-squalane-lip-15'
+      ];
+      items.forEach(id => addToCart(id));
+      alert("All products from this look have been added to your bag! ✨");
+    }
+
+    /* Initialize everything */
+    document.addEventListener('DOMContentLoaded', () => {
+      initShadeFinder();
+      initShopTheLook();
+    });
 
     fetchProducts();
   </script>
