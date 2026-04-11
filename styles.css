@@ -3746,31 +3746,33 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   border: 1px solid rgba(255,255,255,0.8);
 }
 
-.ny-promo-pill {
+.ny-promo-ribbon {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1.5px solid var(--gold);
-  padding: 8px 20px;
-  border-radius: 50px;
+  top: 20px;
+  left: 0;
+  background: var(--gold);
+  color: #fff;
+  padding: 8px 25px 8px 15px;
   font-size: 10px;
   font-weight: 800;
-  color: #1a1a1a;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   z-index: 5;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  transition: all 0.4s ease;
-  white-space: nowrap;
+  clip-path: polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%);
+  box-shadow: 2px 5px 15px rgba(0,0,0,0.1);
+  animation: ribbonFloat 3s ease-in-out infinite;
+  transition: all 0.3s ease;
 }
 
-.ny-card:hover .ny-promo-pill {
-  transform: translateY(-3px);
-  background: #fff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+@keyframes ribbonFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.ny-card:hover .ny-promo-ribbon {
+  animation-play-state: paused;
+  transform: scale(1.05);
+  background: #1a1a1a !important; /* Elegant black contrast on hover */
 }
 
 .ny-card:hover {
