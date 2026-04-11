@@ -675,18 +675,34 @@
     <!-- ===== SECTION: SHOP THE LOOK (PURITY LOOKBOOK) ===== -->
     <section class="lookbook-section">
       <div class="look-container">
-        <!-- Left: Model Visual with Hotspots -->
-        <div class="look-visual">
+        <!-- Left: Model Visual with Interactive Dots -->
+        <div class="look-visual" id="look-visual">
           <img src="t2/hero_1.png" alt="Editorial Look">
           
-          <div class="look-hotspot" style="top:32%; left:22%;" data-id="ord-masc">
+          <!-- Lip Dot -->
+          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-slp-lip', event)">
             <div class="hotspot-pulse"></div>
           </div>
-          <div class="look-hotspot" style="top:45%; left:30%;" data-id="ord-ma-blush">
+          <!-- Face/Cheek Dot -->
+          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-ma-blush', event)">
             <div class="hotspot-pulse"></div>
           </div>
-          <div class="hotspot-val" style="top:48%; left:20%;" data-id="ord-slp-lip">
-            <div class="look-hotspot"><div class="hotspot-pulse"></div></div>
+          <!-- Eye/Lash Dot -->
+          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-masc', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+
+          <!-- Product Popup (Small Box) -->
+          <div class="look-popup" id="look-popup">
+            <div class="lp-close" onclick="closeLookPopup()">&times;</div>
+            <div class="lp-inner">
+              <img src="" id="lp-img" alt="Product">
+              <div class="lp-info">
+                <h5 id="lp-title">Product Name</h5>
+                <p id="lp-price">Rs. 0.00</p>
+                <button class="lp-add" id="lp-add-btn">ADD +</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -694,7 +710,7 @@
         <div class="look-details">
           <div class="look-list">
             <!-- Item 1 -->
-            <div class="look-item" data-id="ord-masc">
+            <div class="look-item" id="item-ord-masc" onclick="showLookProduct('ord-masc')">
               <div class="look-item-img"><img src="the ordinary/Multi-Peptide Lash and Brow Serum (5ml) Rs.4800.png" alt="Mascara"></div>
               <div class="look-item-info">
                 <h4>Lash & Brow Serum</h4>
@@ -703,7 +719,7 @@
               </div>
             </div>
             <!-- Item 2 -->
-            <div class="look-item" data-id="ord-ma-blush">
+            <div class="look-item" id="item-ord-ma-blush" onclick="showLookProduct('ord-ma-blush')">
               <div class="look-item-img"><img src="the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png" alt="Blush"></div>
               <div class="look-item-info">
                 <h4>Moisturizing Factors</h4>
@@ -712,7 +728,7 @@
               </div>
             </div>
             <!-- Item 3 -->
-            <div class="look-item" data-id="ord-slp-lip">
+            <div class="look-item" id="item-ord-slp-lip" onclick="showLookProduct('ord-slp-lip')">
               <div class="look-item-img"><img src="the ordinary/Hyaluronic Acid (30ml) Rs.4800.png" alt="Lip"></div>
               <div class="look-item-info">
                 <h4>Hyaluronic Acid</h4>
@@ -733,11 +749,44 @@
     </section>
 
     <script>
+      const lookData = {
+        'ord-masc': { title: 'Lash & Brow Serum', price: 'Rs. 4,800.00', img: 'the ordinary/Multi-Peptide Lash and Brow Serum (5ml) Rs.4800.png' },
+        'ord-ma-blush': { title: 'Moisturizing Factors', price: 'Rs. 8,000.00', img: 'the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png' },
+        'ord-slp-lip': { title: 'Hyaluronic Acid', price: 'Rs. 4,800.00', img: 'the ordinary/Hyaluronic Acid (30ml) Rs.4800.png' }
+      };
+
+      function showLookProduct(id, event) {
+        const prod = lookData[id];
+        const popup = document.getElementById('look-popup');
+        
+        // Update popup content
+        document.getElementById('lp-title').innerText = prod.title;
+        document.getElementById('lp-price').innerText = prod.price;
+        document.getElementById('lp-img').src = prod.img;
+        document.getElementById('lp-add-btn').onclick = () => { addToCart(id); closeLookPopup(); };
+
+        // Positioning logic
+        if (event) {
+          const rect = document.getElementById('look-visual').getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          popup.style.left = `${x}px`;
+          popup.style.top = `${y}px`;
+          popup.classList.add('active');
+        }
+
+        // Highlight side item
+        document.querySelectorAll('.look-item').forEach(el => el.style.border = 'none');
+        document.getElementById('item-' + id).style.border = '2px solid #ff9d00';
+      }
+
+      function closeLookPopup() {
+        document.getElementById('look-popup').classList.remove('active');
+      }
+
       function addLookToBag() {
         const ids = ['ord-masc', 'ord-ma-blush', 'ord-slp-lip'];
-        ids.forEach(id => {
-          if (typeof addToCart === 'function') addToCart(id);
-        });
+        ids.forEach(id => { if (typeof addToCart === 'function') addToCart(id); });
         alert('Full Look bundle added to your bag!');
       }
     </script>
