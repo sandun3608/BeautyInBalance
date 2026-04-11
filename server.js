@@ -62,6 +62,33 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// Maintenance Mode Middleware
+const fs = require('fs');
+app.use((req, res, next) => {
+    const maintenanceFile = path.join(__dirname, 'MAINTENANCE_MODE.lock');
+    const isMaintenance = process.env.MAINTENANCE_MODE === 'true' || fs.existsSync(maintenanceFile);
+
+    if (isMaintenance) {
+        // Allow access to maintenance page, admin pages, and static assets
+        const allowedPaths = [
+            '/maintenance.html',
+            '/admin.html',
+            '/dashboard.html',
+            '/login.html',
+            '/api/users/login'
+        ];
+
+        // Identify if it's a static asset (has a file extension and not .html)
+        const isStaticAsset = req.path.includes('.') && !req.path.endsWith('.html');
+        const isAllowed = allowedPaths.some(p => req.path.startsWith(p)) || isStaticAsset;
+
+        if (!isAllowed && !req.path.startsWith('/api')) {
+            return res.sendFile(path.join(__dirname, 'maintenance.html'));
+        }
+    }
+    next();
+});
+
 // IMPORTANT: Serve static files from the ROOT directory
 // This allows the same Render service to host both HTML frontend and the Node API
 app.use(express.static(path.join(__dirname, '.')));
