@@ -841,20 +841,45 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .fp-img-box {
   background: transparent;
-  aspect-ratio: 1.1; /* Slightly shorter, more premium profile */
+  width: 100%;
+  aspect-ratio: 0.95;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 20px;
+  position: relative;
+}
+.fp-img-wrap {
+  width: 100%;
+  height: calc(100% - 60px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
-  position: relative;
+  margin-bottom: 15px;
 }
-.fp-img-box img {
-  width: 100%;
-  height: 100%;
+.fp-img-wrap img {
+  max-width: 85%;
+  max-height: 100%;
   object-fit: contain;
   transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.fp-item:hover .fp-img-box img { transform: scale(1.05); }
+.fp-item:hover .fp-img-wrap img { transform: scale(1.08); }
+
+.fp-variants {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.fp-var-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 2px;
+  background: #fff;
+}
+.fp-var-thumb img { width: 100%; height: 100%; object-fit: contain; }
 
 /* Bag icon top right */
 .fp-bag-btn {
@@ -913,20 +938,52 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .fp-details {
   text-align: center;
-  margin-top: auto;
+  padding: 30px 20px;
+  background: #fff; /* White tier separation */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fp-tag-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+.fp-tag {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 2px;
+  color: #000;
 }
 .fp-name {
   font-family: var(--font-serif);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
-  color: #000000;
-  margin-bottom: 8px;
+  color: #000;
+  margin-bottom: 10px;
   display: block;
 }
 .fp-price-row {
   font-size: 16px;
   font-weight: 700;
-  color: #000000; /* Price is also black in sample */
+  color: #000;
+}
+.fp-discount-bar {
+  margin-top: 15px;
+  width: 100%;
+  background: #fdf8f5;
+  padding: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #000;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .fp-nav {
