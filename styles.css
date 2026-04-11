@@ -959,9 +959,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   text-transform: uppercase;
   letter-spacing: 0.12em;
   padding: 6px 14px;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 2px;
-  color: #000;
+  background: #fff; /* Clean white tags */
+  border: 1px solid var(--gold); /* Brand gold border */
+  border-radius: 4px;
+  color: var(--brown);
 }
 .fp-name {
   font-family: var(--font-serif);
@@ -979,14 +980,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fp-discount-bar {
   margin-top: 15px;
   width: 100%;
-  background: #fdf8f5;
-  padding: 8px;
+  background: #fff; /* High contrast bar */
+  border: 1px solid rgba(198,151,90,0.15); /* Soft gold border */
+  padding: 10px;
   font-size: 10px;
   font-weight: 700;
-  color: #000;
-  border-radius: 2px;
+  color: var(--gold); /* Brand gold text */
+  border-radius: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
 
 .fp-nav {
