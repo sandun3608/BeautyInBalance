@@ -353,9 +353,9 @@ async function fetchDatabaseProducts() {
             // MERGE: Keep default products, but override them if DB has updated versions, and add NEW ones from DB
             const updatedProductsData = [...defaultProducts];
             mappedDbProducts.forEach(dbProd => {
-                // HOTFIX: If the DB returns the old 'cleansers' category for these bodycare items, force them to 'bodycare'
+                // HOTFIX: If the DB returns the old 'cleansers' category for these bodycare items, force them to 'body'
                 if ((dbProd.id === 'cer-hydrating-oil' || dbProd.id === 'cer-psoriasis') && dbProd.filter === 'cleansers') {
-                    dbProd.filter = 'bodycare';
+                    dbProd.filter = 'body';
                 }
 
                 const index = updatedProductsData.findIndex(p => (p.id && (p.id === dbProd.id)) || p.name === dbProd.name);

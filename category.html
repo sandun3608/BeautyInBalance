@@ -339,14 +339,25 @@
     // Filter and Render Products
     window.renderCategoryProducts = () => {
       const allProducts = window.productsData || [];
-      // Flexible matching: check filter tag or category field or name
       const filtered = allProducts.filter(p => {
-        const filterMatch = (p.filter && p.filter.toLowerCase() === catId.toLowerCase());
-        const catMatch = (p.cat_type && p.cat_type.toLowerCase() === catId.toLowerCase());
-        // Simple name search if both fail
-        const nameKeywords = data ? data.subtitle.split(' ')[0].toLowerCase() : catId;
-        const nameMatch = p.name.toLowerCase().includes(nameKeywords);
-        return filterMatch || catMatch || (filterMatch === undefined && nameMatch);
+        const pFilter = (p.filter || '').toLowerCase();
+        const pCatType = (p.cat_type || '').toLowerCase();
+        const pName = (p.name || '').toLowerCase();
+        const target = catId.toLowerCase();
+
+        // 1. Direct tag match
+        const filterMatch = pFilter === target || pFilter + 's' === target || target + 's' === pFilter;
+        
+        // 2. Category type match
+        const catMatch = pCatType === target;
+
+        // 3. Smart keyword match
+        const keywords = data ? data.subtitle.toLowerCase() : target;
+        // Strip plural 's' for broader matching
+        const rootKeyword = keywords.replace(/s$/, ''); 
+        const nameMatch = pName.includes(rootKeyword);
+
+        return filterMatch || catMatch || nameMatch;
       });
 
       $('product-grid').innerHTML = filtered.map(p => `

@@ -152,15 +152,17 @@
             <button class="cat-tab" data-cat="cerave">CeraVe GB</button>
           </div>
           
-          <div class="sub-filters" style="justify-content: center;">
-            <button class="sub-filter active" data-filter="all">All</button>
+          <div class="sub-filters" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
+            <button class="sub-filter active" data-filter="all">All Items</button>
             <button class="sub-filter" data-filter="serums">Serums</button>
-            <button class="sub-filter" data-filter="acids">Acids &amp; Exfoliants</button>
+            <button class="sub-filter" data-filter="acids">Acids &amp; Peels</button>
             <button class="sub-filter" data-filter="retinoids">Retinoids</button>
-            <button class="sub-filter" data-filter="moisturizers">Oils &amp; Moisturisers</button>
-            <button class="sub-filter" data-filter="hair-lash">Lip &amp; Lash</button>
-            <button class="sub-filter" data-filter="hair">Hair</button>
+            <button class="sub-filter" data-filter="moisturizers">Moisturizers</button>
             <button class="sub-filter" data-filter="cleansers">Cleansers</button>
+            <button class="sub-filter" data-filter="targeted">Eye &amp; Targeted</button>
+            <button class="sub-filter" data-filter="sunscreen">Sunscreen</button>
+            <button class="sub-filter" data-filter="hair">Hair &amp; Lash</button>
+            <button class="sub-filter" data-filter="body">Body Care</button>
           </div>
         </div>
       </div>
@@ -215,8 +217,27 @@
 
       grid.innerHTML = '';
       const filtered = data.filter(p => {
-        const catMatch = currentCat === 'all' || p.cat === currentCat;
-        const subMatch = currentFilter === 'all' || p.filter === currentFilter;
+        const pFilter = (p.filter || '').toLowerCase();
+        const pCat = (p.cat || '').toLowerCase();
+        
+        const catMatch = currentCat === 'all' || pCat === currentCat;
+        if (currentFilter === 'all') return catMatch;
+
+        // Smart Grouping Logic
+        if (currentFilter === 'moisturizers') {
+          return catMatch && (pFilter === 'moisturizers' || pFilter === 'dry' || pFilter === 'face-oils' || pFilter === 'glow');
+        }
+        if (currentFilter === 'targeted') {
+          return catMatch && (pFilter === 'targeted' || pFilter === 'eye' || pFilter === 'lip');
+        }
+        if (currentFilter === 'hair') {
+          return catMatch && (pFilter === 'hair' || pFilter === 'hair-lash' || pFilter === 'targeted');
+        }
+        if (currentFilter === 'acids') {
+          return catMatch && (pFilter === 'acids' || pFilter === 'exfoliants');
+        }
+        
+        const subMatch = pFilter === currentFilter;
         return catMatch && subMatch;
       });
 
