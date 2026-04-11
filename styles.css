@@ -3489,3 +3489,47 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   border-radius: 50%;
   font-weight: 800;
 }
+/* ===== UNIVERSAL MOBILE POLISH (LASSANA FINISH) ===== */
+@media (max-width: 768px) {
+  /* Global Title Balancing */
+  .excl-title, .gallery-title, .video-header h2, .dch-title { 
+    font-size: 32px !important; 
+    line-height: 1.2 !important; 
+    text-align: center;
+  }
+  
+  /* Exclusive Section Grid Stacking */
+  .excl-dynamic-grid { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 30px !important; 
+    padding: 0 10px !important;
+  }
+  .edc-card { height: 400px !important; }
+  
+  /* Video Highlights Grid Stacking */
+  .video-grid { 
+    grid-template-columns: 1fr !important; 
+    gap: 30px !important; 
+    padding: 0 !important;
+  }
+  .video-card { height: 500px !important; }
+
+  /* Gallery/Products Balancing */
+  .products-grid { 
+    grid-template-columns: 1fr !important; 
+    padding: 0 20px !important; 
+  }
+  .cat-tabs { 
+    justify-content: center; 
+    padding: 0 10px; 
+  }
+  .cat-tab { padding: 12px 24px; font-size: 13px; }
+
+  /* Section Spacing */
+  section { padding: 60px 0 !important; }
+  
+  /* Footer & Copyright Center */
+  .footer-grid { grid-template-columns: 1fr !important; text-align: center; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+}
