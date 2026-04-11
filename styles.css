@@ -357,10 +357,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .round-list-section {
   position: relative;
   z-index: 60;
-  margin-top: -65px; /* Lifts it over the slider */
-  border-bottom: none;
+  border-bottom: 1px solid var(--border);
   overflow: visible;
-  padding: 0;
+  padding: 24px 0;
+  background: var(--beige-light); /* Matching the new top theme */
 }
 .round-list-track {
   display: flex; 

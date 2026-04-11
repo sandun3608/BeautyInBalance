@@ -190,6 +190,92 @@
   </div>
 
   <main>
+    <!-- ===== SECTION: ROUND CATEGORY LIST (MOVED TO TOP) ===== -->
+    <section class="round-list-section">
+      <div class="round-list-track" id="round-track">
+        <!-- Dynamically injected by productsData -->
+      </div>
+      <script>
+        function renderRoundCategories() {
+          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
+          const track = document.getElementById('round-track');
+          if (!track) return;
+          
+          const categoriesObj = [
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
+            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'makeup', name: 'Makeup Essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
+            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
+            { id: 'eye', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
+            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
+          ];
+          
+          track.innerHTML = categoriesObj.map(cat => `
+            <a href="category.html?cat=${cat.id}" class="round-item">
+              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
+              <span>${cat.name}</span>
+            </a>
+          `).join('');
+        }
+      </script>
+    </section>
+
+    <!-- ===== MOBILE CATEGORY SLIDER (MOVED TO TOP) ===== -->
+    <section class="m-cat-section mobile-only">
+      <div class="m-cat-wrapper">
+        <div class="m-cat-track">
+          <!-- Cleansers -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Cleansers'">
+            <div class="m-cat-info">
+              <h3>Cleansers</h3>
+              <span>12 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png" alt="Cleanser">
+              <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Cleanser">
+            </div>
+          </div>
+          <!-- Serums -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Serums'">
+            <div class="m-cat-info">
+              <h3>Serums</h3>
+              <span>28 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Serum">
+              <img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Serum">
+            </div>
+          </div>
+          <!-- Moisturizers -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Moisturizers'">
+            <div class="m-cat-info">
+              <h3>Moisturizers</h3>
+              <span>18 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Moisturizer">
+              <img src="the%20ordinary/Azelaic%20Acid%20Suspension%2010%25%20(30ml)%20%20Rs.7200.png" alt="Moisturizer">
+            </div>
+          </div>
+          <!-- Acids -->
+          <div class="m-cat-card" onclick="location.href='shop.html?cat=Acids'">
+            <div class="m-cat-info">
+              <h3>Exfoliators</h3>
+              <span>15 Items</span>
+            </div>
+            <div class="m-cat-imgs">
+              <img src="the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png" alt="Acid">
+              <img src="the%20ordinary/Glycolic%20Acid%20Toning%20Solution%20(240ml)%20%20Rs.4800.png" alt="Acid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
       <div class="hero-slides">
@@ -308,90 +394,7 @@
     </section>
 
     <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
-    <section class="m-cat-section mobile-only">
-      <div class="m-cat-wrapper">
-        <div class="m-cat-track">
-          <!-- Cleansers -->
-          <div class="m-cat-card" onclick="location.href='shop.html?cat=Cleansers'">
-            <div class="m-cat-info">
-              <h3>Cleansers</h3>
-              <span>12 Items</span>
-            </div>
-            <div class="m-cat-imgs">
-              <img src="cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png" alt="Cleanser">
-              <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Cleanser">
-            </div>
-          </div>
-          <!-- Serums -->
-          <div class="m-cat-card" onclick="location.href='shop.html?cat=Serums'">
-            <div class="m-cat-info">
-              <h3>Serums</h3>
-              <span>28 Items</span>
-            </div>
-            <div class="m-cat-imgs">
-              <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Serum">
-              <img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Serum">
-            </div>
-          </div>
-          <!-- Moisturizers -->
-          <div class="m-cat-card" onclick="location.href='shop.html?cat=Moisturizers'">
-            <div class="m-cat-info">
-              <h3>Moisturizers</h3>
-              <span>18 Items</span>
-            </div>
-            <div class="m-cat-imgs">
-              <img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Moisturizer">
-              <img src="the%20ordinary/Azelaic%20Acid%20Suspension%2010%25%20(30ml)%20%20Rs.7200.png" alt="Moisturizer">
-            </div>
-          </div>
-          <!-- Acids -->
-          <div class="m-cat-card" onclick="location.href='shop.html?cat=Acids'">
-            <div class="m-cat-info">
-              <h3>Exfoliators</h3>
-              <span>15 Items</span>
-            </div>
-            <div class="m-cat-imgs">
-              <img src="the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png" alt="Acid">
-              <img src="the%20ordinary/Glycolic%20Acid%20Toning%20Solution%20(240ml)%20%20Rs.4800.png" alt="Acid">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ===== SECTION 1: ROUND CATEGORY LIST ===== -->
-    <section class="round-list-section">
-      <div class="round-list-track" id="round-track">
-        <!-- Dynamically injected by productsData -->
-      </div>
-      <script>
-        function renderRoundCategories() {
-          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
-          const track = document.getElementById('round-track');
-          if (!track) return;
-          
-          const categoriesObj = [
-            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
-            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
-            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'makeup', name: 'Makeup Essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
-            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
-            { id: 'eye', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
-            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
-          ];
-          
-          track.innerHTML = categoriesObj.map(cat => `
-            <a href="category.html?cat=${cat.id}" class="round-item">
-              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
-              <span>${cat.name}</span>
-            </a>
-          `).join('');
-        }
-      </script>
-    </section>
 
 
     <!-- ===== SECTION 3: EXCLUSIVE COLLECTION (REPOSITIONED) ===== -->
