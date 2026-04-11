@@ -1863,7 +1863,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* Modern Minimalist Frame */
 .ps-pill-outer {
   width: 100%;
-  aspect-ratio: 1.8 / 1; /* Wide pill shape matching Purity Theme */
+  aspect-ratio: 1.8 / 1; 
   border-radius: 120px;
   padding: 4px;
   border: 1px solid #e5e0da;
@@ -1887,7 +1887,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ps-pill-inner img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Faces should fill the entire pill elegantly */
+  object-fit: cover;
   transition: transform 0.5s ease;
 }
 
@@ -1905,56 +1905,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .ps-tone-item.active .ps-label {
   color: #1a1a1a;
-}
-
-/* Purity Theme Header Styling */
-.ps-header .fp-title {
-  position: relative;
-  display: inline-block;
-}
-.ps-header .fp-title::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  right: 0;
-  width: 130px;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 2px;
-  opacity: 0.8;
-}
-
-/* Tone Slider Implementation */
-.ps-slider-container {
-  max-width: 800px;
-  margin: 40px auto 0;
-  position: relative;
-  height: 2px;
-  background: #f0e9e2;
-  border-radius: 10px;
-}
-.ps-slider-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: #1a3c34;
-  border-radius: 10px;
-  transition: width 0.4s ease;
-}
-.ps-slider-handle {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  background: #1a3c34;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: left 0.4s ease;
-  z-index: 5;
 }
 
 /* Native Professional Slider - Perfectly Centered */

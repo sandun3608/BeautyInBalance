@@ -638,9 +638,7 @@
         </div>
 
         <div class="ps-slider-container">
-          <div class="ps-slider-bar" id="ps-slider-bar"></div>
-          <div class="ps-slider-handle" id="ps-slider-handle"></div>
-          <input type="range" min="0" max="100" value="0" class="ps-range" id="ps-range" style="opacity:0; position:absolute; top:0; left:0; width:100%; height:100%; cursor:pointer; z-index:10;">
+          <input type="range" min="0" max="100" value="0" class="ps-range" id="ps-range">
         </div>
       </div>
 
@@ -913,14 +911,6 @@
 
         items.forEach(i => i.classList.remove('active'));
         closest.classList.add('active');
-
-        // Update custom slider UI
-        const sliderBar = document.getElementById('ps-slider-bar');
-        const sliderHandle = document.getElementById('ps-slider-handle');
-        if (sliderBar && sliderHandle) {
-          sliderBar.style.width = val + '%';
-          sliderHandle.style.left = val + '%';
-        }
         
         renderShadeProducts(closest.querySelector('.ps-label').textContent);
       }
@@ -946,25 +936,15 @@
       
       grid.innerHTML = items.map(p => `
         <div class="fp-item">
-          <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
-             <div class="fp-img-wrap">
-               <img src="${p.img || p.images[0]}" alt="${p.name}">
-             </div>
-             <button class="fp-view-btn" onclick="event.stopPropagation(); location.href='product.html?id=${p.id || p._id}'">
-               View Product
-             </button>
+          <div class="fp-img-box" onclick="location.href='product.html?id=${p._id || p.id}'">
+             <img src="${p.img || p.images[0]}" alt="${p.name}">
           </div>
-          <button class="fp-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')" aria-label="Add to Bag">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+          <button class="fp-bag-btn" onclick="addToCart('${p._id || p.id}')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
           </button>
-          <div class="fp-details" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
-            <div class="fp-tag-row">
-              <span class="fp-tag" style="border-color: #000; color: #000;">Curated For You</span>
-              <span class="fp-tag">${p.category || 'Luxury'}</span>
-            </div>
+          <div class="fp-details" onclick="location.href='product.html?id=${p._id || p.id}'">
             <span class="fp-name" style="font-size:14px;">${p.name}</span>
             <div class="fp-price-row" style="font-size:15px; font-weight:700;">Rs. ${p.price.toLocaleString()}</div>
-            <div class="fp-discount-bar">-10% OFF APPLIED</div>
           </div>
         </div>
       `).join('');
