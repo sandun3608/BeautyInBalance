@@ -647,40 +647,6 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 10: OUR PRODUCTS (HOME GALLERY) ===== -->
-    <section class="gallery-section shop-gallery-home" style="padding: 100px 0;">
-      <div class="gallery-header" style="text-align: center; margin-bottom: 60px;">
-        <div class="gallery-badge-pill">CA GB AUTHENTIC IMPORTS</div>
-        <h2 class="gallery-title" style="font-family: var(--font-sans); font-weight: 800; font-size: 48px; margin: 15px 0;">Our Products</h2>
-        <p style="color: #666; font-size: 16px; max-width: 600px; margin: 0 auto 50px;">Explore our curated collection of original skincare, imported directly for your beauty in balance.</p>
-        
-        <div class="gallery-filters">
-          <div class="cat-tabs" style="justify-content: center; margin-bottom: 30px;">
-            <button class="home-cat-tab active" data-cat="all">All Products</button>
-            <button class="home-cat-tab" data-cat="ordinary">The Ordinary CA</button>
-            <button class="home-cat-tab" data-cat="cerave">CeraVe GB</button>
-          </div>
-          
-          <div class="sub-filters" style="justify-content: center;">
-            <button class="home-sub-filter active" data-filter="all">All</button>
-            <button class="home-sub-filter" data-filter="serums">Serums</button>
-            <button class="home-sub-filter" data-filter="moisturizers">Moisturisers</button>
-            <button class="home-sub-filter" data-filter="cleansers">Cleansers</button>
-            <button class="home-sub-filter" data-filter="acids">Acids</button>
-            <button class="home-sub-filter" data-filter="retinoids">Retinoids</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="products-grid" id="home-gallery-grid" style="padding: 0 40px;">
-        <!-- Products will be injected here by JS -->
-      </div>
-      
-      <div style="text-align: center; margin-top: 60px;">
-        <a href="shop.html" class="btn-dark" style="padding: 18px 40px; border-radius: 50px; font-weight: 700;">VIEW FULL SHOP</a>
-      </div>
-    </section>
-
     <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
     <section class="feedback-section">
       <div class="fb-inner-header fp-header">
@@ -866,66 +832,6 @@
       cartCloseBtn.addEventListener('click', closeAll);
     }
 
-    /* ── HOME GALLERY LOGIC ── */
-    let homeCat = 'all';
-    let homeFilter = 'all';
-
-    function initHomeGallery() {
-      const hCatTabs = document.querySelectorAll('.home-cat-tab');
-      const hSubFilters = document.querySelectorAll('.home-sub-filter');
-
-      hCatTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          hCatTabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          homeCat = tab.dataset.cat;
-          renderHomeGallery();
-        });
-      });
-
-      hSubFilters.forEach(f => {
-        f.addEventListener('click', () => {
-          hSubFilters.forEach(x => x.classList.remove('active'));
-          f.classList.add('active');
-          homeFilter = f.dataset.filter;
-          renderHomeGallery();
-        });
-      });
-
-      renderHomeGallery();
-    }
-
-    function renderHomeGallery() {
-      const grid = document.getElementById('home-gallery-grid');
-      if (!grid || !productsData || productsData.length === 0) return;
-
-      const filtered = productsData.filter(p => {
-        const catMatch = homeCat === 'all' || p.cat === homeCat;
-        const subMatch = homeFilter === 'all' || p.filter === homeFilter;
-        return catMatch && subMatch;
-      }).slice(0, 8); // Showing 8 items on home
-
-      grid.innerHTML = filtered.map((p, index) => {
-        const displayPrice = (p.price || 0).toLocaleString();
-        return `
-          <div class="p-card show" style="transition-delay: ${index * 0.05}s">
-            <div class="p-card-top">
-               <span class="p-card-brand">${p.brand || p.cat.toUpperCase().replace('ORDINARY', 'THE ORDINARY')}</span>
-            </div>
-            <div class="p-img-box" onclick="location.href='product.html?id=${p.id}'">
-               <img src="${p.img || 'images/placeholder.png'}" alt="${p.name}">
-            </div>
-            <div class="p-info">
-              <h4 class="p-title">${p.name}</h4>
-              <span class="p-size">${p.size || '30 ml'}</span>
-              <div class="p-price">Rs. ${displayPrice}</div>
-              <button class="p-action" onclick="location.href='product.html?id=${p.id}'">Buy Now</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
     /* ── HERO SLIDER ── */
     document.addEventListener('DOMContentLoaded', () => {
       const heroSlides = document.querySelectorAll('.hero-slide');
@@ -1053,79 +959,18 @@
         
         renderRoundCategories();
         renderFeaturedProducts();
-        initShadeFinder();
-        initHomeGallery(); // Initialize the new gallery grid
+        initShadeFinder(); // Initialize after data load
       } catch (err) {
         console.error("Error fetching products:", err);
+        // Fallback
         if (typeof defaultProducts !== 'undefined') {
           productsData = defaultProducts;
           window.productsData = defaultProducts;
           renderRoundCategories();
           renderFeaturedProducts();
           initShadeFinder();
-          initHomeGallery();
         }
       }
-    }
-
-    /* ── HOME GALLERY LOGIC ── */
-    let homeCat = 'all';
-    let homeFilter = 'all';
-
-    function initHomeGallery() {
-      const hCatTabs = document.querySelectorAll('.home-cat-tab');
-      const hSubFilters = document.querySelectorAll('.home-sub-filter');
-
-      hCatTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          hCatTabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          homeCat = tab.dataset.cat;
-          renderHomeGallery();
-        });
-      });
-
-      hSubFilters.forEach(f => {
-        f.addEventListener('click', () => {
-          hSubFilters.forEach(x => x.classList.remove('active'));
-          f.classList.add('active');
-          homeFilter = f.dataset.filter;
-          renderHomeGallery();
-        });
-      });
-
-      renderHomeGallery();
-    }
-
-    function renderHomeGallery() {
-      const grid = document.getElementById('home-gallery-grid');
-      if (!grid || !productsData || productsData.length === 0) return;
-
-      const filtered = productsData.filter(p => {
-        const catMatch = homeCat === 'all' || p.cat === homeCat;
-        const subMatch = homeFilter === 'all' || p.filter === homeFilter;
-        return catMatch && subMatch;
-      }).slice(0, 8); // Showing 8 items on home
-
-      grid.innerHTML = filtered.map((p, index) => {
-        const displayPrice = (p.price || 0).toLocaleString();
-        return `
-          <div class="p-card show" style="transition-delay: ${index * 0.05}s">
-            <div class="p-card-top">
-               <span class="p-card-brand">${p.brand || p.cat.toUpperCase().replace('ORDINARY', 'THE ORDINARY')}</span>
-            </div>
-            <div class="p-img-box" onclick="location.href='product.html?id=${p.id || p._id}'">
-               <img src="${p.img || p.images[0]}" alt="${p.name}">
-            </div>
-            <div class="p-info">
-              <h4 class="p-title">${p.name}</h4>
-              <span class="p-size">${p.size || '30 ml'}</span>
-              <div class="p-price">Rs. ${displayPrice}</div>
-              <button class="p-action" onclick="location.href='product.html?id=${p.id || p._id}'">Buy Now</button>
-            </div>
-          </div>
-        `;
-      }).join('');
     }
 
     function renderFeaturedProducts() {
