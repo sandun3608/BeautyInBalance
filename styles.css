@@ -3673,12 +3673,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   background-position: center;
   background-attachment: fixed;
   overflow: hidden;
+  filter: brightness(1.05); /* Slightly increased brightness */
 }
 
 .ny-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.85); /* Bright festive overlay */
+  background: rgba(255, 255, 255, 0.15); /* Very light to let background show 100% */
   z-index: 1;
 }
 
@@ -3692,21 +3693,39 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .ny-section-title {
   text-align: center;
-  font-size: 42px;
+  font-size: 46px;
   font-weight: 800;
   color: #1a1a1a;
   margin-bottom: 60px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  text-shadow: 0 4px 10px rgba(255,255,255,0.8); /* Help readability */
+}
+
+.ny-sun {
+  width: 50px;
+  height: 50px;
+  animation: rotateSun 20s linear infinite;
+}
+
+@keyframes rotateSun {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .ny-section-title span {
   display: block;
-  font-size: 20px;
+  width: 100%;
+  font-size: 24px;
   color: var(--gold);
   font-weight: 600;
   margin-top: 5px;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   text-transform: capitalize;
 }
 
@@ -3717,18 +3736,18 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 .ny-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
   border-radius: 25px;
   padding: 40px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.8);
 }
 
 .ny-card:hover {
   transform: translateY(-15px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
 }
 
 .ny-card-title {
@@ -3740,15 +3759,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 .ny-img-box {
-  background: #f8f8f8;
+  background: var(--beige); /* Website color theme */
   border-radius: 20px;
   padding: 30px;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 250px;
+  border: 1px solid rgba(0,0,0,0.03);
 }
 
 .ny-img-box img {
@@ -3767,21 +3787,20 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  background: #ff7e5f;
-  background: linear-gradient(45deg, #ff7e5f, #feb47b); /* Warm Avurudu sunrise gradient */
+  background: #ff0000 !important; /* Forces Red as requested */
   color: #fff;
   padding: 10px 25px;
   border-radius: 50px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   white-space: nowrap;
-  box-shadow: 0 10px 20px rgba(255, 126, 95, 0.3);
+  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
 }
 
 .ny-list {
   list-style: none;
   border-top: 1px solid #eee;
-  padding-top: 20px;
+  padding-top: 25px;
 }
 
 .ny-list li {
@@ -3793,7 +3812,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  color: #444;
+  color: #333;
   font-size: 15px;
   font-weight: 600;
   transition: 0.3s;
@@ -3811,17 +3830,19 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .ny-list a:hover svg {
   color: var(--gold);
-  transform: translateX(5px);
+  transform: translateX(8px);
 }
 
 /* Responsive */
 @media (max-width: 1100px) {
   .ny-grid { grid-template-columns: repeat(2, 1fr); }
+  .ny-section-title { font-size: 38px; }
 }
 
 @media (max-width: 768px) {
   .ny-offers-section { padding: 60px 0; }
   .ny-grid { grid-template-columns: 1fr; }
-  .ny-section-title { font-size: 32px; }
+  .ny-section-title { font-size: 30px; gap: 10px; }
+  .ny-sun { width: 35px; height: 35px; }
   .ny-card { padding: 30px; }
 }
