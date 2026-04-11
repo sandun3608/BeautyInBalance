@@ -227,12 +227,12 @@
           if (!track) return;
           
           const categoriesObj = [
-            { id: 'cleansers', name: 'Cleansers', defaultImg: 'images/category_cleanser_1774289912431.png' },
-            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'images/product_serum_1774293436153.png' },
-            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'images/product_oil_1774293480968.png' },
-            { id: 'retinoids', name: 'Retinoids', defaultImg: 'images/ordinary_retinol_serum_dropper_1774305033536.png' },
-            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'images/ordinary_spf_50_tube_aesthetic_1774305060687.png' },
-            { id: 'makeup', name: 'Makeup essentials', defaultImg: 'images/ordinary_night_cream_jar_luxury_aesthetic_1774305115173.png' }
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cat_cleansers_1775880089938.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'cat_serums_1775880130640.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'cat_acids_1775880213334.png' },
+            { id: 'retinoids', name: 'Retinoids', defaultImg: 'cat_retinoids_1775880236409.png' },
+            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cat_sunscreen_1775880264642.png' },
+            { id: 'makeup', name: 'Makeup essentials', defaultImg: 'cat_makeup_1775880295806.png' }
           ];
           
           track.innerHTML = categoriesObj.map(cat => `
@@ -243,6 +243,19 @@
           `).join('');
         }
       </script>
+    </section>
+
+    <!-- ===== NEW SECTION: SHOP BY CONCERN (PILLS) ===== -->
+    <section class="concerns-section">
+      <div class="concerns-container">
+        <a href="shop.html?tag=acne" class="concern-pill">Acne & Blemishes</a>
+        <a href="shop.html?tag=aging" class="concern-pill">Anti-Aging</a>
+        <a href="shop.html?tag=dry" class="concern-pill">Dry & Dehydrated</a>
+        <a href="shop.html?tag=oil" class="concern-pill">Oil Control</a>
+        <a href="shop.html?tag=glow" class="concern-pill active">Natural Glow</a>
+        <a href="shop.html?tag=sensitive" class="concern-pill">Sensitive Skin</a>
+        <a href="shop.html?tag=bright" class="concern-pill">Brightening</a>
+      </div>
     </section>
 
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
@@ -427,6 +440,22 @@
             <span class="edc-count">Stay Protected</span>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- ===== NEW SECTION: PREMIUM BRANDS (MINIMAL GRID) ===== -->
+    <section class="brands-section">
+      <div class="fp-header">
+        <span class="fp-script">Our Partners</span>
+        <h2 class="fp-title">Shop By Brand</h2>
+      </div>
+      <div class="brands-grid">
+        <a href="shop.html?brand=the+ordinary" class="brand-item">THE ORDINARY</a>
+        <a href="shop.html?brand=cerave" class="brand-item">CERAVE</a>
+        <a href="shop.html?brand=inkey+list" class="brand-item">INKEY LIST</a>
+        <a href="shop.html?brand=la+roche+posay" class="brand-item">LA ROCHE-POSAY</a>
+        <a href="shop.html?brand=cosrx" class="brand-item">COSRX</a>
+        <a href="shop.html?brand=beauty+of+joseon" class="brand-item">BEAUTY OF JOSEON</a>
       </div>
     </section>
 
@@ -692,6 +721,44 @@
         </div>
       </div>
     </section>
+
+    <!-- ===== NEW SECTION: EXCLUSIVE BUNDLES ===== -->
+    <section class="bundles-section">
+      <div class="fp-header">
+        <span class="fp-script">Curated Kits</span>
+        <h2 class="fp-title">Skincare Bundles</h2>
+      </div>
+      <div class="bundles-container">
+        <div class="bundle-card">
+          <div class="bundle-badge">Best Value</div>
+          <img src="cat_serums_1775880130640.png" alt="Bundle">
+          <h3>Daily Glow Kit</h3>
+          <p>Cleanse, Hydrate & Protect. Perfect for beginners.</p>
+          <span class="bundle-price">Rs. 8,500</span>
+          <a href="#" class="bundle-btn">VIEW BUNDLE</a>
+        </div>
+        <div class="bundle-card">
+          <div class="bundle-badge">Trending</div>
+          <img src="cat_acids_1775880213334.png" alt="Bundle">
+          <h3>Clear Skin Trio</h3>
+          <p>Target blemishes and large pores effectively.</p>
+          <span class="bundle-price">Rs. 11,200</span>
+          <a href="#" class="bundle-btn">VIEW BUNDLE</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <div class="newsletter-section">
+      <div class="newsletter-content">
+        <h3>Join Our Glow Community</h3>
+        <p>Get the latest skincare secrets and exclusive offers delivered to your inbox.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit">SUBSCRIBE</button>
+        </form>
+      </div>
+    </div>
 
     <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
