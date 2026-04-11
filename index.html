@@ -573,9 +573,6 @@
         </div>
 
         <div class="ps-slider-container">
-          <div class="ps-slider-track">
-            <div class="ps-slider-fill" id="ps-progress"></div>
-          </div>
           <input type="range" min="0" max="100" value="0" class="ps-range" id="ps-range">
         </div>
       </div>
@@ -767,8 +764,6 @@
       if (!range || !items.length) return;
 
       function updateShadeUI(val) {
-        if (progress) progress.style.width = val + '%';
-        
         let closest = items[0];
         let minDiff = 1000;
         
