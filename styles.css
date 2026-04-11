@@ -365,10 +365,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .round-list-track {
   display: flex; 
   gap: 40px;
-  padding: 0 40px;
+  padding: 10px 60px; /* Generous side padding to prevent clipping */
   overflow-x: auto;
   scrollbar-width: none;
-  justify-content: center;
+  justify-content: flex-start; /* Prevents clipping during overflow */
   width: 100%;
 }
 /* Mobile specific tweak */
