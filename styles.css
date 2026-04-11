@@ -1863,7 +1863,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* Modern Minimalist Frame */
 .ps-pill-outer {
   width: 100%;
-  aspect-ratio: 1.8 / 1; 
+  aspect-ratio: 1 / 1.2; /* Taller editorial profile for bottles */
   border-radius: 120px;
   padding: 4px;
   border: 1px solid #e5e0da;
@@ -1887,7 +1887,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ps-pill-inner img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* Prevent cutting of product edges */
+  padding: 8px;
   transition: transform 0.5s ease;
 }
 
