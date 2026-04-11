@@ -674,24 +674,7 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 10: THE BOUTIQUE COLLECTION (PREMIUM GALLERY) ===== -->
-    <section class="boutique-gallery" style="background: #fff; padding: 120px 0;">
-      <div class="bg-header" style="text-align: center; margin-bottom: 80px;">
-        <span class="bg-script" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; color: var(--gold); display: block; margin-bottom: 10px;">The Essentials</span>
-        <h2 class="bg-title" style="font-family: var(--font-sans); font-weight: 800; font-size: 52px; color: #1a1a1a;">Boutique Collection</h2>
-        <div class="bg-line" style="width: 60px; height: 3px; background: #ff9d00; margin: 30px auto;"></div>
-      </div>
-
-      <div class="bg-grid-container" id="boutique-collection-grid">
-        <!-- Dynamic items will be injected here with staggered layout -->
-      </div>
-      
-      <div style="text-align: center; margin-top: 80px;">
-        <a href="shop.html" class="bg-view-all">EXPLORE FULL CURATION</a>
-      </div>
-    </section>
-
-    <!-- ===== SECTION 11: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
+    <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
     <section class="feedback-section">
       <div class="fb-inner-header fp-header">
         <span class="fp-script">Local Reviews</span>
@@ -1005,40 +988,6 @@
       `).join('');
     }
 
-    /* ── BOUTIQUE GALLERY LOGIC ── */
-    function renderBoutiqueGallery() {
-      const grid = document.getElementById('boutique-collection-grid');
-      if (!grid || !productsData.length) return;
-      
-      // Select 12 premium items
-      const selected = productsData.filter(p => p.price > 4000).slice(0, 12);
-      
-      grid.innerHTML = selected.map((p, idx) => `
-        <div class="bg-item bg-stagger-${idx % 3}" style="transition-delay: ${idx * 0.1}s">
-           <div class="bg-img-wrap" onclick="location.href='product.html?id=${p.id || p._id}'">
-              <img src="${p.img || p.images[0]}" alt="${p.name}">
-           </div>
-           <div class="bg-info">
-             <span class="bg-brand">${p.brand || 'PREMIUM'}</span>
-             <h4 class="bg-name">${p.name}</h4>
-             <div class="bg-price">Rs. ${p.price.toLocaleString()}</div>
-             <button class="bg-buy-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')">
-               BUY NOW
-             </button>
-           </div>
-        </div>
-      `).join('');
-      
-      // Observer for animations
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('bg-visible');
-        });
-      }, { threshold: 0.1 });
-      
-      document.querySelectorAll('.bg-item').forEach(el => observer.observe(el));
-    }
-
     async function fetchProducts() {
       try {
         const res = await fetch(`${BASE_URL}/products`);
@@ -1048,17 +997,16 @@
         
         renderRoundCategories();
         renderFeaturedProducts();
-        initShadeFinder();
-        renderBoutiqueGallery(); // Initialize the new premium gallery
+        initShadeFinder(); // Initialize after data load
       } catch (err) {
         console.error("Error fetching products:", err);
+        // Fallback
         if (typeof defaultProducts !== 'undefined') {
           productsData = defaultProducts;
           window.productsData = defaultProducts;
           renderRoundCategories();
           renderFeaturedProducts();
           initShadeFinder();
-          renderBoutiqueGallery();
         }
       }
     }
@@ -1116,91 +1064,6 @@
     .excl-script { color: var(--brown) !important; font-style: italic; font-size: 20px; display: block; margin-bottom: 5px; }
     .hero-content { z-index: 10 !important; }
     .hero-title { text-shadow: 0 4px 20px rgba(0,0,0,0.4) !important; }
-
-    /* ===== MOBILE BOTTOM NAV (SLIM GLASS) ===== */
-    .mobile-bottom-nav {
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      right: 15px;
-      height: 62px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 30px;
-      display: none; 
-      justify-content: space-around;
-      align-items: center;
-      z-index: 9999;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.05);
-      padding: 0 8px;
-    }
-    @media (max-width: 900px) {
-      .mobile-bottom-nav { display: flex !important; }
-    }
-    .mbn-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      color: #999;
-      text-decoration: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 5px 0;
-      transition: all 0.2s ease;
-    }
-    .bg-img-wrap { 
-      position: relative; 
-      width: 100%; 
-      aspect-ratio: 1; 
-      background: #fff; 
-      border-radius: 20px; 
-      overflow: hidden; 
-      cursor: pointer; 
-    }
-    .mbn-item svg { width: 19px; height: 19px; }
-    .mbn-item span { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
-    .mbn-item.active, .mbn-item:hover { color: #ff9d00; }
-    .mbn-cart-wrap { position: relative; }
-    .mbn-badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: #ff9d00;
-      color: #fff;
-      font-size: 8px;
-      width: 15px;
-      height: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      border: 1.5px solid white;
-    }
-    .bg-buy-btn {
-      width: 100%;
-      background: #1a3c34;
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .bg-buy-btn:hover {
-      background: #ff9d00;
-      box-shadow: 0 5px 15px rgba(255,157,0,0.3);
-      transform: translateY(-2px);
-    }
   </style>
 </body>
 </html>
