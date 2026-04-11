@@ -3753,10 +3753,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   writing-mode: vertical-rl;
   text-orientation: upright;
   border: 1px solid #1a1a1a;
-  background: rgba(255,255,255,0.5); /* Semi-transparent for legibility */
+  background: transparent; /* No background colors as requested */
   color: #1a1a1a;
   padding: 10px 4px;
-  font-size: 8px; /* Small and sharp for vertical alignment */
+  font-size: 8px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -3766,8 +3766,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 .ny-card:hover .ny-promo-vertical {
-  background: #1a1a1a;
-  color: #fff;
+  background: transparent; /* Keep it transparent on hover too */
   transform: scale(1.05);
 }
 
