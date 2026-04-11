@@ -496,16 +496,36 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .edc-slideshow img {
   position: absolute;
   top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
   opacity: 0;
-  animation: edcFadeSlide 24s infinite ease-in-out;
+  animation: edcFadeSlide2 16s infinite ease-in-out;
 }
 .edc-slideshow img:nth-child(1) { animation-delay: 0s; }
 .edc-slideshow img:nth-child(2) { animation-delay: 8s; }
-.edc-slideshow img:nth-child(3) { animation-delay: 16s; }
 
-@keyframes edcFadeSlide {
-  0%, 33.33% { opacity: 1; z-index: 2; }
-  33.34%, 100% { opacity: 0; z-index: 1; }
+@keyframes edcFadeSlide2 {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+/* Re-tweaked for 2-image loop to prevent 'empty' gap */
+@keyframes edcFadeSlide2 {
+  0%, 45% { opacity: 1; z-index: 2; }
+  50%, 100% { opacity: 0; z-index: 1; }
+}
+.edc-slideshow img:nth-child(1) { animation: slideImg1 16s infinite; }
+.edc-slideshow img:nth-child(2) { animation: slideImg2 16s infinite; }
+
+@keyframes slideImg1 {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes slideImg2 {
+  0%, 45% { opacity: 0; }
+  50%, 95% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Text overlay at bottom-left of each card */
