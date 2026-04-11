@@ -1003,11 +1003,8 @@
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
-      // Randomize products
-      const shuffled = [...productsData].sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 8);
-      
-      track.innerHTML = selected.map(p => `
+      const selected = productsData.slice(0, 10);
+      const itemsHtml = selected.map(p => `
         <div class="fp-item">
           <div class="fp-img-box" onclick="location.href='product.html?id=${p._id || p.id}'">
              <img src="${p.img || p.images[0]}" alt="${p.name}">
@@ -1022,13 +1019,8 @@
         </div>
       `).join('');
 
-      // Carousel Navigation Logic
-      const nextBtn = document.getElementById('fp-next');
-      const prevBtn = document.getElementById('fp-prev');
-      if (nextBtn && prevBtn) {
-        nextBtn.onclick = () => track.scrollBy({ left: 320, behavior: 'smooth' });
-        prevBtn.onclick = () => track.scrollBy({ left: -320, behavior: 'smooth' });
-      }
+      // Inject twice for seamless loop
+      track.innerHTML = itemsHtml + itemsHtml; 
     }
 
 

@@ -815,11 +815,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .fp-track {
   display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 20px 0;
-  scroll-behavior: smooth;
+  gap: 40px;
+  width: max-content;
+  animation: productsMove 40s linear infinite;
+  padding: 40px 0;
+}
+.fp-track:hover { animation-play-state: paused; }
+
+@keyframes productsMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 .fp-track::-webkit-scrollbar { display: none; }
 
