@@ -680,15 +680,15 @@
           <img src="t2/hero_1.png" alt="Editorial Look">
           
           <!-- Lip Dot -->
-          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-slp-lip', event)">
+          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-ha-30', event)">
             <div class="hotspot-pulse"></div>
           </div>
           <!-- Face/Cheek Dot -->
-          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-ma-blush', event)">
+          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-nmf-30', event)">
             <div class="hotspot-pulse"></div>
           </div>
           <!-- Eye/Lash Dot -->
-          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-masc', event)">
+          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-lash-brow-5', event)">
             <div class="hotspot-pulse"></div>
           </div>
 
@@ -710,8 +710,8 @@
         <div class="look-details">
           <div class="look-list">
             <!-- Item 1 -->
-            <div class="look-item" id="item-ord-masc" onclick="showLookProduct('ord-masc')">
-              <div class="look-item-img"><img src="the ordinary/Multi-Peptide Lash and Brow Serum (5ml) Rs.4800.png" alt="Mascara"></div>
+            <div class="look-item" id="item-ord-lash-brow-5" onclick="showLookProduct('ord-lash-brow-5')">
+              <div class="look-item-img"><img src="the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png" alt="Mascara"></div>
               <div class="look-item-info">
                 <h4>Lash & Brow Serum</h4>
                 <p>Rs. 4,800.00</p>
@@ -719,8 +719,8 @@
               </div>
             </div>
             <!-- Item 2 -->
-            <div class="look-item" id="item-ord-ma-blush" onclick="showLookProduct('ord-ma-blush')">
-              <div class="look-item-img"><img src="the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png" alt="Blush"></div>
+            <div class="look-item" id="item-ord-nmf-30" onclick="showLookProduct('ord-nmf-30')">
+              <div class="look-item-img"><img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Blush"></div>
               <div class="look-item-info">
                 <h4>Moisturizing Factors</h4>
                 <p>Rs. 8,000.00</p>
@@ -728,8 +728,8 @@
               </div>
             </div>
             <!-- Item 3 -->
-            <div class="look-item" id="item-ord-slp-lip" onclick="showLookProduct('ord-slp-lip')">
-              <div class="look-item-img"><img src="the ordinary/Hyaluronic Acid (30ml) Rs.4800.png" alt="Lip"></div>
+            <div class="look-item" id="item-ord-ha-30" onclick="showLookProduct('ord-ha-30')">
+              <div class="look-item-img"><img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Lip"></div>
               <div class="look-item-info">
                 <h4>Hyaluronic Acid</h4>
                 <p>Rs. 4,800.00</p>
@@ -750,14 +750,27 @@
 
     <script>
       const lookData = {
-        'ord-masc': { title: 'Lash & Brow Serum', price: 'Rs. 4,800.00', img: 'the ordinary/Multi-Peptide Lash and Brow Serum (5ml) Rs.4800.png' },
-        'ord-ma-blush': { title: 'Moisturizing Factors', price: 'Rs. 8,000.00', img: 'the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png' },
-        'ord-slp-lip': { title: 'Hyaluronic Acid', price: 'Rs. 4,800.00', img: 'the ordinary/Hyaluronic Acid (30ml) Rs.4800.png' }
+        'ord-lash-brow-5': { 
+          title: 'Multi-Peptide Lash & Brow Serum', 
+          price: 'Rs. 4,800.00', 
+          img: 'the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png' 
+        },
+        'ord-nmf-30': { 
+          title: 'Natural Moisturizing Factors + HA', 
+          price: 'Rs. 8,000.00', 
+          img: 'the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png' 
+        },
+        'ord-ha-30': { 
+          title: 'Hyaluronic Acid 2% + B5', 
+          price: 'Rs. 4,800.00', 
+          img: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' 
+        }
       };
 
       function showLookProduct(id, event) {
         const prod = lookData[id];
         const popup = document.getElementById('look-popup');
+        if(!prod || !popup) return;
         
         // Update popup content
         document.getElementById('lp-title').innerText = prod.title;
@@ -777,7 +790,8 @@
 
         // Highlight side item
         document.querySelectorAll('.look-item').forEach(el => el.style.border = 'none');
-        document.getElementById('item-' + id).style.border = '2px solid #ff9d00';
+        const sideItem = document.getElementById('item-' + id);
+        if(sideItem) sideItem.style.border = '2px solid #ff9d00';
       }
 
       function closeLookPopup() {
@@ -785,7 +799,7 @@
       }
 
       function addLookToBag() {
-        const ids = ['ord-masc', 'ord-ma-blush', 'ord-slp-lip'];
+        const ids = ['ord-lash-brow-5', 'ord-nmf-30', 'ord-ha-30'];
         ids.forEach(id => { if (typeof addToCart === 'function') addToCart(id); });
         alert('Full Look bundle added to your bag!');
       }
