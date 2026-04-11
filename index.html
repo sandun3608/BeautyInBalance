@@ -236,7 +236,13 @@
             { id: 'night', name: 'Night Care', defaultImg: 'cat_retinoids_1775880236409.png' },
             { id: 'body', name: 'Body Care', defaultImg: 'cat_cleansers_1775880089938.png' },
             { id: 'eye', name: 'Eye Care', defaultImg: 'cat_serums_1775880130640.png' },
-            { id: 'lip', name: 'Lip Care', defaultImg: 'cat_makeup_1775880295806.png' }
+            { id: 'lip', name: 'Lip Care', defaultImg: 'cat_makeup_1775880295806.png' },
+            { id: 'acne', name: 'Acne & Blemishes', defaultImg: 'cat_acids_1775880213334.png' },
+            { id: 'aging', name: 'Anti-Aging', defaultImg: 'purity_fair_v2_1775877643004.png' },
+            { id: 'dry', name: 'Dry & Dehydrated', defaultImg: 'cat_cleansers_1775880089938.png' },
+            { id: 'oil', name: 'Oil Control', defaultImg: 'cat_cleansers_1775880089938.png' },
+            { id: 'glow', name: 'Natural Glow', defaultImg: 'purity_light_v2_1775877671302.png' },
+            { id: 'sensitive', name: 'Sensitive Skin', defaultImg: 'purity_fair_v2_1775877643004.png' }
           ];
           
           track.innerHTML = categoriesObj.map(cat => `
@@ -247,47 +253,6 @@
           `).join('');
         }
       </script>
-    </section>
-
-    <!-- ===== NEW SECTION: SHOP BY CONCERN (PILLS WITH ICONS) ===== -->
-    <section class="concerns-section">
-      <div class="concerns-container">
-        <!-- Acne -->
-        <a href="shop.html?tag=acne" class="concern-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
-          Acne & Blemishes
-        </a>
-        <!-- Aging -->
-        <a href="shop.html?tag=aging" class="concern-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          Anti-Aging
-        </a>
-        <!-- Dry -->
-        <a href="shop.html?tag=dry" class="concern-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-          Dry & Dehydrated
-        </a>
-        <!-- Oil -->
-        <a href="shop.html?tag=oil" class="concern-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          Oil Control
-        </a>
-        <!-- Glow -->
-        <a href="shop.html?tag=glow" class="concern-pill active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-          Natural Glow
-        </a>
-        <!-- Sensitive -->
-        <a href="shop.html?tag=sensitive" class="concern-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          Sensitive Skin
-        </a>
-        <!-- Brightening -->
-        <a href="shop.html?tag=bright" class="concern-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v3M12 18v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M3 12h3M18 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path></svg>
-          Brightening
-        </a>
-      </div>
     </section>
 
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
