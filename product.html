@@ -4,272 +4,226 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buy Original Skincare | Beauty in Balance Sri Lanka</title>
-  <meta name="description" content="Buy 100% genuine The Ordinary, CeraVe and premium skincare imported to Sri Lanka. Fast delivery in Colombo & island-wide. Best cosmetics shop in Sri Lanka." />
-  <meta name="keywords" content="buy original ordinary serum, cerave cleanser colombo, best skincare products lanka, authentic beauty products sri lanka, order cosmetics sl, buy makeup colombo" />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Official Beauty in Balance Store. Shop 100% authentic The Ordinary & CeraVe treatments with island-wide delivery." />
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta property="og:title" content="Buy Authentic Skincare | Beauty in Balance Sri Lanka" />
-  <meta property="og:description" content="Get 100% genuine The Ordinary, CeraVe and Premium skin treatments imported to Sri Lanka. Fast delivery." />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=3" />
+
   <style>
-    /* Product Detail Custom Styles */
-    .pd-container {
+    :root {
+      --editorial-bg: #fdfaf7; /* Rose Cream */
+      --luxury-border: #f2efe9;
+    }
+
+    body { background: #fff; overflow-x: hidden; }
+
+    /* ── PREMIUM PRODUCT LAYOUT ── */
+    .product-stage {
+      padding: 140px 5% 100px;
       max-width: 1400px;
-      margin: 120px auto 80px;
-      padding: 0 48px;
-    }
-
-    @media (max-width: 900px) {
-      .pd-container { padding: 0 24px; margin-top: 100px; }
-    }
-
-    .pd-grid {
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 80px;
+      grid-template-columns: 1fr 480px;
+      gap: 100px;
       align-items: start;
     }
 
-    @media (max-width: 900px) {
-      .pd-grid { grid-template-columns: 1fr; gap: 40px; }
+    @media (max-width: 1100px) {
+      .product-stage { grid-template-columns: 1fr; gap: 60px; padding-top: 100px; }
     }
 
-    /* Left: Image & Gallery */
-    .pd-media-side {
+    /* Left: Editorial Gallery */
+    .gallery-wrap {
       position: sticky;
       top: 120px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 40px;
     }
 
-    .pd-img-wrap {
-      background: var(--beige-light);
-      border-radius: 30px;
-      overflow: hidden;
-      aspect-ratio: 1/1;
+    .main-visual {
+      background: var(--editorial-bg);
+      border-radius: 40px;
+      aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px;
-      border: 1px solid var(--border);
+      padding: 80px;
       position: relative;
+      overflow: hidden;
+      transition: background 0.5s ease;
     }
 
-    .pd-img-wrap img#main-prod-img {
-      width: 100%;
-      height: 100%;
+    .main-visual img {
+      width: 100%; height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+      transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
+    .main-visual:hover img { transform: scale(1.05); }
 
-    /* Thumbnails */
-    .pd-gallery {
+    .thumbs-container {
       display: flex;
-      gap: 12px;
+      gap: 15px;
       justify-content: center;
     }
-
-    .thumb {
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
-      background: var(--beige-light);
-      border: 1px solid var(--border);
+    .t-btn {
+      width: 90px; height: 90px;
+      background: var(--editorial-bg);
+      border-radius: 15px;
+      border: 1px solid var(--luxury-border);
       cursor: pointer;
-      overflow: hidden;
       padding: 10px;
-      transition: all 0.3s;
+      transition: 0.3s;
+    }
+    .t-btn.active { border-color: var(--gold); background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .t-btn img { width: 100%; height: 100%; object-fit: contain; opacity: 0.6; }
+    .t-btn.active img { opacity: 1; }
+
+    /* Right: Detailed Narrative */
+    .detail-column {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
     }
 
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      opacity: 0.6;
-      transition: opacity 0.3s;
-    }
-
-    .thumb.active {
-      border-color: var(--gold);
-      box-shadow: 0 4px 10px rgba(198,151,90,0.1);
-    }
-
-    .thumb.active img, .thumb:hover img {
-      opacity: 1;
-    }
-
-    /* Right: Details */
-    .pd-info {
-       display: flex;
-       flex-direction: column;
-       gap: 30px;
-    }
-
-    .breadcrumbs {
+    .brand-tag {
       font-size: 11px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: -10px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: -20px;
     }
 
-    .pd-title {
+    .p-name {
       font-family: var(--font-serif);
-      font-size: 48px;
+      font-size: clamp(36px, 4vw, 54px);
       color: var(--brown);
       line-height: 1.1;
+      font-weight: 700;
     }
 
-    .pd-price {
-      font-size: 28px;
+    .p-price-tag {
+      font-size: 30px;
       color: var(--gold);
       font-weight: 600;
+      font-family: var(--font-sans);
     }
 
-    .pd-desc-short {
-      font-size: 18px;
-      color: var(--text);
-      line-height: 1.6;
-      font-style: italic;
-      border-left: 2px solid var(--gold);
-      padding-left: 20px;
+    .p-summary {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      border-left: 2px solid var(--luxury-border);
+      padding-left: 24px;
     }
 
-    /* Benefits Section */
-    .pd-section-title {
-      font-family: var(--font-serif);
-      font-size: 24px;
-      color: var(--brown);
-      margin-bottom: 20px;
+    /* Actions */
+    .purchase-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 20px;
+    }
+    .qty-wrap {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 20px;
     }
-
-    .pd-benefits-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    @media (max-width: 600px) {
-      .pd-benefits-list { grid-template-columns: 1fr; }
-    }
-
-    .benefit-item {
+    .qty-toggle {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: var(--beige-light);
-      padding: 12px 16px;
-      border-radius: 12px;
+      border: 1px solid var(--luxury-border);
+      border-radius: 40px;
+      padding: 5px 20px;
+    }
+    .qty-toggle input {
+      width: 50px; border: none; text-align: center; font-weight: 700; font-size: 1.1rem; outline: none; background: transparent;
+    }
+    .qty-btn { font-size: 1.5rem; color: var(--brown); cursor: pointer; padding: 5px 10px; }
+
+    .btn-primary {
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      padding: 22px;
+      border-radius: 40px;
       font-size: 14px;
-      color: var(--text);
-      border: 1px solid transparent;
-      transition: all 0.3s;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.4s;
     }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(198,151,90,0.25); }
 
-    .benefit-item:hover {
-      border-color: var(--gold);
-      transform: translateX(5px);
+    /* Accordion / Info Tabs */
+    .editorial-tabs {
+      margin-top: 20px;
+      border-top: 1px solid var(--luxury-border);
     }
-
-    .benefit-icon {
-      color: var(--gold);
-      font-size: 18px;
+    .tab-item {
+      border-bottom: 1px solid var(--luxury-border);
     }
-
-    /* How to Use */
-    .usage-box {
-      background: #f9f9f9;
-      padding: 30px;
-      border-radius: 20px;
-      border: 1px dashed var(--border);
+    .tab-head {
+      width: 100%;
+      padding: 25px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--brown);
     }
-
-    .usage-text {
+    .tab-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.5s cubic-bezier(0, 1, 0, 1);
+      color: #777;
       font-size: 15px;
       line-height: 1.7;
-      color: var(--text);
     }
+    .tab-item.active .tab-body { max-height: 1000px; padding-bottom: 30px; }
+    .tab-head svg { transition: 0.4s; }
+    .tab-item.active .tab-head svg { transform: rotate(45deg); }
 
-    /* Authenticity Badge */
-    .auth-badge {
-       display: flex;
-       align-items: center;
-       gap: 15px;
-       padding: 20px;
-       background: #ecfdf5;
-       border-radius: 15px;
-       border: 1px solid #10b981;
-       color: #065f46;
-    }
-
-    .auth-icon {
-      width: 44px;
-      height: 44px;
-      background: #10b981;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* Cart Controls */
-    .pd-controls {
-      display: flex;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .qty-input {
-      width: 80px;
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      text-align: center;
-      font-weight: 700;
-      background: var(--white);
-    }
-
-    .btn-add-cart {
-      flex-grow: 1;
-      padding: 18px;
-      background: var(--brown);
-      color: var(--white);
-      border-radius: 12px;
-      border: none;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-add-cart:hover {
-      background: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(198,151,90,0.2);
-    }
-
-    /* Recommendations Section */
-    .rec-section {
-      max-width: 1400px;
-      margin: 100px auto;
-      padding: 0 48px;
-    }
-
-    .rec-grid {
+    /* Trust Highlights */
+    .trust-ribbon {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
       margin-top: 40px;
+    }
+    .trust-item { text-align: center; }
+    .trust-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+    .trust-item p { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #aaa; }
+
+    /* Recommendations */
+    .discovery-section {
+      padding: 100px 5% 150px;
+      background: #fafafa;
+    }
+    .discovery-header { text-align: center; margin-bottom: 70px; }
+    .discovery-header h2 { font-family: var(--font-serif); font-size: 3rem; color: var(--brown); }
+
+    .premium-discovery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .premium-discovery-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .trust-ribbon { grid-template-columns: 1fr; gap: 30px; }
     }
   </style>
 </head>
@@ -278,234 +232,190 @@
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <ul class="nav-main">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+      <div class="nav-left">
+          <button class="ic-btn ham-btn" id="ham-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+          <ul class="nav-main desktop-only">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All</a></li>
+          </ul>
+      </div>
       <a href="index.html" class="site-logo">Beauty in Balance</a>
       <div class="nav-icons">
-        <a href="login.html" id="top-account-link" class="ic-btn" aria-label="Account">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </a>
-        <script>
-          document.getElementById('top-account-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            const token = localStorage.getItem('userToken');
-            const info = JSON.parse(localStorage.getItem('userInfo') || '{}');
-            if (token && info.isAdmin) {
-              window.location.href = 'admin.html';
-            } else if (token) {
-              window.location.href = 'dashboard.html';
-            } else {
-              window.location.href = 'login.html';
-            }
-          });
-        </script>
         <button class="ic-btn cart-ic" id="cart-open">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
-        </button>
-        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
       </div>
     </nav>
   </header>
 
-  <!-- ===== OVERLAY ===== -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- ===== MOBILE DRAWER ===== -->
-  <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top">
-      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
-      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <main>
+    <div id="pd-frame">
+        <!-- Dynamic Premium Content -->
     </div>
-    <ul class="mobile-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop All</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="policies.html">Policies</a></li>
-    </ul>
-  </div>
 
-  <!-- ===== CART DRAWER ===== -->
+    <!-- ===== DISCOVERY / RECOMMENDED ===== -->
+    <section class="discovery-section">
+      <div class="discovery-header">
+        <h2 id="rec-title">Curated For You</h2>
+      </div>
+      <div class="premium-discovery-grid" id="rec-grid">
+         <!-- Injected via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== OVERLAYS & DRAWERS ===== -->
+  <div class="overlay" id="overlay"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-head">
       <h3>Cart (0)</h3>
       <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="cart-empty">
-      <p>Your cart is currently empty.</p>
-      <a href="shop.html" class="btn-dark">Continue Shopping</a>
-    </div>
+    <div id="cart-items-container"></div>
   </div>
 
-  <main>
-    <div id="pd-root">
-       <!-- Dynamic content here -->
-       <div style="text-align:center; padding: 200px 0;">Loading Product Details...</div>
-    </div>
-
-    <!-- Recommendations -->
-    <section class="rec-section">
-      <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--brown);">You May Also Like</h2>
-      <div class="rec-grid" id="rec-grid">
-         <!-- Simulating some items -->
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-bottom">
-      <p>© 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka. | <a href="admin.html" style="color: inherit; opacity: 0.5; font-size: 10px; text-decoration: none;">Admin Login</a></p>
-    </div>
-  </footer>
+  <div class="mobile-drawer" id="mobile-drawer">
+      <ul class="mobile-nav" style="padding: 60px 40px; display: flex; flex-direction: column; gap: 30px;">
+        <li><a href="index.html" style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--brown);">Home</a></li>
+        <li><a href="shop.html" style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--brown);">Shop All</a></li>
+        <li><a href="about.html" style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--brown);">Our Story</a></li>
+        <li><a href="contact.html" style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--brown);">Contact</a></li>
+      </ul>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="config.js?v=2"></script>
-  <script src="products.js?v=2"></script>
+  <script src="products.js"></script>
   <script>
-    const $ = id => document.getElementById(id);
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
 
-    function switchImg(src, thumb) {
-      const main = $('main-prod-img');
-      gsap.to(main, { opacity: 0, scale: 0.95, duration: 0.2, onComplete: () => {
-        main.src = src;
-        gsap.to(main, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" });
-        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
+    function toggleTab(el) {
+      el.closest('.tab-item').classList.toggle('active');
+    }
+
+    function changeImg(src, btn) {
+      const main = document.getElementById('main-view');
+      gsap.to(main, { opacity: 0, scale: 0.98, duration: 0.25, onComplete: () => {
+         main.src = src;
+         gsap.to(main, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" });
+         document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+         btn.classList.add('active');
       }});
     }
 
-    function renderProduct() {
-      const product = productsData.find(p => p.id === prodId || p.name === prodId); // Fallback for old name-based IDs
-      
-      if (!product) {
-        // If DB is still fetching, don't show "Not Found" yet. Wait for fetch to call renderProduct() again.
-        if (window.DB_FETCH_RUNNING && !window.DB_FETCH_COMPLETED) {
-          return;
-        }
-        $('pd-root').innerHTML = '<div style="text-align:center; padding: 200px 0; font-size: 24px;">Product Not Found. <br><a href="shop.html" style="color:var(--gold)">Return to Shop</a></div>';
-        return;
-      }
+    function renderProduct(data) {
+      const product = data.find(p => p.id === prodId || p.name === prodId);
+      if (!product) return;
 
-      document.title = product.name + " — Beauty in Balance";
+      document.title = product.name + " | Beauty in Balance";
 
-      const benefitsHtml = (product.benefits || ['Guaranteed Original', 'High Stability', 'Cruelty Free'])
-        .map(b => `<div class="benefit-item"><span class="benefit-icon">✦</span> ${b}</div>`)
-        .join('');
+      const frame = document.getElementById('pd-frame');
+      const thumbs = (product.images || [product.img]).map((src, i) => `
+        <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
+          <img src="${src}" alt="Thumb">
+        </button>
+      `).join('');
 
-      const thumbsHtml = (product.images || [product.img])
-        .map((img, idx) => `<div class="thumb ${idx===0?'active':''}" onclick="switchImg('${img}', this)"><img src="${img}"></div>`)
-        .join('');
+      frame.innerHTML = `
+        <div class="product-stage">
+          <!-- Gallery -->
+          <div class="gallery-wrap">
+            <div class="main-visual">
+              <img id="main-view" src="${product.img}" alt="${product.name}">
+            </div>
+            <div class="thumbs-container">${thumbs}</div>
+          </div>
 
-      $('pd-root').innerHTML = `
-        <div class="pd-container">
-          <div class="pd-grid">
-            <!-- Left: Media -->
-            <div class="pd-media-side">
-              <div class="pd-img-wrap">
-                <img id="main-prod-img" src="${product.img}" alt="${product.name}">
+          <!-- Content -->
+          <div class="detail-column">
+            <div>
+              <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
+              <h1 class="p-name">${product.name}</h1>
+              <div class="p-price-tag">Rs. ${product.price.toLocaleString()}</div>
+            </div>
+
+            <p class="p-summary">
+              ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
+            </p>
+
+            <div class="purchase-zone">
+              <div class="qty-wrap">
+                 <div class="qty-toggle">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.max(1, parseInt(document.getElementById('p-qty').value)-1)">-</span>
+                    <input type="number" id="p-qty" value="1" min="1">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = parseInt(document.getElementById('p-qty').value)+1">+</span>
+                 </div>
               </div>
-              <div class="pd-gallery">
-                ${thumbsHtml}
+              <button class="btn-primary" onclick="addToCart('${product.id}', document.getElementById('p-qty').value)">Add to your bag</button>
+            </div>
+
+            <div class="editorial-tabs">
+              <div class="tab-item active">
+                <div class="tab-head" onclick="toggleTab(this)">The Science <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  <ul style="list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                    ${(product.benefits || ['Clinically proven', 'Barrier Support', 'Hydration focus']).map(b => `<li>${b}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-item">
+                <div class="tab-head" onclick="toggleTab(this)">How to Ritual <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  ${product.howToUse || 'Apply a few drops to the face in the AM and PM as part of your skincare regimen. Transition gradually if new to clinical actives.'}
+                </div>
+              </div>
+              <div class="tab-item">
+                <div class="tab-head" onclick="toggleTab(this)">Shipping & Delivery <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  Island-wide delivery within 2-4 business days. Secure packaging to maintain product integrity. Rs. 350 flat rate shipping Sri Lanka wide.
+                </div>
               </div>
             </div>
 
-            <!-- Right: Info -->
-            <div class="pd-info">
-              <div class="breadcrumbs">Home / Shop / ${product.cat.toUpperCase()} / ${product.filter.toUpperCase()}</div>
-              <h1 class="pd-title">${product.name}</h1>
-              <div class="pd-price">Rs. ${product.price.toLocaleString()}</div>
-              
-              <div class="pd-desc-short">
-                ${product.desc || 'Premium skincare formula imported directly from CA & GB. Guaranteed 100% authentic and original.'}
-              </div>
-
-              <div class="pd-section">
-                <div class="pd-section-title">
-                   <svg viewBox="0 0 24 24" width="24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813-6.113.157 4.846 3.754-1.817 5.844L12 15l4.996 3.568-1.817-5.844 4.846-3.754-6.113-.157Z"/></svg>
-                   The Benefits
-                </div>
-                <div class="pd-benefits-list">
-                   ${benefitsHtml}
-                </div>
-              </div>
-
-              <div class="usage-box">
-                <div class="pd-section-title">How to Use</div>
-                <div class="usage-text">
-                  ${product.howToUse || 'Apply a small amount to the target area once or twice daily after cleaning the skin. Patch test recommended before use.'}
-                </div>
-              </div>
-
-              <div class="auth-badge">
-                 <div class="auth-icon">✔</div>
-                 <div class="auth-text">
-                    <strong style="display:block;">${product.cat === 'ordinary' ? 'DECIEM Certified' : 'Brand Certified'}</strong>
-                    <span style="font-size: 13px; opacity: 0.8;">${product.authenticity || 'Imported directly from Europe/Canada. Guaranteed Original.'}</span>
-                 </div>
-              </div>
-
-              <div class="pd-controls">
-                 <input type="number" id="qty-input" value="1" min="1" class="qty-input">
-                 <button class="btn-add-cart" onclick="addToCart('${product.id}', document.getElementById('qty-input').value)">Add to Bag</button>
-              </div>
-
+            <div class="trust-ribbon">
+              <div class="trust-item"><span class="trust-icon">🛡️</span><p>100% Authentic</p></div>
+              <div class="trust-item"><span class="trust-icon">🚚</span><p>Fast Shipping</p></div>
+              <div class="trust-item"><span class="trust-icon">💎</span><p>Premium Quality</p></div>
             </div>
           </div>
         </div>
       `;
 
-      renderRecs(product.cat);
+      renderRecs(product.cat, data);
     }
 
-    function renderRecs(category) {
-       const recs = productsData.filter(p => p.cat === category && (p.id !== prodId)).slice(0, 4);
-       $('rec-grid').innerHTML = recs.map(p => `
-          <a href="product.html?id=${p.id || p.name}" class="hp-prod-card" style="text-decoration:none; color:inherit;">
-            <div class="hp-prod-img" style="background:var(--beige-light); border-radius:15px; padding:20px; aspect-ratio:1/1;">
-               <img src="${p.img}" alt="${p.name}" style="width:100%; height:100%; object-fit:contain;">
-            </div>
-            <p style="font-weight:600; margin-top:15px; font-size:15px;">${p.name}</p>
-            <p style="color:var(--gold); font-weight:700;">Rs. ${p.price.toLocaleString()}</p>
-          </a>
-       `).join('');
+    function renderRecs(cat, data) {
+      const recs = data.filter(p => p.cat === cat && p.id !== prodId).slice(0, 4);
+      document.getElementById('rec-grid').innerHTML = recs.map(p => `
+        <a href="product.html?id=${p.id}" class="hp-prod-card">
+          <div class="hp-prod-img"><img src="${p.img}" alt="${p.name}"></div>
+          <div class="hp-prod-name">${p.name}</div>
+          <div class="hp-prod-price">Rs. ${p.price.toLocaleString()}</div>
+        </a>
+      `).join('');
     }
 
-    renderProduct();
+    // Connect with global products.js 
+    window.renderProduct = renderProduct;
+    if (window.productsData) renderProduct(window.productsData);
 
-    window.addEventListener('scroll', () => {
-      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    const overlay = document.getElementById('overlay') || (() => {
-      const el = document.createElement('div');
-      el.className = 'overlay';
-      el.id = 'overlay';
-      document.body.appendChild(el);
-      return el;
-    })();
-
+    // Sidebar/Header Logic
+    const overlay = document.getElementById('overlay');
+    function openDrawer(id) {
+      document.getElementById(id).classList.add('open');
+      overlay.classList.add('show');
+    }
     function closeAll() {
-      document.getElementById('mobile-drawer')?.classList.remove('open');
-      document.getElementById('cart-drawer')?.classList.remove('open');
+      document.querySelectorAll('.mobile-drawer, .cart-drawer').forEach(d => d.classList.remove('open'));
       overlay.classList.remove('show');
     }
+    document.getElementById('ham-open').onclick = () => openDrawer('mobile-drawer');
+    document.getElementById('cart-open').onclick = () => openDrawer('cart-drawer');
+    overlay.onclick = closeAll;
+    document.getElementById('cart-close').onclick = closeAll;
 
-    document.getElementById('cart-open').addEventListener('click', () => {
-      document.getElementById('cart-drawer').classList.add('open');
-      overlay.classList.add('show');
-    });
-
-    overlay.addEventListener('click', closeAll);
-    document.getElementById('cart-close')?.addEventListener('click', closeAll);
+    window.onscroll = () => document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
   </script>
 </body>
 </html>
