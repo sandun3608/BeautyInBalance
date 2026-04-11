@@ -3626,17 +3626,17 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .fg-actions-row { 
   display: flex; 
+  flex-direction: column;
   align-items: center; 
-  justify-content: space-between; 
   gap: 15px; 
-  margin-top: 10px; 
+  margin-top: 15px; 
 }
 .fg-buy-now { 
-  flex: 1; 
+  width: 100%; 
   background: var(--gold); 
   color: #fff; 
   border: none; 
-  padding: 12px 20px; 
+  padding: 14px 20px; 
   border-radius: 5px; 
   font-weight: 800; 
   font-size: 11px; 
