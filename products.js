@@ -48,7 +48,7 @@ const defaultProducts = [
   },
   { 
     id: 'cer-hydrating-oil',
-    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'bodycare', 
+    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'body', 
     images: ['cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png'], img: 'cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png',
     desc: 'A luxurious, beautifully transforming oil-to-foam cleanser perfectly tailored for extremely dry, sensitive, or atopic-prone skin. Infused with squalane oil and rich triglycerides, it softly melts away dirt and impurities without leaving a greasy residue. The skin is instantly replenished with deep hydration, resulting in a supremely soft and comfortable skin barrier.',
     benefits: ['Oil-to-Foam Texture', 'Deeply Nourishing Squalane', 'Ultra-Mild Cleansing'],
@@ -57,7 +57,7 @@ const defaultProducts = [
   },
   { 
     id: 'cer-psoriasis',
-    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'bodycare', 
+    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'body', 
     images: ['cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png'], img: 'cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png',
     desc: 'A highly specialized, therapeutic body and face wash formulated to relieve discomfort associated with psoriasis. Medicated with 2% Salicylic Acid to gently remove scaling, and infused with Lactic Acid and Niacinamide, it actively calms stubborn redness, intense itching, and visible flaking. Promotes calmer, visibly smoother, and comfortably restored skin.',
     benefits: ['Relieves Itching & Redness', 'Removes Scales', 'Therapeutic Formula'],
@@ -86,7 +86,7 @@ const defaultProducts = [
   // The Ordinary Collection
   { 
     id: 'ord-caffeine-30',
-    name: 'Caffeine Solution 5% + EGCG (30ml)', price: 4600, cat: 'ordinary', filter: 'eye-care', 
+    name: 'Caffeine Solution 5% + EGCG (30ml)', price: 4600, cat: 'ordinary', filter: 'eye', 
     images: ['the ordinary/Caffeine solution (30ml)  Rs.4600.png'], img: 'the ordinary/Caffeine solution (30ml)  Rs.4600.png',
     desc: 'A brilliantly light-textured eye serum optimized with an extraordinarily high 5% concentration of caffeine and highly-purified EGCG extracted from green tea leaves. Independent studies show that topical application of these active ingredients dramatically reduces puffiness, under-eye bags, and dark pigmentation contours around the delicate eye area.',
     benefits: ['Reduces eye bags', 'Minimizes dark circles', 'Antioxidant-rich EGCG'],
@@ -122,7 +122,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-alpha-arbutin-30',
-    name: 'Alpha Arbutin 2% + HA (30ml)', price: 4800, cat: 'ordinary', filter: 'targeted', 
+    name: 'Alpha Arbutin 2% + HA (30ml)', price: 4800, cat: 'ordinary', filter: 'glow', 
     images: ['the ordinary/Alpha arbutin (30ml)  Rs.4800.png'], img: 'the ordinary/Alpha arbutin (30ml)  Rs.4800.png',
     desc: 'A concentrated daily serum featuring a high 2% concentration of purified Alpha Arbutin, fortified with Hyaluronic Acid for enhanced delivery. This advanced formula actively reduces the look of stubborn dark spots, hyperpigmentation, and acne scars by suppressing melanin production, ensuring a unified, visibly luminous, and hydrated complexion.',
     benefits: ['Reduces dark spots', 'Evens skin tone', 'Hydrating with HA'],
@@ -131,7 +131,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-ascorbic-arbutin-30',
-    name: 'Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)', price: 5200, cat: 'ordinary', filter: 'targeted', 
+    name: 'Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)', price: 5200, cat: 'ordinary', filter: 'glow', 
     images: ['the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png'], img: 'the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png',
     desc: 'A water-free, stable formulation combining two of the most powerful brightening agents in skincare: pure Vitamin C (Ascorbic Acid) and Alpha Arbutin. This dual-action powerhouse visibly brightens the skin tone, fades dark spots and post-blemish marks, and provides intense antioxidant protection against environmental stressors, resulting in a flawless glow.',
     benefits: ['Brightens Complexion', 'Fades Dark Spots', 'Antioxidant Support'],
@@ -214,7 +214,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-nmf-ha-30',
-    name: 'Natural Moisturizing Factors + HA (30ml)', price: 8000, cat: 'ordinary', filter: 'moisturizers', 
+    name: 'Natural Moisturizing Factors + HA (30ml)', price: 8000, cat: 'ordinary', filter: 'dry', 
     images: ['the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png'], img: 'the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png',
     desc: 'An essential, non-greasy surface hydrator packed with elements naturally present in the skin—amino acids, dermal lipids, and hyaluronic acid. Designed as a universal protective outer shield, it supplements the skin\'s impaired Natural Moisturizing Factors (NMF) to provide immediate, prolonged soothing hydration and dramatically improve barrier strength without a heavy feel.',
     benefits: ['Immediate Hydration', 'Barrier Support', 'Non-greasy formula'],
@@ -241,7 +241,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-pha-lip-serum-15',
-    name: 'PHA 5% Exfoliating Lip Serum (15ml)', price: 4600, cat: 'ordinary', filter: 'targeted', 
+    name: 'PHA 5% Exfoliating Lip Serum (15ml)', price: 4600, cat: 'ordinary', filter: 'lip', 
     images: ['the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png'], img: 'the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png',
     desc: 'A groundbreaking treatment curated specifically for the sensitive lips utilizing a gentle 5% Polyhydroxy Acid (PHA) concentration. It expertly lifts and buffs away dead skin cells and dryness while intensely infusing hydrating components to leave behind plush, smooth, and naturally plump-looking lips ready for perfect makeup application.',
     benefits: ['Gentle Exfoliation', 'Softens Lips', 'Improves lip texture'],
@@ -295,7 +295,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-squalane-lip-15',
-    name: 'Squalane + Amino Acid Lip Balm (15ml)', price: 3900, cat: 'ordinary', filter: 'targeted', 
+    name: 'Squalane + Amino Acid Lip Balm (15ml)', price: 3900, cat: 'ordinary', filter: 'lip', 
     images: ['the ordinary/lip burm.png'], img: 'the ordinary/lip burm.png',
     desc: 'An innovative, deeply conditioning balm utilizing exceptional plant-derived Squalane and fundamental Amino Acids precisely targeted to lock in moisture on the lip barrier. It intensely protects drying, cracking, and peeling lips against harsh temperature changes, delivering instantaneous softness, deep hydration, and sustained smooth protection throughout the entire day.',
     benefits: ['Intense Lip Hydration', 'Locks in moisture', 'Nourishing Amino Acids'],

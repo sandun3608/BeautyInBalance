@@ -242,11 +242,11 @@
             { id: 'dry', name: 'Dry & Dehydrated', defaultImg: 'cat_cleansers_1775880089938.png' },
             { id: 'oil', name: 'Oil Control', defaultImg: 'cat_cleansers_1775880089938.png' },
             { id: 'glow', name: 'Natural Glow', defaultImg: 'purity_light_v2_1775877671302.png' },
-            { id: 'sensitive', name: 'Sensitive Skin', defaultImg: 'purity_fair_v2_1775877643004.png' }
+            { id: 'sensitive', name: 'Sensitive Skin', defaultImg: 'purity_medium_v2_1775877723012.png' }
           ];
           
           track.innerHTML = categoriesObj.map(cat => `
-            <a href="shop.html?cat=${cat.id}" class="round-item">
+            <a href="category.html?cat=${cat.id}" class="round-item">
               <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
               <span>${cat.name}</span>
             </a>
