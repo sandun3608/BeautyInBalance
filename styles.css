@@ -3746,28 +3746,28 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   border: 1px solid rgba(255,255,255,0.8);
 }
 
-.ny-promo-vertical {
+.ny-promo-box {
   position: absolute;
   top: 15px;
   left: 15px;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  border: 1px solid #1a1a1a;
-  background: transparent; /* No background colors as requested */
+  border: 1.5px solid #1a1a1a;
+  background: transparent;
   color: #1a1a1a;
-  padding: 10px 4px;
-  font-size: 8px;
+  padding: 6px 14px;
+  font-size: 10px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   z-index: 5;
   transition: all 0.3s ease;
-  line-height: 1.2;
+  white-space: nowrap;
 }
 
-.ny-card:hover .ny-promo-vertical {
-  background: transparent; /* Keep it transparent on hover too */
-  transform: scale(1.05);
+.ny-card:hover .ny-promo-box {
+  transform: translateY(-3px);
+  background: #1a1a1a;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .ny-card:hover {
