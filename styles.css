@@ -1863,7 +1863,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* Modern Minimalist Frame */
 .ps-pill-outer {
   width: 100%;
-  aspect-ratio: 1 / 1.2; /* Taller editorial profile for bottles */
+  aspect-ratio: 1.8 / 1; /* Wide pill shape matching Purity Theme */
   border-radius: 120px;
   padding: 4px;
   border: 1px solid #e5e0da;
@@ -1887,8 +1887,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ps-pill-inner img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Prevent cutting of product edges */
-  padding: 8px;
+  object-fit: cover; /* Faces should fill the entire pill elegantly */
   transition: transform 0.5s ease;
 }
 
@@ -1906,6 +1905,57 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .ps-tone-item.active .ps-label {
   color: #1a1a1a;
+}
+
+/* Purity Theme Header Styling */
+.ps-header .fp-title {
+  position: relative;
+  display: inline-block;
+}
+.ps-header .fp-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 100px;
+  height: 8px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 8 Q 50 0, 100 8" stroke="%23c6975a" stroke-width="4" fill="none"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+/* Tone Slider Implementation */
+.ps-slider-container {
+  max-width: 800px;
+  margin: 40px auto 0;
+  position: relative;
+  height: 2px;
+  background: #f0e9e2;
+  border-radius: 10px;
+}
+.ps-slider-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #1a3c34;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+.ps-slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: #1a3c34;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: left 0.4s ease;
+  z-index: 5;
 }
 
 /* Native Professional Slider - Perfectly Centered */
