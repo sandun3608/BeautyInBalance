@@ -227,16 +227,16 @@
           if (!track) return;
           
           const categoriesObj = [
-            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
-            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the ordinary/Hyaluronic Acid (30ml) Rs.4800.png' },
-            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the ordinary/Aha bha peeling solution (30ml) Rs.5200.png' },
-            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the ordinary/Granactive retinoid 2 emulsion (30ml)  Rs.5500.png' },
-            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
-            { id: 'makeup', name: 'Makeup essentials', defaultImg: 'the ordinary/lip burm.png' },
-            { id: 'night', name: 'Night Care', defaultImg: 'the ordinary/Granactive retinoid 2 emulsion (30ml)  Rs.5500.png' },
-            { id: 'body', name: 'Body Care', defaultImg: 'cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png' },
-            { id: 'eye', name: 'Eye Care', defaultImg: 'the ordinary/Caffeine solution (30ml)  Rs.4600.png' },
-            { id: 'lip', name: 'Lip Care', defaultImg: 'the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png' }
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
+            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'makeup', name: 'Makeup essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
+            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
+            { id: 'eye', name: 'Eye Care', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
+            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
           ];
           
           track.innerHTML = categoriesObj.map(cat => `
@@ -442,43 +442,23 @@
       <div class="brands-marquee">
         <div class="brands-track">
           <!-- Brands set 1 -->
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/The_Ordinary_logo.svg" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/CeraVe_logo.svg" alt="CeraVe">
-          </div>
+          <div class="brand-item luxe-text">THE ORDINARY</div>
+          <div class="brand-item luxe-text">CeraVe</div>
           <div class="brand-item luxe-text">BEAUTY OF JOSEON</div>
           <div class="brand-item luxe-text">SKIN1004</div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Cetaphil_logo.svg" alt="Cetaphil">
-          </div>
+          <div class="brand-item luxe-text">CETAPHIL</div>
           <div class="brand-item luxe-text">DR. ALTHEA</div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/The_Ordinary_logo.svg" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/CeraVe_logo.svg" alt="CeraVe">
-          </div>
+          <div class="brand-item luxe-text">COSRX</div>
+          <div class="brand-item luxe-text">LA ROCHE-POSAY</div>
           <!-- Duplicated for seamless loop -->
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/The_Ordinary_logo.svg" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/CeraVe_logo.svg" alt="CeraVe">
-          </div>
+          <div class="brand-item luxe-text">THE ORDINARY</div>
+          <div class="brand-item luxe-text">CeraVe</div>
           <div class="brand-item luxe-text">BEAUTY OF JOSEON</div>
           <div class="brand-item luxe-text">SKIN1004</div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Cetaphil_logo.svg" alt="Cetaphil">
-          </div>
+          <div class="brand-item luxe-text">CETAPHIL</div>
           <div class="brand-item luxe-text">DR. ALTHEA</div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/The_Ordinary_logo.svg" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/CeraVe_logo.svg" alt="CeraVe">
-          </div>
+          <div class="brand-item luxe-text">COSRX</div>
+          <div class="brand-item luxe-text">LA ROCHE-POSAY</div>
         </div>
       </div>
     </section>
