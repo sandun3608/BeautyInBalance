@@ -600,8 +600,6 @@
       </div>
     </section>
 
-
-
     <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
     <section class="video-highlights-section">
       <div class="vh-container">
@@ -616,7 +614,7 @@
           </div>
         </div>
 
-        <!-- Row 2 (Added) -->
+        <!-- Row 2 -->
         <div class="vh-row vh-reverse">
           <div class="vh-media vh-media-wide"><video src="vedio/2.mp4" autoplay muted loop playsinline></video></div>
           <div class="vh-info">
@@ -673,6 +671,76 @@
         <!-- Filtered results -->
       </div>
     </section>
+
+    <!-- ===== SECTION: SHOP THE LOOK (PURITY LOOKBOOK) ===== -->
+    <section class="lookbook-section">
+      <div class="look-container">
+        <!-- Left: Model Visual with Hotspots -->
+        <div class="look-visual">
+          <img src="luxury_skin_model_look_1775930288840.png" alt="Editorial Look">
+          
+          <div class="look-hotspot" style="top:32%; left:22%;" data-id="ord-masc">
+            <div class="hotspot-pulse"></div>
+          </div>
+          <div class="look-hotspot" style="top:45%; left:30%;" data-id="ord-ma-blush">
+            <div class="hotspot-pulse"></div>
+          </div>
+          <div class="hotspot-val" style="top:48%; left:20%;" data-id="ord-slp-lip">
+            <div class="look-hotspot"><div class="hotspot-pulse"></div></div>
+          </div>
+        </div>
+
+        <!-- Right: Bundled Items -->
+        <div class="look-details">
+          <div class="look-list">
+            <!-- Item 1 -->
+            <div class="look-item" data-id="ord-masc">
+              <div class="look-item-img"><img src="the ordinary/Multi-Peptide Lash and Brow Serum (5ml) Rs.4800.png" alt="Mascara"></div>
+              <div class="look-item-info">
+                <h4>Lash & Brow Serum</h4>
+                <p>Rs. 4,800.00</p>
+                <span class="look-variant">Volume: 5ml</span>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="look-item" data-id="ord-ma-blush">
+              <div class="look-item-img"><img src="the ordinary/Natural moisturizing factors + ha (30ml) Rs.8000.png" alt="Blush"></div>
+              <div class="look-item-info">
+                <h4>Moisturizing Factors</h4>
+                <p>Rs. 8,000.00</p>
+                <span class="look-variant">Finish: Dewy</span>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="look-item" data-id="ord-slp-lip">
+              <div class="look-item-img"><img src="the ordinary/Hyaluronic Acid (30ml) Rs.4800.png" alt="Lip"></div>
+              <div class="look-item-info">
+                <h4>Hyaluronic Acid</h4>
+                <p>Rs. 4,800.00</p>
+                <span class="look-variant">Focus: Deep Hydration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="look-footer">
+            <button class="look-bundle-btn" onclick="addLookToBag()">
+              Add all to Bag — Rs. 17,600.00
+            </button>
+            <a href="#" class="look-guide-link">View Usage Guide</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function addLookToBag() {
+        const ids = ['ord-masc', 'ord-ma-blush', 'ord-slp-lip'];
+        ids.forEach(id => {
+          if (typeof addToCart === 'function') addToCart(id);
+        });
+        alert('Full Look bundle added to your bag!');
+      }
+    </script>
 
     <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
     <section class="feedback-section">
