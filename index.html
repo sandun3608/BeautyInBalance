@@ -674,7 +674,24 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
+    <!-- ===== SECTION 10: THE BOUTIQUE COLLECTION (PREMIUM GALLERY) ===== -->
+    <section class="boutique-gallery" style="background: #fff; padding: 120px 0;">
+      <div class="bg-header" style="text-align: center; margin-bottom: 80px;">
+        <span class="bg-script" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; color: var(--gold); display: block; margin-bottom: 10px;">The Essentials</span>
+        <h2 class="bg-title" style="font-family: var(--font-sans); font-weight: 800; font-size: 52px; color: #1a1a1a;">Boutique Collection</h2>
+        <div class="bg-line" style="width: 60px; height: 3px; background: #ff9d00; margin: 30px auto;"></div>
+      </div>
+
+      <div class="bg-grid-container" id="boutique-collection-grid">
+        <!-- Dynamic items will be injected here with staggered layout -->
+      </div>
+      
+      <div style="text-align: center; margin-top: 80px;">
+        <a href="shop.html" class="bg-view-all">EXPLORE FULL CURATION</a>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 11: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
     <section class="feedback-section">
       <div class="fb-inner-header fp-header">
         <span class="fp-script">Local Reviews</span>
@@ -988,6 +1005,42 @@
       `).join('');
     }
 
+    /* ── BOUTIQUE GALLERY LOGIC ── */
+    function renderBoutiqueGallery() {
+      const grid = document.getElementById('boutique-collection-grid');
+      if (!grid || !productsData.length) return;
+      
+      // Select 6 premium items
+      const selected = productsData.filter(p => p.price > 4000).slice(0, 6);
+      
+      grid.innerHTML = selected.map((p, idx) => `
+        <div class="bg-item bg-stagger-${idx % 3}" style="transition-delay: ${idx * 0.1}s">
+           <div class="bg-img-wrap" onclick="location.href='product.html?id=${p.id || p._id}'">
+              <img src="${p.img || p.images[0]}" alt="${p.name}">
+              <div class="bg-overlay">
+                <button class="bg-quick-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')">
+                  ADD TO BAG
+                </button>
+              </div>
+           </div>
+           <div class="bg-info">
+             <span class="bg-brand">${p.brand || 'PREMIUM'}</span>
+             <h4 class="bg-name">${p.name}</h4>
+             <div class="bg-price">Rs. ${p.price.toLocaleString()}</div>
+           </div>
+        </div>
+      `).join('');
+      
+      // Observer for animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('bg-visible');
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.bg-item').forEach(el => observer.observe(el));
+    }
+
     async function fetchProducts() {
       try {
         const res = await fetch(`${BASE_URL}/products`);
@@ -997,16 +1050,17 @@
         
         renderRoundCategories();
         renderFeaturedProducts();
-        initShadeFinder(); // Initialize after data load
+        initShadeFinder();
+        renderBoutiqueGallery(); // Initialize the new premium gallery
       } catch (err) {
         console.error("Error fetching products:", err);
-        // Fallback
         if (typeof defaultProducts !== 'undefined') {
           productsData = defaultProducts;
           window.productsData = defaultProducts;
           renderRoundCategories();
           renderFeaturedProducts();
           initShadeFinder();
+          renderBoutiqueGallery();
         }
       }
     }
