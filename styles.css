@@ -980,7 +980,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fp-discount-bar {
   margin-top: 15px;
   width: 100%;
-  background: #fff; /* High contrast bar */
+  background: transparent; /* Cleared background */
   border: 1px solid rgba(198,151,90,0.15); /* Soft gold border */
   padding: 10px;
   font-size: 10px;
