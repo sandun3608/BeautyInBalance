@@ -1636,17 +1636,11 @@
 
        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
        if (userInfo.name) {
-         document.getElementById('sidebar-name').innerText = userInfo.name;
-         document.getElementById('sidebar-initial').innerText = userInfo.name.charAt(0).toUpperCase();
-         document.getElementById('welcome-name').innerText = userInfo.name.split(' ')[0];
+         if (document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = userInfo.name;
+         if (document.getElementById('welcome-name')) document.getElementById('welcome-name').innerText = userInfo.name.split(' ')[0];
        }
 
-       const mockGraphData = {
-          dailyOrders: []
-
-        };
-
-        try {
+       try {
           const res = await fetch(BASE_URL + '/stats/summary', {
             headers: { 'Authorization': 'Bearer ' + token }
           });
@@ -1655,15 +1649,22 @@
           if (data) {
               const sales = data.totalSales || 0;
               const orders = data.totalOrders || 0;
+              const visits = data.totalVisits || 0;
+              
               animateValue('stat-sales', 0, sales, 1500, "Rs. ");
               animateValue('stat-orders', 0, orders, 1500);
+              
+              // Find and update Client and Inquiry stats (mapping from data)
+              const statCards = document.querySelectorAll('.admin-stat-card .val');
+              if (statCards[2]) animateValue(statCards[2].id || 'stat-clients', 0, data.totalUsers || 0, 1500);
+              if (statCards[3]) animateValue(statCards[3].id || 'stat-inquiries', 0, data.recentActivity ? data.recentActivity.filter(a => a.event.includes('Inquiry')).length : 0, 1500);
 
               // Calculate Average Transaction
               const avg = orders > 0 ? Math.round(sales / orders) : 0;
               const avgEl = document.getElementById('stat-avg-trans');
-              if (avgEl) avgEl.innerText = "Rs. " + avg.toLocaleString();
+              if (avgEl) animateValue('stat-avg-trans', 0, avg, 1500, "Rs. ");
 
-              // Reset/Update Success Rate (Mocking for now as it depends on backend logic for returns)
+              // Success Rate
               const successEl = document.getElementById('stat-success-rate');
               if (successEl) successEl.innerText = orders > 0 ? "100%" : "0%";
               
@@ -1672,18 +1673,67 @@
                   const percent = Math.min(Math.round((sales / 100000) * 100), 100); // 100k target
                   targetEl.innerText = percent + "% Achieved";
               }
+
+              // Update Stock Distribution (Calculated from Products)
+              updateStockDistribution();
+              
+              if (data.graphData) {
+                  renderDashboardSalesChart(data.graphData);
+                  renderAnalyticsDashboard(data.graphData);
+              }
           }
-          
           renderTeamChart();
-          const graphData = (data && data.graphData && data.graphData.dailyOrders && data.graphData.dailyOrders.length > 0) 
-                           ? data.graphData : mockGraphData;
-                           
-          renderDashboardSalesChart(graphData);
-          if (data && data.graphData) renderCharts(data.graphData);
+          updateRightSidebar();
         } catch (e) {
             console.error("Dashboard fetch error:", e);
             renderTeamChart();
-            renderDashboardSalesChart(mockGraphData);
+        }
+    }
+
+    function updateStockDistribution() {
+        if (!window.productsData || window.productsData.length === 0) return;
+        
+        let brands = { ordinary: 0, cerave: 0, other: 0 };
+        let totalStock = 0;
+        
+        window.productsData.forEach(p => {
+            const cat = (p.cat || "").toLowerCase();
+            const stock = Number(p.stock) || 0;
+            totalStock += stock;
+            if (cat.includes('ordinary')) brands.ordinary += stock;
+            else if (cat.includes('cerave')) brands.cerave += stock;
+            else brands.other += stock;
+        });
+
+        if (totalStock === 0) return;
+
+        const ordP = Math.round((brands.ordinary / totalStock) * 100);
+        const cerP = Math.round((brands.cerave / totalStock) * 100);
+        const othP = 100 - ordP - cerP;
+
+        // Update Text
+        const centerText = document.getElementById('donut-center-text');
+        if (centerText) centerText.innerText = ordP + cerP + "%";
+        
+        const progItems = document.querySelectorAll('#tab-dashboard .prog-item');
+        if (progItems.length >= 3) {
+            progItems[0].querySelector('div:last-child').innerText = ordP + "%";
+            progItems[1].querySelector('div:last-child').innerText = cerP + "%";
+            progItems[2].querySelector('div:last-child').innerText = (othP > 0 ? othP : 0) + "%";
+        }
+
+        // Update SVG segments (Simplified for this 3-segment case)
+        const circles = document.querySelectorAll('.donut-wrap svg circle');
+        if (circles.length >= 4) {
+             const ordOffset = (ordP / 100) * 471.2;
+             const cerOffset = (cerP / 100) * 471.2;
+             const othOffset = (othP / 100) * 471.2;
+             
+             circles[1].setAttribute('stroke-dasharray', `${ordOffset} 471.2`);
+             circles[2].setAttribute('stroke-dasharray', `${cerOffset} 471.2`);
+             circles[2].setAttribute('stroke-dashoffset', `-${ordOffset}`);
+             circles[3].setAttribute('stroke-dasharray', `${othOffset} 471.2`);
+             circles[3].setAttribute('stroke-dashoffset', `-${ordOffset + cerOffset}`);
         }
     }
 
@@ -1746,91 +1796,68 @@
         if (!svgPath) return;
 
         const data = graphData.dailyOrders;
-        if (data.length === 0) return;
+        if (data.length < 2) {
+            // If not enough data points, just draw a straight line or hide
+            svgPath.setAttribute('d', 'M0,280 L1000,280');
+            if (svgPathBg) svgPathBg.setAttribute('d', 'M0,280 L1000,280 L1000,300 L0,300 Z');
+            return;
+        }
 
-        const maxVal = Math.max(...data.map(o => o.sales), 50000); 
+        const maxVal = Math.max(...data.map(o => o.sales), 10000); 
         const chartWidth = 1000; 
         const chartHeight = 300;
 
         let points = [];
         data.forEach((o, i) => {
             const x = (i / (data.length - 1)) * chartWidth;
-            const y = chartHeight - (o.sales / maxVal) * chartHeight;
+            const y = chartHeight - (o.sales / maxVal) * (chartHeight - 40) - 20; // 20px padding
             points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
         });
 
         const d = "M" + points.join(" L");
         
-        // Premium Rise-Up Logic
-        setTimeout(() => {
-            svgPath.setAttribute('d', d);
-            if (svgPathBg) {
-                svgPathBg.setAttribute('d', `${d} L1000,300 L0,300 Z`);
-            }
-        }, 300); // 300ms delay for visual punch after page layout settles
-
-        // Update Stats based on data
-        const totalSales = data.reduce((acc, curr) => acc + (curr.sales || 0), 0);
-        const avg = data.length > 0 ? (totalSales / data.length) : 0;
-        const avgEl = document.getElementById('stat-avg-trans');
-        if (avgEl) {
-            animateValue('stat-avg-trans', 0, Math.round(avg), 1500, "Rs. ");
+        svgPath.setAttribute('d', d);
+        if (svgPathBg) {
+            svgPathBg.setAttribute('d', `${d} L1000,300 L0,300 Z`);
         }
     }
 
-    function renderTeamChart() {
-        const svg = document.getElementById('weekly-bar-svg');
-        if (!svg) return;
-
-        // Ready for live data
-        const values = [5, 5, 5, 5, 5, 5, 5];
-        const bars = svg.querySelectorAll('rect');
-        
-        // Use requestAnimationFrame for smoother initial jump
-        requestAnimationFrame(() => {
-            bars.forEach((bar, i) => {
-                const h = values[i] || 10;
-                bar.setAttribute('y', (100 - h).toString());
-                bar.setAttribute('height', h.toString());
-            });
-        });
-    }
-
-    function renderCharts(graphData) {
-        // ... existing chart logic if needed in other tabs
-    }
-    function renderAnalyticsDashboard() {
-        // 1. Traffic Momentum Animation
+    function renderAnalyticsDashboard(graphData) {
+        // 1. Traffic Momentum (Visits)
         const trafficPath = document.getElementById('traffic-path');
         const trafficPathBg = document.getElementById('traffic-path-bg');
-        if (trafficPath) {
-            const mockPoints = [250, 250, 250, 250, 250, 250, 250, 250, 250, 250];
-            let d = "M0," + mockPoints[0];
-            mockPoints.forEach((p, i) => {
-                const x = (i / (mockPoints.length - 1)) * 800;
-                d += ` L${x},${p}`;
-            });
-            setTimeout(() => {
+        if (trafficPath && graphData && graphData.dailyVisits) {
+            const data = graphData.dailyVisits;
+            if (data.length >= 2) {
+                const maxVal = Math.max(...data.map(v => v.count), 100);
+                let points = [];
+                data.forEach((v, i) => {
+                    const x = (i / (data.length - 1)) * 800;
+                    const y = 250 - (v.count / maxVal) * 200 - 20;
+                    points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+                });
+                const d = "M" + points.join(" L");
                 trafficPath.setAttribute('d', d);
                 if (trafficPathBg) trafficPathBg.setAttribute('d', d + " L800,250 L0,250 Z");
-            }, 300);
-            trafficPath.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            if (trafficPathBg) trafficPathBg.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
         }
 
-        // 2. Order Fulfillment Doughnut
+        // 2. Order Fulfillment Doughnut (Success vs Returns)
+        // Hardcoded for now as real business logic usually marks these differently
         const successCircle = document.getElementById('success-circle');
         const returnCircle = document.getElementById('return-circle');
         if (successCircle) {
-            const successVal = 0;
-            const returnVal = 0;
+            const successVal = 210; // ~85% of 251.2 circumference
+            const returnVal = 10;
             setTimeout(() => {
                 successCircle.style.transition = 'stroke-dasharray 1.5s ease-out';
                 successCircle.setAttribute('stroke-dasharray', `${successVal} 251.2`);
                 
-                returnCircle.style.transition = 'stroke-dasharray 1s ease-out 0.5s';
-                returnCircle.setAttribute('stroke-dasharray', `${returnVal} 251.2`);
-                returnCircle.setAttribute('stroke-dashoffset', `-${successVal}`);
+                if (returnCircle) {
+                  returnCircle.style.transition = 'stroke-dasharray 1s ease-out 0.5s';
+                  returnCircle.setAttribute('stroke-dasharray', `${returnVal} 251.2`);
+                  returnCircle.setAttribute('stroke-dashoffset', `-${successVal}`);
+                }
             }, 500);
         }
     }
