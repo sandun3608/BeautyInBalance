@@ -1963,12 +1963,20 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* Products Grid Below */
 .ps-products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 70px auto 0;
-  padding: 0 24px; /* Essential gutters to prevent edge clipping */
+  padding: 0 24px;
   box-sizing: border-box;
+  justify-content: center;
+}
+
+/* Reset carousel-specific widths when items are in this grid */
+.ps-products-grid .fp-item {
+  min-width: auto;
+  flex: 1;
+  width: 100%;
 }
 
 @media (max-width: 1024px) {
