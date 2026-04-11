@@ -1010,8 +1010,8 @@
       const grid = document.getElementById('boutique-collection-grid');
       if (!grid || !productsData.length) return;
       
-      // Select 6 premium items
-      const selected = productsData.filter(p => p.price > 4000).slice(0, 6);
+      // Select 12 premium items
+      const selected = productsData.filter(p => p.price > 4000).slice(0, 12);
       
       grid.innerHTML = selected.map((p, idx) => `
         <div class="bg-item bg-stagger-${idx % 3}" style="transition-delay: ${idx * 0.1}s">
@@ -1155,6 +1155,15 @@
       cursor: pointer;
       padding: 5px 0;
       transition: all 0.2s ease;
+    }
+    .bg-img-wrap { 
+      position: relative; 
+      width: 100%; 
+      aspect-ratio: 1; 
+      background: #fff; 
+      border-radius: 20px; 
+      overflow: hidden; 
+      cursor: pointer; 
     }
     .mbn-item svg { width: 19px; height: 19px; }
     .mbn-item span { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
