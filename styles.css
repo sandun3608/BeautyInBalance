@@ -2950,3 +2950,24 @@ $css
  } 
   
  
+ / *   - - -   S T Y L I Z E D   B R A N D   L O G O S   - - -   * / 
+ . b r a n d - i t e m   i m g   { 
+     h e i g h t :   4 0 p x ; 
+     w i d t h :   a u t o ; 
+     o p a c i t y :   0 . 5 ; 
+     f i l t e r :   g r a y s c a l e ( 1 0 0 % ) ; 
+     t r a n s i t i o n :   a l l   0 . 4 s   e a s e ; 
+ } 
+ . b r a n d - i t e m : h o v e r   i m g   { 
+     o p a c i t y :   1 ; 
+     f i l t e r :   g r a y s c a l e ( 0 % ) ; 
+     t r a n s f o r m :   s c a l e ( 1 . 1 ) ; 
+ } 
+ . l u x e - t e x t   { 
+     f o n t - f a m i l y :   ' P l a y f a i r   D i s p l a y ' ,   s e r i f ; 
+     f o n t - w e i g h t :   7 0 0 ; 
+     f o n t - s i z e :   2 4 p x ; 
+     l e t t e r - s p a c i n g :   1 p x ; 
+ } 
+  
+ 
