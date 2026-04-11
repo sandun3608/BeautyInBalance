@@ -912,20 +912,21 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, 0%);
-  background: var(--gold); /* Website primary brand color */
+  background: var(--gold);
   color: #fff;
-  padding: 10px 24px;
-  border-radius: 50px;
-  font-size: 10px;
+  padding: 14px 32px; /* Substantial premium padding */
+  border-radius: 4px;  /* Sharp, modern rounded corners like tags */
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   opacity: 0;
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   white-space: nowrap;
   z-index: 15;
-  box-shadow: 0 8px 20px rgba(198,151,90,0.3);
+  box-shadow: 0 10px 25px rgba(198,151,90,0.25);
+  border: none;
 }
 .fp-item:hover .fp-view-btn {
   opacity: 1;
