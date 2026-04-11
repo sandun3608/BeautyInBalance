@@ -1967,6 +1967,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   gap: 30px;
   max-width: 1200px;
   margin: 70px auto 0;
+  padding: 0 24px; /* Essential gutters to prevent edge clipping */
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
