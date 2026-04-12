@@ -1365,7 +1365,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     object-fit: cover; 
     display: block;
   }
-  .hero-section, .m-cat-section { display: none !important; }
+  .m-cat-section { display: none !important; }
+  .mobile-top-promo { display: none !important; }
   .site-header { 
     background: #ffffff !important; 
     box-shadow: 0 2px 15px rgba(0,0,0,0.08) !important;
@@ -1428,7 +1429,17 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .hero-title { font-size: 32px; margin-bottom: 20px; }
   .hero-desc { font-size: 14px; margin-bottom: 30px; }
   .hero-pills { justify-content: center; }
-  .hero-section { height: 80vh; }
+  .hero-section { 
+    display: block !important;
+    height: 85vh !important; 
+  }
+  .hero-slide {
+    height: 85vh !important;
+  }
+  .hero-bg img {
+    object-fit: cover !important;
+    height: 100% !important;
+  }
   .btn-hero { padding: 12px 30px; font-size: 11px; }
   .cart-drawer { width: 100%; }
   
