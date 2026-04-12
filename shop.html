@@ -219,8 +219,13 @@
       const filtered = data.filter(p => {
         const pFilter = (p.filter || '').toLowerCase();
         const pCat = (p.cat || '').toLowerCase();
+        const pName = (p.name || '').toLowerCase();
+        const searchQuery = new URLSearchParams(window.location.search).get('q') || '';
         
         const catMatch = currentCat === 'all' || pCat === currentCat;
+        const searchMatch = !searchQuery || pName.includes(searchQuery.toLowerCase());
+        
+        if (!searchMatch) return false;
         if (currentFilter === 'all') return catMatch;
 
         // Smart Grouping Logic
