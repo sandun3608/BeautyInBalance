@@ -552,23 +552,23 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* â”€â”€ EXCLUSIVE COLLECTION â”€â”€ */
 .exclusive-section {
-  padding: 60px 48px 80px 48px;
+  padding: 100px 48px 80px 48px;
   background: var(--beige-light);
 }
 .excl-heading {
   text-align: center; 
-  margin-bottom: 80px; 
+  margin-bottom: 90px; 
   position: relative;
 }
 .excl-script {
   font-family: var(--font-serif);
-  font-size: clamp(100px, 15vw, 220px);
+  font-size: clamp(120px, 20vw, 280px);
   font-style: italic;
   color: rgba(45,27,18,0.04); 
   display: block;
   line-height: 1;
   position: absolute;
-  top: -60px;
+  top: -85px;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -577,12 +577,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .excl-title {
   font-family: var(--font-serif); 
-  font-size: clamp(32px, 5vw, 56px); 
+  font-size: clamp(32px, 5vw, 60px); 
   color: #1a1a1a; 
   position: relative; 
   z-index: 2; 
   font-weight: 500;
-  padding-top: 45px;
+  padding-top: 65px;
   letter-spacing: -0.02em;
 }
 .excl-grid {
