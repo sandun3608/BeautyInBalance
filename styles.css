@@ -561,25 +561,27 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   position: relative;
 }
 .excl-script {
-  font-family: 'Great Vibes', cursive; 
-  font-size: clamp(100px, 12vw, 180px); 
-  color: #eee; 
-  position: absolute; 
-  top: -55px; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  z-index: 1; 
-  opacity: 0.6;
+  font-family: var(--font-serif);
+  font-size: clamp(50px, 8vw, 120px);
+  font-style: italic;
+  color: #f5eeea; 
+  display: block;
+  line-height: 1;
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
   white-space: nowrap;
+  z-index: 1;
 }
 .excl-title {
   font-family: var(--font-serif); 
-  font-size: clamp(32px, 4.5vw, 52px); 
-  color: #1a1a1a; 
+  font-size: clamp(32px, 4vw, 52px); 
+  color: #000000; 
   position: relative; 
   z-index: 2; 
-  font-weight: 400;
-  padding-top: 25px;
+  font-weight: 500;
+  padding-top: 35px;
   letter-spacing: -0.01em;
 }
 .excl-grid {
@@ -3570,25 +3572,27 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .featured-gallery { padding: 120px 40px; background: #fff; text-align: center; }
 .fg-header { margin-bottom: 80px; position: relative; }
 .fg-subtitle { 
-  font-family: 'Great Vibes', cursive; 
-  font-size: clamp(100px, 12vw, 180px); 
-  color: #eee; 
-  position: absolute; 
-  top: -55px; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  z-index: 1; 
-  opacity: 0.6;
+  font-family: var(--font-serif);
+  font-size: clamp(50px, 8vw, 120px);
+  font-style: italic;
+  color: #f5eeea; 
+  display: block;
+  line-height: 1;
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
   white-space: nowrap;
+  z-index: 1;
 }
 .fg-title { 
   font-family: var(--font-serif); 
-  font-size: clamp(32px, 4.5vw, 52px); 
-  color: #1a1a1a; 
+  font-size: clamp(32px, 4vw, 52px); 
+  color: #000000; 
   position: relative; 
   z-index: 2; 
-  font-weight: 400;
-  padding-top: 25px;
+  font-weight: 500;
+  padding-top: 35px;
   letter-spacing: -0.01em;
 }
 .fg-grid { 
