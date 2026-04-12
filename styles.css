@@ -562,10 +562,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .excl-script {
   font-family: 'Great Vibes', cursive; 
-  font-size: clamp(80px, 10vw, 150px); 
+  font-size: clamp(110px, 15vw, 220px); 
   color: #eee; 
   position: absolute; 
-  top: -45px; 
+  top: -75px; 
   left: 50%; 
   transform: translateX(-50%); 
   z-index: 1; 
@@ -579,7 +579,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   position: relative; 
   z-index: 2; 
   font-weight: 400;
-  padding-top: 10px;
+  padding-top: 35px;
 }
 .excl-grid {
   display: grid; grid-template-columns: 1fr 1fr;
