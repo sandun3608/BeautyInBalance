@@ -1338,6 +1338,32 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 @media (max-width: 900px) {
   :root { --nav-h: 60px; }
+  .mobile-top-promo { margin: 10px 0 20px 0; overflow: hidden; }
+  .mtp-track { 
+    display: flex; 
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    scroll-behavior: smooth; 
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .mtp-track::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  .mtp-slide { 
+    min-width: 90%; 
+    margin-right: 12px; 
+    scroll-snap-align: center; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .mtp-slide:first-child { margin-left: 24px; }
+  .mtp-slide img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+  }
   .hero-section, .m-cat-section { display: none !important; }
   .site-header { 
     background: #ffffff !important; 
