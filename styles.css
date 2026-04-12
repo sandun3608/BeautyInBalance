@@ -562,24 +562,25 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .excl-script {
   font-family: 'Great Vibes', cursive; 
-  font-size: clamp(110px, 15vw, 220px); 
+  font-size: clamp(100px, 12vw, 180px); 
   color: #eee; 
   position: absolute; 
-  top: -75px; 
+  top: -55px; 
   left: 50%; 
   transform: translateX(-50%); 
   z-index: 1; 
-  opacity: 0.7;
+  opacity: 0.6;
   white-space: nowrap;
 }
 .excl-title {
   font-family: var(--font-serif); 
-  font-size: clamp(32px, 4vw, 52px); 
-  color: var(--brown); 
+  font-size: clamp(32px, 4.5vw, 52px); 
+  color: #1a1a1a; 
   position: relative; 
   z-index: 2; 
   font-weight: 400;
-  padding-top: 35px;
+  padding-top: 25px;
+  letter-spacing: -0.01em;
 }
 .excl-grid {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -3570,22 +3571,25 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fg-header { margin-bottom: 80px; position: relative; }
 .fg-subtitle { 
   font-family: 'Great Vibes', cursive; 
-  font-size: 80px; 
+  font-size: clamp(100px, 12vw, 180px); 
   color: #eee; 
   position: absolute; 
-  top: -40px; 
+  top: -55px; 
   left: 50%; 
   transform: translateX(-50%); 
   z-index: 1; 
   opacity: 0.6;
+  white-space: nowrap;
 }
 .fg-title { 
   font-family: var(--font-serif); 
-  font-size: 52px; 
+  font-size: clamp(32px, 4.5vw, 52px); 
   color: #1a1a1a; 
   position: relative; 
   z-index: 2; 
   font-weight: 400;
+  padding-top: 25px;
+  letter-spacing: -0.01em;
 }
 .fg-grid { 
   max-width: 1400px; 
