@@ -1405,8 +1405,8 @@
 
       header.classList.toggle('scrolled', scrolled > 50);
 
-      // Hide header when near the footer (bottom nav area)
-      if (scrolled + winH > docH - 400) {
+      // Hide header ONLY at the absolute bottom (footer area)
+      if (scrolled + winH > docH - 60) {
         header.classList.add('hide-near-bottom');
       } else {
         header.classList.remove('hide-near-bottom');
