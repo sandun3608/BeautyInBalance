@@ -1485,7 +1485,7 @@
       if (!track || !productsData.length) return;
       
       const shuffled = [...productsData].sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 8);
+      const selected = shuffled.slice(0, 4);
       
       track.innerHTML = selected.map(p => `
         <div class="fp-item">
@@ -1506,7 +1506,7 @@
           </button>
           <div class="fp-details" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
             <div class="fp-tag-row">
-              <span class="fp-tag" style="border-color: #000; color: #000;">Curated For You</span>
+              <span class="fp-tag" style="border-color: #000; color: #000;">Latest</span>
               <span class="fp-tag">${p.category || 'Luxury'}</span>
             </div>
             <span class="fp-name">${p.name}</span>
