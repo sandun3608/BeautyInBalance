@@ -557,11 +557,23 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .excl-heading {
   text-align: center; 
-  margin-bottom: 60px; 
+  margin-bottom: 90px; 
   position: relative;
 }
 .excl-script {
-  display: none;
+  font-family: var(--font-serif);
+  font-size: clamp(100px, 15vw, 220px);
+  font-style: italic;
+  color: rgba(45,27,18,0.03); 
+  display: block;
+  line-height: 1;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1;
+  letter-spacing: -0.02em;
 }
 .excl-title {
   font-family: var(--font-serif); 
@@ -570,7 +582,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   position: relative; 
   z-index: 2; 
   font-weight: 500;
-  padding-top: 0;
+  padding-top: 45px;
   letter-spacing: -0.02em;
 }
 .excl-grid {
@@ -2895,9 +2907,9 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   /* Section Spacing */
   section:not(.hero-section) { padding-left: 20px !important; padding-right: 20px !important; }
-  .excl-heading { text-align: center; margin-bottom: 30px; }
-  .excl-script { font-family: var(--font-serif); font-size: 14px; color: var(--gold); display: block; margin-bottom: 5px; }
-  .excl-title { font-family: var(--font-serif); font-size: 24px; color: var(--brown); margin: 0; }
+  .section-heading { text-align: center; margin-bottom: 30px; }
+  .section-script { font-family: var(--font-serif); font-size: 14px; color: var(--gold); display: block; margin-bottom: 5px; }
+  .section-title { font-family: var(--font-serif); font-size: 24px; color: var(--brown); margin: 0; }
   .latest-section, .exclusive-section, .shade-section, .feedback-section, .hp-products-section {
     padding-top: 50px; padding-bottom: 50px;
   }
@@ -3568,7 +3580,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   font-family: var(--font-serif);
   font-size: clamp(100px, 15vw, 220px);
   font-style: italic;
-  color: rgba(45,27,18,0.04); 
+  color: rgba(45,27,18,0.03); 
   display: block;
   line-height: 1;
   position: absolute;
