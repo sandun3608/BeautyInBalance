@@ -1398,7 +1398,19 @@
     }
 
     window.addEventListener('scroll', () => {
-      $('site-header').classList.toggle('scrolled', window.scrollY > 50);
+      const header = $('site-header');
+      const winH = window.innerHeight;
+      const docH = document.documentElement.scrollHeight;
+      const scrolled = window.scrollY;
+
+      header.classList.toggle('scrolled', scrolled > 50);
+
+      // Hide header when near the footer (bottom nav area)
+      if (scrolled + winH > docH - 400) {
+        header.classList.add('hide-near-bottom');
+      } else {
+        header.classList.remove('hide-near-bottom');
+      }
     });
 
     let productsData = [];
