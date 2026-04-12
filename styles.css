@@ -1441,16 +1441,31 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .hero-slide .hero-content {
     display: none !important; /* Remove text and buttons as requested */
   }
+  .hero-arr {
+    display: none !important; /* Remove arrows as requested */
+  }
   .hero-bg img {
     object-fit: contain !important; /* Show full image without cropping */
     height: 100% !important;
     width: 100% !important;
     filter: none !important; /* Original brightness */
   }
-  .hero-arr {
-    top: 50% !important;
-    transform: translateY(-50%) !important;
+  
+  .nav-icons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
+  
+  .ic-btn {
+    color: #2d1b12 !important; /* Force icons to be visible against white bg */
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
   .cart-drawer { width: 100%; }
   
   .round-img { width: 78px; height: 78px; }
