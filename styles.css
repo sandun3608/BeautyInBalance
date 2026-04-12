@@ -1338,6 +1338,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 @media (max-width: 900px) {
   :root { --nav-h: 60px; }
+  .hero-section, .m-cat-section { display: none !important; }
   .site-header { 
     background: #ffffff !important; 
     box-shadow: 0 2px 15px rgba(0,0,0,0.08) !important;
