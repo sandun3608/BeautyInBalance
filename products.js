@@ -132,7 +132,7 @@ const defaultProducts = [
   { 
     id: 'ord-ascorbic-arbutin-30',
     name: 'Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)', price: 5200, cat: 'ordinary', filter: 'glow', 
-    images: ['the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png'], img: 'the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png',
+    images: ['the ordinary/Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)  Rs.5200.png'], img: 'the ordinary/Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)  Rs.5200.png',
     desc: 'A water-free, stable formulation combining two of the most powerful brightening agents in skincare: pure Vitamin C (Ascorbic Acid) and Alpha Arbutin. This dual-action powerhouse visibly brightens the skin tone, fades dark spots and post-blemish marks, and provides intense antioxidant protection against environmental stressors, resulting in a flawless glow.',
     benefits: ['Brightens Complexion', 'Fades Dark Spots', 'Antioxidant Support'],
     howToUse: 'Apply a few drops to face in the AM and PM as part of your skincare regimen. Avoid use around eyes.',
@@ -179,7 +179,7 @@ const defaultProducts = [
   { 
     id: 'ord-multi-peptide-copper-30',
     name: 'Multi-Peptide + Copper Peptides 1% (30ml)', price: 7800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png'], img: 'the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png',
+    images: ['the ordinary/Multi-Peptide + Copper Peptides 1% Serum (30ml)  Rs.7800.png'], img: 'the ordinary/Multi-Peptide + Copper Peptides 1% Serum (30ml)  Rs.7800.png',
     desc: 'A universal "buffet" serum built to simultaneously address maximum signs of aging. It incorporates a sophisticated array of peptide complexes alongside direct Copper Peptides (1%), all dissolved in a base of 11 skin-friendly amino acids and multiple hyaluronic acid complexes. It intensely boosts collagen, repairs skin damage, and significantly improves facial firmness.',
     benefits: ['Reduces fine lines', 'Promotes facial firmness', 'Supports overall skin health'],
     howToUse: 'Apply to the entire face in the AM and PM after cleaning.',
