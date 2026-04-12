@@ -562,13 +562,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .excl-script {
   font-family: var(--font-serif);
-  font-size: clamp(80px, 12vw, 160px);
+  font-size: clamp(100px, 15vw, 220px);
   font-style: italic;
-  color: rgba(45,27,18,0.03); 
+  color: rgba(45,27,18,0.04); 
   display: block;
   line-height: 1;
   position: absolute;
-  top: -15px;
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -576,12 +576,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 .excl-title {
   font-family: var(--font-serif); 
-  font-size: clamp(32px, 5vw, 54px); 
+  font-size: clamp(32px, 5vw, 56px); 
   color: #1a1a1a; 
   position: relative; 
   z-index: 2; 
   font-weight: 500;
-  padding-top: 35px;
+  padding-top: 45px;
   letter-spacing: -0.01em;
 }
 .excl-grid {
@@ -3588,7 +3588,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   transform: translateX(-50%);
   white-space: nowrap;
   z-index: 1;
-  letter-spacing: -0.02em;
 }
 .fg-title { 
   font-family: var(--font-serif); 
@@ -3598,7 +3597,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   z-index: 2; 
   font-weight: 500;
   padding-top: 45px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 .fg-grid { 
   max-width: 1400px; 
