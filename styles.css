@@ -1338,7 +1338,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 @media (max-width: 900px) {
   :root { --nav-h: 60px; }
-  .mobile-top-promo { margin: 10px 0 20px 0; overflow: hidden; }
+  .mobile-top-promo { margin: 0; overflow: hidden; }
   .mtp-track { 
     display: flex; 
     overflow-x: auto; 
@@ -1349,18 +1349,19 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
   .mtp-track::-webkit-scrollbar { display: none; } /* Chrome/Safari */
   .mtp-slide { 
-    min-width: 90%; 
-    margin-right: 12px; 
+    min-width: 100%; 
+    margin-right: 0; 
     scroll-snap-align: center; 
-    border-radius: 12px; 
+    border-radius: 0; 
     overflow: hidden; 
-    aspect-ratio: 16 / 9;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    aspect-ratio: auto;
+    box-shadow: none;
   }
-  .mtp-slide:first-child { margin-left: 24px; }
+  .mtp-slide:first-child { margin-left: 0; }
   .mtp-slide img { 
     width: 100%; 
-    height: 100%; 
+    height: auto; 
+    max-height: 70vh;
     object-fit: cover; 
     display: block;
   }
