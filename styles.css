@@ -4103,3 +4103,108 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .floating-email, .floating-wa { 
   display: none !important; 
 }
+
+/* ===== UNIVERSAL PREMIUM BOTTOM NAV (EBONY EDITION) ===== */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0px; 
+  left: 0px;
+  right: 0px;
+  height: 80px;
+  background: rgba(26, 15, 12, 0.95); /* Deep Ebony Glass */
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Streamlined 4 items */
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -15px 40px rgba(0,0,0,0.3);
+  z-index: 5000;
+  padding: 0 15px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 769px) {
+  .mobile-bottom-nav {
+    max-width: 520px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 25px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    height: 75px;
+    padding: 0 30px;
+  }
+}
+
+.mbn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #fff;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.mbn-item svg { 
+  width: 20px; 
+  height: 20px; 
+  stroke-width: 2;
+}
+
+.mbn-item span:not(.mbn-badge) {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.mbn-item.active {
+  color: var(--gold);
+}
+
+/* Luxury Center Hub */
+.mbn-main {
+  position: relative;
+  top: -18px;
+}
+
+.mbn-main-inner {
+  width: 62px;
+  height: 62px;
+  background: linear-gradient(145deg, #e6b980 0%, #ad8a56 100%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(184, 134, 11, 0.4);
+  border: 4px solid #1a0f0c;
+  transition: 0.3s;
+}
+
+.mbn-badge {
+  position: absolute;
+  top: -2px;
+  right: 50%;
+  transform: translateX(18px);
+  background: #ff3b30;
+  color: #fff;
+  font-size: 9px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 3px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border: 2.5px solid #1c100a;
+}
