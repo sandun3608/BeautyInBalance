@@ -1665,6 +1665,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     text-align: center; position: relative;
 }
 .hp-prod-card:hover { transform: translateY(-5px); }
+
 .hp-prod-img { 
     background: var(--beige-light); border-radius: 6px; aspect-ratio: 1; 
     display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
@@ -4096,4 +4097,9 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     padding: 5px 15px;
     font-size: 8px;
   }
+}
+
+/* ===== CLEANUP: HIDE REDUNDANT FLOATING ICONS ===== */
+.floating-email, .floating-wa { 
+  display: none !important; 
 }
