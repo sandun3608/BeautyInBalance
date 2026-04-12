@@ -944,7 +944,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 .fp-item {
   flex: 0 0 calc(25% - 24px); 
-  min-width: 340px;
+  min-width: 280px;
   background: transparent; 
   padding: 0;
   position: relative;
@@ -964,9 +964,9 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px 20px;
+  padding: 30px 15px 15px;
   position: relative;
-  border-radius: 30px; /* Separate rounding */
+  border-radius: 20px; /* Separate rounding */
   margin-bottom: 12px; /* PHYSICAL GAP seen in screenshot */
   overflow: hidden;
 }
