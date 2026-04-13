@@ -28,7 +28,7 @@
 }
 
 html, body { scroll-behavior: smooth; overflow-x: clip; width: 100%; max-width: 100%; margin: 0; padding: 0; }
-.mobile-only, .m-social-icon, .m-user-icon { display: none; }
+.mobile-only, .m-social-icon, .m-user-icon { display: none !important; }
 .desktop-only { display: block; }
 @media (max-width: 768px) {
   .mobile-only, .m-social-icon, .m-user-icon { display: block !important; }
