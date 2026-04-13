@@ -3020,14 +3020,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   /* Round Category List Fix â€” Hidden on Mobile as requested */
   .round-list-section { display: none !important; }
 
-  /* â”€â”€ 5. Exclusive Collection â€” Premium Mosaic Mobile â”€â”€ */
+  /* ── 5. Exclusive Collection — Premium Mobile ── */
   .exclusive-section { padding: 40px 14px !important; }
+  .excl-heading { text-align: center !important; margin-bottom: 25px !important; }
+  .excl-script { font-size: 16px !important; color: var(--gold) !important; }
+  .excl-title { font-size: 26px !important; line-height: 1.2 !important; }
+  
   .excl-dynamic-grid {
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important; /* 2 columns */
-    grid-template-rows: auto !important; /* Dynamic height */
+    grid-template-columns: 1fr 1fr !important;
     gap: 12px !important;
-    height: auto !important;
     padding: 0 !important;
   }
   .edc-card {
@@ -3035,72 +3037,83 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     border-radius: 12px !important;
     overflow: hidden !important;
     display: block !important;
-    margin: 0 !important;
-    width: 100% !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
   }
 
-  /* Item 1: Large Featured (Left Side) */
+  /* Grid Mosaic Layout */
   .edc-tall-left {
-    grid-column: 1 / 2 !important; /* First column */
-    grid-row: 1 / 3 !important;    /* Spans 2 rows down */
-    height: 360px !important;       /* Tall height */
+    grid-column: 1 / -1 !important; /* Full width hero */
+    height: 280px !important;
     order: 1 !important;
   }
-
-  /* Item 2 & 3: Stacked on Right Side */
   .edc-wide-top {
-    grid-column: 2 / 3 !important;
-    grid-row: 1 / 2 !important;
-    height: 174px !important;
+    grid-column: 1 / 2 !important; /* Left half */
+    height: 200px !important;
     order: 2 !important;
   }
   .edc-small:nth-of-type(3) {
-    grid-column: 2 / 3 !important;
-    grid-row: 2 / 3 !important;
-    height: 174px !important;
+    grid-column: 2 / 3 !important; /* Right half */
+    height: 200px !important;
     order: 3 !important;
   }
-
-  /* Item 4 & 5: Bottom Items */
   .edc-small:nth-of-type(4) {
-    grid-column: 1 / -1 !important;
+    grid-column: 1 / 2 !important;
     height: 200px !important;
     order: 4 !important;
   }
   .edc-tall-right {
-    display: none !important; /* Hide 5th item on mobile as requested */
+    display: block !important;
+    grid-column: 2 / 3 !important;
+    height: 200px !important;
+    order: 5 !important;
   }
 
-  /* Premium Vertical Labels (Mirroring Reference) */
+  /* Premium Overlay Styling */
   .edc-info {
     position: absolute !important;
     left: 0 !important;
-    top: 0 !important;
     bottom: 0 !important;
-    right: auto !important;
-    width: 32px !important;
-    height: 100% !important;
-    background: rgba(45, 27, 18, 0.7) !important;
-    backdrop-filter: blur(4px) !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    background: linear-gradient(to top, rgba(15, 10, 8, 0.9) 0%, rgba(15, 10, 8, 0) 100%) !important;
+    backdrop-filter: none !important;
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    padding: 30px 15px 15px 15px !important;
     z-index: 10 !important;
-    padding: 0 !important;
     border-radius: 0 !important;
   }
   .edc-info h3 { 
     color: #fff !important; 
-    font-size: 10px !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.1em !important;
-    writing-mode: vertical-rl !important;
-    transform: rotate(180deg) !important;
-    white-space: nowrap !important;
-    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    font-family: var(--font-serif) !important;
+    letter-spacing: 0.05em !important;
+    text-transform: capitalize !important;
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    margin: 0 0 6px 0 !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
   }
-  .edc-count { display: none !important; }
+  .edc-count { 
+    display: flex !important; 
+    color: #e5c494 !important; /* Premium Gold */
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .edc-count::after {
+    content: "→";
+    font-size: 12px;
+    font-family: var(--font-sans);
+  }
 
   .edc-wide-top, .edc-tall-left, .edc-tall-right, .edc-small {
      border-radius: 12px !important;
