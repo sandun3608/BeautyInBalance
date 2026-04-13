@@ -28,11 +28,11 @@
 }
 
 html, body { scroll-behavior: smooth; overflow-x: clip; width: 100%; max-width: 100%; margin: 0; padding: 0; }
-.mobile-only, .m-social-icon, .m-user-icon { display: none !important; }
+.mobile-only, .m-social-icon { display: none !important; }
 .desktop-only { display: block; }
 @media (max-width: 768px) {
-  .mobile-only, .m-social-icon, .m-user-icon { display: block !important; }
-  .desktop-only, .mobile-hidden { display: none !important; }
+  .mobile-only { display: block !important; }
+  .desktop-only, .mobile-hidden, .m-user-icon { display: none !important; }
 }
 body { font-family: var(--font-sans); color: var(--text); background: var(--white); font-size: 15px; line-height: 1.6; }
 a { text-decoration: none; color: inherit; }
