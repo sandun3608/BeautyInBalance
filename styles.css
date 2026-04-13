@@ -1421,7 +1421,15 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 @media (max-width: 768px) {
-  .site-logo { font-size: 18px; letter-spacing: 0.05em; }
+  .site-logo { 
+    position: absolute !important; 
+    left: 50% !important; 
+    transform: translateX(-50%) !important; 
+    font-size: 14px !important; 
+    letter-spacing: 0.05em; 
+    white-space: nowrap !important;
+    z-index: 100 !important;
+  }
   .nav-wrap { padding: 0 12px; }
   .ic-btn { width: 32px; height: 32px; }
   .ic-btn svg { width: 18px; height: 18px; }
