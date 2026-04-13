@@ -1377,10 +1377,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  .nav-wrap { padding: 0 24px; }
-  .nav-main { display: none; }
-  .site-logo { position: static; transform: none; }
-  .ham-btn { display: flex; }
+  .nav-wrap { padding: 0 15px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; height: 100% !important; }
+  .nav-main { display: none !important; }
+  .nav-icons { display: flex !important; align-items: center !important; gap: 8px !important; visibility: visible !important; opacity: 1 !important; }
+  .ic-btn { display: flex !important; visibility: visible !important; opacity: 1 !important; color: #2d1b12 !important; }
+  .site-logo { position: static !important; transform: none !important; display: block !important; visibility: visible !important; color: #2d1b12 !important; }
+  .ham-btn { display: flex !important; visibility: visible !important; }
   .search-drop.open { padding: 10px 24px; }
 
   .hero-content { left: 32px; bottom: 80px; }
