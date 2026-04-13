@@ -99,7 +99,7 @@
 
       <!-- Right: Search + Account + Cart -->
       <div class="nav-icons">
-        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+        <button class="ic-btn m-search-hidden" id="search-open" aria-label="Search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
             <span class="ic-label">Search</span>
         </button>
@@ -118,7 +118,7 @@
       </div>
     </nav>
 
-    <!-- Search Bar Dropdown -->
+    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
     <div class="search-drop" id="search-drop">
       <div class="search-inner">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
@@ -126,6 +126,14 @@
         <button class="ic-btn" id="search-close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
+      </div>
+    </div>
+
+    <!-- Mobile Top Search Row (NEW) -->
+    <div class="mobile-search-bar" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
       </div>
     </div>
   </header>
@@ -1478,6 +1486,25 @@
 
 
     fetchProducts();
+
+    // scroll behavior for mobile search bar
+    let lastScrollTop = 0;
+    const mSearchBar = document.getElementById('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          // scroll down
+          mSearchBar.classList.add('hide-search');
+        } else {
+          // scroll up
+          mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
   </script>
 
 </body>
