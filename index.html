@@ -193,6 +193,40 @@
 
   <main>
     <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
+    <!-- ===== SECTION: ROUND CATEGORY LIST (MOVED TO TOP) ===== -->
+    <section class="round-list-section">
+      <div class="round-list-track" id="round-track">
+        <!-- Dynamically injected by productsData -->
+      </div>
+      <script>
+        function renderRoundCategories() {
+          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
+          const track = document.getElementById('round-track');
+          if (!track) return;
+          
+          const categoriesObj = [
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
+            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'makeup', name: 'Makeup Essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
+            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
+            { id: 'eye', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
+            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
+          ];
+          
+          track.innerHTML = categoriesObj.map(cat => `
+            <a href="category.html?cat=${cat.id}" class="round-item">
+              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
+              <span>${cat.name}</span>
+            </a>
+          `).join('');
+        }
+      </script>
+    </section>
+
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
       <div class="hero-slides">
@@ -310,39 +344,7 @@
       </div>
     </section>
 
-    <!-- ===== SECTION: ROUND CATEGORY LIST (MOVED TO TOP) ===== -->
-    <section class="round-list-section">
-      <div class="round-list-track" id="round-track">
-        <!-- Dynamically injected by productsData -->
-      </div>
-      <script>
-        function renderRoundCategories() {
-          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
-          const track = document.getElementById('round-track');
-          if (!track) return;
-          
-          const categoriesObj = [
-            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
-            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
-            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'makeup', name: 'Makeup Essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
-            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
-            { id: 'eye', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
-            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
-          ];
-          
-          track.innerHTML = categoriesObj.map(cat => `
-            <a href="category.html?cat=${cat.id}" class="round-item">
-              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
-              <span>${cat.name}</span>
-            </a>
-          `).join('');
-        }
-      </script>
-    </section>
+
 
     <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
 
