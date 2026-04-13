@@ -4232,8 +4232,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .floating-email svg, .floating-wa svg { width: 26px; height: 26px; color: #fff; }
 
 @media (max-width: 768px) {
-  .floating-wa { bottom: 82px; } /* Closer to mobile bottom nav */
-  .floating-email { bottom: 140px; }
+  .floating-wa { bottom: 60px; } /* Pushed further down as requested */
+  .floating-email { bottom: 120px; }
 }
 
 .floating-email:hover, .floating-wa:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
