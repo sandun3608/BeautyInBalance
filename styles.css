@@ -4227,12 +4227,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   transition: 0.3s; 
 }
 
-.floating-email { bottom: 155px; width: 50px; height: 50px; background: #ea4335; }
-.floating-wa { bottom: 85px; width: 60px; height: 60px; background: #25d366; }
+.floating-email, .floating-wa { bottom: 95px; width: 55px; height: 55px; background: #ea4335; }
+.floating-wa { bottom: 25px; background: #25d366; }
+.floating-email svg, .floating-wa svg { width: 26px; height: 26px; color: #fff; }
 
-@media (min-width: 769px) {
-  .floating-email { bottom: 85px; }
-  .floating-wa { bottom: 20px; }
+@media (max-width: 768px) {
+  .floating-wa { bottom: 95px; } /* Above mobile bottom nav */
+  .floating-email { bottom: 165px; }
 }
 
 .floating-email:hover, .floating-wa:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
