@@ -7756,10 +7756,13 @@ background: #0a0a0a;
     padding-bottom: 0px !important;
   }
 
-  /* Hide floating social icons on Cart Page as requested */
+  /* Hide floating social icons on Cart Page or whenever Cart Drawer is open */
   .cart-page-body .floating-email,
   .cart-page-body .floating-wa,
-  .cart-page-body .floating-ig {
+  .cart-page-body .floating-ig,
+  body:has(.cart-drawer.open) .floating-email,
+  body:has(.cart-drawer.open) .floating-wa,
+  body:has(.cart-drawer.open) .floating-ig {
     display: none !important;
   }
 
