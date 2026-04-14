@@ -7734,9 +7734,24 @@ background: #0a0a0a;
     opacity: 0.3;
   }
 
-  /* Push footer down by an exact 200px on mobile */
+  /* Slimmer Footer and flush with bottom on mobile */
   .site-footer {
-    margin-top: 200px !important;
+    margin-top: 40px !important;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .footer-top {
+    padding: 30px 20px 10px !important;
+    gap: 20px !important;
+  }
+
+  .footer-bottom {
+    padding: 10px 20px !important;
+    margin-top: 10px !important;
+  }
+
+  html, body {
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
   }
@@ -7755,7 +7770,7 @@ background: #0a0a0a;
     color: #ffffff !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
-    margin-bottom: 15px !important;
+    margin-bottom: 5px !important;
     font-size: 14px !important;
   }
 
