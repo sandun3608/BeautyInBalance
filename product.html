@@ -321,7 +321,49 @@
     </ul>
   </div>
 
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="config.js"></script>
+  <script src="products.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const prodId = params.get('id');
+
+    function toggleTab(el) {
+      el.closest('.tab-item').classList.toggle('active');
+    }
+
+    function changeImg(src, btn) {
+      const main = document.getElementById('main-view');
+      gsap.to(main, { opacity: 0, scale: 0.98, duration: 0.25, onComplete: () => {
+         main.src = src;
+         gsap.to(main, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" });
+         document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+         btn.classList.add('active');
+      }});
+    }
+
+    function renderProduct(data) {
+      const product = data.find(p => p.id === prodId || p.name === prodId);
+      if (!product) return;
+
+      document.title = product.name + " | Beauty in Balance";
+
+      const frame = document.getElementById('pd-frame');
+      const thumbs = (product.images || [product.img]).map((src, i) => `
+        <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
+          <img src="${src}" alt="Thumb">
+        </button>
+      `).join('');
+
+      frame.innerHTML = `
+        <div class="product-stage">
+          <!-- Gallery -->
+          <div class="gallery-wrap">
+            <div class="main-visual">
+              <img id="main-view" src="${product.img}" alt="${product.name}">
+            </div>
+            <div class="thumbs-container">${thumbs}</div>
+          </div>
 
           <!-- Content -->
           <div class="detail-column">
@@ -445,7 +487,6 @@
       lastScrollTop = st;
     });
 
-    
   </script>
 </body>
 </html>
