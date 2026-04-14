@@ -7737,6 +7737,7 @@ background: #0a0a0a;
   /* Push footer down by an exact 150px on mobile */
   .site-footer {
     margin-top: 150px !important;
+    margin-bottom: 0px !important;
     padding-bottom: 0px !important;
   }
 
