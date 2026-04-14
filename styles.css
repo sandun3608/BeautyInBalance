@@ -4581,7 +4581,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   main { 
     margin-top: 0 !important;
   }
-  body { padding-top: 67px !important; } /* Raised by another 25px as requested */
+  body { padding-top: 57px !important; } /* Raised by another 10px as requested */
   .hero-section { margin-top: 0 !important; }
 }
 
