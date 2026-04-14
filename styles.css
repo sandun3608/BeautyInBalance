@@ -2906,7 +2906,19 @@ background: #0a0a0a;
   }
 
   .mobile-bottom-nav-v2 {
-    display: none !important;
+    display: grid !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 65px !important;
+    background: #ffffff !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    z-index: 100000 !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    margin: 0 !important;
   }
 
   .mbn-item {
@@ -7761,6 +7773,7 @@ background: #0a0a0a;
 
   body {
     padding-top: 45px !important;
+    padding-bottom: 70px !important;
   }
 
   /* Raised by another 1px as requested */
