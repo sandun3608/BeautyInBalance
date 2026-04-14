@@ -31,7 +31,7 @@
 
     .banner-content h1 {
       font-family: var(--font-serif);
-      font-size: clamp(40px, 6vw, 64px);
+      font-size: clamp(32px, 8vw, 64px); /* More flexible font size */
       color: var(--brown);
       margin-bottom: 20px;
     }
@@ -40,8 +40,8 @@
       max-width: 600px;
       margin: 0 auto;
       color: var(--muted);
-      font-size: 16px;
-      letter-spacing: 0.1em;
+      font-size: 14px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
@@ -66,27 +66,28 @@
         padding: 60px 24px;
         gap: 60px;
       }
+      .contact-banner { padding: 100px 24px 40px; }
     }
 
     /* Left Side: Info Blocks */
     .info-side {
       display: flex;
       flex-direction: column;
-      gap: 60px;
+      gap: 50px;
     }
 
     .info-section h2 {
       font-family: var(--font-serif);
-      font-size: 36px;
+      font-size: 32px;
       color: var(--brown);
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       position: relative;
     }
 
     .info-section h2::after {
       content: '';
       position: absolute;
-      left: 0; bottom: -10px;
+      left: 0; bottom: -8px;
       width: 40px; height: 1px;
       background: var(--gold);
     }
@@ -94,67 +95,64 @@
     .info-list {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 20px;
     }
 
     .info-card {
       display: flex;
-      gap: 20px;
-      padding: 24px;
-      background: var(--beige-light);
+      gap: 15px;
+      padding: 20px;
+      background: #faf8f6;
       border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: transform 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 480px) {
+      .info-card { 
+        flex-direction: column; 
+        text-align: center;
+        align-items: center;
+      }
     }
 
     .info-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
     }
 
     .card-icon {
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
       background: var(--white);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 18px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       flex-shrink: 0;
     }
 
     .card-text h4 {
-      font-size: 14px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--muted);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .card-text p {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--text);
       font-weight: 500;
+      line-height: 1.4;
     }
 
     /* Opening Hours Table */
-    .hours-box {
-      margin-top: 40px;
-    }
-
-    .hours-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    .hours-table td {
-      padding: 12px 0;
-      border-bottom: 1px dashed var(--border);
-      color: var(--muted);
-    }
-
+    .hours-box { margin-top: 30px; }
+    .hours-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .hours-table td { padding: 12px 0; border-bottom: 1px dashed var(--border); color: var(--muted); }
     .hours-table b { color: var(--text); }
 
     /* Right Side: High-end Form */
@@ -170,8 +168,8 @@
 
     .c-form h3 {
       font-family: var(--font-serif);
-      font-size: 32px;
-      margin-bottom: 40px;
+      font-size: 28px;
+      margin-bottom: 30px;
       color: var(--brown);
     }
 
@@ -182,94 +180,112 @@
       margin-bottom: 25px;
     }
 
+    @media (max-width: 768px) {
+      .form-side { 
+        padding: 40px 24px; 
+        position: static;
+        border-radius: 20px;
+      }
+    }
+
     @media (max-width: 600px) {
       .f-row { grid-template-columns: 1fr; }
-      .form-side { padding: 30px 20px; }
     }
 
     .f-input-group label {
       display: block;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .f-input-group input, .f-input-group select, .f-input-group textarea {
       width: 100%;
-      padding: 15px 20px;
-      border: 1px solid #e0e0e0;
+      padding: 14px 18px;
+      border: 1px solid #eee;
       border-radius: 10px;
       font-family: var(--font-sans);
       background: #fcfcfc;
       outline: none;
       transition: all 0.3s;
+      font-size: 14px;
     }
 
     .f-input-group input:focus, .f-input-group textarea:focus {
-      border-color: var(--brown);
+      border-color: var(--gold);
       background: #fff;
     }
 
     .submit-btn {
       width: 100%;
-      padding: 20px;
+      padding: 18px;
       background: var(--brown);
       color: #fff;
       border: none;
       border-radius: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       cursor: pointer;
       transition: all 0.4s;
+      margin-top: 10px;
     }
 
     .submit-btn:hover {
       background: var(--gold);
-      transform: scale(1.02);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
     /* Map Section Section */
     .full-map-section {
-      height: 500px;
+      height: 450px;
       width: 100%;
-      background: #eee;
+      filter: grayscale(1) contrast(1.1);
+      transition: filter 0.5s;
+    }
+    .full-map-section:hover { filter: grayscale(0); }
+
+    @media (max-width: 768px) {
+      .full-map-section { height: 300px; }
     }
 
     /* Social Bar */
     .social-footer {
-      padding: 60px 48px;
+      padding: 80px 24px;
       text-align: center;
-      background: var(--beige-light);
+      background: #faf8f6;
     }
 
     .social-icons-row {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       margin-top: 30px;
     }
 
     .s-circular {
-      width: 60px;
-      height: 60px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(0,0,0,0.06);
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--brown);
-      font-size: 22px;
-      transition: all 0.3s;
+      font-size: 20px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .s-circular:hover {
       background: var(--brown);
       color: #fff;
-      transform: translateY(-5px);
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
   </style>
@@ -517,24 +533,24 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="site-footer" style="background: var(--brown); margin-top: 100px; padding: 60px 48px;">
-    <div class="footer-top" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;">
+  <footer class="site-footer" style="background: #111; margin-top: 80px; padding: 60px 24px;">
+    <div class="footer-grid-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 40px;">
       <div class="footer-brand-col">
-        <a href="index.html" class="footer-logo">Beauty in Balance</a>
-        <p style="color: rgba(255,255,255,0.7); max-width: 300px;">Your source for high-end skincare. 100% Genuine imports from CA & GB.</p>
+        <a href="index.html" class="footer-logo" style="color: #fff; font-family: var(--font-serif); font-size: 24px; text-decoration: none; display: block; margin-bottom: 15px;">Beauty in Balance</a>
+        <p style="color: rgba(255,255,255,0.6); max-width: 300px; font-size: 14px; line-height: 1.6;">Your source for high-end skincare. 100% Genuine imports from CA & GB.</p>
       </div>
       <div class="footer-col" style="color: white;">
-        <h5 style="margin-bottom: 20px; font-size: 16px;">Quick Links</h5>
-        <ul style="color: rgba(255,255,255,0.7);">
-          <li style="margin-bottom:10px;"><a href="index.html">Home</a></li>
-          <li style="margin-bottom:10px;"><a href="shop.html">Shop All</a></li>
-          <li style="margin-bottom:10px;"><a href="contact.html">Contact Us</a></li>
-          <li style="margin-bottom:10px;"><a href="policies.html" style="color: var(--gold);">Shipping & Policies</a></li>
-          <li style="margin-bottom:10px;"><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li>
+        <h5 style="margin-bottom: 20px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold);">Quick Links</h5>
+        <ul style="list-style: none; padding: 0; color: rgba(255,255,255,0.6); font-size: 14px;">
+          <li style="margin-bottom:12px;"><a href="index.html" style="color: inherit; text-decoration: none;">Home</a></li>
+          <li style="margin-bottom:12px;"><a href="shop.html" style="color: inherit; text-decoration: none;">Shop All</a></li>
+          <li style="margin-bottom:12px;"><a href="contact.html" style="color: inherit; text-decoration: none;">Contact Us</a></li>
+          <li style="margin-bottom:12px;"><a href="policies.html" style="color: inherit; text-decoration: none;">Shipping & Policies</a></li>
+          <li style="margin-bottom:12px;"><a href="admin.html" style="opacity: 0.3; font-size: 10px; color: inherit; text-decoration: none;">Admin Login</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 40px;">
+    <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 40px;">
       <p>© 2024 Beauty in Balance. All rights reserved.</p>
     </div>
   </footer>
