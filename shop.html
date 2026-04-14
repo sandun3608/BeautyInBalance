@@ -5,103 +5,490 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shop Authentic Skincare | The Ordinary & CeraVe Sri Lanka - Beauty in Balance</title>
   <meta name="description" content="Browse our curated collection of 100% original skincare products in Sri Lanka. Buy The Ordinary serums, CeraVe cleansers, and cosmetics. Authentic imports from CA & GB." />
-  <meta name="keywords" content="buy the ordinary serum sri lanka, cerave cleanser colombo, original ordinary peeling solution, genuine skincare shop lanka, original cosmetics colombo, best skincare products lanka, buy authentic makeup sri lanka, order cerave colombo" />
+  <meta name="keywords" content="buy the ordinary serum sri lanka, cerave cleanser colombo, original ordinary peeling solution, genuine skincare shop lanka" />
   <meta name="author" content="Beauty in Balance" />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://beautyinbalance.lk/shop.html" />
   <meta property="og:title" content="Shop Genuine Skincare in Sri Lanka | Beauty in Balance" />
-  <meta property="og:description" content="Find the best international skincare brands imported directly to Sri Lanka. Buy 100% Original CeraVe, The Ordinary, and more." />
-  <meta property="og:image" content="images/og-preview.jpg" />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://beautyinbalance.lk/shop.html" />
-  <meta property="twitter:title" content="Shop Authentic Skincare | Beauty in Balance Sri Lanka" />
-  <meta property="twitter:description" content="Browse Sri Lanka's premium collection of 100% original skincare. The Ordinary, CeraVe & more." />
-  <meta property="twitter:image" content="images/og-preview.jpg" />
+  <meta property="og:description" content="Find the best international skincare brands imported directly to Sri Lanka." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=4" />
+
+  <style>
+    /* =========================================
+       SHOP PAGE — PREMIUM EDITORIAL REDESIGN
+       ========================================= */
+
+    body { background: #fdfaf7; }
+
+    /* ── SHOP HERO BANNER ── */
+    .shop-hero {
+      background: var(--brown);
+      padding: 120px 60px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .shop-hero::before {
+      content: 'THE COLLECTION';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-serif);
+      font-size: clamp(80px, 15vw, 200px);
+      font-weight: 700;
+      color: rgba(255,255,255,0.025);
+      white-space: nowrap;
+      letter-spacing: -0.03em;
+      pointer-events: none;
+    }
+    .shop-hero-eyebrow {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .shop-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(42px, 6vw, 80px);
+      font-weight: 500;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .shop-hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+    }
+    .shop-hero-stats {
+      display: flex;
+      gap: 60px;
+      justify-content: center;
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ── FILTER TOOLBAR ── */
+    .shop-toolbar {
+      background: #fff;
+      border-bottom: 1px solid rgba(45,27,18,0.08);
+      position: sticky;
+      top: 70px;
+      z-index: 500;
+      padding: 0 60px;
+    }
+    .toolbar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Brand tabs */
+    .brand-tabs {
+      display: flex;
+      border-right: 1px solid rgba(45,27,18,0.08);
+      padding-right: 30px;
+      margin-right: 30px;
+      flex-shrink: 0;
+    }
+    .brand-tab {
+      padding: 20px 0;
+      margin-right: 28px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .brand-tab:hover { color: var(--brown); }
+    .brand-tab.active {
+      color: var(--brown);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Filter chips scroll */
+    .filter-chips-wrap {
+      flex: 1;
+      overflow-x: auto;
+      scrollbar-width: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 0;
+    }
+    .filter-chips-wrap::-webkit-scrollbar { display: none; }
+
+    .fc {
+      flex-shrink: 0;
+      padding: 7px 18px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(45,27,18,0.12);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.25s;
+      white-space: nowrap;
+      background: transparent;
+    }
+    .fc:hover { border-color: var(--gold); color: var(--brown); }
+    .fc.active {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: #fff;
+    }
+
+    /* Sort & Count */
+    .toolbar-right {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-left: 20px;
+      border-left: 1px solid rgba(45,27,18,0.08);
+      margin-left: 10px;
+    }
+    .product-count {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .product-count strong { color: var(--brown); }
+
+    /* ── PRODUCTS AREA ── */
+    .shop-body {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 60px 120px;
+    }
+
+    /* Section dividers by category */
+    .cat-section {
+      margin-bottom: 80px;
+    }
+    .cat-section-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(45,27,18,0.07);
+    }
+    .cat-section-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 2.5vw, 32px);
+      font-weight: 500;
+      color: var(--brown);
+      white-space: nowrap;
+    }
+    .cat-section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(45,27,18,0.08), transparent);
+    }
+    .cat-section-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 4px 12px;
+      border: 1px solid var(--gold);
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    /* Premium Product Grid */
+    .premium-shop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    /* Luxury Product Card */
+    .lux-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(45,27,18,0.06);
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    .lux-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(45,27,18,0.10);
+      border-color: rgba(198,151,90,0.3);
+    }
+
+    /* Image container */
+    .lux-img {
+      position: relative;
+      background: #fdfaf7;
+      aspect-ratio: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+    .lux-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .lux-card:hover .lux-img img { transform: scale(1.07); }
+
+    /* Brand badge on image */
+    .lux-brand-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    .lux-brand-badge.ordinary {
+      background: #1a1a2e;
+      color: #fff;
+    }
+    .lux-brand-badge.cerave {
+      background: #006aff;
+      color: #fff;
+    }
+
+    /* Quick add button - appears on hover */
+    .lux-add-btn {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      padding: 11px 28px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 5;
+      cursor: pointer;
+    }
+    .lux-card:hover .lux-add-btn {
+      bottom: 14px;
+    }
+    .lux-add-btn:hover {
+      background: var(--gold);
+    }
+
+    /* Card body */
+    .lux-body {
+      padding: 20px 22px 22px;
+    }
+    .lux-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.3;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .lux-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+    .lux-price {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--brown);
+      letter-spacing: -0.01em;
+    }
+    .lux-view {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(45,27,18,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brown);
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .lux-card:hover .lux-view {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    /* Empty & Loading states */
+    .shop-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 100px 40px;
+      color: var(--muted);
+    }
+    .shop-empty h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: var(--brown);
+      margin-bottom: 12px;
+    }
+
+    /* ── ALL PRODUCTS GRID (flat layout when filter used) ── */
+    #products-grid-flat {
+      display: none; /* shown only when filter is active */
+    }
+
+    /* ── MOBILE SEARCH BAR UPDATE ── */
+    @media (max-width: 900px) {
+      .shop-hero { padding: 100px 24px 60px; }
+      .shop-hero-stats { gap: 30px; }
+      .stat-num { font-size: 24px; }
+      .shop-toolbar { padding: 0 16px; top: 70px; }
+      .brand-tabs { padding-right: 16px; margin-right: 12px; }
+      .brand-tab { font-size: 11px; margin-right: 16px; }
+      .shop-body { padding: 40px 16px 100px; }
+      .premium-shop-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .lux-img { padding: 20px; }
+      .lux-body { padding: 14px 14px 16px; }
+      .lux-name { font-size: 13px; }
+      .lux-price { font-size: 15px; }
+      .lux-add-btn { display: none; } /* tap-to-buy on mobile */
+      .toolbar-right { display: none; }
+    }
+    @media (max-width: 500px) {
+      .cat-section-badge { display: none; }
+      .cat-section-header h2 { font-size: 20px; }
+      .shop-hero::before { display: none; }
+    }
+  </style>
 </head>
 <body>
 
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
     <div class="ann-track">
-      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+      <span>✨ 100% Authentic Imports — Straight from CA &amp; GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2–4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) &amp; Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp; ✨ 100% Authentic Imports — Straight from CA &amp; GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2–4 Days. &nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
 
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <!-- Left: Navigation Links -->
-      <ul class="nav-main">
-        <li><a href="index.html">Home</a></li>
-        <li class="has-drop">
-          <a href="shop.html" class="active">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-          <ul class="drop-menu">
-            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
-            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
-          </ul>
-        </li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <a href="https://www.instagram.com/beauty.in.balance_" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span class="ic-label mobile-only">Social</span>
+        </a>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html" class="active">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+              <li><a href="shop.html?filter=serums">Serums</a></li>
+              <li><a href="shop.html?filter=acids">Acids & Peels</a></li>
+              <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="policies.html">Policies</a></li>
+        </ul>
+      </div>
 
-      <!-- Center: Logo -->
       <a href="index.html" class="site-logo">Beauty in Balance</a>
 
-      <!-- Right Icons -->
       <div class="nav-icons">
-        <button class="ic-btn" id="search-open" aria-label="Search">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
         </button>
-        <!-- User Icon -->
-        <a href="login.html" id="top-account-link" class="ic-btn" aria-label="Account">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </a>
-        <script>
-          document.getElementById('top-account-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            const token = localStorage.getItem('userToken');
-            const info = JSON.parse(localStorage.getItem('userInfo') || '{}');
-            if (token && info.isAdmin) {
-              window.location.href = 'admin.html';
-            } else if (token) {
-              window.location.href = 'dashboard.html';
-            } else {
-              window.location.href = 'login.html';
-            }
-          });
-        </script>
         <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
         </button>
-        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
       </div>
     </nav>
 
-    <!-- Search Bar -->
     <div class="search-drop" id="search-drop">
       <div class="search-inner">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <input type="search" placeholder="Search products…" id="search-inp" />
         <button class="ic-btn" id="search-close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
+      </div>
+    </div>
+
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search products..." id="m-search-inp-top">
       </div>
     </div>
   </header>
@@ -112,7 +499,7 @@
   <!-- ===== MOBILE DRAWER ===== -->
   <div class="mobile-drawer" id="mobile-drawer">
     <div class="drawer-top">
-      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+      <span class="site-logo" style="font-size:18px;">Beauty in Balance</span>
       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <ul class="mobile-nav">
@@ -122,6 +509,29 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="policies.html">Policies</a></li>
     </ul>
+  </div>
+
+  <!-- ===== MOBILE BOTTOM NAV ===== -->
+  <div class="mobile-bottom-nav-v2">
+    <a href="index.html" class="mbn-item" id="mbn-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="shop.html" class="mbn-item active" id="mbn-shop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+      <span>Shop</span>
+    </a>
+    <a href="https://wa.me/94719152136" target="_blank" class="mbn-item" id="mbn-wa">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-11.2c4.6 0 8.3 3.7 8.5 8.3z"/><path d="M16 11l-3 3-3-3"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <button class="mbn-item" id="mbn-cart-v2" onclick="document.getElementById('cart-open').click()">
+      <div class="mbn-cart-wrap" style="position: relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge mbn-badge">0</span>
+      </div>
+      <span>Bag</span>
+    </button>
   </div>
 
   <!-- ===== CART DRAWER ===== -->
@@ -136,62 +546,130 @@
     </div>
   </div>
 
-
   <main>
-    <!-- ===== SHOP PAGE HEADER ===== -->
-    <section class="gallery-section" style="padding-top: 80px; padding-bottom: 20px;">
-      <div class="gallery-header" style="text-align: center;">
-        <div class="gallery-badge-pill">CA GB AUTHENTIC IMPORTS</div>
-        <h1 class="gallery-title" style="font-family: var(--font-sans); font-weight: 800; font-size: 56px; margin: 15px 0;">Our Products</h1>
-        <p style="color: #666; font-size: 16px; margin-bottom: 50px;">Premium skincare — The Ordinary & CeraVe — at honest prices</p>
-        
-        <div class="gallery-filters">
-          <div class="cat-tabs" style="justify-content: center; margin-bottom: 30px;">
-            <button class="cat-tab active" data-cat="all">All Products</button>
-            <button class="cat-tab" data-cat="ordinary">The Ordinary CA</button>
-            <button class="cat-tab" data-cat="cerave">CeraVe GB</button>
+    <!-- ===== SHOP HERO ===== -->
+    <section class="shop-hero">
+      <span class="shop-hero-eyebrow">Authentic Direct Imports · CA &amp; GB</span>
+      <h1>The Full Collection</h1>
+      <p>Every product sourced directly — zero compromise on purity, potency, or authenticity.</p>
+      <div class="shop-hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" id="stat-total">30+</span>
+          <span class="stat-label">Products</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">2</span>
+          <span class="stat-label">Premium Brands</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Authenticated</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Rs. 350</span>
+          <span class="stat-label">Island Delivery</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FILTER TOOLBAR ===== -->
+    <div class="shop-toolbar" id="shop-toolbar">
+      <div class="toolbar-inner">
+        <!-- Brand tabs -->
+        <div class="brand-tabs">
+          <button class="brand-tab active" data-brand="all" id="brand-all">All</button>
+          <button class="brand-tab" data-brand="ordinary" id="brand-ordinary">The Ordinary</button>
+          <button class="brand-tab" data-brand="cerave" id="brand-cerave">CeraVe</button>
+        </div>
+
+        <!-- Category chips -->
+        <div class="filter-chips-wrap" id="filter-chips">
+          <button class="fc active" data-filter="all">All Items</button>
+          <button class="fc" data-filter="serums">Serums</button>
+          <button class="fc" data-filter="cleansers">Cleansers</button>
+          <button class="fc" data-filter="moisturizers">Moisturizers</button>
+          <button class="fc" data-filter="sunscreen">Sunscreen</button>
+        </div>
+
+        <!-- Count -->
+        <div class="toolbar-right">
+          <span class="product-count"><strong id="count-num">0</strong> products</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUCTS AREA ===== -->
+    <div class="shop-body">
+
+      <!-- FILTERED flat grid (shown when a filter is active) -->
+      <div class="cat-section" id="filtered-section" style="display:none;">
+        <div class="cat-section-header">
+          <h2 id="filtered-title">Filtered Results</h2>
+          <div class="cat-section-line"></div>
+          <span class="cat-section-badge" id="filtered-badge">ALL</span>
+        </div>
+        <div class="premium-shop-grid" id="filtered-grid"></div>
+      </div>
+
+      <!-- BROWSING mode: grouped by brand (shown when no filter active) -->
+      <div id="browse-mode">
+        <!-- The Ordinary Section -->
+        <div class="cat-section" id="section-ordinary">
+          <div class="cat-section-header">
+            <h2>The Ordinary <em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">Canada</em></h2>
+            <div class="cat-section-line"></div>
+            <span class="cat-section-badge">DECIEM CA</span>
           </div>
-          
-          <div class="sub-filters" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
-            <button class="sub-filter active" data-filter="all">All Items</button>
-            <button class="sub-filter" data-filter="serums">Serums</button>
-            <button class="sub-filter" data-filter="acids">Acids &amp; Peels</button>
-            <button class="sub-filter" data-filter="retinoids">Retinoids</button>
-            <button class="sub-filter" data-filter="moisturizers">Moisturizers</button>
-            <button class="sub-filter" data-filter="cleansers">Cleansers</button>
-            <button class="sub-filter" data-filter="targeted">Eye &amp; Targeted</button>
-            <button class="sub-filter" data-filter="sunscreen">Sunscreen</button>
-            <button class="sub-filter" data-filter="hair">Hair &amp; Lash</button>
-            <button class="sub-filter" data-filter="body">Body Care</button>
+          <div class="premium-shop-grid" id="grid-ordinary"></div>
+        </div>
+
+        <!-- CeraVe Section -->
+        <div class="cat-section" id="section-cerave">
+          <div class="cat-section-header">
+            <h2>CeraVe <em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">United Kingdom</em></h2>
+            <div class="cat-section-line"></div>
+            <span class="cat-section-badge">LORÉAL GB</span>
           </div>
+          <div class="premium-shop-grid" id="grid-cerave"></div>
         </div>
       </div>
 
-      <div class="products-grid" id="products-grid" style="padding: 0 48px;">
-        <!-- Products will be injected here by JS -->
-      </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="site-footer" style="background: var(--brown); margin-top: 100px; padding: 60px 48px;">
-    <div class="footer-top" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;">
-      <div class="footer-brand-col">
-        <a href="index.html" class="footer-logo">Beauty in Balance</a>
-        <p style="color: rgba(255,255,255,0.7); max-width: 300px;">Your source for high-end skincare. 100% Genuine imports from CA & GB.</p>
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" style="background: var(--brown); padding: 60px 60px 40px;">
+    <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 50px;">
+      <div>
+        <a href="index.html" style="font-family: var(--font-serif); font-size: 26px; font-weight: 500; letter-spacing: 0.1em; color: #fff; display: block; margin-bottom: 16px;">Beauty in Balance</a>
+        <p style="color: rgba(255,255,255,0.5); font-size: 14px; line-height: 1.8; max-width: 300px;">Your trusted source for 100% authentic imported skincare. The Ordinary (CA) &amp; CeraVe (GB) — genuine, always.</p>
       </div>
-      <div class="footer-col" style="color: white;">
-        <h5 style="margin-bottom: 20px; font-size: 16px;">Quick Links</h5>
-        <ul style="color: rgba(255,255,255,0.7);">
-          <li style="margin-bottom:10px;"><a href="index.html">Home</a></li>
-          <li style="margin-bottom:10px;"><a href="shop.html">Shop All</a></li>
-          <li style="margin-bottom:10px;"><a href="contact.html">Contact Us</a></li>
-          <li style="margin-bottom:10px;"><a href="policies.html" style="color: var(--gold);">Shipping & Policies</a></li>
-          <li style="margin-bottom:10px;"><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li>
+      <div>
+        <h5 style="color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px;">Navigate</h5>
+        <ul style="display: flex; flex-direction: column; gap: 12px;">
+          <li><a href="index.html" style="color: rgba(255,255,255,0.7); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Home</a></li>
+          <li><a href="shop.html" style="color: #C6975A; font-size: 14px;">Shop All</a></li>
+          <li><a href="about.html" style="color: rgba(255,255,255,0.7); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">About Us</a></li>
+          <li><a href="contact.html" style="color: rgba(255,255,255,0.7); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px;">Support</h5>
+        <ul style="display: flex; flex-direction: column; gap: 12px;">
+          <li><a href="policies.html" style="color: rgba(255,255,255,0.7); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Shipping &amp; Returns</a></li>
+          <li><a href="policies.html" style="color: rgba(255,255,255,0.7); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Privacy Policy</a></li>
+          <li><a href="https://wa.me/94719152136" target="_blank" style="color: rgba(255,255,255,0.7); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">WhatsApp Us</a></li>
+          <li><a href="admin.html" style="color: rgba(255,255,255,0.2); font-size: 11px;">Admin</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 40px;">
-      <p>© 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+    <div style="max-width: 1400px; margin: 0 auto; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <p style="color: rgba(255,255,255,0.3); font-size: 12px;">&#169; 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+      <div style="display: flex; gap: 16px;">
+        <a href="https://www.instagram.com/beauty.in.balance_" target="_blank" style="color: rgba(255,255,255,0.4); transition: color 0.3s;" onmouseover="this.style.color='#C6975A'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+      </div>
     </div>
   </footer>
 
@@ -199,143 +677,248 @@
   <script src="products.js"></script>
   <script>
     const $ = id => document.getElementById(id);
-    const grid = $('products-grid');
-    const catTabs = document.querySelectorAll('.cat-tab');
-    const subFilters = document.querySelectorAll('.sub-filter');
-
-    let currentCat = 'all';
-    let currentFilter = 'all';
-
-    function renderProducts() {
-      if (!grid) return;
-      const data = window.productsData || [];
-      
-      if (data.length === 0) {
-          grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 100px 0; color: var(--muted); font-style: italic;">Loading our curated collection...</div>';
-          return;
-      }
-
-      grid.innerHTML = '';
-      const filtered = data.filter(p => {
-        const pFilter = (p.filter || '').toLowerCase();
-        const pCat = (p.cat || '').toLowerCase();
-        const pName = (p.name || '').toLowerCase();
-        const searchQuery = new URLSearchParams(window.location.search).get('q') || '';
-        
-        const catMatch = currentCat === 'all' || pCat === currentCat;
-        const searchMatch = !searchQuery || pName.includes(searchQuery.toLowerCase());
-        
-        if (!searchMatch) return false;
-        if (currentFilter === 'all') return catMatch;
-
-        // Smart Grouping Logic
-        if (currentFilter === 'moisturizers') {
-          return catMatch && (pFilter === 'moisturizers' || pFilter === 'dry' || pFilter === 'face-oils' || pFilter === 'glow');
-        }
-        if (currentFilter === 'targeted') {
-          return catMatch && (pFilter === 'targeted' || pFilter === 'eye' || pFilter === 'lip');
-        }
-        if (currentFilter === 'hair') {
-          return catMatch && (pFilter === 'hair' || pFilter === 'hair-lash' || pFilter === 'targeted');
-        }
-        if (currentFilter === 'acids') {
-          return catMatch && (pFilter === 'acids' || pFilter === 'exfoliants');
-        }
-        
-        const subMatch = pFilter === currentFilter;
-        return catMatch && subMatch;
-      });
-
-      if (filtered.length === 0) {
-          grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 100px 0; color: var(--muted);">No products found matching these filters.</div>';
-          return;
-      }
-
-      filtered.forEach((p, index) => {
-        const card = document.createElement('div');
-        card.className = `p-card ${p.cat}`;
-        card.style.transitionDelay = `${index * 0.05}s`;
-        const displayPrice = (p.price || 0).toLocaleString();
-        
-        card.innerHTML = `
-          <div class="p-card-top">
-             <span class="p-card-brand">${p.brand || p.cat.toUpperCase().replace('ORDINARY', 'THE ORDINARY')}</span>
-          </div>
-          <div class="p-img-box" onclick="location.href='product.html?id=${p.id}'">
-             <img src="${p.img || 'images/placeholder.png'}" alt="${p.name}" onerror="this.src='images/placeholder.png'">
-          </div>
-          <div class="p-info">
-            <h4 class="p-title">${p.name}</h4>
-            <span class="p-size">${p.size || '30 ml'}</span>
-            <div class="p-price">Rs. ${displayPrice}</div>
-            <button class="p-action" onclick="location.href='product.html?id=${p.id}'">Buy Now</button>
-          </div>
-        `;
-        grid.appendChild(card);
-        setTimeout(() => card.classList.add('show'), 50);
-      });
-    }
-
-    // Call it immediately and also when data might arrive
-    renderProducts();
-    setInterval(() => {
-        if (grid && (grid.innerHTML.includes('Loading') || grid.innerHTML.trim() === '') && window.productsData && window.productsData.length > 0) {
-            renderProducts();
-        }
-    }, 2000);
-
-    catTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        catTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentCat = tab.dataset.cat;
-        renderProducts();
-      });
-    });
-
-    subFilters.forEach(f => {
-      f.addEventListener('click', () => {
-        subFilters.forEach(x => x.classList.remove('active'));
-        f.classList.add('active');
-        currentFilter = f.dataset.filter;
-        renderProducts();
-      });
-    });
-
-    // Check for query params
-    const urlParams = new URLSearchParams(window.location.search);
-    const catParam = urlParams.get('cat');
-    if(catParam) {
-      currentCat = catParam;
-      catTabs.forEach(t => t.classList.toggle('active', t.dataset.cat === catParam));
-    }
-
-    renderProducts();
-    
-    /* ── UTILS ── */
     const overlay = $('overlay');
 
-    /* ── SEARCH ── */
-    $('search-open').addEventListener('click', () => { $('search-drop').classList.add('open'); $('search-inp').focus(); });
-    $('search-close').addEventListener('click', () => $('search-drop').classList.remove('open'));
+    // ── STATE ──
+    let currentBrand = 'all';
+    let currentFilter = 'all';
+    let currentSearch = '';
 
-    /* ── MOBILE DRAWER ── */
-    $('ham-open').addEventListener('click', () => { $('mobile-drawer').classList.add('open'); overlay.classList.add('show'); });
+    // ── CHECK URL PARAMS ──
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('cat')) { currentBrand = urlParams.get('cat'); }
+    if (urlParams.get('filter')) { currentFilter = urlParams.get('filter'); }
+    if (urlParams.get('q')) { currentSearch = urlParams.get('q'); }
+
+    // ── BUILD A LUXURY CARD ──
+    function buildCard(p) {
+      const brandClass = (p.cat || '').toLowerCase() === 'cerave' ? 'cerave' : 'ordinary';
+      const brandLabel = brandClass === 'cerave' ? 'CeraVe GB' : 'The Ordinary CA';
+      const price = (p.price || 0).toLocaleString();
+      const imgSrc = p.img || 'favicon.png';
+
+      const card = document.createElement('div');
+      card.className = 'lux-card';
+      card.innerHTML = `
+        <div class="lux-img" onclick="location.href='product.html?id=${p.id}'">
+          <span class="lux-brand-badge ${brandClass}">${brandLabel}</span>
+          <img src="${imgSrc}" alt="${p.name}" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
+          <button class="lux-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">
+            + Add to Bag
+          </button>
+        </div>
+        <div class="lux-body" onclick="location.href='product.html?id=${p.id}'">
+          <div class="lux-name">${p.name}</div>
+          <div class="lux-price-row">
+            <span class="lux-price">Rs. ${price}</span>
+            <div class="lux-view">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    // ── FILTER LOGIC ──
+    function getFilteredProducts(data, brand, filter, search) {
+      return data.filter(p => {
+        const pCat = (p.cat || '').toLowerCase();
+        const pFilter = (p.filter || '').toLowerCase();
+        const pName = (p.name || '').toLowerCase();
+
+        const brandMatch = brand === 'all' || pCat === brand;
+        const searchMatch = !search || pName.includes(search.toLowerCase());
+
+        let filterMatch = true;
+        if (filter !== 'all') {
+          if (filter === 'moisturizers') {
+            filterMatch = pFilter === 'moisturizers' || pFilter === 'dry' || pFilter === 'face-oils' || pFilter === 'glow';
+          } else if (filter === 'targeted') {
+            filterMatch = pFilter === 'targeted' || pFilter === 'eye' || pFilter === 'lip' || pFilter === 'eye-care';
+          } else if (filter === 'hair') {
+            filterMatch = pFilter === 'hair' || pFilter === 'hair-lash';
+          } else if (filter === 'acids') {
+            filterMatch = pFilter === 'acids' || pFilter === 'exfoliants';
+          } else if (filter === 'body') {
+            filterMatch = pFilter === 'body' || pFilter === 'bodycare';
+          } else {
+            filterMatch = pFilter === filter;
+          }
+        }
+
+        return brandMatch && searchMatch && filterMatch;
+      });
+    }
+
+    // ── RENDER PRODUCTS ──
+    function renderShop() {
+      const data = window.productsData || [];
+      const isFiltered = currentFilter !== 'all' || currentBrand !== 'all' || currentSearch;
+
+      if (isFiltered) {
+        // FILTERED MODE — flat grid
+        $('browse-mode').style.display = 'none';
+        $('filtered-section').style.display = 'block';
+
+        const filtered = getFilteredProducts(data, currentBrand, currentFilter, currentSearch);
+        const grid = $('filtered-grid');
+        grid.innerHTML = '';
+
+        // Update section label
+        let label = currentFilter !== 'all' ? currentFilter.toUpperCase() : currentBrand.toUpperCase();
+        if (currentSearch) label = `SEARCH: "${currentSearch}"`;
+        $('filtered-badge').textContent = label;
+
+        let title = 'All Products';
+        if (currentFilter !== 'all') {
+          const chips = document.querySelectorAll('.fc');
+          chips.forEach(c => { if (c.dataset.filter === currentFilter) title = c.textContent; });
+        }
+        if (currentBrand !== 'all') {
+          const tabs = document.querySelectorAll('.brand-tab');
+          tabs.forEach(t => { if (t.dataset.brand === currentBrand) title = t.textContent; });
+        }
+        if (currentSearch) title = `Results for "${currentSearch}"`;
+        $('filtered-title').textContent = title;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div class="shop-empty"><h3>No products found</h3><p>Try adjusting your filters.</p></div>';
+        } else {
+          filtered.forEach(p => grid.appendChild(buildCard(p)));
+        }
+
+        if ($('count-num')) $('count-num').textContent = filtered.length;
+      } else {
+        // BROWSE MODE — grouped by brand
+        $('browse-mode').style.display = 'block';
+        $('filtered-section').style.display = 'none';
+
+        const ordinary = data.filter(p => (p.cat || '').toLowerCase() === 'ordinary');
+        const cerave = data.filter(p => (p.cat || '').toLowerCase() === 'cerave');
+
+        const goGrid = $('grid-ordinary');
+        const gcGrid = $('grid-cerave');
+        goGrid.innerHTML = '';
+        gcGrid.innerHTML = '';
+
+        ordinary.forEach(p => goGrid.appendChild(buildCard(p)));
+        cerave.forEach(p => gcGrid.appendChild(buildCard(p)));
+
+        // Hide empty sections
+        $('section-ordinary').style.display = ordinary.length ? 'block' : 'none';
+        $('section-cerave').style.display = cerave.length ? 'block' : 'none';
+
+        if ($('count-num')) $('count-num').textContent = data.length;
+        if ($('stat-total')) $('stat-total').textContent = data.length + '+';
+      }
+    }
+
+    // ── INIT FILTER UI STATE ──
+    function syncFilterUI() {
+      document.querySelectorAll('.brand-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.brand === currentBrand);
+      });
+      document.querySelectorAll('.fc').forEach(c => {
+        c.classList.toggle('active', c.dataset.filter === currentFilter);
+      });
+    }
+
+    // ── FILTER EVENT LISTENERS ──
+    document.querySelectorAll('.brand-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        currentBrand = tab.dataset.brand;
+        syncFilterUI();
+        renderShop();
+      });
+    });
+
+    document.querySelectorAll('.fc').forEach(chip => {
+      chip.addEventListener('click', () => {
+        currentFilter = chip.dataset.filter;
+        syncFilterUI();
+        renderShop();
+      });
+    });
+
+    // ── SEARCH ──
+    const searchInp = $('search-inp');
+    const mSearchInp = $('m-search-inp-top');
+    function handleSearch(val) {
+      currentSearch = val.trim();
+      renderShop();
+    }
+    if (searchInp) searchInp.addEventListener('input', e => handleSearch(e.target.value));
+    if (mSearchInp) mSearchInp.addEventListener('input', e => handleSearch(e.target.value));
+
+    // ── INITIAL RENDER ──
+    syncFilterUI();
+    renderShop();
+
+    // Re-render when products arrive from API
+    window.renderProducts = renderShop;
+    setInterval(() => {
+      const grid = $('filtered-grid') || $('grid-ordinary');
+      if (window.productsData && window.productsData.length > 0) {
+        const isEmpty = grid && grid.innerHTML.trim() === '';
+        if (isEmpty) renderShop();
+      }
+    }, 1500);
+
+    /* ── NAV ── */
+    $('ham-open').addEventListener('click', () => { 
+      $('mobile-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+      const mBar = $('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
     $('ham-close').addEventListener('click', closeAll);
     overlay.addEventListener('click', closeAll);
     function closeAll() {
       $('mobile-drawer').classList.remove('open');
       $('cart-drawer').classList.remove('open');
+      if($('search-drop')) $('search-drop').classList.remove('open');
       overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
     }
 
-    /* ── CART ── */
-    $('cart-open').addEventListener('click', () => { $('cart-drawer').classList.add('open'); overlay.classList.add('show'); });
-    $('cart-close').addEventListener('click', closeAll);
+    const searchOpen = $('search-open');
+    const searchClose = $('search-close');
+    const searchDrop = $('search-drop');
+    if (searchOpen) searchOpen.addEventListener('click', () => { searchDrop.classList.add('open'); searchInp.focus(); });
+    if (searchClose && searchDrop) searchClose.addEventListener('click', () => searchDrop.classList.remove('open'));
+
+    const cartOpen = $('cart-open');
+    const cartClose = $('cart-close');
+    if (cartOpen) cartOpen.addEventListener('click', () => { $('cart-drawer').classList.add('open'); overlay.classList.add('show'); });
+    if (cartClose) cartClose.addEventListener('click', closeAll);
 
     window.addEventListener('scroll', () => {
       $('site-header').classList.toggle('scrolled', window.scrollY > 50);
     });
+
+    let lastScrollTop = 0;
+    const mSearchBar = $('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) { if(mSearchBar) mSearchBar.classList.add('hide-search'); } 
+        else { if(mSearchBar) mSearchBar.classList.remove('hide-search'); }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    (function forceBottomNav() {
+      const nav = document.querySelector('.mobile-bottom-nav-v2');
+      if (nav) {
+        nav.style.display = 'grid';
+        nav.style.visibility = 'visible';
+        nav.style.opacity = '1';
+      }
+    })();
   </script>
 </body>
 </html>
