@@ -1296,8 +1296,10 @@
 
     /* ── SHADE FINDER LOGIC (REFINED) ── */
     function initShadeFinder() {
+      // Prevent multiple initialization
+      if (window.shadeFinderInitialized) return;
+      
       const range = document.getElementById('ps-range');
-      const progress = document.getElementById('ps-progress');
       const items = document.querySelectorAll('.ps-tone-item');
       
       if (!range || !items.length) return;
@@ -1318,7 +1320,9 @@
         items.forEach(i => i.classList.remove('active'));
         closest.classList.add('active');
         
-        renderShadeProducts(closest.querySelector('.ps-label').textContent);
+        // Get clean label text
+        const label = closest.querySelector('.ps-label').textContent.trim();
+        renderShadeProducts(label);
       }
 
       range.addEventListener('input', (e) => updateShadeUI(e.target.value));
@@ -1331,29 +1335,61 @@
         });
       });
 
+      // Default start
       updateShadeUI(0);
+      window.shadeFinderInitialized = true;
     }
 
     function renderShadeProducts(shadeName) {
       const grid = document.getElementById('ps-products-grid');
-      if (!grid || !productsData || productsData.length === 0) return;
+      if (!grid) return;
 
-      const items = [...productsData].sort(() => 0.5 - Math.random()).slice(0, 4);
+      // Robust data retrieval
+      const allProducts = (window.productsData && window.productsData.length > 0)
+        ? window.productsData
+        : (typeof productsData !== 'undefined' && productsData.length > 0 ? productsData : []);
+
+      if (!allProducts || allProducts.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">Loading expert recommendations…</p>';
+        return;
+      }
+
+      const toneMap = {
+        'Fair Skin':   ['glow', 'serums', 'eye'],
+        'Light Skin':  ['serums', 'dry', 'cleansers'],
+        'Medium Skin': ['retinoids', 'acids', 'body'],
+        'Dark Skin':   ['acids', 'targeted', 'lip']
+      };
+
+      const filters = toneMap[shadeName] || [];
+      let items = allProducts.filter(p => filters.includes(p.filter));
       
-      grid.innerHTML = items.map(p => `
-        <div class="fp-item">
-          <div class="fp-img-box" onclick="location.href='product.html?id=${p._id || p.id}'">
-             <img src="${p.img || p.images[0]}" alt="${p.name}">
-          </div>
-          <button class="fp-bag-btn" onclick="addToCart('${p._id || p.id}')">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
-          </button>
-          <div class="fp-details" onclick="location.href='product.html?id=${p._id || p.id}'">
-            <span class="fp-name" style="font-size:14px;">${p.name}</span>
-            <div class="fp-price-row" style="font-size:15px; font-weight:700;">Rs. ${p.price.toLocaleString()}</div>
-          </div>
-        </div>
-      `).join('');
+      // Fallback if no matching products
+      if (items.length === 0) {
+        items = allProducts.sort(() => 0.5 - Math.random()).slice(0, 4);
+      } else {
+        items = items.sort(() => 0.5 - Math.random()).slice(0, 4);
+      }
+
+      grid.innerHTML = `
+        <div class="ps-inner-grid">
+          ${items.map(p => {
+            const pid = p.id || p._id || '';
+            const img = p.img || (p.images && p.images[0]) || '';
+            return `
+              <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
+                <div class="ps-prod-img">
+                  <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
+                </div>
+                <div class="ps-prod-info">
+                  <p class="ps-prod-name">${p.name}</p>
+                  <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
+                  <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>`;
     }
 
     async function fetchProducts() {
@@ -1365,7 +1401,11 @@
         
         renderRoundCategories();
         renderFeaturedProducts();
-        initShadeFinder(); // Initialize after data load
+        initShadeFinder(); 
+        
+        // Refresh shade products with actual DB data if UI is already active
+        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+        if (activeItem) renderShadeProducts(activeItem.textContent.trim());
       } catch (err) {
         console.error("Error fetching products:", err);
         // Fallback
@@ -1426,6 +1466,8 @@
 
 
     fetchProducts();
+    // Init shade finder immediately using products.js data (no API wait needed)
+    setTimeout(function() { initShadeFinder(); }, 100);
 
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1484,83 +1526,6 @@
         nav.style.visibility = 'visible';
         nav.style.opacity = '1';
       }
-    })();
-
-    // ===== SHADE FINDER LOGIC =====
-    (function initShadeFinder() {
-      const shadeMap = {
-        0:   { label: 'Fair',   filters: ['glow', 'serums', 'eye'],       tip: 'Brightening & hydrating picks for fair skin' },
-        33:  { label: 'Light',  filters: ['serums', 'dry', 'cleansers'],  tip: 'Nourishing & balancing picks for light skin' },
-        66:  { label: 'Medium', filters: ['retinoids', 'acids', 'body'],   tip: 'Exfoliating & renewing heroes for medium skin' },
-        100: { label: 'Dark',   filters: ['acids', 'targeted', 'lip'],    tip: 'Correcting & intensive care for dark skin' },
-      };
-
-      function getBestShade(val) {
-        const keys = [0, 33, 66, 100];
-        return keys.reduce((prev, curr) => Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
-      }
-
-      function renderShadeProducts(val) {
-        const grid = document.getElementById('ps-products-grid');
-        if (!grid) return;
-        const key = getBestShade(parseInt(val));
-        const shade = shadeMap[key];
-        const products = (window.productsData || [])
-          .filter(p => shade.filters.includes(p.filter))
-          .slice(0, 4);
-
-        if (products.length === 0) {
-          grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:20px 0;">Loading products…</p>';
-          return;
-        }
-
-        grid.innerHTML =
-          '<p class="ps-tip">' + shade.tip + '</p>' +
-          '<div class="ps-inner-grid">' +
-          products.map(function(p) {
-            return '<div class="ps-product-card" onclick="location.href=\'product.html?id=' + p.id + '\'">' +
-              '<div class="ps-prod-img"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>' +
-              '<div class="ps-prod-info">' +
-                '<p class="ps-prod-name">' + p.name + '</p>' +
-                '<p class="ps-prod-price">Rs. ' + p.price.toLocaleString() + '</p>' +
-                '<button class="ps-prod-btn" onclick="event.stopPropagation();addToCart(\'' + p.id + '\')">Add to Bag</button>' +
-              '</div>' +
-            '</div>';
-          }).join('') +
-          '</div>';
-      }
-
-      document.querySelectorAll('.ps-tone-item').forEach(function(item) {
-        item.addEventListener('click', function() {
-          document.querySelectorAll('.ps-tone-item').forEach(function(i) { i.classList.remove('active'); });
-          item.classList.add('active');
-          var val = parseInt(item.dataset.val);
-          var range = document.getElementById('ps-range');
-          if (range) range.value = val;
-          renderShadeProducts(val);
-        });
-      });
-
-      var psRange = document.getElementById('ps-range');
-      if (psRange) {
-        psRange.addEventListener('input', function() {
-          var val = parseInt(psRange.value);
-          var key = getBestShade(val);
-          document.querySelectorAll('.ps-tone-item').forEach(function(item) {
-            item.classList.toggle('active', parseInt(item.dataset.val) === key);
-          });
-          renderShadeProducts(val);
-        });
-      }
-
-      function tryRender() {
-        if (window.productsData && window.productsData.length > 0) {
-          renderShadeProducts(0);
-        } else {
-          setTimeout(tryRender, 400);
-        }
-      }
-      tryRender();
     })();
 
   </script>
