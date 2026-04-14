@@ -2535,6 +2535,16 @@ background: #0a0a0a;
   padding: 16px;
 }
 
+/* Hide floating social icons on Cart Page or whenever Cart Drawer is open (Global) */
+.cart-page-body .floating-email,
+.cart-page-body .floating-wa,
+.cart-page-body .floating-ig,
+body:has(.cart-drawer.open) .floating-email,
+body:has(.cart-drawer.open) .floating-wa,
+body:has(.cart-drawer.open) .floating-ig {
+  display: none !important;
+}
+
 /* â”€â”€ FOOTER â”€â”€ */
 .site-footer {
   background: var(--brown);
@@ -7756,15 +7766,6 @@ background: #0a0a0a;
     padding-bottom: 0px !important;
   }
 
-  /* Hide floating social icons on Cart Page or whenever Cart Drawer is open */
-  .cart-page-body .floating-email,
-  .cart-page-body .floating-wa,
-  .cart-page-body .floating-ig,
-  body:has(.cart-drawer.open) .floating-email,
-  body:has(.cart-drawer.open) .floating-wa,
-  body:has(.cart-drawer.open) .floating-ig {
-    display: none !important;
-  }
 
   /* Force white and bold footer topics/headers on mobile */
   .site-footer h3,
