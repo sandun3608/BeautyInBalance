@@ -279,82 +279,113 @@
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <ul class="nav-main">
-        <li><a href="index.html">Home</a></li>
-        <li class="has-drop">
-          <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-          <ul class="drop-menu">
-            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
-            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
-          </ul>
-        </li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="policies.html">Policies</a></li>
+        </ul>
+      </div>
 
+      <!-- Center: Logo -->
       <a href="index.html" class="site-logo">Beauty in Balance</a>
 
+      <!-- Right: Search + Account + Cart -->
       <div class="nav-icons">
-        <button class="ic-btn" id="search-open" aria-label="Search">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
         </button>
-        <a href="mailto:beautyinbalancesupport@gmail.com" class="ic-btn" aria-label="Email Us" title="beautyinbalancesupport@gmail.com">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        </a>
-        <a href="login.html" id="top-account-link" class="ic-btn" aria-label="Account">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </a>
-        <script>
-          document.getElementById('top-account-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            const token = localStorage.getItem('userToken');
-            const info = JSON.parse(localStorage.getItem('userInfo') || '{}');
-            if (token && info.isAdmin) {
-              window.location.href = 'admin.html';
-            } else if (token) {
-              window.location.href = 'dashboard.html';
-            } else {
-              window.location.href = 'login.html';
-            }
-          });
-        </script>
+
         <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
         </button>
+
+        <!-- Mobile User Icon -->
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
       </div>
     </nav>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
   </header>
+
+  <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
   <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top">
-      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
-      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <ul class="mobile-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="policies.html">Policies</a></li>
+    <ul class="mobile-nav" style="padding: 40px 20px; display: flex; flex-direction: column; gap: 20px;">
+      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
+      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
+      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
+      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
+      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
     </ul>
   </div>
 
   <!-- ===== CART DRAWER ===== -->
   <div class="cart-drawer" id="cart-drawer">
-    <div class="cart-head">
-      <h3>Cart (0)</h3>
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
       <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="cart-empty">
-      <p>Your cart is currently empty.</p>
-      <a href="shop.html" class="btn-dark">Continue Shopping</a>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
     </div>
   </div>
+
+  <!-- ===== MOBILE BOTTOM NAV (APP STYLE) ===== -->
+  <div class="mobile-bottom-nav-v2">
+    <a href="index.html" class="mbn-item" id="mbn-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="shop.html" class="mbn-item" id="mbn-shop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+      <span>Shop</span>
+    </a>
+    <a href="https://wa.me/94719152136" target="_blank" class="mbn-item" id="mbn-wa">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-11.2c4.6 0 8.3 3.7 8.5 8.3z"/><path d="M16 11l-3 3-3-3"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <button class="mbn-item" id="mbn-cart-v2" onclick="document.getElementById('cart-open').click()">
+      <div class="mbn-cart-wrap" style="position: relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge mbn-badge">0</span>
+      </div>
+      <span>Bag</span>
+    </button>
+  </div>
+
+
 
   <!-- ===== CONTACT BANNER ===== -->
   <div class="contact-banner">
@@ -504,7 +535,7 @@
       </div>
     </div>
     <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 40px;">
-      <p>© 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+      <p>© 2024 Beauty in Balance. All rights reserved.</p>
     </div>
   </footer>
 
@@ -546,30 +577,62 @@
        }
      });
 
-     window.addEventListener('scroll', () => {
-       document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 80);
-     });
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
 
-     const overlay = document.getElementById('overlay') || (() => {
-       const el = document.createElement('div');
-       el.className = 'overlay';
-       el.id = 'overlay';
-       document.body.appendChild(el);
-       return el;
-     })();
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+    });
 
-     function closeAll() {
-       document.getElementById('mobile-drawer')?.classList.remove('open');
-       document.getElementById('cart-drawer')?.classList.remove('open');
-       overlay.classList.remove('show');
-     }
+    $('ham-open')?.addEventListener('click', () => { 
+      document.getElementById('mobile-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+      const mBar = $('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
 
-     document.getElementById('cart-open').addEventListener('click', () => {
-       document.getElementById('cart-drawer').classList.add('open');
-       overlay.classList.add('show');
-     });
-     overlay.addEventListener('click', closeAll);
-     document.getElementById('cart-close')?.addEventListener('click', closeAll);
+    $('cart-open')?.addEventListener('click', () => { 
+      document.getElementById('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    });
+    
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    }
+    
+    $('ham-close')?.addEventListener('click', closeAll);
+    $('cart-close')?.addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // Mobile Search Bar Scroll Effect
+    let lastScrollTop = 0;
+    const mSearchBar = $('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    (function forceBottomNav() {
+      const nav = document.querySelector('.mobile-bottom-nav-v2');
+      if (nav) {
+        nav.style.display = 'grid';
+        nav.style.visibility = 'visible';
+        nav.style.opacity = '1';
+      }
+    })();
   </script>
   <script src="config.js"></script>
   <script src="products.js"></script>
