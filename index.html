@@ -177,7 +177,58 @@
     </div>
   </div>
 
-  
+  <main>
+    <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
+    <!-- ===== SECTION: ROUND CATEGORY LIST (MOVED TO TOP) ===== -->
+    <section class="round-list-section">
+      <div class="round-list-track" id="round-track">
+        <!-- Dynamically injected by productsData -->
+      </div>
+      <script>
+        function renderRoundCategories() {
+          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
+          const track = document.getElementById('round-track');
+          if (!track) return;
+          
+          const categoriesObj = [
+            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
+            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
+            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
+            { id: 'makeup', name: 'Makeup Essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
+            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
+            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
+            { id: 'eye', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
+            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
+          ];
+          
+          track.innerHTML = categoriesObj.map(cat => `
+            <a href="category.html?cat=${cat.id}" class="round-item">
+              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
+              <span>${cat.name}</span>
+            </a>
+          `).join('');
+        }
+        document.addEventListener('DOMContentLoaded', renderRoundCategories);
+      </script>
+    </section>
+
+    <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
+    <section class="hero-section" id="hero-slider">
+      <div class="hero-slides">
+        <!-- Desktop Video Slide -->
+        <div class="hero-slide active desktop-only">
+          <div class="hero-bg">
+            <video src="1slide/hero-slide.mp4" autoplay loop muted playsinline id="hero-vdo-1"></video>
+          </div>
+          <div class="hero-content">
+            <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
+            <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
+            <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
+            <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
+          </div>
+        </div>
 
         <!-- Mobile Image Slides (Only One Premium Slide) -->
         <div class="hero-slide active mobile-only">
@@ -197,6 +248,7 @@
         <button class="hero-arr next mobile-only" id="hero-next" style="display:none;"></button>
       </div>
     </section>
+
 
 
 
@@ -1389,6 +1441,21 @@
       }
     }
 
+    /* ── HERO SLIDER ── */
+    let heroIdx = 0;
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    function showHeroSlide(index) {
+      if (!heroSlides.length) return;
+      if (index >= heroSlides.length) heroIdx = 0;
+      else if (index < 0) heroIdx = heroSlides.length - 1;
+      else heroIdx = index;
+      heroSlides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
+    }
+    const hPrevBtn = $('hero-prev');
+    const hNextBtn = $('hero-next');
+    if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
+    if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
+    setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
 
 
     fetchProducts();
