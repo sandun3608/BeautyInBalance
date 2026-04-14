@@ -1541,6 +1541,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .whatsapp-float, .email-float {
     bottom: 85px !important;
   }
+  .floating-ig  { bottom: 25px !important; }
+  .floating-wa  { bottom: 90px !important; }
+  .floating-email { bottom: 155px !important; }
+
   main { 
     margin-top: 0 !important; 
     padding-top: 70px !important; 
@@ -4472,8 +4476,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   border: 1.5px solid #1a0f0c;
 }
 
-/* ===== FLOATING EMAIL & WHATSAPP ICONS ===== */
-.floating-email, .floating-wa { 
+/* ===== FLOATING EMAIL, WHATSAPP & INSTAGRAM ICONS ===== */
+.floating-email, .floating-wa, .floating-ig { 
   position: fixed; 
   right: 20px; 
   z-index: 8000; 
@@ -4485,16 +4489,20 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   transition: 0.3s; 
 }
 
-.floating-email, .floating-wa { bottom: 95px; width: 55px; height: 55px; background: #ea4335; }
-.floating-wa { bottom: 25px; background: #25d366; }
-.floating-email svg, .floating-wa svg { width: 26px; height: 26px; color: #fff; }
+/* Stack order (bottom → top): Instagram, WhatsApp, Email */
+.floating-ig  { bottom: 25px;  width: 55px; height: 55px; background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4); }
+.floating-wa  { bottom: 90px;  width: 55px; height: 55px; background: #25d366; }
+.floating-email { bottom: 155px; width: 55px; height: 55px; background: #ea4335; }
+
+.floating-email svg, .floating-wa svg, .floating-ig svg { width: 26px; height: 26px; color: #fff; }
 
 @media (max-width: 768px) {
-  .floating-wa { bottom: 40px; } /* Lowered further by 20px */
-  .floating-email { bottom: 100px; }
+  .floating-ig  { bottom: 25px; }
+  .floating-wa  { bottom: 90px; }
+  .floating-email { bottom: 155px; }
 }
 
-.floating-email:hover, .floating-wa:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+.floating-email:hover, .floating-wa:hover, .floating-ig:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
 
 /* ===== FINAL PREMIUM MOBILE NAVIGATION FIX (GUARANTEED) ===== */
 @media (max-width: 900px) {
