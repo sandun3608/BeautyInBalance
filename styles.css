@@ -7541,17 +7541,11 @@ background: #0a0a0a;
   color: #fff;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .floating-email,
+  .floating-wa,
   .floating-ig {
-    bottom: 25px;
-  }
-
-  .floating-wa {
-    bottom: 90px;
-  }
-
-  .floating-email {
-    bottom: 155px;
+    display: none !important;
   }
 }
 
