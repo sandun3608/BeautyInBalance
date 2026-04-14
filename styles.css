@@ -3912,124 +3912,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .site-logo { font-size: 20px; }
 }
 
-/* ===== UNIVERSAL PREMIUM BOTTOM NAV (LUXE PEARL EDITION) ===== */
-.mobile-bottom-nav {
-  position: fixed;
-  bottom: 0px; 
-  left: 0px;
-  right: 0px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.95); /* Luminous White Glass */
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 -15px 40px rgba(0,0,0,0.1);
-  z-index: 5000;
-  padding: 0 10px;
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-@media (min-width: 769px) {
-  .mobile-bottom-nav {
-    max-width: 580px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 25px;
-    border-radius: 100px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-    height: 75px;
-    padding: 0 25px;
-  }
-}
-
-.mbn-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: #160c08; /* Deep Ebony for Contrast */
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative;
-}
-
-.mbn-item svg { 
-  width: 20px; 
-  height: 20px; 
-  stroke-width: 1.5;
-  transition: transform 0.3s;
-}
-
-.mbn-item span:not(.mbn-badge) {
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-.mbn-item.active {
-  color: var(--gold);
-}
-
-/* Luxury Center Hub */
-.mbn-main {
-  position: relative;
-  top: -18px;
-}
-
-.mbn-main-inner {
-  width: 62px;
-  height: 62px;
-  background: linear-gradient(145deg, #e6b980 0%, #ad8a56 100%);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 30px rgba(184, 134, 11, 0.4), inset 0 2px 5px rgba(255,255,255,0.4);
-  border: 4px solid #160c08;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.mbn-shop-name {
-  font-size: 7.5px !important;
-  font-weight: 800 !important;
-  color: #160c08;
-  margin-top: -1px;
-  letter-spacing: 0.02em;
-}
-
-.mbn-main:active .mbn-main-inner {
-  transform: scale(1.1);
-}
-
-.mbn-badge {
-  position: absolute;
-  top: -2px;
-  right: 50%;
-  transform: translateX(18px);
-  background: #ff3b30;
-  color: #fff;
-  font-size: 9px;
-  min-width: 17px;
-  height: 17px;
-  padding: 0 3px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  border: 2.5px solid #1c100a;
-  z-index: 10;
-}
+/* OLD NAV REMOVED */
 /* ===== UNIVERSAL MOBILE POLISH (LASSANA FINISH) ===== */
 @media (max-width: 768px) {
   /* Global Title Balancing */
@@ -4486,79 +4369,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }
 }
 
-/* ===== UNIVERSAL PREMIUM BOTTOM NAV (EBONY EDITION) ===== */
-.mobile-bottom-nav-v2 {
-  position: fixed;
-  bottom: 0px; 
-  left: 0px;
-  right: 0px;
-  height: 64px; /* Slightly more compact for premium feel */
-  background: #111111 !important; /* Deeper Ebony */
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.4);
-  z-index: 99999;
-  padding-bottom: 2px; /* Reduced bottom space */
-}
-
-@media (min-width: 769px) {
-  .mobile-bottom-nav-v2 { display: none; }
-}
-
-.mbn-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  color: #ffffff !important; /* Pure White */
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  text-decoration: none;
-}
-
-.mbn-item svg { 
-  width: 20px; 
-  height: 20px; 
-  margin-bottom: 2px;
-}
-
-.mbn-item span {
-  font-size: 10px;
-  font-weight: 800; /* Extra Bold */
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  opacity: 1 !important; /* No transparency */
-}
-
-.mbn-item:active {
-  transform: scale(0.9);
-  color: var(--gold);
-}
-
-.mbn-badge {
-  position: absolute;
-  top: -5px;
-  right: -8px;
-  background: var(--gold);
-  color: #000;
-  font-size: 9px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 2px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  border: 1.5px solid #1a0f0c;
-}
+/* V2 NAV REMOVED */
 
 /* ===== FLOATING EMAIL, WHATSAPP & INSTAGRAM ICONS ===== */
 .floating-email, .floating-wa, .floating-ig { 
@@ -4708,3 +4519,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 
+
+ . m o b i l e - b o t t o m - n a v   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   v i s i b i l i t y :   h i d d e n   ! i m p o r t a n t ;   h e i g h t :   0   ! i m p o r t a n t ;   o v e r f l o w :   h i d d e n   ! i m p o r t a n t ;   p o i n t e r - e v e n t s :   n o n e   ! i m p o r t a n t ;   } 
+ 
+ 

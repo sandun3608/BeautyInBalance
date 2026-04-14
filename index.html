@@ -177,81 +177,7 @@
     </div>
   </div>
 
-  <!-- ===== MOBILE BOTTOM NAV (APP STYLE) ===== -->
-  <div class="mobile-bottom-nav-v2">
-    <a href="index.html" class="mbn-item" id="mbn-home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
-      <span>Home</span>
-    </a>
-    <a href="shop.html" class="mbn-item" id="mbn-shop">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
-      <span>Shop</span>
-    </a>
-    <a href="https://wa.me/94719152136" target="_blank" class="mbn-item" id="mbn-wa">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-11.2c4.6 0 8.3 3.7 8.5 8.3z"/><path d="M16 11l-3 3-3-3"/></svg>
-      <span>WhatsApp</span>
-    </a>
-    <button class="mbn-item" id="mbn-cart-v2" onclick="document.getElementById('cart-open').click()">
-      <div class="mbn-cart-wrap" style="position: relative;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span class="cart-badge mbn-badge">0</span>
-      </div>
-      <span>Bag</span>
-    </button>
-  </div>
-
-
-  <main>
-    <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
-    <!-- ===== SECTION: ROUND CATEGORY LIST (MOVED TO TOP) ===== -->
-    <section class="round-list-section">
-      <div class="round-list-track" id="round-track">
-        <!-- Dynamically injected by productsData -->
-      </div>
-      <script>
-        function renderRoundCategories() {
-          if (typeof productsData === 'undefined' || !productsData || productsData.length === 0) return;
-          const track = document.getElementById('round-track');
-          if (!track) return;
-          
-          const categoriesObj = [
-            { id: 'cleansers', name: 'Cleansers', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'serums', name: 'Serums & Hydration', defaultImg: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' },
-            { id: 'acids', name: 'Exfoliating Acids', defaultImg: 'the%20ordinary/Aha%20bha%20peeling%20solution%20(30ml)%20Rs.5200.png' },
-            { id: 'retinoids', name: 'Retinoids', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'sunscreen', name: 'Sun Protection', defaultImg: 'cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png' },
-            { id: 'makeup', name: 'Makeup Essentials', defaultImg: 'the%20ordinary/lip%20burm.png' },
-            { id: 'night', name: 'Night Care', defaultImg: 'the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png' },
-            { id: 'body', name: 'Body Care', defaultImg: 'cerave%20prodcut/Hydrating%20Forming%20Oil%20Cleanser%20(237ml)%20%20Rs.8000.png' },
-            { id: 'eye', name: 'Eye & Targeted', defaultImg: 'the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png' },
-            { id: 'lip', name: 'Lip Care', defaultImg: 'the%20ordinary/PHA%205%25%20Exfoliating%20Lip%20Serum%20(15ml)%20%20Rs.4600.png' }
-          ];
-          
-          track.innerHTML = categoriesObj.map(cat => `
-            <a href="category.html?cat=${cat.id}" class="round-item">
-              <div class="round-img"><img src="${cat.defaultImg}" alt="${cat.name}"></div>
-              <span>${cat.name}</span>
-            </a>
-          `).join('');
-        }
-      </script>
-    </section>
-
-    <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
-    <section class="hero-section" id="hero-slider">
-      <div class="hero-slides">
-        <!-- Desktop Video Slide -->
-        <div class="hero-slide active desktop-only">
-          <div class="hero-bg">
-            <video src="1slide/hero-slide.mp4" autoplay loop muted playsinline id="hero-vdo-1"></video>
-          </div>
-          <div class="hero-content">
-            <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
-            <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
-            <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
-            <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
-          </div>
-        </div>
+  
 
         <!-- Mobile Image Slides (Only One Premium Slide) -->
         <div class="hero-slide active mobile-only">
@@ -1517,14 +1443,7 @@
       lastScrollTop = st;
     });
 
-    (function forceBottomNav() {
-      const nav = document.querySelector('.mobile-bottom-nav-v2');
-      if (nav) {
-        nav.style.display = 'grid';
-        nav.style.visibility = 'visible';
-        nav.style.opacity = '1';
-      }
-    })();
+    
 
   </script>
 

@@ -511,40 +511,7 @@
     </ul>
   </div>
 
-  <!-- ===== MOBILE BOTTOM NAV ===== -->
-  <div class="mobile-bottom-nav-v2">
-    <a href="index.html" class="mbn-item" id="mbn-home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
-      <span>Home</span>
-    </a>
-    <a href="shop.html" class="mbn-item active" id="mbn-shop">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
-      <span>Shop</span>
-    </a>
-    <a href="https://wa.me/94719152136" target="_blank" class="mbn-item" id="mbn-wa">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 11-7.6-11.2c4.6 0 8.3 3.7 8.5 8.3z"/><path d="M16 11l-3 3-3-3"/></svg>
-      <span>WhatsApp</span>
-    </a>
-    <button class="mbn-item" id="mbn-cart-v2" onclick="document.getElementById('cart-open').click()">
-      <div class="mbn-cart-wrap" style="position: relative;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span class="cart-badge mbn-badge">0</span>
-      </div>
-      <span>Bag</span>
-    </button>
-  </div>
-
-  <!-- ===== CART DRAWER ===== -->
-  <div class="cart-drawer" id="cart-drawer">
-    <div class="cart-head">
-      <h3>Cart (0)</h3>
-      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="cart-empty">
-      <p>Your cart is currently empty.</p>
-      <a href="shop.html" class="btn-dark">Continue Shopping</a>
-    </div>
-  </div>
+  
 
   <main>
     <!-- ===== SHOP HERO ===== -->
@@ -911,14 +878,7 @@
       lastScrollTop = st;
     });
 
-    (function forceBottomNav() {
-      const nav = document.querySelector('.mobile-bottom-nav-v2');
-      if (nav) {
-        nav.style.display = 'grid';
-        nav.style.visibility = 'visible';
-        nav.style.opacity = '1';
-      }
-    })();
+    
   </script>
 </body>
 </html>
