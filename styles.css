@@ -1501,21 +1501,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     font-size: 9px !important;
   }
   .mobile-bottom-nav-v2 {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: #fff;
-    display: grid !important; /* Force grid visibility */
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-    z-index: 20001; /* Higher than header */
-    border-top: 1px solid #eee;
-    padding-bottom: env(safe-area-inset-bottom);
-    visibility: visible !important;
-    opacity: 1 !important;
+    display: none !important;
   }
   .mbn-item {
     display: flex;
