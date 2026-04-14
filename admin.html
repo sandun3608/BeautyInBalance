@@ -1301,8 +1301,16 @@
 
       editingId = prodId;
       if (addProductForm) addProductForm.reset();
-      if (pImgPreview) pImgPreview.style.display = 'none';
-      if (pImgPlaceholder) pImgPlaceholder.style.display = 'block';
+      
+      // Reset all 4 previews
+      [1,2,3,4].forEach(n => {
+        const suffix = n === 1 ? '' : n;
+        const pre = document.getElementById('p-img-preview'+suffix);
+        const plc = document.getElementById('p-img-placeholder'+suffix);
+        if (pre) { pre.src = ''; pre.style.display = 'none'; }
+        if (plc) { plc.style.display = 'block'; }
+      });
+
       if (pModal) pModal.style.display = 'flex';
       
       if (prodId && typeof window.productsData !== 'undefined') {
@@ -1318,7 +1326,10 @@
             'p-price': prod.price,
             'p-id-field': prod.id,
             'p-discount': prod.discount,
-            'p-img': prod.img,
+            'p-img': prod.img || (prod.images && prod.images[0]) || '',
+            'p-img2': (prod.images && prod.images[1]) || '',
+            'p-img3': (prod.images && prod.images[2]) || '',
+            'p-img4': (prod.images && prod.images[3]) || '',
             'p-desc': prod.desc,
             'p-stock': prod.stock
           };
@@ -1327,12 +1338,15 @@
             if (el) el.value = fields[fid] || (fid.includes('price') || fid.includes('stock') ? 0 : '');
           }
 
-          const imageToShow = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : '');
-          if (imageToShow && imageToShow !== 'undefined' && pImgPreview) {
-             pImgPreview.src = imageToShow;
-             pImgPreview.style.display = 'block';
-             if (pImgPlaceholder) pImgPlaceholder.style.display = 'none';
-          }
+          // Previews
+          [1,2,3,4].forEach(n => {
+            const suffix = n === 1 ? '' : n;
+            const src = fields['p-img'+suffix];
+            const pre = document.getElementById('p-img-preview'+suffix);
+            const plc = document.getElementById('p-img-placeholder'+suffix);
+            if (src && pre) { pre.src = src; pre.style.display = 'block'; if(plc) plc.style.display = 'none'; }
+            else if (pre) { pre.style.display = 'none'; if(plc) plc.style.display = 'block'; }
+          });
         }
       } else if (document.querySelector('#product-modal h3')) {
         document.querySelector('#product-modal h3').innerText = 'Add New Skincare Product';
@@ -1367,6 +1381,13 @@
 
                 if (sendBtn) { sendBtn.textContent = 'Saving...'; sendBtn.disabled = true; }
 
+                const img1 = document.getElementById('p-img').value;
+                const img2 = document.getElementById('p-img2').value;
+                const img3 = document.getElementById('p-img3').value;
+                const img4 = document.getElementById('p-img4').value;
+                
+                const imagesArray = [img1, img2, img3, img4].filter(s => s && s.trim() !== '');
+
                 const productData = {
                   name: document.getElementById('p-name').value,
                   cat: document.getElementById('p-cat').value,
@@ -1374,7 +1395,8 @@
                   price: Number(document.getElementById('p-price').value),
                   id: document.getElementById('p-id-field').value,
                   discount: Number(document.getElementById('p-discount').value),
-                  img: mainImg,
+                  img: imagesArray[0] || img1,
+                  images: imagesArray,
                   desc: document.getElementById('p-desc').value,
                   stock: Number(document.getElementById('p-stock').value)
                 };
@@ -1394,9 +1416,11 @@
             });
         }
 
-        // File compression logic
-        const pFileInput = document.getElementById('p-img-file');
-        if (pFileInput) {
+        // Multiple File compression logic
+        const setupUpload = (n) => {
+            const suffix = n === 1 ? '' : n;
+            const pFileInput = document.getElementById('p-img-file' + suffix);
+            if (!pFileInput) return;
             pFileInput.onchange = (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -1411,9 +1435,9 @@
                         c.width = w; c.height = h;
                         ctx.drawImage(i, 0, 0, w, h);
                         const b64 = c.toDataURL('image/webp', 0.8);
-                        const pImg = document.getElementById('p-img');
-                        const pPre = document.getElementById('p-img-preview');
-                        const pPlc = document.getElementById('p-img-placeholder');
+                        const pImg = document.getElementById('p-img' + suffix);
+                        const pPre = document.getElementById('p-img-preview' + suffix);
+                        const pPlc = document.getElementById('p-img-placeholder' + suffix);
                         if (pImg) pImg.value = b64;
                         if (pPre) { pPre.src = b64; pPre.style.display = 'block'; }
                         if (pPlc) pPlc.style.display = 'none';
@@ -1422,7 +1446,8 @@
                 };
                 r.readAsDataURL(file);
             };
-        }
+        };
+        [1,2,3,4].forEach(setupUpload);
 
         safetyInit();
     }
@@ -1956,15 +1981,64 @@
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Price (LKR)</label><input type="number" id="p-price" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Stock</label><input type="number" id="p-stock" value="50" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Discount %</label><input type="number" id="p-discount" value="0" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <!-- IMAGERY 4-GRID -->
                     <div class="form-group" style="grid-column: span 2;">
-                        <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Imagery</label>
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <input type="text" id="p-img" placeholder="http://..." style="flex: 1; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
-                            <button type="button" class="admin-btn" onclick="document.getElementById('p-img-file').click()">Upload</button>
-                            <input type="file" id="p-img-file" accept="image/*" style="display:none;">
+                        <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 12px; font-weight: 700;">Multi-Visual Product Gallery (Up to 4)</label>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <!-- SLOT 1 -->
+                            <div style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--admin-border);">
+                                <label style="font-size: 9px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: 800;">Image 1 (Primary)</label>
+                                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                                    <input type="text" id="p-img" placeholder="URL" style="flex: 1; padding: 8px; border: 1px solid var(--admin-border); border-radius: 6px; font-size: 11px;">
+                                    <button type="button" class="admin-btn" style="padding: 6px 10px; font-size: 10px;" onclick="document.getElementById('p-img-file').click()">Upload</button>
+                                    <input type="file" id="p-img-file" accept="image/*" style="display:none;">
+                                </div>
+                                <div id="p-img-preview-box" style="width:100%; height:60px; border:1px dashed var(--admin-border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; background: #fff;">
+                                    <img id="p-img-preview" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+                                    <span id="p-img-placeholder" style="font-size: 8px; color: var(--admin-muted);">Empty Slot</span>
+                                </div>
+                            </div>
+                            <!-- SLOT 2 -->
+                            <div style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--admin-border);">
+                                <label style="font-size: 9px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: 800;">Image 2</label>
+                                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                                    <input type="text" id="p-img2" placeholder="URL" style="flex: 1; padding: 8px; border: 1px solid var(--admin-border); border-radius: 6px; font-size: 11px;">
+                                    <button type="button" class="admin-btn" style="padding: 6px 10px; font-size: 10px;" onclick="document.getElementById('p-img-file2').click()">Upload</button>
+                                    <input type="file" id="p-img-file2" accept="image/*" style="display:none;">
+                                </div>
+                                <div id="p-img-preview-box2" style="width:100%; height:60px; border:1px dashed var(--admin-border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; background: #fff;">
+                                    <img id="p-img-preview2" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+                                    <span id="p-img-placeholder2" style="font-size: 8px; color: var(--admin-muted);">Empty Slot</span>
+                                </div>
+                            </div>
+                            <!-- SLOT 3 -->
+                            <div style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--admin-border);">
+                                <label style="font-size: 9px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: 800;">Image 3</label>
+                                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                                    <input type="text" id="p-img3" placeholder="URL" style="flex: 1; padding: 8px; border: 1px solid var(--admin-border); border-radius: 6px; font-size: 11px;">
+                                    <button type="button" class="admin-btn" style="padding: 6px 10px; font-size: 10px;" onclick="document.getElementById('p-img-file3').click()">Upload</button>
+                                    <input type="file" id="p-img-file3" accept="image/*" style="display:none;">
+                                </div>
+                                <div id="p-img-preview-box3" style="width:100%; height:60px; border:1px dashed var(--admin-border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; background: #fff;">
+                                    <img id="p-img-preview3" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+                                    <span id="p-img-placeholder3" style="font-size: 8px; color: var(--admin-muted);">Empty Slot</span>
+                                </div>
+                            </div>
+                            <!-- SLOT 4 -->
+                            <div style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--admin-border);">
+                                <label style="font-size: 9px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: 800;">Image 4</label>
+                                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                                    <input type="text" id="p-img4" placeholder="URL" style="flex: 1; padding: 8px; border: 1px solid var(--admin-border); border-radius: 6px; font-size: 11px;">
+                                    <button type="button" class="admin-btn" style="padding: 6px 10px; font-size: 10px;" onclick="document.getElementById('p-img-file4').click()">Upload</button>
+                                    <input type="file" id="p-img-file4" accept="image/*" style="display:none;">
+                                </div>
+                                <div id="p-img-preview-box4" style="width:100%; height:60px; border:1px dashed var(--admin-border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; background: #fff;">
+                                    <img id="p-img-preview4" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+                                    <span id="p-img-placeholder4" style="font-size: 8px; color: var(--admin-muted);">Empty Slot</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div id="p-img-preview-box" style="width:100px;height:100px;border:1px dashed var(--admin-border);border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;grid-column: span 2;"><img id="p-img-preview" src="" style="width:100%;display:none;"><span id="p-img-placeholder" style="font-size: 10px; color: var(--admin-muted);">No Archive</span></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Unique ID</label><input type="text" id="p-id-field" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Philosophy / Description</label><textarea id="p-desc" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
                     <input type="hidden" id="p-filter" value="serums">
