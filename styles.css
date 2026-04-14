@@ -4515,9 +4515,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   main { 
     margin-top: 0 !important;
-    padding-top: 130px !important; 
   }
-  body { padding-top: 0 !important; }
+  body { padding-top: 120px !important; } /* Offset for fixed Header (60px) + Search Bar (approx 50px) */
 }
 
 
