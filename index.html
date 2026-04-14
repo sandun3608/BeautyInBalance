@@ -1486,6 +1486,83 @@
       }
     })();
 
+    // ===== SHADE FINDER LOGIC =====
+    (function initShadeFinder() {
+      const shadeMap = {
+        0:   { label: 'Fair',   filters: ['glow', 'serums', 'eye'],       tip: 'Brightening & hydrating picks for fair skin' },
+        33:  { label: 'Light',  filters: ['serums', 'dry', 'cleansers'],  tip: 'Nourishing & balancing picks for light skin' },
+        66:  { label: 'Medium', filters: ['retinoids', 'acids', 'body'],   tip: 'Exfoliating & renewing heroes for medium skin' },
+        100: { label: 'Dark',   filters: ['acids', 'targeted', 'lip'],    tip: 'Correcting & intensive care for dark skin' },
+      };
+
+      function getBestShade(val) {
+        const keys = [0, 33, 66, 100];
+        return keys.reduce((prev, curr) => Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
+      }
+
+      function renderShadeProducts(val) {
+        const grid = document.getElementById('ps-products-grid');
+        if (!grid) return;
+        const key = getBestShade(parseInt(val));
+        const shade = shadeMap[key];
+        const products = (window.productsData || [])
+          .filter(p => shade.filters.includes(p.filter))
+          .slice(0, 4);
+
+        if (products.length === 0) {
+          grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:20px 0;">Loading products…</p>';
+          return;
+        }
+
+        grid.innerHTML =
+          '<p class="ps-tip">' + shade.tip + '</p>' +
+          '<div class="ps-inner-grid">' +
+          products.map(function(p) {
+            return '<div class="ps-product-card" onclick="location.href=\'product.html?id=' + p.id + '\'">' +
+              '<div class="ps-prod-img"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>' +
+              '<div class="ps-prod-info">' +
+                '<p class="ps-prod-name">' + p.name + '</p>' +
+                '<p class="ps-prod-price">Rs. ' + p.price.toLocaleString() + '</p>' +
+                '<button class="ps-prod-btn" onclick="event.stopPropagation();addToCart(\'' + p.id + '\')">Add to Bag</button>' +
+              '</div>' +
+            '</div>';
+          }).join('') +
+          '</div>';
+      }
+
+      document.querySelectorAll('.ps-tone-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          document.querySelectorAll('.ps-tone-item').forEach(function(i) { i.classList.remove('active'); });
+          item.classList.add('active');
+          var val = parseInt(item.dataset.val);
+          var range = document.getElementById('ps-range');
+          if (range) range.value = val;
+          renderShadeProducts(val);
+        });
+      });
+
+      var psRange = document.getElementById('ps-range');
+      if (psRange) {
+        psRange.addEventListener('input', function() {
+          var val = parseInt(psRange.value);
+          var key = getBestShade(val);
+          document.querySelectorAll('.ps-tone-item').forEach(function(item) {
+            item.classList.toggle('active', parseInt(item.dataset.val) === key);
+          });
+          renderShadeProducts(val);
+        });
+      }
+
+      function tryRender() {
+        if (window.productsData && window.productsData.length > 0) {
+          renderShadeProducts(0);
+        } else {
+          setTimeout(tryRender, 400);
+        }
+      }
+      tryRender();
+    })();
+
   </script>
 
 </body>
