@@ -143,11 +143,6 @@
       color: #777;
     }
 
-    @media (max-width: 900px) {
-      .by-intro { padding: 40px 24px 60px; }
-      .by-title { font-size: 40px; }
-      .by-desc { font-size: 18px; }
-    }
     /* Info Grid (Be Yours Style) */
     .info-grid-section {
       padding: 100px 48px;
@@ -262,13 +257,21 @@
       color: #777;
     }
 
-    @media (max-width: 1000px) {
-      .why-bib-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-    }
-
-    @media (max-width: 600px) {
-      .why-bib-grid { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .about-header-main { padding: 120px 24px 30px; }
+      .by-intro { padding: 40px 24px 60px; }
+      .by-title { font-size: 40px; }
+      .by-desc { font-size: 18px; }
+      .info-grid-section { padding: 60px 24px; }
+      .info-content { grid-template-columns: 1fr; gap: 20px; }
       .why-bib-section { padding: 60px 24px; }
+      .why-bib-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    }
+    
+    @media (max-width: 600px) {
+      .about-header-main h2 { font-size: 45px; }
+      .about-top-banner img { max-width: 300px; }
+      .why-bib-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
