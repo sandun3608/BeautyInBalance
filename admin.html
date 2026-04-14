@@ -20,6 +20,8 @@
   <script>
     console.log("⚡ BiB Admin: Core Logic Loading...");
     
+    window.renderTeamChart = function() { console.log("📊 Team chart placeholder initialized."); };
+
     window.switchTab = function(tabName, el) {
       console.log('🔄 Tab Switch Requested:', tabName);
       
@@ -66,6 +68,7 @@
       if (tabName === 'analytics') {
           if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
           if (typeof renderAnalyticsDashboard === 'function') renderAnalyticsDashboard();
+          if (typeof renderTeamChart === 'function') renderTeamChart();
       }
       if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
       if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
@@ -1166,8 +1169,8 @@
   <script src="products.js?v=11"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
-    window.onerror = (m,u,l) => console.error("Error: " + m + " at line " + l);
-    // Using global BASE_URL from config.js
+    let editingId = null;
+    function renderTeamChart() { /* Placeholder to prevent script crash */ }
 
     
     // Clean up cached name suffixes if any
