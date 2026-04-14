@@ -7734,9 +7734,9 @@ background: #0a0a0a;
     opacity: 0.3;
   }
 
-  /* Push footer down by an exact 150px on mobile */
+  /* Push footer down by an exact 200px on mobile */
   .site-footer {
-    margin-top: 150px !important;
+    margin-top: 200px !important;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
   }
