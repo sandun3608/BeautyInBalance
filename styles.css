@@ -11,7 +11,8 @@
   padding: 0;
 }
 
-.mobile-bottom-nav {
+.mobile-bottom-nav,
+.mobile-bottom-nav-v2 {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
@@ -60,7 +61,8 @@ body {
   display: block;
 }
 
-.mobile-bottom-nav {
+.mobile-bottom-nav,
+.mobile-bottom-nav-v2 {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
