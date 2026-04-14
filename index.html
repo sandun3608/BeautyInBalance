@@ -1467,10 +1467,8 @@
 
     fetchProducts();
     // Init shade finder immediately using products.js data (no API wait needed)
-    setTimeout(function() { initShadeFinder(); }, 100);
+    setTimeout(function() { initShadeFinder(); }, 150);
 
-    const $ = id => document.getElementById(id);
-    const overlay = $('overlay');
 
     window.addEventListener('scroll', () => {
       $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
