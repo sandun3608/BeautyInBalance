@@ -7733,9 +7733,9 @@ background: #0a0a0a;
     font-size: 0.8rem;
     opacity: 0.3;
   }
-  /* Push footer down by an exact 50px on mobile */
+  /* Push footer down by an exact 100px on mobile */
   .site-footer {
-    margin-top: 50px !important;
+    margin-top: 100px !important;
   }
 
   /* Force white and bold footer topics/headers on mobile */
