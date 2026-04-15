@@ -161,6 +161,21 @@
     }
     .btn-primary:hover { background: var(--gold); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(198,151,90,0.25); }
 
+    .btn-secondary {
+      background: #fcf7f5;
+      color: var(--brown);
+      border: 1px solid var(--brown);
+      padding: 22px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+    .btn-secondary:hover { background: var(--brown); color: #fff; transform: translateY(-3px); }
+
     /* Accordion / Info Tabs */
     .editorial-tabs {
       margin-top: 20px;
@@ -332,6 +347,13 @@
       el.closest('.tab-item').classList.toggle('active');
     }
 
+    function buyItNow(prodId, qty = 1) {
+      addToCart(prodId, qty);
+      setTimeout(() => {
+        window.location.href = 'checkout.html';
+      }, 100);
+    }
+
     function changeImg(src, btn) {
       const main = document.getElementById('main-view');
       gsap.to(main, { opacity: 0, scale: 0.98, duration: 0.25, onComplete: () => {
@@ -386,6 +408,7 @@
                  </div>
               </div>
               <button class="btn-primary" onclick="addToCart('${product.id}', document.getElementById('p-qty').value)">Add to your bag</button>
+              <button class="btn-secondary" onclick="buyItNow('${product.id}', document.getElementById('p-qty').value)">Buy It Now</button>
             </div>
 
             <div class="editorial-tabs">
