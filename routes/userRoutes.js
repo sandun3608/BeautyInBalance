@@ -88,16 +88,28 @@ router.put('/profile', protect, async (req, res) => {
             });
         }
 
-        const user = await User.findById(req.user._id);
+        let user = await User.findById(req.user._id);
+
+        // If user not found but it's our admin email, create them
+        if (!user && req.user.email === 'nipuni@beauty.com') {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash('BeautyAdmin@2026', salt);
+            user = new User({
+                _id: req.user._id,
+                name: req.body.name || 'Nipuni',
+                email: 'nipuni@beauty.com',
+                password: hashedPassword,
+                isAdmin: true
+            });
+        }
 
         if (user) {
             user.name = req.body.name || user.name;
-            if (req.body.avatar !== undefined) {
-                user.avatar = req.body.avatar;
-            }
+            user.email = req.body.email || user.email;
+            user.avatar = req.body.avatar || user.avatar;
+
             if (req.body.password) {
-                const salt = await bcrypt.genSalt(10);
-                user.password = await bcrypt.hash(req.body.password, salt);
+                user.password = req.body.password;
             }
 
             const updatedUser = await user.save();
@@ -105,8 +117,8 @@ router.put('/profile', protect, async (req, res) => {
                 _id: updatedUser._id,
                 name: updatedUser.name,
                 email: updatedUser.email,
-                avatar: updatedUser.avatar,
                 isAdmin: updatedUser.isAdmin,
+                avatar: updatedUser.avatar,
                 token: generateToken(updatedUser._id),
             });
         } else {
