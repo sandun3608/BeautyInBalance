@@ -52,6 +52,18 @@ router.post('/login', async (req, res) => {
 // @access  Private
 router.put('/profile', protect, async (req, res) => {
     try {
+        // 1. Check for emergency admin bypass ID first
+        if (req.user && req.user._id === '111111111111111111111111') {
+            return res.json({
+                _id: '111111111111111111111111',
+                name: req.body.name || 'Nipuni',
+                email: 'nipuni@beauty.com',
+                avatar: req.body.avatar || '',
+                isAdmin: true,
+                token: generateToken('111111111111111111111111'),
+            });
+        }
+
         const user = await User.findById(req.user._id);
 
         if (user) {
@@ -74,21 +86,11 @@ router.put('/profile', protect, async (req, res) => {
                 token: generateToken(updatedUser._id),
             });
         } else {
-            // Check for emergency admin bypass ID
-            if (req.user._id === '111111111111111111111111') {
-                return res.json({
-                    _id: '111111111111111111111111',
-                    name: req.body.name || 'Nipuni',
-                    email: 'nipuni@beauty.com',
-                    avatar: req.body.avatar || '',
-                    isAdmin: true,
-                    token: generateToken('111111111111111111111111'),
-                });
-            }
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Profile update failed' });
+        console.error("Profile update error:", error);
+        res.status(500).json({ message: 'Profile update failed: ' + error.message });
     }
 });
 

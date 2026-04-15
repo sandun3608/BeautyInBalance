@@ -1805,7 +1805,7 @@
                 }, 1000);
             } else {
                 const errData = await res.json().catch(() => ({}));
-                alert(`Failed to update profile: ${errData.message || 'Server error'}`);
+                alert(`Failed to update profile (${res.status}): ${errData.message || 'Server error'}`);
             }
         } catch (e) {
             console.error("Profile update crash:", e);
