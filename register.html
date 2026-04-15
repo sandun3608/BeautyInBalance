@@ -337,7 +337,8 @@
           localStorage.setItem('userInfo', JSON.stringify({
             name: data.name,
             email: data.email,
-            isAdmin: data.isAdmin
+            isAdmin: data.isAdmin,
+            avatar: data.avatar || ''
           }));
 
           setTimeout(() => {

@@ -4,28 +4,26 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+const { protect } = require('../middleware/auth');
+
 // Helper to generate a token
 const generateToken = (id) => {
-    // Falls back to a safe key if JWT_SECRET is not set in environment
     const secret = process.env.JWT_SECRET || 'beauty_in_balance_token_key_123';
     return jwt.sign({ id }, secret, { expiresIn: '30d' });
 };
 
 // @route   POST /api/users/login
-// @desc    Auth user & get token
-// @access  Public
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    // --- PRODUCTION ADMIN BYPASS ---
     if (email === 'nipuni@beauty.com' && password === 'BeautyAdmin@2026') {
-        console.log("Production Admin Login Used");
-        const dummyId = '111111111111111111111111'; // 24 character hex
+        const dummyId = '111111111111111111111111';
         return res.json({
             _id: dummyId,
             name: 'Nipuni',
             email: 'nipuni@beauty.com',
             isAdmin: true,
+            avatar: '', 
             token: generateToken(dummyId),
         });
     }
@@ -38,6 +36,7 @@ router.post('/login', async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                avatar: user.avatar || '',
                 isAdmin: user.isAdmin,
                 token: generateToken(user._id),
             });
@@ -45,14 +44,54 @@ router.post('/login', async (req, res) => {
             res.status(401).json({ message: 'Invalid email or password' });
         }
     } catch (error) {
-        console.error("Login Error:", error);
         res.status(500).json({ message: 'Server error during login' });
     }
 });
 
-// @route   POST /api/users/register
-// @desc    Register a new user
-// @access  Public
+// @route   PUT /api/users/profile
+// @access  Private
+router.put('/profile', protect, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+
+        if (user) {
+            user.name = req.body.name || user.name;
+            if (req.body.avatar !== undefined) {
+                user.avatar = req.body.avatar;
+            }
+            if (req.body.password) {
+                const salt = await bcrypt.genSalt(10);
+                user.password = await bcrypt.hash(req.body.password, salt);
+            }
+
+            const updatedUser = await user.save();
+            res.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                avatar: updatedUser.avatar,
+                isAdmin: updatedUser.isAdmin,
+                token: generateToken(updatedUser._id),
+            });
+        } else {
+            // Check for emergency admin bypass ID
+            if (req.user._id === '111111111111111111111111') {
+                return res.json({
+                    _id: '111111111111111111111111',
+                    name: req.body.name || 'Nipuni',
+                    email: 'nipuni@beauty.com',
+                    avatar: req.body.avatar || '',
+                    isAdmin: true,
+                    token: generateToken('111111111111111111111111'),
+                });
+            }
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Profile update failed' });
+    }
+});
+
 router.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
 
