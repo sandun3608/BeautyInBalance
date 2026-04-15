@@ -454,16 +454,13 @@
           </div>
 
           <!-- Product Popup (Small Box) -->
-          <div class="look-popup" id="look-popup">
-            <div class="lp-close" onclick="closeLookPopup()">&times;</div>
-            <div class="lp-inner">
-              <img src="" id="lp-img" alt="Product">
-              <div class="lp-info">
-                <h5 id="lp-title">Product Name</h5>
-                <p id="lp-price">Rs. 0.00</p>
-                <button class="lp-add" id="lp-add-btn">ADD +</button>
-              </div>
+          <div class="look-popup" id="look-popup" style="width: 280px; padding: 15px;">
+            <div class="lp-close" onclick="closeLookPopup()" style="z-index: 10;">&times;</div>
+            <h4 style="font-size: 14px; margin-bottom: 12px; font-family: var(--font-serif); border-bottom: 1px solid #eee; padding-bottom: 5px;">Shop the Look</h4>
+            <div id="lp-multi-container" style="display: flex; flex-direction: column; gap: 10px;">
+              <!-- Items will be injected here -->
             </div>
+            <button class="lp-add-all" onclick="addLookToBag()" style="width: 100%; margin-top: 12px; background: #000; color: #fff; border: none; padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">ADD ALL TO BAG</button>
           </div>
         </div>
 
@@ -529,23 +526,41 @@
       };
 
       function showLookProduct(id, event) {
-        const prod = lookData[id];
         const popup = document.getElementById('look-popup');
-        if(!prod || !popup) return;
+        const container = document.getElementById('lp-multi-container');
+        if(!popup || !container) return;
         
-        // Update popup content
-        document.getElementById('lp-title').innerText = prod.title;
-        document.getElementById('lp-price').innerText = prod.price;
-        document.getElementById('lp-img').src = prod.img;
-        document.getElementById('lp-add-btn').onclick = () => { addToCart(id); closeLookPopup(); };
+        // Clear previous
+        container.innerHTML = '';
+
+        // Render all 3 items from lookData
+        Object.keys(lookData).forEach(key => {
+            const item = lookData[key];
+            const itemHtml = `
+                <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 5px; border-bottom: 1px solid #f9f9f9;">
+                    <img src="${item.img}" style="width: 40px; height: 40px; object-fit: contain;">
+                    <div style="flex: 1;">
+                        <h6 style="margin: 0; font-size: 11px; font-weight: 700;">${item.title}</h6>
+                        <p style="margin: 0; font-size: 10px; opacity: 0.8;">${item.price}</p>
+                    </div>
+                    <button onclick="addToCart('${key}'); showToast('Added to bag!')" style="background: transparent; border: 1px solid #ddd; padding: 2px 8px; font-size: 10px; cursor: pointer;">+</button>
+                </div>
+            `;
+            container.innerHTML += itemHtml;
+        });
 
         // Positioning logic
         if (event) {
           const rect = document.getElementById('look-visual').getBoundingClientRect();
           const x = event.clientX - rect.left;
           const y = event.clientY - rect.top;
-          popup.style.left = \`\${x}px\`;
-          popup.style.top = \`\${y}px\`;
+          
+          // Adjust if too close to right edge
+          let finalX = x;
+          if (x + 300 > rect.width) finalX = rect.width - 310;
+
+          popup.style.left = `${finalX}px`;
+          popup.style.top = `${y}px`;
           popup.classList.add('active');
         } else {
           popup.style.left = '50%';
