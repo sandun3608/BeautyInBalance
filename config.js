@@ -3,8 +3,11 @@
 // ==========================================
 
 const getApiUrl = () => {
-  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  return isLocal ? 'http://localhost:5000' : window.location.origin;
+  const host = window.location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') {
+    return 'http://localhost:5000';
+  }
+  return 'https://beautyinbalance.onrender.com';
 };
 
 const GLOBAL_API_URL = getApiUrl();
