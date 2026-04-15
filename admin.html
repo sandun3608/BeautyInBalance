@@ -791,7 +791,7 @@
             <!-- LUXURY WELCOME -->
             <div class="welcome-banner" style="border-radius: 25px; padding: 20px 30px; margin-bottom: 15px;">
                 <div>
-                   <h1 style="font-size: 24px; margin-bottom: 5px;">Welcome back, Nipuni</h1>
+                   <h1 id="welcome-name" style="font-size: 24px; margin-bottom: 5px;">Welcome back, Nipuni</h1>
                    <p style="font-size: 13px; opacity: 0.8;">Your business overview is ready at a glance.</p>
                    <div class="welcome-btns" style="margin-top: 15px;">
                        <button class="w-btn" style="padding: 8px 18px; font-size: 13px;" onclick="window.switchTab('analytics')">View Insights</button>
@@ -803,7 +803,8 @@
                         <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="5"/>
                         <circle cx="40" cy="40" r="36" fill="none" stroke="#CFA56A" stroke-width="5" stroke-dasharray="226" stroke-dashoffset="50" stroke-linecap="round"/>
                     </svg>
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" class="profile-img" style="background: #fff; padding: 2px; width: 65px; height: 65px;">
+                    <img id="banner-avatar-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" class="profile-img" style="background: #fff; padding: 2px; width: 65px; height: 65px; display: block;">
+                    <div id="banner-avatar-placeholder" style="width: 65px; height: 65px; border-radius: 50%; background: #CFA56A; color: #fff; display: none; align-items: center; justify-content: center; font-weight: 800; font-size: 24px;">N</div>
                 </div>
             </div>
 
@@ -1731,22 +1732,28 @@
         if (document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = name;
         if (document.getElementById('settings-admin-name')) document.getElementById('settings-admin-name').value = name;
 
-        // Update Images
-        const sidebarImg = document.getElementById('admin-avatar-img');
-        const sidebarPlaceholder = document.getElementById('admin-avatar-placeholder');
-        const settingsImg = document.getElementById('settings-avatar-preview');
-        const settingsPlaceholder = document.getElementById('settings-avatar-placeholder');
+        // Update Welcome Banner
+        const welcomeName = document.getElementById('welcome-name');
+        if (welcomeName) welcomeName.innerText = `Welcome back, ${name}`;
+        
+        const bannerImg = document.getElementById('banner-avatar-img');
+        const bannerPlaceholder = document.getElementById('banner-avatar-placeholder');
+        if (bannerPlaceholder) bannerPlaceholder.innerText = name.charAt(0).toUpperCase();
 
         if (avatar) {
             if(sidebarImg) { sidebarImg.src = avatar; sidebarImg.style.display = 'block'; }
             if(sidebarPlaceholder) sidebarPlaceholder.style.display = 'none';
             if(settingsImg) { settingsImg.src = avatar; settingsImg.style.display = 'block'; }
             if(settingsPlaceholder) settingsPlaceholder.style.display = 'none';
+            if(bannerImg) { bannerImg.src = avatar; bannerImg.style.display = 'block'; }
+            if(bannerPlaceholder) bannerPlaceholder.style.display = 'none';
         } else {
             if(sidebarImg) sidebarImg.style.display = 'none';
             if(sidebarPlaceholder) sidebarPlaceholder.style.display = 'block';
             if(settingsImg) settingsImg.style.display = 'none';
             if(settingsPlaceholder) settingsPlaceholder.style.display = 'block';
+            if(bannerImg) bannerImg.style.display = 'none';
+            if(bannerPlaceholder) { bannerPlaceholder.style.display = 'flex'; }
         }
      }
 
@@ -1791,6 +1798,11 @@
                 updateAdminUI();
                 showToast("✨ Profile Updated Successfully");
                 document.getElementById('settings-admin-pass').value = '';
+                
+                // Redirect to Overview (Dashboard) after 1.5s
+                setTimeout(() => {
+                    window.switchTab('dashboard');
+                }, 1000);
             } else {
                 alert("Failed to update profile.");
             }
