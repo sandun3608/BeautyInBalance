@@ -6482,18 +6482,19 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .look-popup {
   position: absolute;
   background: #fff;
-  border-radius: 15px;
-  padding: 15px;
-  width: 200px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 180px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 10px;
   z-index: 100;
   opacity: 0;
   visibility: hidden;
-  transform: translate(-50%, -110%);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translate(-50%, -105%);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 .look-popup.active {
