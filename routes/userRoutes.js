@@ -17,15 +17,39 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (email === 'nipuni@beauty.com' && password === 'BeautyAdmin@2026') {
-        const dummyId = '111111111111111111111111';
-        return res.json({
-            _id: dummyId,
-            name: 'Nipuni',
-            email: 'nipuni@beauty.com',
-            isAdmin: true,
-            avatar: '', 
-            token: generateToken(dummyId),
-        });
+        try {
+            let admin = await User.findOne({ email: 'nipuni@beauty.com' });
+            if (!admin) {
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash('BeautyAdmin@2026', salt);
+                admin = await User.create({
+                    name: 'Nipuni',
+                    email: 'nipuni@beauty.com',
+                    password: hashedPassword,
+                    isAdmin: true
+                });
+            }
+            return res.json({
+                _id: admin._id,
+                name: admin.name,
+                email: admin.email,
+                isAdmin: admin.isAdmin,
+                avatar: admin.avatar || '',
+                token: generateToken(admin._id),
+            });
+        } catch (err) {
+            console.error("Admin auto-upsert failed:", err);
+            // Fallback to dummy if DB fails
+            const dummyId = '111111111111111111111111';
+            return res.json({
+                _id: dummyId,
+                name: 'Nipuni',
+                email: 'nipuni@beauty.com',
+                isAdmin: true,
+                avatar: '', 
+                token: generateToken(dummyId),
+            });
+        }
     }
 
     try {
