@@ -1169,7 +1169,7 @@
       </main>
     </div>
 
-  <script src="config.js?v=14"></script>
+  <script src="config.js?v=15"></script>
   <script src="products.js?v=13"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
@@ -1783,7 +1783,7 @@
          const avatar = window.newAvatarData || JSON.parse(localStorage.getItem('userInfo') || '{}').avatar || '';
 
          try {
-             const fetchUrl = `/api/users/profile?cb=${Date.now()}`;
+             const fetchUrl = `${BASE_URL}/users/profile?cb=${Date.now()}`;
              const res = await fetch(fetchUrl, {
                  method: 'PUT',
                  headers: {

@@ -1,7 +1,3 @@
-// ==========================================
-// BEAUTY IN BALANCE - INTELLIGENT CONFIG
-// ==========================================
-
 const getApiUrl = () => {
   const host = window.location.hostname;
   if (host === 'localhost' || host === '127.0.0.1') {
@@ -11,10 +7,9 @@ const getApiUrl = () => {
 };
 
 const GLOBAL_API_URL = getApiUrl();
-const BASE_URL = `${GLOBAL_API_URL}/api`;
+const BASE_URL = GLOBAL_API_URL + '/api';
 
-// Export globals
 window.GLOBAL_API_URL = GLOBAL_API_URL;
 window.BASE_URL = BASE_URL;
 
-console.log(`[Config] API Endpoint: ${GLOBAL_API_URL} 🚀`);
+console.log(`[Config v15] API Endpoint: ${BASE_URL} 🚀`);
