@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
 
   <style>
     /* =========================================
@@ -451,7 +451,7 @@
     }
 
     /* ── MOBILE SEARCH BAR UPDATE ── */
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       body {
         padding-top: 46px !important;
       }
@@ -487,6 +487,42 @@
 
       .shop-body {
         padding: 40px 16px 100px;
+      }
+
+      .fg-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .fg-img-wrap {
+        padding: 20px;
+        height: 180px;
+        background: #fafafa;
+      }
+
+      .fg-brand-badge {
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+      }
+
+      .fg-bag-btn {
+        display: none; /* Hide absolute button on mobile */
+      }
+
+      .fg-info {
+        padding: 15px;
+      }
+
+      .fg-name {
+        font-size: 13px;
+        min-height: 34px;
+      }
+
+      .fg-price {
+        font-size: 16px;
+        margin-bottom: 12px;
       }
 
       .premium-shop-grid {

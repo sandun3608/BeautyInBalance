@@ -7150,18 +7150,56 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .fg-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .fg-img-wrap {
+    padding: 20px;
+    height: 180px;
+    background: #fafafa;
+  }
+
+  .fg-brand-badge {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+  }
+
+  .fg-bag-btn {
+    display: none; /* Hide absolute button on mobile */
+  }
+
+  .fg-info {
+    padding: 15px;
+  }
+
+  .fg-name {
+    font-size: 13px;
+    min-height: 34px;
+  }
+
+  .fg-price {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fg-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .fg-subtitle {
-    font-size: 50px;
-    top: -20px;
+    font-size: 30px;
+    top: -10px;
   }
 
   .fg-title {
-    font-size: 34px;
+    font-size: 26px;
   }
 }
 
