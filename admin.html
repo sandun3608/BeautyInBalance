@@ -1772,11 +1772,11 @@
         }
      };
 
-     window.saveAdminProfile = async function() {
-        const btn = event.target;
-        const originalText = btn.innerText;
-        btn.innerText = "Saving...";
-        btn.disabled = true;
+     window.saveAdminProfile = async function(btn) {
+         if (!btn) btn = { innerText: 'Save', disabled: false };
+         const originalText = btn.innerText;
+         btn.innerText = "Saving...";
+         btn.disabled = true;
 
         const name = document.getElementById('settings-admin-name').value;
         const password = document.getElementById('settings-admin-pass').value;
@@ -1804,11 +1804,12 @@
                     window.switchTab('dashboard');
                 }, 1000);
             } else {
-                alert("Failed to update profile.");
+                const errData = await res.json().catch(() => ({}));
+                alert(`Failed to update profile: ${errData.message || 'Server error'}`);
             }
         } catch (e) {
-            console.error(e);
-            alert("Error updating profile.");
+            console.error("Profile update crash:", e);
+            alert(`Error updating profile: ${e.message}`);
         } finally {
             btn.innerText = originalText;
             btn.disabled = false;
@@ -2174,7 +2175,7 @@
                         <input type="password" id="settings-admin-pass" placeholder="Leave blank to keep current" style="width:100%; padding:15px; border:1px solid #eee; border-radius:10px;">
                     </div>
                     
-                    <button class="admin-btn" style="width:100%; justify-content:center; padding:18px;" onclick="saveAdminProfile()">Save Profile Changes</button>
+                    <button class="admin-btn" style="width:100%; justify-content:center; padding:18px;" onclick="saveAdminProfile(this)">Save Profile Changes</button>
                 </div>
             </div>
         </div>
