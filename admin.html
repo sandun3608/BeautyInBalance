@@ -869,16 +869,16 @@
                         <div class="progress-list" style="gap: 20px; width: 100%;">
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
                                 <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #CFA56A;"></div>The Ordinary</div>
-                                <div style="font-size: 13px; font-weight: 700;">70%</div>
+                                <div id="ord-perc" style="font-size: 13px; font-weight: 700;">70%</div>
                             </div>
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
                                 <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #1B1B1E;"></div>CeraVe</div>
-                                <div style="font-size: 13px; font-weight: 700;">30%</div>
+                                <div id="cer-perc" style="font-size: 13px; font-weight: 700;">30%</div>
                             </div>
 
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
                                 <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #E8DFD3;"></div>Other Brands</div>
-                                <div style="font-size: 13px; font-weight: 700;">0%</div>
+                                <div id="oth-perc" style="font-size: 13px; font-weight: 700;">0%</div>
                             </div>
                         </div>
                     </div>
@@ -1183,7 +1183,7 @@
       </main>
     </div>
 
-  <script src="config.js?v=15"></script>
+  <script src="config.js?v=16"></script>
   <script src="products.js?v=13"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
@@ -1862,12 +1862,13 @@
         const centerText = document.getElementById('donut-center-text');
         if (centerText) centerText.innerText = ordP + cerP + "%";
         
-        const progItems = document.querySelectorAll('#tab-dashboard .prog-item');
-        if (progItems.length >= 3) {
-            progItems[0].querySelector('div:last-child').innerText = ordP + "%";
-            progItems[1].querySelector('div:last-child').innerText = cerP + "%";
-            progItems[2].querySelector('div:last-child').innerText = (othP > 0 ? othP : 0) + "%";
-        }
+        const ordEl = document.getElementById('ord-perc');
+        const cerEl = document.getElementById('cer-perc');
+        const othEl = document.getElementById('oth-perc');
+        
+        if (ordEl) ordEl.innerText = ordP + "%";
+        if (cerEl) cerEl.innerText = cerP + "%";
+        if (othEl) othEl.innerText = (othP > 0 ? othP : 0) + "%";
 
         // Update SVG segments (Simplified for this 3-segment case)
         const circles = document.querySelectorAll('.donut-wrap svg circle');
