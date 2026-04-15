@@ -2258,7 +2258,7 @@
 
       function attemptUnlock() {
         if (pinInput.value === MASTER_PIN) {
-          sessionStorage.setItem('bib_admin_locked', 'false');
+          localStorage.setItem('bib_admin_locked', 'false');
           document.body.classList.add('system-unlocked');
         } else {
           errorMsg.classList.add('show');
@@ -2268,7 +2268,7 @@
       }
 
       // Check Session State Immediately
-      if (sessionStorage.getItem('bib_admin_locked') === 'false') {
+      if (localStorage.getItem('bib_admin_locked') === 'false') {
         document.body.classList.add('system-unlocked');
       }
 
