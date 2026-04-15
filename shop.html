@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=11" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 
   <style>
     /* =========================================
@@ -340,12 +340,12 @@
     }
 
     .lux-brand-badge.ordinary {
-      background: #1a1a2e;
+      background: #e31e24;
       color: #fff;
     }
 
     .lux-brand-badge.cerave {
-      background: #006aff;
+      background: #1a1a2e;
       color: #fff;
     }
 
@@ -531,19 +531,19 @@
       }
 
       .lux-img {
-        padding: 8px;
+        padding: 5px;
         background: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
-        aspect-ratio: auto; /* Allow content to define height */
+        aspect-ratio: auto;
       }
 
       .lux-img img {
         width: 100%;
-        height: 180px; /* Fixed height for image focus */
+        height: 180px;
         object-fit: contain;
-        margin-top: 28px; /* Room for badge */
+        margin-top: 32px; /* Space for the centered badge at top */
         transition: none;
       }
 
@@ -552,15 +552,22 @@
         left: 50% !important;
         transform: translateX(-50%);
         white-space: nowrap;
+        font-size: 8px;
+        padding: 4px 12px;
+      }
+
+      /* Change Ordinary badge to red on mobile */
+      .lux-brand-badge.ordinary {
+        background: #e31e24 !important;
+        color: #fff !important;
       }
 
       .lux-add-btn {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin: 12px 0 8px 0 !important;
-        width: 100% !important;
+        position: absolute !important;
+        bottom: 15px !important; /* Positioned at the very bottom of the card */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: calc(100% - 30px) !important;
         display: flex !important;
         justify-content: center;
         font-size: 11px;
@@ -570,17 +577,19 @@
         border-radius: 40px;
         opacity: 1 !important;
         visibility: visible !important;
+        z-index: 10;
       }
 
       .lux-body {
-        padding: 10px 14px 20px;
+        padding: 10px 14px 75px; /* Large bottom padding to make room for absolute button below price */
         text-align: center;
+        min-height: 140px; /* Ensure space for name + price */
       }
 
       .lux-name {
         font-size: 13px;
-        margin-bottom: 10px;
-        height: 34px; /* Fix height for alignment */
+        margin-bottom: 8px;
+        height: 36px;
       }
 
       .lux-price-row {
@@ -590,10 +599,12 @@
 
       .lux-price {
         font-size: 16px;
+        color: var(--gold);
+        font-weight: 800;
       }
 
       .lux-view {
-        display: none; /* Hide view icon on mobile to save space */
+        display: none;
       }
 
       /* tap-to-buy on mobile */

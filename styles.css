@@ -7059,6 +7059,16 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   z-index: 5;
 }
 
+.fg-brand-badge.ordinary {
+  background: #e31e24;
+  color: #fff;
+}
+
+.fg-brand-badge.cerave {
+  background: #1a1a2e;
+  color: #fff;
+}
+
 .fg-bag-btn {
   position: absolute;
   top: 20px;
