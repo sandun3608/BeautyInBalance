@@ -620,12 +620,26 @@
         border-radius: var(--radius-md);
         border: none;
         box-shadow: var(--shadow-sm);
-        padding: 40px;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .chart-inner-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1.5fr;
         gap: 50px;
         align-items: center;
-        margin-bottom: 30px;
+    }
+
+    @media (max-width: 991px) {
+        .chart-inner-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            justify-items: center;
+        }
+        .progress-list {
+            width: 100%;
+        }
     }
 
     .chart-info h3 { font-family: var(--font-main); font-size: 18px; font-weight: 700; margin: 0 0 25px 0; color: var(--admin-text); }
@@ -829,12 +843,12 @@
             </div>
 
             <div class="db-grid">
-                <div class="chart-panel" style="display: block; padding: 15px 20px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <div class="chart-panel" style="padding: 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
                         <h3 style="font-family: var(--font-main); font-size: 16px; font-weight: 700; margin: 0; color: var(--admin-text);">Stock Distribution</h3>
                         <div style="font-size: 12px; color: var(--admin-text); font-weight: 700;">450 Items</div>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; align-items: center;">
+                    <div class="chart-inner-grid">
                         <div class="donut-wrap" style="height: 140px; width: 140px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center;">
                             <!-- Premium SVG Circle Graph -->
                             <svg width="140" height="140" viewBox="0 0 180 180" style="transform: rotate(-90deg);">
@@ -852,7 +866,7 @@
                                 <p style="font-size: 9px; margin: 0; text-transform: uppercase; font-weight: 700; opacity: 0.6; letter-spacing: 0.1em;">Available</p>
                             </div>
                         </div>
-                        <div class="progress-list" style="gap: 15px;">
+                        <div class="progress-list" style="gap: 20px; width: 100%;">
                             <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
                                 <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #CFA56A;"></div>The Ordinary</div>
                                 <div style="font-size: 13px; font-weight: 700;">70%</div>
