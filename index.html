@@ -1169,7 +1169,7 @@
 
 
   <script src="config.js"></script>
-  <script src="products.js"></script>
+  <script src="products.js?v=12"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1356,11 +1356,19 @@
         <div class="ps-inner-grid">
           ${items.map(p => {
             const pid = p.id || p._id || '';
-            const img = p.img || (p.images && p.images[0]) || '';
+            const rawImg = p.img || (p.images && p.images[0]) || '';
+            
+            // Helper to handle spaces and encoding in paths
+            const formattedImg = rawImg.split('/').map(part => {
+              // Replace double-encoded %25 back to % first if it exists, then encode sparingly
+              let cleanPart = decodeURIComponent(part.replace(/%25/g, '%'));
+              return encodeURIComponent(cleanPart);
+            }).join('/');
+
             return `
               <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
                 <div class="ps-prod-img">
-                  <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
+                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
                 </div>
                 <div class="ps-prod-info">
                   <p class="ps-prod-name">${p.name}</p>

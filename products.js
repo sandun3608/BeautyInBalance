@@ -566,7 +566,11 @@ function renderCart() {
     
     // Render Sidebar Cart Drawer if it exists
     const cartDrawer = document.getElementById('cart-drawer');
-    if (!cartDrawer) return; // Only process if the HTML has the drawer
+    if (!cartDrawer) return; 
+
+    // Force drawer to be a flex column
+    cartDrawer.style.display = 'flex';
+    cartDrawer.style.flexDirection = 'column';
     
     const cartHead = cartDrawer.querySelector('.cart-head h3');
     if (cartHead) cartHead.textContent = `Cart (${totalItems})`;
@@ -579,18 +583,28 @@ function renderCart() {
         
         itemsContainer = document.createElement('div');
         itemsContainer.id = 'cart-items-container';
-        itemsContainer.style = 'padding: 20px; flex: 1; overflow-y: auto; overflow-x: hidden;';
-        
         cartDrawer.insertBefore(itemsContainer, cartDrawer.children[1]);
-        
-        const checkoutBox = document.createElement('div');
-        checkoutBox.id = 'cart-footer-box';
-        checkoutBox.style = 'padding: 20px; border-top: 1px solid #eee; background: var(--beige-light); flex-shrink: 0; width: 100%; box-sizing: border-box;';
-        
-        cartDrawer.appendChild(checkoutBox);
+    }
+    // Always apply these styles to itemsContainer
+    itemsContainer.style.padding = '20px';
+    itemsContainer.style.flex = '1';
+    itemsContainer.style.overflowY = 'auto';
+    itemsContainer.style.overflowX = 'hidden';
+    
+    let footerBox = document.getElementById('cart-footer-box');
+    if (!footerBox) {
+        footerBox = document.createElement('div');
+        footerBox.id = 'cart-footer-box';
+        footerBox.style.padding = '20px';
+        footerBox.style.borderTop = '1px solid #eee';
+        footerBox.style.background = 'var(--beige-light)';
+        footerBox.style.flexShrink = '0';
+        footerBox.style.width = '100%';
+        footerBox.style.boxSizing = 'border-box';
+        cartDrawer.appendChild(footerBox);
     }
     
-    const footerBox = document.getElementById('cart-footer-box');
+    // footerBox is already declared and initialized above
     
     if (shoppingCart.length === 0) {
         itemsContainer.innerHTML = '<div style="text-align:center; padding: 40px 0; color:#777;">Your cart is empty.</div>';
@@ -630,6 +644,38 @@ function renderCart() {
         </div>
         <a href="checkout.html" style="display:block; text-align:center; background:var(--brown); color:#fff; padding:15px; border-radius:8px; text-decoration:none; font-family:var(--font-sans); font-weight:600; letter-spacing:0.05em; transition:0.3s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--brown)'">SECURE CHECKOUT &rarr;</a>
     `;
+
+    // Also render on Standalone Cart Page if it exists
+    const standaloneItems = document.getElementById('cart-items-list');
+    const standaloneSummary = document.getElementById('summary-details');
+
+    if (standaloneItems && standaloneSummary) {
+        if (shoppingCart.length === 0) {
+            standaloneItems.innerHTML = '<div style="text-align:center; padding: 100px 0;"><h3>Your bag is empty</h3><a href="shop.html" style="color:var(--gold); text-decoration:underline;">Continue Shopping</a></div>';
+            standaloneSummary.innerHTML = '';
+        } else {
+            standaloneItems.innerHTML = shoppingCart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-img"><img src="${item.img}"></div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">Rs. ${item.price.toLocaleString()}</div>
+                        <div class="cart-item-qty">
+                            <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})">-</span>
+                            <span>${item.qty}</span>
+                            <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty + 1})">+</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            standaloneSummary.innerHTML = `
+                <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
+                <div class="summary-row"><span>Delivery</span><span>Rs. 350</span></div>
+                <div class="summary-row total" style="font-weight:800; border-top:1px solid #eee; padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + 350).toLocaleString()}</span></div>
+            `;
+        }
+    }
 }
 window.renderCart = renderCart;
 

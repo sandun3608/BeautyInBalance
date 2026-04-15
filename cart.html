@@ -122,16 +122,17 @@
     </div>
   </div>
 
-  
-          <span class="cart-item-remove">Remove</span>
-        </div>
+  <main class="cart-page">
+    <div class="cart-grid" id="cart-main-grid">
+      <div class="cart-items" id="cart-items-list">
+        <!-- Rendered via JS -->
       </div>
-      <div class="cart-summary">
+      <div class="cart-summary" id="cart-summary-box">
         <h2>Summary</h2>
-        <div class="summary-row"><span>Subtotal</span><span>Rs. 3,850</span></div>
-        <div class="summary-row"><span>Delivery</span><span>Rs. 500</span></div>
-        <div class="summary-row total"><span>Total</span><span>Rs. 4,350</span></div>
-        <button class="btn-checkout">Proceed to Checkout</button>
+        <div id="summary-details">
+            <!-- Rendered via JS -->
+        </div>
+        <a href="checkout.html" class="btn-checkout" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Proceed to Checkout</a>
       </div>
     </div>
   </main>
@@ -211,6 +212,6 @@
 
   </script>
   <script src="config.js"></script>
-  <script src="products.js"></script>
+  <script src="products.js?v=12"></script>
 </body>
 </html>

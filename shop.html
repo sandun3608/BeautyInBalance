@@ -470,7 +470,9 @@
 
       .shop-toolbar {
         padding: 0 16px;
-        top: 45px !important;
+        top: 60px !important; /* Positioned below fixed header */
+        display: flex !important;
+        z-index: 99 !important; /* Below cart drawer and header */
       }
 
       .brand-tabs {
@@ -509,7 +511,11 @@
       }
 
       .lux-add-btn {
-        display: none;
+        display: flex;
+        bottom: 10px; /* Always visible on mobile */
+        padding: 10px 14px;
+        font-size: 11px;
+        border-radius: 20px;
       }
 
       /* tap-to-buy on mobile */
@@ -829,7 +835,7 @@
 
 
   <script src="config.js"></script>
-  <script src="products.js"></script>
+  <script src="products.js?v=12"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
