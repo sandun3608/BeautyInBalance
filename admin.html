@@ -1724,38 +1724,44 @@
      }
 
      function updateAdminUI() {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
-        const name = userInfo.name || 'Admin';
-        const avatar = userInfo.avatar || '';
+         const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+         const name = userInfo.name || 'Admin';
+         const avatar = userInfo.avatar || '';
 
-        // Update Nav
-        if (document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = name;
-        if (document.getElementById('settings-admin-name')) document.getElementById('settings-admin-name').value = name;
+         // Define elements
+         const sidebarImg = document.getElementById('admin-avatar-img');
+         const sidebarPlaceholder = document.getElementById('admin-avatar-placeholder');
+         const settingsImg = document.getElementById('settings-avatar-preview');
+         const settingsPlaceholder = document.getElementById('settings-avatar-placeholder');
+         const bannerImg = document.getElementById('banner-avatar-img');
+         const bannerPlaceholder = document.getElementById('banner-avatar-placeholder');
 
-        // Update Welcome Banner
-        const welcomeName = document.getElementById('welcome-name');
-        if (welcomeName) welcomeName.innerText = `Welcome back, ${name}`;
-        
-        const bannerImg = document.getElementById('banner-avatar-img');
-        const bannerPlaceholder = document.getElementById('banner-avatar-placeholder');
-        if (bannerPlaceholder) bannerPlaceholder.innerText = name.charAt(0).toUpperCase();
+         // Update Nav
+         if (document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = name;
+         if (document.getElementById('settings-admin-name')) document.getElementById('settings-admin-name').value = name;
 
-        if (avatar) {
-            if(sidebarImg) { sidebarImg.src = avatar; sidebarImg.style.display = 'block'; }
-            if(sidebarPlaceholder) sidebarPlaceholder.style.display = 'none';
-            if(settingsImg) { settingsImg.src = avatar; settingsImg.style.display = 'block'; }
-            if(settingsPlaceholder) settingsPlaceholder.style.display = 'none';
-            if(bannerImg) { bannerImg.src = avatar; bannerImg.style.display = 'block'; }
-            if(bannerPlaceholder) bannerPlaceholder.style.display = 'none';
-        } else {
-            if(sidebarImg) sidebarImg.style.display = 'none';
-            if(sidebarPlaceholder) sidebarPlaceholder.style.display = 'block';
-            if(settingsImg) settingsImg.style.display = 'none';
-            if(settingsPlaceholder) settingsPlaceholder.style.display = 'block';
-            if(bannerImg) bannerImg.style.display = 'none';
-            if(bannerPlaceholder) { bannerPlaceholder.style.display = 'flex'; }
-        }
-     }
+         // Update Welcome Banner
+         const welcomeName = document.getElementById('welcome-name');
+         if (welcomeName) welcomeName.innerText = `Welcome back, ${name}`;
+         
+         if (bannerPlaceholder) bannerPlaceholder.innerText = name.charAt(0).toUpperCase();
+
+         if (avatar) {
+             if(sidebarImg) { sidebarImg.src = avatar; sidebarImg.style.display = 'block'; }
+             if(sidebarPlaceholder) sidebarPlaceholder.style.display = 'none';
+             if(settingsImg) { settingsImg.src = avatar; settingsImg.style.display = 'block'; }
+             if(settingsPlaceholder) settingsPlaceholder.style.display = 'none';
+             if(bannerImg) { bannerImg.src = avatar; bannerImg.style.display = 'block'; }
+             if(bannerPlaceholder) bannerPlaceholder.style.display = 'none';
+         } else {
+             if(sidebarImg) sidebarImg.style.display = 'none';
+             if(sidebarPlaceholder) sidebarPlaceholder.style.display = 'block';
+             if(settingsImg) settingsImg.style.display = 'none';
+             if(settingsPlaceholder) settingsPlaceholder.style.display = 'block';
+             if(bannerImg) bannerImg.style.display = 'none';
+             if(bannerPlaceholder) { bannerPlaceholder.style.display = 'flex'; }
+         }
+      }
 
      window.handleProfileImageUpload = function(input) {
         if (input.files && input.files[0]) {
