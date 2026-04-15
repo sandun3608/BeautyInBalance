@@ -1778,43 +1778,44 @@
          btn.innerText = "Saving...";
          btn.disabled = true;
 
-        const name = document.getElementById('settings-admin-name').value;
-        const password = document.getElementById('settings-admin-pass').value;
-        const avatar = window.newAvatarData || JSON.parse(localStorage.getItem('userInfo') || '{}').avatar || '';
+         const name = document.getElementById('settings-admin-name').value;
+         const password = document.getElementById('settings-admin-pass').value;
+         const avatar = window.newAvatarData || JSON.parse(localStorage.getItem('userInfo') || '{}').avatar || '';
 
-        try {
-            const res = await fetch(BASE_URL + '/users/profile', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('userToken')
-                },
-                body: JSON.stringify({ name, avatar, password })
-            });
+         try {
+             const fetchUrl = `/api/users/profile?cb=${Date.now()}`;
+             const res = await fetch(fetchUrl, {
+                 method: 'PUT',
+                 headers: {
+                     'Content-Type': 'application/json',
+                     'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                 },
+                 body: JSON.stringify({ name, avatar, password })
+             });
 
-            if (res.ok) {
-                const updatedUser = await res.json();
-                localStorage.setItem('userInfo', JSON.stringify(updatedUser));
-                updateAdminUI();
-                showToast("✨ Profile Updated Successfully");
-                document.getElementById('settings-admin-pass').value = '';
-                
-                // Redirect to Overview (Dashboard) after 1.5s
-                setTimeout(() => {
-                    window.switchTab('dashboard');
-                }, 1000);
-            } else {
-                const errData = await res.json().catch(() => ({}));
-                alert(`Failed to update profile (${res.status}): ${errData.message || 'Server error'}`);
-            }
-        } catch (e) {
-            console.error("Profile update crash:", e);
-            alert(`Error updating profile: ${e.message}`);
-        } finally {
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
-     };
+             if (res.ok) {
+                 const updatedUser = await res.json();
+                 localStorage.setItem('userInfo', JSON.stringify(updatedUser));
+                 updateAdminUI();
+                 showToast("✨ Profile Updated Successfully");
+                 document.getElementById('settings-admin-pass').value = '';
+                 
+                 // Redirect to Overview (Dashboard) after 1s
+                 setTimeout(() => {
+                     window.switchTab('dashboard');
+                 }, 1000);
+             } else {
+                 const errData = await res.json().catch(() => ({}));
+                 alert(`Failed to update profile (${res.status}): ${errData.message || 'Server error'}`);
+             }
+         } catch (e) {
+             console.error("Profile update crash:", e);
+             alert(`Error updating profile: ${e.message}`);
+         } finally {
+             btn.innerText = originalText;
+             btn.disabled = false;
+         }
+      };
 
     function updateStockDistribution() {
         if (!window.productsData || window.productsData.length === 0) return;
