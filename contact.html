@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -292,6 +292,13 @@
 </head>
 <body>
 
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>âœ¨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; ðŸšš Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; ðŸ›ï¸ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; âœ¨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
@@ -301,6 +308,11 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             <span class="ic-label mobile-only">Menu</span>
         </button>
+        <!-- Mobile Social Icon -->
+        <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span class="ic-label mobile-only">Social</span>
+        </a>
         <ul class="nav-main">
           <li><a href="index.html">Home</a></li>
           <li class="has-drop">
@@ -312,7 +324,7 @@
             </ul>
           </li>
           <li><a href="about.html">About</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li><a href="policies.html">Policies</a></li>
         </ul>
       </div>
@@ -340,6 +352,17 @@
         </a>
       </div>
     </nav>
+
+    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for productsâ€¦" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
 
     <!-- Mobile Top Search Row -->
     <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
@@ -378,6 +401,7 @@
     </div>
   </div>
 
+  
   <main>
 
   <div class="contact-main-wrap">
@@ -390,21 +414,21 @@
           <h2>Find Our Boutique</h2>
           <div class="info-list">
             <div class="info-card">
-              <div class="card-icon">📍</div>
+              <div class="card-icon">ðŸ“</div>
               <div class="card-text">
                 <h4>Our Location</h4>
                 <p>No. 45, Flower Road, Colombo 07, Sri Lanka.</p>
               </div>
             </div>
             <div class="info-card">
-              <div class="card-icon">📞</div>
+              <div class="card-icon">ðŸ“ž</div>
               <div class="card-text">
                 <h4>Talk to Experts</h4>
                 <p>0719152136</p>
               </div>
             </div>
             <div class="info-card">
-              <div class="card-icon">📧</div>
+              <div class="card-icon">ðŸ“§</div>
               <div class="card-text">
                 <h4>Email Support</h4>
                 <p>beautyinbalancesupport@gmail.com</p>
@@ -417,9 +441,9 @@
           <h2>Boutique Hours</h2>
           <div class="hours-box">
              <table class="hours-table">
-               <tr><td>Weekdays</td><td><b>09:00 AM – 08:00 PM</b></td></tr>
-               <tr><td>Saturdays</td><td><b>10:00 AM – 06:00 PM</b></td></tr>
-               <tr><td>Sundays</td><td><b>10:00 AM – 02:00 PM</b></td></tr>
+               <tr><td>Weekdays</td><td><b>09:00 AM â€“ 08:00 PM</b></td></tr>
+               <tr><td>Saturdays</td><td><b>10:00 AM â€“ 06:00 PM</b></td></tr>
+               <tr><td>Sundays</td><td><b>10:00 AM â€“ 02:00 PM</b></td></tr>
                <tr><td>Public Holidays</td><td><b>Closed</b></td></tr>
              </table>
           </div>
@@ -466,7 +490,7 @@
          </form>
          
          <div id="success-state" style="display:none; text-align:center; padding: 40px 0;">
-           <span style="font-size: 50px;">✉️</span>
+           <span style="font-size: 50px;">âœ‰ï¸</span>
            <h2 style="font-family: var(--font-serif); color: var(--gold); margin-top:20px;">Message Sent!</h2>
            <p style="color: var(--muted); margin-top:10px;">Thank you for reaching out. Our skincare experts will respond within 24 hours.</p>
            <button class="btn-dark" style="margin-top:30px; border-radius:10px;" onclick="location.reload()">Send Another</button>
@@ -521,7 +545,7 @@
       </div>
     </div>
     <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 40px;">
-      <p>© 2024 Beauty in Balance. All rights reserved.</p>
+      <p>Â© 2024 Beauty in Balance. All rights reserved.</p>
     </div>
   </footer>
 
