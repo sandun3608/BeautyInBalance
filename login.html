@@ -205,6 +205,7 @@
           
           localStorage.setItem('userToken', data.token);
           localStorage.setItem('userInfo', JSON.stringify({
+            _id: data._id,
             name: data.name,
             email: data.email,
             isAdmin: data.isAdmin,
