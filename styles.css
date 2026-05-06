@@ -8223,3 +8223,109 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(45, 27, 18, 0.25);
 }
+
+/* ——— SHARE MODAL ——— */
+.share-modal {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  z-index: 1000002;
+  transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+  padding: 24px;
+}
+
+.share-modal.active {
+  bottom: 0;
+}
+
+.share-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.share-header h3 {
+  font-family: var(--font-fancy);
+  font-size: 1.5rem;
+  color: var(--brown);
+}
+
+.share-close-btn {
+  background: #f5f5f5;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.share-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.share-opt-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+
+.share-opt-item:active {
+  transform: scale(0.9);
+}
+
+.share-icon-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.share-icon-circle.wa { background: #25D366; }
+.share-icon-circle.fb { background: #1877F2; }
+.share-icon-circle.link { background: var(--brown); }
+
+.share-icon-circle svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 769px) {
+  .share-modal {
+    bottom: auto;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    border-radius: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .share-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

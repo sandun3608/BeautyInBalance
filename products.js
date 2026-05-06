@@ -707,7 +707,7 @@ window.renderHomeAllProducts = function() {
                         <span class="h-icon" onclick="event.preventDefault(); addToCart('${prod.id}')" aria-label="Add to Cart">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                         </span>
-                        <span class="h-icon" onclick="event.preventDefault(); navigator.clipboard.writeText(window.location.origin + '/product.html?id=${prod.id}'); alert('Link copied!');" aria-label="Share">
+                        <span class="h-icon" onclick="event.preventDefault(); shareProduct('${prod.id}')" aria-label="Share">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                         </span>
                     </div>
