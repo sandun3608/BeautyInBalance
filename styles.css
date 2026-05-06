@@ -13,11 +13,7 @@
 
 .mobile-bottom-nav,
 .mobile-bottom-nav-v2 {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
+  display: none;
 }
 
 :root {
@@ -70,11 +66,7 @@ main {
 
 .mobile-bottom-nav,
 .mobile-bottom-nav-v2 {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -2561,9 +2553,10 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 .footer-brand-col p {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.50);
+  color: #ffffff !important;
   line-height: 1.75;
   margin-bottom: 24px;
+  opacity: 0.8; /* Subtle opacity for elegance */
 }
 
 .footer-social {
@@ -2593,12 +2586,13 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   color: var(--gold);
 }
 
+.footer-col h3,
 .footer-col h5 {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--white);
+  color: #ffffff !important;
   margin-bottom: 20px;
 }
 
@@ -2904,17 +2898,21 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   .ic-btn svg {
     width: 20px !important;
-    height: 20px !important;
-    stroke-width: 1.2 !important;
   }
 
-  .ic-label {
-    display: block !important;
-    font-size: 8px !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    line-height: 1 !important;
+  .mobile-bottom-nav-v2 {
+    display: none; /* Controlled by JS or media query */
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 65px !important;
+    background: var(--brown) !important;
+    z-index: 10000 !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    align-items: center !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
   }
 
   .cart-badge {
@@ -2925,22 +2923,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     font-size: 9px !important;
   }
 
-  .mobile-bottom-nav-v2 {
-    display: none !important;
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 65px !important;
-    background: #ffffff !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-    z-index: 100000 !important;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05) !important;
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    margin: 0 !important;
-  }
-
   .mbn-item {
     display: flex;
     flex-direction: column;
@@ -2948,27 +2930,29 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     justify-content: center;
     gap: 4px;
     text-decoration: none;
-    color: #777;
-    font-size: 10px;
-    font-weight: 500;
-    height: 100%;
+    color: #ffffff !important;
     background: none;
     border: none;
+    padding: 0;
     cursor: pointer;
+    transition: all 0.3s ease;
   }
 
   .mbn-item svg {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff !important;
   }
 
   .mbn-item span {
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #ffffff !important;
   }
 
   .mbn-item#mbn-home {
-    color: var(--brown);
+    color: #ffffff !important;
   }
 
   .mbn-badge {
@@ -3280,7 +3264,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 }
 
-/* â”€â”€ PREMIUM PRODUCT SHOWCASE (PURITY STYLE) â”€â”€ */
+/* ── PREMIUM PRODUCT SHOWCASE (PURITY STYLE) ── */
 .showcase-section {
   padding: 20px 48px 100px 48px;
   background: #ffffff;
@@ -7723,7 +7707,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
-    color: #ffffff !important;
+    color: var(--brown) !important;
     opacity: 1 !important;
   }
 
