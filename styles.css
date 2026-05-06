@@ -8114,9 +8114,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 /* Buy It Now Button Animation & Styling */
 .hap-card .btn-buy-animated {
-  background: var(--brown) !important;
-  color: #fff !important;
-  border: none !important;
+  background: transparent !important;
+  color: var(--brown) !important;
+  border: 1px solid var(--brown) !important;
   display: block !important;
   border-radius: 50px !important;
   padding: 12px 15px !important;
@@ -8134,7 +8134,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   transition: all 0.4s ease;
   opacity: 1 !important;
   visibility: visible !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
 }
 .hap-card .btn-buy-animated::before {
   content: '';
@@ -8151,8 +8150,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   left: 100%;
 }
 .hap-card .btn-buy-animated:hover {
-  background: var(--gold) !important;
-  color: #000 !important;
+  background: var(--brown) !important;
+  color: #fff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(181, 134, 70, 0.25);
+  box-shadow: 0 6px 16px rgba(45, 27, 18, 0.2);
 }
