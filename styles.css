@@ -2556,7 +2556,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   color: #ffffff !important;
   line-height: 1.75;
   margin-bottom: 24px;
-  opacity: 0.8; /* Subtle opacity for elegance */
+  opacity: 1 !important; /* Full white as requested */
 }
 
 .footer-social {
