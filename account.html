@@ -499,15 +499,15 @@
     <div class="account-container">
       <aside class="account-nav">
         <div class="nav-list">
-          <div class="nav-item active" data-target="orders">
+          <div class="nav-item active" data-target="orders" ontouchstart="">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             My Orders
           </div>
-          <div class="nav-item" data-target="cart">
+          <div class="nav-item" data-target="cart" ontouchstart="">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             My Bag
           </div>
-          <div class="nav-item" data-target="profile">
+          <div class="nav-item" data-target="profile" ontouchstart="">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             Profile
           </div>
@@ -602,26 +602,27 @@
       if(pName) pName.value = userInfo.name;
       if(pEmail) pEmail.value = userInfo.email;
 
-      // Tab Logic
-      const navItems = document.querySelectorAll('.nav-item');
+      // Tab Logic — both click and touchend for mobile
+      const navItems = document.querySelectorAll('.nav-item[data-target]');
       const sections = document.querySelectorAll('.content-section');
 
-      navItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const target = item.getAttribute('data-target');
-          if(!target) return;
-          
-          navItems.forEach(ni => ni.classList.remove('active'));
-          item.classList.add('active');
-
-          sections.forEach(sec => {
-            sec.classList.remove('active');
-            if (sec.id === `sec-${target}`) sec.classList.add('active');
-          });
-
-          if (target === 'orders') fetchOrders();
-          if (target === 'cart') renderCart();
+      function switchTab(target) {
+        navItems.forEach(ni => ni.classList.remove('active'));
+        const clicked = document.querySelector(`.nav-item[data-target="${target}"]`);
+        if(clicked) clicked.classList.add('active');
+        sections.forEach(sec => {
+          sec.classList.remove('active');
+          if(sec.id === `sec-${target}`) sec.classList.add('active');
         });
+        if(target === 'orders') fetchOrders();
+        if(target === 'cart') renderCart();
+      }
+
+      navItems.forEach(item => {
+        const target = item.getAttribute('data-target');
+        // Both click and touchend to ensure mobile works
+        item.addEventListener('click', () => switchTab(target));
+        item.addEventListener('touchend', (e) => { e.preventDefault(); switchTab(target); });
       });
 
       // --- ORDERS FETCH ---
