@@ -7915,16 +7915,24 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 .hap-tabs {
   display: flex;
   gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   background: #fff;
   padding: 10px;
   border-radius: 50px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+.hap-tabs::-webkit-scrollbar {
+  display: none;
 }
 .hap-tab {
   border: none;
@@ -7938,6 +7946,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .hap-tab.active {
   background: var(--dark);
@@ -8102,9 +8112,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   stroke-width: 1.5;
 }
 
-/* Buy It Now Button Animation & Styling (Sleek Minimalist Brown Curve) */
+/* Buy It Now Button Animation & Styling */
 .hap-card .btn-buy-animated {
-  background: var(--brown) !important;
+  background: var(--dark) !important;
   color: #fff !important;
   border: none !important;
   display: block !important;
@@ -8138,8 +8148,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   left: 100%;
 }
 .hap-card .btn-buy-animated:hover {
-  background: #3c2a21 !important; /* Slightly darker brown for hover */
-  color: #fff !important;
+  background: var(--gold) !important;
+  color: #000 !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(106, 75, 58, 0.25);
+  box-shadow: 0 6px 16px rgba(181, 134, 70, 0.25);
 }
