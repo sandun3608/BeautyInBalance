@@ -263,74 +263,88 @@
     .sign-out-btn:hover { background: #fecaca; transform: translateY(-2px); }
     .sign-out-btn svg { width: 22px; height: 22px; }
 
-    /* Responsive Fixes */
+    /* ═══════════════════════════════
+       MOBILE RESPONSIVE (≤ 900px)
+    ═══════════════════════════════ */
     @media (max-width: 900px) {
       body { overflow-x: hidden; }
 
       .account-container {
         grid-template-columns: 1fr;
-        margin-top: -20px;
+        margin-top: -10px;
         padding: 0;
         width: 100%;
         box-sizing: border-box;
       }
 
       .account-content {
-        padding: 20px 12px;
-        border-radius: 12px;
+        padding: 20px 12px 30px;
+        border-radius: 0;
         width: 100%;
         box-sizing: border-box;
         overflow-x: hidden;
       }
 
+      /* ─── Sticky Tab Bar ─── */
       .account-nav {
         position: sticky;
         top: 58px;
-        z-index: 100;
+        z-index: 200;
         background: #fff;
-        margin: 0 0 15px 0;
-        padding: 8px 8px 4px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        margin: 0 0 16px;
+        padding: 10px 10px 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
         border-radius: 0;
         width: 100%;
         box-sizing: border-box;
       }
 
-      /* Scrollable tabs row */
+      /* Equal-width 3 tabs in one row - NO scroll needed */
       .nav-list {
         flex-direction: row;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        scrollbar-width: none;
-        gap: 4px;
-      }
-      .nav-list::-webkit-scrollbar { display: none; }
-
-      /* Sign Out stays full-width BELOW the scroll tabs */
-      .logout-btn {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
+        overflow-x: visible;
+        padding: 0;
+        gap: 6px;
         width: 100%;
-        padding: 8px 12px !important;
-        margin-top: 4px !important;
-        border-top: 1px solid rgba(0,0,0,0.06) !important;
-        font-size: 13px !important;
-        color: #dc2626 !important;
-        border-radius: 8px;
       }
 
       .nav-item {
-        padding: 8px 12px;
-        font-size: 12px;
+        flex: 1;
+        min-width: 0;
+        padding: 9px 4px;
+        font-size: 11px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
         white-space: nowrap;
-        border-radius: 8px;
-        flex-shrink: 0;
+        border-radius: 10px;
+        flex-shrink: 1;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(45,27,18,0.1);
+        user-select: none;
+        border: 1.5px solid rgba(0,0,0,0.07);
+        background: #f5f5f5;
+        gap: 3px;
+        transition: all 0.2s ease;
       }
 
-      /* Order cards */
+      .nav-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+      .nav-item:active { transform: scale(0.96); }
+
+      .nav-item.active {
+        background: var(--brown) !important;
+        color: white !important;
+        border-color: var(--brown) !important;
+        box-shadow: 0 4px 10px rgba(45,27,18,0.25);
+      }
+
+      /* Sign Out is at page bottom — hide from nav bar */
+      .logout-btn { display: none !important; }
+
+      /* ─── Order Cards ─── */
       .order-card { margin-bottom: 16px; border-radius: 14px; width: 100%; box-sizing: border-box; overflow: hidden; }
       .order-header { padding: 10px 12px; flex-wrap: wrap; gap: 6px; }
       .order-id { font-size: 12px !important; }
@@ -338,23 +352,21 @@
       .status-badge { font-size: 9px !important; padding: 3px 8px !important; border-radius: 10px !important; flex-shrink: 0; }
       .order-items-grid { padding: 10px 12px; }
       .order-item-row { gap: 10px !important; margin-bottom: 10px !important; padding-bottom: 10px !important; }
-      /* Stack summary grid on mobile */
       .order-summary-grid { grid-template-columns: 1fr !important; }
       .order-footer { padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
-      .order-footer > div > div:last-child { font-size: 17px !important; }
 
-      /* Section title */
+      /* ─── Typography ─── */
       h3.section-title { font-size: 20px; margin-bottom: 16px; }
       .user-info h2 { font-size: 22px; }
       .account-hero { padding: 50px 20px; }
       .user-avatar { width: 70px; height: 70px; font-size: 28px; }
 
-      /* Support button */
-      .static-support-btn {
+      /* ─── Action Buttons ─── */
+      .static-support-btn, .sign-out-btn {
         font-size: 14px !important;
         padding: 14px 16px !important;
         border-radius: 12px !important;
-        margin-top: 24px !important;
+        margin-top: 14px !important;
       }
     }
   </style>
