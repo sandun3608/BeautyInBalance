@@ -8085,7 +8085,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   margin-top: 20px;
 }
 
-/* Card Actions (Hover Icons) */
+/* Card Actions (Always Visible) */
 .hap-card-actions {
   position: absolute;
   top: 15px;
@@ -8093,13 +8093,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transform: translateX(40px);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-.hap-card:hover .hap-card-actions {
-  transform: translateX(0);
-  opacity: 1;
+  z-index: 5;
 }
 .h-icon {
   width: 36px;
