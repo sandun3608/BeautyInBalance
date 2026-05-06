@@ -7905,7 +7905,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .hap-title {
   font-family: var(--font-fancy);
   font-size: 2.8rem;
-  color: var(--dark);
+  color: var(--brown);
   font-weight: 500;
   letter-spacing: 0.05em;
 }
@@ -7950,12 +7950,12 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   flex-shrink: 0;
 }
 .hap-tab.active {
-  background: var(--dark);
+  background: var(--brown);
   color: #fff;
 }
 .hap-tab:hover:not(.active) {
   background: #f5f5f5;
-  color: var(--dark);
+  color: var(--brown);
 }
 .hap-tab.coming-soon {
   opacity: 0.6;
@@ -8114,7 +8114,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 /* Buy It Now Button Animation & Styling */
 .hap-card .btn-buy-animated {
-  background: var(--dark) !important;
+  background: var(--brown) !important;
   color: #fff !important;
   border: none !important;
   display: block !important;
