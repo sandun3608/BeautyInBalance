@@ -237,7 +237,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: #25D366;
+      background: var(--brown);
       color: white;
       padding: 18px 30px;
       border-radius: 15px;
@@ -245,10 +245,12 @@
       font-weight: 700;
       font-size: 16px;
       margin-top: 40px;
-      box-shadow: 0 10px 20px rgba(37,211,102,0.2);
+      box-shadow: 0 10px 20px rgba(45, 27, 18, 0.15);
       transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .static-support-btn:hover { background: #128C7E; transform: translateY(-2px); }
+    .static-support-btn:hover { background: var(--gold); transform: translateY(-2px); }
     .static-support-btn svg { width: 24px; height: 24px; }
 
     /* Responsive Fixes */
@@ -256,15 +258,17 @@
       .account-container {
         grid-template-columns: 1fr;
         margin-top: -30px;
-        padding: 0 10px; /* Reduced side padding */
+        padding: 0 10px; 
         width: 100%;
         box-sizing: border-box;
+        overflow-x: hidden;
       }
       .account-content { 
-        padding: 25px 15px; 
+        padding: 20px 10px; 
         border-radius: 12px;
         width: 100%;
         box-sizing: border-box;
+        overflow-x: hidden;
       }
       .account-nav {
         position: sticky;
@@ -276,6 +280,9 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         border: 1px solid rgba(0,0,0,0.05);
         border-radius: 10px;
+        width: calc(100% - 20px);
+        margin-left: 10px;
+        box-sizing: border-box;
       }
       .nav-list { 
         flex-direction: row; 
@@ -636,9 +643,6 @@
                     <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.05em; font-weight:700;">Order Total</div>
                     <div style="font-size:22px; font-weight:900; color:var(--brown);">Rs. ${order.totalPrice.toLocaleString()}</div>
                   </div>
-                  <a href="https://wa.me/94719152136?text=Hi!%20I%20need%20help%20with%20my%20order%20%23${order._id.slice(-6).toUpperCase()}" target="_blank" style="display:flex; align-items:center; gap:8px; background:#25D366; color:white; padding:12px 22px; border-radius:50px; text-decoration:none; font-size:13px; font-weight:800; transition:all 0.3s; box-shadow:0 5px 15px rgba(37,211,102,0.2);">
-                    Help?
-                  </a>
                 </div>
               </div>
             `;
