@@ -5574,7 +5574,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   /* Hero Section â€” Sharp & Full Width */
   .hero-section {
-    height: 70vh !important;
+    height: 100vh !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -7942,6 +7942,11 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   body {
     padding-top: 45px !important;
+    padding-bottom: 80px !important; /* Fix for bottom nav covering content */
+  }
+
+  footer {
+    padding-bottom: 100px !important; /* Ensure footer icons aren't cut off */
   }
 
   /* Raised by another 1px as requested */
