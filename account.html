@@ -231,19 +231,60 @@
       text-transform: uppercase;
     }
 
-    /* Responsive */
+    /* Floating Support Button */
+    .floating-wa {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(37,211,102,0.4);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .floating-wa:hover { transform: scale(1.1) translateY(-5px); }
+    .floating-wa svg { width: 32px; height: 32px; }
+
+    /* Responsive Fixes */
     @media (max-width: 900px) {
       .account-container {
         grid-template-columns: 1fr;
-        margin-top: -20px;
+        margin-top: -30px;
+        padding: 0 15px;
       }
       .account-nav {
-        position: static;
-        flex-direction: row;
-        overflow-x: auto;
+        position: sticky;
+        top: 70px;
+        z-index: 100;
+        background: #fff;
+        margin-bottom: 20px;
+        padding: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.05);
       }
-      .nav-list { flex-direction: row; }
-      .nav-item { white-space: nowrap; }
+      .nav-list { 
+        flex-direction: row; 
+        overflow-x: auto; 
+        padding-bottom: 5px;
+        scrollbar-width: none;
+      }
+      .nav-list::-webkit-scrollbar { display: none; }
+      .nav-item { 
+        padding: 10px 18px; 
+        font-size: 13px;
+        background: #f9f9f9;
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+      .account-content { padding: 25px 15px; }
+      .floating-wa { bottom: 20px; right: 20px; width: 55px; height: 55px; }
     }
   </style>
 </head>
@@ -438,6 +479,11 @@
     </div>
   </main>
 
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/94719152136?text=Hi!%20I'm%20using%20the%20Beauty%20in%20Balance%20app%20and%20need%20some%20help." class="floating-wa" target="_blank" title="Chat with us on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
+  </a>
+
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-bottom" style="text-align:center; padding: 40px; border-top: 1px solid var(--border); margin-top: 50px;">
@@ -446,6 +492,11 @@
   </footer>
 
   <script src="config.js"></script>
+  <script src="config.js"></script>
+  <script src="productsData.js"></script>
+  <script src="cart.js"></script>
+  <script src="account-nav.js?v=2"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -457,9 +508,13 @@
       // Populate UI
       document.getElementById('u-name').innerText = userInfo.name;
       document.getElementById('u-email').innerText = userInfo.email;
-      document.getElementById('u-avatar').innerText = userInfo.name.charAt(0).toUpperCase();
-      document.getElementById('p-name').value = userInfo.name;
-      document.getElementById('p-email').value = userInfo.email;
+      const avatarEl = document.getElementById('u-avatar');
+      if(avatarEl) avatarEl.innerText = userInfo.name.charAt(0).toUpperCase();
+      
+      const pName = document.getElementById('p-name');
+      const pEmail = document.getElementById('p-email');
+      if(pName) pName.value = userInfo.name;
+      if(pEmail) pEmail.value = userInfo.email;
 
       // Tab Logic
       const navItems = document.querySelectorAll('.nav-item');
@@ -468,6 +523,7 @@
       navItems.forEach(item => {
         item.addEventListener('click', () => {
           const target = item.getAttribute('data-target');
+          if(!target) return;
           
           navItems.forEach(ni => ni.classList.remove('active'));
           item.classList.add('active');
@@ -498,6 +554,11 @@
             return;
           }
 
+          // Wait a tiny bit for productsData if it's slow
+          if (typeof productsData === 'undefined') {
+             await new Promise(r => setTimeout(r, 500));
+          }
+
           container.innerHTML = orders.map(order => {
             const statusClass = order.isDelivered ? 'delivered' : 'processing';
             const statusText = order.isDelivered ? 'Delivered' : 'Processing';
@@ -505,48 +566,63 @@
               `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" style="margin-right:5px;"><polyline points="20 6 9 17 4 12"/></svg>` : 
               `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" style="margin-right:5px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
 
+            const c = order.customerInfo || {};
+
             return `
-              <div class="order-card" style="margin-bottom:25px; border:1px solid rgba(0,0,0,0.08); border-radius:15px; overflow:hidden; background:#fff;">
-                <div class="order-header" style="background:#f9f5f0; padding:15px 20px; display:flex; justify-content:space-between; align-items:center;">
+              <div class="order-card" style="margin-bottom:30px; border:1px solid rgba(0,0,0,0.08); border-radius:18px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+                <div class="order-header" style="background:#fcfcfc; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(0,0,0,0.05);">
                   <div>
-                    <span class="order-id" style="font-weight:700; color:var(--brown); font-size:14px;">ORDER #${order._id.slice(-6).toUpperCase()}</span>
-                    <div class="order-date" style="font-size:12px; color:#888;">${new Date(order.createdAt).toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'})}</div>
+                    <span class="order-id" style="font-weight:800; color:var(--brown); font-size:14px; letter-spacing:0.02em;">ORDER #${order._id.slice(-6).toUpperCase()}</span>
+                    <div class="order-date" style="font-size:12px; color:#999; margin-top:2px;">${new Date(order.createdAt).toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'})}</div>
                   </div>
-                  <span class="status-badge ${statusClass}" style="display:flex; align-items:center; font-size:11px; font-weight:700; text-transform:uppercase; padding:6px 12px; border-radius:20px; background:${order.isDelivered ? '#ecfdf5' : '#fff7ed'}; color:${order.isDelivered ? '#059669' : '#d97706'};">
+                  <span class="status-badge ${statusClass}" style="display:flex; align-items:center; font-size:10px; font-weight:800; text-transform:uppercase; padding:6px 14px; border-radius:20px; background:${order.isDelivered ? '#ecfdf5' : '#fff7ed'}; color:${order.isDelivered ? '#059669' : '#d97706'}; letter-spacing:0.05em;">
                     ${statusIcon} ${statusText}
                   </span>
                 </div>
                 
-                <div class="order-items-grid" style="padding:20px;">
+                <div class="order-items-grid" style="padding:22px;">
                   ${order.orderItems.map(item => {
-                    // Try to find image from productsData
                     let imgPath = 'placeholder.png';
                     if (typeof productsData !== 'undefined') {
-                       const p = productsData.find(pd => pd.name === item.name);
+                       const p = productsData.find(pd => pd.name.trim().toLowerCase() === item.name.trim().toLowerCase());
                        if (p) imgPath = p.image;
                     }
                     return `
-                      <div class="order-item-row" style="display:flex; align-items:center; gap:15px; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid rgba(0,0,0,0.03);">
-                        <div style="width:60px; height:60px; background:#f9f9f9; border-radius:10px; overflow:hidden; flex-shrink:0;">
-                          <img src="${imgPath}" alt="${item.name}" style="width:100%; height:100%; object-fit:contain; padding:5px;">
+                      <div class="order-item-row" style="display:flex; align-items:center; gap:18px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid rgba(0,0,0,0.04);">
+                        <div style="width:70px; height:70px; background:#fdfaf7; border-radius:12px; overflow:hidden; flex-shrink:0; border:1px solid rgba(0,0,0,0.03);">
+                          <img src="${imgPath}" alt="${item.name}" style="width:100%; height:100%; object-fit:contain; padding:8px;">
                         </div>
                         <div style="flex:1;">
-                          <div style="font-size:14px; font-weight:600; color:var(--brown);">${item.name}</div>
-                          <div style="font-size:12px; color:#777;">Qty: ${item.qty} · Rs. ${item.price.toLocaleString()}</div>
+                          <div style="font-size:15px; font-weight:600; color:var(--brown); line-height:1.3;">${item.name}</div>
+                          <div style="font-size:13px; color:#888; margin-top:4px;">Qty: ${item.qty} · <span style="font-weight:700; color:var(--gold);">Rs. ${item.price.toLocaleString()}</span></div>
                         </div>
                       </div>
                     `;
                   }).join('')}
                 </div>
 
-                <div class="order-footer" style="padding:15px 20px; background:#fafafa; border-top:1px solid rgba(0,0,0,0.05); display:flex; justify-content:space-between; align-items:center;">
+                <div class="order-details-box" style="padding:0 22px 22px;">
+                   <div style="background:#f9f9f9; border-radius:12px; padding:15px; font-size:13px; border:1px solid rgba(0,0,0,0.03);">
+                      <div style="font-weight:700; color:var(--brown); margin-bottom:8px; display:flex; align-items:center; gap:5px;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Shipping Details
+                      </div>
+                      <div style="color:#555; line-height:1.5;">
+                        <strong style="color:#333;">${c.firstName || ''} ${c.lastName || ''}</strong><br>
+                        ${c.address || ''}, ${c.city || ''}<br>
+                        ${c.district || 'Sri Lanka'}<br>
+                        <span style="color:var(--gold); font-weight:600;">📞 ${c.phone || ''}</span>
+                      </div>
+                   </div>
+                </div>
+
+                <div class="order-footer" style="padding:18px 22px; background:#fcfcfc; border-top:1px solid rgba(0,0,0,0.05); display:flex; justify-content:space-between; align-items:center;">
                   <div>
-                    <div style="font-size:12px; color:#888;">Total Amount</div>
-                    <div style="font-size:18px; font-weight:800; color:var(--brown);">Rs. ${order.totalPrice.toLocaleString()}</div>
+                    <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:0.05em; font-weight:700;">Order Total</div>
+                    <div style="font-size:22px; font-weight:900; color:var(--brown);">Rs. ${order.totalPrice.toLocaleString()}</div>
                   </div>
-                  <a href="https://wa.me/94719152136?text=Hi!%20I%20need%20help%20with%20my%20order%20%23${order._id.slice(-6).toUpperCase()}" target="_blank" style="display:flex; align-items:center; gap:8px; background:#25D366; color:white; padding:10px 18px; border-radius:50px; text-decoration:none; font-size:12px; font-weight:700; transition:all 0.3s;">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
-                    Support
+                  <a href="https://wa.me/94719152136?text=Hi!%20I%20need%20help%20with%20my%20order%20%23${order._id.slice(-6).toUpperCase()}" target="_blank" style="display:flex; align-items:center; gap:8px; background:#25D366; color:white; padding:12px 22px; border-radius:50px; text-decoration:none; font-size:13px; font-weight:800; transition:all 0.3s; box-shadow:0 5px 15px rgba(37,211,102,0.2);">
+                    Help?
                   </a>
                 </div>
               </div>
@@ -568,49 +644,46 @@
 
         if (cart.length === 0) {
           container.innerHTML = '';
-          summary.style.display = 'none';
-          emptyMsg.style.display = 'block';
+          if(summary) summary.style.display = 'none';
+          if(emptyMsg) emptyMsg.style.display = 'block';
           return;
         }
 
-        emptyMsg.style.display = 'none';
-        summary.style.display = 'flex';
+        if(emptyMsg) emptyMsg.style.display = 'none';
+        if(summary) summary.style.display = 'flex';
         
         let total = 0;
         container.innerHTML = cart.map(item => {
           total += (item.price * item.quantity);
           return `
-            <div class="cart-item-row">
-              <div class="cart-item-img"><img src="${item.image}" alt="${item.name}"></div>
-              <div class="cart-item-info">
-                <h4>${item.name}</h4>
-                <p class="cart-item-price">Rs. ${item.price.toLocaleString()}</p>
+            <div class="cart-item-row" style="display:flex; align-items:center; gap:15px; padding:15px 0; border-bottom:1px solid rgba(0,0,0,0.05);">
+              <div class="cart-item-img" style="width:60px; height:60px; flex-shrink:0;"><img src="${item.image}" alt="${item.name}" style="width:100%; height:100%; object-fit:contain;"></div>
+              <div class="cart-item-info" style="flex:1;">
+                <h4 style="font-size:14px; margin-bottom:2px;">${item.name}</h4>
+                <p class="cart-item-price" style="font-size:13px; color:var(--gold); font-weight:700;">Rs. ${item.price.toLocaleString()} x ${item.quantity}</p>
               </div>
-              <div style="font-weight:600;">Qty: ${item.quantity}</div>
-              <div style="font-weight:700;">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
+              <div style="font-weight:800; color:var(--brown); font-size:15px;">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
             </div>
           `;
         }).join('');
 
-        document.getElementById('cart-total-display').innerText = `Rs. ${total.toLocaleString()}`;
+        const totalDisp = document.getElementById('cart-total-display');
+        if(totalDisp) totalDisp.innerText = `Rs. ${total.toLocaleString()}`;
       }
 
       // Initial Call
       fetchOrders();
 
       // Logout
-      const logoutAction = () => {
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('userInfo');
-        window.location.href = 'index.html';
-      };
-
-      document.getElementById('sidebar-logout').addEventListener('click', logoutAction);
+      const sidebarLogout = document.getElementById('sidebar-logout');
+      if(sidebarLogout) {
+        sidebarLogout.addEventListener('click', () => {
+          localStorage.removeItem('userToken');
+          localStorage.removeItem('userInfo');
+          window.location.href = 'index.html';
+        });
+      }
     });
   </script>
-  <script src="config.js"></script>
-  <script src="productsData.js"></script>
-  <script src="cart.js"></script>
-  <script src="account-nav.js?v=2"></script>
 </body>
 </html>
