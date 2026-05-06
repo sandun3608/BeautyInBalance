@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
             const itemsList = createdOrder.orderItems.map(i => `<li>${i.qty}x ${i.name} - Rs. ${i.price.toLocaleString()}</li>`).join('');
             
             try {
-                await sendEmail({
+                sendEmail({
                     email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
                     subject: `🛍️ New Order Received! #${createdOrder._id.toString().slice(-6).toUpperCase()}`,
                     html: `
