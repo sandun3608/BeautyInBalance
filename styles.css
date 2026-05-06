@@ -7993,27 +7993,27 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 /* CARDS (Modern Glass-like Look) */
 .hap-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: left;
+  background: transparent;
+  border-radius: 0;
+  padding: 10px;
+  text-align: center;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   transition: all 0.4s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  box-shadow: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .hap-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+  box-shadow: none;
 }
 .hap-card-img {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 15px;
-  background: #f9f9f9;
+  border-radius: 0;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8022,13 +8022,13 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   overflow: hidden;
 }
 .hap-card-img img {
-  width: 80%;
-  height: 80%;
+  width: 95%;
+  height: 95%;
   object-fit: contain;
   transition: transform 0.5s ease;
 }
 .hap-card:hover .hap-card-img img {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 .hap-card-brand {
   font-family: var(--font-sans);
@@ -8063,16 +8063,18 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   background: transparent;
   border: 1px solid var(--dark);
   color: var(--dark);
-  padding: 10px 15px;
-  border-radius: 12px;
+  padding: 12px 15px;
+  border-radius: 4px;
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
   text-align: center;
+  margin-top: auto;
 }
 .hap-card:hover .hap-card-btn {
   background: var(--dark);
@@ -8154,11 +8156,15 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .hap-card .btn-buy-animated {
   background: var(--dark) !important;
   color: #fff !important;
-  border: none !important;
+  border: 1px solid var(--dark) !important;
   display: block !important;
+  border-radius: 4px !important;
+  padding: 12px 15px !important;
+  font-size: 11px !important;
+  letter-spacing: 1px !important;
 }
 
 .hap-card .btn-buy-animated:hover {
-  background: var(--gold) !important;
-  color: #000 !important;
+  background: #fff !important;
+  color: var(--dark) !important;
 }
