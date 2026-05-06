@@ -258,6 +258,7 @@
     /* Responsive Fixes */
     @media (max-width: 900px) {
       body { overflow-x: hidden; }
+
       .account-container {
         grid-template-columns: 1fr;
         margin-top: -20px;
@@ -265,60 +266,87 @@
         width: 100%;
         box-sizing: border-box;
       }
-      .account-content { 
-        padding: 20px 12px; 
+
+      .account-content {
+        padding: 20px 12px;
         border-radius: 12px;
         width: 100%;
         box-sizing: border-box;
         overflow-x: hidden;
       }
+
       .account-nav {
         position: sticky;
         top: 58px;
         z-index: 100;
         background: #fff;
         margin: 0 0 15px 0;
-        padding: 6px;
+        padding: 8px 8px 4px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         border-bottom: 1px solid rgba(0,0,0,0.05);
         border-radius: 0;
         width: 100%;
         box-sizing: border-box;
       }
-      .nav-list { 
-        flex-direction: row; 
-        overflow-x: auto; 
-        padding: 0 4px 2px;
+
+      /* Scrollable tabs row */
+      .nav-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 4px;
         scrollbar-width: none;
         gap: 4px;
       }
       .nav-list::-webkit-scrollbar { display: none; }
-      .nav-item { 
-        padding: 8px 12px; 
+
+      /* Sign Out stays full-width BELOW the scroll tabs */
+      .logout-btn {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 8px 12px !important;
+        margin-top: 4px !important;
+        border-top: 1px solid rgba(0,0,0,0.06) !important;
+        font-size: 13px !important;
+        color: #dc2626 !important;
+        border-radius: 8px;
+      }
+
+      .nav-item {
+        padding: 8px 12px;
         font-size: 12px;
         white-space: nowrap;
         border-radius: 8px;
         flex-shrink: 0;
       }
-      .logout-btn {
-        margin-top: 0 !important;
-        border-top: none !important;
-        padding-top: 8px !important;
-        font-size: 12px;
-        color: #dc2626 !important;
-      }
+
+      /* Order cards */
       .order-card { margin-bottom: 16px; border-radius: 14px; width: 100%; box-sizing: border-box; overflow: hidden; }
-      .order-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+      .order-header { padding: 10px 12px; flex-wrap: wrap; gap: 6px; }
       .order-id { font-size: 12px !important; }
       .order-date { font-size: 11px !important; }
-      .status-badge { font-size: 9px !important; padding: 4px 8px !important; border-radius: 12px !important; }
-      .order-items-grid { padding: 12px 14px; }
-      .order-item-row { gap: 10px !important; margin-bottom: 12px !important; padding-bottom: 12px !important; }
-      .order-details-box { padding: 0 14px 14px; }
-      .order-footer { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
-      .order-footer > div > div:last-child { font-size: 18px !important; }
-      h3.section-title { font-size: 20px; margin-bottom: 20px; }
-      .user-info h2 { font-size: 24px; }
+      .status-badge { font-size: 9px !important; padding: 3px 8px !important; border-radius: 10px !important; flex-shrink: 0; }
+      .order-items-grid { padding: 10px 12px; }
+      .order-item-row { gap: 10px !important; margin-bottom: 10px !important; padding-bottom: 10px !important; }
+      .order-details-box { padding: 0 12px 12px; }
+      .order-footer { padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+      .order-footer > div > div:last-child { font-size: 17px !important; }
+
+      /* Section title */
+      h3.section-title { font-size: 20px; margin-bottom: 16px; }
+      .user-info h2 { font-size: 22px; }
+      .account-hero { padding: 50px 20px; }
+      .user-avatar { width: 70px; height: 70px; font-size: 28px; }
+
+      /* Support button */
+      .static-support-btn {
+        font-size: 14px !important;
+        padding: 14px 16px !important;
+        border-radius: 12px !important;
+        margin-top: 24px !important;
+      }
     }
   </style>
 </head>
@@ -457,12 +485,13 @@
           </div>
           <div class="nav-item" data-target="profile">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Profile Details
+            Profile
           </div>
-          <div class="nav-item logout-btn" id="sidebar-logout" style="margin-top: 20px; color: #dc2626; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Sign Out
-          </div>
+        </div>
+        <!-- Sign Out always visible BELOW the scrollable tabs -->
+        <div class="nav-item logout-btn" id="sidebar-logout" style="border-top: 1px solid rgba(0,0,0,0.07); margin-top: 8px; color: #dc2626;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
         </div>
       </aside>
 
@@ -527,7 +556,7 @@
   </footer>
 
   <script src="config.js"></script>
-  <script src="productsData.js"></script>
+  <script src="products.js"></script>
   <script src="cart.js"></script>
   <script src="account-nav.js?v=2"></script>
 
@@ -588,8 +617,8 @@
             return;
           }
 
-          // Wait a tiny bit for productsData if it's slow
-          if (typeof productsData === 'undefined') {
+          // Wait a tiny bit for products data if slow
+          if (typeof defaultProducts === 'undefined') {
              await new Promise(r => setTimeout(r, 500));
           }
 
@@ -617,9 +646,9 @@
                 <div class="order-items-grid" style="padding:22px;">
                   ${order.orderItems.map(item => {
                     let imgPath = 'placeholder.png';
-                    if (typeof productsData !== 'undefined') {
-                       const p = productsData.find(pd => pd.name.trim().toLowerCase() === item.name.trim().toLowerCase());
-                       if (p) imgPath = p.image;
+                    if (typeof defaultProducts !== 'undefined') {
+                       const p = defaultProducts.find(pd => pd.name && pd.name.trim().toLowerCase() === item.name.trim().toLowerCase());
+                       if (p) imgPath = p.img || p.image || (p.images && p.images[0]) || 'placeholder.png';
                     }
                     return `
                       <div class="order-item-row" style="display:flex; align-items:center; gap:18px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid rgba(0,0,0,0.04);">
