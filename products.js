@@ -376,7 +376,7 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts'
         ];
         
         renderFuncs.forEach(funcName => {
@@ -396,7 +396,7 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts'
         ];
         renderFuncs.forEach(fn => {
             if (typeof window[fn] === 'function') {
@@ -683,3 +683,45 @@ window.renderCart = renderCart;
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(renderCart, 200);
 });
+
+// --- HOME ALL PRODUCTS GRID ---
+window.renderHomeAllProducts = function() {
+    const grid = document.getElementById('hap-grid');
+    if (!grid) return;
+
+    // Get up to 28 products
+    const displayProducts = (category) => {
+        let filtered = window.productsData;
+        if (category && category !== 'all') {
+            filtered = filtered.filter(p => p.cat === category);
+        }
+        
+        // Take up to 28 items (7 rows of 4)
+        const productsToShow = filtered.slice(0, 28);
+        
+        grid.innerHTML = productsToShow.map(prod => `
+            <a href="product.html?id=${prod.id}" class="hap-card">
+                <div class="hap-card-img">
+                    <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
+                </div>
+                <div class="hap-card-brand">${prod.cat === 'cerave' ? 'CeraVe' : 'The Ordinary'}</div>
+                <div class="hap-card-title">${prod.name}</div>
+                <div class="hap-card-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
+                <button class="hap-card-btn" onclick="event.preventDefault(); addToCart('${prod.id}')">Add to Bag</button>
+            </a>
+        `).join('');
+    };
+
+    // Initial render
+    displayProducts('all');
+
+    // Setup Tab Listeners
+    const tabs = document.querySelectorAll('.hap-tab:not(.coming-soon)');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            displayProducts(tab.getAttribute('data-filter'));
+        });
+    });
+};
