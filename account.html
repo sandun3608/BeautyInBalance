@@ -257,16 +257,16 @@
 
     /* Responsive Fixes */
     @media (max-width: 900px) {
+      body { overflow-x: hidden; }
       .account-container {
         grid-template-columns: 1fr;
-        margin-top: -30px;
-        padding: 0 10px; 
+        margin-top: -20px;
+        padding: 0;
         width: 100%;
         box-sizing: border-box;
-        overflow-x: hidden;
       }
       .account-content { 
-        padding: 20px 10px; 
+        padding: 20px 12px; 
         border-radius: 12px;
         width: 100%;
         box-sizing: border-box;
@@ -274,42 +274,51 @@
       }
       .account-nav {
         position: sticky;
-        top: 60px;
+        top: 58px;
         z-index: 100;
         background: #fff;
-        margin-bottom: 20px;
-        padding: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(0,0,0,0.05);
-        border-radius: 10px;
-        width: calc(100% - 20px);
-        margin-left: 10px;
+        margin: 0 0 15px 0;
+        padding: 6px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-radius: 0;
+        width: 100%;
         box-sizing: border-box;
       }
       .nav-list { 
         flex-direction: row; 
         overflow-x: auto; 
-        padding-bottom: 2px;
+        padding: 0 4px 2px;
         scrollbar-width: none;
+        gap: 4px;
       }
       .nav-list::-webkit-scrollbar { display: none; }
       .nav-item { 
-        padding: 10px 15px; 
-        font-size: 13px;
+        padding: 8px 12px; 
+        font-size: 12px;
+        white-space: nowrap;
+        border-radius: 8px;
+        flex-shrink: 0;
       }
-      .order-card { margin-bottom: 20px; border-radius: 15px; width: 100%; box-sizing: border-box; }
-      .order-header { padding: 12px 15px; }
-      .order-id { font-size: 13px; }
-      .status-badge { font-size: 9px !important; padding: 4px 10px !important; }
-      .order-items-grid { padding: 12px; }
-      .order-item-row { gap: 12px !important; }
-      .order-item-row img { width: 50px !important; height: 50px !important; }
-      .order-item-row div { font-size: 13px !important; }
-      .order-details-box { padding: 0 12px 12px; }
-      .order-footer { padding: 12px 15px; flex-wrap: wrap; gap: 10px; }
-      .order-footer div div { font-size: 18px !important; }
-      .nav-item { padding: 8px 12px; font-size: 12px; }
-      .logout-btn { margin-top: 10px !important; padding-top: 10px !important; font-size: 12px !important; }
+      .logout-btn {
+        margin-top: 0 !important;
+        border-top: none !important;
+        padding-top: 8px !important;
+        font-size: 12px;
+        color: #dc2626 !important;
+      }
+      .order-card { margin-bottom: 16px; border-radius: 14px; width: 100%; box-sizing: border-box; overflow: hidden; }
+      .order-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+      .order-id { font-size: 12px !important; }
+      .order-date { font-size: 11px !important; }
+      .status-badge { font-size: 9px !important; padding: 4px 8px !important; border-radius: 12px !important; }
+      .order-items-grid { padding: 12px 14px; }
+      .order-item-row { gap: 10px !important; margin-bottom: 12px !important; padding-bottom: 12px !important; }
+      .order-details-box { padding: 0 14px 14px; }
+      .order-footer { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+      .order-footer > div > div:last-child { font-size: 18px !important; }
+      h3.section-title { font-size: 20px; margin-bottom: 20px; }
+      .user-info h2 { font-size: 24px; }
     }
   </style>
 </head>
@@ -464,12 +473,6 @@
           <div id="orders-list">
             <p style="text-align:center; padding: 50px; color:#999;">Loading your orders...</p>
           </div>
-          
-          <!-- Static Support Button -->
-          <a href="https://wa.me/94719152136?text=Hi!%20I'm%20using%20the%20Beauty%20in%20Balance%20app%20and%20need%20some%20help." class="static-support-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
-            Need Help? Chat with us
-          </a>
         </div>
 
         <!-- MY BAG -->
@@ -507,10 +510,10 @@
           </div>
         </div>
         
-        <!-- Static Support Button -->
-        <a href="https://wa.me/94719152136?text=Hi!%20I'm%20using%20the%20Beauty%20in%20Balance%20app%20and%20need%20some%20help." class="static-support-btn" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:15px; background:#25D366; color:white; border-radius:10px; text-decoration:none; margin-top:20px; font-weight:600;">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
-          Need Help? Chat with us
+        <!-- Support Button -->
+        <a href="https://wa.me/94719152136?text=Hi!%20I%20need%20help%20with%20my%20Beauty%20in%20Balance%20order." class="static-support-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
+          Need Help? Chat with us on WhatsApp
         </a>
       </section>
     </div>
@@ -523,7 +526,6 @@
     </div>
   </footer>
 
-  <script src="config.js"></script>
   <script src="config.js"></script>
   <script src="productsData.js"></script>
   <script src="cart.js"></script>
