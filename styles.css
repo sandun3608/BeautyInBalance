@@ -7888,7 +7888,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
    ============================================================ */
 .home-all-products-section {
   padding: 60px 20px;
-  background: var(--beige-light);
+  background: #ffffff;
   text-align: center;
 }
 
@@ -8149,4 +8149,16 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   color: #000;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(181,134,70,0.4);
+}
+
+.hap-card .btn-buy-animated {
+  background: var(--dark) !important;
+  color: #fff !important;
+  border: none !important;
+  display: block !important;
+}
+
+.hap-card .btn-buy-animated:hover {
+  background: var(--gold) !important;
+  color: #000 !important;
 }
