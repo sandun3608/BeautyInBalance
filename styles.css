@@ -8130,8 +8130,11 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   overflow: hidden;
   z-index: 1;
   width: 90%;
-  margin: 0 auto;
+  margin: auto auto 0 auto;
   transition: all 0.4s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
 }
 .hap-card .btn-buy-animated::before {
   content: '';
