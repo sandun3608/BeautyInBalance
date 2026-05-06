@@ -7994,20 +7994,21 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 /* CARDS (Modern Glass-like Look) */
 .hap-card {
   background: transparent;
-  border-radius: 0;
+  border-radius: 16px;
   padding: 10px;
   text-align: center;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   transition: all 0.4s ease;
-  box-shadow: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.03);
   position: relative;
   overflow: visible;
 }
 .hap-card:hover {
   transform: translateY(-5px);
-  box-shadow: none;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
 }
 .hap-card-img {
   width: 100%;
@@ -8154,17 +8155,18 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .hap-card .btn-buy-animated {
-  background: var(--dark) !important;
+  background: var(--brown) !important;
   color: #fff !important;
-  border: 1px solid var(--dark) !important;
+  border: 1px solid var(--brown) !important;
   display: block !important;
-  border-radius: 4px !important;
+  border-radius: 50px !important;
   padding: 12px 15px !important;
   font-size: 11px !important;
   letter-spacing: 1px !important;
 }
 
 .hap-card .btn-buy-animated:hover {
-  background: #fff !important;
-  color: var(--dark) !important;
+  background: var(--gold) !important;
+  border: 1px solid var(--gold) !important;
+  color: #000 !important;
 }
