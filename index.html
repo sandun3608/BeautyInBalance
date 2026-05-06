@@ -156,17 +156,43 @@
 
   <!-- ===== MOBILE DRAWER ===== -->
   <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
-       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
-       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
     </div>
-    <ul class="mobile-nav" style="padding: 20px 20px; display: flex; flex-direction: column; gap: 12px;">
-      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
-      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
-      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
-      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
-      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
-    </ul>
+    
+    <div class="drawer-content">
+      <ul class="mobile-nav">
+        <li class="nav-label">Navigation</li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop All</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        
+        <li class="nav-label">Categories</li>
+        <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+        <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+        <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In / Register</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="drawer-social">
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-14 8.38 8.38 0 0 1 3.8.9L21 3z"/></svg></a>
+      </div>
+      <div class="drawer-contact">
+        <p>support@beautyinbalance.lk</p>
+        <p>+94 71 915 2136</p>
+      </div>
+    </div>
   </div>
 
   <!-- ===== CART DRAWER ===== -->
