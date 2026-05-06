@@ -2551,12 +2551,13 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.footer-col p,
 .footer-brand-col p {
   font-size: 13px;
   color: #ffffff !important;
   line-height: 1.75;
   margin-bottom: 24px;
-  opacity: 1 !important; /* Full white as requested */
+  opacity: 1 !important;
 }
 
 .footer-social {
