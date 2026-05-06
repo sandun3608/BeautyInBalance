@@ -2902,7 +2902,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .mobile-bottom-nav-v2 {
-    display: none; /* Controlled by JS or media query */
+    display: grid !important; /* Force grid on mobile */
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
