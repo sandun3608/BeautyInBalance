@@ -510,7 +510,11 @@
             return;
          }
 
+         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+         const userId = userInfo ? userInfo._id : null;
+
          const orderData = {
+           user: userId,
            customerInfo: {
              firstName,
              lastName,

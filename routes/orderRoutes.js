@@ -9,6 +9,7 @@ const { protect } = require('../middleware/auth');
 // @access  Public
 router.post('/', async (req, res) => {
     const {
+        user, // Optional user ID for logged-in users
         customerInfo,
         orderItems,
         shippingPrice,
@@ -23,6 +24,7 @@ router.post('/', async (req, res) => {
 
     try {
         const order = new Order({
+            user: user || null,
             customerInfo,
             orderItems,
             shippingPrice,
@@ -85,6 +87,19 @@ router.get('/', protect, async (req, res) => {
     } catch (error) {
         console.error("Error fetching orders:", error);
         res.status(500).json({ message: 'Failed to fetch orders' });
+    }
+});
+
+// @route   GET /api/orders/myorders
+// @desc    Get logged in user orders
+// @access  Private
+router.get('/myorders', protect, async (req, res) => {
+    try {
+        const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (error) {
+        console.error("Error fetching my orders:", error);
+        res.status(500).json({ message: 'Failed to fetch your orders' });
     }
 });
 
