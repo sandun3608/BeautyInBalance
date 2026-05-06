@@ -5416,7 +5416,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   .mobile-drawer {
     border-radius: 0 30px 30px 0 !important;
     box-shadow: 10px 0 50px rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
   }
 
   .drawer-top {
