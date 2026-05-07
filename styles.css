@@ -1178,36 +1178,43 @@ background: #0a0a0a;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--white);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.14);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--brown);
+  color: #ffffff;
   z-index: 5;
-  transition: all var(--transition);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-arr svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
 }
 
 .hero-arr.prev {
-  left: 24px;
+  left: 20px;
 }
 
 .hero-arr.next {
-  right: 24px;
+  right: 20px;
 }
 
 .hero-arr:hover {
-  background: var(--brown);
-  color: var(--white);
-  transform: translateY(-50%) scale(1.06);
+  background: rgba(255,255,255,0.9);
+  color: var(--brown);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  border-color: transparent;
 }
 
 .hero-dots {
