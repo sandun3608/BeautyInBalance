@@ -2290,13 +2290,21 @@
 
         try {
           const BASE = window.BASE_URL || 'http://localhost:5000/api';
-          // Fetch all orders then delete each one
-          const res = await fetch(`${BASE}/orders`);
-          const orders = await res.json();
-          const ids = (orders.data || orders || []).map(o => o._id);
+          const token = localStorage.getItem('userToken');
+          const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          };
 
+          // Fetch all orders
+          const res = await fetch(`${BASE}/orders`, { headers });
+          if (!res.ok) throw new Error('Failed to fetch orders: ' + res.status);
+          const orders = await res.json();
+          const ids = (Array.isArray(orders) ? orders : (orders.data || [])).map(o => o._id);
+
+          // Delete each order
           await Promise.all(ids.map(id =>
-            fetch(`${BASE}/orders/${id}`, { method: 'DELETE' })
+            fetch(`${BASE}/orders/${id}`, { method: 'DELETE', headers })
           ));
 
           // Reset stat cards UI
@@ -2310,17 +2318,17 @@
           // Show success notification
           const notif = document.getElementById('admin-notification');
           if (notif) {
-            notif.textContent = '✓ All stats have been reset.';
+            notif.textContent = '✓ All stats have been reset successfully.';
             notif.style.display = 'block';
             notif.style.background = '#16a34a';
             setTimeout(() => { notif.style.display = 'none'; }, 3000);
           }
 
-          // Reload orders table if visible
+          // Reload orders table
           if (typeof fetchOrders === 'function') fetchOrders();
 
         } catch(e) {
-          console.error(e);
+          console.error('Reset error:', e);
           btn.innerHTML = 'Error — Try Again';
           btn.disabled = false;
           btn.style.opacity = '1';
