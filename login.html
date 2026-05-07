@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -392,7 +392,7 @@
         const data = await response.json();
 
         if (response.ok) {
-          showToast('Welcome Back 🌸', 'Redirecting to your dashboard...', 'success');
+          showToast('Welcome Back', 'Redirecting to your dashboard...', 'success');
           localStorage.setItem('userToken', data.token);
           localStorage.setItem('userInfo', JSON.stringify({
             _id: data._id, name: data.name, email: data.email,
@@ -414,3 +414,4 @@
   </script>
 </body>
 </html>
+
