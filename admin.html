@@ -2173,6 +2173,11 @@
 
         <!-- SETTINGS TAB -->
         <div id="tab-settings" class="admin-content">
+            <!-- Back Button -->
+            <button onclick="window.switchTab('dashboard', document.getElementById('nav-dashboard'))" style="display:inline-flex; align-items:center; gap:8px; background:none; border:1px solid var(--admin-border); padding:9px 18px; border-radius:10px; font-size:13px; font-weight:600; color:var(--admin-text); cursor:pointer; margin-bottom:20px; transition:0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="12" x2="21" y2="12"/></svg>
+              Back to Dashboard
+            </button>
             <div class="admin-section" style="max-width: 600px;">
                 <h3 style="margin-bottom: 25px;">Profile Settings</h3>
                 <div style="display:flex; flex-direction:column; gap:20px;">
