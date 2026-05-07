@@ -2196,43 +2196,40 @@
         </div>
 
         <!-- Profile Settings Card -->
-        <div class="admin-section" style="max-width: 600px; margin-bottom: 30px;">
-            <h3 style="margin-bottom: 25px;">Profile Settings</h3>
-            <div style="display:flex; flex-direction:column; gap:20px;">
-
-                <!-- Avatar Row -->
-                <div style="display:flex; align-items:center; gap:25px; padding:25px; background:#fcfcfc; border:1px solid #eee; border-radius:20px;">
-                    <div onclick="document.getElementById('settings-avatar-file').click()" style="position:relative; width:120px; height:120px; border-radius:50%; background:#eee; overflow:hidden; cursor:pointer; border:3px solid #fff; box-shadow:0 4px 15px rgba(0,0,0,0.1); flex-shrink:0;" onmouseover="this.querySelector('.camera-overlay').style.opacity='1'" onmouseout="this.querySelector('.camera-overlay').style.opacity='0'">
-                        <img id="settings-avatar-preview" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
-                        <svg id="settings-avatar-placeholder" viewBox="0 0 24 24" width="45" height="45" fill="none" stroke="#aaa" stroke-width="1.5" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <!-- Camera Overlay -->
-                        <div class="camera-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; opacity:0; transition:0.3s;">
-                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                        </div>
+        <div class="admin-section" style="max-width: 600px; margin-bottom: 30px; background: #fff; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-sm);">
+            <h3 style="margin-bottom: 30px; font-size: 24px; font-weight: 800; color: var(--admin-text);">Profile Settings</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                
+                <!-- Avatar Upload Section -->
+                <div style="background: #fdfbf7; padding: 25px; border-radius: 15px; border: 1px solid #f3ece0; display: flex; align-items: center; gap: 25px;">
+                    <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; background: #eee; flex-shrink: 0; cursor: pointer;" onclick="document.getElementById('settings-avatar-file').click()">
+                        <img id="settings-avatar-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                        <div id="settings-avatar-placeholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--admin-accent); color: #fff; font-weight: 800; font-size: 32px;"></div>
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.5); color: #fff; font-size: 9px; text-align: center; padding: 4px 0; font-weight: 700;">CHANGE</div>
                     </div>
                     <div>
-                        <h4 style="margin:0 0 5px 0; font-size:16px;">Admin Avatar</h4>
-                        <p style="font-size:12px; color:#888; margin-bottom:15px;">Click the circle to change your photo</p>
-                        <input type="file" id="settings-avatar-file" accept="image/*" style="display:none;" onchange="handleProfileImageUpload(this)">
-                        <button class="admin-btn" style="padding:10px 20px; font-size:12px;" onclick="document.getElementById('settings-avatar-file').click()">Change Photo</button>
+                        <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 700;">Admin Photo</h4>
+                        <p style="margin: 0 0 15px 0; font-size: 12px; color: #666;">Select a professional profile picture.</p>
+                        <input type="file" id="settings-avatar-file" accept="image/*" style="display: none;" onchange="handleProfileImageUpload(this)">
+                        <button type="button" class="admin-btn" style="padding: 10px 20px; font-size: 12px;" onclick="document.getElementById('settings-avatar-file').click()">Upload New Image</button>
                     </div>
                 </div>
 
                 <!-- Admin Name -->
                 <div class="form-group">
-                    <label style="font-size:11px; text-transform:uppercase; color:#999; display:block; margin-bottom:8px;">Admin Name</label>
-                    <input type="text" id="settings-admin-name" style="width:100%; padding:15px; border:1px solid #eee; border-radius:10px; box-sizing:border-box;">
+                    <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 10px; font-weight: 700;">Display Name</label>
+                    <input type="text" id="settings-admin-name" style="width: 100%; padding: 15px; border: 1px solid var(--admin-border); border-radius: 12px; font-size: 14px; outline: none; transition: 0.2s;" onfocus="this.style.borderColor='var(--admin-accent)'" onblur="this.style.borderColor='var(--admin-border)'">
                 </div>
 
                 <!-- Password -->
                 <div class="form-group">
-                    <label style="font-size:11px; text-transform:uppercase; color:#999; display:block; margin-bottom:8px;">New Password (Optional)</label>
-                    <input type="password" id="settings-admin-pass" placeholder="Leave blank to keep current" style="width:100%; padding:15px; border:1px solid #eee; border-radius:10px; box-sizing:border-box;">
+                    <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 10px; font-weight: 700;">Security (New Password)</label>
+                    <input type="password" id="settings-admin-pass" placeholder="Leave empty to keep current password" style="width: 100%; padding: 15px; border: 1px solid var(--admin-border); border-radius: 12px; font-size: 14px; outline: none; transition: 0.2s;" onfocus="this.style.borderColor='var(--admin-accent)'" onblur="this.style.borderColor='var(--admin-border)'">
                 </div>
 
-                <!-- Save -->
-                <button class="admin-btn" style="width:100%; justify-content:center; padding:18px;" onclick="saveAdminProfile(this)">Save Profile Changes</button>
-
+                <!-- Save Changes -->
+                <button class="admin-btn" style="width: 100%; padding: 18px; justify-content: center; font-size: 15px; font-weight: 800; border-radius: 15px; margin-top: 10px;" onclick="saveAdminProfile(this)">Save All Changes</button>
             </div>
         </div>
 
