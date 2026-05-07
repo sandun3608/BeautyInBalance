@@ -2172,12 +2172,14 @@
     </div>
 
         <!-- SETTINGS TAB -->
-        <div id="tab-settings" class="admin-content">
-            <!-- Back Button -->
-            <button onclick="window.switchTab('dashboard', document.getElementById('nav-dashboard'))" style="display:inline-flex; align-items:center; gap:8px; background:none; border:1px solid var(--admin-border); padding:9px 18px; border-radius:10px; font-size:13px; font-weight:600; color:var(--admin-text); cursor:pointer; margin-bottom:20px; transition:0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="12" x2="21" y2="12"/></svg>
-              Back to Dashboard
-            </button>
+        <div id="tab-settings" class="admin-content" style="padding-bottom: 100px;">
+            <!-- Premium Back Button -->
+            <div style="margin-bottom: 25px;">
+                <button onclick="window.switchTab('dashboard', document.getElementById('nav-dashboard'))" style="display:inline-flex; align-items:center; gap:10px; background:var(--admin-sidebar-bg); border:none; padding:12px 24px; border-radius:12px; font-size:14px; font-weight:700; color:#fff; cursor:pointer; transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(0,0,0,0.1);" onmouseover="this.style.background='var(--admin-accent)'; this.style.transform='translateX(-5px)';" onmouseout="this.style.background='var(--admin-sidebar-bg)'; this.style.transform='translateX(0)';">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="12" x2="21" y2="12"/></svg>
+                  Back to Overview
+                </button>
+            </div>
             <div class="admin-section" style="max-width: 600px;">
                 <h3 style="margin-bottom: 25px;">Profile Settings</h3>
                 <div style="display:flex; flex-direction:column; gap:20px;">
@@ -2207,21 +2209,21 @@
             </div>
 
             <!-- DANGER ZONE -->
-            <div class="admin-section" style="max-width: 600px; margin-top: 30px; border: 1.5px solid #fee2e2; background: #fff8f8;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                    <div style="width: 36px; height: 36px; background: #fef2f2; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" width="18" height="18"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div class="admin-section" style="max-width: 600px; margin-top: 40px; border: 1.5px solid #fee2e2; background: #fff8f8; padding: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 25px;">
+                    <div style="width: 40px; height: 40px; background: #fef2f2; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" width="20" height="20"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                     </div>
-                    <h3 style="margin: 0; color: #dc2626; font-size: 18px;">Danger Zone</h3>
+                    <h3 style="margin: 0; color: #dc2626; font-size: 20px; font-weight: 800;">Danger Zone</h3>
                 </div>
 
-                <div style="background: #fff; border: 1px solid #fecaca; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 20px;">
-                    <div>
-                        <h4 style="margin: 0 0 6px 0; font-size: 15px; font-weight: 700; color: #111;">Reset All Statistics</h4>
-                        <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.5;">Permanently delete all orders and reset the dashboard stats to zero. This action <strong>cannot be undone</strong>.</p>
+                <div style="background: #fff; border: 1px solid #fecaca; border-radius: 16px; padding: 25px; display: flex; justify-content: space-between; align-items: center; gap: 30px; box-shadow: 0 4px 12px rgba(220,38,38,0.05);">
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 800; color: #111;">Reset All Statistics</h4>
+                        <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.6;">Permanently delete all orders and reset the dashboard stats to zero. This action <strong>cannot be undone</strong>.</p>
                     </div>
-                    <button onclick="openResetModal()" style="flex-shrink: 0; background: #ef4444; color: #fff; border: none; padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; white-space: nowrap;" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.75"/></svg>
+                    <button onclick="openResetModal()" style="flex-shrink: 0; background: #ef4444; color: #fff; border: none; padding: 14px 26px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; white-space: nowrap; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);" onmouseover="this.style.background='#dc2626'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#ef4444'; this.style.transform='translateY(0)';">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.75"/></svg>
                         Reset Stats
                     </button>
                 </div>
