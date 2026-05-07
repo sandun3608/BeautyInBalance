@@ -2188,76 +2188,73 @@
            <!-- SETTINGS TAB -->
     <div id="tab-settings" class="admin-content" style="padding-bottom: 120px;">
 
-        <!-- Sticky Back Button -->
-        <div style="position: sticky; top: 0; z-index: 50; background: var(--admin-bg, #FDFBF7); padding: 12px 0 8px; margin-bottom: 20px; border-bottom: 1px solid #eee;">
-            <button onclick="window.switchTab('dashboard', document.getElementById('nav-dashboard'))" style="display:inline-flex; align-items:center; gap:8px; background:transparent; border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:12px; font-weight:700; color:#555; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1B1B1E'; this.style.color='#fff'; this.style.borderColor='#1B1B1E';" onmouseout="this.style.background='transparent'; this.style.color='#555'; this.style.borderColor='#ddd';">
-                Return to Overview
+        <!-- TOP NAVIGATION -->
+        <div style="position: sticky; top: 0; z-index: 100; background: #fff; padding: 15px 0; margin-bottom: 30px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+            <button onclick="window.switchTab('dashboard', document.getElementById('nav-dashboard'))" style="background: #f5f5f5; border: 1px solid #ddd; padding: 10px 25px; border-radius: 25px; font-size: 13px; font-weight: 700; color: #444; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#000'; this.style.color='#fff';" onmouseout="this.style.background='#f5f5f5'; this.style.color='#444';">
+                Return to Dashboard Overview
             </button>
+            <h3 style="margin: 0; font-size: 20px; font-weight: 800; color: var(--admin-text);">Admin Profile Settings</h3>
+            <div style="width: 150px;"></div> <!-- Spacer -->
         </div>
 
-        <!-- Profile Settings Card -->
-        <div class="admin-section" style="max-width: 600px; margin-bottom: 30px; background: #fff; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-sm);">
-            <h3 style="margin-bottom: 30px; font-size: 24px; font-weight: 800; color: var(--admin-text);">Profile Settings</h3>
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
             
-            <div style="display: flex; flex-direction: column; gap: 30px;">
-                
-                <!-- Avatar Upload Section -->
-                <div style="background: #fdfbf7; padding: 25px; border-radius: 15px; border: 1px solid #f3ece0; display: flex; align-items: center; gap: 25px;">
-                    <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; background: #eee; flex-shrink: 0; cursor: pointer;" onclick="document.getElementById('settings-avatar-file').click()">
+            <!-- PROFILE PHOTO SECTION -->
+            <div class="admin-section" style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee;">
+                <div style="display: flex; align-items: center; gap: 40px;">
+                    <div style="position: relative; width: 150px; height: 150px; border-radius: 50%; background: #f0f0f0; border: 5px solid #fff; box-shadow: var(--shadow-lg); overflow: hidden; cursor: pointer; flex-shrink: 0;" onclick="document.getElementById('settings-avatar-file').click()">
                         <img id="settings-avatar-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                        <div id="settings-avatar-placeholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--admin-accent); color: #fff; font-weight: 800; font-size: 32px;"></div>
-                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.5); color: #fff; font-size: 9px; text-align: center; padding: 4px 0; font-weight: 700;">CHANGE</div>
+                        <div id="settings-avatar-placeholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #CFA56A; color: #fff; font-size: 60px; font-weight: 800;">A</div>
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.6); color: #fff; font-size: 11px; text-align: center; padding: 8px 0; font-weight: 800; letter-spacing: 1px;">CHANGE</div>
                     </div>
-                    <div>
-                        <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 700;">Admin Photo</h4>
-                        <p style="margin: 0 0 15px 0; font-size: 12px; color: #666;">Select a professional profile picture.</p>
+                    <div style="flex: 1;">
+                        <h2 style="margin: 0 0 10px 0; font-size: 28px; font-weight: 800; color: #111;">Manage Your Profile</h2>
+                        <p style="margin: 0 0 25px 0; font-size: 14px; color: #666; line-height: 1.6;">Your profile photo will be visible across the entire administrative dashboard and welcome banner.</p>
                         <input type="file" id="settings-avatar-file" accept="image/*" style="display: none;" onchange="handleProfileImageUpload(this)">
-                        <button type="button" class="admin-btn" style="padding: 10px 20px; font-size: 12px;" onclick="document.getElementById('settings-avatar-file').click()">Upload New Image</button>
+                        <button class="admin-btn" style="padding: 14px 30px; font-size: 14px; border-radius: 12px;" onclick="document.getElementById('settings-avatar-file').click()">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            Upload New Profile Picture
+                        </button>
                     </div>
                 </div>
-
-                <!-- Admin Name -->
-                <div class="form-group">
-                    <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 10px; font-weight: 700;">Display Name</label>
-                    <input type="text" id="settings-admin-name" style="width: 100%; padding: 15px; border: 1px solid var(--admin-border); border-radius: 12px; font-size: 14px; outline: none; transition: 0.2s;" onfocus="this.style.borderColor='var(--admin-accent)'" onblur="this.style.borderColor='var(--admin-border)'">
-                </div>
-
-                <!-- Password -->
-                <div class="form-group">
-                    <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 10px; font-weight: 700;">Security (New Password)</label>
-                    <input type="password" id="settings-admin-pass" placeholder="Leave empty to keep current password" style="width: 100%; padding: 15px; border: 1px solid var(--admin-border); border-radius: 12px; font-size: 14px; outline: none; transition: 0.2s;" onfocus="this.style.borderColor='var(--admin-accent)'" onblur="this.style.borderColor='var(--admin-border)'">
-                </div>
-
-                <!-- Save Changes -->
-                <button class="admin-btn" style="width: 100%; padding: 18px; justify-content: center; font-size: 15px; font-weight: 800; border-radius: 15px; margin-top: 10px;" onclick="saveAdminProfile(this)">Save All Changes</button>
             </div>
-        </div>
 
-        <!-- Danger Zone Card -->
-        <div class="admin-section" style="max-width: 600px; border: 1.5px solid #fee2e2; background: #fff8f8; padding: 30px;">
-            <div style="display:flex; align-items:center; gap:12px; margin-bottom:25px;">
-                <div style="width:40px; height:40px; background:#fef2f2; border-radius:12px; display:flex; align-items:center; justify-content:center;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" width="20" height="20"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                </div>
-                <h3 style="margin:0; color:#dc2626; font-size:20px; font-weight:800;">Danger Zone</h3>
-            </div>
-            <div style="background:#fff; border:1px solid #fecaca; border-radius:16px; padding:25px; display:flex; justify-content:space-between; align-items:center; gap:30px; box-shadow:0 4px 12px rgba(220,38,38,0.05);">
-                <div style="flex:1;">
-                    <h4 style="margin:0 0 8px 0; font-size:16px; font-weight:800; color:#111;">Reset All Statistics</h4>
-                    <p style="margin:0; font-size:13px; color:#666; line-height:1.6;">Permanently delete all orders and reset the dashboard stats to zero. This action <strong>cannot be undone</strong>.</p>
-                </div>
-                <button onclick="openResetModal()" style="flex-shrink:0; background:#ef4444; color:#fff; border:none; padding:14px 26px; border-radius:12px; font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:10px; transition:all 0.3s; white-space:nowrap; box-shadow:0 4px 15px rgba(239,68,68,0.25);" onmouseover="this.style.background='#dc2626'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#ef4444'; this.style.transform='translateY(0)';">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.75"/></svg>
-                    Reset Stats
-                </button>
-            </div>
-        </div>
+            <!-- PERSONAL INFORMATION CARD -->
+            <div class="admin-section" style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #eee;">
+                <div style="display: flex; flex-direction: column; gap: 25px;">
+                    <div class="form-group">
+                        <label style="font-size: 12px; text-transform: uppercase; color: #999; display: block; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px;">Dashboard Display Name</label>
+                        <input type="text" id="settings-admin-name" style="width: 100%; padding: 18px; border: 1px solid #eee; border-radius: 15px; font-size: 16px; background: #fafafa; outline: none; transition: 0.3s;" onfocus="this.style.background='#fff'; this.style.borderColor='#CFA56A';">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="font-size: 12px; text-transform: uppercase; color: #999; display: block; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px;">Update Password (Optional)</label>
+                        <input type="password" id="settings-admin-pass" placeholder="Leave blank to keep current password" style="width: 100%; padding: 18px; border: 1px solid #eee; border-radius: 15px; font-size: 16px; background: #fafafa; outline: none; transition: 0.3s;" onfocus="this.style.background='#fff'; this.style.borderColor='#CFA56A';">
+                    </div>
 
-        <!-- Bottom Back Button -->
-        <div style="margin-top: 50px; display: flex; justify-content: center; padding-bottom: 80px;">
-            <button onclick="window.switchTab('dashboard', document.getElementById('nav-dashboard'))" style="display:inline-flex; align-items:center; gap:10px; background:#f5f5f5; border:1px solid #ddd; padding:15px 40px; border-radius:30px; font-size:14px; font-weight:700; color:#444; cursor:pointer; transition:all 0.3s;" onmouseover="this.style.background='#000'; this.style.color='#fff'; this.style.borderColor='#000'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='#f5f5f5'; this.style.color='#444'; this.style.borderColor='#ddd'; this.style.transform='translateY(0)';">
-                Back to Dashboard
-            </button>
+                    <button class="admin-btn" style="width: 100%; padding: 20px; justify-content: center; font-size: 16px; font-weight: 800; border-radius: 15px; margin-top: 15px; box-shadow: 0 10px 20px rgba(207,165,106,0.2);" onclick="saveAdminProfile(this)">
+                        Save All Profile Changes
+                    </button>
+                </div>
+            </div>
+
+            <!-- DANGER ZONE -->
+            <div class="admin-section" style="background: #fff5f5; padding: 40px; border-radius: 25px; border: 1px solid #fed7d7;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" width="24" height="24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    <h3 style="margin: 0; color: #dc2626; font-size: 20px; font-weight: 800;">Danger Zone</h3>
+                </div>
+                <div style="background: #fff; border: 1px solid #feb2b2; border-radius: 20px; padding: 30px; display: flex; justify-content: space-between; align-items: center; gap: 40px;">
+                    <div style="flex: 1;">
+                        <h4 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 800; color: #111;">Reset Store Statistics</h4>
+                        <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.6;">This will permanently delete all order history and reset your revenue stats. This action is irreversible.</p>
+                    </div>
+                    <button onclick="openResetModal()" style="background: #ef4444; color: #fff; border: none; padding: 15px 30px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#dc2626';" onmouseout="this.style.background='#ef4444';">
+                        Reset Stats
+                    </button>
+                </div>
+            </div>
+
         </div>
 
     </div><!-- end tab-settings -->
