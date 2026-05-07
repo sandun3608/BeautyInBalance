@@ -1244,6 +1244,11 @@
         target.style.display = 'block';
       }
 
+      // Reset scroll position
+      const mainBody = document.querySelector('.main-body');
+      if (mainBody) mainBody.scrollTop = 0;
+      window.scrollTo(0,0);
+
       // Update Nav Link styling
       document.querySelectorAll('.admin-nav-link').forEach(link => {
         link.classList.remove('active');
