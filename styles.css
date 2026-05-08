@@ -649,6 +649,8 @@ img {
   color: var(--gold);
 }
 
+
+
 .drawer-contact {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
@@ -8377,4 +8379,28 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
   }
+}
+
+/* Background Blur & Floating Icon Hiding when Drawer is Open (FORCE BOTTOM FOR SPECIFICITY) */
+body.drawer-open main {
+  filter: blur(12px) !important;
+  -webkit-filter: blur(12px) !important;
+  pointer-events: none !important;
+  transition: filter 0.5s ease;
+}
+
+body.drawer-open .floating-email,
+body.drawer-open .floating-wa,
+body.drawer-open .floating-ig {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: all 0.4s ease !important;
+  z-index: -1 !important;
+}
+
+body.drawer-open #site-header {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: transparent !important;
 }
