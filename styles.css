@@ -8383,6 +8383,10 @@ body.drawer-open #site-header {
 }
 
 /* Ensure reset when class is removed */
+body:not(.drawer-open) #site-header {
+  background: #ffffff !important;
+}
+
 body:not(.drawer-open) .floating-email,
 body:not(.drawer-open) .floating-wa,
 body:not(.drawer-open) .floating-ig {
