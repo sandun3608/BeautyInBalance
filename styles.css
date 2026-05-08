@@ -556,7 +556,7 @@ img {
 }
 
 .drawer-header {
-  padding: 30px 24px;
+  padding: 22px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -582,7 +582,7 @@ img {
 .drawer-content {
   flex: 1;
   overflow-y: auto;
-  padding: 30px 24px;
+  padding: 10px 24px 30px;
 }
 
 .mobile-nav {
