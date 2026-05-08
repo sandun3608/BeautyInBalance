@@ -8465,27 +8465,42 @@ body:not(.drawer-open) .floating-ig {
 @media (max-width: 768px) {
   .about-welcome-section {
     padding: 60px 20px;
+    background: #fdfaf7; /* Subtle background to make it pop on mobile */
+    margin: 20px 0;
+    border-top: 1px solid rgba(45, 27, 18, 0.05);
+    border-bottom: 1px solid rgba(45, 27, 18, 0.05);
   }
   .welcome-display-title {
-    font-size: clamp(32px, 10vw, 42px);
+    font-size: clamp(30px, 9vw, 38px);
     margin-bottom: 30px;
-    letter-spacing: 0.02em;
+    text-align: center;
+    width: 100%;
   }
   .welcome-body-text {
-    text-align: center; /* Center text on mobile for better flow */
+    text-align: center !important;
+    width: 100%;
     margin-bottom: 40px;
   }
   .lead-p {
     font-size: 18px;
     margin-bottom: 25px;
+    text-align: center !important;
   }
   .secondary-p p {
     font-size: 15px;
     margin-bottom: 20px;
+    text-align: center !important;
+  }
+  .welcome-actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
   .welcome-btn {
-    padding: 18px 45px;
-    width: 100%; /* Full width button on mobile */
+    padding: 18px 30px;
+    width: 100%;
+    max-width: 300px;
     justify-content: center;
+    font-size: 12px;
   }
 }
