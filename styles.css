@@ -7933,11 +7933,11 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   body {
     padding-top: 45px !important;
-    padding-bottom: 80px !important; /* Fix for bottom nav covering content */
+    padding-bottom: 0px !important; 
   }
 
   footer {
-    padding-bottom: 100px !important; /* Ensure footer icons aren't cut off */
+    padding-bottom: 0px !important;
   }
 
   /* Raised by another 1px as requested */
