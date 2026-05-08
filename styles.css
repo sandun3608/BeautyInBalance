@@ -8464,16 +8464,28 @@ body:not(.drawer-open) .floating-ig {
 
 @media (max-width: 768px) {
   .about-welcome-section {
-    padding: 80px 20px;
+    padding: 60px 20px;
   }
   .welcome-display-title {
-    font-size: 38px;
+    font-size: clamp(32px, 10vw, 42px);
+    margin-bottom: 30px;
+    letter-spacing: 0.02em;
+  }
+  .welcome-body-text {
+    text-align: center; /* Center text on mobile for better flow */
     margin-bottom: 40px;
   }
   .lead-p {
     font-size: 18px;
+    margin-bottom: 25px;
   }
   .secondary-p p {
     font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .welcome-btn {
+    padding: 18px 45px;
+    width: 100%; /* Full width button on mobile */
+    justify-content: center;
   }
 }
