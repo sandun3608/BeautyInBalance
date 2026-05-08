@@ -7840,15 +7840,7 @@ main {
     visibility: hidden !important;
   }
 
-  /* PREMIUM MOBILE DRAWER UPGRADE */
-  .mobile-drawer {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    width: 85% !important;
-    max-width: 320px !important;
-    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.1) !important;
-  }
+  /* Removed conflicting drawer upgrade block to preserve new luxury design */
 
   .drawer-top {
     padding: 40px 25px 20px 25px !important;
@@ -7863,31 +7855,7 @@ main {
     color: var(--brown) !important;
   }
 
-  .mobile-nav {
-    padding: 30px 25px !important;
-  }
-
-  .mobile-nav li {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03) !important;
-    padding-bottom: 15px !important;
-    margin-bottom: 5px !important;
-  }
-
-  .mobile-nav li a {
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.02em !important;
-    color: var(--brown) !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
-
-  .mobile-nav li a::after {
-    content: "→";
-    font-size: 0.8rem;
-    opacity: 0.3;
-  }
+  /* Removed redundant nav links upgrade */
 
   /* Slimmer Footer and flush with bottom on mobile */
   .site-footer {
@@ -8393,11 +8361,10 @@ main {
   }
 }
 
-/* Background Blur & Floating Icon Hiding when Drawer is Open (FORCE BOTTOM FOR SPECIFICITY) */
-body.drawer-open main {
-  filter: blur(12px) !important;
-  -webkit-filter: blur(12px) !important;
-  pointer-events: none !important;
+/* Background Blur & Floating Icon Hiding when Drawer is Open */
+.overlay.show {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 body.drawer-open .floating-email,
@@ -8416,11 +8383,6 @@ body.drawer-open #site-header {
 }
 
 /* Ensure reset when class is removed */
-body:not(.drawer-open) main {
-  filter: blur(0) !important;
-  -webkit-filter: blur(0) !important;
-}
-
 body:not(.drawer-open) .floating-email,
 body:not(.drawer-open) .floating-wa,
 body:not(.drawer-open) .floating-ig {
