@@ -8449,18 +8449,6 @@ body:not(.drawer-open) .floating-ig {
   50% { transform: translateY(-15px); }
 }
 
-.about-welcome-section::before {
-  content: '';
-  position: absolute;
-  width: 1px;
-  height: 100px;
-  background: var(--gold);
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.3;
-}
-
 .welcome-body-text {
   max-width: 750px;
   margin: 0 auto 60px;
