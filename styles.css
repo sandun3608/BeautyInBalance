@@ -8450,13 +8450,13 @@ body:not(.drawer-open) .floating-ig {
 
 .welcome-display-title {
   font-family: var(--font-serif);
-  font-size: clamp(40px, 8vw, 90px);
+  font-size: clamp(50px, 12vw, 130px);
   color: var(--brown);
   margin-bottom: 40px;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
   font-weight: 500;
-  line-height: 0.95;
+  line-height: 0.85;
 }
 
 .welcome-display-title span {
