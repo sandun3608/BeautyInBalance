@@ -535,17 +535,20 @@ img {
   top: 0;
   left: 0;
   height: 100%;
-  width: 320px;
-  background: var(--brown);
-  z-index: 2000000; /* High enough to cover everything */
-  transform: translateX(-100%);
-  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 310px;
+  background: rgba(30, 18, 12, 0.92); /* Deeper luxury brown */
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  z-index: 2000001;
+  transform: translateX(-105%);
+  transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
   display: flex;
   flex-direction: column;
   color: #ffffff;
   padding: 0;
-  border-radius: 0 30px 30px 0; /* Modern curved box feel */
-  box-shadow: 20px 0 60px rgba(0, 0, 0, 0.4);
+  border-radius: 0 45px 45px 0;
+  box-shadow: 30px 0 100px rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mobile-drawer.open {
@@ -601,16 +604,16 @@ img {
   font-weight: 500;
   color: rgba(255, 255, 255, 0.95);
   padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px; /* Rounder links */
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   text-decoration: none;
 }
 
 .mobile-nav li a:active {
-  background: rgba(255, 255, 255, 0.12);
-  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(0.96) translateX(5px);
 }
 
 .mobile-nav .nav-label {
@@ -3347,7 +3350,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   margin-bottom: 80px;
 }
 
-/* Using .fp-title and .fp-script from styles.css */
+/* Using .fp-title  <link rel="stylesheet" href="styles.css?v=36" />*/
 
 .showcase-subtitle {
   font-size: 16px;
