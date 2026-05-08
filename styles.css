@@ -8421,6 +8421,7 @@ body:not(.drawer-open) .floating-ig {
 .welcome-body-text {
   max-width: 800px;
   margin: 0 auto 60px;
+  text-align: justify;
 }
 
 .lead-p {
