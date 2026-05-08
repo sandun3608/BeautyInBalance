@@ -2979,18 +2979,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .mobile-bottom-nav-v2 {
-    display: grid !important; /* Force grid on mobile */
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 65px !important;
-    background: var(--brown) !important;
-    z-index: 10000 !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    align-items: center !important;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    display: none !important;
   }
 
   .cart-badge {
@@ -3047,11 +3036,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-  }
-
-  .whatsapp-float,
-  .email-float {
-    bottom: 85px !important;
   }
 
   .floating-ig {
