@@ -184,7 +184,14 @@
           </li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="policies.html">Policies</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
 
@@ -245,7 +252,10 @@
       <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
       <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
       <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
-      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
+      <li class="nav-label" style="padding: 10px 0 5px; color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">Policies</li>
+      <li><a href="refund-policy.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Refund Policy</a></li>
+      <li><a href="privacy-policy.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Privacy Policy</a></li>
+      <li><a href="terms-and-conditions.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Terms & Conditions</a></li>
     </ul>
   </div>
 
@@ -336,7 +346,26 @@
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
-      <div class="footer-bottom"><p>&#169; 2024 Beauty in Balance. All rights reserved. | <a href="admin.html" style="color: inherit; opacity: 0.5; font-size: 10px; text-decoration: none;">Admin Login</a></p></div>
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+        <p>Beauty In Balance – Where authenticity meets care. Providing 100% original imports to elevate your skincare routine.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/beauty.in.balance_?igsh=aTRvd2k0ZjgzMWx1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@beauty_in_balance_?_r=1&_t=ZS-9597oMhi8cm" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop All</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Customer Care</h5><ul><li><a href="refund-policy.html">Refund Policy</a></li><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-and-conditions.html">Terms & Conditions</a></li><li><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2024 Beauty in Balance. All rights reserved.</p></div>
   </footer>
 
   <script>
