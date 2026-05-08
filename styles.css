@@ -8450,22 +8450,25 @@ body:not(.drawer-open) .floating-ig {
 
 .welcome-display-title {
   font-family: var(--font-serif);
-  font-size: clamp(50px, 12vw, 130px);
+  font-size: clamp(50px, 15vw, 150px);
   color: var(--brown);
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
   font-weight: 500;
-  line-height: 0.85;
+  line-height: 0.8;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .welcome-display-title span {
   display: block;
-  font-size: 0.4em;
-  letter-spacing: 0.4em;
+}
+
+.welcome-display-title span:nth-child(2) {
+  padding-left: 0; /* Can add offset for style if needed */
   color: var(--gold);
-  margin-bottom: 10px;
-  font-weight: 400;
 }
 
 .welcome-body-text {
@@ -8524,7 +8527,9 @@ body:not(.drawer-open) .floating-ig {
     display: none;
   }
   .welcome-display-title {
-    font-size: 42px;
+    font-size: clamp(60px, 18vw, 80px);
+    line-height: 0.85;
+    margin-bottom: 50px;
   }
   .lead-p {
     font-size: 18px;
