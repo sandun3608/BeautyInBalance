@@ -46,12 +46,14 @@ const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const inquiryRoutes = require('./routes/inquiryRoutes');
 const statsRoutes = require('./routes/statsRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Health Check API
 app.get('/api/health', (req, res) => {
