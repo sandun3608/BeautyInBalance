@@ -7693,6 +7693,18 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   color: #fff;
 }
 
+.floating-email,
+.floating-wa,
+.floating-ig {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  visibility: visible;
+  opacity: 1;
+}
+
+main {
+  transition: filter 0.5s ease, transform 0.5s ease !important;
+}
+
 @media (max-width: 900px) {
   .floating-ig {
     bottom: 25px;
@@ -8386,7 +8398,6 @@ body.drawer-open main {
   filter: blur(12px) !important;
   -webkit-filter: blur(12px) !important;
   pointer-events: none !important;
-  transition: filter 0.5s ease;
 }
 
 body.drawer-open .floating-email,
@@ -8395,7 +8406,6 @@ body.drawer-open .floating-ig {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-  transition: all 0.4s ease !important;
   z-index: -1 !important;
 }
 
@@ -8403,4 +8413,18 @@ body.drawer-open #site-header {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   background: transparent !important;
+}
+
+/* Ensure reset when class is removed */
+body:not(.drawer-open) main {
+  filter: blur(0) !important;
+  -webkit-filter: blur(0) !important;
+}
+
+body:not(.drawer-open) .floating-email,
+body:not(.drawer-open) .floating-wa,
+body:not(.drawer-open) .floating-ig {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 999999 !important;
 }
