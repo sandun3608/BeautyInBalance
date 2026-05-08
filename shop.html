@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=35" />
 
   <style>
     /* =========================================
@@ -1089,6 +1089,7 @@
     /* ── NAV ── */
     $('ham-open').addEventListener('click', () => {
       $('mobile-drawer').classList.add('open');
+      document.body.classList.add('drawer-open');
       overlay.classList.add('show');
       const mBar = $('mobile-search-bar');
       if (mBar) mBar.classList.add('hide-search');
@@ -1097,6 +1098,7 @@
     
     function closeAll() {
       $('mobile-drawer').classList.remove('open');
+      document.body.classList.remove('drawer-open');
       $('cart-drawer').classList.remove('open');
       if ($('search-drop')) $('search-drop').classList.remove('open');
       overlay.classList.remove('show');
