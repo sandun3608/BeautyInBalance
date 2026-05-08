@@ -7929,15 +7929,17 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   main {
     margin-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
   body {
     padding-top: 45px !important;
-    padding-bottom: 0px !important; 
+    padding-bottom: 0 !important; 
   }
 
-  footer {
-    padding-bottom: 0px !important;
+  footer, .site-footer {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   /* Raised by another 1px as requested */
