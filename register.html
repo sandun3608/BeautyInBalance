@@ -8,32 +8,38 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=44" />
   <style>
-    /* Elegant Centered Register Layout */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --brown: #2D1B12;
+      --gold: #b58646;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'DM Sans', sans-serif;
+    }
+
     body {
-      background-color: #faf9f7;
       min-height: 100vh;
-      margin: 0;
+      background-color: #faf9f7;
       font-family: var(--font-sans);
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0;
     }
 
-    .register-container {
+    .register-card {
+      width: 100%;
+      max-width: 450px;
       margin: 20px;
       background: white;
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-      width: 100%;
-      max-width: 450px;
       text-align: center;
-      position: relative;
     }
 
-    .register-container h1 {
+    .brand h1 {
       font-family: var(--font-serif);
       font-size: 32px;
       font-weight: 500;
@@ -41,7 +47,7 @@
       margin-bottom: 5px;
     }
 
-    .register-container p {
+    .brand p {
       color: #777;
       font-size: 14px;
       margin-bottom: 30px;
@@ -49,7 +55,7 @@
 
     .form-group {
       text-align: left;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
     .form-group label {
@@ -58,24 +64,24 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #555;
-      margin-bottom: 6px;
-      font-weight: 500;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
 
     .form-group input {
       width: 100%;
-      padding: 12px;
+      padding: 13px 15px;
       border: 1px solid #e0e0e0;
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: var(--font-sans);
       font-size: 14px;
-      transition: border-color 0.3s;
-      box-sizing: border-box;
+      transition: all 0.3s ease;
     }
 
     .form-group input:focus {
       outline: none;
       border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(181, 134, 70, 0.1);
     }
 
     .register-btn {
@@ -83,54 +89,63 @@
       background-color: var(--brown);
       color: white;
       border: none;
-      padding: 14px;
+      padding: 16px;
       font-family: var(--font-sans);
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease;
       margin-top: 10px;
     }
 
     .register-btn:hover {
       background-color: var(--gold);
+      transform: translateY(-1px);
     }
 
-    .error-msg {
-      color: #d32f2f;
+    .register-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .bottom-links {
+      margin-top: 25px;
       font-size: 14px;
-      margin-top: 15px;
-      display: none;
-    }
-
-    .success-msg {
-      color: #2e7d32;
-      font-size: 14px;
-      margin-top: 15px;
-      display: none;
-    }
-
-    .switch-auth {
-      display: inline-block;
-      margin-top: 20px;
       color: #777;
-      font-size: 14px;
+    }
+
+    .bottom-links a {
+      color: var(--brown);
+      font-weight: 600;
       text-decoration: none;
       transition: color 0.3s;
     }
 
-    .switch-auth:hover {
+    .bottom-links a:hover {
       color: var(--gold);
     }
+
+    /* -- Toast Styles -- */
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast { background: #1e1209; color: white; padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); min-width: 280px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .toast.active { transform: translateX(0); }
+    .toast.success .toast-icon { color: #4ade80; }
+    .toast.error .toast-icon { color: #f87171; }
+    .toast-icon { font-size: 20px; font-weight: 700; }
+    .toast-title { font-weight: 700; font-size: 14px; }
+    .toast-message { font-size: 12px; opacity: 0.7; }
   </style>
 </head>
 <body>
 
-  <div class="register-container">
-    <h1>Create Account</h1>
-    <p>Join Beauty in Balance for a curated skin journey</p>
+  <div class="register-card">
+    <div class="brand">
+      <h1>Create Account</h1>
+      <p>Join Beauty in Balance for a curated skin journey</p>
+    </div>
 
     <form id="register-form">
       <div class="form-group">
@@ -153,87 +168,54 @@
         <input type="password" id="confirmPassword" placeholder="••••••••" required />
       </div>
 
-      <div class="error-msg" id="error-box"></div>
-      <div class="success-msg" id="success-box">Account created successfully! Redirecting...</div>
-
       <button type="submit" class="register-btn" id="register-btn">Sign Up</button>
     </form>
 
-    <a href="login.html" class="switch-auth">Already have an account? Login here</a>
-    <br>
-    <a href="index.html" class="switch-auth" style="margin-top: 10px; font-size: 12px;">← Return to Storefront</a>
+    <div class="bottom-links">
+      Already have an account? <a href="login.html">Login here</a>
+      <br><br>
+      <a href="index.html" style="font-size: 12px; opacity: 0.6;">← Return to Storefront</a>
+    </div>
   </div>
 
-  <script src="config.js?v=16"></script>
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="config.js?v=17"></script>
   <script>
     const $ = id => document.getElementById(id);
-    const overlay = $('overlay');
-
-    window.addEventListener('scroll', () => {
-      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    $('ham-open')?.addEventListener('click', () => { 
-      document.getElementById('mobile-drawer').classList.add('open'); 
-      overlay.classList.add('show'); 
-      const mBar = $('mobile-search-bar');
-      if(mBar) mBar.classList.add('hide-search');
-    });
-
-    $('cart-open')?.addEventListener('click', () => { 
-      document.getElementById('cart-drawer').classList.add('open'); 
-      overlay.classList.add('show'); 
-    });
     
-    function closeAll() {
-      document.getElementById('mobile-drawer')?.classList.remove('open');
-      document.getElementById('cart-drawer')?.classList.remove('open');
-      overlay.classList.remove('show');
-      const mBar = $('mobile-search-bar');
-      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    // Toast helper
+    function showToast(title, message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div class="toast-icon">${type === 'success' ? '✓' : '✕'}</div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.add('active'), 10);
+      setTimeout(() => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 400);
+      }, 5000);
     }
-    
-    $('ham-close')?.addEventListener('click', closeAll);
-    $('cart-close')?.addEventListener('click', closeAll);
-    overlay.addEventListener('click', closeAll);
 
-    // Mobile Search Bar Scroll Effect
-    let lastScrollTop = 0;
-    const mSearchBar = $('mobile-search-bar');
-    window.addEventListener('scroll', function() {
-      let st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > 100) {
-        if (st > lastScrollTop) {
-          if(mSearchBar) mSearchBar.classList.add('hide-search');
-        } else {
-          if(mSearchBar) mSearchBar.classList.remove('hide-search');
-        }
-      } else {
-        if(mSearchBar) mSearchBar.classList.remove('hide-search');
-      }
-      lastScrollTop = st;
-    });
-
-    
-
-    const registerForm = document.getElementById('register-form');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
-    const errorBox = document.getElementById('error-box');
-    const successBox = document.getElementById('success-box');
-    const registerBtn = document.getElementById('register-btn');
+    const registerForm = $('register-form');
+    const registerBtn = $('register-btn');
 
     registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      errorBox.style.display = 'none';
-      successBox.style.display = 'none';
+      const name = $('name').value;
+      const email = $('email').value;
+      const password = $('password').value;
+      const confirmPassword = $('confirmPassword').value;
 
-      if (passwordInput.value !== confirmPasswordInput.value) {
-        errorBox.textContent = 'Passwords do not match.';
-        errorBox.style.display = 'block';
+      if (password !== confirmPassword) {
+        showToast('Password Error', 'Passwords do not match.', 'error');
         return;
       }
 
@@ -241,41 +223,37 @@
       registerBtn.disabled = true;
 
       try {
-        const response = await fetch(`${BASE_URL}/users/register`, {
+        // Use the global BASE_URL from config.js
+        const apiUrl = window.BASE_URL || 'https://beautyinbalance.onrender.com/api';
+        
+        const response = await fetch(`${apiUrl}/users/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: nameInput.value,
-            email: emailInput.value,
-            password: passwordInput.value
-          })
+          body: JSON.stringify({ name, email, password })
         });
 
         const data = await response.json();
 
         if (response.ok) {
-          successBox.style.display = 'block';
+          showToast('Success', 'Account created! Redirecting...', 'success');
           localStorage.setItem('userToken', data.token);
           localStorage.setItem('userInfo', JSON.stringify({
             _id: data._id,
             name: data.name,
             email: data.email,
-            isAdmin: data.isAdmin,
-            avatar: data.avatar || ''
+            isAdmin: data.isAdmin
           }));
 
           setTimeout(() => {
-            window.location.href = 'account.html'; // Usually redirect to home or dashboard
-          }, 2000);
+            window.location.href = 'account.html';
+          }, 1500);
         } else {
-          errorBox.textContent = data.message || 'Registration failed.';
-          errorBox.style.display = 'block';
+          showToast('Registration Failed', data.message || 'Check your details.', 'error');
         }
 
       } catch (err) {
-        console.error(err);
-        errorBox.textContent = "Cannot connect to server.";
-        errorBox.style.display = 'block';
+        console.error("Fetch error:", err);
+        showToast('Connection Error', 'Could not reach the server. Please check your internet.', 'error');
       } finally {
         registerBtn.textContent = 'Sign Up';
         registerBtn.disabled = false;
@@ -285,5 +263,3 @@
 
 </body>
 </html>
-
-
