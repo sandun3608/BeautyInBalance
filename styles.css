@@ -2971,7 +2971,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     font-size: 18px !important;
     font-weight: 700 !important;
     letter-spacing: 0.08em !important;
-    color: var(--brown) !important;
+    color: #ffffff !important;
   }
 
   .ic-btn {
@@ -7845,14 +7845,14 @@ main {
   .drawer-top {
     padding: 40px 25px 20px 25px !important;
     /* Move logo down to prevent cutoff */
-    background: #ffffff !important;
+    background: transparent !important;
   }
 
   .drawer-top .site-logo {
     font-size: 24px !important;
     letter-spacing: -0.02em !important;
     font-weight: 800 !important;
-    color: var(--brown) !important;
+    color: #ffffff !important;
   }
 
   /* Removed redundant nav links upgrade */

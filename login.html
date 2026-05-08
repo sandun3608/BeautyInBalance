@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login — Beauty in Balance</title>
+  <title>Login � Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +28,7 @@
       overflow: hidden;
     }
 
-    /* ── Full-Screen Background ── */
+    /* -- Full-Screen Background -- */
     .bg-image {
       position: fixed;
       inset: 0;
@@ -42,7 +42,7 @@
       background: rgba(0, 0, 0, 0.35);
     }
 
-    /* ── Top-right link ── */
+    /* -- Top-right link -- */
     .top-link {
       position: fixed;
       top: 24px;
@@ -59,7 +59,7 @@
       text-underline-offset: 3px;
     }
 
-    /* ── Glass Card ── */
+    /* -- Glass Card -- */
     .login-card {
       position: relative;
       z-index: 5;
@@ -82,7 +82,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* ── Brand ── */
+    /* -- Brand -- */
     .brand {
       text-align: center;
       margin-bottom: 36px;
@@ -107,7 +107,7 @@
       line-height: 1.1;
     }
 
-    /* ── Form Groups ── */
+    /* -- Form Groups -- */
     .form-group {
       margin-bottom: 20px;
       animation: fadeUp 0.6s ease forwards;
@@ -177,7 +177,7 @@
     .toggle-pw:hover { color: var(--gold); }
     .toggle-pw svg { width: 18px; height: 18px; }
 
-    /* ── Login Button ── */
+    /* -- Login Button -- */
     .btn-actions {
       margin-top: 10px;
       animation: fadeUp 0.6s 0.45s ease forwards;
@@ -214,7 +214,7 @@
     .login-btn:active { transform: translateY(0); }
     .login-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
-    /* ── Error ── */
+    /* -- Error -- */
     .error-msg {
       color: #fca5a5;
       font-size: 13px;
@@ -227,7 +227,7 @@
       border: 1px solid rgba(220,38,38,0.25);
     }
 
-    /* ── Bottom Links ── */
+    /* -- Bottom Links -- */
     .bottom-links {
       margin-top: 28px;
       display: flex;
@@ -246,14 +246,14 @@
     .bottom-links a span { color: white; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
     .bottom-links a:hover { color: var(--gold); }
 
-    /* ── Divider ── */
+    /* -- Divider -- */
     .divider {
       height: 1px;
       background: rgba(255,255,255,0.1);
       margin: 28px 0 0;
     }
 
-    /* ── Toast ── */
+    /* -- Toast -- */
     .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
     .toast { background: #1e1209; color: white; padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); min-width: 280px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     .toast.active { transform: translateX(0); }
@@ -263,7 +263,7 @@
     .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
     .toast-message { font-size: 12px; opacity: 0.7; }
 
-    /* ── Mobile ── */
+    /* -- Mobile -- */
     @media (max-width: 480px) {
       .bg-image {
         background-image: url('mobile view login.jpg');
@@ -333,7 +333,7 @@
 
     <div class="bottom-links">
       <a href="register.html">New customer? <span>Create your account</span></a>
-      <a href="index.html">← Return to Storefront</a>
+      <a href="index.html">? Return to Storefront</a>
     </div>
   </div>
 
@@ -360,7 +360,7 @@
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
       toast.innerHTML = `
-        <div class="toast-icon">${type === 'success' ? '✓' : '✕'}</div>
+        <div class="toast-icon">${type === 'success' ? '?' : '?'}</div>
         <div class="toast-content">
           <div class="toast-title">${title}</div>
           <div class="toast-message">${message}</div>
@@ -414,4 +414,6 @@
   </script>
 </body>
 </html>
+
+
 
