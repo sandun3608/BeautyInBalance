@@ -383,6 +383,15 @@
                 </div>
              </label>
 
+             <!-- Koko Payment Option -->
+             <label class="payment-method" style="cursor: pointer; margin-top: -1px; border-top: none; margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0;">
+                <input type="radio" name="payment_method" value="Koko" style="accent-color: var(--gold); width: 20px; height: 20px;" onchange="toggleBankDetails(false)" />
+                <div style="flex: 1;">
+                  <strong style="color: #333; display: flex; align-items: center; gap: 8px;">Koko <span style="background: #e21b70; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold;">BNPL</span></strong>
+                  <div style="font-size:12px; color:#777; margin-top:3px;">Buy Now, Pay Later in 3 interest-free installments.</div>
+                </div>
+             </label>
+
              <!-- Bank Details Box (Hidden by default) -->
              <div id="bank-details-box" style="display: none; background: #fdfaf7; border: 1px solid #eaeaea; border-top: none; padding: 20px; border-radius: 8px; margin-top: -1px; border-top-left-radius: 0; border-top-right-radius: 0;">
                 <div style="font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 15px;">
@@ -543,7 +552,59 @@
            });
 
            if (res.ok) {
-             // SUCCESS
+             const createdOrder = await res.json();
+             
+             if (orderData.paymentMethod === 'Koko') {
+                btn.textContent = 'Redirecting to Koko...';
+                
+                try {
+                   const kokoRes = await fetch(`${window.BASE_URL || '/api'}/payments/koko/create-session`, {
+                       method: 'POST',
+                       headers: { 'Content-Type': 'application/json' },
+                       body: JSON.stringify({ orderId: createdOrder._id })
+                   });
+                   
+                   if (kokoRes.ok) {
+                       const kokoData = await kokoRes.json();
+                       
+                       // Create hidden form and auto-submit to Koko QA API
+                       const form = document.createElement('form');
+                       form.method = 'POST';
+                       form.action = kokoData.endpoint;
+                       form.style.display = 'none';
+                       
+                       for (const key in kokoData.formData) {
+                           const hiddenField = document.createElement('input');
+                           hiddenField.type = 'hidden';
+                           hiddenField.name = key;
+                           hiddenField.value = kokoData.formData[key];
+                           form.appendChild(hiddenField);
+                       }
+                       
+                       document.body.appendChild(form);
+                       form.submit();
+                       
+                       localStorage.removeItem('bib_cart');
+                       return; // Stop further execution, wait for redirect
+                   } else {
+                       const errData = await kokoRes.json();
+                       alert('Koko Payment Initialization Failed: ' + (errData.message || 'Unknown error'));
+                       btn.textContent = 'Complete Order';
+                       btn.disabled = false;
+                       btn.style.opacity = '1';
+                       return;
+                   }
+                } catch (e) {
+                   console.error(e);
+                   alert('Failed to connect to Koko Payment Gateway. Please try again.');
+                   btn.textContent = 'Complete Order';
+                   btn.disabled = false;
+                   btn.style.opacity = '1';
+                   return;
+                }
+             }
+
+             // SUCCESS flow for Cash on Delivery & Bank Transfer
              localStorage.removeItem('bib_cart');
              const orderedMethod = orderData.paymentMethod;
              document.getElementById('checkout-root').innerHTML = `

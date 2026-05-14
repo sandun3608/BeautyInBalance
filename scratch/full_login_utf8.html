@@ -1,0 +1,419 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Beauty in Balance</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown: #2D1B12;
+      --gold: #b58646;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'DM Sans', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* -- Full-Screen Background -- */
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      background: url('login.jpg') center center / cover no-repeat;
+      z-index: 0;
+    }
+    .bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    /* -- Top-right link -- */
+    .top-link {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      z-index: 10;
+      color: rgba(255,255,255,0.85);
+      font-size: 13px;
+      font-family: var(--font-sans);
+    }
+    .top-link a {
+      color: white;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* -- Glass Card -- */
+    .login-card {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 420px;
+      margin: 20px;
+      padding: 50px 42px 44px;
+      border-radius: 20px;
+      background: rgba(30, 18, 10, 0.28);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+      animation: cardIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 0;
+      transform: translateY(30px) scale(0.96);
+    }
+
+    @keyframes cardIn {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* -- Brand -- */
+    .brand {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeUp 0.6s 0.15s ease forwards;
+      opacity: 0;
+    }
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .brand h1 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 500;
+      color: white;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    /* -- Form Groups -- */
+    .form-group {
+      margin-bottom: 20px;
+      animation: fadeUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    .form-group:nth-child(1) { animation-delay: 0.25s; }
+    .form-group:nth-child(2) { animation-delay: 0.35s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 9px;
+      font-weight: 500;
+    }
+    .form-group label a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap input {
+      width: 100%;
+      padding: 14px 16px;
+      padding-right: 46px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      color: white;
+      transition: border-color 0.3s, background 0.3s;
+      outline: none;
+    }
+    .input-wrap input::placeholder { color: rgba(255,255,255,0.35); }
+    .input-wrap input:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.13);
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.45);
+      padding: 0;
+      display: flex;
+      transition: color 0.2s;
+    }
+    .toggle-pw:hover { color: var(--gold); }
+    .toggle-pw svg { width: 18px; height: 18px; }
+
+    /* -- Login Button -- */
+    .btn-actions {
+      margin-top: 10px;
+      animation: fadeUp 0.6s 0.45s ease forwards;
+      opacity: 0;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+    .login-btn:hover::after { transform: translateX(100%); }
+    .login-btn:hover { background: #c99a56; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(181,134,70,0.4); }
+    .login-btn:active { transform: translateY(0); }
+    .login-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    /* -- Error -- */
+    .error-msg {
+      color: #fca5a5;
+      font-size: 13px;
+      margin-top: 14px;
+      display: none;
+      text-align: center;
+      background: rgba(220,38,38,0.15);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(220,38,38,0.25);
+    }
+
+    /* -- Bottom Links -- */
+    .bottom-links {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: fadeUp 0.6s 0.55s ease forwards;
+      opacity: 0;
+    }
+    .bottom-links a {
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .bottom-links a span { color: white; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .bottom-links a:hover { color: var(--gold); }
+
+    /* -- Divider -- */
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 28px 0 0;
+    }
+
+    /* -- Toast -- */
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast { background: #1e1209; color: white; padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); min-width: 280px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .toast.active { transform: translateX(0); }
+    .toast.success .toast-icon { color: #4ade80; }
+    .toast.error .toast-icon { color: #f87171; }
+    .toast-icon { font-size: 20px; font-weight: 700; }
+    .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+    .toast-message { font-size: 12px; opacity: 0.7; }
+
+    /* -- Mobile -- */
+    @media (max-width: 480px) {
+      .bg-image {
+        background-image: url('mobile view login.jpg');
+        background-position: center top;
+      }
+      .login-card {
+        background: rgba(15, 8, 3, 0.15);
+        backdrop-filter: blur(16px) saturate(1.2);
+        -webkit-backdrop-filter: blur(16px) saturate(1.2);
+        padding: 38px 22px 34px;
+        margin: 16px;
+        border-radius: 18px;
+      }
+      .brand h1 { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-image"></div>
+
+  <!-- Top right register link -->
+  <div class="top-link">
+    Don't have an account? <a href="register.html">Create your account</a>
+  </div>
+
+  <!-- Glass Card -->
+  <div class="login-card">
+
+    <div class="brand">
+      <span class="brand-name">Beauty in Balance</span>
+      <h1>Login</h1>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrap">
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">
+          Password
+          <a href="#">Forgot Password?</a>
+        </label>
+        <div class="input-wrap">
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="button" class="toggle-pw" id="toggle-pw" aria-label="Show password">
+            <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="error-msg" id="error-box"></div>
+
+      <div class="btn-actions">
+        <button type="submit" class="login-btn" id="login-btn">LOGIN</button>
+      </div>
+    </form>
+
+    <div class="divider"></div>
+
+    <div class="bottom-links">
+      <a href="register.html">New customer? <span>Create your account</span></a>
+      <a href="index.html">? Return to Storefront</a>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="config.js?v=16"></script>
+  <script>
+    // Password toggle
+    const toggleBtn = document.getElementById('toggle-pw');
+    const pwInput   = document.getElementById('password');
+    const eyeIcon   = document.getElementById('eye-icon');
+
+    toggleBtn.addEventListener('click', () => {
+      const isText = pwInput.type === 'text';
+      pwInput.type = isText ? 'password' : 'text';
+      eyeIcon.innerHTML = isText
+        ? `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`
+        : `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+    });
+
+    // Toast helper
+    function showToast(title, message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div class="toast-icon">${type === 'success' ? '?' : '?'}</div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.add('active'), 10);
+      setTimeout(() => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 400);
+      }, 5000);
+    }
+
+    // Login submit
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('login-btn');
+      btn.textContent = 'Authenticating...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(`${BASE_URL}/users/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          showToast('Welcome Back', 'Redirecting to your dashboard...', 'success');
+          localStorage.setItem('userToken', data.token);
+          localStorage.setItem('userInfo', JSON.stringify({
+            _id: data._id, name: data.name, email: data.email,
+            isAdmin: data.isAdmin, avatar: data.avatar || ''
+          }));
+          setTimeout(() => {
+            window.location.href = data.isAdmin ? 'admin.html' : 'account.html';
+          }, 1500);
+        } else {
+          showToast('Login Failed', data.message || 'Invalid email or password.', 'error');
+        }
+      } catch (err) {
+        showToast('Connection Error', 'Cannot reach server. Please try again.', 'error');
+      } finally {
+        btn.textContent = 'LOGIN';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
