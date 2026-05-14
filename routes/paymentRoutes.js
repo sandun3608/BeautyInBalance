@@ -21,26 +21,26 @@ router.post('/koko/create-session', async (req, res) => {
         const KOKO_API_KEY = process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
         const BASE_URL = process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com';
 
-        const amount = parseFloat(order.totalPrice).toFixed(2);
+        // HARDCODING EXACT VALUES FROM PHPQA.PHP TO ISOLATE THE ERROR
+        const amount = '300.00';
         const currency = 'LKR';
         const pluginName = 'customapi';
         const pluginVersion = '1.0.1';
         
-        // Truncate IDs to 15 chars to prevent Koko length limit errors
-        const kokoReference = order._id.toString().substring(0, 15);
-        const kokoOrderId = order._id.toString().substring(0, 15);
-        const firstName = (order.customerInfo.firstName || 'Customer').replace(/\s+/g, '');
-        const lastName = (order.customerInfo.lastName || 'Name').replace(/\s+/g, '');
-        const email = (order.customerInfo.email || 'customer@example.com').trim();
-        const mobile = '0777904054'; // Hardcode valid Sri Lankan number for QA
-        const productName = 'SkincareProducts';
+        const kokoReference = 'REF123';
+        const kokoOrderId = 'ORD123';
+        const firstName = 'John';
+        const lastName = 'Doe';
+        const email = 'john@gmail.com';
+        const mobile = '0777904054'; 
+        const productName = 'products';
         
-        const protocol = req.get('host').includes('localhost') ? 'http' : 'https';
-        const returnUrl = `${protocol}://${req.get('host')}/api/payments/koko/return`;
-        const cancelUrl = `${protocol}://${req.get('host')}/api/payments/koko/cancel`;
-        const responseUrl = `${protocol}://${req.get('host')}/api/payments/koko/callback`;
+        // Hardcoding beimmune URLs because Koko QA account might be whitelisted ONLY for this domain
+        const returnUrl = 'https://www.beimmune.lk/return';
+        const cancelUrl = 'https://www.beimmune.lk/cancel';
+        const responseUrl = 'https://www.beimmune.lk/response';
 
-        // KokoPay required data string (order is critical!)
+        // KokoPay required data string
         const dataString = KOKO_MERCHANT_ID + amount + currency + pluginName + pluginVersion +
             returnUrl + cancelUrl + kokoOrderId + kokoReference +
             firstName + lastName + email + productName +
