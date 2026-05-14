@@ -25,7 +25,10 @@ router.post('/koko/create-session', async (req, res) => {
         const currency = 'LKR';
         const pluginName = 'customapi';
         const pluginVersion = '1.0.1';
-        const reference = order._id.toString();
+        
+        // Truncate IDs to 15 chars to prevent Koko length limit errors
+        const kokoReference = order._id.toString().substring(0, 15);
+        const kokoOrderId = order._id.toString().substring(0, 15);
         const firstName = (order.customerInfo.firstName || 'Customer').replace(/\s+/g, '');
         const lastName = (order.customerInfo.lastName || 'Name').replace(/\s+/g, '');
         const email = (order.customerInfo.email || 'customer@example.com').trim();
@@ -39,7 +42,7 @@ router.post('/koko/create-session', async (req, res) => {
 
         // KokoPay required data string (order is critical!)
         const dataString = KOKO_MERCHANT_ID + amount + currency + pluginName + pluginVersion +
-            returnUrl + cancelUrl + orderId + reference +
+            returnUrl + cancelUrl + kokoOrderId + kokoReference +
             firstName + lastName + email + productName +
             KOKO_API_KEY + responseUrl;
 
@@ -62,11 +65,11 @@ router.post('/koko/create-session', async (req, res) => {
                 _responseUrl: responseUrl,
                 _currency: currency,
                 _amount: amount,
-                _reference: reference,
+                _reference: kokoReference,
                 _pluginName: pluginName,
                 _pluginVersion: pluginVersion,
                 _cancelUrl: cancelUrl,
-                _orderId: orderId,
+                _orderId: kokoOrderId,
                 _firstName: firstName,
                 _lastName: lastName,
                 _email: email,
@@ -89,7 +92,9 @@ router.get('/koko/callback', async (req, res) => {
     const { reference, status } = req.query;
 
     try {
-        const order = await Order.findById(reference);
+        // Since reference is truncated to 15 chars, we need to find the matching order
+        const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
+        const order = orders.find(o => o._id.toString().startsWith(reference));
 
         if (order && status === 'SUCCESS') {
             order.isPaid = true;
