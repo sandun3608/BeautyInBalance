@@ -716,6 +716,10 @@ window.renderHomeAllProducts = function() {
                 <div class="hap-card-title">${prod.name}</div>
                 <div class="hap-card-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
                 <button class="hap-card-btn btn-buy-animated" onclick="event.preventDefault(); addToCart('${prod.id}'); window.location.href='checkout.html';">Buy It Now</button>
+                <div style="margin-top: 10px; text-align: center; font-size: 10px; color: #666; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                  <span>Pay in 3 with</span>
+                  <span style="background: #e21b70; color: #fff; padding: 1px 6px; border-radius: 4px; font-weight: 900; font-family: sans-serif; font-style: italic; letter-spacing: -0.5px;">koko</span>
+                </div>
             </a>
         `).join('');
     };

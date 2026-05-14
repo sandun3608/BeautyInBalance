@@ -18,7 +18,7 @@ router.post('/koko/create-session', async (req, res) => {
         }
 
         const KOKO_MERCHANT_ID = process.env.KOKO_MERCHANT_ID || 'c8cca514bdfa0582cdc40c9703c71e9d';
-        const KOKO_API_KEY = process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlnl5q39gBI';
+        const KOKO_API_KEY = process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
         const BASE_URL = process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com';
 
         const amount = parseFloat(order.totalPrice).toFixed(2);
