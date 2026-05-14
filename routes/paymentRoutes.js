@@ -32,9 +32,10 @@ router.post('/koko/create-session', async (req, res) => {
         const mobile = order.customerInfo.phone || '0770000000';
         const productName = `Order ${order._id}`;
         
-        const returnUrl = `${req.protocol}://${req.get('host')}/api/payments/koko/return`;
-        const cancelUrl = `${req.protocol}://${req.get('host')}/api/payments/koko/cancel`;
-        const responseUrl = `${req.protocol}://${req.get('host')}/api/payments/koko/callback`;
+        const protocol = req.get('host').includes('localhost') ? 'http' : 'https';
+        const returnUrl = `${protocol}://${req.get('host')}/api/payments/koko/return`;
+        const cancelUrl = `${protocol}://${req.get('host')}/api/payments/koko/cancel`;
+        const responseUrl = `${protocol}://${req.get('host')}/api/payments/koko/callback`;
 
         // KokoPay required data string (order is critical!)
         const dataString = KOKO_MERCHANT_ID + amount + currency + pluginName + pluginVersion +
