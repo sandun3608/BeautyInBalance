@@ -32,8 +32,8 @@ router.post('/koko/create-session', async (req, res) => {
         const mobile = order.customerInfo.phone || '0770000000';
         const productName = `Order ${order._id}`;
         
-        const returnUrl = `${req.protocol}://${req.get('host')}/checkout.html?payment=success`;
-        const cancelUrl = `${req.protocol}://${req.get('host')}/checkout.html?payment=cancelled`;
+        const returnUrl = `${req.protocol}://${req.get('host')}/api/payments/koko/return`;
+        const cancelUrl = `${req.protocol}://${req.get('host')}/api/payments/koko/cancel`;
         const responseUrl = `${req.protocol}://${req.get('host')}/api/payments/koko/callback`;
 
         // KokoPay required data string (order is critical!)
@@ -102,6 +102,18 @@ router.get('/koko/callback', async (req, res) => {
         console.error('KOKO Callback Error:', error);
         res.redirect('/checkout.html?payment=error');
     }
+});
+
+// @desc    KOKO Return (User redirected back after successful payment)
+// @route   GET /api/payments/koko/return
+router.get('/koko/return', (req, res) => {
+    res.redirect('/checkout.html?payment=success');
+});
+
+// @desc    KOKO Cancel (User cancelled payment)
+// @route   GET /api/payments/koko/cancel
+router.get('/koko/cancel', (req, res) => {
+    res.redirect('/checkout.html?payment=cancelled');
 });
 
 module.exports = router;
