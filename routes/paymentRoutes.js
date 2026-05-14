@@ -21,24 +21,23 @@ router.post('/koko/create-session', async (req, res) => {
         const KOKO_API_KEY = process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
         const BASE_URL = process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com';
 
-        // HARDCODING EXACT VALUES FROM PHPQA.PHP TO ISOLATE THE ERROR
-        const amount = '300.00';
+        const amount = parseFloat(order.totalPrice).toFixed(2);
         const currency = 'LKR';
         const pluginName = 'customapi';
         const pluginVersion = '1.0.1';
         
-        const kokoReference = 'REF123';
-        const kokoOrderId = 'ORD123';
-        const firstName = 'John';
-        const lastName = 'Doe';
-        const email = 'john@gmail.com';
-        const mobile = '0777904054'; 
-        const productName = 'products';
+        const kokoReference = order._id.toString().substring(0, 15);
+        const kokoOrderId = order._id.toString().substring(0, 15);
+        const firstName = (order.customerInfo.firstName || 'Customer').replace(/\s+/g, '');
+        const lastName = (order.customerInfo.lastName || 'Name').replace(/\s+/g, '');
+        const email = (order.customerInfo.email || 'customer@example.com').trim();
+        const mobile = (order.customerInfo.phone || '0770000000').replace(/\s+/g, ''); 
+        const productName = 'SkincareProducts';
         
-        // Hardcoding beimmune URLs because Koko QA account might be whitelisted ONLY for this domain
-        const returnUrl = 'https://www.beimmune.lk/return';
-        const cancelUrl = 'https://www.beimmune.lk/cancel';
-        const responseUrl = 'https://www.beimmune.lk/response';
+        const protocol = req.get('host').includes('localhost') ? 'http' : 'https';
+        const returnUrl = `${protocol}://${req.get('host')}/api/payments/koko/return`;
+        const cancelUrl = `${protocol}://${req.get('host')}/api/payments/koko/cancel`;
+        const responseUrl = `${protocol}://${req.get('host')}/api/payments/koko/callback`;
 
         // KokoPay required data string
         const dataString = KOKO_MERCHANT_ID + amount + currency + pluginName + pluginVersion +
@@ -52,7 +51,7 @@ router.post('/koko/create-session', async (req, res) => {
         // Generate RSA SHA256 Signature
         const sign = crypto.createSign('SHA256');
         sign.update(dataString);
-        sign.end();
+        // Removed sign.end() as it can cause fatal stream errors in some Node versions
         const signatureEncoded = sign.sign(privateKey, 'base64');
 
         // Return the required form data to the frontend
