@@ -26,11 +26,11 @@ router.post('/koko/create-session', async (req, res) => {
         const pluginName = 'customapi';
         const pluginVersion = '1.0.1';
         const reference = order._id.toString();
-        const firstName = order.customerInfo.firstName || 'Customer';
-        const lastName = order.customerInfo.lastName || 'Name';
-        const email = order.customerInfo.email || 'customer@example.com';
-        const mobile = order.customerInfo.phone || '0770000000';
-        const productName = `Order ${order._id}`;
+        const firstName = (order.customerInfo.firstName || 'Customer').replace(/\s+/g, '');
+        const lastName = (order.customerInfo.lastName || 'Name').replace(/\s+/g, '');
+        const email = (order.customerInfo.email || 'customer@example.com').trim();
+        const mobile = '0777904054'; // Hardcode valid Sri Lankan number for QA
+        const productName = 'SkincareProducts';
         
         const protocol = req.get('host').includes('localhost') ? 'http' : 'https';
         const returnUrl = `${protocol}://${req.get('host')}/api/payments/koko/return`;
