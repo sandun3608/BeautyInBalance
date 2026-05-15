@@ -693,7 +693,7 @@ window.renderHomeAllProducts = function() {
     // Dynamically generate tabs
     const tabsWrapper = document.querySelector('.hap-tabs');
     if (tabsWrapper && window.productsData && window.productsData.length > 0) {
-        const activeTab = document.querySelector('.hap-tab.active:not(.coming-soon)');
+        const activeTab = document.querySelector('.hap-tab.active');
         let currentFilter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
 
         const categories = [...new Set(window.productsData.map(p => (p.cat || 'others').toLowerCase()))];
@@ -705,13 +705,6 @@ window.renderHomeAllProducts = function() {
             tabsHTML += `<button class="hap-tab ${currentFilter === cat ? 'active' : ''}" data-filter="${cat}">${displayName}</button>`;
         });
 
-        // Add the coming soon tabs
-        tabsHTML += `
-          <button class="hap-tab coming-soon" onclick="alert('Coming Soon!')">Cosrx <span class="cs-badge">Soon</span></button>
-          <button class="hap-tab coming-soon" onclick="alert('Coming Soon!')">Paula's Choice <span class="cs-badge">Soon</span></button>
-          <button class="hap-tab coming-soon" onclick="alert('Coming Soon!')">Cetaphil <span class="cs-badge">Soon</span></button>
-        `;
-        
         tabsWrapper.innerHTML = tabsHTML;
     }
 
@@ -750,11 +743,11 @@ window.renderHomeAllProducts = function() {
     };
 
     // Initial render
-    const activeTabNow = document.querySelector('.hap-tab.active:not(.coming-soon)');
+    const activeTabNow = document.querySelector('.hap-tab.active');
     displayProducts(activeTabNow ? activeTabNow.getAttribute('data-filter') : 'all');
 
     // Setup Tab Listeners
-    const tabs = document.querySelectorAll('.hap-tab:not(.coming-soon)');
+    const tabs = document.querySelectorAll('.hap-tab');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
