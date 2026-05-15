@@ -128,4 +128,15 @@ router.delete('/:id', protect, async (req, res) => {
     }
 });
 
+// @route   DELETE /api/products/category/:cat
+router.delete('/category/:cat', protect, async (req, res) => {
+    try {
+        const catName = req.params.cat;
+        const result = await Product.deleteMany({ cat: new RegExp(`^${catName}$`, 'i') });
+        res.json({ message: `Deleted ${result.deletedCount} products from category ${catName}` });
+    } catch (e) {
+        res.status(500).json({ message: 'Category delete failed.' });
+    }
+});
+
 module.exports = router;

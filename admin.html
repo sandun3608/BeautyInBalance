@@ -974,10 +974,16 @@
             <div class="admin-section">
               <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
                 <h3>Product Collection</h3>
-                <button class="admin-btn" onclick="window.openModal()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    Create New Product
-                </button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="admin-btn" style="background: #e74c3c; color: white;" onclick="window.openDeleteCategoryModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        Delete Category
+                    </button>
+                    <button class="admin-btn" onclick="window.openModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Create New Product
+                    </button>
+                </div>
               </div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
@@ -1405,6 +1411,48 @@
     window.renderAnalyticsDashboard = renderAnalyticsDashboard;
     window.updateRightSidebar = updateRightSidebar;
     window.renderTeamChart = renderTeamChart;
+
+    // Category Delete Methods
+    window.openDeleteCategoryModal = () => {
+        const modal = document.getElementById('delete-cat-modal');
+        const select = document.getElementById('del-cat-select');
+        if (modal && select && window.productsData) {
+            const uniqueCats = [...new Set(window.productsData.map(p => p.cat).filter(c => c))];
+            if(uniqueCats.length === 0) {
+                alert("No categories exist!");
+                return;
+            }
+            select.innerHTML = uniqueCats.map(c => `<option value="${c}">${c.toUpperCase()}</option>`).join('');
+            modal.style.display = 'flex';
+        }
+    };
+
+    window.confirmDeleteCategory = async () => {
+        const select = document.getElementById('del-cat-select');
+        const catName = select.value;
+        if (!catName) return;
+        
+        if (confirm(`Are you absolutely sure you want to delete the category "${catName}" and ALL its products? This cannot be undone.`)) {
+            try {
+                const token = localStorage.getItem('bib_admin_token');
+                const res = await fetch(`${API_URL}/api/products/category/${encodeURIComponent(catName)}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message);
+                    document.getElementById('delete-cat-modal').style.display = 'none';
+                    if(window.fetchInventory) window.fetchInventory(); // Reload products
+                } else {
+                    alert(data.message || 'Delete failed');
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Failed to delete category.");
+            }
+        }
+    };
 
     window.openModal = (prodId = null) => {
       const pModal = document.getElementById('product-modal');
@@ -2278,6 +2326,23 @@
       </div><!-- end main-body -->
     </main><!-- end admin-main -->
 </div><!-- end admin-container -->
+
+    <!-- DELETE CATEGORY MODAL -->
+    <div id="delete-cat-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:20px; padding:40px; max-width:460px; width:90%; box-shadow:0 30px 80px rgba(0,0,0,0.2); text-align:center;">
+            <h3 style="font-size:22px; font-weight:800; margin:0 0 10px; color:#ef4444;">Delete Category</h3>
+            <p style="font-size:14px; color:#666; margin:0 0 25px;">Select a category to permanently delete. <br><b>WARNING:</b> This will delete ALL products within this category!</p>
+            <div style="text-align: left; margin-bottom: 25px;">
+                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; display: block; margin-bottom: 8px;">Select Category</label>
+                <select id="del-cat-select" style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px;">
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button type="button" style="flex: 1; padding: 12px; background: transparent; color: #666; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;" onclick="document.getElementById('delete-cat-modal').style.display='none'">Cancel</button>
+                <button type="button" style="flex: 1; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 700;" onclick="window.confirmDeleteCategory()">Delete All</button>
+            </div>
+        </div>
+    </div>
 
     <!-- CUSTOMER DETAILS MODAL -->
     <div id="customer-modal" class="modal-overlay">
