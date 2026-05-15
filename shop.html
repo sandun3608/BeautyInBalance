@@ -968,8 +968,9 @@
 
     // ── BUILD A LUXURY CARD ──
     function buildCard(p) {
-      const brandClass = (p.cat || '').toLowerCase() === 'cerave' ? 'cerave' : 'ordinary';
-      const brandLabel = brandClass === 'cerave' ? 'CeraVe GB' : 'The Ordinary CA';
+      const pCat = (p.cat || '').toLowerCase();
+      const brandClass = pCat === 'cerave' ? 'cerave' : (pCat === 'ordinary' ? 'ordinary' : 'custom');
+      const brandLabel = pCat === 'cerave' ? 'CeraVe GB' : (pCat === 'ordinary' ? 'The Ordinary CA' : pCat.toUpperCase());
       const price = (p.price || 0).toLocaleString();
       const imgSrc = p.img || 'favicon.png';
 
@@ -1030,6 +1031,28 @@
     // ── RENDER PRODUCTS ──
     function renderShop() {
       const data = window.productsData || [];
+      
+      // Dynamically generate brand tabs based on data
+      const brandTabsContainer = document.querySelector('.brand-tabs');
+      if (brandTabsContainer && data.length > 0) {
+        const categories = [...new Set(data.map(p => (p.cat || 'others').toLowerCase()))];
+        let tabsHTML = `<button class="brand-tab ${currentBrand === 'all' ? 'active' : ''}" data-brand="all">All</button>`;
+        categories.forEach(cat => {
+            let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
+            tabsHTML += `<button class="brand-tab ${currentBrand === cat ? 'active' : ''}" data-brand="${cat}">${displayName}</button>`;
+        });
+        brandTabsContainer.innerHTML = tabsHTML;
+        
+        // Re-attach listeners to new tabs
+        document.querySelectorAll('.brand-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            currentBrand = tab.dataset.brand;
+            syncFilterUI();
+            renderShop();
+          });
+        });
+      }
+
       const isFiltered = currentFilter !== 'all' || currentBrand !== 'all' || currentSearch;
 
       if (isFiltered) {
@@ -1066,24 +1089,47 @@
 
         if ($('count-num')) $('count-num').textContent = filtered.length;
       } else {
-        // BROWSE MODE — grouped by brand
+        // BROWSE MODE — grouped by brand dynamically
         $('browse-mode').style.display = 'block';
         $('filtered-section').style.display = 'none';
+        
+        const browseMode = $('browse-mode');
+        browseMode.innerHTML = '';
 
-        const ordinary = data.filter(p => (p.cat || '').toLowerCase() === 'ordinary');
-        const cerave = data.filter(p => (p.cat || '').toLowerCase() === 'cerave');
+        const categories = [...new Set(data.map(p => (p.cat || 'others').toLowerCase()))];
 
-        const goGrid = $('grid-ordinary');
-        const gcGrid = $('grid-cerave');
-        goGrid.innerHTML = '';
-        gcGrid.innerHTML = '';
+        categories.forEach(cat => {
+            const catProducts = data.filter(p => (p.cat || 'others').toLowerCase() === cat);
+            if(catProducts.length === 0) return;
 
-        ordinary.forEach(p => goGrid.appendChild(buildCard(p)));
-        cerave.forEach(p => gcGrid.appendChild(buildCard(p)));
+            let catTitle = cat.toUpperCase();
+            let catSubtitle = '';
+            let catBadge = cat.toUpperCase();
 
-        // Hide empty sections
-        $('section-ordinary').style.display = ordinary.length ? 'block' : 'none';
-        $('section-cerave').style.display = cerave.length ? 'block' : 'none';
+            if (cat === 'ordinary') {
+                catTitle = 'The Ordinary';
+                catSubtitle = '<em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">Canada</em>';
+                catBadge = 'DECIEM CA';
+            } else if (cat === 'cerave') {
+                catTitle = 'CeraVe';
+                catSubtitle = '<em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">United Kingdom</em>';
+                catBadge = 'LORÉAL GB';
+            }
+
+            const section = document.createElement('div');
+            section.className = 'cat-section';
+            section.innerHTML = `
+              <div class="cat-section-header">
+                <h2>${catTitle} ${catSubtitle}</h2>
+                <div class="cat-section-line"></div>
+                <span class="cat-section-badge">${catBadge}</span>
+              </div>
+              <div class="premium-shop-grid"></div>
+            `;
+            const grid = section.querySelector('.premium-shop-grid');
+            catProducts.forEach(p => grid.appendChild(buildCard(p)));
+            browseMode.appendChild(section);
+        });
 
         if ($('count-num')) $('count-num').textContent = data.length;
         if ($('stat-total')) $('stat-total').textContent = data.length + '+';
