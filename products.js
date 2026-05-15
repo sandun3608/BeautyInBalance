@@ -715,11 +715,6 @@ window.renderHomeAllProducts = function() {
                 <div class="hap-card-brand">${prod.cat === 'cerave' ? 'CeraVe' : 'The Ordinary'}</div>
                 <div class="hap-card-title">${prod.name}</div>
                 <div class="hap-card-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
-                <button class="hap-card-btn btn-buy-animated" onclick="event.preventDefault(); addToCart('${prod.id}'); window.location.href='checkout.html';">Buy It Now</button>
-                <div style="margin-top: 10px; text-align: center; font-size: 10px; color: #666; display: flex; align-items: center; justify-content: center; gap: 4px;">
-                  <span>Pay in 3 with</span>
-                  <img src="assets/koko-logo.jpg" style="height: 16px; object-fit: contain; margin-left: 2px;" alt="Koko">
-                </div>
             </a>
         `).join('');
     };
