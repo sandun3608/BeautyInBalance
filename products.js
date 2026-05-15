@@ -336,6 +336,7 @@ async function fetchDatabaseProducts() {
             const mappedDbProducts = dbProducts.map(p => {
                 const formatImg = (str) => {
                     if (!str) return 'images/placeholder.png';
+                    if (str.startsWith('data:image') || str.startsWith('http')) return str;
                     // Fix common encoding issues and handle spaces
                     let path = str.replace(/%25/g, '%').replace(/%2B/g, '+');
                     // Ensure spaces are URL-safe
