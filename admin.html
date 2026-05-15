@@ -1434,8 +1434,8 @@
         
         if (confirm(`Are you absolutely sure you want to delete the category "${catName}" and ALL its products? This cannot be undone.`)) {
             try {
-                const token = localStorage.getItem('bib_admin_token');
-                const res = await fetch(`${API_URL}/api/products/category/${encodeURIComponent(catName)}`, {
+                const token = localStorage.getItem('userToken');
+                const res = await fetch(`${BASE_URL}/products/category/${encodeURIComponent(catName)}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
