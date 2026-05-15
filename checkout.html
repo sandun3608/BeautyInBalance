@@ -602,22 +602,47 @@
                    btn.style.opacity = '1';
                    return;
                 }
-             }
-
-             // SUCCESS flow for Cash on Delivery & Bank Transfer
+             }             // SUCCESS flow for Cash on Delivery & Bank Transfer
              localStorage.removeItem('bib_cart');
              const orderedMethod = orderData.paymentMethod;
              document.getElementById('checkout-root').innerHTML = `
-                <div style="text-align:center; padding: 150px 20px;">
-                  <div style="width:80px; height:80px; background:#10b981; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; margin:0 auto 30px;">✓</div>
-                  <h1 style="font-family:var(--font-serif); font-size:48px; color:var(--brown); margin-bottom:15px;">Order Confirmed!</h1>
-                  <p style="font-size:18px; color:#555; max-width:500px; margin: 0 auto 40px; line-height:1.6;">Thank you, ${orderData.customerInfo.firstName}! Your order has been securely placed via ${orderedMethod} and is being processed by our team.</p>
-                  
-                  <div style="display:flex; flex-direction:column; gap:15px; align-items:center; margin-bottom:40px;">
-                    <a href="index.html" style="background:var(--dark); color:white; padding:15px 40px; text-decoration:none; border-radius:30px; font-weight:700; font-size:16px; transition:all 0.3s;">Return to Home</a>
+                <div style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: radial-gradient(circle at top right, #faf9f7, #f3f0ec);">
+                  <div style="max-width: 600px; width: 100%; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.5); padding: 60px 40px; border-radius: 32px; box-shadow: 0 40px 100px rgba(0,0,0,0.05); text-align: center; position: relative; overflow: hidden;">
+                    
+                    <!-- Success Animation Wrapper -->
+                    <div style="margin-bottom: 40px;">
+                      <div style="width: 100px; height: 100px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin: 0 auto; box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2); animation: successScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;">✓</div>
+                    </div>
+
+                    <h1 style="font-family: var(--font-serif); font-size: 42px; color: var(--brown); margin-bottom: 16px; letter-spacing: -0.02em;">Order Received!</h1>
+                    <p style="font-size: 17px; color: #666; line-height: 1.6; margin-bottom: 40px;">
+                      Thank you, <span style="color: var(--dark); font-weight: 600;">${orderData.customerInfo.firstName}</span>! 
+                      Your order has been placed successfully via <span style="background: #f0ebe4; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${orderedMethod}</span>. 
+                      We've sent a confirmation email to <span style="border-bottom: 1px solid #ddd;">${orderData.customerInfo.email}</span>.
+                    </p>
+
+                    <div style="background: #f9f8f6; border-radius: 20px; padding: 24px; margin-bottom: 40px; text-align: left; display: flex; gap: 20px; align-items: center; border: 1px solid rgba(0,0,0,0.02);">
+                       <div style="width: 48px; height: 48px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">📦</div>
+                       <div>
+                          <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px;">Next Step</div>
+                          <div style="font-size: 14px; color: var(--dark); font-weight: 500;">Our team will verify and ship your items within 24 hours.</div>
+                       </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                      <a href="index.html" style="background: var(--dark); color: white; padding: 18px 40px; text-decoration: none; border-radius: 16px; font-weight: 700; font-size: 16px; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid var(--dark);">Return to Shop</a>
+                      <a href="contact.html" style="color: var(--muted); font-size: 14px; text-decoration: none; font-weight: 500; transition: color 0.3s;" onmouseover="this.style.color='var(--brown)'" onmouseout="this.style.color='var(--muted)'">Need help? Contact support</a>
+                    </div>
+
+                    <style>
+                      @keyframes successScale {
+                        0% { transform: scale(0.5); opacity: 0; }
+                        100% { transform: scale(1); opacity: 1; }
+                      }
+                    </style>
                   </div>
                 </div>
-             `;
+             `;    `;
            } else {
              alert('Payment Processing Error. Please try again or check if local server is running.');
              btn.textContent = 'Complete Order';
