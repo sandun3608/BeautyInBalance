@@ -690,17 +690,45 @@ window.renderHomeAllProducts = function() {
     const grid = document.getElementById('hap-grid');
     if (!grid) return;
 
+    // Dynamically generate tabs
+    const tabsWrapper = document.querySelector('.hap-tabs');
+    if (tabsWrapper && window.productsData && window.productsData.length > 0) {
+        const activeTab = document.querySelector('.hap-tab.active:not(.coming-soon)');
+        let currentFilter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
+
+        const categories = [...new Set(window.productsData.map(p => (p.cat || 'others').toLowerCase()))];
+        
+        let tabsHTML = `<button class="hap-tab ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All</button>`;
+        
+        categories.forEach(cat => {
+            let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
+            tabsHTML += `<button class="hap-tab ${currentFilter === cat ? 'active' : ''}" data-filter="${cat}">${displayName}</button>`;
+        });
+
+        // Add the coming soon tabs
+        tabsHTML += `
+          <button class="hap-tab coming-soon" onclick="alert('Coming Soon!')">Cosrx <span class="cs-badge">Soon</span></button>
+          <button class="hap-tab coming-soon" onclick="alert('Coming Soon!')">Paula's Choice <span class="cs-badge">Soon</span></button>
+          <button class="hap-tab coming-soon" onclick="alert('Coming Soon!')">Cetaphil <span class="cs-badge">Soon</span></button>
+        `;
+        
+        tabsWrapper.innerHTML = tabsHTML;
+    }
+
     // Get up to 28 products
     const displayProducts = (category) => {
         let filtered = window.productsData;
         if (category && category !== 'all') {
-            filtered = filtered.filter(p => p.cat === category);
+            filtered = filtered.filter(p => (p.cat || 'others').toLowerCase() === category);
         }
         
         // Take up to 28 items (7 rows of 4)
         const productsToShow = filtered.slice(0, 28);
         
-        grid.innerHTML = productsToShow.map(prod => `
+        grid.innerHTML = productsToShow.map(prod => {
+            const catLower = (prod.cat || 'others').toLowerCase();
+            const brandDisplay = catLower === 'cerave' ? 'CeraVe' : (catLower === 'ordinary' ? 'The Ordinary' : catLower.toUpperCase());
+            return `
             <a href="product.html?id=${prod.id}" class="hap-card">
                 <div class="hap-card-img">
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
@@ -713,15 +741,17 @@ window.renderHomeAllProducts = function() {
                         </span>
                     </div>
                 </div>
-                <div class="hap-card-brand">${prod.cat === 'cerave' ? 'CeraVe' : 'The Ordinary'}</div>
+                <div class="hap-card-brand">${brandDisplay}</div>
                 <div class="hap-card-title">${prod.name}</div>
                 <div class="hap-card-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
             </a>
-        `).join('');
+            `;
+        }).join('');
     };
 
     // Initial render
-    displayProducts('all');
+    const activeTabNow = document.querySelector('.hap-tab.active:not(.coming-soon)');
+    displayProducts(activeTabNow ? activeTabNow.getAttribute('data-filter') : 'all');
 
     // Setup Tab Listeners
     const tabs = document.querySelectorAll('.hap-tab:not(.coming-soon)');
