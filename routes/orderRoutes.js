@@ -181,4 +181,26 @@ router.delete('/:id', protect, async (req, res) => {
 });
 
 
+// @route   GET /api/orders/test-email
+// @desc    Test email configuration
+// @access  Public
+router.get('/test-email', async (req, res) => {
+    try {
+        const sendEmail = require('../utils/mailer');
+        await sendEmail({
+            email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+            subject: '🔔 BiB Server: Email Test',
+            html: '<h1>System Test</h1><p>If you see this, your email configuration is working perfectly!</p>'
+        });
+        res.json({ message: 'Test email sent successfully! Check your inbox.' });
+    } catch (err) {
+        console.error("❌ Email Test Failed:", err);
+        res.status(500).json({ 
+            message: 'Email test failed', 
+            error: err.message,
+            tip: 'Ensure 2-Step Verification is ON and you are using a valid App Password.'
+        });
+    }
+});
+
 module.exports = router;
