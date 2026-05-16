@@ -632,7 +632,7 @@ function renderCart() {
     `).join('');
     
     const subtotal = getCartTotal();
-    const shipping = window._shippingFee !== undefined ? window._shippingFee : 350; 
+    const shipping = window._shippingFee !== undefined ? window._shippingFee : 450; 
     
     footerBox.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans);">
@@ -670,7 +670,7 @@ function renderCart() {
                 </div>
             `).join('');
 
-            const shipping = window._shippingFee !== undefined ? window._shippingFee : 350;
+            const shipping = window._shippingFee !== undefined ? window._shippingFee : 450;
             standaloneSummary.innerHTML = `
                 <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
                 <div class="summary-row"><span>Delivery</span><span>Rs. ${shipping.toLocaleString()}</span></div>

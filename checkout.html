@@ -504,7 +504,7 @@
             user: userInfo ? userInfo._id : null,
             customerInfo: fields,
             orderItems: currentCart.map(i => ({ product: i.id, name: i.name, qty: i.qty, price: i.price })),
-            shippingPrice: window._shippingFee || 350,
+            shippingPrice: window._shippingFee || 450,
             totalPrice: window.currentOrderTotal,
             paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
           };

@@ -3281,15 +3281,19 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .cart-drawer {
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    /* Modern viewport units for mobile */
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
     z-index: 2000000 !important;
-    /* Extremely high to be above site-header (99999) */
     padding-top: env(safe-area-inset-top);
-    /* Notch support */
   }
 
   /* Ensure the checkout button is always visible and clickable at the bottom */
