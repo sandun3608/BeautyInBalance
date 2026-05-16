@@ -1,4 +1,3 @@
-const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 
 const sendEmail = async (options) => {
@@ -14,37 +13,39 @@ const sendEmail = async (options) => {
             refresh_token: process.env.GOOGLE_REFRESH_TOKEN
         });
 
-        const accessToken = await new Promise((resolve, reject) => {
-            oauth2Client.getAccessToken((err, token) => {
-                if (err) reject("Failed to create access token :(");
-                resolve(token);
-            });
+        const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
+        // Create the email in base64 format (required by Gmail API)
+        const subject = options.subject;
+        const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+        const messageParts = [
+            `From: Beauty in Balance <${process.env.EMAIL_USER}>`,
+            `To: ${options.email}`,
+            `Content-Type: text/html; charset=utf-8`,
+            `MIME-Version: 1.0`,
+            `Subject: ${utf8Subject}`,
+            '',
+            options.html || options.message,
+        ];
+        const message = messageParts.join('\n');
+
+        // The body needs to be base64url encoded
+        const encodedMessage = Buffer.from(message)
+            .toString('base64')
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=+$/, '');
+
+        await gmail.users.messages.send({
+            userId: 'me',
+            requestBody: {
+                raw: encodedMessage,
+            },
         });
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                type: "OAuth2",
-                user: process.env.EMAIL_USER,
-                accessToken,
-                clientId: process.env.GOOGLE_CLIENT_ID,
-                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                refreshToken: process.env.GOOGLE_REFRESH_TOKEN
-            }
-        });
-
-        const mailOptions = {
-            from: `Beauty in Balance <${process.env.EMAIL_USER}>`,
-            to: options.email,
-            subject: options.subject,
-            text: options.message,
-            html: options.html,
-        };
-
-        await transporter.sendMail(mailOptions);
-        console.log("📧 Email sent successfully via OAuth2");
+        console.log("✅ Email sent successfully via Gmail REST API (HTTPS)");
     } catch (error) {
-        console.error("❌ OAuth2 Email Error:", error);
+        console.error("❌ Gmail API Error:", error);
         throw error;
     }
 };
