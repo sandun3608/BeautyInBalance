@@ -2502,7 +2502,7 @@
         try {
           const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
           console.log('Loading shipping fee from:', `${BASE}/settings/shippingFee`);
-          const res = await fetch(`${BASE}/settings/shippingFee`);
+          const res = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
           const data = await res.json();
           const input = document.getElementById('admin-shipping-fee');

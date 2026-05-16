@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=44" />
+  <script src="config.js?v=16"></script>
   <style>
     body {
       background-color: #faf9f7;
@@ -464,12 +465,18 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
       try {
-        const sfRes = await fetch(`${window.BASE_URL || '/api'}/settings/shippingFee`);
+        const BASE = window.BASE_URL || '/api';
+        const sfRes = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
         if (sfRes.ok) {
           const sfData = await sfRes.json();
-          if (sfData.value != null) window._shippingFee = Number(sfData.value);
+          if (sfData.value != null) {
+            window._shippingFee = Number(sfData.value);
+            console.log("Checkout shipping fee loaded:", window._shippingFee);
+          }
         }
-      } catch(e) {}
+      } catch(e) {
+        console.error("Error loading shipping fee:", e);
+      }
       window.renderOrderSummary();
       setTimeout(window.renderOrderSummary, 1500);
 
