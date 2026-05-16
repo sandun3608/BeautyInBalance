@@ -167,56 +167,6 @@
 
   <script src="config.js?v=16"></script>
   <script>
-    const $ = id => document.getElementById(id);
-    const overlay = $('overlay');
-
-    window.addEventListener('scroll', () => {
-      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    $('ham-open')?.addEventListener('click', () => { 
-      document.getElementById('mobile-drawer').classList.add('open'); 
-      overlay.classList.add('show'); 
-      const mBar = $('mobile-search-bar');
-      if(mBar) mBar.classList.add('hide-search');
-    });
-
-    $('cart-open')?.addEventListener('click', () => { 
-      document.getElementById('cart-drawer').classList.add('open'); 
-      overlay.classList.add('show'); 
-    });
-    
-    function closeAll() {
-      document.getElementById('mobile-drawer')?.classList.remove('open');
-      document.getElementById('cart-drawer')?.classList.remove('open');
-      overlay.classList.remove('show');
-      const mBar = $('mobile-search-bar');
-      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
-    }
-    
-    $('ham-close')?.addEventListener('click', closeAll);
-    $('cart-close')?.addEventListener('click', closeAll);
-    overlay.addEventListener('click', closeAll);
-
-    // Mobile Search Bar Scroll Effect
-    let lastScrollTop = 0;
-    const mSearchBar = $('mobile-search-bar');
-    window.addEventListener('scroll', function() {
-      let st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > 100) {
-        if (st > lastScrollTop) {
-          if(mSearchBar) mSearchBar.classList.add('hide-search');
-        } else {
-          if(mSearchBar) mSearchBar.classList.remove('hide-search');
-        }
-      } else {
-        if(mSearchBar) mSearchBar.classList.remove('hide-search');
-      }
-      lastScrollTop = st;
-    });
-
-    
-
     const registerForm = document.getElementById('register-form');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
