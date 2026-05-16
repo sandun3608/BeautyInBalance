@@ -415,70 +415,70 @@
   <script src="config.js?v=16"></script>
   <script src="products.js?v=12"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Expose renderOrderSummary globally
-      window.renderOrderSummary = function() {
-        const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-        if (localCart.length === 0) {
-           document.getElementById('checkout-root').innerHTML = `
-              <div class="empty-cart-msg">
-                 <h2 style="font-family: var(--font-serif); font-size:36px; margin-bottom:20px;">Your Cart is Empty</h2>
-                 <p style="color:#777; margin-bottom: 30px;">Looks like you haven't added anything to your cart yet.</p>
-                 <a href="shop.html" style="background:var(--dark); color:white; padding:15px 30px; text-decoration:none; border-radius:8px;">Continue Shopping</a>
-              </div>
-           `;
-           return;
-        }
+    // Defined globally so products.js can call this at any time after DB fetch
+    window.renderOrderSummary = function() {
+      const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+      const root = document.getElementById('checkout-root');
+      const itemsContainer = document.getElementById('summ-items');
+      if (!itemsContainer) return;
 
-        const itemsContainer = document.getElementById('summ-items');
-        let subtotal = 0;
+      if (localCart.length === 0) {
+         root.innerHTML = `
+            <div class="empty-cart-msg">
+               <h2 style="font-family: var(--font-serif); font-size:36px; margin-bottom:20px;">Your Cart is Empty</h2>
+               <p style="color:#777; margin-bottom: 30px;">Looks like you haven't added anything to your cart yet.</p>
+               <a href="shop.html" style="background:var(--dark); color:white; padding:15px 30px; text-decoration:none; border-radius:8px;">Continue Shopping</a>
+            </div>
+         `;
+         return;
+      }
 
-        itemsContainer.innerHTML = localCart.map(item => {
-          subtotal += (item.price * item.qty);
-          return `
-            <div class="summ-item">
-              <div class="img-wrap">
-                <img src="${item.img}" alt="${item.name}">
-              </div>
-              <div class="summ-details">
-                <h4 style="margin-bottom: 10px;">${item.name}</h4>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <div class="summ-price">Rs. ${(item.price * item.qty).toLocaleString()}</div>
-                  <div style="display:flex; align-items:center; gap:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; border:1px solid #eee;">
-                      <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">-</button>
-                      <span style="color:#333; font-size:14px; font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
-                      <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">+</button>
-                  </div>
+      let subtotal = 0;
+      itemsContainer.innerHTML = localCart.map(item => {
+        subtotal += (item.price * item.qty);
+        return `
+          <div class="summ-item">
+            <div class="img-wrap">
+              <img src="${item.img}" alt="${item.name}">
+              <span class="qty-badge">${item.qty}</span>
+            </div>
+            <div class="summ-details">
+              <h4 style="margin-bottom: 10px;">${item.name}</h4>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="summ-price">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+                <div style="display:flex; align-items:center; gap:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; border:1px solid #eee;">
+                  <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">-</button>
+                  <span style="color:#333; font-size:14px; font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
+                  <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">+</button>
                 </div>
               </div>
             </div>
-          `;
-        }).join('');
+          </div>
+        `;
+      }).join('');
 
-        const shipping = 350; // Fixed shipping fee as requested
-        const total = subtotal + shipping;
+      const shipping = 350;
+      const total = subtotal + shipping;
+      document.getElementById('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+      document.getElementById('summ-shipping').textContent = `Rs. ${shipping.toLocaleString()}`;
+      document.getElementById('summ-total').textContent = `Rs. ${total.toLocaleString()}`;
+      window.currentOrderTotal = total;
+    };
 
-        document.getElementById('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
-        document.getElementById('summ-shipping').textContent = `Rs. ${shipping.toLocaleString()}`;
-        document.getElementById('summ-total').textContent = `Rs. ${total.toLocaleString()}`;
-        window.currentOrderTotal = total;
-      };
+    window.updateQtyCheckout = function(id, change) {
+       const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+       const item = localCart.find(i => i.id === id);
+       if (item) {
+           const newQty = item.qty + change;
+           if (typeof updateCartQty === 'function') updateCartQty(id, newQty);
+       }
+       window.renderOrderSummary();
+    };
 
-      // Wrapper for quantity update
-      window.updateQtyCheckout = function(id, change) {
-         const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-         const item = localCart.find(i => i.id === id);
-         if (item) {
-             const newQty = item.qty + change;
-             // Use products.js built-in global updateCartQty
-             if (typeof updateCartQty === 'function') {
-                 updateCartQty(id, newQty);
-             }
-         }
-         window.renderOrderSummary();
-      };
-
+    document.addEventListener('DOMContentLoaded', () => {
       window.renderOrderSummary();
+      // Retry after 1.5s in case products.js DB fetch finishes late
+      setTimeout(() => window.renderOrderSummary(), 1500);
 
       // 3. Handle Form Submission & API Call on Master Button Click
       document.getElementById('btn-master-submit').addEventListener('click', async (e) => {
