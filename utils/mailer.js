@@ -2,17 +2,18 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
     // 1) Create a transporter
-    // We use port 587 (STARTTLS) which is more reliable on cloud platforms like Render
+    // Forced IPv4 (family: 4) to bypass IPv6 connection issues on Render
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 587,
-        secure: false, // true for 465, false for other ports
+        secure: false, 
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
+        family: 4, // Force IPv4
         tls: {
-            rejectUnauthorized: false // Helps with some network restrictions
+            rejectUnauthorized: false
         }
     });
 
