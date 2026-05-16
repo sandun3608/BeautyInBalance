@@ -7693,15 +7693,15 @@ main {
 
 @media (max-width: 900px) {
   .floating-ig {
-    bottom: 25px;
+    bottom: 15px;
   }
 
   .floating-wa {
-    bottom: 90px;
+    bottom: 80px;
   }
 
   .floating-email {
-    bottom: 155px;
+    bottom: 145px;
   }
 }
 

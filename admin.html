@@ -2500,16 +2500,26 @@
       // ===== SHIPPING FEE SETTINGS =====
       async function loadShippingFee() {
         try {
-          const res = await fetch(`${BASE_URL}/settings/shippingFee`);
+          const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+          console.log('Loading shipping fee from:', `${BASE}/settings/shippingFee`);
+          const res = await fetch(`${BASE}/settings/shippingFee`);
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
           const data = await res.json();
           const input = document.getElementById('admin-shipping-fee');
-          if (input && data.value != null) input.value = data.value;
-        } catch(e) { console.warn('Could not load shipping fee:', e); }
+          if (input && data.value != null) {
+            input.value = data.value;
+            console.log('Shipping fee loaded:', data.value);
+          }
+        } catch(e) { 
+          console.error('Could not load shipping fee:', e); 
+        }
       }
 
       window.saveShippingFee = async function(btn) {
         const input = document.getElementById('admin-shipping-fee');
         const msg = document.getElementById('shipping-fee-msg');
+        if (!input || !msg) return;
+        
         const fee = parseInt(input.value);
         if (isNaN(fee) || fee < 0) {
           msg.textContent = '⚠️ Please enter a valid amount.';
@@ -2517,25 +2527,38 @@
           msg.style.display = 'block';
           return;
         }
+
         btn.textContent = 'Saving...';
         btn.disabled = true;
+
         try {
           const token = localStorage.getItem('userToken');
-          const res = await fetch(`${BASE_URL}/settings/shippingFee`, {
+          const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+          
+          console.log('Saving shipping fee to:', `${BASE}/settings/shippingFee`, { value: fee });
+
+          const res = await fetch(`${BASE}/settings/shippingFee`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            headers: { 
+              'Content-Type': 'application/json', 
+              'Authorization': `Bearer ${token}` 
+            },
             body: JSON.stringify({ value: fee })
           });
+
           if (res.ok) {
             msg.textContent = `✅ Shipping fee updated to Rs. ${fee}`;
             msg.style.color = '#16a34a';
+            console.log('Shipping fee updated successfully');
           } else {
-            msg.textContent = '❌ Failed to save. Please try again.';
+            const errData = await res.json().catch(() => ({}));
+            msg.textContent = `❌ Failed: ${errData.message || res.status}`;
             msg.style.color = '#dc2626';
           }
           msg.style.display = 'block';
           setTimeout(() => { msg.style.display = 'none'; }, 3000);
         } catch(e) {
+          console.error('Save shipping fee error:', e);
           msg.textContent = '❌ Network error.';
           msg.style.color = '#dc2626';
           msg.style.display = 'block';
