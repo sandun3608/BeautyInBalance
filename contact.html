@@ -586,6 +586,7 @@
          });
 
          if (response.ok) {
+           contactForm.reset(); // Clear the form data
            // Simple animation transition
            gsap.to(contactForm, { opacity: 0, y: -20, duration: 0.5, onComplete: () => {
              contactForm.style.display = 'none';
