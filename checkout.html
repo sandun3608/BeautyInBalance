@@ -483,6 +483,7 @@
       // 3. Handle Form Submission & API Call on Master Button Click
       document.getElementById('btn-master-submit').addEventListener('click', async (e) => {
          e.preventDefault();
+         console.log('[Checkout] Button clicked');
 
          const btn = document.getElementById('btn-master-submit');
          btn.textContent = 'Processing...';
@@ -490,6 +491,7 @@
          btn.style.opacity = '0.7';
 
          const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+         console.log('[Checkout] Cart:', currentCart.length, 'items');
          
          const firstName = document.getElementById('c-fname').value.trim();
          const lastName = document.getElementById('c-lname').value.trim();
@@ -499,8 +501,18 @@
          const district = document.getElementById('c-district').value.trim();
          const phone = document.getElementById('c-phone').value.trim();
 
+         console.log('[Checkout] Fields:', { firstName, lastName, email, address, city, district, phone });
+
          if (!firstName || !lastName || !email || !address || !city || !district || !phone) {
             alert('⚠️ Please fill in all shipping and contact details before placing your order.');
+            btn.textContent = 'Complete Order';
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            return;
+         }
+
+         if (currentCart.length === 0) {
+            alert('⚠️ Your cart is empty!');
             btn.textContent = 'Complete Order';
             btn.disabled = false;
             btn.style.opacity = '1';
@@ -512,15 +524,7 @@
 
          const orderData = {
            user: userId,
-           customerInfo: {
-             firstName,
-             lastName,
-             email,
-             address,
-             city,
-             district,
-             phone,
-           },
+           customerInfo: { firstName, lastName, email, address, city, district, phone },
            orderItems: currentCart.map(i => ({
              product: i.id, 
              name: i.name,
@@ -528,9 +532,11 @@
              price: i.price
            })),
            shippingPrice: 350,
-           totalPrice: window.currentOrderTotal,
+           totalPrice: window.currentOrderTotal || (currentCart.reduce((s, i) => s + i.price * i.qty, 0) + 350),
            paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
          };
+
+         console.log('[Checkout] Sending order to:', window.BASE_URL, 'Data:', JSON.stringify(orderData));
 
          try {
            const res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
@@ -538,6 +544,7 @@
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify(orderData)
            });
+           console.log('[Checkout] API response status:', res.status);
 
            if (res.ok) {
              const createdOrder = await res.json();
