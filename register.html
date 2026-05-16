@@ -255,7 +255,6 @@
         const data = await response.json();
 
         if (response.ok) {
-          successBox.style.display = 'block';
           localStorage.setItem('userToken', data.token);
           localStorage.setItem('userInfo', JSON.stringify({
             _id: data._id,
@@ -265,9 +264,23 @@
             avatar: data.avatar || ''
           }));
 
+          document.querySelector('.register-container').innerHTML = `
+            <div style="text-align: center; padding: 20px 0;">
+              <div style="width: 80px; height: 80px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); animation: scaleIn 0.5s ease-out;">✓</div>
+              <h1 style="font-family: var(--font-serif); font-size: 32px; color: var(--brown); margin-bottom: 10px;">Sign Up Successful!</h1>
+              <p style="color: #666; font-size: 16px; margin-bottom: 30px;">Welcome to Beauty in Balance, ${data.name.split(' ')[0]}!</p>
+              <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px;"></div>
+              <p style="color: #999; font-size: 14px;">Redirecting to Home Page...</p>
+              <style>
+                @keyframes scaleIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+                @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+              </style>
+            </div>
+          `;
+
           setTimeout(() => {
-            window.location.href = 'account.html'; // Usually redirect to home or dashboard
-          }, 2000);
+            window.location.href = 'index.html'; 
+          }, 3000);
         } else {
           errorBox.textContent = data.message || 'Registration failed.';
           errorBox.style.display = 'block';
