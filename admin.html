@@ -768,7 +768,12 @@
         <ul>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-dashboard" class="admin-nav-link active" onclick="window.switchTab('dashboard', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-inventory" class="admin-nav-link" onclick="window.switchTab('inventory', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg> Inventory</div></li>
-          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-orders" class="admin-nav-link" onclick="window.switchTab('orders', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg> Orders</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03); position: relative;">
+            <div id="nav-orders" class="admin-nav-link" onclick="window.switchTab('orders', this)">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg> Orders
+              <span id="order-badge" style="display: none; background: #ef4444; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 10px; margin-left: auto;">0</span>
+            </div>
+          </li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-analytics" class="admin-nav-link" onclick="window.switchTab('analytics', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Insights</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-support" class="admin-nav-link" onclick="window.switchTab('support', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Support</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-settings" class="admin-nav-link" onclick="window.switchTab('settings', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div></li>
@@ -1706,6 +1711,19 @@
           headers: { 'Authorization': 'Bearer ' + token }
         });
         const orders = await res.json();
+        
+        // --- ORDER BADGE UPDATE ---
+        const pendingCount = orders.filter(o => !o.isDelivered).length;
+        const badge = document.getElementById('order-badge');
+        if (badge) {
+          if (pendingCount > 0) {
+            badge.textContent = pendingCount;
+            badge.style.display = 'inline-block';
+          } else {
+            badge.style.display = 'none';
+          }
+        }
+
         // Store for viewing details
         window.allOrders = orders;
 
@@ -2592,6 +2610,12 @@
          }
       });
     })();
+    
+    // Background Order Monitoring for Badge
+    if (typeof fetchOrders === 'function') {
+      fetchOrders();
+      setInterval(fetchOrders, 60000);
+    }
   </script>
 </body>
 </html>

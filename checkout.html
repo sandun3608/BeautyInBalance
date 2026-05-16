@@ -511,11 +511,20 @@
 
             if (res.ok) {
               localStorage.removeItem('bib_cart');
-              $('checkout-root').innerHTML = `<div style="padding: 100px 20px; text-align:center;">
-                  <div style="font-size:60px; color:#10b981;">✓</div>
-                  <h1>Order Received!</h1><p>Thank you, ${fields.firstName}!</p>
-                  <a href="index.html" style="margin-top:20px; display:inline-block; padding:15px 30px; background:#000; color:#fff; text-decoration:none; border-radius:8px;">🛍️ Return to Shop</a>
-                </div>`;
+              $('checkout-root').innerHTML = `
+                <div style="padding: 100px 20px; text-align:center; animation: fadeIn 0.5s ease-out;">
+                  <div style="font-size:80px; color:#10b981; margin-bottom: 20px;">✓</div>
+                  <h1 style="font-family: var(--font-serif); font-size: 48px; color: #1b1b1e; margin-bottom: 10px;">Done!</h1>
+                  <h2 style="font-family: var(--font-serif); font-size: 24px; color: #555; margin-bottom: 30px;">Order Received Successfully</h2>
+                  <p style="max-width: 500px; margin: 0 auto 40px; color: #777; line-height: 1.6;">
+                    Thank you, <strong>${fields.firstName}</strong>! Your order has been placed. 
+                    We have sent a confirmation email to <strong>${fields.email}</strong>.
+                  </p>
+                  <a href="index.html" class="btn-dark" style="margin-top:20px; display:inline-block; padding:18px 45px; background:#000; color:#fff; text-decoration:none; border-radius:12px; font-weight:700; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">🛍️ Return to Shop</a>
+                </div>
+                <style>
+                  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+                </style>`;
             } else {
                alert('Order failed');
                $('btn-master-submit').textContent = 'Complete Order';
