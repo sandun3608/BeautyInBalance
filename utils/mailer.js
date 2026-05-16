@@ -2,13 +2,18 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
     // 1) Create a transporter
-    // For production, you should use environment variables
+    // We use port 587 (STARTTLS) which is more reliable on cloud platforms like Render
     const transporter = nodemailer.createTransport({
-        service: 'Gmail', // Or use host: 'smtp.gmail.com', port: 465, etc.
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
-            user: process.env.EMAIL_USER, // Your email
-            pass: process.env.EMAIL_PASS, // Your App Password
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
         },
+        tls: {
+            rejectUnauthorized: false // Helps with some network restrictions
+        }
     });
 
     // 2) Define the email options
