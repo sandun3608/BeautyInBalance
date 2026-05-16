@@ -3282,8 +3282,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   .cart-drawer {
     width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    top: 0;
+    bottom: 0;
+    height: 100%;
     /* Modern viewport units for mobile */
     z-index: 2000000 !important;
     /* Extremely high to be above site-header (99999) */
