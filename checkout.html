@@ -480,13 +480,8 @@
 
       window.renderOrderSummary();
 
-      // 3. Connect Master Button to Form Submission
-      document.getElementById('btn-master-submit').addEventListener('click', () => {
-         document.getElementById('submit-hidden').click();
-      });
-
-      // 4. Handle Form Submission & API Call
-      document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      // 3. Handle Form Submission & API Call on Master Button Click
+      document.getElementById('btn-master-submit').addEventListener('click', async (e) => {
          e.preventDefault();
 
          const btn = document.getElementById('btn-master-submit');
