@@ -226,69 +226,123 @@
       padding: 100px;
       font-size: 20px;
     }
+
+    /* Mobile Responsive Fixes */
+    @media (max-width: 600px) {
+      .checkout-wrap {
+        padding: 0 15px !important;
+        margin-top: 100px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .chk-left, .summary-box {
+        padding: 25px 20px !important;
+        border-radius: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .chk-header {
+        font-size: 28px !important;
+      }
+      .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+      }
+      .form-group-full {
+        grid-column: span 1 !important;
+      }
+      body {
+        overflow-x: hidden !important;
+      }
+    }
   </style>
 </head>
-<body>
+<body style="overflow-x: hidden;">
+
 
   <!-- ===== HEADER ===== -->
-  <header class="site-header scrolled" id="site-header" style="background:#fff !important;">
+  <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <ul class="nav-main">
-        <li><a href="index.html">Home</a></li>
-        <li class="has-drop">
-          <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-          <ul class="drop-menu">
-            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
-            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
-          </ul>
-        </li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="policies.html">Policies</a></li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
       <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
       <div class="nav-icons">
-        <button class="ic-btn" id="search-open" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
-        <a href="mailto:support@beautyinbalance.lk" class="ic-btn" aria-label="Email Us" title="support@beautyinbalance.lk">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
         </a>
-        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge">0</span></button>
-        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       </div>
     </nav>
   </header>
+
   <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
   <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top">
-      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
-      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
     </div>
-    <ul class="mobile-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="policies.html">Policies</a></li>
-    </ul>
+    <div class="drawer-content">
+      <ul class="mobile-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop All</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li class="nav-label">Categories</li>
+        <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+        <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In / Register</a></li>
+      </ul>
+    </div>
   </div>
 
   <!-- ===== CART DRAWER ===== -->
   <div class="cart-drawer" id="cart-drawer">
-    <div class="cart-head">
-      <h3>Cart (0)</h3>
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
       <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="cart-empty">
-      <p>Your cart is currently empty.</p>
-      <a href="shop.html" class="btn-dark">Continue Shopping</a>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
     </div>
   </div>
 
   <div id="checkout-root">
+
     <div class="checkout-wrap">
       
       <!-- Left: Form -->
@@ -415,7 +469,39 @@
   <script src="config.js?v=16"></script>
   <script src="products.js?v=12"></script>
   <script>
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    /* ── DRAWER LOGIC ── */
+    if ($('ham-open')) {
+      $('ham-open').addEventListener('click', () => { 
+        $('mobile-drawer').classList.add('open'); 
+        overlay.classList.add('show'); 
+      });
+    }
+    if ($('ham-close')) $('ham-close').addEventListener('click', closeAll);
+    if ($('cart-open')) {
+      $('cart-open').addEventListener('click', () => { 
+        $('cart-drawer').classList.add('open'); 
+        overlay.classList.add('show'); 
+      });
+    }
+    if ($('cart-close')) $('cart-close').addEventListener('click', closeAll);
+    if (overlay) overlay.addEventListener('click', closeAll);
+
+    function closeAll() {
+      if ($('mobile-drawer')) $('mobile-drawer').classList.remove('open');
+      if ($('cart-drawer')) $('cart-drawer').classList.remove('open');
+      if (overlay) overlay.classList.remove('show');
+    }
+
+    /* ── SCROLL HEADER ── */
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
     // Defined globally so products.js can call this at any time after DB fetch
+
     window.renderOrderSummary = function() {
       const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
       const root = document.getElementById('checkout-root');
@@ -677,8 +763,7 @@
     document.getElementById('cart-close')?.addEventListener('click', closeAll);
     document.getElementById('ham-close')?.addEventListener('click', closeAll);
   </script>
+  <script src="account-nav.js?v=2"></script>
 
 </body>
 </html>
-
-

@@ -7653,37 +7653,22 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .floating-wa,
 .floating-ig {
   position: fixed;
-  right: 20px;
+  right: 25px;
   z-index: 8000;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
+  box-shadow: 0 10px 30px rgba(45, 27, 18, 0.2);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  background: var(--gold) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Stack order (bottom → top): Instagram, WhatsApp, Email */
-.floating-ig {
-  bottom: 25px;
-  width: 55px;
-  height: 55px;
-  background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
-}
+.floating-ig { bottom: 30px; width: 50px; height: 50px; }
+.floating-wa { bottom: 95px; width: 50px; height: 50px; }
+.floating-email { bottom: 160px; width: 50px; height: 50px; }
 
-.floating-wa {
-  bottom: 90px;
-  width: 55px;
-  height: 55px;
-  background: #25d366;
-}
-
-.floating-email {
-  bottom: 155px;
-  width: 55px;
-  height: 55px;
-  background: #ea4335;
-}
 
 .floating-email svg,
 .floating-wa svg,
@@ -8519,3 +8504,21 @@ body:not(.drawer-open) .floating-ig {
     padding: 20px;
   }
 }
+
+/* ===== GLOBAL AUTH PAGE MOBILE FIX ===== */
+@media (max-width: 600px) {
+  .login-container,
+  .register-container {
+    width: calc(100% - 30px) !important;
+    margin: 20px 15px !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    padding: 30px 20px !important;
+  }
+  
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    position: relative;
+  }
+}
