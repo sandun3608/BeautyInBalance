@@ -1213,7 +1213,31 @@
                 </div>
             </div>
 
+            <!-- SHIPPING FEE SETTINGS -->
+            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-top: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+                    <div style="width: 40px; height: 40px; background: #f0f9ff; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" width="20" height="20"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Shipping Fee</h3>
+                </div>
+                <p style="font-size: 13px; color: #777; margin: 0 0 25px 0;">This amount will be added to every order at checkout. Changes apply immediately to all new orders.</p>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="display: flex; align-items: center; border: 1px solid #eee; border-radius: 12px; overflow: hidden; flex: 1; background: #fafafa;">
+                        <span style="padding: 15px 18px; background: #f5f5f5; font-weight: 800; font-size: 14px; color: #555; border-right: 1px solid #eee;">Rs.</span>
+                        <input type="number" id="admin-shipping-fee" min="0" step="50" placeholder="350"
+                            style="flex: 1; padding: 15px; border: none; font-size: 16px; font-weight: 700; background: transparent; outline: none;"
+                            onfocus="this.style.background='#fff'">
+                    </div>
+                    <button onclick="saveShippingFee(this)" class="admin-btn" style="padding: 15px 28px; font-size: 14px; white-space: nowrap;">
+                        Save Fee
+                    </button>
+                </div>
+                <div id="shipping-fee-msg" style="margin-top: 12px; font-size: 13px; display: none;"></div>
+            </div>
+
             <!-- DANGER ZONE -->
+
             <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #fee2e2;">
                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
                     <div style="width: 40px; height: 40px; background: #fff1f1; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
@@ -2454,6 +2478,61 @@
           btn.style.opacity = '1';
         }
       }
+
+      // ===== SHIPPING FEE SETTINGS =====
+      async function loadShippingFee() {
+        try {
+          const res = await fetch(`${BASE_URL}/settings/shippingFee`);
+          const data = await res.json();
+          const input = document.getElementById('admin-shipping-fee');
+          if (input && data.value != null) input.value = data.value;
+        } catch(e) { console.warn('Could not load shipping fee:', e); }
+      }
+
+      window.saveShippingFee = async function(btn) {
+        const input = document.getElementById('admin-shipping-fee');
+        const msg = document.getElementById('shipping-fee-msg');
+        const fee = parseInt(input.value);
+        if (isNaN(fee) || fee < 0) {
+          msg.textContent = '⚠️ Please enter a valid amount.';
+          msg.style.color = '#dc2626';
+          msg.style.display = 'block';
+          return;
+        }
+        btn.textContent = 'Saving...';
+        btn.disabled = true;
+        try {
+          const token = localStorage.getItem('userToken');
+          const res = await fetch(`${BASE_URL}/settings/shippingFee`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ value: fee })
+          });
+          if (res.ok) {
+            msg.textContent = `✅ Shipping fee updated to Rs. ${fee}`;
+            msg.style.color = '#16a34a';
+          } else {
+            msg.textContent = '❌ Failed to save. Please try again.';
+            msg.style.color = '#dc2626';
+          }
+          msg.style.display = 'block';
+          setTimeout(() => { msg.style.display = 'none'; }, 3000);
+        } catch(e) {
+          msg.textContent = '❌ Network error.';
+          msg.style.color = '#dc2626';
+          msg.style.display = 'block';
+        } finally {
+          btn.textContent = 'Save Fee';
+          btn.disabled = false;
+        }
+      };
+
+      // Load shipping fee when settings tab is opened
+      const origSwitchTab = window.switchTab;
+      window.switchTab = function(tabName, el) {
+        origSwitchTab(tabName, el);
+        if (tabName === 'settings') loadShippingFee();
+      };
     </script>
 
   <div id="admin-notification">New Notification</div>
