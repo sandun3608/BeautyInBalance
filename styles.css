@@ -7661,13 +7661,14 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   border-radius: 50%;
   box-shadow: 0 10px 30px rgba(45, 27, 18, 0.2);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
-  background: var(--gold) !important;
+  background: #C6975A !important; /* Premium Light Brown / Gold */
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .floating-ig { bottom: 30px; width: 50px; height: 50px; }
 .floating-wa { bottom: 95px; width: 50px; height: 50px; }
 .floating-email { bottom: 160px; width: 50px; height: 50px; }
+
 
 
 .floating-email svg,

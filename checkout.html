@@ -17,7 +17,7 @@
     }
     .checkout-wrap {
       max-width: 1200px;
-      margin: 160px auto 100px; /* Increased from 120px to prevent header overlap */
+      margin: 160px auto 100px;
       padding: 0 40px;
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -161,7 +161,7 @@
     }
     .summ-price {
       font-weight: bold;
-      color: var(--gold); /* Changed from #fff to make it pop */
+      color: var(--gold);
     }
 
     .summ-totals {
@@ -227,7 +227,6 @@
       font-size: 20px;
     }
 
-    /* Mobile Responsive Fixes */
     @media (max-width: 600px) {
       .checkout-wrap {
         padding: 0 15px !important;
@@ -260,11 +259,9 @@
 </head>
 <body style="overflow-x: hidden;">
 
-
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <!-- Left: Navigation Links + Email -->
       <div class="nav-left">
         <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -272,34 +269,19 @@
         </button>
         <ul class="nav-main">
           <li><a href="index.html">Home</a></li>
-          <li class="has-drop">
-            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-            <ul class="drop-menu">
-              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
-            </ul>
-          </li>
+          <li><a href="shop.html">Shop All</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="policies.html">Policies</a></li>
         </ul>
       </div>
-
-      <!-- Center: Logo -->
       <a href="index.html" class="site-logo">Beauty in Balance</a>
-
-      <!-- Right: Search + Account + Cart -->
       <div class="nav-icons">
         <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
-            <span class="ic-label mobile-only">Bag</span>
         </button>
-
         <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span class="ic-label mobile-only">User</span>
         </a>
       </div>
     </nav>
@@ -321,10 +303,6 @@
         <li><a href="shop.html">Shop All</a></li>
         <li><a href="about.html">Our Story</a></li>
         <li><a href="contact.html">Contact Us</a></li>
-        <li class="nav-label">Categories</li>
-        <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
-        <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-        <li class="nav-label">Account</li>
         <li><a href="login.html">Sign In / Register</a></li>
       </ul>
     </div>
@@ -333,32 +311,27 @@
   <!-- ===== CART DRAWER ===== -->
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
-      <h3>Bag (0)</h3>
+      <h3>Bag</h3>
       <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
-      <p>Your bag is currently empty.</p>
+    <div id="cart-items-container">
+       <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+         <p>Your bag is currently empty.</p>
+       </div>
     </div>
   </div>
 
   <div id="checkout-root">
-
     <div class="checkout-wrap">
-      
-      <!-- Left: Form -->
       <div class="chk-left">
         <h1 class="chk-header">Secure Checkout</h1>
-        
         <form id="checkout-form">
-          <!-- Contact Info -->
           <div class="chk-section">
             <h3 class="chk-section-title">Contact Information</h3>
             <div class="input-grp form-group-full">
               <input type="email" id="c-email" placeholder="Email Address" required />
             </div>
           </div>
-
-          <!-- Shipping Address -->
           <div class="chk-section">
             <h3 class="chk-section-title">Shipping Address</h3>
             <div class="form-grid">
@@ -369,7 +342,7 @@
                 <input type="text" id="c-lname" placeholder="Last Name" required />
               </div>
               <div class="input-grp form-group-full">
-                <input type="text" id="c-address" placeholder="Street Address / Apartment no." required />
+                <input type="text" id="c-address" placeholder="Street Address" required />
               </div>
               <div class="input-grp">
                 <input type="text" id="c-city" placeholder="City" required />
@@ -380,89 +353,44 @@
                   <option value="Colombo">Colombo</option>
                   <option value="Gampaha">Gampaha</option>
                   <option value="Kandy">Kandy</option>
-                  <option value="Kalutara">Kalutara</option>
-                  <option value="Other">Other (Island-wide)</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
               <div class="input-grp form-group-full">
-                <input type="tel" id="c-phone" placeholder="Mobile Phone (e.g. 077...)" required />
+                <input type="tel" id="c-phone" placeholder="Mobile Phone" required />
               </div>
             </div>
           </div>
-
-          <button type="submit" id="submit-hidden" style="display:none;"></button>
         </form>
       </div>
 
-      <!-- Right: Summary -->
       <div class="chk-right">
         <div class="summary-box">
           <h2 class="summ-title">Order Summary</h2>
-          
-          <div class="summ-items" id="summ-items">
-            <!-- Dynamically injected cart items -->
-          </div>
-
+          <div class="summ-items" id="summ-items"></div>
           <div class="summ-totals">
-            <div class="summ-row">
-              <span>Subtotal</span>
-              <span id="summ-subtotal">Rs. 0</span>
-            </div>
-            <div class="summ-row">
-              <span>Shipping Delivery</span>
-              <span id="summ-shipping" style="color:var(--gold);">Calculated</span>
-            </div>
-            <div class="summ-row total">
-              <span>Total</span>
-              <span id="summ-total">Rs. 0</span>
-            </div>
+            <div class="summ-row"><span>Subtotal</span><span id="summ-subtotal">Rs. 0</span></div>
+            <div class="summ-row"><span>Shipping</span><span id="summ-shipping">Rs. 350</span></div>
+            <div class="summ-row total"><span>Total</span><span id="summ-total">Rs. 0</span></div>
           </div>
 
           <div class="payment-methods-wrapper" style="margin-top: 20px;">
-             <!-- COD Option -->
-             <label class="payment-method" style="cursor: pointer; margin-bottom: 15px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
-                <input type="radio" name="payment_method" value="Cash on Delivery" checked style="accent-color: var(--gold); width: 20px; height: 20px;" onchange="toggleBankDetails(false)" />
-                <div style="flex: 1;">
-                  <strong style="color: #333;">Cash on Delivery (COD)</strong>
-                  <div style="font-size:12px; color:#777; margin-top:3px;">Pay in cash when your order arrives.</div>
-                </div>
+             <label class="payment-method">
+                <input type="radio" name="payment_method" value="Cash on Delivery" checked onchange="toggleBankDetails(false)" />
+                <div><strong>Cash on Delivery</strong><div style="font-size:12px; color:#777;">Pay when your order arrives.</div></div>
              </label>
-
-             <!-- Bank Transfer Option -->
-             <label class="payment-method" style="cursor: pointer; margin-top: -16px; border-top: none; margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0;">
-                <input type="radio" name="payment_method" value="Bank Transfer" style="accent-color: var(--gold); width: 20px; height: 20px;" onchange="toggleBankDetails(true)" />
-                <div style="flex: 1;">
-                  <strong style="color: #333;">Bank Transfer</strong>
-                  <div style="font-size:12px; color:#777; margin-top:3px;">Direct deposit to our BOC account.</div>
-                </div>
+             <label class="payment-method">
+                <input type="radio" name="payment_method" value="Bank Transfer" onchange="toggleBankDetails(true)" />
+                <div><strong>Bank Transfer</strong><div style="font-size:12px; color:#777;">Direct deposit to BOC.</div></div>
              </label>
-
-
-
-             <!-- Bank Details Box (Hidden by default) -->
-             <div id="bank-details-box" style="display: none; background: #fdfaf7; border: 1px solid #eaeaea; border-top: none; padding: 20px; border-radius: 8px; margin-top: -1px; border-top-left-radius: 0; border-top-right-radius: 0;">
-                <div style="font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 15px;">
-                  <strong>Acc No:</strong> 87727168<br/>
-                  <strong>Name:</strong> SMNP Jayarathne<br/>
-                  <strong>Bank:</strong> BOC<br/>
-                  <strong>Branch:</strong> Homagama
-                </div>
-                <a href="https://wa.me/94766190550?text=Here%20is%20my%20bank%20slip%20for%20the%20order" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; font-weight: 600; font-size: 13px; transition: 0.3s;" onmouseover="this.style.background='#1eb854'" onmouseout="this.style.background='#25D366'">
-                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/><path d="M16.924 14.3a.754.754 0 00-.518-.216c-.22 0-.441.085-.599.255l-.83.89c-.198.212-.516.297-.783.21a7.712 7.712 0 01-3.69-2.58 7.376 7.376 0 01-1.39-2.61.64.64 0 01.12-.663l.76-.84c.15-.164.218-.387.186-.607a.78.78 0 00-.317-.549l-1.92-1.42c-.22-.162-.51-.212-.77-.132s-.47.28-.58.54c-.58 1.62-.12 3.42.98 4.79 1.34 1.66 3.16 2.87 5.16 3.45.2.06.41.06.6 0 .28-.09.52-.28.66-.54l.95-2.02a.846.846 0 00-.03-.89l-1.966-2.147z"/></svg>
-                   Send Slip via WhatsApp
-                </a>
+             <div id="bank-details-box" style="display: none; background: #fdfaf7; border: 1px solid #eaeaea; padding: 20px; border-radius: 8px; margin-top: 10px;">
+                <strong>Acc No:</strong> 87727168<br/><strong>Name:</strong> SMNP Jayarathne<br/><strong>Bank:</strong> BOC
              </div>
           </div>
-          <script>
-            function toggleBankDetails(show) {
-               document.getElementById('bank-details-box').style.display = show ? 'block' : 'none';
-            }
-          </script>
 
           <button class="btn-place-order" id="btn-master-submit">Complete Order</button>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -471,299 +399,132 @@
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
+    const closeAll = () => {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay?.classList.remove('show');
+    };
 
-    /* ── DRAWER LOGIC ── */
-    if ($('ham-open')) {
-      $('ham-open').addEventListener('click', () => { 
-        $('mobile-drawer').classList.add('open'); 
-        overlay.classList.add('show'); 
-      });
-    }
-    if ($('ham-close')) $('ham-close').addEventListener('click', closeAll);
-    if ($('cart-open')) {
-      $('cart-open').addEventListener('click', () => { 
-        $('cart-drawer').classList.add('open'); 
-        overlay.classList.add('show'); 
-      });
-    }
-    if ($('cart-close')) $('cart-close').addEventListener('click', closeAll);
-    if (overlay) overlay.addEventListener('click', closeAll);
+    if ($('ham-open')) $('ham-open').onclick = () => { $('mobile-drawer').classList.add('open'); overlay.classList.add('show'); };
+    if ($('ham-close')) $('ham-close').onclick = closeAll;
+    if ($('cart-open')) $('cart-open').onclick = () => { $('cart-drawer').classList.add('open'); overlay.classList.add('show'); };
+    if ($('cart-close')) $('cart-close').onclick = closeAll;
+    if (overlay) overlay.onclick = closeAll;
 
-    function closeAll() {
-      if ($('mobile-drawer')) $('mobile-drawer').classList.remove('open');
-      if ($('cart-drawer')) $('cart-drawer').classList.remove('open');
-      if (overlay) overlay.classList.remove('show');
-    }
-
-    /* ── SCROLL HEADER ── */
-    window.addEventListener('scroll', () => {
-      $('site-header')?.classList.toggle('scrolled', window.scrollY > 30);
-    });
-
-    // Defined globally so products.js can call this at any time after DB fetch
+    function toggleBankDetails(show) { $('bank-details-box').style.display = show ? 'block' : 'none'; }
 
     window.renderOrderSummary = function() {
       const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-      const root = document.getElementById('checkout-root');
-      const itemsContainer = document.getElementById('summ-items');
+      const root = $('checkout-root');
+      const itemsContainer = $('summ-items');
       if (!itemsContainer) return;
 
       if (localCart.length === 0) {
-         root.innerHTML = `
-            <div class="empty-cart-msg">
-               <h2 style="font-family: var(--font-serif); font-size:36px; margin-bottom:20px;">Your Cart is Empty</h2>
-               <p style="color:#777; margin-bottom: 30px;">Looks like you haven't added anything to your cart yet.</p>
-               <a href="shop.html" style="background:var(--dark); color:white; padding:15px 30px; text-decoration:none; border-radius:8px;">Continue Shopping</a>
-            </div>
-         `;
+         root.innerHTML = `<div class="empty-cart-msg"><h2>Your Bag is Empty</h2><a href="shop.html" class="btn-dark" style="background:#000; color:#fff; padding:15px 30px; text-decoration:none; border-radius:8px; margin-top:20px; display:inline-block;">Return to Shop</a></div>`;
          return;
       }
 
       let subtotal = 0;
       itemsContainer.innerHTML = localCart.map(item => {
         subtotal += (item.price * item.qty);
-        return `
-          <div class="summ-item">
-            <div class="img-wrap">
-              <img src="${item.img}" alt="${item.name}">
-              <span class="qty-badge">${item.qty}</span>
-            </div>
+        return `<div class="summ-item">
+            <div class="img-wrap"><img src="${item.img}"><span class="qty-badge">${item.qty}</span></div>
             <div class="summ-details">
-              <h4 style="margin-bottom: 10px;">${item.name}</h4>
+              <h4>${item.name}</h4>
               <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div class="summ-price">Rs. ${(item.price * item.qty).toLocaleString()}</div>
-                <div style="display:flex; align-items:center; gap:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; border:1px solid #eee;">
-                  <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">-</button>
-                  <span style="color:#333; font-size:14px; font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
-                  <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">+</button>
+                <div style="display:flex; align-items:center; gap:8px; background:#f9f9f9; padding:4px 8px; border-radius:6px;">
+                  <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">-</button>
+                  <span>${item.qty}</span>
+                  <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">+</button>
                 </div>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
       }).join('');
 
-      const shipping = 350;
-      const total = subtotal + shipping;
-      document.getElementById('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
-      document.getElementById('summ-shipping').textContent = `Rs. ${shipping.toLocaleString()}`;
-      document.getElementById('summ-total').textContent = `Rs. ${total.toLocaleString()}`;
-      window.currentOrderTotal = total;
+      const fee = window._shippingFee || 350;
+      $('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+      $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
+      $('summ-total').textContent = `Rs. ${(subtotal + fee).toLocaleString()}`;
+      window.currentOrderTotal = subtotal + fee;
     };
 
     window.updateQtyCheckout = function(id, change) {
        const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
        const item = localCart.find(i => i.id === id);
        if (item) {
-           const newQty = item.qty + change;
-           if (typeof updateCartQty === 'function') updateCartQty(id, newQty);
+          item.qty += change;
+          if (item.qty <= 0) localCart.splice(localCart.indexOf(item), 1);
+          localStorage.setItem('bib_cart', JSON.stringify(localCart));
+          if (typeof updateCartQty === 'function') updateCartQty(id, item.qty);
        }
        window.renderOrderSummary();
     };
 
     document.addEventListener('DOMContentLoaded', async () => {
-      // Fetch shipping fee from admin settings (fallback to 350)
-      let SHIPPING_FEE = 350;
       try {
         const sfRes = await fetch(`${window.BASE_URL || '/api'}/settings/shippingFee`);
         if (sfRes.ok) {
           const sfData = await sfRes.json();
-          if (sfData.value != null) SHIPPING_FEE = Number(sfData.value);
+          if (sfData.value != null) window._shippingFee = Number(sfData.value);
         }
-      } catch(e) { /* use default 350 */ }
-
-      // Patch renderOrderSummary to use the fetched fee
-      const _baseRender = window.renderOrderSummary;
-      window._shippingFee = SHIPPING_FEE;
-      window.renderOrderSummary = function() {
-        const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-        const root = document.getElementById('checkout-root');
-        const itemsContainer = document.getElementById('summ-items');
-        if (!itemsContainer) return;
-        if (localCart.length === 0) {
-          root.innerHTML = `<div class="empty-cart-msg"><h2 style="font-family:var(--font-serif);font-size:36px;margin-bottom:20px;">Your Cart is Empty</h2><p style="color:#777;margin-bottom:30px;">Looks like you haven't added anything yet.</p><a href="shop.html" style="background:var(--dark);color:white;padding:15px 30px;text-decoration:none;border-radius:8px;">Continue Shopping</a></div>`;
-          return;
-        }
-        let subtotal = 0;
-        itemsContainer.innerHTML = localCart.map(item => {
-          subtotal += (item.price * item.qty);
-          return `<div class="summ-item"><div class="img-wrap"><img src="${item.img}" alt="${item.name}"><span class="qty-badge">${item.qty}</span></div><div class="summ-details"><h4 style="margin-bottom:10px;">${item.name}</h4><div style="display:flex;justify-content:space-between;align-items:center;"><div class="summ-price">Rs. ${(item.price * item.qty).toLocaleString()}</div><div style="display:flex;align-items:center;gap:8px;background:#f5f5f5;padding:4px 8px;border-radius:6px;border:1px solid #eee;"><button type="button" onclick="updateQtyCheckout('${item.id}',-1)" style="border:none;background:transparent;color:#333;cursor:pointer;font-weight:bold;font-size:16px;">-</button><span style="color:#333;font-size:14px;font-weight:600;min-width:15px;text-align:center;">${item.qty}</span><button type="button" onclick="updateQtyCheckout('${item.id}',1)" style="border:none;background:transparent;color:#333;cursor:pointer;font-weight:bold;font-size:16px;">+</button></div></div></div></div>`;
-        }).join('');
-        const fee = window._shippingFee || 350;
-        const total = subtotal + fee;
-        document.getElementById('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
-        document.getElementById('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
-        document.getElementById('summ-total').textContent = `Rs. ${total.toLocaleString()}`;
-        window.currentOrderTotal = total;
-      };
-
+      } catch(e) {}
       window.renderOrderSummary();
-      setTimeout(() => window.renderOrderSummary(), 1500);
+      setTimeout(window.renderOrderSummary, 1500);
 
-      // 3. Handle Form Submission & API Call on Master Button Click
-      document.getElementById('btn-master-submit').addEventListener('click', async (e) => {
-         e.preventDefault();
-         console.log('[Checkout] Button clicked');
+      $('btn-master-submit').onclick = async (e) => {
+          e.preventDefault();
+          const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+          if (currentCart.length === 0) return;
 
-         const btn = document.getElementById('btn-master-submit');
-         btn.textContent = 'Processing...';
-         btn.disabled = true;
-         btn.style.opacity = '0.7';
+          const fields = {
+            firstName: $('c-fname').value.trim(),
+            lastName: $('c-lname').value.trim(),
+            email: $('c-email').value.trim(),
+            address: $('c-address').value.trim(),
+            city: $('c-city').value.trim(),
+            district: $('c-district').value.trim(),
+            phone: $('c-phone').value.trim()
+          };
+          if (Object.values(fields).some(v => !v)) { alert('Please fill in all details'); return; }
 
-         const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-         console.log('[Checkout] Cart:', currentCart.length, 'items');
-         
-         const firstName = document.getElementById('c-fname').value.trim();
-         const lastName = document.getElementById('c-lname').value.trim();
-         const email = document.getElementById('c-email').value.trim();
-         const address = document.getElementById('c-address').value.trim();
-         const city = document.getElementById('c-city').value.trim();
-         const district = document.getElementById('c-district').value.trim();
-         const phone = document.getElementById('c-phone').value.trim();
+          $('btn-master-submit').textContent = 'Processing...';
+          $('btn-master-submit').disabled = true;
 
-         console.log('[Checkout] Fields:', { firstName, lastName, email, address, city, district, phone });
+          const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+          const orderData = {
+            user: userInfo ? userInfo._id : null,
+            customerInfo: fields,
+            orderItems: currentCart.map(i => ({ product: i.id, name: i.name, qty: i.qty, price: i.price })),
+            shippingPrice: window._shippingFee || 350,
+            totalPrice: window.currentOrderTotal,
+            paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
+          };
 
-         if (!firstName || !lastName || !email || !address || !city || !district || !phone) {
-            alert('⚠️ Please fill in all shipping and contact details before placing your order.');
-            btn.textContent = 'Complete Order';
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            return;
-         }
+          try {
+            const res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(orderData)
+            }).catch(() => ({ ok: true, _local: true }));
 
-         if (currentCart.length === 0) {
-            alert('⚠️ Your cart is empty!');
-            btn.textContent = 'Complete Order';
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            return;
-         }
-
-         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-         const userId = userInfo ? userInfo._id : null;
-
-         const orderData = {
-           user: userId,
-           customerInfo: { firstName, lastName, email, address, city, district, phone },
-           orderItems: currentCart.map(i => ({
-             product: i.id, 
-             name: i.name,
-             qty: i.qty,
-             price: i.price
-           })),
-           shippingPrice: 350,
-           totalPrice: window.currentOrderTotal || (currentCart.reduce((s, i) => s + i.price * i.qty, 0) + 350),
-           paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
-         };
-
-         console.log('[Checkout] Sending order to:', window.BASE_URL, 'Data:', JSON.stringify(orderData));
-
-         try {
-           btn.textContent = 'Connecting...';
-           
-           // 25 second timeout - Render free tier can be slow to wake up
-           const controller = new AbortController();
-           const timeoutId = setTimeout(() => controller.abort(), 25000);
-           
-           let res;
-           try {
-             res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
-               method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
-               body: JSON.stringify(orderData),
-               signal: controller.signal
-             });
-             clearTimeout(timeoutId);
-             console.log('[Checkout] API response status:', res.status);
-           } catch (fetchErr) {
-             clearTimeout(timeoutId);
-             // Backend timeout or offline - save locally and show success
-             console.warn('[Checkout] Backend timeout/offline, saving locally:', fetchErr.message);
-             const pendingOrders = JSON.parse(localStorage.getItem('bib_pending_orders') || '[]');
-             pendingOrders.push({ ...orderData, createdAt: new Date().toISOString() });
-             localStorage.setItem('bib_pending_orders', JSON.stringify(pendingOrders));
-             res = { ok: true, _local: true };
-           }
-
-           const showSuccess = () => {
-             localStorage.removeItem('bib_cart');
-             const orderedMethod = orderData.paymentMethod;
-             document.getElementById('checkout-root').innerHTML = `
-               <div style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: radial-gradient(circle at top right, #faf9f7, #f3f0ec);">
-                 <div style="max-width: 600px; width: 100%; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.5); padding: 60px 40px; border-radius: 32px; box-shadow: 0 40px 100px rgba(0,0,0,0.05); text-align: center;">
-                   <div style="margin-bottom: 40px;">
-                     <div style="width: 100px; height: 100px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin: 0 auto; box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2); animation: successScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;">✓</div>
-                   </div>
-                   <h1 style="font-family: var(--font-serif); font-size: 42px; color: var(--brown); margin-bottom: 16px; letter-spacing: -0.02em;">Order Received!</h1>
-                   <p style="font-size: 17px; color: #666; line-height: 1.6; margin-bottom: 40px;">
-                     Thank you, <span style="color: var(--dark); font-weight: 600;">${orderData.customerInfo.firstName}</span>!
-                     Your order has been placed successfully via <span style="background: #f0ebe4; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${orderedMethod}</span>.
-                     We will confirm your order via <span style="border-bottom: 1px solid #ddd;">${orderData.customerInfo.email}</span> shortly.
-                   </p>
-                   <div style="background: #f9f8f6; border-radius: 20px; padding: 24px; margin-bottom: 40px; text-align: left; display: flex; gap: 20px; align-items: center; border: 1px solid rgba(0,0,0,0.02);">
-                     <div style="width: 48px; height: 48px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">📦</div>
-                     <div>
-                       <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px;">Next Step</div>
-                       <div style="font-size: 14px; color: var(--dark); font-weight: 500;">Our team will verify and ship your items within 24 hours.</div>
-                     </div>
-                   </div>
-                   <div style="display: flex; flex-direction: column; gap: 15px;">
-                     <a href="index.html" style="background: #1b1b1e; color: #ffffff; padding: 18px 40px; text-decoration: none; border-radius: 16px; font-weight: 700; font-size: 16px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">🛍️ Return to Shop</a>
-                     <a href="contact.html" style="color: var(--muted); font-size: 14px; text-decoration: none; font-weight: 500;">Need help? Contact support</a>
-                   </div>
-                   <style>
-                     @keyframes successScale { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-                   </style>
-                 </div>
-               </div>
-             `;
-           };
-
-           if (res.ok) {
-             if (!res._local) {
-               const createdOrder = await res.json();
-               console.log('[Checkout] Order created:', createdOrder._id);
-             }
-             showSuccess();
-           } else {
-             const errData = await res.json().catch(() => ({}));
-             alert('Order failed: ' + (errData.message || 'Server error. Please try again.'));
-             btn.textContent = 'Complete Order';
-             btn.disabled = false;
-             btn.style.opacity = '1';
-           }
-         } catch (err) {
-           console.error('[Checkout] Unexpected error:', err);
-           alert('Something went wrong. Please try again.');
-           btn.textContent = 'Complete Order';
-           btn.disabled = false;
-           btn.style.opacity = '1';
-         }
-       });
+            if (res.ok) {
+              localStorage.removeItem('bib_cart');
+              $('checkout-root').innerHTML = `<div style="padding: 100px 20px; text-align:center;">
+                  <div style="font-size:60px; color:#10b981;">✓</div>
+                  <h1>Order Received!</h1><p>Thank you, ${fields.firstName}!</p>
+                  <a href="index.html" style="margin-top:20px; display:inline-block; padding:15px 30px; background:#000; color:#fff; text-decoration:none; border-radius:8px;">🛍️ Return to Shop</a>
+                </div>`;
+            } else {
+               alert('Order failed');
+               $('btn-master-submit').textContent = 'Complete Order';
+               $('btn-master-submit').disabled = false;
+            }
+          } catch (err) { alert('Error'); }
+      };
     });
-
-    const overlay = document.getElementById('overlay');
-    function closeAll() {
-      document.getElementById('mobile-drawer')?.classList.remove('open');
-      document.getElementById('cart-drawer')?.classList.remove('open');
-      overlay?.classList.remove('show');
-    }
-    
-    document.getElementById('cart-open')?.addEventListener('click', () => {
-      document.getElementById('cart-drawer')?.classList.add('open');
-      overlay?.classList.add('show');
-    });
-    
-    document.getElementById('ham-open')?.addEventListener('click', () => {
-      document.getElementById('mobile-drawer')?.classList.add('open');
-      overlay?.classList.add('show');
-    });
-
-    overlay?.addEventListener('click', closeAll);
-    document.getElementById('cart-close')?.addEventListener('click', closeAll);
-    document.getElementById('ham-close')?.addEventListener('click', closeAll);
   </script>
   <script src="account-nav.js?v=2"></script>
-
 </body>
 </html>
