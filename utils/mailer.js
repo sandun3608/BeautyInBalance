@@ -1,23 +1,18 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
-    // 1) Create a transporter
-    // Forced IPv4 (family: 4) to bypass IPv6 connection issues on Render
+    // Final attempt with Port 465 and IPv4
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, 
+        port: 465,
+        secure: true, // SSL/TLS
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
-        family: 4, // Force IPv4
-        tls: {
-            rejectUnauthorized: false
-        }
+        family: 4 // Force IPv4
     });
 
-    // 2) Define the email options
     const mailOptions = {
         from: `Beauty in Balance <${process.env.EMAIL_USER}>`,
         to: options.email,
@@ -26,7 +21,6 @@ const sendEmail = async (options) => {
         html: options.html,
     };
 
-    // 3) Actually send the email
     await transporter.sendMail(mailOptions);
 };
 
