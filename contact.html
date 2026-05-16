@@ -567,10 +567,16 @@
   <script>
      const contactForm = document.getElementById('contact-form');
      const successState = document.getElementById('success-state');
+     const submitBtn = document.getElementById('submit-trigger');
 
      contactForm.addEventListener('submit', async (e) => {
        e.preventDefault();
        
+       // Visual feedback
+       const originalBtnText = submitBtn.textContent;
+       submitBtn.textContent = 'Sending...';
+       submitBtn.disabled = true;
+
        const formData = {
          name: document.getElementById('fname').value + ' ' + document.getElementById('lname').value,
          email: document.getElementById('email').value,
@@ -579,26 +585,29 @@
        };
 
        try {
-         const response = await fetch(`${window.BASE_URL || 'http://localhost:5000/api'}/inquiries`, {
+         const response = await fetch(`${window.BASE_URL || '/api'}/inquiries`, {
            method: 'POST',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(formData)
          });
 
          if (response.ok) {
-           contactForm.reset(); // Clear the form data
-           // Simple animation transition
+           contactForm.reset(); 
            gsap.to(contactForm, { opacity: 0, y: -20, duration: 0.5, onComplete: () => {
              contactForm.style.display = 'none';
              successState.style.display = 'block';
              gsap.from(successState, { opacity: 0, y: 30, duration: 0.8 });
            }});
          } else {
-           alert("Failed to send message. Please try again.");
+           const err = await response.json();
+           alert("Failed to send: " + (err.message || "Please try again later."));
          }
        } catch (error) {
          console.error(error);
-         alert("Cannot connect to server.");
+         alert("Connection error. Please check your internet or try again.");
+       } finally {
+         submitBtn.textContent = originalBtnText;
+         submitBtn.disabled = false;
        }
      });
 

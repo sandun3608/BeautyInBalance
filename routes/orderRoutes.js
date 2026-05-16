@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
         // --- EMAIL NOTIFICATIONS (BACKGROUND) ---
         // We do NOT 'await' these so the user gets an immediate response
-        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        if (process.env.EMAIL_USER && (process.env.EMAIL_PASS || process.env.GOOGLE_CLIENT_ID)) {
             const sendEmail = require('../utils/mailer');
             const itemsList = createdOrder.orderItems.map(i => `<li>${i.qty}x ${i.name} - Rs. ${i.price.toLocaleString()}</li>`).join('');
             
