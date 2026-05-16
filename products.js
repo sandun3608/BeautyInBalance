@@ -632,7 +632,7 @@ function renderCart() {
     `).join('');
     
     const subtotal = getCartTotal();
-    const shipping = 350; 
+    const shipping = window._shippingFee !== undefined ? window._shippingFee : 350; 
     
     footerBox.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans);">
@@ -641,7 +641,7 @@ function renderCart() {
         </div>
         <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:14px; font-family:var(--font-sans);">
             <span style="color:#666;">Shipping</span>
-            <span style="font-weight:600; color:var(--brown);">Rs. 350</span>
+            <span style="font-weight:600; color:var(--brown);">Rs. ${shipping.toLocaleString()}</span>
         </div>
         <a href="checkout.html" style="display:block; text-align:center; background:var(--brown); color:#fff; padding:15px; border-radius:8px; text-decoration:none; font-family:var(--font-sans); font-weight:600; letter-spacing:0.05em; transition:0.3s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--brown)'">SECURE CHECKOUT &rarr;</a>
     `;
@@ -670,18 +670,39 @@ function renderCart() {
                 </div>
             `).join('');
 
+            const shipping = window._shippingFee !== undefined ? window._shippingFee : 350;
             standaloneSummary.innerHTML = `
                 <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
-                <div class="summary-row"><span>Delivery</span><span>Rs. 350</span></div>
-                <div class="summary-row total" style="font-weight:800; border-top:1px solid #eee; padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + 350).toLocaleString()}</span></div>
+                <div class="summary-row"><span>Delivery</span><span>Rs. ${shipping.toLocaleString()}</span></div>
+                <div class="summary-row total" style="font-weight:800; border-top:1px solid #eee; padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + shipping).toLocaleString()}</span></div>
             `;
         }
     }
 }
 window.renderCart = renderCart;
 
+// Fetch Global Settings (Shipping Fee)
+async function loadGlobalSettings() {
+    try {
+        const BASE = window.BASE_URL || '/api';
+        const res = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data.value !== undefined) {
+                window._shippingFee = Number(data.value);
+                console.log("Global shipping fee loaded:", window._shippingFee);
+                // Re-render cart if it was already rendered with default
+                if (typeof renderCart === 'function') renderCart();
+            }
+        }
+    } catch (e) {
+        console.warn("Failed to load global settings:", e);
+    }
+}
+
 // Call initially
 document.addEventListener('DOMContentLoaded', () => {
+    loadGlobalSettings();
     setTimeout(renderCart, 200);
 });
 
