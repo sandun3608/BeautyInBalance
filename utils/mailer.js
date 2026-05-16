@@ -1,16 +1,14 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
-    // Final attempt with Port 465 and IPv4
+    // Switching to SendGrid for better reliability on Render
+    // We will use the API Key provided by SendGrid
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // SSL/TLS
+        service: 'SendGrid',
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-        family: 4 // Force IPv4
+            user: 'apikey', // This is ALWAYS 'apikey' for SendGrid
+            pass: process.env.SENDGRID_API_KEY, // Your SendGrid API Key
+        }
     });
 
     const mailOptions = {
