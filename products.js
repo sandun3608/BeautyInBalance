@@ -869,10 +869,79 @@ window.updateMobileNavCategories = function(products) {
     });
 };
 
-// ── GLOBAL SEARCH VALUE SYNC AND REDIRECTION ──
+// ── LIVE SEARCH DROPDOWN ──
+function highlightMatch(text, query) {
+    if (!query) return text;
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+}
+
+function buildSearchDropdown(inputEl, dropdownId) {
+    // Remove existing dropdown
+    const old = document.getElementById(dropdownId);
+    if (old) old.remove();
+
+    const query = (inputEl.value || '').trim().toLowerCase();
+    if (query.length < 1) return;
+
+    const products = window.productsData || defaultProducts;
+    const matched = products.filter(p => {
+        const fields = [p.name, p.brand, p.filter, p.cat, p.desc].join(' ').toLowerCase();
+        return fields.includes(query);
+    }).slice(0, 7);
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'search-results-dropdown';
+    dropdown.id = dropdownId;
+
+    if (matched.length === 0) {
+        dropdown.innerHTML = `<div class="srd-empty">No products found for "<strong>${query}</strong>"</div>`;
+    } else {
+        const header = document.createElement('div');
+        header.className = 'srd-header';
+        header.textContent = `Results (${matched.length})`;
+        dropdown.appendChild(header);
+
+        matched.forEach(prod => {
+            const item = document.createElement('a');
+            item.className = 'srd-item';
+            item.href = `product.html?id=${prod.id}`;
+
+            const catName = (prod.cat || 'others').toLowerCase() === 'ordinary' ? 'The Ordinary'
+                          : (prod.cat || 'others').toLowerCase() === 'cerave'   ? 'CeraVe'
+                          : (prod.cat || '').toUpperCase();
+
+            item.innerHTML = `
+                <img class="srd-img" src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}" onerror="this.src='images/placeholder.png'">
+                <div class="srd-info">
+                    <div class="srd-name">${highlightMatch(prod.name, query)}</div>
+                    <div class="srd-meta">${catName}</div>
+                </div>
+                <div class="srd-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
+            `;
+            dropdown.appendChild(item);
+        });
+
+        const viewAll = document.createElement('a');
+        viewAll.className = 'srd-view-all';
+        viewAll.href = `shop.html?q=${encodeURIComponent(query)}`;
+        viewAll.textContent = `View all results →`;
+        dropdown.appendChild(viewAll);
+    }
+
+    // Attach dropdown to the parent of the input
+    const anchor = inputEl.closest('.search-inner, .m-search-inner, .search-drop, .mobile-search-bar') || inputEl.parentNode;
+    anchor.style.position = 'relative';
+    anchor.appendChild(dropdown);
+}
+
+function closeAllSearchDropdowns() {
+    document.querySelectorAll('.search-results-dropdown').forEach(d => d.remove());
+}
+
 window.setupGlobalSearch = function() {
     const isShopPage = window.location.pathname.includes('shop.html');
-    
+
     if (isShopPage) {
         // Sync URL search query to the input fields on the shop page on load
         const urlParams = new URLSearchParams(window.location.search);
@@ -883,26 +952,58 @@ window.setupGlobalSearch = function() {
             if (searchInp) searchInp.value = q;
             if (mSearchInp) mSearchInp.value = q;
         }
-    } else {
-        // On non-shop pages, redirect search inputs to shop.html?q=query on Enter keypress
-        const handleSearchRedirect = (e) => {
-            if (e.key === 'Enter') {
-                const query = e.target.value.trim();
-                if (query) {
-                    window.location.href = `shop.html?q=${encodeURIComponent(query)}`;
-                }
-            }
-        };
-
-        const searchInp = document.getElementById('search-inp');
-        const mSearchInp = document.getElementById('m-search-inp-top');
-        if (searchInp) {
-            searchInp.addEventListener('keydown', handleSearchRedirect);
-        }
-        if (mSearchInp) {
-            mSearchInp.addEventListener('keydown', handleSearchRedirect);
-        }
+        // No dropdown needed on shop page — it has its own filter
+        return;
     }
+
+    // ── DESKTOP SEARCH BAR ──
+    const searchInp = document.getElementById('search-inp');
+    if (searchInp) {
+        searchInp.addEventListener('input', () => {
+            buildSearchDropdown(searchInp, 'srd-desktop');
+        });
+        searchInp.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const q = searchInp.value.trim();
+                if (q) window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+            }
+            if (e.key === 'Escape') closeAllSearchDropdowns();
+        });
+        searchInp.addEventListener('focus', () => {
+            if (searchInp.value.trim().length > 0) {
+                buildSearchDropdown(searchInp, 'srd-desktop');
+            }
+        });
+    }
+
+    // ── MOBILE SEARCH BAR ──
+    const mSearchInp = document.getElementById('m-search-inp-top');
+    if (mSearchInp) {
+        mSearchInp.addEventListener('input', () => {
+            buildSearchDropdown(mSearchInp, 'srd-mobile');
+        });
+        mSearchInp.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const q = mSearchInp.value.trim();
+                if (q) window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+            }
+            if (e.key === 'Escape') closeAllSearchDropdowns();
+        });
+        mSearchInp.addEventListener('focus', () => {
+            if (mSearchInp.value.trim().length > 0) {
+                buildSearchDropdown(mSearchInp, 'srd-mobile');
+            }
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-results-dropdown') &&
+            !e.target.closest('#search-inp') &&
+            !e.target.closest('#m-search-inp-top')) {
+            closeAllSearchDropdowns();
+        }
+    });
 };
 
 // ── DOM LOAD INITIALIZATION ──
