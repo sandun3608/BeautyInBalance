@@ -1017,7 +1017,21 @@
         const pName = (p.name || '').toLowerCase();
 
         const brandMatch = brand === 'all' || pCat === brand;
-        const searchMatch = !search || pName.includes(search.toLowerCase());
+        let searchMatch = true;
+        if (search) {
+          const s = search.toLowerCase().trim();
+          const pDesc = (p.desc || p.description || '').toLowerCase();
+          
+          let brandName = '';
+          if (pCat === 'ordinary') brandName = 'the ordinary';
+          else if (pCat === 'cerave') brandName = 'cerave';
+          
+          searchMatch = pName.includes(s) || 
+                        pCat.includes(s) || 
+                        brandName.includes(s) || 
+                        pFilter.includes(s) || 
+                        pDesc.includes(s);
+        }
 
         let filterMatch = true;
         if (filter !== 'all') {

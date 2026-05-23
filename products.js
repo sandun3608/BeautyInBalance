@@ -377,7 +377,8 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
+            'updateMobileNavCategories'
         ];
         
         renderFuncs.forEach(funcName => {
@@ -397,7 +398,8 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
+            'updateMobileNavCategories'
         ];
         renderFuncs.forEach(fn => {
             if (typeof window[fn] === 'function') {
@@ -777,3 +779,133 @@ window.renderHomeAllProducts = function() {
         });
     });
 };
+
+// ── DYNAMIC MOBILE NAVIGATION DRAWER CATEGORIES ──
+window.updateMobileNavCategories = function(products) {
+    if (!products || !products.length) return;
+    
+    // Find the Categories label in the mobile nav
+    const labels = Array.from(document.querySelectorAll('.mobile-nav .nav-label, .drawer-content .nav-label'));
+    const catLabel = labels.find(el => el.textContent.trim().toLowerCase() === 'categories');
+    if (!catLabel) return;
+
+    const parent = catLabel.parentNode;
+    const siblings = Array.from(parent.children);
+    const catIndex = siblings.indexOf(catLabel);
+    
+    // Find where the next section label starts so we know where to stop
+    let nextLabelIndex = siblings.length;
+    for (let i = catIndex + 1; i < siblings.length; i++) {
+        if (siblings[i].classList.contains('nav-label')) {
+            nextLabelIndex = i;
+            break;
+        }
+    }
+
+    // Remove the old hardcoded static items
+    for (let i = nextLabelIndex - 1; i > catIndex; i--) {
+        parent.removeChild(siblings[i]);
+    }
+
+    // Extract unique brands (cat) and categories (filter) from our active database products
+    const brands = [...new Set(products.map(p => (p.cat || '').toLowerCase().trim()).filter(Boolean))];
+    const filters = [...new Set(products.map(p => (p.filter || '').toLowerCase().trim()).filter(Boolean))];
+
+    // Mappings for beautiful client-facing titles
+    const brandTitles = {
+        'ordinary': 'The Ordinary',
+        'cerave': 'CeraVe'
+    };
+
+    const filterTitles = {
+        'cleansers': 'Cleansers',
+        'serums': 'Serums & Hydration',
+        'moisturizers': 'Moisturizers',
+        'sunscreen': 'Sun Protection',
+        'acids': 'Acids & Exfoliants',
+        'retinoids': 'Retinoids',
+        'body': 'Body Care',
+        'targeted': 'Targeted Care',
+        'eye': 'Eye Care',
+        'lip': 'Lip Care',
+        'hair': 'Hair Care'
+    };
+
+    // Helper to insert item before the current next section label
+    const insertMenuItem = (url, text) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${url}">${text}</a>`;
+        
+        // Dynamically find the next nav-label to always insert right before it
+        const currentNextLabel = Array.from(parent.querySelectorAll('.nav-label')).find(el => {
+            return el.textContent.trim().toLowerCase() !== 'categories' && Array.from(parent.children).indexOf(el) > catIndex;
+        });
+        parent.insertBefore(li, currentNextLabel || null);
+    };
+
+    // 1. Add Brands
+    brands.forEach(b => {
+        const title = brandTitles[b] || (b.charAt(0).toUpperCase() + b.slice(1));
+        insertMenuItem(`shop.html?cat=${b}`, title);
+    });
+
+    // 2. Add Filters
+    filters.forEach(f => {
+        const title = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1));
+        insertMenuItem(`shop.html?filter=${f}`, title);
+    });
+};
+
+// ── GLOBAL SEARCH VALUE SYNC AND REDIRECTION ──
+window.setupGlobalSearch = function() {
+    const isShopPage = window.location.pathname.includes('shop.html');
+    
+    if (isShopPage) {
+        // Sync URL search query to the input fields on the shop page on load
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            const searchInp = document.getElementById('search-inp');
+            const mSearchInp = document.getElementById('m-search-inp-top');
+            if (searchInp) searchInp.value = q;
+            if (mSearchInp) mSearchInp.value = q;
+        }
+    } else {
+        // On non-shop pages, redirect search inputs to shop.html?q=query on Enter keypress
+        const handleSearchRedirect = (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value.trim();
+                if (query) {
+                    window.location.href = `shop.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        };
+
+        const searchInp = document.getElementById('search-inp');
+        const mSearchInp = document.getElementById('m-search-inp-top');
+        if (searchInp) {
+            searchInp.addEventListener('keydown', handleSearchRedirect);
+        }
+        if (mSearchInp) {
+            mSearchInp.addEventListener('keydown', handleSearchRedirect);
+        }
+    }
+};
+
+// ── DOM LOAD INITIALIZATION ──
+if (typeof document !== 'undefined') {
+    const runInitialization = () => {
+        // Run mobile nav categories instantly with existing defaultProducts so there's no layout jump
+        if (window.productsData) {
+            window.updateMobileNavCategories(window.productsData);
+        }
+        // Bind search setup
+        window.setupGlobalSearch();
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runInitialization);
+    } else {
+        runInitialization();
+    }
+}
