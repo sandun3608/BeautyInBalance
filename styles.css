@@ -8757,20 +8757,23 @@ body:not(.drawer-open) .floating-ig {
 }
 .live-search-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
   gap: 24px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .ls-card {
   display: flex;
   flex-direction: column;
   background: var(--white);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid var(--border);
+  width: 100%;
+  max-width: 200px;
 }
 .ls-card:hover {
   transform: translateY(-5px);
