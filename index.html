@@ -1321,14 +1321,8 @@
             const pid = p.id || p._id || '';
             const rawImg = p.img || (p.images && p.images[0]) || '';
             
-            // Fix image path rendering: only format if it's not a full HTTP URL
-            let formattedImg = rawImg;
-            if (rawImg && !rawImg.startsWith('http')) {
-              formattedImg = rawImg.split('/').map(part => {
-                let cleanPart = decodeURIComponent(part.replace(/%25/g, '%'));
-                return encodeURIComponent(cleanPart);
-              }).join('/');
-            }
+            // Use the image path directly as it is already formatted by products.js or works natively
+            const formattedImg = rawImg || 'favicon.png';
 
             return `
               <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
