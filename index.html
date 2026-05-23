@@ -1282,11 +1282,12 @@
       }
 
       // Map filters to specific skin tones for a curated feel
+      // Uses EXACT filter values from products.js
       const toneMap = {
-        'Fair Skin':   ['cleansers', 'sunscreen', 'moisturizers', 'face-oils'],
-        'Light Skin':  ['serums', 'eye-care', 'glow', 'dry'],
-        'Medium Skin': ['acids', 'targeted', 'acne', 'oily'],
-        'Dark Skin':   ['retinoids', 'bodycare', 'lip', 'anti-aging']
+        'Fair Skin':   ['cleansers', 'sunscreen', 'face-oils'],
+        'Light Skin':  ['serums', 'eye', 'glow', 'dry'],
+        'Medium Skin': ['acids', 'targeted'],
+        'Dark Skin':   ['retinoids', 'body', 'lip']
       };
 
       const allMappedFilters = Object.values(toneMap).flat();
