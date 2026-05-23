@@ -951,7 +951,7 @@ function buildSearchDropdown(inputEl, dropdownId) {
         dropdown.style.width = mobileWidth + 'px';
         dropdown.style.left = ((window.innerWidth - mobileWidth) / 2) + 'px';
     } else {
-        dropdown.style.top = (rect.bottom + 6) + 'px';
+        dropdown.style.top = (rect.bottom + 12) + 'px';
         dropdown.style.left = rect.left + 'px';
         dropdown.style.width = Math.max(rect.width, 320) + 'px';
     }
@@ -971,7 +971,7 @@ function buildSearchDropdown(inputEl, dropdownId) {
             dropdown.style.width = mobileWidth + 'px';
             dropdown.style.left = ((window.innerWidth - mobileWidth) / 2) + 'px';
         } else {
-            dropdown.style.top = (r.bottom + 6) + 'px';
+            dropdown.style.top = (r.bottom + 12) + 'px';
             dropdown.style.left = r.left + 'px';
             dropdown.style.width = Math.max(r.width, 320) + 'px';
         }
