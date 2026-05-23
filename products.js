@@ -369,7 +369,7 @@ async function fetchDatabaseProducts() {
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
             'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
-            'updateMobileNavCategories'
+            'updateMobileNavCategories', 'updateDesktopNavCategories'
         ];
         
         renderFuncs.forEach(funcName => {
@@ -390,7 +390,7 @@ async function fetchDatabaseProducts() {
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
             'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
-            'updateMobileNavCategories'
+            'updateMobileNavCategories', 'updateDesktopNavCategories'
         ];
         renderFuncs.forEach(fn => {
             if (typeof window[fn] === 'function') {
@@ -901,6 +901,44 @@ window.updateMobileNavCategories = function(products) {
     });
 };
 
+// ── DYNAMIC DESKTOP NAVIGATION DROPDOWN CATEGORIES ──
+window.updateDesktopNavCategories = function(products) {
+    if (!products || !products.length) return;
+
+    const shopDropMenu = Array.from(document.querySelectorAll('.nav-main .has-drop')).find(el => {
+      const link = el.querySelector('a');
+      return link && link.textContent.toLowerCase().includes('shop');
+    })?.querySelector('.drop-menu');
+    
+    if (!shopDropMenu) return;
+
+    // Extract unique active categories (filter) from active database products
+    const filters = [...new Set(products.map(p => (p.filter || '').toLowerCase().trim()).filter(Boolean))];
+
+    // Mappings for beautiful client-facing titles
+    const filterTitles = {
+        'cleansers': 'Cleansers',
+        'serums': 'Serums & Hydration',
+        'moisturizers': 'Moisturizers',
+        'sunscreen': 'Sun Protection',
+        'acids': 'Acids & Exfoliants',
+        'retinoids': 'Retinoids',
+        'body': 'Body Care',
+        'targeted': 'Targeted Care',
+        'eye': 'Eye Care',
+        'lip': 'Lip Care',
+        'hair': 'Hair Care'
+    };
+
+    let menuHTML = `<li><a href="shop.html">Shop All</a></li>`;
+    filters.forEach(f => {
+        const title = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1));
+        menuHTML += `<li><a href="shop.html?filter=${f}">${title}</a></li>`;
+    });
+
+    shopDropMenu.innerHTML = menuHTML;
+};
+
 // ── LIVE SEARCH DROPDOWN ──
 function highlightMatch(text, query) {
     if (!query) return text;
@@ -1097,6 +1135,7 @@ if (typeof document !== 'undefined') {
         // Run mobile nav categories instantly with existing defaultProducts so there's no layout jump
         if (window.productsData) {
             window.updateMobileNavCategories(window.productsData);
+            window.updateDesktopNavCategories(window.productsData);
         }
         // Bind search setup
         window.setupGlobalSearch();
