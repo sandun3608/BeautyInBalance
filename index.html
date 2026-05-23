@@ -1281,40 +1281,59 @@
         return;
       }
 
+      // Map filters to specific skin tones for a curated feel
       const toneMap = {
-        'Fair Skin':   ['glow', 'serums', 'eye'],
-        'Light Skin':  ['serums', 'dry', 'cleansers'],
-        'Medium Skin': ['retinoids', 'acids', 'body'],
-        'Dark Skin':   ['acids', 'targeted', 'lip']
+        'Fair Skin':   ['cleansers', 'sunscreen', 'moisturizers', 'face-oils'],
+        'Light Skin':  ['serums', 'eye-care', 'glow', 'dry'],
+        'Medium Skin': ['acids', 'targeted', 'acne', 'oily'],
+        'Dark Skin':   ['retinoids', 'bodycare', 'lip', 'anti-aging']
       };
 
-      const filters = toneMap[shadeName] || [];
-      let items = allProducts.filter(p => filters.includes(p.filter));
+      const allMappedFilters = Object.values(toneMap).flat();
+      const shadeIndex = ['Fair Skin', 'Light Skin', 'Medium Skin', 'Dark Skin'].indexOf(shadeName);
+
+      // Filter products: either explicitly mapped, or assigned via hash if their filter is unknown
+      let items = allProducts.filter(p => {
+        const cat = toneMap[shadeName] || [];
+        const f = (p.filter || '').toLowerCase();
+        
+        if (cat.includes(f)) return true;
+        
+        // Distribute unmapped products evenly across the 4 shades
+        if (!allMappedFilters.includes(f)) {
+            const hash = Array.from(p._id || p.id || p.name || '').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            return (hash % 4) === Math.max(0, shadeIndex);
+        }
+        return false;
+      });
       
-      // Fallback if no matching products
+      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
+      items = items.sort(() => 0.5 - Math.random());
+
       if (items.length === 0) {
-        items = allProducts.sort(() => 0.5 - Math.random()).slice(0, 4);
-      } else {
-        items = items.sort(() => 0.5 - Math.random()).slice(0, 4);
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
+        return;
       }
 
       grid.innerHTML = `
-        <div class="ps-inner-grid">
+        <div class="ps-inner-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
           ${items.map(p => {
             const pid = p.id || p._id || '';
             const rawImg = p.img || (p.images && p.images[0]) || '';
             
-            // Helper to handle spaces and encoding in paths
-            const formattedImg = rawImg.split('/').map(part => {
-              // Replace double-encoded %25 back to % first if it exists, then encode sparingly
-              let cleanPart = decodeURIComponent(part.replace(/%25/g, '%'));
-              return encodeURIComponent(cleanPart);
-            }).join('/');
+            // Fix image path rendering: only format if it's not a full HTTP URL
+            let formattedImg = rawImg;
+            if (rawImg && !rawImg.startsWith('http')) {
+              formattedImg = rawImg.split('/').map(part => {
+                let cleanPart = decodeURIComponent(part.replace(/%25/g, '%'));
+                return encodeURIComponent(cleanPart);
+              }).join('/');
+            }
 
             return `
               <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
                 <div class="ps-prod-img">
-                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='images/placeholder.jpg'">
+                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'">
                 </div>
                 <div class="ps-prod-info">
                   <p class="ps-prod-name">${p.name}</p>
