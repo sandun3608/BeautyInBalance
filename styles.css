@@ -7846,6 +7846,12 @@ main {
     visibility: hidden !important;
   }
 
+  body.search-active .mobile-search-bar {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
   /* Removed conflicting drawer upgrade block to preserve new luxury design */
 
   .drawer-top {

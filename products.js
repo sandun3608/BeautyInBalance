@@ -882,7 +882,12 @@ function buildSearchDropdown(inputEl, dropdownId) {
     if (old) old.remove();
 
     const query = (inputEl.value || '').trim().toLowerCase();
-    if (query.length < 1) return;
+    if (query.length < 1) {
+        closeAllSearchDropdowns();
+        return;
+    }
+
+    document.body.classList.add('search-active');
 
     const products = window.productsData || defaultProducts;
     const matched = products.filter(p => {
@@ -973,6 +978,7 @@ function closeAllSearchDropdowns() {
         if (typeof d._cleanup === 'function') d._cleanup();
         d.remove();
     });
+    document.body.classList.remove('search-active');
 }
 
 window.setupGlobalSearch = function() {
