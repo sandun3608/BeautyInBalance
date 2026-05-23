@@ -392,6 +392,7 @@
           <div class="summ-items" id="summ-items"></div>
           <div class="summ-totals">
             <div class="summ-row"><span>Subtotal</span><span id="summ-subtotal">Rs. 0</span></div>
+            <div class="summ-row" id="summ-discount-row" style="display: none; color: #c92c2c;"><span>Discount</span><span id="summ-discount">-Rs. 0</span></div>
             <div class="summ-row"><span>Shipping</span><span id="summ-shipping">Rs. 350</span></div>
             <div class="summ-row total"><span>Total</span><span id="summ-total">Rs. 0</span></div>
           </div>
@@ -446,18 +447,35 @@
          return;
       }
 
-      let subtotal = 0;
+      let originalSubtotal = 0;
+      let discountedSubtotal = 0;
+      let totalDiscount = 0;
+
       itemsContainer.innerHTML = localCart.map(item => {
-        subtotal += (item.price * item.qty);
+        const discount = Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        
+        originalSubtotal += (item.price * item.qty);
+        discountedSubtotal += (discountedPrice * item.qty);
+        totalDiscount += ((item.price - discountedPrice) * item.qty);
+
+        const priceHTML = discount > 0 
+            ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans);">
+                 <span style="text-decoration:line-through; color:#999; font-size:11px; font-weight:400; margin-bottom:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span style="color:#c92c2c; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="color:#2ec4b6; font-size:9.5px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-top:1px;">(${discount}% OFF)</span>
+               </div>`
+            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:var(--dark);">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
+
         return `<div class="summ-item">
             <div class="img-wrap"><img src="${item.img}"><span class="qty-badge">${item.qty}</span></div>
             <div class="summ-details">
               <h4>${item.name}</h4>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div class="summ-price">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
+                ${priceHTML}
                 <div style="display:flex; align-items:center; gap:8px; background:#f9f9f9; padding:4px 8px; border-radius:6px;">
                   <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">-</button>
-                  <span>${item.qty}</span>
+                  <span style="font-family:var(--font-sans); font-size:13px; font-weight:600;">${item.qty}</span>
                   <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">+</button>
                 </div>
               </div>
@@ -466,10 +484,19 @@
       }).join('');
 
       const fee = window._shippingFee || 350;
-      $('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
+      $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
+      
+      const discountRow = $('summ-discount-row');
+      if (totalDiscount > 0) {
+        $('summ-discount').textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
+        discountRow.style.display = 'flex';
+      } else {
+        discountRow.style.display = 'none';
+      }
+
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
-      $('summ-total').textContent = `Rs. ${(subtotal + fee).toLocaleString()}`;
-      window.currentOrderTotal = subtotal + fee;
+      $('summ-total').textContent = `Rs. ${(discountedSubtotal + fee).toLocaleString()}`;
+      window.currentOrderTotal = discountedSubtotal + fee;
     };
 
     window.updateQtyCheckout = function(id, change) {
@@ -524,7 +551,11 @@
           const orderData = {
             user: userInfo ? userInfo._id : null,
             customerInfo: fields,
-            orderItems: currentCart.map(i => ({ product: i.id, name: i.name, qty: i.qty, price: i.price })),
+            orderItems: currentCart.map(i => {
+              const discount = Number(i.discount || 0);
+              const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
+              return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
+            }),
             shippingPrice: window._shippingFee || 450,
             totalPrice: window.currentOrderTotal,
             paymentMethod: document.querySelector('input[name="payment_method"]:checked').value

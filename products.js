@@ -504,11 +504,13 @@ function addToCart(prodId, qty = 1) {
     
     if (existing) {
         existing.qty += qtyInt;
+        existing.discount = product.discount || 0;
     } else {
         shoppingCart.push({
             id: product.id,
             name: product.name,
             price: product.price,
+            discount: product.discount || 0,
             img: product.img,
             qty: qtyInt
         });
@@ -548,7 +550,11 @@ function updateCartQty(prodId, newQty) {
 window.updateCartQty = updateCartQty;
 
 function getCartTotal() {
-    return shoppingCart.reduce((total, item) => total + (item.price * item.qty), 0);
+    return shoppingCart.reduce((total, item) => {
+        const discount = Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        return total + (discountedPrice * item.qty);
+    }, 0);
 }
 window.getCartTotal = getCartTotal;
 
@@ -609,12 +615,23 @@ function renderCart() {
     if (footerBox) footerBox.style.display = 'block';
     
     // Draw items
-    itemsContainer.innerHTML = shoppingCart.map(item => `
+    itemsContainer.innerHTML = shoppingCart.map(item => {
+        const discount = Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        const priceHTML = discount > 0 
+            ? `<div style="display:flex; flex-direction:column; gap:2px; font-family:var(--font-sans);">
+                 <span style="color:#999; font-size:11px; text-decoration:line-through;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span style="color:#c92c2c; font-size:13px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="color:#2ec4b6; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">(${discount}% OFF)</span>
+               </div>`
+            : `<span style="color:var(--gold); font-size:13px; font-weight:700;">Rs. ${(item.price * item.qty).toLocaleString()}</span>`;
+
+        return `
         <div style="display:flex; gap:15px; margin-bottom:20px; align-items:center;">
             <img src="${item.img}" style="width:70px; height:70px; object-fit:contain; background:#f9f9f9; border-radius:8px; border: 1px solid #eee;">
             <div style="flex-grow:1;">
                 <div style="font-size:14px; font-weight:600; font-family:var(--font-sans); color:var(--dark);">${item.name}</div>
-                <div style="color:var(--gold); font-size:13px; font-weight:700; margin-top:5px;">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+                <div style="margin-top:5px;">${priceHTML}</div>
             </div>
             <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
                 <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:#eee; color:#333; cursor:pointer; width:24px; height:24px; border-radius:4px;">+</button>
@@ -622,7 +639,8 @@ function renderCart() {
                 <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:#eee; color:#333; cursor:pointer; width:24px; height:24px; border-radius:4px;">-</button>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
     
     const subtotal = getCartTotal();
     const shipping = window._shippingFee !== undefined ? window._shippingFee : 450; 
@@ -648,12 +666,22 @@ function renderCart() {
             standaloneItems.innerHTML = '<div style="text-align:center; padding: 100px 0;"><h3>Your bag is empty</h3><a href="shop.html" style="color:var(--gold); text-decoration:underline;">Continue Shopping</a></div>';
             standaloneSummary.innerHTML = '';
         } else {
-            standaloneItems.innerHTML = shoppingCart.map(item => `
+            standaloneItems.innerHTML = shoppingCart.map(item => {
+                const discount = Number(item.discount || 0);
+                const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+                const priceHTML = discount > 0 
+                    ? `<div style="display:flex; flex-direction:column; gap:2px; font-family:var(--font-sans);">
+                         <span style="color:#999; font-size:11px; text-decoration:line-through;">Rs. ${(item.price).toLocaleString()}</span>
+                         <span style="color:#c92c2c; font-size:13px; font-weight:700;">Rs. ${(discountedPrice).toLocaleString()} <span style="color:#2ec4b6; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">(${discount}% OFF)</span></span>
+                       </div>`
+                    : `Rs. ${item.price.toLocaleString()}`;
+
+                return `
                 <div class="cart-item">
                     <div class="cart-item-img"><img src="${item.img}"></div>
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">Rs. ${item.price.toLocaleString()}</div>
+                        <div class="cart-item-price">${priceHTML}</div>
                         <div class="cart-item-qty">
                             <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})">-</span>
                             <span>${item.qty}</span>
@@ -661,7 +689,8 @@ function renderCart() {
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
             const shipping = window._shippingFee !== undefined ? window._shippingFee : 450;
             standaloneSummary.innerHTML = `
