@@ -187,7 +187,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-lash-brow-5',
-    name: 'Multi-Peptide Lash And Brow Serum (5ml)', price: 4800, cat: 'ordinary', filter: 'targeted', 
+    name: 'Multi-Peptide Lash And Brow Serum (5ml)', price: 4800, cat: 'ordinary', filter: 'haircare', 
     images: ['the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png'], img: 'the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png',
     desc: 'A specialized, non-greasy conditioning serum highly engineered to nourish and strengthen your natural lashes and brows. Formulated with four potent peptide complexes, botanical extracts, and active ingredients, it fortifies hair density, thickness, and overall health to give you noticeably fuller, voluminous, and lush lashes and brows in just a few weeks.',
     benefits: ['Enhances lash density', 'Thickens brows', 'Nourishing peptides'],
@@ -196,7 +196,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-hair-density-30',
-    name: 'Multi-Peptide Serum for Hair Density (30ml)', price: 3600, cat: 'ordinary', filter: 'targeted', 
+    name: 'Multi-Peptide Serum for Hair Density (30ml)', price: 3600, cat: 'ordinary', filter: 'haircare', 
     images: ['the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png'], img: 'the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png',
     desc: 'A revolutionary, ultra-lightweight hair care serum densely packed with revitalizing technologies including REDENSYL complex, Procapil peptide complex, and BAICAPIL in an ultra-penetrating emollient base. It explicitly supports blood circulation in the scalp, drastically reduces hair loss, and fosters incredibly thicker, denser, and healthier-looking hair.',
     benefits: ['Supports hair density', 'Promotes thicker hair', 'Nourishes scalp'],
@@ -205,7 +205,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-hair-density-60',
-    name: 'Multi-Peptide Serum for Hair Density (60ml)', price: 5800, cat: 'ordinary', filter: 'targeted', 
+    name: 'Multi-Peptide Serum for Hair Density (60ml)', price: 5800, cat: 'ordinary', filter: 'haircare', 
     images: ['the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png'], img: 'the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png',
     desc: 'The fantastic, high-capacity 60ml version of the beloved hair density serum. This lightweight formula utilizes highly advanced peptide complexes, caffeine, and exclusive botanical extracts in an alcohol-free base to deeply stimulate the hair follicles. By promoting a flourishing scalp environment, it efficiently builds visible, lasting hair thickness and fullness.',
     benefits: ['Supports hair density', 'Promotes thicker hair', 'Value size (60ml)'],
