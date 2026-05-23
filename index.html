@@ -157,11 +157,6 @@
         <input type="search" placeholder="Search for products..." id="m-search-inp-top">
       </div>
     </div>
-
-    <!-- Unified Live Search Results -->
-    <div id="live-search-results" class="live-search-results">
-        <div class="live-search-grid" id="live-search-grid"></div>
-    </div>
   </header>
 
   <div class="overlay" id="overlay"></div>
@@ -1431,61 +1426,6 @@
     });
 
     $('cart-close')?.addEventListener('click', closeAll);
-
-    /* ── LIVE SEARCH REALTIME FUNCTIONALITY ── */
-    function handleLiveSearch(e) {
-      const query = e.target.value.toLowerCase().trim();
-      const resultsContainer = document.getElementById('live-search-results');
-      const grid = document.getElementById('live-search-grid');
-      
-      // sync both inputs
-      const dSearch = document.getElementById('search-inp');
-      const mSearch = document.getElementById('m-search-inp-top');
-      if (dSearch && e.target !== dSearch) dSearch.value = e.target.value;
-      if (mSearch && e.target !== mSearch) mSearch.value = e.target.value;
-
-      if (!query) {
-        resultsContainer.classList.remove('active');
-        return;
-      }
-      
-      const allProducts = window.productsData || [];
-      const matches = allProducts.filter(p => p.name.toLowerCase().includes(query) || (p.category && p.category.toLowerCase().includes(query)));
-      
-      if (matches.length > 0) {
-        grid.innerHTML = matches.map(p => {
-          const pid = p.id || p._id || '';
-          let imgUrl = p.img || (p.images && p.images[0]) || '';
-          if(imgUrl) {
-            imgUrl = imgUrl.split('/').map(part => encodeURIComponent(decodeURIComponent(part.replace(/%25/g, '%')))).join('/');
-          }
-          return `
-            <div class="ls-card" onclick="location.href='product.html?id=${pid}'">
-              <div class="ls-img-wrap"><img src="${imgUrl}" alt="${p.name}"></div>
-              <div class="ls-info">
-                <div class="ls-name">${p.name}</div>
-                <div class="ls-price">Rs. ${p.price.toLocaleString()}</div>
-              </div>
-            </div>
-          `;
-        }).join('');
-      } else {
-        grid.innerHTML = `<div class="ls-empty">No products found matching "${query}"</div>`;
-      }
-      
-      resultsContainer.classList.add('active');
-    }
-
-    const dSearchInp = document.getElementById('search-inp');
-    const mSearchInp = document.getElementById('m-search-inp-top');
-    if (dSearchInp) dSearchInp.addEventListener('input', handleLiveSearch);
-    if (mSearchInp) mSearchInp.addEventListener('input', handleLiveSearch);
-
-    document.addEventListener('click', (e) => {
-       if (!e.target.closest('#search-drop') && !e.target.closest('#mobile-search-bar') && !e.target.closest('#live-search-results')) {
-          document.getElementById('live-search-results')?.classList.remove('active');
-       }
-    });
 
 
     // scroll behavior for mobile search bar

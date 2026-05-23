@@ -886,7 +886,7 @@ function buildSearchDropdown(inputEl, dropdownId) {
 
     const products = window.productsData || defaultProducts;
     const matched = products.filter(p => {
-        const fields = [p.name, p.brand, p.filter, p.cat, p.desc].join(' ').toLowerCase();
+        const fields = p.name.toLowerCase();
         return fields.includes(query);
     }).slice(0, 7);
 
