@@ -938,13 +938,17 @@ function buildSearchDropdown(inputEl, dropdownId) {
     // This avoids overflow:hidden clipping from any parent containers
     const rect = inputEl.getBoundingClientRect();
     dropdown.style.position = 'fixed';
-    dropdown.style.top = (rect.bottom + 6) + 'px';
     
     if (window.innerWidth <= 768) {
+        const mBar = inputEl.closest('.mobile-search-bar');
+        const containerRect = mBar ? mBar.getBoundingClientRect() : rect;
+        dropdown.style.top = (containerRect.bottom + 8) + 'px';
+        
         const mobileWidth = Math.min(window.innerWidth * 0.9, 340);
         dropdown.style.width = mobileWidth + 'px';
         dropdown.style.left = ((window.innerWidth - mobileWidth) / 2) + 'px';
     } else {
+        dropdown.style.top = (rect.bottom + 6) + 'px';
         dropdown.style.left = rect.left + 'px';
         dropdown.style.width = Math.max(rect.width, 320) + 'px';
     }
@@ -955,12 +959,16 @@ function buildSearchDropdown(inputEl, dropdownId) {
     // Reposition on scroll/resize
     const reposition = () => {
         const r = inputEl.getBoundingClientRect();
-        dropdown.style.top = (r.bottom + 6) + 'px';
         if (window.innerWidth <= 768) {
+            const mBar = inputEl.closest('.mobile-search-bar');
+            const containerRect = mBar ? mBar.getBoundingClientRect() : r;
+            dropdown.style.top = (containerRect.bottom + 8) + 'px';
+            
             const mobileWidth = Math.min(window.innerWidth * 0.9, 340);
             dropdown.style.width = mobileWidth + 'px';
             dropdown.style.left = ((window.innerWidth - mobileWidth) / 2) + 'px';
         } else {
+            dropdown.style.top = (r.bottom + 6) + 'px';
             dropdown.style.left = r.left + 'px';
             dropdown.style.width = Math.max(r.width, 320) + 'px';
         }

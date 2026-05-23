@@ -8747,7 +8747,6 @@ body:not(.drawer-open) .floating-ig {
 .srd-view-all:hover { background: #f2ece0; }
 
 /* Make search-drop and mobile-search-bar position:relative so dropdown positions correctly */
-.search-drop,
 .search-inner,
 .m-search-inner,
 .mobile-search-bar {
