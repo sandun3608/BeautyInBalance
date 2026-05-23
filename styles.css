@@ -8860,5 +8860,30 @@ body:not(.drawer-open) .floating-ig {
   .ls-price {
     font-size: 13px;
   }
+
+  /* Mobile Custom Styles for Search Dropdown */
+  .search-results-dropdown {
+    max-height: 350px !important;
+    border-radius: 12px !important;
+  }
+  .srd-item {
+    padding: 8px 12px !important;
+    gap: 10px !important;
+  }
+  .srd-img {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 8px !important;
+  }
+  .srd-name {
+    font-size: 12px !important;
+  }
+  .srd-price {
+    font-size: 12px !important;
+  }
+  .srd-view-all {
+    padding: 10px 12px !important;
+    font-size: 11px !important;
+  }
 }
 
