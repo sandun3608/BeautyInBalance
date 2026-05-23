@@ -159,15 +159,6 @@ const defaultProducts = [
   },
 
   { 
-    id: 'ord-ha-30',
-    name: 'Hyaluronic Acid 2% + B5 (30ml)', price: 4800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Hyaluronic Acid (30ml) Rs.4800.png'], img: 'the ordinary/Hyaluronic Acid (30ml) Rs.4800.png',
-    desc: 'An ultra-pure hydrating serum that intricately combines low, medium, and high-molecular-weight Hyaluronic Acid, alongside a next-generation HA crosspolymer at a collective 2% concentration. This exceptional system delivers intense, multi-depth hydration that plumps the skin instantly while Vitamin B5 enhances surface hydration and skin barrier restoration.',
-    benefits: ['Deep multi-depth Hydration', 'Plumps skin', 'Enriched with Vitamin B5'],
-    howToUse: 'Apply a few drops to face AM and PM before creams.',
-    authenticity: 'DECIEM Canada Original.'
-  },
-  { 
     id: 'ord-lactic-30',
     name: 'Lactic Acid 10% + HA (30ml)', price: 4700, cat: 'ordinary', filter: 'acids', 
     images: ['the ordinary/Lactic acid (30ml)  Rs.4700.png'], img: 'the ordinary/Lactic acid (30ml)  Rs.4700.png',
