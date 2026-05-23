@@ -840,7 +840,7 @@
           <span class="stat-label">Products</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">2</span>
+          <span class="stat-num" id="stat-brands">2</span>
           <span class="stat-label">Premium Brands</span>
         </div>
         <div class="stat-item">
@@ -1083,7 +1083,8 @@
     // ── FILTER LOGIC ──
     function getFilteredProducts(data, brand, filter, search) {
       return data.filter(p => {
-        const pCat = (p.cat || '').toLowerCase();
+        let pCat = (p.cat || '').toLowerCase().trim();
+        if (pCat === 'the ordinary' || pCat === 'ordinary') pCat = 'ordinary';
         const pFilter = (p.filter || '').toLowerCase();
         const pName = (p.name || '').toLowerCase();
 
@@ -1161,7 +1162,16 @@
       // Dynamically generate brand tabs based on data
       const brandTabsContainer = document.querySelector('.brand-tabs');
       if (brandTabsContainer && data.length > 0) {
-        const categories = [...new Set(data.map(p => (p.cat || 'others').toLowerCase()))];
+        const categories = [...new Set(data.map(p => {
+          let cat = (p.cat || 'others').toLowerCase().trim();
+          if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
+          return cat;
+        }))];
+        
+        if (document.getElementById('stat-brands')) {
+          document.getElementById('stat-brands').textContent = categories.length;
+        }
+
         let tabsHTML = `<button class="brand-tab ${currentBrand === 'all' ? 'active' : ''}" data-brand="all">All</button>`;
         categories.forEach(cat => {
             let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
@@ -1222,10 +1232,18 @@
         const browseMode = $('browse-mode');
         browseMode.innerHTML = '';
 
-        const categories = [...new Set(data.map(p => (p.cat || 'others').toLowerCase()))];
+        const categories = [...new Set(data.map(p => {
+          let cat = (p.cat || 'others').toLowerCase().trim();
+          if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
+          return cat;
+        }))];
 
         categories.forEach(cat => {
-            const catProducts = data.filter(p => (p.cat || 'others').toLowerCase() === cat);
+            const catProducts = data.filter(p => {
+              let pCat = (p.cat || 'others').toLowerCase().trim();
+              if (pCat === 'the ordinary' || pCat === 'ordinary') pCat = 'ordinary';
+              return pCat === cat;
+            });
             if(catProducts.length === 0) return;
 
             let catTitle = cat.toUpperCase();
