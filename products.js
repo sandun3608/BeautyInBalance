@@ -929,14 +929,36 @@ function buildSearchDropdown(inputEl, dropdownId) {
         dropdown.appendChild(viewAll);
     }
 
-    // Attach dropdown to the parent of the input
-    const anchor = inputEl.closest('.search-inner, .m-search-inner, .search-drop, .mobile-search-bar') || inputEl.parentNode;
-    anchor.style.position = 'relative';
-    anchor.appendChild(dropdown);
+    // Attach dropdown to BODY and position it absolutely based on the input's bounding rect
+    // This avoids overflow:hidden clipping from any parent containers
+    const rect = inputEl.getBoundingClientRect();
+    dropdown.style.position = 'fixed';
+    dropdown.style.top = (rect.bottom + 6) + 'px';
+    dropdown.style.left = rect.left + 'px';
+    dropdown.style.width = Math.max(rect.width, 320) + 'px';
+    dropdown.style.zIndex = '999999';
+    document.body.appendChild(dropdown);
+
+    // Reposition on scroll/resize
+    const reposition = () => {
+        const r = inputEl.getBoundingClientRect();
+        dropdown.style.top = (r.bottom + 6) + 'px';
+        dropdown.style.left = r.left + 'px';
+        dropdown.style.width = Math.max(r.width, 320) + 'px';
+    };
+    window.addEventListener('scroll', reposition, { passive: true });
+    window.addEventListener('resize', reposition, { passive: true });
+    dropdown._cleanup = () => {
+        window.removeEventListener('scroll', reposition);
+        window.removeEventListener('resize', reposition);
+    };
 }
 
 function closeAllSearchDropdowns() {
-    document.querySelectorAll('.search-results-dropdown').forEach(d => d.remove());
+    document.querySelectorAll('.search-results-dropdown').forEach(d => {
+        if (typeof d._cleanup === 'function') d._cleanup();
+        d.remove();
+    });
 }
 
 window.setupGlobalSearch = function() {
