@@ -327,26 +327,26 @@
       transform: scale(1.07);
     }
 
-    /* Brand badge on image */
-    .lux-brand-badge {
-      position: absolute;
-      top: 14px;
-      right: 14px;
+    /* Brand label — below image, above product name */
+    .lux-brand-label {
+      display: block;
+      text-align: center;
       font-size: 9px;
       font-weight: 800;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 3px 10px;
       border-radius: 4px;
-      z-index: 2;
+      margin: 0 auto 10px;
+      width: fit-content;
     }
 
-    .lux-brand-badge.ordinary {
+    .lux-brand-label.ordinary {
       background: #e31e24;
       color: #fff;
     }
 
-    .lux-brand-badge.cerave {
+    .lux-brand-label.cerave {
       background: #1a1a2e;
       color: #fff;
     }
@@ -471,20 +471,44 @@
       }
 
       .shop-toolbar {
-        padding: 0 16px;
-        top: 60px !important; /* Positioned below fixed header */
-        display: flex !important;
-        z-index: 99 !important; /* Below cart drawer and header */
+        padding: 0;
+        top: 60px !important;
+        display: block !important;
+        z-index: 99 !important;
       }
 
-      .brand-tabs {
-        padding-right: 16px;
-        margin-right: 12px;
+      .toolbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
       }
+
+      /* Brand tabs row — horizontally scrollable */
+      .brand-tabs {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(45,27,18,0.08);
+        padding: 0 16px;
+        margin-right: 0;
+        gap: 4px;
+      }
+
+      .brand-tabs::-webkit-scrollbar { display: none; }
 
       .brand-tab {
         font-size: 11px;
-        margin-right: 16px;
+        margin-right: 0;
+        padding: 12px 14px;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      /* Filter chips row */
+      .filter-chips-wrap {
+        padding: 8px 16px;
+        border-bottom: 1px solid rgba(45,27,18,0.05);
       }
 
       .shop-body {
@@ -551,22 +575,9 @@
         transition: none;
       }
 
-      .lux-brand-badge {
-        top: 8px !important;
-        right: 8px !important;
-        left: auto !important;
-        transform: none;
-        white-space: nowrap;
-        font-size: 8px;
-        padding: 4px 12px;
-        z-index: 15;
-      }
+      /* Brand label below image on mobile - no changes needed, inherits desktop style */
 
-      /* Still red brand as requested earlier */
-      .lux-brand-badge.ordinary {
-        background: #e31e24 !important;
-        color: #fff !important;
-      }
+      /* Brand label styling inherited from desktop */
 
       .lux-add-btn {
         position: absolute !important;
@@ -999,13 +1010,13 @@
       card.innerHTML = `
         <div class="lux-img" onclick="location.href='product.html?id=${p.id}'" style="position: relative;">
           ${discountBadge}
-          <span class="lux-brand-badge ${brandClass}">${brandLabel}</span>
           <img src="${imgSrc}" alt="${p.name}" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
           <button class="lux-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">
             + Add to Bag
           </button>
         </div>
         <div class="lux-body" onclick="location.href='product.html?id=${p.id}'">
+          <span class="lux-brand-label ${brandClass}">${brandLabel}</span>
           <div class="lux-name">${p.name}</div>
           <div class="lux-price-row">
             <span class="lux-price">${priceHTML}</span>
