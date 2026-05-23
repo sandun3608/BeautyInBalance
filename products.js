@@ -713,6 +713,19 @@ window.renderHomeAllProducts = function() {
     const grid = document.getElementById('hap-grid');
     if (!grid) return;
 
+    // If database fetch is not completed yet, show skeletons
+    if (!window.DB_FETCH_COMPLETED) {
+        grid.innerHTML = Array(8).fill(0).map(() => `
+          <div class="skeleton-card">
+            <div class="skeleton-element skeleton-img"></div>
+            <div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div>
+            <div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div>
+            <div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div>
+          </div>
+        `).join('');
+        return;
+    }
+
     // Dynamically generate tabs
     const tabsWrapper = document.querySelector('.hap-tabs');
     if (tabsWrapper && window.productsData && window.productsData.length > 0) {

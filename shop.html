@@ -1057,6 +1057,35 @@
     // ── RENDER PRODUCTS ──
     function renderShop() {
       const data = window.productsData || [];
+
+      // If database fetch is not completed yet, show skeletons
+      if (!window.DB_FETCH_COMPLETED) {
+        const isFiltered = currentFilter !== 'all' || currentBrand !== 'all' || currentSearch;
+        const skeletonHTML = Array(4).fill(0).map(() => `
+          <div class="skeleton-card">
+            <div class="skeleton-element skeleton-img"></div>
+            <div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div>
+            <div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div>
+            <div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div>
+            <div class="skeleton-element skeleton-button" style="margin-top: 10px;"></div>
+          </div>
+        `).join('');
+
+        if (isFiltered) {
+          $('browse-mode').style.display = 'none';
+          $('filtered-section').style.display = 'block';
+          const grid = $('filtered-grid');
+          if (grid) grid.innerHTML = skeletonHTML;
+        } else {
+          $('browse-mode').style.display = 'block';
+          $('filtered-section').style.display = 'none';
+          const gridOrdinary = $('grid-ordinary');
+          const gridCerave = $('grid-cerave');
+          if (gridOrdinary) gridOrdinary.innerHTML = skeletonHTML;
+          if (gridCerave) gridCerave.innerHTML = skeletonHTML;
+        }
+        return;
+      }
       
       // Dynamically generate brand tabs based on data
       const brandTabsContainer = document.querySelector('.brand-tabs');

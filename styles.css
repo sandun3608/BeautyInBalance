@@ -8527,4 +8527,66 @@ body:not(.drawer-open) .floating-ig {
     max-width: 100vw !important;
     position: relative;
   }
+}
+
+/* ===== SKELETON SHIMMER LOADERS ===== */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.skeleton-element {
+  background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+.skeleton-img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+}
+
+.skeleton-brand {
+  width: 40%;
+  height: 12px;
+  margin: 8px auto 0;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 16px;
+  margin: 6px auto 0;
+}
+
+.skeleton-price {
+  width: 50%;
+  height: 14px;
+  margin: 6px auto 0;
+}
+
+.skeleton-button {
+  width: 100%;
+  height: 38px;
+  border-radius: 40px;
+  margin-top: 10px;
 }
