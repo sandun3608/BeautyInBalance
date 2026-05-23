@@ -337,9 +337,11 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f7f3ef;
-  border-radius: 50px;
-  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--text);
+  border-radius: 0;
+  padding: 10px 0;
 }
 
 .m-search-inner input {
