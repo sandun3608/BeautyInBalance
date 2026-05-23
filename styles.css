@@ -350,7 +350,7 @@ img {
   outline: none;
   background: transparent;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 16px;
   color: var(--text);
 }
 
@@ -402,7 +402,7 @@ img {
   border: none;
   outline: none;
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text);
   background: transparent;
 }
@@ -5445,7 +5445,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   .m-search-box input {
     border: none !important;
     background: transparent !important;
-    font-size: 13px !important;
+    font-size: 16px !important;
     width: 100% !important;
     outline: none !important;
     color: var(--brown) !important;
@@ -7919,7 +7919,7 @@ main {
     border: none !important;
     background: transparent !important;
     width: 100% !important;
-    font-size: 13px !important;
+    font-size: 16px !important;
     font-weight: 500 !important;
     outline: none !important;
     color: #1a1a1a !important;
