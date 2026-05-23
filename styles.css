@@ -8734,4 +8734,115 @@ body:not(.drawer-open) .floating-ig {
 .mobile-search-bar {
   position: relative;
 }
+
+/* --- LIVE SEARCH RESULTS --- */
+.live-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: var(--white);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  z-index: 9999;
+  border-top: 1px solid var(--border);
+}
+.live-search-results.active {
+  max-height: 75vh;
+  padding: 40px;
+  overflow-y: auto;
+}
+.live-search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.ls-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border);
+}
+.ls-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gold);
+}
+.ls-img-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #fdfaf7;
+  padding: 20px;
+  position: relative;
+}
+.ls-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+.ls-card:hover .ls-img-wrap img {
+  transform: scale(1.08);
+}
+.ls-info {
+  padding: 20px;
+  text-align: center;
+  background: var(--white);
+}
+.ls-name {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+.ls-price {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.ls-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--muted);
+}
+@media (max-width: 768px) {
+  .live-search-results.active {
+    padding: 20px;
+  }
+  .live-search-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .ls-img-wrap {
+    padding: 10px;
+  }
+  .ls-info {
+    padding: 12px;
+  }
+  .ls-name {
+    font-size: 12px;
+  }
+  .ls-price {
+    font-size: 13px;
+  }
+}
 
