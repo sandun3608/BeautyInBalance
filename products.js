@@ -757,9 +757,21 @@ window.renderHomeAllProducts = function() {
         grid.innerHTML = productsToShow.map(prod => {
             const catLower = (prod.cat || 'others').toLowerCase();
             const brandDisplay = catLower === 'cerave' ? 'CeraVe' : (catLower === 'ordinary' ? 'The Ordinary' : catLower.toUpperCase());
+            
+            const discount = Number(prod.discount || 0);
+            const discountBadge = discount > 0 ? `<span class="hap-discount-badge">-${discount}%</span>` : '';
+            
+            const basePrice = Number(prod.price || 0);
+            const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+            
+            const priceHTML = discount > 0 
+                ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
+                : `Rs. ${basePrice.toLocaleString()}`;
+
             return `
             <a href="product.html?id=${prod.id}" class="hap-card">
                 <div class="hap-card-img">
+                    ${discountBadge}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
                     <div class="hap-card-actions">
                         <span class="h-icon" onclick="event.preventDefault(); addToCart('${prod.id}')" aria-label="Add to Cart">
@@ -772,7 +784,7 @@ window.renderHomeAllProducts = function() {
                 </div>
                 <div class="hap-card-brand">${brandDisplay}</div>
                 <div class="hap-card-title">${prod.name}</div>
-                <div class="hap-card-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
+                <div class="hap-card-price">${priceHTML}</div>
             </a>
             `;
         }).join('');

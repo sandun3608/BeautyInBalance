@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=56" />
+  <link rel="stylesheet" href="styles.css?v=57" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -1113,7 +1113,7 @@
 
 
   <script src="config.js?v=16"></script>
-  <script src="products.js?v=23"></script>
+  <script src="products.js?v=24"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1352,16 +1352,31 @@
       
       const shuffled = [...productsData].sort(() => 0.5 - Math.random());
       const selected = shuffled.slice(0, 4);
-      
-      track.innerHTML = selected.map(p => `
+      track.innerHTML = selected.map(p => {
+        const discount = Number(p.discount || 0);
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        
+        const priceHTML = discount > 0 
+            ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
+            : `Rs. ${basePrice.toLocaleString()}`;
+        
+        const discountBarHTML = discount > 0 
+            ? `<div class="fp-discount-bar">-${discount}% OFF APPLIED</div>`
+            : ``;
+            
+        const discountBadge = discount > 0 ? `<span class="fp-discount-badge">-${discount}%</span>` : '';
+
+        return `
         <div class="fp-item">
           <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
+             ${discountBadge}
              <div class="fp-img-wrap">
                <img src="${p.img || p.images[0]}" alt="${p.name}">
              </div>
              <div class="fp-variants">
-               <div class="fp-var-thumb"><img src="${p.img || p.images[0]}" alt=""></div>
-               <div class="fp-var-thumb" style="filter:grayscale(1); opacity:0.5;"><img src="${p.img || p.images[0]}" alt=""></div>
+                <div class="fp-var-thumb"><img src="${p.img || p.images[0]}" alt=""></div>
+                <div class="fp-var-thumb" style="filter:grayscale(1); opacity:0.5;"><img src="${p.img || p.images[0]}" alt=""></div>
              </div>
              <button class="fp-view-btn" onclick="event.stopPropagation(); location.href='product.html?id=${p.id || p._id}'">
                View Product
@@ -1376,11 +1391,12 @@
               <span class="fp-tag">${p.category || 'Luxury'}</span>
             </div>
             <span class="fp-name">${p.name}</span>
-            <div class="fp-price-row">Rs. ${p.price.toLocaleString()}</div>
-            <div class="fp-discount-bar">-10% OFF APPLIED</div>
+            <div class="fp-price-row">${priceHTML}</div>
+            ${discountBarHTML}
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
 
       const nextBtn = document.getElementById('fp-next');
       const prevBtn = document.getElementById('fp-prev');
