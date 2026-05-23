@@ -983,13 +983,21 @@
       const pCat = (p.cat || '').toLowerCase();
       const brandClass = pCat === 'cerave' ? 'cerave' : (pCat === 'ordinary' ? 'ordinary' : 'custom');
       const brandLabel = pCat === 'cerave' ? 'CeraVe GB' : (pCat === 'ordinary' ? 'The Ordinary CA' : pCat.toUpperCase());
-      const price = (p.price || 0).toLocaleString();
       const imgSrc = p.img || 'favicon.png';
+      
+      const discount = Number(p.discount || 0);
+      const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
+      const basePrice = Number(p.price || 0);
+      const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+      const priceHTML = discount > 0 
+          ? `<span class="original-price" style="font-size: 0.9rem; margin-right: 5px;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
+          : `Rs. ${basePrice.toLocaleString()}`;
 
       const card = document.createElement('div');
       card.className = 'lux-card';
       card.innerHTML = `
-        <div class="lux-img" onclick="location.href='product.html?id=${p.id}'">
+        <div class="lux-img" onclick="location.href='product.html?id=${p.id}'" style="position: relative;">
+          ${discountBadge}
           <span class="lux-brand-badge ${brandClass}">${brandLabel}</span>
           <img src="${imgSrc}" alt="${p.name}" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
           <button class="lux-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">
@@ -999,7 +1007,7 @@
         <div class="lux-body" onclick="location.href='product.html?id=${p.id}'">
           <div class="lux-name">${p.name}</div>
           <div class="lux-price-row">
-            <span class="lux-price">Rs. ${price}</span>
+            <span class="lux-price">${priceHTML}</span>
             <div class="lux-view">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>

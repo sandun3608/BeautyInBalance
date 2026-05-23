@@ -759,7 +759,7 @@ window.renderHomeAllProducts = function() {
             const brandDisplay = catLower === 'cerave' ? 'CeraVe' : (catLower === 'ordinary' ? 'The Ordinary' : catLower.toUpperCase());
             
             const discount = Number(prod.discount || 0);
-            const discountBadge = discount > 0 ? `<span class="hap-discount-badge">-${discount}%</span>` : '';
+            const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
             
             const basePrice = Number(prod.price || 0);
             const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;

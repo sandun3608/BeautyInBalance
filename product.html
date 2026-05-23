@@ -433,6 +433,14 @@
 
       document.title = product.name + " | Beauty in Balance";
 
+      const discount = Number(product.discount || 0);
+      const discountBadge = discount > 0 ? `<span class="hap-discount-badge" style="z-index: 10;">${discount}% OFF</span>` : '';
+      const basePrice = Number(product.price || 0);
+      const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+      const priceHTML = discount > 0 
+          ? `<span class="original-price" style="font-size: 0.6em; margin-right: 10px; color: #999; text-decoration: line-through;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
+          : `Rs. ${basePrice.toLocaleString()}`;
+
       const frame = document.getElementById('pd-frame');
       const thumbs = (product.images || [product.img]).map((src, i) => `
         <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
@@ -445,6 +453,7 @@
           <!-- Gallery -->
           <div class="gallery-wrap">
             <div class="main-visual">
+              ${discountBadge}
               <img id="main-view" src="${product.img}" alt="${product.name}">
             </div>
             <div class="thumbs-container">${thumbs}</div>
@@ -455,7 +464,7 @@
             <div>
               <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
               <h1 class="p-name">${product.name}</h1>
-              <div class="p-price-tag">Rs. ${product.price.toLocaleString()}</div>
+              <div class="p-price-tag">${priceHTML}</div>
             </div>
 
             <p class="p-summary">
@@ -510,13 +519,24 @@
 
     function renderRecs(cat, data) {
       const recs = data.filter(p => p.cat === cat && p.id !== prodId).slice(0, 4);
-      document.getElementById('rec-grid').innerHTML = recs.map(p => `
-        <a href="product.html?id=${p.id}" class="hp-prod-card">
+      document.getElementById('rec-grid').innerHTML = recs.map(p => {
+        const discount = Number(p.discount || 0);
+        const discountBadge = discount > 0 ? `<span class="hap-discount-badge" style="z-index: 10;">${discount}% OFF</span>` : '';
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        const priceHTML = discount > 0 
+            ? `<span class="original-price" style="font-size: 0.8rem; margin-right: 5px; color: #999; text-decoration: line-through;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
+            : `Rs. ${basePrice.toLocaleString()}`;
+
+        return `
+        <a href="product.html?id=${p.id}" class="hp-prod-card" style="position: relative;">
+          ${discountBadge}
           <div class="hp-prod-img"><img src="${p.img}" alt="${p.name}"></div>
           <div class="hp-prod-name">${p.name}</div>
-          <div class="hp-prod-price">Rs. ${p.price.toLocaleString()}</div>
+          <div class="hp-prod-price">${priceHTML}</div>
         </a>
-      `).join('');
+        `;
+      }).join('');
     }
 
     // Connect with global products.js 

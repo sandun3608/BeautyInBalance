@@ -520,15 +520,25 @@
         return filterMatch || catMatch || nameMatch;
       });
 
-      $('product-grid').innerHTML = filtered.map(p => `
+      $('product-grid').innerHTML = filtered.map(p => {
+        const discount = Number(p.discount || 0);
+        const discountBadge = discount > 0 ? `<span class="hap-discount-badge" style="z-index: 10;">${discount}% OFF</span>` : '';
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        const priceHTML = discount > 0 
+            ? `<span class="original-price" style="font-size: 0.9rem; margin-right: 5px;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
+            : `Rs. ${basePrice.toLocaleString()}`;
+
+        return `
         <div class="premium-card" onclick="window.location.href='product.html?id=${p.id}'">
-          <div class="pc-image">
+          <div class="pc-image" style="position: relative;">
+            ${discountBadge}
             <img src="${p.img}" alt="${p.name}">
           </div>
           <div class="pc-details">
             <h3>${p.name}</h3>
             <div class="pc-footer">
-              <span class="pc-price">Rs. ${p.price.toLocaleString()}</span>
+              <span class="pc-price">${priceHTML}</span>
               <button class="pc-buy">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -537,7 +547,8 @@
             </div>
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
 
       if (filtered.length === 0) {
         $('product-grid').innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 100px; opacity:0.5;">No products found in this category yet.</div>`;
