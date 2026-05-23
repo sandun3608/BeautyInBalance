@@ -364,7 +364,7 @@ img {
   top: 100%;
   left: 0;
   width: 100%;
-  background: var(--white);
+  background: transparent;
   z-index: 200;
   display: flex;
   align-items: center;
@@ -374,8 +374,6 @@ img {
   transform: translateY(-10px);
   pointer-events: none;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border-top: 1px solid var(--border);
 }
 
 .search-drop.open {
@@ -388,14 +386,15 @@ img {
   width: 100%;
   max-width: 550px;
   margin: 0 auto;
-  background: #f9f9f9;
-  border: 1px solid transparent;
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.05);
   border-radius: 50px;
   padding: 8px 20px;
   display: flex;
   align-items: center;
   gap: 15px;
   transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
 .search-inner:focus-within {
