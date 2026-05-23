@@ -945,7 +945,7 @@ function buildSearchDropdown(inputEl, dropdownId) {
     if (window.innerWidth <= 768) {
         const mBar = inputEl.closest('.mobile-search-bar');
         const containerRect = mBar ? mBar.getBoundingClientRect() : rect;
-        dropdown.style.top = (containerRect.bottom + 8) + 'px';
+        dropdown.style.top = (containerRect.bottom + 2) + 'px';
         
         const mobileWidth = Math.min(window.innerWidth * 0.9, 340);
         dropdown.style.width = mobileWidth + 'px';
@@ -965,7 +965,7 @@ function buildSearchDropdown(inputEl, dropdownId) {
         if (window.innerWidth <= 768) {
             const mBar = inputEl.closest('.mobile-search-bar');
             const containerRect = mBar ? mBar.getBoundingClientRect() : r;
-            dropdown.style.top = (containerRect.bottom + 8) + 'px';
+            dropdown.style.top = (containerRect.bottom + 2) + 'px';
             
             const mobileWidth = Math.min(window.innerWidth * 0.9, 340);
             dropdown.style.width = mobileWidth + 'px';
