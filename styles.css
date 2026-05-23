@@ -8650,6 +8650,19 @@ body:not(.drawer-open) .floating-ig {
   overflow-y: auto;
   scrollbar-width: thin;
   animation: dropdownFadeIn 0.18s ease;
+  /* Prevent child elements and hovers from spilling/bleeding out of the rounded corners */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+}
+
+.search-results-dropdown > *:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.search-results-dropdown > *:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
 }
 
 @keyframes dropdownFadeIn {
