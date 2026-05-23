@@ -891,9 +891,12 @@ function buildSearchDropdown(inputEl, dropdownId) {
 
     const products = window.productsData || defaultProducts;
     const matched = products.filter(p => {
-        const fields = p.name.toLowerCase();
-        return fields.includes(query);
-    }).slice(0, 7);
+        const name = (p.name || '').toLowerCase();
+        const cat = (p.cat || '').toLowerCase();
+        const brand = (p.brand || '').toLowerCase();
+        const filterStr = (p.filter || '').toLowerCase();
+        return name.includes(query) || cat.includes(query) || brand.includes(query) || filterStr.includes(query);
+    });
 
     const dropdown = document.createElement('div');
     dropdown.className = 'search-results-dropdown';
