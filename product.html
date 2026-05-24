@@ -443,7 +443,7 @@
 
       const stockLeft = product.stock || ((product.name.length % 12) + 3);
       const stockHTML = `
-        <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; padding: 8px 12px; background: rgba(255, 77, 79, 0.05); border: 1px solid rgba(255, 77, 79, 0.2); border-radius: 8px; width: fit-content;">
+        <div style="display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; background: rgba(255, 77, 79, 0.05); border: 1px solid rgba(255, 77, 79, 0.2); border-radius: 8px; width: fit-content;">
           <span style="display: inline-block; width: 8px; height: 8px; background-color: #ff4d4f; border-radius: 50%; box-shadow: 0 0 6px rgba(255,77,79,0.5);"></span>
           <span style="font-size: 13px; font-weight: 700; color: #ff4d4f; font-family: var(--font-sans); letter-spacing: 0.3px;">Only ${stockLeft} items left in stock</span>
         </div>
@@ -473,7 +473,6 @@
               <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
               <h1 class="p-name">${product.name}</h1>
               <div class="p-price-tag">${priceHTML}</div>
-              ${stockHTML}
             </div>
 
             <p class="p-summary">
@@ -481,12 +480,13 @@
             </p>
 
             <div class="purchase-zone">
-              <div class="qty-wrap">
+              <div class="qty-wrap" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
                  <div class="qty-toggle">
                     <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.max(1, parseInt(document.getElementById('p-qty').value)-1)">-</span>
-                    <input type="number" id="p-qty" value="1" min="1">
-                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = parseInt(document.getElementById('p-qty').value)+1">+</span>
+                    <input type="number" id="p-qty" value="1" min="1" max="${stockLeft}" onchange="if(this.value > ${stockLeft}) this.value = ${stockLeft}; if(this.value < 1) this.value = 1;">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.min(${stockLeft}, parseInt(document.getElementById('p-qty').value)+1)">+</span>
                  </div>
+                 ${stockHTML}
               </div>
               <button class="btn-primary" onclick="addToCart('${product.id}', document.getElementById('p-qty').value)">Add to your bag</button>
             </div>
