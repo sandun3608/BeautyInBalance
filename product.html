@@ -434,7 +434,7 @@
       document.title = product.name + " | Beauty in Balance";
 
       const discount = Number(product.discount || 0);
-      const discountBadge = discount > 0 ? `<span class="hap-discount-badge" style="z-index: 10;">${discount}% OFF</span>` : '';
+      const discountBadge = '';
       const basePrice = Number(product.price || 0);
       const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
       const priceHTML = discount > 0 
@@ -521,7 +521,7 @@
       const recs = data.filter(p => p.cat === cat && p.id !== prodId).slice(0, 4);
       document.getElementById('rec-grid').innerHTML = recs.map(p => {
         const discount = Number(p.discount || 0);
-        const discountBadge = discount > 0 ? `<span class="hap-discount-badge" style="z-index: 10;">${discount}% OFF</span>` : '';
+        const discountBadge = '';
         const basePrice = Number(p.price || 0);
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         const priceHTML = discount > 0 
