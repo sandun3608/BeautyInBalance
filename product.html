@@ -441,6 +441,14 @@
           ? `<span class="original-price" style="font-size: 0.6em; margin-right: 10px; color: #999; text-decoration: line-through;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
           : `Rs. ${basePrice.toLocaleString()}`;
 
+      const stockLeft = product.stock || ((product.name.length % 12) + 3);
+      const stockHTML = `
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; padding: 8px 12px; background: rgba(255, 77, 79, 0.05); border: 1px solid rgba(255, 77, 79, 0.2); border-radius: 8px; width: fit-content;">
+          <span style="display: inline-block; width: 8px; height: 8px; background-color: #ff4d4f; border-radius: 50%; box-shadow: 0 0 6px rgba(255,77,79,0.5);"></span>
+          <span style="font-size: 13px; font-weight: 700; color: #ff4d4f; font-family: var(--font-sans); letter-spacing: 0.3px;">Only ${stockLeft} items left in stock</span>
+        </div>
+      `;
+
       const frame = document.getElementById('pd-frame');
       const thumbs = (product.images || [product.img]).map((src, i) => `
         <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
@@ -465,6 +473,7 @@
               <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
               <h1 class="p-name">${product.name}</h1>
               <div class="p-price-tag">${priceHTML}</div>
+              ${stockHTML}
             </div>
 
             <p class="p-summary">
