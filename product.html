@@ -251,33 +251,34 @@
       .qty-toggle {
         width: auto;
         justify-content: center;
-        padding: 8px 14px;
+        padding: 14px 18px;
         border-radius: 50px;
         flex-shrink: 0;
+        min-height: 56px;
       }
       .qty-toggle input {
-        font-size: 1rem;
-        width: 36px;
+        font-size: 1.1rem;
+        width: 38px;
       }
       .qty-btn {
-        font-size: 1.4rem;
-        padding: 2px 8px;
+        font-size: 1.6rem;
+        padding: 4px 10px;
       }
       /* Stock badge: same height pill as qty-toggle, fills remaining width */
       .qty-wrap > div[style*="rgba(255, 77, 79"] {
         flex: 1 !important;
         justify-content: center !important;
-        padding: 8px 12px !important;
+        padding: 14px 12px !important;
         border-radius: 50px !important;
         width: auto !important;
         box-sizing: border-box;
-        min-height: 44px;
+        min-height: 56px;
         display: flex !important;
         align-items: center !important;
       }
-      /* Stock badge text smaller on mobile */
+      /* Stock badge text on mobile */
       .qty-wrap > div[style*="rgba(255, 77, 79"] span:last-child {
-        font-size: 11px !important;
+        font-size: 12px !important;
       }
       .purchase-zone .btn-primary,
       .purchase-zone .btn-secondary {
