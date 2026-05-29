@@ -705,19 +705,25 @@
       }
     };
 
-    function getBrandInfo(brandKey) {
+    function getBrandInfo(brandKey, brandProducts) {
       const key = brandKey.toLowerCase().trim();
       if (brandDetails[key]) return brandDetails[key];
-      
-      // Fallback for custom dynamically added brands
+
+      // For API-added brands: use their own product images
+      const firstProductImg = (brandProducts && brandProducts.length > 0)
+        ? (brandProducts[0].img || brandProducts[0].images?.[0] || 'cat_serums_1775880130640.png')
+        : 'cat_serums_1775880130640.png';
+
+      const productCount = brandProducts ? brandProducts.length : 0;
+
       return {
-        name: brandKey.charAt(0).toUpperCase() + brandKey.slice(1),
-        image: 'favicon.png',
-        bgImage: 'cat_serums_1775880130640.png',
-        tagline: 'Premium Imported Curation',
-        description: `Experience authentic, clinical-grade skincare curated specifically for Beauty in Balance. 100% genuine imported batches delivered island-wide.`,
+        name: brandKey.split(/[-_ ]/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+        image: firstProductImg,
+        bgImage: firstProductImg,
+        tagline: 'Premium Imported Skincare',
+        description: `Discover ${productCount} authentic, clinically curated product${productCount !== 1 ? 's' : ''} from this brand — directly imported and 100% genuine. Island-wide delivery guaranteed.`,
         origin: 'Imported',
-        founded: 'Authentic Line'
+        founded: `${productCount} Product${productCount !== 1 ? 's' : ''} Available`
       };
     }
 
@@ -726,33 +732,47 @@
       const data = window.productsData || [];
       if (data.length === 0) return;
 
-      // Extract unique categories (brands)
-      const uniqueBrands = [...new Set(data.map(p => {
+      // Build brand → products map, normalizing brand keys
+      const brandProductsMap = {};
+      data.forEach(p => {
         let cat = (p.cat || 'others').toLowerCase().trim();
-        if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
-        return cat;
-      }))];
+        if (cat === 'the ordinary' || cat === 'ordinary') cat = 'ordinary';
+        if (!brandProductsMap[cat]) brandProductsMap[cat] = [];
+        brandProductsMap[cat].push(p);
+      });
+
+      const uniqueBrands = Object.keys(brandProductsMap);
 
       const gridContainer = $('brand-grid-container');
       const skeletons = $('brand-skeletons');
       if (!gridContainer) return;
 
-      gridContainer.innerHTML = '';
+      // Avoid re-rendering if already populated
+      if (gridContainer.children.length > 0) return;
 
       uniqueBrands.forEach(brandKey => {
-        const info = getBrandInfo(brandKey);
+        const brandProducts = brandProductsMap[brandKey];
+        const info = getBrandInfo(brandKey, brandProducts);
         const card = document.createElement('div');
         card.className = 'brand-card-premium';
         card.onclick = () => {
           window.location.href = `shop.html?cat=${brandKey}`;
         };
 
+        // For dynamic brands: show a product image grid in bg if multiple products
+        const bgImgStyle = `background-image: url('${info.bgImage}'); background-size: cover; background-position: center;`;
+        const logoImgHTML = (info.image && info.image !== 'favicon.png')
+          ? `<img src="${info.image}" alt="${info.name} Logo" style="width:100%; height:100%; object-fit:contain;" onerror="this.style.display='none'">`
+          : '';
+
         card.innerHTML = `
-          <div class="brand-visual-wrap">
+          <div class="brand-visual-wrap" style="${bgImgStyle}">
             <span class="brand-origin-badge">${info.origin}</span>
-            <img class="brand-visual-img" src="${info.bgImage}" alt="${info.name} Ambient Background">
-            <div class="brand-logo-float">
-              <img src="${info.image}" alt="${info.name} Logo" onerror="this.style.display='none'">
+            <img class="brand-visual-img" src="${info.bgImage}" alt="${info.name} Background"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;"
+              onerror="this.style.display='none'">
+            <div class="brand-logo-float" style="${!logoImgHTML ? 'padding:14px 20px;' : ''}">
+              ${logoImgHTML || `<span style="font-family:var(--font-serif);font-size:15px;font-weight:600;color:var(--brown);letter-spacing:0.05em;">${info.name}</span>`}
             </div>
           </div>
           <div class="brand-details-body">
