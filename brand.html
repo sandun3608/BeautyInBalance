@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curated Skincare Brands | Beauty in Balance Sri Lanka</title>
+  <meta name="description" content="Discover Sri Lanka's finest selection of 100% authentic imported skincare brands, featuring CeraVe, The Ordinary, and more. Direct imports for absolute purity." />
+  <meta name="keywords" content="authentic skincare brands colombo, original ordinary cerave sri lanka, premium cosmetics importers, beauty in balance brand list" />
+  <meta name="author" content="Beauty in Balance" />
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Premium Curated Skincare Brands | Beauty in Balance" />
+  <meta property="og:description" content="Explore and shop the world's most trusted clinical and dermatologist-tested skincare brands, imported directly to Sri Lanka." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=59" />
+
+  <style>
+    :root {
+      --gold-shimmer: linear-gradient(135deg, rgba(198,151,90,0.1) 0%, rgba(198,151,90,0.3) 50%, rgba(198,151,90,0.1) 100%);
+    }
+
+    body {
+      background-color: #fcf9f5;
+      color: #2D1B12;
+    }
+
+    /* Brand Page Header */
+    .brand-hero-header {
+      padding: 180px 24px 80px;
+      text-align: center;
+      background: linear-gradient(to bottom, #fff, #fcf9f5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-hero-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      background: radial-gradient(circle at top, rgba(198, 151, 90, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .brand-hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 7vw, 80px);
+      color: var(--brown);
+      margin: 0 auto 24px;
+      font-weight: 400;
+      line-height: 1.1;
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-hero-title span {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .brand-hero-desc {
+      font-family: var(--font-sans);
+      font-size: 17px;
+      line-height: 1.8;
+      color: #6d5b52;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Brand Cards Grid Container */
+    .brand-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    @media (max-width: 991px) {
+      .brand-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    /* Premium Brand Card Design */
+    .brand-card-premium {
+      background: #ffffff;
+      border: 1px solid rgba(198, 151, 90, 0.15);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 10px 30px rgba(45, 27, 18, 0.03);
+    }
+
+    /* Ambient hover elements */
+    .brand-card-premium::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, transparent 0%, rgba(198,151,90,0) 50%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      transition: background 0.6s ease;
+      z-index: 3;
+    }
+
+    /* Card Banner/Visual Background representing the brand */
+    .brand-visual-wrap {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+      background: var(--beige-light);
+    }
+
+    .brand-visual-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    }
+
+    /* Logo floating absolute */
+    .brand-logo-float {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(45, 27, 18, 0.08);
+      max-height: 60px;
+      max-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+      z-index: 2;
+    }
+
+    .brand-logo-float img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* Origin badge top right */
+    .brand-origin-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(45, 27, 18, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 2;
+    }
+
+    /* Card Details Body */
+    .brand-details-body {
+      padding: 35px 35px 40px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+      transition: background-color 0.5s ease;
+    }
+
+    .brand-title-wrap {
+      margin-bottom: 16px;
+    }
+
+    .brand-card-title {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3.5vw, 32px);
+      color: var(--brown);
+      margin: 0 0 8px 0;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      transition: color 0.4s ease;
+    }
+
+    .brand-card-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--gold);
+      font-size: 16px;
+      margin: 0;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .brand-card-desc {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #666;
+      margin: 0 0 28px 0;
+    }
+
+    .brand-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(45, 27, 18, 0.06);
+      padding-top: 24px;
+    }
+
+    .brand-est {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a0928a;
+      font-weight: 500;
+    }
+
+    .brand-discover-link {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .brand-discover-link svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    /* Micro-interactive Hover Effects */
+    .brand-card-premium:hover {
+      transform: translateY(-8px);
+      border-color: rgba(198, 151, 90, 0.4);
+      box-shadow: 0 20px 40px rgba(45, 27, 18, 0.08);
+    }
+
+    .brand-card-premium:hover::before {
+      background: linear-gradient(135deg, rgba(198,151,90,0.4) 0%, rgba(198,151,90,0.8) 50%, rgba(198,151,90,0.4) 100%);
+    }
+
+    .brand-card-premium:hover .brand-visual-img {
+      transform: scale(1.06);
+      filter: brightness(0.9) contrast(1.05);
+    }
+
+    .brand-card-premium:hover .brand-card-title {
+      color: var(--gold);
+    }
+
+    .brand-card-premium:hover .brand-discover-link {
+      color: var(--gold);
+    }
+
+    .brand-card-premium:hover .brand-discover-link svg {
+      transform: translateX(5px);
+    }
+
+    .brand-card-premium:hover .brand-logo-float {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(198, 151, 90, 0.15);
+      border-color: rgba(198, 151, 90, 0.3);
+    }
+
+    /* Skeleton Loading State for Brands */
+    .brand-skeleton-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    @media (max-width: 991px) {
+      .brand-skeleton-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    .brand-skeleton-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 24px;
+      height: 520px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .skeleton-flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: skeletonPulse 1.6s infinite;
+    }
+
+    @keyframes skeletonPulse {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+              <li><a href="shop.html?filter=serums">Serums</a></li>
+              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            </ul>
+          </li>
+          <li><a href="brand.html" class="active">Brands</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Icons -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-badge">0</span>
+        </button>
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Search Bar Dropdown -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
+    </div>
+    
+    <div class="drawer-content">
+      <ul class="mobile-nav">
+        <li>
+          <a href="index.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="shop.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Shop All
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="brand.html" class="active">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brands
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              Our Story
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="contact.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Contact Us
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        
+        <li class="nav-label">Categories</li>
+        <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+        <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+        <li><a href="shop.html?cat=acids">Acids &amp; Exfoliants</a></li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In / Register</a></li>
+        <li class="nav-label">Policies</li>
+        <li><a href="refund-policy.html">Refund Policy</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="drawer-social">
+        <a href="https://www.instagram.com/beauty.in.balance_?igsh=aTRvd2k0ZjgzMWx1" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://wa.me/94766190550" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+      </div>
+      <div class="drawer-contact">
+        <p>support@beautyinbalance.lk</p>
+        <p>+94 76 619 0550</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+    <section class="brand-hero-header">
+      <span class="brand-hero-eyebrow">Direct Imports</span>
+      <h1 class="brand-hero-title">Our Handpicked <span>Premium Brands</span></h1>
+      <p class="brand-hero-desc">We work exclusively with globally renowned skincare labels, importing every batch directly from their origin laboratories to guarantee 100% genuine products.</p>
+    </section>
+
+    <section class="brand-container">
+      <!-- Loading skeletons (replaced dynamically) -->
+      <div class="brand-skeleton-wrapper" id="brand-skeletons">
+        <div class="brand-skeleton-card"><div class="skeleton-flash"></div></div>
+        <div class="brand-skeleton-card"><div class="skeleton-flash"></div></div>
+      </div>
+
+      <!-- Gorgeous dynamic grid -->
+      <div class="brand-grid" id="brand-grid-container" style="display: none;">
+        <!-- Injected dynamically by script -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+        <p>Premium imported skincare. 100% genuine The Ordinary and CeraVe products, directly sourced and delivered with care.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/beauty.in.balance_" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg></a>
+          <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+          <a href="https://www.tiktok.com/@beauty_in_balance_?_r=1&_t=ZS-9597oMhi8cm" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+          <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="refund-policy.html">Refund Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+          <li><a href="admin.html" style="opacity: 0.2; font-size: 10px;">Admin Access</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+    </div>
+  </footer>
+
+  <!-- ===== CONFIG & ASSET DATABASE LINKS ===== -->
+  <script src="config.js?v=16"></script>
+  <script src="products.js?v=25"></script>
+  <script src="account-nav.js?v=2"></script>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    // Drawer Navigation Controls
+    $('ham-open').addEventListener('click', () => {
+      $('mobile-drawer').classList.add('open');
+      overlay.classList.add('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar) mBar.classList.add('hide-search');
+    });
+
+    const closeAll = () => {
+      $('mobile-drawer').classList.remove('open');
+      $('cart-drawer').classList.remove('open');
+      if ($('search-drop')) $('search-drop').classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    };
+
+    $('ham-close').addEventListener('click', closeAll);
+    $('cart-close').addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // Cart Trigger Side Drawer
+    $('cart-open').addEventListener('click', () => {
+      $('cart-drawer').classList.add('open');
+      overlay.classList.add('show');
+    });
+
+    // Search Toggle Controls
+    const searchOpen = $('search-open');
+    const searchClose = $('search-close');
+    const searchDrop = $('search-drop');
+    if (searchOpen) searchOpen.addEventListener('click', () => { searchDrop.classList.add('open'); $('search-inp').focus(); });
+    if (searchClose && searchDrop) searchClose.addEventListener('click', () => searchDrop.classList.remove('open'));
+
+    window.addEventListener('scroll', () => {
+      $('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Dynamic brand definitions
+    const brandDetails = {
+      ordinary: {
+        name: 'The Ordinary',
+        image: 'brand/1.png',
+        bgImage: 'cat_serums_1775880130640.png',
+        tagline: 'Clinical formulations with integrity.',
+        description: 'Disrupting traditional beauty standards through completely honest, scientific, and direct skincare. Made in Canada, every formulation uses highly purified active ingredients backed by decades of laboratory research to deliver clinical efficacy at reasonable prices.',
+        origin: 'Canada',
+        founded: 'Est. 2013'
+      },
+      cerave: {
+        name: 'CeraVe',
+        image: 'brand/2.png',
+        bgImage: 'cat_cleansers_1775880089938.png',
+        tagline: 'Developed with dermatologists, barrier repair specialist.',
+        description: 'Formulated explicitly around three essential ceramides (1, 3, and 6-II), CeraVe works to restore the skin\'s natural protective shield, lock in continuous hydration, and soothe persistent dry conditions. Imported directly from L\'Oréal Great Britain.',
+        origin: 'United Kingdom',
+        founded: 'Est. 2005'
+      },
+      joseon: {
+        name: 'Beauty of Joseon',
+        image: 'brand/3.png',
+        bgImage: 'cat_makeup_1775880295806.png',
+        tagline: 'Modern skincare powered by Hanbang traditional ingredients.',
+        description: 'A luxurious Korean beauty brand that draws inspiration from historical dynastic regimes, blending traditional Korean herbal remedies (Hanbang) such as Ginseng and Honey with modern, highly effective active ingredients to promote a beautiful glowing skin structure.',
+        origin: 'South Korea',
+        founded: 'Est. 2015'
+      },
+      skin1004: {
+        name: 'Skin1004',
+        image: 'brand/4.png',
+        bgImage: 'cat_sunscreen_1775880264642.png',
+        tagline: 'Untouched nature, pure Centella Asiatica.',
+        description: 'An award-winning hypoallergenic skincare brand that sources Centella Asiatica exclusively from the untouched fields of Madagascar. Delivers supreme skin soothing, deep barrier fortification, and exceptionally lightweight, calming hydration.',
+        origin: 'South Korea',
+        founded: 'Est. 2012'
+      },
+      cetaphil: {
+        name: 'Cetaphil',
+        image: 'brand/5.png',
+        bgImage: 'cat_cleansers_1775880089938.png',
+        tagline: 'Dermatologist recommended gentle skincare.',
+        description: 'Trusted by millions globally for sensitive skin care. Cetaphil builds clinically proven gentle formulas designed carefully to reinforce sensitive barriers and locks in prolonged daily moisture without any pore clogging or irritation.',
+        origin: 'United States',
+        founded: 'Est. 1947'
+      },
+      althea: {
+        name: 'Dr. Althea',
+        image: 'brand/6.png',
+        bgImage: 'cat_serums_1775880130640.png',
+        tagline: 'Premium hypoallergenic aesthetic beauty.',
+        description: 'A premium Korean cosmetic brand dedicated to elegant botanical formulations. Dr. Althea integrates premium natural components with aesthetic dermatology practices to heal irritated skin, clear stubborn spots, and promote youthful balance.',
+        origin: 'South Korea',
+        founded: 'Est. 2014'
+      }
+    };
+
+    function getBrandInfo(brandKey) {
+      const key = brandKey.toLowerCase().trim();
+      if (brandDetails[key]) return brandDetails[key];
+      
+      // Fallback for custom dynamically added brands
+      return {
+        name: brandKey.charAt(0).toUpperCase() + brandKey.slice(1),
+        image: 'favicon.png',
+        bgImage: 'cat_serums_1775880130640.png',
+        tagline: 'Premium Imported Curation',
+        description: `Experience authentic, clinical-grade skincare curated specifically for Beauty in Balance. 100% genuine imported batches delivered island-wide.`,
+        origin: 'Imported',
+        founded: 'Authentic Line'
+      };
+    }
+
+    // Dynamic brand extraction & card rendering
+    function renderBrandsPage() {
+      const data = window.productsData || [];
+      if (data.length === 0) return;
+
+      // Extract unique categories (brands)
+      const uniqueBrands = [...new Set(data.map(p => {
+        let cat = (p.cat || 'others').toLowerCase().trim();
+        if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
+        return cat;
+      }))];
+
+      const gridContainer = $('brand-grid-container');
+      const skeletons = $('brand-skeletons');
+      if (!gridContainer) return;
+
+      gridContainer.innerHTML = '';
+
+      uniqueBrands.forEach(brandKey => {
+        const info = getBrandInfo(brandKey);
+        const card = document.createElement('div');
+        card.className = 'brand-card-premium';
+        card.onclick = () => {
+          window.location.href = `shop.html?cat=${brandKey}`;
+        };
+
+        card.innerHTML = `
+          <div class="brand-visual-wrap">
+            <span class="brand-origin-badge">${info.origin}</span>
+            <img class="brand-visual-img" src="${info.bgImage}" alt="${info.name} Ambient Background">
+            <div class="brand-logo-float">
+              <img src="${info.image}" alt="${info.name} Logo" onerror="this.style.display='none'">
+            </div>
+          </div>
+          <div class="brand-details-body">
+            <div>
+              <div class="brand-title-wrap">
+                <h3 class="brand-card-title">${info.name}</h3>
+                <p class="brand-card-tagline">${info.tagline}</p>
+              </div>
+              <p class="brand-card-desc">${info.description}</p>
+            </div>
+            <div class="brand-card-footer">
+              <span class="brand-est">${info.founded}</span>
+              <span class="brand-discover-link">
+                Shop Collection 
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+        `;
+        gridContainer.appendChild(card);
+      });
+
+      // Show grid and hide skeletons
+      if (skeletons) skeletons.style.display = 'none';
+      gridContainer.style.display = 'grid';
+    }
+
+    // Set interval to wait until productsData is loaded
+    const checkDataInterval = setInterval(() => {
+      if (window.productsData && window.productsData.length > 0) {
+        renderBrandsPage();
+        clearInterval(checkDataInterval);
+      }
+    }, 100);
+
+    // Fallback trigger after 2.5s anyway to avoid blank page if fetch fails
+    setTimeout(() => {
+      renderBrandsPage();
+    }, 2500);
+
+  </script>
+</body>
+</html>
