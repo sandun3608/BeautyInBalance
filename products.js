@@ -834,6 +834,9 @@ window.updateMobileNavCategories = function(products) {
     const catLabel = labels.find(el => el.textContent.trim().toLowerCase() === 'categories');
     if (!catLabel) return;
 
+    // Hide the main "Categories" label since we now have two accordions: "Brand" and "Category"
+    catLabel.style.display = 'none';
+
     const parent = catLabel.parentNode;
     const siblings = Array.from(parent.children);
     const catIndex = siblings.indexOf(catLabel);
@@ -847,9 +850,22 @@ window.updateMobileNavCategories = function(products) {
         }
     }
 
-    // Remove the old hardcoded static items
+    // Remove any previously inserted accordion items from previous runs to prevent duplication
+    const oldAccordionItems = Array.from(parent.querySelectorAll('.drawer-accordion-item'));
+    oldAccordionItems.forEach(item => {
+        if (parent.contains(item)) {
+            parent.removeChild(item);
+        }
+    });
+
+    // Also remove any remaining dynamic flat lists from previous runs
     for (let i = nextLabelIndex - 1; i > catIndex; i--) {
-        parent.removeChild(siblings[i]);
+        const sib = siblings[i];
+        if (sib && !sib.classList.contains('nav-label') && sib.id !== 'mb-accordion-brands' && sib.id !== 'mb-accordion-cats') {
+            if (parent.contains(sib) && sib.tagName === 'LI') {
+                parent.removeChild(sib);
+            }
+        }
     }
 
     // Extract unique brands (cat) and categories (filter) from our active database products
@@ -876,28 +892,75 @@ window.updateMobileNavCategories = function(products) {
         'hair': 'Hair Care'
     };
 
-    // Helper to insert item before the current next section label
-    const insertMenuItem = (url, text) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${url}">${text}</a>`;
-        
-        // Dynamically find the next nav-label to always insert right before it
-        const currentNextLabel = Array.from(parent.querySelectorAll('.nav-label')).find(el => {
-            return el.textContent.trim().toLowerCase() !== 'categories' && Array.from(parent.children).indexOf(el) > catIndex;
-        });
-        parent.insertBefore(li, currentNextLabel || null);
-    };
-
-    // 1. Add Brands
-    brands.forEach(b => {
+    // Create Brands Accordion Item
+    const brandsLi = document.createElement('li');
+    brandsLi.className = 'drawer-accordion-item';
+    brandsLi.id = 'mb-accordion-brands';
+    
+    let brandsSubmenuHTML = brands.map(b => {
         const title = brandTitles[b] || (b.charAt(0).toUpperCase() + b.slice(1));
-        insertMenuItem(`shop.html?cat=${b}`, title);
+        return `<li><a href="shop.html?cat=${b}">${title}</a></li>`;
+    }).join('');
+    
+    brandsLi.innerHTML = `
+      <button type="button" class="drawer-accordion-btn">
+        <span>Brand</span>
+        <svg class="accordion-chevron" viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <ul class="drawer-accordion-content">
+        <li><a href="shop.html">Shop All Brands</a></li>
+        ${brandsSubmenuHTML}
+      </ul>
+    `;
+
+    // Create Categories Accordion Item
+    const catsLi = document.createElement('li');
+    catsLi.className = 'drawer-accordion-item';
+    catsLi.id = 'mb-accordion-cats';
+    
+    let catsSubmenuHTML = filters.map(f => {
+        const title = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1));
+        return `<li><a href="shop.html?filter=${f}">${title}</a></li>`;
+    }).join('');
+    
+    catsLi.innerHTML = `
+      <button type="button" class="drawer-accordion-btn">
+        <span>Category</span>
+        <svg class="accordion-chevron" viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <ul class="drawer-accordion-content">
+        <li><a href="shop.html">Shop All Categories</a></li>
+        ${catsSubmenuHTML}
+      </ul>
+    `;
+
+    // Find the current next label (e.g. "Account") to insert right before it
+    const currentNextLabel = Array.from(parent.querySelectorAll('.nav-label')).find(el => {
+        return el.textContent.trim().toLowerCase() !== 'categories' && Array.from(parent.children).indexOf(el) > catIndex;
     });
 
-    // 2. Add Filters
-    filters.forEach(f => {
-        const title = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1));
-        insertMenuItem(`shop.html?filter=${f}`, title);
+    parent.insertBefore(brandsLi, currentNextLabel || null);
+    parent.insertBefore(catsLi, currentNextLabel || null);
+
+    // Setup toggle behavior
+    const accordionBtns = parent.querySelectorAll('.drawer-accordion-btn');
+    accordionBtns.forEach(btn => {
+        btn.onclick = function(e) {
+            e.preventDefault();
+            const isActive = this.classList.contains('active');
+            
+            // Close other accordions
+            accordionBtns.forEach(otherBtn => {
+                otherBtn.classList.remove('active');
+                otherBtn.nextElementSibling.style.maxHeight = '0px';
+            });
+
+            if (!isActive) {
+                this.classList.add('active');
+                const content = this.nextElementSibling;
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        };
     });
 };
 

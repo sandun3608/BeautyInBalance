@@ -663,6 +663,78 @@ img {
   opacity: 0.8;
 }
 
+/* ── MOBILE ACCORDION MENUS ── */
+.drawer-accordion-item {
+  margin-bottom: 8px;
+}
+
+.drawer-accordion-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-fancy);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  text-align: left;
+}
+
+.drawer-accordion-btn:hover,
+.drawer-accordion-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--gold);
+}
+
+.accordion-chevron {
+  width: 10px;
+  height: 6px;
+  transition: transform 0.3s ease;
+}
+
+.drawer-accordion-btn.active .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.drawer-accordion-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+}
+
+.drawer-accordion-content li {
+  margin-bottom: 4px;
+}
+
+.drawer-accordion-content li a {
+  display: block !important;
+  font-family: var(--font-fancy) !important;
+  font-size: 0.95rem !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  padding: 10px 15px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  justify-content: flex-start !important;
+}
+
+.drawer-accordion-content li a:hover {
+  color: var(--gold) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  padding-left: 20px !important;
+}
+
 .drawer-footer {
   padding: 30px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);

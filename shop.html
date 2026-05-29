@@ -1287,6 +1287,49 @@
         });
       }
 
+      // Dynamically generate filter chips (sub-categories) from data
+      const filterChipsContainer = $('filter-chips');
+      if (filterChipsContainer && data.length > 0) {
+        const filterTitles = {
+          'cleansers':    'Cleansers',
+          'serums':       'Serums',
+          'moisturizers': 'Moisturizers',
+          'sunscreen':    'Sunscreen',
+          'acids':        'Acids & Exfoliants',
+          'retinoids':    'Retinoids',
+          'body':         'Body Care',
+          'targeted':     'Targeted Care',
+          'eye':          'Eye Care',
+          'lip':          'Lip Care',
+          'hair':         'Hair Care',
+          'eye-care':     'Eye Care',
+          'hair-lash':    'Hair & Lash',
+          'face-oils':    'Face Oils',
+          'glow':         'Glow',
+          'bodycare':     'Body Care',
+          'exfoliants':   'Exfoliants',
+          'dry':          'Dry Skin'
+        };
+
+        const uniqueFilters = [...new Set(data.map(p => (p.filter || '').toLowerCase().trim()).filter(Boolean))];
+
+        let chipsHTML = `<button class="fc ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All Items</button>`;
+        uniqueFilters.forEach(f => {
+          const label = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1).replace(/-/g, ' '));
+          chipsHTML += `<button class="fc ${currentFilter === f ? 'active' : ''}" data-filter="${f}">${label}</button>`;
+        });
+        filterChipsContainer.innerHTML = chipsHTML;
+
+        // Re-attach listeners to new chips
+        filterChipsContainer.querySelectorAll('.fc').forEach(chip => {
+          chip.addEventListener('click', () => {
+            currentFilter = chip.dataset.filter;
+            syncFilterUI();
+            renderShop();
+          });
+        });
+      }
+
       const isFiltered = currentFilter !== 'all' || currentBrand !== 'all' || currentSearch;
 
       if (isFiltered) {

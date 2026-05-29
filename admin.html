@@ -982,7 +982,7 @@
                 <div style="display: flex; gap: 10px;">
                     <button class="admin-btn" style="background: #e74c3c; color: white;" onclick="window.openDeleteCategoryModal()">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        Delete Category
+                        Delete Brand
                     </button>
                     <button class="admin-btn" onclick="window.openModal()">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -992,7 +992,7 @@
               </div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 150px;">Collection</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
+                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 130px;">Brand</th><th style="width: 130px;">Sub Category</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
                   <tbody id="inventory-table"></tbody>
                 </table>
               </div>
@@ -1411,6 +1411,7 @@
             <td><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
             <td style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
             <td style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
+            <td style="text-transform: capitalize; color: var(--admin-text); font-weight: 500;">${prod.filter || 'None'}</td>
             <td style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
             <td style="text-align: center;">${prod.discount || 0}%</td>
             <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
@@ -1441,14 +1442,14 @@
     window.updateRightSidebar = updateRightSidebar;
     window.renderTeamChart = renderTeamChart;
 
-    // Category Delete Methods
+    // Category Delete Methods (renamed conceptually to Brand)
     window.openDeleteCategoryModal = () => {
         const modal = document.getElementById('delete-cat-modal');
         const select = document.getElementById('del-cat-select');
         if (modal && select && window.productsData) {
             const uniqueCats = [...new Set(window.productsData.map(p => p.cat).filter(c => c))];
             if(uniqueCats.length === 0) {
-                alert("No categories exist!");
+                alert("No brands exist!");
                 return;
             }
             select.innerHTML = uniqueCats.map(c => `<option value="${c}">${c.toUpperCase()}</option>`).join('');
@@ -1461,7 +1462,7 @@
         const catName = select.value;
         if (!catName) return;
         
-        if (confirm(`Are you absolutely sure you want to delete the category "${catName}" and ALL its products? This cannot be undone.`)) {
+        if (confirm(`Are you absolutely sure you want to delete the brand "${catName}" and ALL its products? This cannot be undone.`)) {
             try {
                 const token = localStorage.getItem('userToken');
                 const res = await fetch(`${BASE_URL}/products/category/${encodeURIComponent(catName)}`, {
@@ -1472,13 +1473,15 @@
                 if (res.ok) {
                     alert(data.message);
                     document.getElementById('delete-cat-modal').style.display = 'none';
-                    if(window.fetchInventory) window.fetchInventory(); // Reload products
+                    // Reload dynamic state
+                    if (typeof fetchDatabaseProducts === 'function') await fetchDatabaseProducts();
+                    renderInventory();
                 } else {
                     alert(data.message || 'Delete failed');
                 }
             } catch (e) {
                 console.error(e);
-                alert("Failed to delete category.");
+                alert("Failed to delete brand.");
             }
         }
     };
@@ -1508,6 +1511,13 @@
       if (catList && window.productsData) {
           const uniqueCats = [...new Set(window.productsData.map(p => p.cat).filter(c => c))];
           catList.innerHTML = uniqueCats.map(c => `<option value="${c}">`).join('');
+      }
+
+      // Populate dynamic sub category datalist
+      const filterList = document.getElementById('p-filter-list');
+      if (filterList && window.productsData) {
+          const uniqueFilters = [...new Set(window.productsData.map(p => p.filter).filter(f => f))];
+          filterList.innerHTML = uniqueFilters.map(f => `<option value="${f}">`).join('');
       }
       
       if (prodId && typeof window.productsData !== 'undefined') {
@@ -2032,48 +2042,88 @@
     function updateStockDistribution() {
         if (!window.productsData || window.productsData.length === 0) return;
         
-        let brands = { ordinary: 0, cerave: 0, other: 0 };
+        let brandStocks = {};
         let totalStock = 0;
         
         window.productsData.forEach(p => {
-            const cat = (p.cat || "").toLowerCase();
+            let cat = (p.cat || "others").trim().toLowerCase();
+            if (cat === 'ordinary' || cat === 'the ordinary') cat = 'ordinary';
             const stock = Number(p.stock) || 0;
             totalStock += stock;
-            if (cat.includes('ordinary')) brands.ordinary += stock;
-            else if (cat.includes('cerave')) brands.cerave += stock;
-            else brands.other += stock;
+            brandStocks[cat] = (brandStocks[cat] || 0) + stock;
         });
 
         if (totalStock === 0) return;
 
-        const ordP = Math.round((brands.ordinary / totalStock) * 100);
-        const cerP = Math.round((brands.cerave / totalStock) * 100);
-        const othP = 100 - ordP - cerP;
+        // Map and sort brands by stock descending
+        const brandTitles = {
+            'ordinary': 'The Ordinary',
+            'cerave': 'CeraVe'
+        };
+        const brandColors = {
+            'ordinary': '#CFA56A',
+            'cerave': '#1B1B1E',
+            'others': '#7A6459',
+            'other': '#7A6459'
+        };
+        const defaultPalette = ['#CFA56A', '#1B1B1E', '#7A6459', '#2E5A44', '#8C3B32', '#4B6B94', '#927499', '#788258', '#A29B70', '#5B8C5A'];
 
-        // Update Text
+        let brandsList = Object.keys(brandStocks).map((b, idx) => {
+            const stock = brandStocks[b];
+            const pct = Math.round((stock / totalStock) * 100);
+            const title = brandTitles[b] || (b.charAt(0).toUpperCase() + b.slice(1));
+            const color = brandColors[b] || defaultPalette[idx % defaultPalette.length];
+            return { id: b, title, stock, pct, color };
+        }).sort((a, b) => b.stock - a.stock);
+
+        // Update Center Text
         const centerText = document.getElementById('donut-center-text');
-        if (centerText) centerText.innerText = ordP + cerP + "%";
-        
-        const ordEl = document.getElementById('ord-perc');
-        const cerEl = document.getElementById('cer-perc');
-        const othEl = document.getElementById('oth-perc');
-        
-        if (ordEl) ordEl.innerText = ordP + "%";
-        if (cerEl) cerEl.innerText = cerP + "%";
-        if (othEl) othEl.innerText = (othP > 0 ? othP : 0) + "%";
+        if (centerText) centerText.innerText = totalStock;
 
-        // Update SVG segments (Simplified for this 3-segment case)
-        const circles = document.querySelectorAll('.donut-wrap svg circle');
-        if (circles.length >= 4) {
-             const ordOffset = (ordP / 100) * 471.2;
-             const cerOffset = (cerP / 100) * 471.2;
-             const othOffset = (othP / 100) * 471.2;
-             
-             circles[1].setAttribute('stroke-dasharray', `${ordOffset} 471.2`);
-             circles[2].setAttribute('stroke-dasharray', `${cerOffset} 471.2`);
-             circles[2].setAttribute('stroke-dashoffset', `-${ordOffset}`);
-             circles[3].setAttribute('stroke-dasharray', `${othOffset} 471.2`);
-             circles[3].setAttribute('stroke-dashoffset', `-${ordOffset + cerOffset}`);
+        // Render Dynamic SVG segments inside the SVG
+        const donutSvg = document.querySelector('.donut-wrap svg');
+        if (donutSvg) {
+            // Keep background track, remove other circles
+            donutSvg.innerHTML = `<circle cx="90" cy="90" r="75" fill="transparent" stroke="#f0f0f0" stroke-width="15"></circle>`;
+            
+            let currentOffset = 0;
+            brandsList.forEach(brand => {
+                if (brand.pct <= 0) return;
+                const segmentLength = (brand.pct / 100) * 471.2;
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', '90');
+                circle.setAttribute('cy', '90');
+                circle.setAttribute('r', '75');
+                circle.setAttribute('fill', 'transparent');
+                circle.setAttribute('stroke', brand.color);
+                circle.setAttribute('stroke-width', '18');
+                circle.setAttribute('stroke-dasharray', `${segmentLength} 471.2`);
+                circle.setAttribute('stroke-dashoffset', `-${currentOffset}`);
+                circle.style.transition = 'stroke-dasharray 1s ease-out, stroke-dashoffset 1s ease-out';
+                donutSvg.appendChild(circle);
+                
+                currentOffset += segmentLength;
+            });
+        }
+
+        // Render the progress list / legend
+        const progressList = document.querySelector('.progress-list');
+        if (progressList) {
+            progressList.innerHTML = brandsList.map(brand => `
+                <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);">
+                        <div style="width: 10px; height: 10px; border-radius: 50%; background: ${brand.color};"></div>
+                        ${brand.title}
+                    </div>
+                    <div style="font-size: 13px; font-weight: 700; color: var(--admin-text);">${brand.pct}% <span style="font-weight:400; font-size:11px; color:#999; margin-left: 5px;">(${brand.stock})</span></div>
+                </div>
+            `).join('');
+        }
+        
+        // Update the item count in the card header if it exists
+        const countHeader = document.querySelector('.chart-panel div[style*="font-size: 12px"]');
+        if (countHeader) {
+            countHeader.innerText = totalStock + " Items";
         }
     }
 
@@ -2289,9 +2339,12 @@
              <form id="add-product-form">
                 <div class="form-grid" style="overflow-y:auto; max-height: 60vh; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Product Name</label><input type="text" id="p-name" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
-                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Collection (Category)</label>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Brand</label>
                     <input type="text" id="p-cat" list="p-cat-list" required placeholder="Select or type new..." style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
                     <datalist id="p-cat-list"></datalist></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Sub Category</label>
+                    <input type="text" id="p-filter" list="p-filter-list" required placeholder="Select or type new..." style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
+                    <datalist id="p-filter-list"></datalist></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Price (LKR)</label><input type="number" id="p-price" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Stock</label><input type="number" id="p-stock" value="50" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Discount %</label><input type="number" id="p-discount" value="0" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
@@ -2355,7 +2408,6 @@
                     </div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Unique ID</label><input type="text" id="p-id-field" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Philosophy / Description</label><textarea id="p-desc" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
-                    <input type="hidden" id="p-filter" value="serums">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="window.closeModal()">Discard</button>
@@ -2372,10 +2424,10 @@
     <!-- DELETE CATEGORY MODAL -->
     <div id="delete-cat-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">
         <div style="background:#fff; border-radius:20px; padding:40px; max-width:460px; width:90%; box-shadow:0 30px 80px rgba(0,0,0,0.2); text-align:center;">
-            <h3 style="font-size:22px; font-weight:800; margin:0 0 10px; color:#ef4444;">Delete Category</h3>
-            <p style="font-size:14px; color:#666; margin:0 0 25px;">Select a category to permanently delete. <br><b>WARNING:</b> This will delete ALL products within this category!</p>
+            <h3 style="font-size:22px; font-weight:800; margin:0 0 10px; color:#ef4444;">Delete Brand</h3>
+            <p style="font-size:14px; color:#666; margin:0 0 25px;">Select a brand to permanently delete. <br><b>WARNING:</b> This will delete ALL products within this brand!</p>
             <div style="text-align: left; margin-bottom: 25px;">
-                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; display: block; margin-bottom: 8px;">Select Category</label>
+                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; display: block; margin-bottom: 8px;">Select Brand</label>
                 <select id="del-cat-select" style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px;">
                 </select>
             </div>
