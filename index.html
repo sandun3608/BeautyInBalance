@@ -201,14 +201,7 @@
             </span>
             <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <ul class="drawer-accordion-content">
-            <li><a href="shop.html?cat=cerave">CeraVe</a></li>
-            <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
-            <li><a href="shop.html?cat=joseon">Beauty of Joseon</a></li>
-            <li><a href="shop.html?cat=skin1004">Skin1004</a></li>
-            <li><a href="shop.html?cat=cetaphil">Cetaphil</a></li>
-            <li><a href="shop.html?cat=althea">Dr. Althea</a></li>
-          </ul>
+          <ul class="drawer-accordion-content" id="brand-accordion-list"></ul>
         </li>
         <li class="drawer-accordion-item">
           <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
@@ -1771,6 +1764,26 @@
   </div>
 
   <script src="account-nav.js?v=2"></script>
+  <script>
+    // Dynamically load brand list for mobile drawer
+    document.addEventListener('DOMContentLoaded', () => {
+      const brandListEl = document.getElementById('brand-accordion-list');
+      if (!brandListEl) return;
+      fetch('brands.json')
+        .then(resp => resp.ok ? resp.json() : Promise.reject('Failed to load brands'))
+        .then(brands => {
+          brands.forEach(b => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `shop.html?brand=${encodeURIComponent(b.slug)}`;
+            a.textContent = b.name;
+            li.appendChild(a);
+            brandListEl.appendChild(li);
+          });
+        })
+        .catch(err => console.error(err));
+    });
+  </script>
 
   <script>
     // --- NEWSLETTER POPUP TRIGGER LOGIC ---
