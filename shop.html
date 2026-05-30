@@ -733,6 +733,12 @@
       justify-content: space-between;
     }
 
+    @media (max-width: 768px) {
+      .pb-section {
+        display: none !important;
+      }
+    }
+
     @media (max-width: 900px) {
       .pb-section {
         padding: 60px 20px;
@@ -869,13 +875,13 @@
             </span>
             <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <ul class="drawer-accordion-content">
+          <ul class="drawer-accordion-content" id="shop-brand-accordion-list">
             <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+            <li><a href="shop.html?cat=larocheposay">LA ROCHE-POSAY</a></li>
+            <li><a href="shop.html?cat=centellian24">CENTELLIAN24</a></li>
+            <li><a href="shop.html?cat=vatika">VATIKA</a></li>
+            <li><a href="shop.html?cat=vaseline">VASELINE</a></li>
             <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
-            <li><a href="shop.html?cat=joseon">Beauty of Joseon</a></li>
-            <li><a href="shop.html?cat=skin1004">Skin1004</a></li>
-            <li><a href="shop.html?cat=cetaphil">Cetaphil</a></li>
-            <li><a href="shop.html?cat=althea">Dr. Althea</a></li>
           </ul>
         </li>
         <li class="drawer-accordion-item">
@@ -1549,8 +1555,29 @@
 
 
   </script>
-<script src="account-nav.js?v=2"></script></body>
-
+<script src="account-nav.js?v=2"></script>
+<script>
+  // Dynamically load brand list for mobile drawer
+  document.addEventListener('DOMContentLoaded', () => {
+    const brandListEl = document.getElementById('shop-brand-accordion-list');
+    if (!brandListEl) return;
+    fetch('brands.json')
+      .then(resp => resp.ok ? resp.json() : Promise.reject('Failed to load brands'))
+      .then(brands => {
+        brandListEl.innerHTML = ''; // clear static
+        brands.forEach(b => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `shop.html?cat=${encodeURIComponent(b.slug)}`;
+          a.textContent = b.name;
+          li.appendChild(a);
+          brandListEl.appendChild(li);
+        });
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+</body>
 </html>
 
 

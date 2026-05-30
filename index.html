@@ -1775,7 +1775,7 @@
           brands.forEach(b => {
             const li = document.createElement('li');
             const a = document.createElement('a');
-            a.href = `shop.html?brand=${encodeURIComponent(b.slug)}`;
+            a.href = `shop.html?cat=${encodeURIComponent(b.slug)}`;
             a.textContent = b.name;
             li.appendChild(a);
             brandListEl.appendChild(li);
@@ -1797,19 +1797,20 @@
 
       if (!modal) return;
 
-      const isShown = sessionStorage.getItem('newsletter_shown');
+      const today = new Date().toDateString();
+      const lastShown = localStorage.getItem('newsletter_last_shown');
       const isSubscribed = localStorage.getItem('newsletter_subscribed');
 
-      // Show popup quickly after 0.8 seconds
-      if (!isShown && !isSubscribed) {
+      // Show popup after 1.5 seconds if not subscribed and not shown today
+      if (!isSubscribed && lastShown !== today) {
         setTimeout(() => {
           modal.classList.add('active');
-        }, 800);
+        }, 1500);
       }
 
       const closeModal = () => {
         modal.classList.remove('active');
-        sessionStorage.setItem('newsletter_shown', 'true');
+        localStorage.setItem('newsletter_last_shown', new Date().toDateString());
       };
 
       if (closeBtn) closeBtn.addEventListener('click', closeModal);
