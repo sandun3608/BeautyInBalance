@@ -1544,13 +1544,208 @@
         <h2 class="newsletter-title">DON'T MISS OUT!!!</h2>
         <p class="newsletter-desc">Sign up now for special offers, exclusive giveaways and be the first to find out about new product launches in our line-up!</p>
         
+          initShadeFinder();
+          
+          const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+          if (activeItem) renderShadeProducts(activeItem.textContent.trim());
+        } else {
+          setTimeout(checkAndRender, 100);
+        }
+      };
+      checkAndRender();
+    }
+
+    function renderFeaturedProducts() {
+      const track = document.getElementById('featured-track');
+      if (!track || !productsData.length) return;
+      
+      const shuffled = [...productsData].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 4);
+      track.innerHTML = selected.map(p => {
+        const discount = Number(p.discount || 0);
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        
+        const priceHTML = discount > 0 
+            ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
+            : `Rs. ${basePrice.toLocaleString()}`;
+        
+        const discountBarHTML = discount > 0 
+            ? `<div class="fp-discount-bar">-${discount}% OFF APPLIED</div>`
+            : ``;
+            
+        const discountBadge = discount > 0 ? `<span class="fp-discount-badge">${discount}% OFF</span>` : '';
+
+        return `
+        <div class="fp-item">
+          <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
+             ${discountBadge}
+             <div class="fp-img-wrap">
+               <img src="${p.img || p.images[0]}" alt="${p.name}">
+             </div>
+             <div class="fp-variants">
+                <div class="fp-var-thumb"><img src="${p.img || p.images[0]}" alt=""></div>
+                <div class="fp-var-thumb" style="filter:grayscale(1); opacity:0.5;"><img src="${p.img || p.images[0]}" alt=""></div>
+             </div>
+             <button class="fp-view-btn" onclick="event.stopPropagation(); location.href='product.html?id=${p.id || p._id}'">
+               View Product
+             </button>
+          </div>
+          <button class="fp-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')" aria-label="Add to Bag">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+          </button>
+          <div class="fp-details" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
+            <div class="fp-tag-row">
+              <span class="fp-tag" style="border-color: #000; color: #000;">Latest</span>
+              <span class="fp-tag">${p.category || 'Luxury'}</span>
+            </div>
+            <span class="fp-name">${p.name}</span>
+            <div class="fp-price-row">${priceHTML}</div>
+            ${discountBarHTML}
+          </div>
+        </div>
+        `;
+      }).join('');
+
+      const nextBtn = document.getElementById('fp-next');
+      const prevBtn = document.getElementById('fp-prev');
+      if (nextBtn && prevBtn) {
+        nextBtn.onclick = () => track.scrollBy({ left: 360, behavior: 'smooth' });
+        prevBtn.onclick = () => track.scrollBy({ left: -360, behavior: 'smooth' });
+      }
+    }
+
+    /* ── HERO SLIDER ── */
+    let heroIdx = 0;
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    function showHeroSlide(index) {
+      if (!heroSlides.length) return;
+      if (index >= heroSlides.length) heroIdx = 0;
+      else if (index < 0) heroIdx = heroSlides.length - 1;
+      else heroIdx = index;
+      heroSlides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
+    }
+    const hPrevBtn = $('hero-prev');
+    const hNextBtn = $('hero-next');
+    if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
+    if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
+    setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
+
+
+    fetchProducts();
+    // Init shade finder immediately using products.js data (no API wait needed)
+    setTimeout(function() { initShadeFinder(); }, 150);
+
+
+    /* ── SCROLL HEADER ── */
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    $('cart-close')?.addEventListener('click', closeAll);
+
+
+    // scroll behavior for mobile search bar
+    let lastScrollTop = 0;
+    const mSearchBar = document.getElementById('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          // scroll down
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          // scroll up
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    
+
+    // ===== SHARE FUNCTIONALITY =====
+    function shareProduct(prodId) {
+      const product = window.productsData.find(p => p.id === prodId || p._id === prodId);
+      if (!product) return;
+      
+      const shareUrl = window.location.origin + '/product.html?id=' + (product.id || product._id);
+      const shareText = `Check out ${product.name} at Beauty in Balance!`;
+      
+      const modal = document.getElementById('share-modal');
+      const overlay = document.getElementById('overlay');
+      
+      // Update links
+      document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+      document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      document.getElementById('share-copy').onclick = () => {
+        navigator.clipboard.writeText(shareUrl);
+        const btn = document.getElementById('share-copy');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span style="color:var(--gold)">Copied!</span>';
+        setTimeout(() => btn.innerHTML = originalText, 2000);
+      };
+      
+      modal.classList.add('active');
+      overlay.classList.add('show');
+    }
+    window.shareProduct = shareProduct;
+
+    function closeShare() {
+      document.getElementById('share-modal').classList.remove('active');
+      overlay.classList.remove('show');
+    }
+    window.closeShare = closeShare;
+
+    // Extend overlay click
+    const originalCloseAll = closeAll;
+    window.closeAll = function() {
+      originalCloseAll();
+      closeShare();
+    };
+  </script>
+
+  <!-- ===== SHARE MODAL ===== -->
+  <div class="share-modal" id="share-modal">
+    <div class="share-header">
+      <h3>Share Product</h3>
+      <button class="share-close-btn" onclick="closeShare()">&times;</button>
+    </div>
+    <div class="share-options">
+      <a href="#" id="share-wa" target="_blank" class="share-opt-item">
+        <div class="share-icon-circle wa"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></div>
+        <span>WhatsApp</span>
+      </a>
+      <a href="#" id="share-fb" target="_blank" class="share-opt-item">
+        <div class="share-icon-circle fb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+        <span>Facebook</span>
+      </a>
+      <div id="share-copy" class="share-opt-item" style="cursor:pointer">
+        <div class="share-icon-circle link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <span>Copy Link</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEWSLETTER POPUP MODAL ===== -->
+  <div class="newsletter-modal-overlay" id="newsletter-modal-overlay">
+    <div class="newsletter-modal-card">
+      <button class="newsletter-close-btn" id="newsletter-close-btn" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="newsletter-modal-content">
+        <h2 class="newsletter-title">DON'T MISS OUT!!!</h2>
+        <p class="newsletter-desc">Sign up now for special offers, exclusive giveaways and be the first to find out about new product launches in our line-up!</p>
+        
         <form id="newsletter-signup-form">
           <input type="email" placeholder="Email address" id="newsletter-email-inp" required class="newsletter-input" />
           <button type="submit" class="newsletter-submit-btn" id="newsletter-submit-btn">SIGN UP</button>
         </form>
         
         <button class="newsletter-no-thanks" id="newsletter-no-thanks-btn">No, thanks</button>
-        
+
         <p class="newsletter-disclaimer">You are signing up to receive communication via email and can unsubscribe at any time.</p>
       </div>
     </div>
@@ -1573,11 +1768,11 @@
       const isShown = sessionStorage.getItem('newsletter_shown');
       const isSubscribed = localStorage.getItem('newsletter_subscribed');
 
-      // Trigger after 2.5 seconds if never shown in session and not subscribed
+      // Show popup quickly after 0.8 seconds
       if (!isShown && !isSubscribed) {
         setTimeout(() => {
           modal.classList.add('active');
-        }, 2500);
+        }, 800);
       }
 
       const closeModal = () => {
@@ -1587,8 +1782,8 @@
 
       if (closeBtn) closeBtn.addEventListener('click', closeModal);
       if (noThanksBtn) noThanksBtn.addEventListener('click', closeModal);
-      
-      // Close on clicking outside card
+
+      // Close on clicking outside the card
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
       });
@@ -1596,7 +1791,7 @@
       if (form) {
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const email = emailInp.value.trim();
+          const email = emailInp ? emailInp.value.trim() : '';
           if (!email) return;
 
           submitBtn.textContent = 'SIGNING UP...';
@@ -1613,12 +1808,8 @@
             const data = await response.json();
 
             if (response.ok) {
+              // Save to localStorage and close immediately — no thank you message
               localStorage.setItem('newsletter_subscribed', 'true');
-              if (typeof showToast === 'function') {
-                showToast(data.alreadySubscribed ? 'Already subscribed!' : 'Successfully subscribed! Thank you!', 'success');
-              } else {
-                alert(data.alreadySubscribed ? 'Already subscribed!' : 'Successfully subscribed! Thank you!');
-              }
               closeModal();
             } else {
               if (typeof showToast === 'function') {
@@ -1642,5 +1833,6 @@
       }
     });
   </script>
+
 </body>
 </html>

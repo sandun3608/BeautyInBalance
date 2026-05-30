@@ -1405,6 +1405,7 @@
       if (tabId === 'orders') fetchOrders();
       if (tabId === 'inventory') renderInventory();
       if (tabId === 'support') fetchInquiries();
+      if (tabId === 'subscribers') fetchSubscribers();
     };
 
     const fallbackProducts = [
@@ -1879,6 +1880,99 @@
         });
         fetchInquiries();
     };
+
+    async function fetchSubscribers() {
+      const table = document.getElementById('subscribers-table');
+      if (!table) return;
+      table.innerHTML = '<tr><td colspan="3" style="text-align:center;">Loading Subscribers...</td></tr>';
+
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
+      try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const res = await fetch(BASE + '/subscribers', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        table.innerHTML = '';
+        if (data.length === 0) {
+          table.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; color:#999;">No subscribers yet.</td></tr>';
+          return;
+        }
+        data.forEach(sub => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-weight:500; color:#111;">${sub.email}</td>
+            <td>${new Date(sub.createdAt).toLocaleString()}</td>
+            <td style="text-align: right; padding-right: 20px;">
+              <button class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; border: 1px solid rgba(211, 47, 47, 0.1); padding:6px 12px; font-size:11px;" onclick="deleteSubscriber('${sub._id}')">Delete</button>
+            </td>
+          `;
+          table.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('fetchSubscribers error:', err);
+        table.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#dc2626;">Failed to load subscribers.</td></tr>';
+      }
+    }
+    window.fetchSubscribers = fetchSubscribers;
+
+    async function deleteSubscriber(id) {
+      if (!confirm('Are you sure you want to delete this subscriber?')) return;
+      const token = localStorage.getItem('userToken');
+      try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const res = await fetch(`${BASE}/subscribers/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (res.ok) {
+          showToast('✓ Subscriber deleted successfully.');
+          fetchSubscribers();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert(err.message || 'Failed to delete subscriber.');
+        }
+      } catch (e) {
+        console.error('Delete subscriber error:', e);
+        alert('Network error.');
+      }
+    }
+    window.deleteSubscriber = deleteSubscriber;
+
+    async function exportSubscribers() {
+      const token = localStorage.getItem('userToken');
+      try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const res = await fetch(BASE + '/subscribers', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Email,Subscribed Date\n";
+        
+        data.forEach(sub => {
+          csvContent += `"${sub.email}","${new Date(sub.createdAt).toISOString()}"\n`;
+        });
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `subscribers_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("✓ CSV exported successfully.");
+      } catch (e) {
+        console.error("Export error:", e);
+        alert("Failed to export CSV.");
+      }
+    }
+    window.exportSubscribers = exportSubscribers;
 
     function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
 
