@@ -1006,7 +1006,6 @@
           <div class="cat-section-header">
             <h2>The Ordinary</h2>
             <div class="cat-section-line"></div>
-            <span class="cat-section-badge">DECIEM CA</span>
           </div>
           <div class="premium-shop-grid" id="grid-ordinary"></div>
         </div>
@@ -1016,7 +1015,6 @@
           <div class="cat-section-header">
             <h2>CeraVe</h2>
             <div class="cat-section-line"></div>
-            <span class="cat-section-badge">LORÉAL GB</span>
           </div>
           <div class="premium-shop-grid" id="grid-cerave"></div>
         </div>
@@ -1039,7 +1037,6 @@
         <div class="pb-card">
           <div>
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-              <span style="background:#e31e24; color:#fff; font-size:9px; font-weight:800; letter-spacing:0.15em; padding:5px 12px; border-radius:4px; text-transform:uppercase;">DECIEM CA</span>
               <span style="color:rgba(255,255,255,0.3); font-size:12px;">Canada · Est. 2013</span>
             </div>
             <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:#fff; margin-bottom:14px;">The Ordinary</h3>
@@ -1060,7 +1057,6 @@
         <div class="pb-card">
           <div>
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-              <span style="background:#1a1a2e; color:#fff; font-size:9px; font-weight:800; letter-spacing:0.15em; padding:5px 12px; border-radius:4px; text-transform:uppercase; border:1px solid rgba(255,255,255,0.15);">LORÉAL GB</span>
               <span style="color:rgba(255,255,255,0.3); font-size:12px;">United Kingdom · Est. 1947</span>
             </div>
             <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:#fff; margin-bottom:14px;">CeraVe</h3>
@@ -1408,20 +1404,21 @@
             if (cat === 'ordinary') {
                 catTitle = 'The Ordinary';
                 catSubtitle = '';
-                catBadge = 'DECIEM CA';
+                catBadge = '';
             } else if (cat === 'cerave') {
                 catTitle = 'CeraVe';
                 catSubtitle = '';
-                catBadge = 'LORÉAL GB';
+                catBadge = '';
             }
 
+            const badgeHTML = catBadge ? `<span class="cat-section-badge">${catBadge}</span>` : '';
             const section = document.createElement('div');
             section.className = 'cat-section';
             section.innerHTML = `
               <div class="cat-section-header">
                 <h2>${catTitle} ${catSubtitle}</h2>
                 <div class="cat-section-line"></div>
-                <span class="cat-section-badge">${catBadge}</span>
+                ${badgeHTML}
               </div>
               <div class="premium-shop-grid"></div>
             `;
