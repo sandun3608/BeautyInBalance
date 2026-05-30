@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -415,23 +415,40 @@
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </li>
-        <li>
-          <a href="brand.html">
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
             <span style="display:flex; align-items:center; gap:12px;">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               Brand
             </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+            <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+            <li><a href="shop.html?cat=vatika">Vatika</a></li>
+            <li><a href="shop.html?cat=others">Others</a></li>
+          </ul>
         </li>
-        <li>
-          <a href="category.html">
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
             <span style="display:flex; align-items:center; gap:12px;">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
               Category
             </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+            <li><a href="shop.html?filter=serums">Serums</a></li>
+            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            <li><a href="shop.html?filter=body">Body Care</a></li>
+            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
+            <li><a href="shop.html?filter=hair">Hair Care</a></li>
+          </ul>
         </li>
         
         <li class="nav-label">Account</li>
