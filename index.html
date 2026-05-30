@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1534,12 +1534,113 @@
     </div>
   </div>
 
-  <script src="account-nav.js?v=2"></script>
+  <!-- ===== NEWSLETTER POPUP MODAL ===== -->
+  <div class="newsletter-modal-overlay" id="newsletter-modal-overlay">
+    <div class="newsletter-modal-card">
+      <button class="newsletter-close-btn" id="newsletter-close-btn" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="newsletter-modal-content">
+        <h2 class="newsletter-title">DON'T MISS OUT!!!</h2>
+        <p class="newsletter-desc">Sign up now for special offers, exclusive giveaways and be the first to find out about new product launches in our line-up!</p>
+        
+        <form id="newsletter-signup-form">
+          <input type="email" placeholder="Email address" id="newsletter-email-inp" required class="newsletter-input" />
+          <button type="submit" class="newsletter-submit-btn" id="newsletter-submit-btn">SIGN UP</button>
+        </form>
+        
+        <button class="newsletter-no-thanks" id="newsletter-no-thanks-btn">No, thanks</button>
+        
+        <p class="newsletter-disclaimer">You are signing up to receive communication via email and can unsubscribe at any time.</p>
+      </div>
+    </div>
+  </div>
 
   <script src="account-nav.js?v=2"></script>
 
+  <script>
+    // --- NEWSLETTER POPUP TRIGGER LOGIC ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('newsletter-modal-overlay');
+      const closeBtn = document.getElementById('newsletter-close-btn');
+      const noThanksBtn = document.getElementById('newsletter-no-thanks-btn');
+      const form = document.getElementById('newsletter-signup-form');
+      const emailInp = document.getElementById('newsletter-email-inp');
+      const submitBtn = document.getElementById('newsletter-submit-btn');
+
+      if (!modal) return;
+
+      const isShown = sessionStorage.getItem('newsletter_shown');
+      const isSubscribed = localStorage.getItem('newsletter_subscribed');
+
+      // Trigger after 2.5 seconds if never shown in session and not subscribed
+      if (!isShown && !isSubscribed) {
+        setTimeout(() => {
+          modal.classList.add('active');
+        }, 2500);
+      }
+
+      const closeModal = () => {
+        modal.classList.remove('active');
+        sessionStorage.setItem('newsletter_shown', 'true');
+      };
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (noThanksBtn) noThanksBtn.addEventListener('click', closeModal);
+      
+      // Close on clicking outside card
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = emailInp.value.trim();
+          if (!email) return;
+
+          submitBtn.textContent = 'SIGNING UP...';
+          submitBtn.disabled = true;
+
+          try {
+            const apiBase = window.BASE_URL || '/api';
+            const response = await fetch(`${apiBase}/subscribers`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              localStorage.setItem('newsletter_subscribed', 'true');
+              if (typeof showToast === 'function') {
+                showToast(data.alreadySubscribed ? 'Already subscribed!' : 'Successfully subscribed! Thank you!', 'success');
+              } else {
+                alert(data.alreadySubscribed ? 'Already subscribed!' : 'Successfully subscribed! Thank you!');
+              }
+              closeModal();
+            } else {
+              if (typeof showToast === 'function') {
+                showToast(data.message || 'Failed to sign up.', 'error');
+              } else {
+                alert(data.message || 'Failed to sign up.');
+              }
+            }
+          } catch (error) {
+            console.error('Newsletter error:', error);
+            if (typeof showToast === 'function') {
+              showToast('Connection error. Please try again.', 'error');
+            } else {
+              alert('Connection error. Please try again.');
+            }
+          } finally {
+            submitBtn.textContent = 'SIGN UP';
+            submitBtn.disabled = false;
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-

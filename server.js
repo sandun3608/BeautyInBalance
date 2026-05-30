@@ -48,6 +48,7 @@ const inquiryRoutes = require('./routes/inquiryRoutes');
 const statsRoutes = require('./routes/statsRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
+const subscriberRoutes = require('./routes/subscriberRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
@@ -56,6 +57,7 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/subscribers', subscriberRoutes);
 
 // Health Check API
 app.get('/api/health', (req, res) => {
