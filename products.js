@@ -159,15 +159,6 @@ const defaultProducts = [
   },
 
   { 
-    id: 'ord-ha-30',
-    name: 'Hyaluronic Acid 2% + B5 (30ml)', price: 4800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Hyaluronic Acid (30ml) Rs.4800.png'], img: 'the ordinary/Hyaluronic Acid (30ml) Rs.4800.png',
-    desc: 'An ultra-pure hydrating serum that intricately combines low, medium, and high-molecular-weight Hyaluronic Acid, alongside a next-generation HA crosspolymer at a collective 2% concentration. This exceptional system delivers intense, multi-depth hydration that plumps the skin instantly while Vitamin B5 enhances surface hydration and skin barrier restoration.',
-    benefits: ['Deep multi-depth Hydration', 'Plumps skin', 'Enriched with Vitamin B5'],
-    howToUse: 'Apply a few drops to face AM and PM before creams.',
-    authenticity: 'DECIEM Canada Original.'
-  },
-  { 
     id: 'ord-lactic-30',
     name: 'Lactic Acid 10% + HA (30ml)', price: 4700, cat: 'ordinary', filter: 'acids', 
     images: ['the ordinary/Lactic acid (30ml)  Rs.4700.png'], img: 'the ordinary/Lactic acid (30ml)  Rs.4700.png',
@@ -187,7 +178,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-lash-brow-5',
-    name: 'Multi-Peptide Lash And Brow Serum (5ml)', price: 4800, cat: 'ordinary', filter: 'targeted', 
+    name: 'Multi-Peptide Lash And Brow Serum (5ml)', price: 4800, cat: 'ordinary', filter: 'haircare', 
     images: ['the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png'], img: 'the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png',
     desc: 'A specialized, non-greasy conditioning serum highly engineered to nourish and strengthen your natural lashes and brows. Formulated with four potent peptide complexes, botanical extracts, and active ingredients, it fortifies hair density, thickness, and overall health to give you noticeably fuller, voluminous, and lush lashes and brows in just a few weeks.',
     benefits: ['Enhances lash density', 'Thickens brows', 'Nourishing peptides'],
@@ -196,7 +187,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-hair-density-30',
-    name: 'Multi-Peptide Serum for Hair Density (30ml)', price: 3600, cat: 'ordinary', filter: 'targeted', 
+    name: 'Multi-Peptide Serum for Hair Density (30ml)', price: 3600, cat: 'ordinary', filter: 'haircare', 
     images: ['the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png'], img: 'the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png',
     desc: 'A revolutionary, ultra-lightweight hair care serum densely packed with revitalizing technologies including REDENSYL complex, Procapil peptide complex, and BAICAPIL in an ultra-penetrating emollient base. It explicitly supports blood circulation in the scalp, drastically reduces hair loss, and fosters incredibly thicker, denser, and healthier-looking hair.',
     benefits: ['Supports hair density', 'Promotes thicker hair', 'Nourishes scalp'],
@@ -205,7 +196,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-hair-density-60',
-    name: 'Multi-Peptide Serum for Hair Density (60ml)', price: 5800, cat: 'ordinary', filter: 'targeted', 
+    name: 'Multi-Peptide Serum for Hair Density (60ml)', price: 5800, cat: 'ordinary', filter: 'haircare', 
     images: ['the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png'], img: 'the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png',
     desc: 'The fantastic, high-capacity 60ml version of the beloved hair density serum. This lightweight formula utilizes highly advanced peptide complexes, caffeine, and exclusive botanical extracts in an alcohol-free base to deeply stimulate the hair follicles. By promoting a flourishing scalp environment, it efficiently builds visible, lasting hair thickness and fullness.',
     benefits: ['Supports hair density', 'Promotes thicker hair', 'Value size (60ml)'],
@@ -214,7 +205,7 @@ const defaultProducts = [
   },
   { 
     id: 'ord-nmf-ha-30',
-    name: 'Natural Moisturizing Factors + HA (30ml)', price: 8000, cat: 'ordinary', filter: 'dry', 
+    name: 'Natural Moisturizing Factors + HA (30ml)', price: 8000, cat: 'ordinary', filter: 'moisturizers', 
     images: ['the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png'], img: 'the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png',
     desc: 'An essential, non-greasy surface hydrator packed with elements naturally present in the skin—amino acids, dermal lipids, and hyaluronic acid. Designed as a universal protective outer shield, it supplements the skin\'s impaired Natural Moisturizing Factors (NMF) to provide immediate, prolonged soothing hydration and dramatically improve barrier strength without a heavy feel.',
     benefits: ['Immediate Hydration', 'Barrier Support', 'Non-greasy formula'],
@@ -336,6 +327,7 @@ async function fetchDatabaseProducts() {
             const mappedDbProducts = dbProducts.map(p => {
                 const formatImg = (str) => {
                     if (!str) return 'images/placeholder.png';
+                    if (str.startsWith('data:image') || str.startsWith('http')) return str;
                     // Fix common encoding issues and handle spaces
                     let path = str.replace(/%25/g, '%').replace(/%2B/g, '+');
                     // Ensure spaces are URL-safe
@@ -376,7 +368,8 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
+            'updateMobileNavCategories', 'updateDesktopNavCategories'
         ];
         
         renderFuncs.forEach(funcName => {
@@ -396,7 +389,8 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar'
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
+            'updateMobileNavCategories', 'updateDesktopNavCategories'
         ];
         renderFuncs.forEach(fn => {
             if (typeof window[fn] === 'function') {
@@ -510,11 +504,13 @@ function addToCart(prodId, qty = 1) {
     
     if (existing) {
         existing.qty += qtyInt;
+        existing.discount = product.discount || 0;
     } else {
         shoppingCart.push({
             id: product.id,
             name: product.name,
             price: product.price,
+            discount: product.discount || 0,
             img: product.img,
             qty: qtyInt
         });
@@ -554,7 +550,11 @@ function updateCartQty(prodId, newQty) {
 window.updateCartQty = updateCartQty;
 
 function getCartTotal() {
-    return shoppingCart.reduce((total, item) => total + (item.price * item.qty), 0);
+    return shoppingCart.reduce((total, item) => {
+        const discount = Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        return total + (discountedPrice * item.qty);
+    }, 0);
 }
 window.getCartTotal = getCartTotal;
 
@@ -615,12 +615,23 @@ function renderCart() {
     if (footerBox) footerBox.style.display = 'block';
     
     // Draw items
-    itemsContainer.innerHTML = shoppingCart.map(item => `
+    itemsContainer.innerHTML = shoppingCart.map(item => {
+        const discount = Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        const priceHTML = discount > 0 
+            ? `<div style="display:flex; flex-direction:column; gap:2px; font-family:var(--font-sans);">
+                 <span style="color:#999; font-size:11px; text-decoration:line-through;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span style="color:#c92c2c; font-size:13px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="color:#2ec4b6; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">(${discount}% OFF)</span>
+               </div>`
+            : `<span style="color:var(--gold); font-size:13px; font-weight:700;">Rs. ${(item.price * item.qty).toLocaleString()}</span>`;
+
+        return `
         <div style="display:flex; gap:15px; margin-bottom:20px; align-items:center;">
             <img src="${item.img}" style="width:70px; height:70px; object-fit:contain; background:#f9f9f9; border-radius:8px; border: 1px solid #eee;">
             <div style="flex-grow:1;">
                 <div style="font-size:14px; font-weight:600; font-family:var(--font-sans); color:var(--dark);">${item.name}</div>
-                <div style="color:var(--gold); font-size:13px; font-weight:700; margin-top:5px;">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+                <div style="margin-top:5px;">${priceHTML}</div>
             </div>
             <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
                 <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:#eee; color:#333; cursor:pointer; width:24px; height:24px; border-radius:4px;">+</button>
@@ -628,10 +639,11 @@ function renderCart() {
                 <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:#eee; color:#333; cursor:pointer; width:24px; height:24px; border-radius:4px;">-</button>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
     
     const subtotal = getCartTotal();
-    const shipping = 350; 
+    const shipping = window._shippingFee !== undefined ? window._shippingFee : 450; 
     
     footerBox.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans);">
@@ -640,7 +652,7 @@ function renderCart() {
         </div>
         <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:14px; font-family:var(--font-sans);">
             <span style="color:#666;">Shipping</span>
-            <span style="font-weight:600; color:var(--brown);">Rs. 350</span>
+            <span style="font-weight:600; color:var(--brown);">Rs. ${shipping.toLocaleString()}</span>
         </div>
         <a href="checkout.html" style="display:block; text-align:center; background:var(--brown); color:#fff; padding:15px; border-radius:8px; text-decoration:none; font-family:var(--font-sans); font-weight:600; letter-spacing:0.05em; transition:0.3s;" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='var(--brown)'">SECURE CHECKOUT &rarr;</a>
     `;
@@ -654,12 +666,22 @@ function renderCart() {
             standaloneItems.innerHTML = '<div style="text-align:center; padding: 100px 0;"><h3>Your bag is empty</h3><a href="shop.html" style="color:var(--gold); text-decoration:underline;">Continue Shopping</a></div>';
             standaloneSummary.innerHTML = '';
         } else {
-            standaloneItems.innerHTML = shoppingCart.map(item => `
+            standaloneItems.innerHTML = shoppingCart.map(item => {
+                const discount = Number(item.discount || 0);
+                const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+                const priceHTML = discount > 0 
+                    ? `<div style="display:flex; flex-direction:column; gap:2px; font-family:var(--font-sans);">
+                         <span style="color:#999; font-size:11px; text-decoration:line-through;">Rs. ${(item.price).toLocaleString()}</span>
+                         <span style="color:#c92c2c; font-size:13px; font-weight:700;">Rs. ${(discountedPrice).toLocaleString()} <span style="color:#2ec4b6; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">(${discount}% OFF)</span></span>
+                       </div>`
+                    : `Rs. ${item.price.toLocaleString()}`;
+
+                return `
                 <div class="cart-item">
                     <div class="cart-item-img"><img src="${item.img}"></div>
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">Rs. ${item.price.toLocaleString()}</div>
+                        <div class="cart-item-price">${priceHTML}</div>
                         <div class="cart-item-qty">
                             <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})">-</span>
                             <span>${item.qty}</span>
@@ -667,19 +689,524 @@ function renderCart() {
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
+            const shipping = window._shippingFee !== undefined ? window._shippingFee : 450;
             standaloneSummary.innerHTML = `
                 <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
-                <div class="summary-row"><span>Delivery</span><span>Rs. 350</span></div>
-                <div class="summary-row total" style="font-weight:800; border-top:1px solid #eee; padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + 350).toLocaleString()}</span></div>
+                <div class="summary-row"><span>Delivery</span><span>Rs. ${shipping.toLocaleString()}</span></div>
+                <div class="summary-row total" style="font-weight:800; border-top:1px solid #eee; padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + shipping).toLocaleString()}</span></div>
             `;
         }
     }
 }
 window.renderCart = renderCart;
 
+// Fetch Global Settings (Shipping Fee)
+async function loadGlobalSettings() {
+    try {
+        const BASE = window.BASE_URL || '/api';
+        const res = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data.value !== undefined) {
+                window._shippingFee = Number(data.value);
+                console.log("Global shipping fee loaded:", window._shippingFee);
+                // Re-render cart if it was already rendered with default
+                if (typeof renderCart === 'function') renderCart();
+            }
+        }
+    } catch (e) {
+        console.warn("Failed to load global settings:", e);
+    }
+}
+
 // Call initially
 document.addEventListener('DOMContentLoaded', () => {
+    loadGlobalSettings();
     setTimeout(renderCart, 200);
 });
+
+// --- HOME ALL PRODUCTS GRID ---
+window.renderHomeAllProducts = function() {
+    const grid = document.getElementById('hap-grid');
+    if (!grid) return;
+
+    // If database fetch is not completed yet, show skeletons
+    if (!window.DB_FETCH_COMPLETED) {
+        grid.innerHTML = Array(8).fill(0).map(() => `
+          <div class="skeleton-card">
+            <div class="skeleton-element skeleton-img"></div>
+            <div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div>
+            <div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div>
+            <div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div>
+          </div>
+        `).join('');
+        return;
+    }
+
+    // Dynamically generate tabs
+    const tabsWrapper = document.querySelector('.hap-tabs');
+    if (tabsWrapper && window.productsData && window.productsData.length > 0) {
+        const activeTab = document.querySelector('.hap-tab.active');
+        let currentFilter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
+
+        const categories = [...new Set(window.productsData.map(p => (p.cat || 'others').toLowerCase()))];
+        
+        let tabsHTML = `<button class="hap-tab ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All</button>`;
+        
+        categories.forEach(cat => {
+            let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
+            tabsHTML += `<button class="hap-tab ${currentFilter === cat ? 'active' : ''}" data-filter="${cat}">${displayName}</button>`;
+        });
+
+        tabsWrapper.innerHTML = tabsHTML;
+    }
+
+    // Get up to 28 products
+    const displayProducts = (category) => {
+        let filtered = window.productsData;
+        if (category && category !== 'all') {
+            filtered = filtered.filter(p => (p.cat || 'others').toLowerCase() === category);
+        }
+        
+        // Take up to 28 items (7 rows of 4)
+        const productsToShow = filtered.slice(0, 28);
+        
+        grid.innerHTML = productsToShow.map(prod => {
+            const catLower = (prod.cat || 'others').toLowerCase();
+            const brandDisplay = catLower === 'cerave' ? 'CeraVe' : (catLower === 'ordinary' ? 'The Ordinary' : catLower.toUpperCase());
+            
+            const discount = Number(prod.discount || 0);
+            const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
+            
+            const basePrice = Number(prod.price || 0);
+            const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+            
+            const priceHTML = discount > 0 
+                ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
+                : `Rs. ${basePrice.toLocaleString()}`;
+
+            return `
+            <a href="product.html?id=${prod.id}" class="hap-card">
+                <div class="hap-card-img">
+                    ${discountBadge}
+                    <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
+                    <div class="hap-card-actions">
+                        <span class="h-icon" onclick="event.preventDefault(); addToCart('${prod.id}')" aria-label="Add to Cart">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        </span>
+                        <span class="h-icon" onclick="event.preventDefault(); shareProduct('${prod.id}')" aria-label="Share">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="hap-card-brand">${brandDisplay}</div>
+                <div class="hap-card-title">${prod.name}</div>
+                <div class="hap-card-price">${priceHTML}</div>
+            </a>
+            `;
+        }).join('');
+    };
+
+    // Initial render
+    const activeTabNow = document.querySelector('.hap-tab.active');
+    displayProducts(activeTabNow ? activeTabNow.getAttribute('data-filter') : 'all');
+
+    // Setup Tab Listeners
+    const tabs = document.querySelectorAll('.hap-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            displayProducts(tab.getAttribute('data-filter'));
+        });
+    });
+};
+
+// ── DYNAMIC MOBILE NAVIGATION DRAWER CATEGORIES ──
+window.updateMobileNavCategories = function(products) {
+    if (!products || !products.length) return;
+    
+    // Find the Categories label in the mobile nav
+    const labels = Array.from(document.querySelectorAll('.mobile-nav .nav-label, .drawer-content .nav-label'));
+    const catLabel = labels.find(el => el.textContent.trim().toLowerCase() === 'categories');
+    if (!catLabel) return;
+
+    // Hide the main "Categories" label since we now have two accordions: "Brand" and "Category"
+    catLabel.style.display = 'none';
+
+    const parent = catLabel.parentNode;
+    const siblings = Array.from(parent.children);
+    const catIndex = siblings.indexOf(catLabel);
+    
+    // Find where the next section label starts so we know where to stop
+    let nextLabelIndex = siblings.length;
+    for (let i = catIndex + 1; i < siblings.length; i++) {
+        if (siblings[i].classList.contains('nav-label')) {
+            nextLabelIndex = i;
+            break;
+        }
+    }
+
+    // Remove any previously inserted accordion items from previous runs to prevent duplication
+    const oldAccordionItems = Array.from(parent.querySelectorAll('.drawer-accordion-item'));
+    oldAccordionItems.forEach(item => {
+        if (parent.contains(item)) {
+            parent.removeChild(item);
+        }
+    });
+
+    // Also remove any remaining dynamic flat lists from previous runs
+    for (let i = nextLabelIndex - 1; i > catIndex; i--) {
+        const sib = siblings[i];
+        if (sib && !sib.classList.contains('nav-label') && sib.id !== 'mb-accordion-brands' && sib.id !== 'mb-accordion-cats') {
+            if (parent.contains(sib) && sib.tagName === 'LI') {
+                parent.removeChild(sib);
+            }
+        }
+    }
+
+    // Extract unique brands (cat) and categories (filter) from our active database products
+    const brands = [...new Set(products.map(p => (p.cat || '').toLowerCase().trim()).filter(Boolean))];
+    const filters = [...new Set(products.map(p => (p.filter || '').toLowerCase().trim()).filter(Boolean))];
+
+    // Mappings for beautiful client-facing titles
+    const brandTitles = {
+        'ordinary': 'The Ordinary',
+        'cerave': 'CeraVe'
+    };
+
+    const filterTitles = {
+        'cleansers': 'Cleansers',
+        'serums': 'Serums & Hydration',
+        'moisturizers': 'Moisturizers',
+        'sunscreen': 'Sun Protection',
+        'acids': 'Acids & Exfoliants',
+        'retinoids': 'Retinoids',
+        'body': 'Body Care',
+        'targeted': 'Targeted Care',
+        'eye': 'Eye Care',
+        'lip': 'Lip Care',
+        'hair': 'Hair Care'
+    };
+
+    // Create Brands Accordion Item
+    const brandsLi = document.createElement('li');
+    brandsLi.className = 'drawer-accordion-item';
+    brandsLi.id = 'mb-accordion-brands';
+    
+    let brandsSubmenuHTML = brands.map(b => {
+        const title = brandTitles[b] || (b.charAt(0).toUpperCase() + b.slice(1));
+        return `<li><a href="shop.html?cat=${b}">${title}</a></li>`;
+    }).join('');
+    
+    brandsLi.innerHTML = `
+      <button type="button" class="drawer-accordion-btn">
+        <span>Brand</span>
+        <svg class="accordion-chevron" viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <ul class="drawer-accordion-content">
+        <li><a href="shop.html">Shop All Brands</a></li>
+        ${brandsSubmenuHTML}
+      </ul>
+    `;
+
+    // Create Categories Accordion Item
+    const catsLi = document.createElement('li');
+    catsLi.className = 'drawer-accordion-item';
+    catsLi.id = 'mb-accordion-cats';
+    
+    let catsSubmenuHTML = filters.map(f => {
+        const title = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1));
+        return `<li><a href="shop.html?filter=${f}">${title}</a></li>`;
+    }).join('');
+    
+    catsLi.innerHTML = `
+      <button type="button" class="drawer-accordion-btn">
+        <span>Category</span>
+        <svg class="accordion-chevron" viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <ul class="drawer-accordion-content">
+        <li><a href="shop.html">Shop All Categories</a></li>
+        ${catsSubmenuHTML}
+      </ul>
+    `;
+
+    // Find the current next label (e.g. "Account") to insert right before it
+    const currentNextLabel = Array.from(parent.querySelectorAll('.nav-label')).find(el => {
+        return el.textContent.trim().toLowerCase() !== 'categories' && Array.from(parent.children).indexOf(el) > catIndex;
+    });
+
+    parent.insertBefore(brandsLi, currentNextLabel || null);
+    parent.insertBefore(catsLi, currentNextLabel || null);
+
+    // Setup toggle behavior
+    const accordionBtns = parent.querySelectorAll('.drawer-accordion-btn');
+    accordionBtns.forEach(btn => {
+        btn.onclick = function(e) {
+            e.preventDefault();
+            const isActive = this.classList.contains('active');
+            
+            // Close other accordions
+            accordionBtns.forEach(otherBtn => {
+                otherBtn.classList.remove('active');
+                otherBtn.nextElementSibling.style.maxHeight = '0px';
+            });
+
+            if (!isActive) {
+                this.classList.add('active');
+                const content = this.nextElementSibling;
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        };
+    });
+};
+
+// ── DYNAMIC DESKTOP NAVIGATION DROPDOWN CATEGORIES ──
+window.updateDesktopNavCategories = function(products) {
+    if (!products || !products.length) return;
+
+    const shopDropMenu = Array.from(document.querySelectorAll('.nav-main .has-drop')).find(el => {
+      const link = el.querySelector('a');
+      return link && link.textContent.toLowerCase().includes('shop');
+    })?.querySelector('.drop-menu');
+    
+    if (!shopDropMenu) return;
+
+    // Extract unique active categories (filter) from active database products
+    const filters = [...new Set(products.map(p => (p.filter || '').toLowerCase().trim()).filter(Boolean))];
+
+    // Mappings for beautiful client-facing titles
+    const filterTitles = {
+        'cleansers': 'Cleansers',
+        'serums': 'Serums & Hydration',
+        'moisturizers': 'Moisturizers',
+        'sunscreen': 'Sun Protection',
+        'acids': 'Acids & Exfoliants',
+        'retinoids': 'Retinoids',
+        'body': 'Body Care',
+        'targeted': 'Targeted Care',
+        'eye': 'Eye Care',
+        'lip': 'Lip Care',
+        'hair': 'Hair Care'
+    };
+
+    let menuHTML = `<li><a href="shop.html">Shop All</a></li>`;
+    filters.forEach(f => {
+        const title = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1));
+        menuHTML += `<li><a href="shop.html?filter=${f}">${title}</a></li>`;
+    });
+
+    shopDropMenu.innerHTML = menuHTML;
+};
+
+// ── LIVE SEARCH DROPDOWN ──
+function highlightMatch(text, query) {
+    if (!query) return text;
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+}
+
+function buildSearchDropdown(inputEl, dropdownId) {
+    // Remove existing dropdown
+    const old = document.getElementById(dropdownId);
+    if (old) old.remove();
+
+    const query = (inputEl.value || '').trim().toLowerCase();
+    if (query.length < 1) {
+        closeAllSearchDropdowns();
+        return;
+    }
+
+    document.body.classList.add('search-active');
+
+    const products = window.productsData || defaultProducts;
+    const matched = products.filter(p => {
+        const name = (p.name || '').toLowerCase();
+        const cat = (p.cat || '').toLowerCase();
+        const brand = (p.brand || '').toLowerCase();
+        const filterStr = (p.filter || '').toLowerCase();
+        return name.includes(query) || cat.includes(query) || brand.includes(query) || filterStr.includes(query);
+    });
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'search-results-dropdown';
+    dropdown.id = dropdownId;
+
+    if (matched.length === 0) {
+        dropdown.innerHTML = `<div class="srd-empty">No products found for "<strong>${query}</strong>"</div>`;
+    } else {
+        const header = document.createElement('div');
+        header.className = 'srd-header';
+        header.textContent = `Results (${matched.length})`;
+        dropdown.appendChild(header);
+
+        matched.forEach(prod => {
+            const item = document.createElement('a');
+            item.className = 'srd-item';
+            item.href = `product.html?id=${prod.id}`;
+
+            const catName = (prod.cat || 'others').toLowerCase() === 'ordinary' ? 'The Ordinary'
+                          : (prod.cat || 'others').toLowerCase() === 'cerave'   ? 'CeraVe'
+                          : (prod.cat || '').toUpperCase();
+
+            item.innerHTML = `
+                <img class="srd-img" src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}" onerror="this.src='images/placeholder.png'">
+                <div class="srd-info">
+                    <div class="srd-name">${highlightMatch(prod.name, query)}</div>
+                    <div class="srd-meta">${catName}</div>
+                </div>
+                <div class="srd-price">Rs. ${(prod.price || 0).toLocaleString()}</div>
+            `;
+            dropdown.appendChild(item);
+        });
+
+        const viewAll = document.createElement('a');
+        viewAll.className = 'srd-view-all';
+        viewAll.href = `shop.html?q=${encodeURIComponent(query)}`;
+        viewAll.textContent = `View all results →`;
+        dropdown.appendChild(viewAll);
+    }
+
+    // Attach dropdown to BODY and position it absolutely based on the input's bounding rect
+    // This avoids overflow:hidden clipping from any parent containers
+    const rect = inputEl.getBoundingClientRect();
+    dropdown.style.position = 'fixed';
+    
+    if (window.innerWidth <= 768) {
+        const mBar = inputEl.closest('.mobile-search-bar');
+        const containerRect = mBar ? mBar.getBoundingClientRect() : rect;
+        dropdown.style.top = (containerRect.bottom - 2) + 'px';
+        
+        const mobileWidth = Math.min(window.innerWidth * 0.9, 340);
+        dropdown.style.width = mobileWidth + 'px';
+        dropdown.style.left = ((window.innerWidth - mobileWidth) / 2) + 'px';
+    } else {
+        dropdown.style.top = (rect.bottom + 12) + 'px';
+        dropdown.style.left = rect.left + 'px';
+        dropdown.style.width = Math.max(rect.width, 320) + 'px';
+    }
+    
+    dropdown.style.zIndex = '999999';
+    document.body.appendChild(dropdown);
+
+    // Reposition on scroll/resize
+    const reposition = () => {
+        const r = inputEl.getBoundingClientRect();
+        if (window.innerWidth <= 768) {
+            const mBar = inputEl.closest('.mobile-search-bar');
+            const containerRect = mBar ? mBar.getBoundingClientRect() : r;
+            dropdown.style.top = (containerRect.bottom - 2) + 'px';
+            
+            const mobileWidth = Math.min(window.innerWidth * 0.9, 340);
+            dropdown.style.width = mobileWidth + 'px';
+            dropdown.style.left = ((window.innerWidth - mobileWidth) / 2) + 'px';
+        } else {
+            dropdown.style.top = (r.bottom + 12) + 'px';
+            dropdown.style.left = r.left + 'px';
+            dropdown.style.width = Math.max(r.width, 320) + 'px';
+        }
+    };
+    window.addEventListener('scroll', reposition, { passive: true });
+    window.addEventListener('resize', reposition, { passive: true });
+    dropdown._cleanup = () => {
+        window.removeEventListener('scroll', reposition);
+        window.removeEventListener('resize', reposition);
+    };
+}
+
+function closeAllSearchDropdowns() {
+    document.querySelectorAll('.search-results-dropdown').forEach(d => {
+        if (typeof d._cleanup === 'function') d._cleanup();
+        d.remove();
+    });
+    document.body.classList.remove('search-active');
+}
+
+window.setupGlobalSearch = function() {
+    const isShopPage = window.location.pathname.includes('shop.html');
+
+    if (isShopPage) {
+        // Sync URL search query to the input fields on the shop page on load
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            const searchInp = document.getElementById('search-inp');
+            const mSearchInp = document.getElementById('m-search-inp-top');
+            if (searchInp) searchInp.value = q;
+            if (mSearchInp) mSearchInp.value = q;
+        }
+        // No dropdown needed on shop page — it has its own filter
+        return;
+    }
+
+    // ── DESKTOP SEARCH BAR ──
+    const searchInp = document.getElementById('search-inp');
+    if (searchInp) {
+        searchInp.addEventListener('input', () => {
+            buildSearchDropdown(searchInp, 'srd-desktop');
+        });
+        searchInp.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const q = searchInp.value.trim();
+                if (q) window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+            }
+            if (e.key === 'Escape') closeAllSearchDropdowns();
+        });
+        searchInp.addEventListener('focus', () => {
+            if (searchInp.value.trim().length > 0) {
+                buildSearchDropdown(searchInp, 'srd-desktop');
+            }
+        });
+    }
+
+    // ── MOBILE SEARCH BAR ──
+    const mSearchInp = document.getElementById('m-search-inp-top');
+    if (mSearchInp) {
+        mSearchInp.addEventListener('input', () => {
+            buildSearchDropdown(mSearchInp, 'srd-mobile');
+        });
+        mSearchInp.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const q = mSearchInp.value.trim();
+                if (q) window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+            }
+            if (e.key === 'Escape') closeAllSearchDropdowns();
+        });
+        mSearchInp.addEventListener('focus', () => {
+            if (mSearchInp.value.trim().length > 0) {
+                buildSearchDropdown(mSearchInp, 'srd-mobile');
+            }
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-results-dropdown') &&
+            !e.target.closest('#search-inp') &&
+            !e.target.closest('#m-search-inp-top')) {
+            closeAllSearchDropdowns();
+        }
+    });
+};
+
+// ── DOM LOAD INITIALIZATION ──
+if (typeof document !== 'undefined') {
+    const runInitialization = () => {
+        // Run mobile nav categories instantly with existing defaultProducts so there's no layout jump
+        if (window.productsData) {
+            window.updateMobileNavCategories(window.productsData);
+            window.updateDesktopNavCategories(window.productsData);
+        }
+        // Bind search setup
+        window.setupGlobalSearch();
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runInitialization);
+    } else {
+        runInitialization();
+    }
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koko Payment QA Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .btn-koko {
+            background-color: #e21b70;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        .btn-koko:hover {
+            background-color: #c2155e;
+        }
+        .btn-koko:disabled {
+            background-color: #f08cb3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Koko Gateway Testing</h1>
+    <p>Click the button below to generate a dummy test order and proceed to the Koko payment gateway for QA testing as requested by the Koko agent.</p>
+    
+    <button id="test-btn" class="btn-koko">Perform Test Sale</button>
+</div>
+
+<script>
+    document.getElementById('test-btn').addEventListener('click', async function() {
+        this.disabled = true;
+        this.textContent = 'Preparing Order...';
+
+        try {
+            // Call our new test session endpoint to get the signed payload
+            const response = await fetch('/api/payments/koko/test-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                // Create a hidden form to submit the payload to Koko QA API
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = data.endpoint;
+                form.style.display = 'none';
+
+                for (const key in data.formData) {
+                    const hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = key;
+                    hiddenField.value = data.formData[key];
+                    form.appendChild(hiddenField);
+                }
+
+                document.body.appendChild(form);
+                this.textContent = 'Redirecting to Koko...';
+                form.submit();
+            } else {
+                alert('Failed to generate test session.');
+                this.disabled = false;
+                this.textContent = 'Perform Test Sale';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while connecting to the backend.');
+            this.disabled = false;
+            this.textContent = 'Perform Test Sale';
+        }
+    });
+</script>
+
+</body>
+</html>

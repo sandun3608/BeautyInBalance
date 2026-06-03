@@ -12,29 +12,24 @@ router.post('/', async (req, res) => {
         const inquiry = new Inquiry(req.body);
         const savedInquiry = await inquiry.save();
 
-        // --- EMAIL NOTIFICATION (ASYNCHRONOUS) ---
-        if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        // --- EMAIL NOTIFICATION (BACKGROUND) ---
+        if (process.env.EMAIL_USER && (process.env.EMAIL_PASS || process.env.GOOGLE_CLIENT_ID)) {
             const sendEmail = require('../utils/mailer');
-            try {
-                await sendEmail({
-                    email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-                    subject: `✉️ New Client Inquiry: ${savedInquiry.name}`,
-                    html: `
-                        <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                            <h2 style="color: #b58646;">New Message Received</h2>
-                            <p><strong>From:</strong> ${savedInquiry.name} (${savedInquiry.email})</p>
-                            <p><strong>Message:</strong></p>
-                            <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; font-style: italic;">
-                                "${savedInquiry.message}"
-                            </div>
-                            <p style="margin-top: 20px; color: #777; font-size: 12px;">Received on: ${new Date().toLocaleString()}</p>
+            sendEmail({
+                email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+                subject: `✉️ New Client Inquiry: ${savedInquiry.name}`,
+                html: `
+                    <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                        <h2 style="color: #b58646;">New Message Received</h2>
+                        <p><strong>From:</strong> ${savedInquiry.name} (${savedInquiry.email})</p>
+                        <p><strong>Message:</strong></p>
+                        <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; font-style: italic;">
+                            "${savedInquiry.message}"
                         </div>
-                    `
-                });
-                console.log("📧 Inquiry notification email sent successfully!");
-            } catch (err) {
-                console.error("📧 Email sending failed:", err);
-            }
+                        <p style="margin-top: 20px; color: #777; font-size: 12px;">Received on: ${new Date().toLocaleString()}</p>
+                    </div>
+                `
+            }).then(() => console.log("📧 Inquiry notification sent")).catch(err => console.error("📧 Inquiry email failed:", err));
         }
 
         res.status(201).json(savedInquiry);

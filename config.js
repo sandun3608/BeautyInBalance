@@ -13,3 +13,8 @@ window.GLOBAL_API_URL = GLOBAL_API_URL;
 window.BASE_URL = BASE_URL;
 
 console.log(`[Config v15] API Endpoint: ${BASE_URL} 🚀`);
+
+// Wake up the free-tier Render backend early in the background
+if (GLOBAL_API_URL.includes('onrender')) {
+    fetch(GLOBAL_API_URL + '/api/products/sample', { method: 'GET', mode: 'no-cors' }).catch(() => {});
+}

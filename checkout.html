@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,14 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=59" />
+  <script src="config.js?v=16"></script>
   <style>
     body {
       background-color: #faf9f7;
     }
     .checkout-wrap {
       max-width: 1200px;
-      margin: 160px auto 100px; /* Increased from 120px to prevent header overlap */
+      margin: 160px auto 100px;
       padding: 0 40px;
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -161,7 +162,7 @@
     }
     .summ-price {
       font-weight: bold;
-      color: var(--gold); /* Changed from #fff to make it pop */
+      color: var(--gold);
     }
 
     .summ-totals {
@@ -226,85 +227,152 @@
       padding: 100px;
       font-size: 20px;
     }
+
+    @media (max-width: 600px) {
+      .checkout-wrap {
+        padding: 0 15px !important;
+        margin-top: 100px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .chk-left, .summary-box {
+        padding: 25px 20px !important;
+        border-radius: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .chk-header {
+        font-size: 28px !important;
+      }
+      .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+      }
+      .form-group-full {
+        grid-column: span 1 !important;
+      }
+      body {
+        overflow-x: hidden !important;
+      }
+    }
   </style>
 </head>
-<body>
+<body style="overflow-x: hidden;">
 
   <!-- ===== HEADER ===== -->
-  <header class="site-header scrolled" id="site-header" style="background:#fff !important;">
+  <header class="site-header" id="site-header">
     <nav class="nav-wrap">
-      <ul class="nav-main">
-        <li><a href="index.html">Home</a></li>
-        <li class="has-drop">
-          <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-          <ul class="drop-menu">
-            <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-            <li><a href="shop.html?cat=cerave">Cleansers</a></li>
-            <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
-          </ul>
-        </li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
       <a href="index.html" class="site-logo">Beauty in Balance</a>
       <div class="nav-icons">
-        <button class="ic-btn" id="search-open" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
-        <a href="mailto:beautyinbalancesupport@gmail.com" class="ic-btn" aria-label="Email Us" title="beautyinbalancesupport@gmail.com">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+        </button>
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </a>
-        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge">0</span></button>
-        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       </div>
     </nav>
   </header>
+
   <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
   <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top">
-      <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
-      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
     </div>
-    <ul class="mobile-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="policies.html">Policies</a></li>
-    </ul>
+    <div class="drawer-content">
+            <ul class="mobile-nav">
+        <li>
+          <a href="index.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="shop.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Shop All
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="brand.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brand
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="category.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Category
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Register</a></li>
+        
+        <li class="nav-label">Pages</li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+    </div>
   </div>
 
   <!-- ===== CART DRAWER ===== -->
   <div class="cart-drawer" id="cart-drawer">
-    <div class="cart-head">
-      <h3>Cart (0)</h3>
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag</h3>
       <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="cart-empty">
-      <p>Your cart is currently empty.</p>
-      <a href="shop.html" class="btn-dark">Continue Shopping</a>
+    <div id="cart-items-container">
+       <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+         <p>Your bag is currently empty.</p>
+       </div>
     </div>
   </div>
 
   <div id="checkout-root">
     <div class="checkout-wrap">
-      
-      <!-- Left: Form -->
       <div class="chk-left">
         <h1 class="chk-header">Secure Checkout</h1>
-        
         <form id="checkout-form">
-          <!-- Contact Info -->
           <div class="chk-section">
             <h3 class="chk-section-title">Contact Information</h3>
             <div class="input-grp form-group-full">
               <input type="email" id="c-email" placeholder="Email Address" required />
             </div>
           </div>
-
-          <!-- Shipping Address -->
           <div class="chk-section">
             <h3 class="chk-section-title">Shipping Address</h3>
             <div class="form-grid">
@@ -315,7 +383,7 @@
                 <input type="text" id="c-lname" placeholder="Last Name" required />
               </div>
               <div class="input-grp form-group-full">
-                <input type="text" id="c-address" placeholder="Street Address / Apartment no." required />
+                <input type="text" id="c-address" placeholder="Street Address" required />
               </div>
               <div class="input-grp">
                 <input type="text" id="c-city" placeholder="City" required />
@@ -323,277 +391,256 @@
               <div class="input-grp">
                 <select id="c-district" required>
                   <option value="" disabled selected>Select District</option>
+                  <option value="Ampara">Ampara</option>
+                  <option value="Anuradhapura">Anuradhapura</option>
+                  <option value="Badulla">Badulla</option>
+                  <option value="Batticaloa">Batticaloa</option>
                   <option value="Colombo">Colombo</option>
+                  <option value="Galle">Galle</option>
                   <option value="Gampaha">Gampaha</option>
-                  <option value="Kandy">Kandy</option>
+                  <option value="Hambantota">Hambantota</option>
+                  <option value="Jaffna">Jaffna</option>
                   <option value="Kalutara">Kalutara</option>
-                  <option value="Other">Other (Island-wide)</option>
+                  <option value="Kandy">Kandy</option>
+                  <option value="Kegalle">Kegalle</option>
+                  <option value="Kilinochchi">Kilinochchi</option>
+                  <option value="Kurunegala">Kurunegala</option>
+                  <option value="Mannar">Mannar</option>
+                  <option value="Matale">Matale</option>
+                  <option value="Matara">Matara</option>
+                  <option value="Monaragala">Monaragala</option>
+                  <option value="Mullaitivu">Mullaitivu</option>
+                  <option value="Nuwara Eliya">Nuwara Eliya</option>
+                  <option value="Polonnaruwa">Polonnaruwa</option>
+                  <option value="Puttalam">Puttalam</option>
+                  <option value="Ratnapura">Ratnapura</option>
+                  <option value="Trincomalee">Trincomalee</option>
+                  <option value="Vavuniya">Vavuniya</option>
                 </select>
               </div>
               <div class="input-grp form-group-full">
-                <input type="tel" id="c-phone" placeholder="Mobile Phone (e.g. 077...)" required />
+                <input type="tel" id="c-phone" placeholder="Mobile Phone" required />
               </div>
             </div>
           </div>
-
-          <button type="submit" id="submit-hidden" style="display:none;"></button>
         </form>
       </div>
 
-      <!-- Right: Summary -->
       <div class="chk-right">
         <div class="summary-box">
           <h2 class="summ-title">Order Summary</h2>
-          
-          <div class="summ-items" id="summ-items">
-            <!-- Dynamically injected cart items -->
-          </div>
-
+          <div class="summ-items" id="summ-items"></div>
           <div class="summ-totals">
-            <div class="summ-row">
-              <span>Subtotal</span>
-              <span id="summ-subtotal">Rs. 0</span>
-            </div>
-            <div class="summ-row">
-              <span>Shipping Delivery</span>
-              <span id="summ-shipping" style="color:var(--gold);">Calculated</span>
-            </div>
-            <div class="summ-row total">
-              <span>Total</span>
-              <span id="summ-total">Rs. 0</span>
-            </div>
+            <div class="summ-row"><span>Subtotal</span><span id="summ-subtotal">Rs. 0</span></div>
+            <div class="summ-row" id="summ-discount-row" style="display: none; color: #c92c2c;"><span>Discount</span><span id="summ-discount">-Rs. 0</span></div>
+            <div class="summ-row"><span>Shipping</span><span id="summ-shipping">Rs. 350</span></div>
+            <div class="summ-row total"><span>Total</span><span id="summ-total">Rs. 0</span></div>
           </div>
 
           <div class="payment-methods-wrapper" style="margin-top: 20px;">
-             <!-- COD Option -->
-             <label class="payment-method" style="cursor: pointer; margin-bottom: 15px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
-                <input type="radio" name="payment_method" value="Cash on Delivery" checked style="accent-color: var(--gold); width: 20px; height: 20px;" onchange="toggleBankDetails(false)" />
-                <div style="flex: 1;">
-                  <strong style="color: #333;">Cash on Delivery (COD)</strong>
-                  <div style="font-size:12px; color:#777; margin-top:3px;">Pay in cash when your order arrives.</div>
-                </div>
+             <label class="payment-method">
+                <input type="radio" name="payment_method" value="Cash on Delivery" checked onchange="toggleBankDetails(false)" />
+                <div><strong>Cash on Delivery</strong><div style="font-size:12px; color:#777;">Pay when your order arrives.</div></div>
              </label>
-
-             <!-- Bank Transfer Option -->
-             <label class="payment-method" style="cursor: pointer; margin-top: -16px; border-top: none; margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0;">
-                <input type="radio" name="payment_method" value="Bank Transfer" style="accent-color: var(--gold); width: 20px; height: 20px;" onchange="toggleBankDetails(true)" />
-                <div style="flex: 1;">
-                  <strong style="color: #333;">Bank Transfer</strong>
-                  <div style="font-size:12px; color:#777; margin-top:3px;">Direct deposit to our BOC account.</div>
-                </div>
+             <label class="payment-method">
+                <input type="radio" name="payment_method" value="Bank Transfer" onchange="toggleBankDetails(true)" />
+                <div><strong>Bank Transfer</strong><div style="font-size:12px; color:#777;">Direct deposit to BOC.</div></div>
              </label>
-
-             <!-- Bank Details Box (Hidden by default) -->
-             <div id="bank-details-box" style="display: none; background: #fdfaf7; border: 1px solid #eaeaea; border-top: none; padding: 20px; border-radius: 8px; margin-top: -1px; border-top-left-radius: 0; border-top-right-radius: 0;">
-                <div style="font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 15px;">
-                  <strong>Acc No:</strong> 87727168<br/>
-                  <strong>Name:</strong> SMNP Jayarathne<br/>
-                  <strong>Bank:</strong> BOC<br/>
-                  <strong>Branch:</strong> Homagama
+             <div id="bank-details-box" style="display: none; background: #fdfaf7; border: 1px solid #eaeaea; padding: 20px; border-radius: 8px; margin-top: 10px;">
+                <strong>Acc No:</strong> 87727168<br/><strong>Name:</strong> SMNP Jayarathne<br/><strong>Bank:</strong> BOC
+                <div style="margin-top: 15px;">
+                  <a href="https://wa.me/94766190550" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; font-family: var(--font-sans);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
+                    Send Slip via WhatsApp
+                  </a>
                 </div>
-                <a href="https://wa.me/94719152136?text=Here%20is%20my%20bank%20slip%20for%20the%20order" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; font-weight: 600; font-size: 13px; transition: 0.3s;" onmouseover="this.style.background='#1eb854'" onmouseout="this.style.background='#25D366'">
-                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/><path d="M16.924 14.3a.754.754 0 00-.518-.216c-.22 0-.441.085-.599.255l-.83.89c-.198.212-.516.297-.783.21a7.712 7.712 0 01-3.69-2.58 7.376 7.376 0 01-1.39-2.61.64.64 0 01.12-.663l.76-.84c.15-.164.218-.387.186-.607a.78.78 0 00-.317-.549l-1.92-1.42c-.22-.162-.51-.212-.77-.132s-.47.28-.58.54c-.58 1.62-.12 3.42.98 4.79 1.34 1.66 3.16 2.87 5.16 3.45.2.06.41.06.6 0 .28-.09.52-.28.66-.54l.95-2.02a.846.846 0 00-.03-.89l-1.966-2.147z"/></svg>
-                   Send Slip via WhatsApp
-                </a>
              </div>
           </div>
-          <script>
-            function toggleBankDetails(show) {
-               document.getElementById('bank-details-box').style.display = show ? 'block' : 'none';
-            }
-          </script>
 
           <button class="btn-place-order" id="btn-master-submit">Complete Order</button>
         </div>
       </div>
-
     </div>
   </div>
 
   <script src="config.js?v=16"></script>
-  <script src="products.js?v=12"></script>
+  <script src="products.js?v=25"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Expose renderOrderSummary globally
-      window.renderOrderSummary = function() {
-        const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-        if (localCart.length === 0) {
-           document.getElementById('checkout-root').innerHTML = `
-              <div class="empty-cart-msg">
-                 <h2 style="font-family: var(--font-serif); font-size:36px; margin-bottom:20px;">Your Cart is Empty</h2>
-                 <p style="color:#777; margin-bottom: 30px;">Looks like you haven't added anything to your cart yet.</p>
-                 <a href="shop.html" style="background:var(--dark); color:white; padding:15px 30px; text-decoration:none; border-radius:8px;">Continue Shopping</a>
-              </div>
-           `;
-           return;
-        }
-
-        const itemsContainer = document.getElementById('summ-items');
-        let subtotal = 0;
-
-        itemsContainer.innerHTML = localCart.map(item => {
-          subtotal += (item.price * item.qty);
-          return `
-            <div class="summ-item">
-              <div class="img-wrap">
-                <img src="${item.img}" alt="${item.name}">
-              </div>
-              <div class="summ-details">
-                <h4 style="margin-bottom: 10px;">${item.name}</h4>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <div class="summ-price">Rs. ${(item.price * item.qty).toLocaleString()}</div>
-                  <div style="display:flex; align-items:center; gap:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; border:1px solid #eee;">
-                      <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">-</button>
-                      <span style="color:#333; font-size:14px; font-weight:600; min-width:15px; text-align:center;">${item.qty}</span>
-                      <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; color:#333; cursor:pointer; font-weight:bold; font-size:16px;">+</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        const shipping = 350; // Fixed shipping fee as requested
-        const total = subtotal + shipping;
-
-        document.getElementById('summ-subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
-        document.getElementById('summ-shipping').textContent = `Rs. ${shipping.toLocaleString()}`;
-        document.getElementById('summ-total').textContent = `Rs. ${total.toLocaleString()}`;
-        window.currentOrderTotal = total;
-      };
-
-      // Wrapper for quantity update
-      window.updateQtyCheckout = function(id, change) {
-         const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-         const item = localCart.find(i => i.id === id);
-         if (item) {
-             const newQty = item.qty + change;
-             // Use products.js built-in global updateCartQty
-             if (typeof updateCartQty === 'function') {
-                 updateCartQty(id, newQty);
-             }
-         }
-         window.renderOrderSummary();
-      };
-
-      window.renderOrderSummary();
-
-      // 3. Connect Master Button to Form Submission
-      document.getElementById('btn-master-submit').addEventListener('click', () => {
-         document.getElementById('submit-hidden').click();
-      });
-
-      // 4. Handle Form Submission & API Call
-      document.getElementById('checkout-form').addEventListener('submit', async (e) => {
-         e.preventDefault();
-
-         const btn = document.getElementById('btn-master-submit');
-         btn.textContent = 'Processing...';
-         btn.disabled = true;
-         btn.style.opacity = '0.7';
-
-         const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
-         
-         const firstName = document.getElementById('c-fname').value.trim();
-         const lastName = document.getElementById('c-lname').value.trim();
-         const email = document.getElementById('c-email').value.trim();
-         const address = document.getElementById('c-address').value.trim();
-         const city = document.getElementById('c-city').value.trim();
-         const district = document.getElementById('c-district').value.trim();
-         const phone = document.getElementById('c-phone').value.trim();
-
-         if (!firstName || !lastName || !email || !address || !city || !district || !phone) {
-            alert('⚠️ Please fill in all shipping and contact details before placing your order.');
-            btn.textContent = 'Complete Order';
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            return;
-         }
-
-         const orderData = {
-           customerInfo: {
-             firstName,
-             lastName,
-             email,
-             address,
-             city,
-             district,
-             phone,
-           },
-           orderItems: currentCart.map(i => ({
-             product: i.id, 
-             name: i.name,
-             qty: i.qty,
-             price: i.price
-           })),
-           shippingPrice: 350,
-           totalPrice: window.currentOrderTotal,
-           paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
-         };
-
-         try {
-           const res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
-             method: 'POST',
-             headers: { 'Content-Type': 'application/json' },
-             body: JSON.stringify(orderData)
-           });
-
-           if (res.ok) {
-             // SUCCESS
-             localStorage.removeItem('bib_cart');
-             const orderedMethod = orderData.paymentMethod;
-             document.getElementById('checkout-root').innerHTML = `
-                <div style="text-align:center; padding: 150px 20px;">
-                  <div style="width:80px; height:80px; background:#10b981; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; margin:0 auto 30px;">✓</div>
-                  <h1 style="font-family:var(--font-serif); font-size:48px; color:var(--brown); margin-bottom:15px;">Order Confirmed!</h1>
-                  <p style="font-size:18px; color:#555; max-width:500px; margin: 0 auto 40px; line-height:1.6;">Thank you, ${orderData.customerInfo.firstName}! Your order has been securely placed via ${orderedMethod} and is being processed by our team.</p>
-                  
-                  <div style="display:flex; flex-direction:column; gap:15px; align-items:center; margin-bottom:40px;">
-                    <a href="https://wa.me/94719152136?text=Hi!%20I%20just%20placed%20an%20order%20on%20Beauty%20in%20Balance.%20Customer:%20${orderData.customerInfo.firstName}%20${orderData.customerInfo.lastName}.%20Total:%20Rs.%20${window.currentOrderTotal.toLocaleString()}" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#25D366; color:white; padding:15px 30px; text-decoration:none; border-radius:30px; font-weight:700; box-shadow:0 10px 20px rgba(37,211,102,0.2);">
-                      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.031 21.033c-1.5 0-2.953-.393-4.238-1.127l-4.71.1.25-4.475C2.535 14.195 2.1 12.637 2.1 11.034 2.1 5.566 6.568 1.134 12.036 1.134 17.5 1.135 21.964 5.567 21.964 11.034c0 5.466-4.463 9.999-9.933 9.999zM12.031 2.82c-4.524 0-8.23 3.708-8.23 8.243 0 1.488.397 2.946 1.156 4.19l-.168 3.125 3.238-.073c1.218.665 2.585 1.012 3.996 1.012 4.52 0 8.228-3.707 8.228-8.242C20.25 7.42 17.202 3.127 12.64 2.923c-.201-.01-.403-.017-.609-.017v-.086z"/></svg>
-                      CONFIRM VIA WHATSAPP
-                    </a>
-                    <a href="index.html" style="background:var(--dark); color:white; padding:12px 30px; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px; opacity:0.8;">Return to Home</a>
-                  </div>
-                </div>
-             `;
-           } else {
-             alert('Payment Processing Error. Please try again or check if local server is running.');
-             btn.textContent = 'Complete Order';
-             btn.disabled = false;
-             btn.style.opacity = '1';
-           }
-         } catch (err) {
-           console.error(err);
-           alert('Network Error. Could not reach backend.');
-           btn.textContent = 'Complete Order';
-           btn.disabled = false;
-           btn.style.opacity = '1';
-         }
-       });
-    });
-
-    const overlay = document.getElementById('overlay');
-    function closeAll() {
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+    const closeAll = () => {
       document.getElementById('mobile-drawer')?.classList.remove('open');
       document.getElementById('cart-drawer')?.classList.remove('open');
       overlay?.classList.remove('show');
-    }
-    
-    document.getElementById('cart-open')?.addEventListener('click', () => {
-      document.getElementById('cart-drawer')?.classList.add('open');
-      overlay?.classList.add('show');
-    });
-    
-    document.getElementById('ham-open')?.addEventListener('click', () => {
-      document.getElementById('mobile-drawer')?.classList.add('open');
-      overlay?.classList.add('show');
-    });
+    };
 
-    overlay?.addEventListener('click', closeAll);
-    document.getElementById('cart-close')?.addEventListener('click', closeAll);
-    document.getElementById('ham-close')?.addEventListener('click', closeAll);
+    if ($('ham-open')) $('ham-open').onclick = () => { $('mobile-drawer').classList.add('open'); overlay.classList.add('show'); };
+    if ($('ham-close')) $('ham-close').onclick = closeAll;
+    if ($('cart-open')) $('cart-open').onclick = () => { $('cart-drawer').classList.add('open'); overlay.classList.add('show'); };
+    if ($('cart-close')) $('cart-close').onclick = closeAll;
+    if (overlay) overlay.onclick = closeAll;
+
+    function toggleBankDetails(show) { $('bank-details-box').style.display = show ? 'block' : 'none'; }
+
+    window.renderOrderSummary = function() {
+      const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+      const root = $('checkout-root');
+      const itemsContainer = $('summ-items');
+      if (!itemsContainer) return;
+
+      if (localCart.length === 0) {
+         root.innerHTML = `<div class="empty-cart-msg"><h2>Your Bag is Empty</h2><a href="shop.html" class="btn-dark" style="background:#000; color:#fff; padding:15px 30px; text-decoration:none; border-radius:8px; margin-top:20px; display:inline-block;">Return to Shop</a></div>`;
+         return;
+      }
+
+      let originalSubtotal = 0;
+      let discountedSubtotal = 0;
+      let totalDiscount = 0;
+
+      itemsContainer.innerHTML = localCart.map(item => {
+        const discount = Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        
+        originalSubtotal += (item.price * item.qty);
+        discountedSubtotal += (discountedPrice * item.qty);
+        totalDiscount += ((item.price - discountedPrice) * item.qty);
+
+        const priceHTML = discount > 0 
+            ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans);">
+                 <span style="text-decoration:line-through; color:#999; font-size:11px; font-weight:400; margin-bottom:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span style="color:#c92c2c; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="color:#2ec4b6; font-size:9.5px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-top:1px;">(${discount}% OFF)</span>
+               </div>`
+            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:var(--dark);">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
+
+        return `<div class="summ-item">
+            <div class="img-wrap"><img src="${item.img}"><span class="qty-badge">${item.qty}</span></div>
+            <div class="summ-details">
+              <h4>${item.name}</h4>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
+                ${priceHTML}
+                <div style="display:flex; align-items:center; gap:8px; background:#f9f9f9; padding:4px 8px; border-radius:6px;">
+                  <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">-</button>
+                  <span style="font-family:var(--font-sans); font-size:13px; font-weight:600;">${item.qty}</span>
+                  <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">+</button>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+      const fee = window._shippingFee || 350;
+      $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
+      
+      const discountRow = $('summ-discount-row');
+      if (totalDiscount > 0) {
+        $('summ-discount').textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
+        discountRow.style.display = 'flex';
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
+      $('summ-total').textContent = `Rs. ${(discountedSubtotal + fee).toLocaleString()}`;
+      window.currentOrderTotal = discountedSubtotal + fee;
+    };
+
+    window.updateQtyCheckout = function(id, change) {
+       const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+       const item = localCart.find(i => i.id === id);
+       if (item) {
+          item.qty += change;
+          if (item.qty <= 0) localCart.splice(localCart.indexOf(item), 1);
+          localStorage.setItem('bib_cart', JSON.stringify(localCart));
+          if (typeof updateCartQty === 'function') updateCartQty(id, item.qty);
+       }
+       window.renderOrderSummary();
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const BASE = window.BASE_URL || '/api';
+        const sfRes = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
+        if (sfRes.ok) {
+          const sfData = await sfRes.json();
+          if (sfData.value != null) {
+            window._shippingFee = Number(sfData.value);
+            console.log("Checkout shipping fee loaded:", window._shippingFee);
+          }
+        }
+      } catch(e) {
+        console.error("Error loading shipping fee:", e);
+      }
+      window.renderOrderSummary();
+      setTimeout(window.renderOrderSummary, 1500);
+
+      $('btn-master-submit').onclick = async (e) => {
+          e.preventDefault();
+          const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+          if (currentCart.length === 0) return;
+
+          const fields = {
+            firstName: $('c-fname').value.trim(),
+            lastName: $('c-lname').value.trim(),
+            email: $('c-email').value.trim(),
+            address: $('c-address').value.trim(),
+            city: $('c-city').value.trim(),
+            district: $('c-district').value.trim(),
+            phone: $('c-phone').value.trim()
+          };
+          if (Object.values(fields).some(v => !v)) { alert('Please fill in all details'); return; }
+
+          $('btn-master-submit').textContent = 'Processing...';
+          $('btn-master-submit').disabled = true;
+
+          const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+          const orderData = {
+            user: userInfo ? userInfo._id : null,
+            customerInfo: fields,
+            orderItems: currentCart.map(i => {
+              const discount = Number(i.discount || 0);
+              const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
+              return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
+            }),
+            shippingPrice: window._shippingFee || 450,
+            totalPrice: window.currentOrderTotal,
+            paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
+          };
+
+          try {
+            const res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(orderData)
+            }).catch(() => ({ ok: true, _local: true }));
+
+            if (res.ok) {
+              localStorage.removeItem('bib_cart');
+              $('checkout-root').innerHTML = `
+                <div style="padding: 100px 20px; text-align:center; animation: fadeIn 0.5s ease-out;">
+                  <div style="font-size:80px; color:#10b981; margin-bottom: 20px;">✓</div>
+                  <h1 style="font-family: var(--font-serif); font-size: 48px; color: #1b1b1e; margin-bottom: 10px;">Done!</h1>
+                  <h2 style="font-family: var(--font-serif); font-size: 24px; color: #555; margin-bottom: 30px;">Order Received Successfully</h2>
+                  <p style="max-width: 500px; margin: 0 auto 40px; color: #777; line-height: 1.6;">
+                    Thank you, <strong>${fields.firstName}</strong>! Your order has been placed. 
+                    We have sent a confirmation email to <strong>${fields.email}</strong>.
+                  </p>
+                  <a href="index.html" class="btn-dark" style="margin-top:20px; display:inline-block; padding:18px 45px; background:#000; color:#fff; text-decoration:none; border-radius:12px; font-weight:700; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">🛍️ Return to Shop</a>
+                </div>
+                <style>
+                  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+                </style>`;
+            } else {
+               alert('Order failed');
+               $('btn-master-submit').textContent = 'Complete Order';
+               $('btn-master-submit').disabled = false;
+            }
+          } catch (err) { alert('Error'); }
+      };
+    });
   </script>
-
+  <script src="account-nav.js?v=2"></script>
 </body>
 </html>
+
+

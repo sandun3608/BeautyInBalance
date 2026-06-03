@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=59" />
 
   <style>
     /* =========================================
@@ -35,11 +35,13 @@
 
     /* ── SHOP HERO BANNER ── */
     .shop-hero {
-      background: var(--brown);
+      background: #2D1B12; /* Fallback for var(--brown) */
+      background: var(--brown, #2D1B12);
       padding: 120px 60px 80px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      color: #ffffff;
     }
 
     .shop-hero::before {
@@ -325,32 +327,33 @@
       transform: scale(1.07);
     }
 
-    /* Brand badge on image */
-    .lux-brand-badge {
-      position: absolute;
-      top: 14px;
-      left: 14px;
+    /* Brand label — below image, above product name */
+    .lux-brand-label {
+      display: block;
+      text-align: center;
       font-size: 9px;
       font-weight: 800;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 3px 10px;
       border-radius: 4px;
-      z-index: 2;
+      margin: 0 auto 10px;
+      width: fit-content;
     }
 
-    .lux-brand-badge.ordinary {
+    .lux-brand-label.ordinary {
       background: #e31e24;
       color: #fff;
     }
 
-    .lux-brand-badge.cerave {
+    .lux-brand-label.cerave {
       background: #1a1a2e;
       color: #fff;
     }
 
     /* Quick add button - appears on hover */
     .lux-add-btn {
+      display: none; /* Hidden on desktop view */
       position: absolute;
       bottom: -50px;
       left: 50%;
@@ -469,24 +472,48 @@
       }
 
       .shop-toolbar {
-        padding: 0 16px;
-        top: 60px !important; /* Positioned below fixed header */
-        display: flex !important;
-        z-index: 99 !important; /* Below cart drawer and header */
+        padding: 0;
+        top: 60px !important;
+        display: block !important;
+        z-index: 99 !important;
       }
 
-      .brand-tabs {
-        padding-right: 16px;
-        margin-right: 12px;
+      .toolbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
       }
+
+      /* Brand tabs row — horizontally scrollable */
+      .brand-tabs {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(45,27,18,0.08);
+        padding: 0 16px;
+        margin-right: 0;
+        gap: 4px;
+      }
+
+      .brand-tabs::-webkit-scrollbar { display: none; }
 
       .brand-tab {
         font-size: 11px;
-        margin-right: 16px;
+        margin-right: 0;
+        padding: 12px 14px;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      /* Filter chips row */
+      .filter-chips-wrap {
+        padding: 8px 16px;
+        border-bottom: 1px solid rgba(45,27,18,0.05);
       }
 
       .shop-body {
-        padding: 40px 16px 100px;
+        padding: 40px 16px 20px;
       }
 
       .fg-grid {
@@ -549,21 +576,9 @@
         transition: none;
       }
 
-      .lux-brand-badge {
-        top: 8px !important;
-        left: 50% !important;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        font-size: 8px;
-        padding: 4px 12px;
-        z-index: 15;
-      }
+      /* Brand label below image on mobile - no changes needed, inherits desktop style */
 
-      /* Still red brand as requested earlier */
-      .lux-brand-badge.ordinary {
-        background: #e31e24 !important;
-        color: #fff !important;
-      }
+      /* Brand label styling inherited from desktop */
 
       .lux-add-btn {
         position: absolute !important;
@@ -629,6 +644,113 @@
         display: none;
       }
     }
+
+    /* Fallback variables if styles.css fails */
+    :root {
+      --brown: #2D1B12;
+      --gold: #C6975A;
+      --white: #FFFFFF;
+      --text: #1A1311;
+      --muted: #7A6459;
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    /* Local Force Override for Shop Offer Badges to bypass CDN/browser cache */
+    .hap-discount-badge {
+      position: absolute !important;
+      top: 10px !important;
+      left: 10px !important;
+      background: rgba(227, 30, 36, 0.95) !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+      color: #ffffff !important;
+      font-size: 10px !important;
+      font-weight: 800 !important;
+      padding: 6px 12px !important;
+      border-radius: 6px !important;
+      z-index: 10 !important;
+      box-shadow: 0 4px 15px rgba(227, 30, 36, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+      letter-spacing: 0.8px !important;
+      text-transform: uppercase !important;
+      font-family: var(--font-sans, sans-serif) !important;
+      pointer-events: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .hap-discount-badge {
+        box-shadow: 0 4px 15px rgba(227, 30, 36, 0.4) !important;
+        animation: localBadgePulseGlow 2.5s infinite ease-in-out !important;
+      }
+    }
+
+    @keyframes localBadgePulseGlow {
+      0% {
+        background: rgba(227, 30, 36, 0.95);
+        box-shadow: 0 0 0 0 rgba(227, 30, 36, 0.7), 0 4px 15px rgba(227, 30, 36, 0.4);
+      }
+      50% {
+        background: rgba(245, 40, 47, 1);
+        box-shadow: 0 0 0 8px rgba(227, 30, 36, 0), 0 6px 20px rgba(227, 30, 36, 0.6);
+      }
+      100% {
+        background: rgba(227, 30, 36, 0.95);
+        box-shadow: 0 0 0 0 rgba(227, 30, 36, 0), 0 4px 15px rgba(227, 30, 36, 0.4);
+      }
+    }
+
+    /* Premium Brands Responsive Section */
+    .pb-section {
+      background: #1a0f0a;
+      padding: 80px 48px;
+      color: #fff;
+    }
+    
+    .pb-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .pb-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding: 0 10px;
+    }
+    
+    .pb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    
+    .pb-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+      .pb-section {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .pb-section {
+        padding: 60px 20px;
+      }
+      .pb-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .pb-card {
+        padding: 30px 20px;
+      }
+    }
   </style>
 </head>
 
@@ -637,112 +759,176 @@
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
     <div class="ann-track">
-      <span>✨ 100% Authentic Imports — Straight from CA &amp; GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2–4
-        Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) &amp; Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE
-        Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp; ✨ 100% Authentic Imports — Straight from CA &amp; GB.
-        &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2–4 Days. &nbsp;&nbsp;&nbsp;</span>
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
 
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
+      <!-- Left: Navigation Links -->
       <div class="nav-left">
         <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           <span class="ic-label mobile-only">Menu</span>
         </button>
-        <a href="https://www.instagram.com/beauty.in.balance_" target="_blank" class="ic-btn m-social-icon"
-          aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-          </svg>
-          <span class="ic-label mobile-only">Social</span>
-        </a>
         <ul class="nav-main">
           <li><a href="index.html">Home</a></li>
           <li class="has-drop">
-            <a href="shop.html" class="active">Shop <svg class="chevron-icon" viewBox="0 0 10 6">
-                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" />
-              </svg></a>
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
             <ul class="drop-menu">
               <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
               <li><a href="shop.html?cat=cerave">CeraVe</a></li>
               <li><a href="shop.html?filter=serums">Serums</a></li>
-              <li><a href="shop.html?filter=acids">Acids & Peels</a></li>
-              <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
             </ul>
           </li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="policies.html">Policies</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
 
+      <!-- Center: Logo -->
       <a href="index.html" class="site-logo">Beauty in Balance</a>
 
+      <!-- Right: Icons -->
       <div class="nav-icons">
         <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="11" cy="11" r="7" />
-            <line x1="16.5" y1="16.5" x2="22" y2="22" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
         </button>
         <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <path d="M16 10a4 4 0 0 1-8 0" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <span class="cart-badge">0</span>
-          <span class="ic-label mobile-only">Bag</span>
         </button>
         <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          <span class="ic-label mobile-only">User</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </a>
       </div>
     </nav>
 
+    <!-- Search Bar Dropdown -->
     <div class="search-drop" id="search-drop">
       <div class="search-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18">
-          <circle cx="11" cy="11" r="7" />
-          <line x1="16.5" y1="16.5" x2="22" y2="22" />
-        </svg>
-        <input type="search" placeholder="Search products…" id="search-inp" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
         <button class="ic-btn" id="search-close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
     </div>
 
+    <!-- Mobile Top Search Row -->
     <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
       <div class="m-search-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-          <circle cx="11" cy="11" r="7" />
-          <line x1="16.5" y1="16.5" x2="22" y2="22" />
-        </svg>
-        <input type="search" placeholder="Search products..." id="m-search-inp-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
       </div>
     </div>
   </header>
 
-  <!-- ===== OVERLAY ===== -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
+    </div>
+    
+    <div class="drawer-content">
+            <ul class="mobile-nav">
+        <li>
+          <a href="index.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="shop.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Shop All
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brand
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content" id="shop-brand-accordion-list">
+            <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+            <li><a href="shop.html?cat=larocheposay">LA ROCHE-POSAY</a></li>
+            <li><a href="shop.html?cat=centellian24">CENTELLIAN24</a></li>
+            <li><a href="shop.html?cat=vatika">VATIKA</a></li>
+            <li><a href="shop.html?cat=vaseline">VASELINE</a></li>
+            <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+          </ul>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Category
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+            <li><a href="shop.html?filter=serums">Serums</a></li>
+            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            <li><a href="shop.html?filter=body">Body Care</a></li>
+            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
+            <li><a href="shop.html?filter=hair">Hair Care</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Register</a></li>
+        
+        <li class="nav-label">Pages</li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+      </div>
+
+      <div class="drawer-footer">
+        <div class="drawer-social">
+          <a href="https://www.instagram.com/beauty.in.balance_?igsh=aTRvd2k0ZjgzMWx1" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://wa.me/94766190550" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        </div>
+        <div class="drawer-contact">
+          <p>support@beautyinbalance.lk</p>
+          <p>+94 76 619 0550</p>
+        </div>
+      </div>
+    </div>
+
   <!-- ===== CART DRAWER ===== -->
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
@@ -754,33 +940,10 @@
     </div>
   </div>
 
-  <div class="overlay" id="overlay"></div>
-
-  <!-- ===== MOBILE DRAWER ===== -->
-  <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top">
-      <span class="site-logo" style="font-size:18px;">Beauty in Balance</span>
-      <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="1.5">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg></button>
-    </div>
-    <ul class="mobile-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop All</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="policies.html">Policies</a></li>
-    </ul>
-  </div>
-
-
-
   <main>
     <!-- ===== SHOP HERO ===== -->
     <section class="shop-hero">
-      <span class="shop-hero-eyebrow">Authentic Direct Imports · CA &amp; GB</span>
+      <span class="shop-hero-eyebrow">THE COLLECTION</span>
       <h1>The Full Collection</h1>
       <p>Every product sourced directly — zero compromise on purity, potency, or authenticity.</p>
       <div class="shop-hero-stats">
@@ -789,7 +952,7 @@
           <span class="stat-label">Products</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">2</span>
+          <span class="stat-num" id="stat-brands">2</span>
           <span class="stat-label">Premium Brands</span>
         </div>
         <div class="stat-item">
@@ -797,7 +960,7 @@
           <span class="stat-label">Authenticated</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num">Rs. 350</span>
+          <span class="stat-num">Rs. 450</span>
           <span class="stat-label">Island Delivery</span>
         </div>
       </div>
@@ -847,10 +1010,8 @@
         <!-- The Ordinary Section -->
         <div class="cat-section" id="section-ordinary">
           <div class="cat-section-header">
-            <h2>The Ordinary <em
-                style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">Canada</em></h2>
+            <h2>The Ordinary</h2>
             <div class="cat-section-line"></div>
-            <span class="cat-section-badge">DECIEM CA</span>
           </div>
           <div class="premium-shop-grid" id="grid-ordinary"></div>
         </div>
@@ -858,10 +1019,8 @@
         <!-- CeraVe Section -->
         <div class="cat-section" id="section-cerave">
           <div class="cat-section-header">
-            <h2>CeraVe <em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">United
-                Kingdom</em></h2>
+            <h2>CeraVe</h2>
             <div class="cat-section-line"></div>
-            <span class="cat-section-badge">LORÉAL GB</span>
           </div>
           <div class="premium-shop-grid" id="grid-cerave"></div>
         </div>
@@ -870,7 +1029,60 @@
     </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== PREMIUM BRANDS SECTION ===== -->
+  <section class="pb-section">
+    <div class="pb-container">
+      <div class="pb-header">
+        <span style="font-size:10px; letter-spacing:0.4em; text-transform:uppercase; color: #C6975A; font-weight:700;">Our Curated Brands</span>
+        <h2 style="font-family:'Playfair Display',serif; font-size: clamp(28px,4vw,48px); font-weight:500; font-style:italic; color:#fff; margin:16px 0 12px;">Premium Imports, Directly to You</h2>
+        <p style="color:rgba(255,255,255,0.5); font-size:15px; max-width:560px; margin:0 auto; line-height:1.7;">We partner exclusively with two of the world's most trusted skincare brands, importing directly from their origin countries to guarantee authenticity.</p>
+      </div>
+      <div class="pb-grid">
+
+        <!-- The Ordinary -->
+        <div class="pb-card">
+          <div>
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+              <span style="color:rgba(255,255,255,0.3); font-size:12px;">Canada · Est. 2013</span>
+            </div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:#fff; margin-bottom:14px;">The Ordinary</h3>
+            <p style="color:rgba(255,255,255,0.55); font-size:14px; line-height:1.8; margin-bottom:24px;">The Ordinary by DECIEM is a clinical formulations brand that disrupted the beauty industry with honest, science-backed skincare. Sourced directly from DECIEM Canada, every product we carry is 100% genuine — from their iconic Niacinamide serums to advanced retinoid treatments.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <span style="background:rgba(230,30,36,0.15); color:#e31e24; font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(230,30,36,0.3);">Serums</span>
+              <span style="background:rgba(230,30,36,0.15); color:#e31e24; font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(230,30,36,0.3);">Acids</span>
+              <span style="background:rgba(230,30,36,0.15); color:#e31e24; font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(230,30,36,0.3);">Retinoids</span>
+              <span style="background:rgba(230,30,36,0.15); color:#e31e24; font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(230,30,36,0.3);">Face Oils</span>
+            </div>
+          </div>
+          <div>
+            <a href="shop.html?cat=ordinary" style="display:inline-flex; align-items:center; gap:8px; margin-top:28px; color:#C6975A; font-size:13px; font-weight:600; letter-spacing:0.05em; text-decoration:none;">Shop The Ordinary →</a>
+          </div>
+        </div>
+
+        <!-- CeraVe -->
+        <div class="pb-card">
+          <div>
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+              <span style="color:rgba(255,255,255,0.3); font-size:12px;">United Kingdom · Est. 1947</span>
+            </div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:#fff; margin-bottom:14px;">CeraVe</h3>
+            <p style="color:rgba(255,255,255,0.55); font-size:14px; line-height:1.8; margin-bottom:24px;">Developed with dermatologists, CeraVe is the #1 dermatologist-recommended skincare brand in the US. Imported directly from Great Britain, our CeraVe range features essential ceramide-enriched cleansers and moisturizers formulated to restore and maintain the skin's natural barrier.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <span style="background:rgba(26,26,46,0.5); color:rgba(255,255,255,0.7); font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(255,255,255,0.15);">Cleansers</span>
+              <span style="background:rgba(26,26,46,0.5); color:rgba(255,255,255,0.7); font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(255,255,255,0.15);">Moisturizers</span>
+              <span style="background:rgba(26,26,46,0.5); color:rgba(255,255,255,0.7); font-size:11px; padding:5px 14px; border-radius:50px; border:1px solid rgba(255,255,255,0.15);">Sunscreen</span>
+            </div>
+          </div>
+          <div>
+            <a href="shop.html?cat=cerave" style="display:inline-flex; align-items:center; gap:8px; margin-top:28px; color:#C6975A; font-size:13px; font-weight:600; letter-spacing:0.05em; text-decoration:none;">Shop CeraVe →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand-col">
@@ -907,14 +1119,14 @@
         <ul>
           <li><a href="about.html">Our Story</a></li>
           <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="policies.html">Shipping & Returns</a></li>
+          <li><a href="refund-policy.html">Refund Policy</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h3>Company</h3>
         <ul>
-          <li><a href="policies.html">Privacy Policy</a></li>
-          <li><a href="policies.html">Terms of Service</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
           <li><a href="admin.html" style="opacity: 0.2; font-size: 10px;">Admin Access</a></li>
         </ul>
       </div>
@@ -927,7 +1139,7 @@
 
 
   <script src="config.js?v=16"></script>
-  <script src="products.js?v=12"></script>
+  <script src="products.js?v=25"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -945,25 +1157,34 @@
 
     // ── BUILD A LUXURY CARD ──
     function buildCard(p) {
-      const brandClass = (p.cat || '').toLowerCase() === 'cerave' ? 'cerave' : 'ordinary';
-      const brandLabel = brandClass === 'cerave' ? 'CeraVe GB' : 'The Ordinary CA';
-      const price = (p.price || 0).toLocaleString();
+      const pCat = (p.cat || '').toLowerCase();
+      const brandClass = pCat === 'cerave' ? 'cerave' : (pCat === 'ordinary' ? 'ordinary' : 'custom');
+      const brandLabel = pCat === 'cerave' ? 'CeraVe' : (pCat === 'ordinary' ? 'The Ordinary' : pCat.toUpperCase());
       const imgSrc = p.img || 'favicon.png';
+      
+      const discount = Number(p.discount || 0);
+      const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
+      const basePrice = Number(p.price || 0);
+      const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+      const priceHTML = discount > 0 
+          ? `<span class="original-price" style="font-size: 0.9rem; margin-right: 5px;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
+          : `Rs. ${basePrice.toLocaleString()}`;
 
       const card = document.createElement('div');
       card.className = 'lux-card';
       card.innerHTML = `
-        <div class="lux-img" onclick="location.href='product.html?id=${p.id}'">
-          <span class="lux-brand-badge ${brandClass}">${brandLabel}</span>
+        <div class="lux-img" onclick="location.href='product.html?id=${p.id}'" style="position: relative;">
+          ${discountBadge}
           <img src="${imgSrc}" alt="${p.name}" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
           <button class="lux-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">
             + Add to Bag
           </button>
         </div>
         <div class="lux-body" onclick="location.href='product.html?id=${p.id}'">
+          <span class="lux-brand-label ${brandClass}">${brandLabel}</span>
           <div class="lux-name">${p.name}</div>
           <div class="lux-price-row">
-            <span class="lux-price">Rs. ${price}</span>
+            <span class="lux-price">${priceHTML}</span>
             <div class="lux-view">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
@@ -976,12 +1197,27 @@
     // ── FILTER LOGIC ──
     function getFilteredProducts(data, brand, filter, search) {
       return data.filter(p => {
-        const pCat = (p.cat || '').toLowerCase();
+        let pCat = (p.cat || '').toLowerCase().trim();
+        if (pCat === 'the ordinary' || pCat === 'ordinary') pCat = 'ordinary';
         const pFilter = (p.filter || '').toLowerCase();
         const pName = (p.name || '').toLowerCase();
 
         const brandMatch = brand === 'all' || pCat === brand;
-        const searchMatch = !search || pName.includes(search.toLowerCase());
+        let searchMatch = true;
+        if (search) {
+          const s = search.toLowerCase().trim();
+          const pDesc = (p.desc || p.description || '').toLowerCase();
+          
+          let brandName = '';
+          if (pCat === 'ordinary') brandName = 'the ordinary';
+          else if (pCat === 'cerave') brandName = 'cerave';
+          
+          searchMatch = pName.includes(s) || 
+                        pCat.includes(s) || 
+                        brandName.includes(s) || 
+                        pFilter.includes(s) || 
+                        pDesc.includes(s);
+        }
 
         let filterMatch = true;
         if (filter !== 'all') {
@@ -1007,6 +1243,109 @@
     // ── RENDER PRODUCTS ──
     function renderShop() {
       const data = window.productsData || [];
+
+      // If database fetch is not completed yet, show skeletons
+      if (!window.DB_FETCH_COMPLETED) {
+        const isFiltered = currentFilter !== 'all' || currentBrand !== 'all' || currentSearch;
+        const skeletonHTML = Array(4).fill(0).map(() => `
+          <div class="skeleton-card">
+            <div class="skeleton-element skeleton-img"></div>
+            <div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div>
+            <div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div>
+            <div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div>
+            <div class="skeleton-element skeleton-button" style="margin-top: 10px;"></div>
+          </div>
+        `).join('');
+
+        if (isFiltered) {
+          $('browse-mode').style.display = 'none';
+          $('filtered-section').style.display = 'block';
+          const grid = $('filtered-grid');
+          if (grid) grid.innerHTML = skeletonHTML;
+        } else {
+          $('browse-mode').style.display = 'block';
+          $('filtered-section').style.display = 'none';
+          const gridOrdinary = $('grid-ordinary');
+          const gridCerave = $('grid-cerave');
+          if (gridOrdinary) gridOrdinary.innerHTML = skeletonHTML;
+          if (gridCerave) gridCerave.innerHTML = skeletonHTML;
+        }
+        return;
+      }
+      
+      // Dynamically generate brand tabs based on data
+      const brandTabsContainer = document.querySelector('.brand-tabs');
+      if (brandTabsContainer && data.length > 0) {
+        const categories = [...new Set(data.map(p => {
+          let cat = (p.cat || 'others').toLowerCase().trim();
+          if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
+          return cat;
+        }))];
+        
+        if (document.getElementById('stat-brands')) {
+          document.getElementById('stat-brands').textContent = categories.length;
+        }
+
+        let tabsHTML = `<button class="brand-tab ${currentBrand === 'all' ? 'active' : ''}" data-brand="all">All</button>`;
+        categories.forEach(cat => {
+            let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
+            tabsHTML += `<button class="brand-tab ${currentBrand === cat ? 'active' : ''}" data-brand="${cat}">${displayName}</button>`;
+        });
+        brandTabsContainer.innerHTML = tabsHTML;
+        
+        // Re-attach listeners to new tabs
+        document.querySelectorAll('.brand-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            currentBrand = tab.dataset.brand;
+            syncFilterUI();
+            renderShop();
+          });
+        });
+      }
+
+      // Dynamically generate filter chips (sub-categories) from data
+      const filterChipsContainer = $('filter-chips');
+      if (filterChipsContainer && data.length > 0) {
+        const filterTitles = {
+          'cleansers':    'Cleansers',
+          'serums':       'Serums',
+          'moisturizers': 'Moisturizers',
+          'sunscreen':    'Sunscreen',
+          'acids':        'Acids & Exfoliants',
+          'retinoids':    'Retinoids',
+          'body':         'Body Care',
+          'targeted':     'Targeted Care',
+          'eye':          'Eye Care',
+          'lip':          'Lip Care',
+          'hair':         'Hair Care',
+          'eye-care':     'Eye Care',
+          'hair-lash':    'Hair & Lash',
+          'face-oils':    'Face Oils',
+          'glow':         'Glow',
+          'bodycare':     'Body Care',
+          'exfoliants':   'Exfoliants',
+          'dry':          'Dry Skin'
+        };
+
+        const uniqueFilters = [...new Set(data.map(p => (p.filter || '').toLowerCase().trim()).filter(Boolean))];
+
+        let chipsHTML = `<button class="fc ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All Items</button>`;
+        uniqueFilters.forEach(f => {
+          const label = filterTitles[f] || (f.charAt(0).toUpperCase() + f.slice(1).replace(/-/g, ' '));
+          chipsHTML += `<button class="fc ${currentFilter === f ? 'active' : ''}" data-filter="${f}">${label}</button>`;
+        });
+        filterChipsContainer.innerHTML = chipsHTML;
+
+        // Re-attach listeners to new chips
+        filterChipsContainer.querySelectorAll('.fc').forEach(chip => {
+          chip.addEventListener('click', () => {
+            currentFilter = chip.dataset.filter;
+            syncFilterUI();
+            renderShop();
+          });
+        });
+      }
+
       const isFiltered = currentFilter !== 'all' || currentBrand !== 'all' || currentSearch;
 
       if (isFiltered) {
@@ -1043,24 +1382,56 @@
 
         if ($('count-num')) $('count-num').textContent = filtered.length;
       } else {
-        // BROWSE MODE — grouped by brand
+        // BROWSE MODE — grouped by brand dynamically
         $('browse-mode').style.display = 'block';
         $('filtered-section').style.display = 'none';
+        
+        const browseMode = $('browse-mode');
+        browseMode.innerHTML = '';
 
-        const ordinary = data.filter(p => (p.cat || '').toLowerCase() === 'ordinary');
-        const cerave = data.filter(p => (p.cat || '').toLowerCase() === 'cerave');
+        const categories = [...new Set(data.map(p => {
+          let cat = (p.cat || 'others').toLowerCase().trim();
+          if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
+          return cat;
+        }))];
 
-        const goGrid = $('grid-ordinary');
-        const gcGrid = $('grid-cerave');
-        goGrid.innerHTML = '';
-        gcGrid.innerHTML = '';
+        categories.forEach(cat => {
+            const catProducts = data.filter(p => {
+              let pCat = (p.cat || 'others').toLowerCase().trim();
+              if (pCat === 'the ordinary' || pCat === 'ordinary') pCat = 'ordinary';
+              return pCat === cat;
+            });
+            if(catProducts.length === 0) return;
 
-        ordinary.forEach(p => goGrid.appendChild(buildCard(p)));
-        cerave.forEach(p => gcGrid.appendChild(buildCard(p)));
+            let catTitle = cat.toUpperCase();
+            let catSubtitle = '';
+            let catBadge = cat.toUpperCase();
 
-        // Hide empty sections
-        $('section-ordinary').style.display = ordinary.length ? 'block' : 'none';
-        $('section-cerave').style.display = cerave.length ? 'block' : 'none';
+            if (cat === 'ordinary') {
+                catTitle = 'The Ordinary';
+                catSubtitle = '';
+                catBadge = '';
+            } else if (cat === 'cerave') {
+                catTitle = 'CeraVe';
+                catSubtitle = '';
+                catBadge = '';
+            }
+
+            const badgeHTML = catBadge ? `<span class="cat-section-badge">${catBadge}</span>` : '';
+            const section = document.createElement('div');
+            section.className = 'cat-section';
+            section.innerHTML = `
+              <div class="cat-section-header">
+                <h2>${catTitle} ${catSubtitle}</h2>
+                <div class="cat-section-line"></div>
+                ${badgeHTML}
+              </div>
+              <div class="premium-shop-grid"></div>
+            `;
+            const grid = section.querySelector('.premium-shop-grid');
+            catProducts.forEach(p => grid.appendChild(buildCard(p)));
+            browseMode.appendChild(section);
+        });
 
         if ($('count-num')) $('count-num').textContent = data.length;
         if ($('stat-total')) $('stat-total').textContent = data.length + '+';
@@ -1121,14 +1492,16 @@
     /* ── NAV ── */
     $('ham-open').addEventListener('click', () => {
       $('mobile-drawer').classList.add('open');
+      document.body.classList.add('drawer-open');
       overlay.classList.add('show');
       const mBar = $('mobile-search-bar');
       if (mBar) mBar.classList.add('hide-search');
     });
     $('ham-close').addEventListener('click', closeAll);
-    overlay.addEventListener('click', closeAll);
+    
     function closeAll() {
       $('mobile-drawer').classList.remove('open');
+      document.body.classList.remove('drawer-open');
       $('cart-drawer').classList.remove('open');
       if ($('search-drop')) $('search-drop').classList.remove('open');
       overlay.classList.remove('show');
@@ -1144,8 +1517,17 @@
 
     const cartOpen = $('cart-open');
     const cartClose = $('cart-close');
-    if (cartOpen) cartOpen.addEventListener('click', () => { $('cart-drawer').classList.add('open'); overlay.classList.add('show'); });
+    const mbnCart = $('mbn-cart-trigger');
+    
+    const openCart = () => { 
+      $('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    };
+    
+    if (cartOpen) cartOpen.addEventListener('click', openCart);
+    if (mbnCart) mbnCart.addEventListener('click', openCart);
     if (cartClose) cartClose.addEventListener('click', closeAll);
+    if (overlay) overlay.addEventListener('click', closeAll);
 
     window.addEventListener('scroll', () => {
       $('site-header').classList.toggle('scrolled', window.scrollY > 50);
@@ -1165,7 +1547,38 @@
     });
 
 
-  </script>
-</body>
 
+
+
+
+
+
+
+  </script>
+<script src="account-nav.js?v=2"></script>
+<script>
+  // Dynamically load brand list for mobile drawer
+  document.addEventListener('DOMContentLoaded', () => {
+    const brandListEl = document.getElementById('shop-brand-accordion-list');
+    if (!brandListEl) return;
+    fetch('brands.json')
+      .then(resp => resp.ok ? resp.json() : Promise.reject('Failed to load brands'))
+      .then(brands => {
+        brandListEl.innerHTML = ''; // clear static
+        brands.forEach(b => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `shop.html?cat=${encodeURIComponent(b.slug)}`;
+          a.textContent = b.name;
+          li.appendChild(a);
+          brandListEl.appendChild(li);
+        });
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+</body>
 </html>
+
+
+

@@ -9,13 +9,12 @@
   <meta name="author" content="Beauty in Balance" />
   <link rel="icon" type="image/png" href="favicon.png">
   <meta property="og:title" content="About Beauty in Balance | Genuine Cosmetics Shop Sri Lanka" />
-  <p style="color: rgba(255,255,255,0.3); font-size: 12px;">&copy; 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
   <meta property="og:description" content="Learn about our mission to bring 100% authentic international skincare to Sri Lanka." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=59" />
   
   <style>
     /* Header Section with Effect */
@@ -277,6 +276,13 @@
 </head>
 <body>
 
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
     <nav class="nav-wrap">
@@ -286,19 +292,34 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             <span class="ic-label mobile-only">Menu</span>
         </button>
+        <!-- Mobile Social Icon -->
+        <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span class="ic-label mobile-only">Social</span>
+        </a>
         <ul class="nav-main">
           <li><a href="index.html">Home</a></li>
           <li class="has-drop">
             <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
             <ul class="drop-menu">
-              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
-              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
-              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+              <li><a href="shop.html?filter=serums">Serums</a></li>
+              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
             </ul>
           </li>
-          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="policies.html">Policies</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
 
@@ -326,6 +347,17 @@
       </div>
     </nav>
 
+    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
     <!-- Mobile Top Search Row -->
     <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
       <div class="m-search-inner">
@@ -339,17 +371,93 @@
 
   <!-- ===== MOBILE DRAWER ===== -->
   <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
-       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
-       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
     </div>
-    <ul class="mobile-nav" style="padding: 40px 20px; display: flex; flex-direction: column; gap: 20px;">
-      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
-      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
-      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
-      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
-      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
-    </ul>
+    
+    <div class="drawer-content">
+            <ul class="mobile-nav">
+        <li>
+          <a href="index.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="shop.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Shop All
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brand
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+            <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+            <li><a href="shop.html?cat=joseon">Beauty of Joseon</a></li>
+            <li><a href="shop.html?cat=skin1004">Skin1004</a></li>
+            <li><a href="shop.html?cat=cetaphil">Cetaphil</a></li>
+            <li><a href="shop.html?cat=althea">Dr. Althea</a></li>
+          </ul>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Category
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+            <li><a href="shop.html?filter=serums">Serums</a></li>
+            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            <li><a href="shop.html?filter=body">Body Care</a></li>
+            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
+            <li><a href="shop.html?filter=hair">Hair Care</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Register</a></li>
+        
+        <li class="nav-label">Pages</li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="drawer-social">
+        <a href="https://www.instagram.com/beauty.in.balance_?igsh=aTRvd2k0ZjgzMWx1" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://wa.me/94766190550" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+      </div>
+      <div class="drawer-contact">
+        <p>support@beautyinbalance.lk</p>
+        <p>+94 76 619 0550</p>
+      </div>
+    </div>
   </div>
 
   <!-- ===== CART DRAWER ===== -->
@@ -364,6 +472,32 @@
   </div>
 
   <main>
+    <section class="about-welcome-section">
+      <div class="welcome-content">
+        <h1 class="welcome-display-title">
+          <span class="top-word">Beauty</span>
+          <span class="bottom-words">In Balance</span>
+        </h1>
+        
+        <div class="welcome-body-text">
+          <p class="lead-p">
+            We bring you the best beauty products directly imported from Korea, Canada, the UK, and Australia. 
+            Our goal is simple: to help you look and feel your best with 100% original products you can trust.
+          </p>
+          
+          <div class="secondary-p">
+            <p>We believe in quality without high prices. That’s why all our products are offered at reasonable prices, so everyone can enjoy safe and effective beauty care.</p>
+            <p>Your trust is our priority. Every item is carefully selected to ensure it is genuine and authentic. When you shop with us, you can be confident that you are getting the real deal.</p>
+            <p>Join our family of happy customers and discover beauty that’s safe, effective, and affordable.</p>
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <a href="shop.html" class="welcome-btn">Explore Collection</a>
+        </div>
+      </div>
+    </section>
+
     <div class="info-grid-section">
       <div class="info-grid-inner">
 
@@ -378,7 +512,7 @@
             <div class="info-column"><ul><li>Antioxidant-rich extracts</li><li>Fragrance-free clinical actives</li></ul></div>
           </div>
         </div>
-        <!-- Category 3 -->
+
         <div class="info-cat">
           <div class="info-header">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -391,6 +525,8 @@
           </div>
         </div>
       </div>
+    </div>
+
     <!-- Why Beauty in Balance Section -->
     <section class="why-bib-section">
       <h2 class="why-bib-title">Why Beauty in Balance?</h2>
@@ -399,7 +535,7 @@
         <div class="why-bib-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
           <h4>Direct Imports</h4>
-          <p>Premium beauty products directly sourced from Korea, Canada, the UK, and Australia.</p>
+          <p>Premium beauty products source directly from Korea, Canada, the UK, and Australia.</p>
         </div>
 
         <div class="why-bib-item">
@@ -426,6 +562,7 @@
       </div>
     </section>
   </main>
+
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand-col">
@@ -443,10 +580,28 @@
           </a>
         </div>
       </div>
-      <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop All</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div class="footer-col"><h5>Customer Care</h5><ul><li><a href="policies.html">Shipping & Returns</a></li><li><a href="policies.html">Privacy Policy</a></li><li><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li></ul></div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Customer Care</h5>
+        <ul>
+          <li><a href="refund-policy.html">Refund Policy</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+          <li><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-bottom"><p>&#169; 2024 Beauty in Balance. All rights reserved.</p></div>
+    <div class="footer-bottom">
+      <p>&#169; 2024 Beauty in Balance. All rights reserved.</p>
+    </div>
   </footer>
 
   <script>
@@ -498,10 +653,11 @@
       lastScrollTop = st;
     });
 
-    
-
   </script>
   <script src="config.js?v=16"></script>
-  <script src="products.js?v=12"></script>
+  <script src="products.js?v=25"></script>
+  <script src="account-nav.js?v=2"></script>
 </body>
 </html>
+
+
