@@ -1046,61 +1046,7 @@
       </div>
     </section>
 
-    <!-- ===== SECTION: DYNAMIC HIGHLIGHT (SCREENSHOT MATCH) ===== -->
-    <section class="dynamic-center-highlight">
-      <div class="dch-container">
-        <!-- Left: Image -->
-        <div class="dch-visual">
-          <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Featured Product">
-        </div>
 
-        <!-- Right: Content -->
-        <div class="dch-content">
-          <div class="dch-marquee">
-            <div class="dch-marquee-track">
-              <span>-10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp; -10% OFF &nbsp;•&nbsp;</span>
-            </div>
-          </div>
-          
-          <div class="dch-tags">
-            <span class="dch-tag">ANTI-AGING</span>
-            <span class="dch-tag">NORMAL</span>
-            <span class="dch-tag">SKIN CARE</span>
-          </div>
-
-          <h1 class="dch-title">Niacinamide 10% + Zinc 1% Intensive Hydrating Treatment</h1>
-          <p class="dch-price">Rs. 3,800.00</p>
-          
-          <div class="dch-desc">
-             Niacinamide 10% + Zinc 1% Intensive Hydrating Treatment harnesses the nourishing power of high-purity vitamins to deliver deep moisture and restore skin's natural radiance. This lightweight yet potent formula penetrates quickly, infusing dehydrated skin with essential elements. Ideal for all skin types, particularly those prone to oiliness or sensitivity, this treatment strengthens the skin barrier while promoting a smoother, more luminous complexion.
-          </div>
-
-          <div class="dch-actions">
-            <div class="dch-qty-label">Quantity</div>
-            <div class="dch-controls">
-                <div class="dch-qty">
-                  <button onclick="changeDchQty(-1)">-</button>
-                  <input type="number" id="dch-qty-val" value="1" readonly>
-                  <button onclick="changeDchQty(1)">+</button>
-                </div>
-                
-                <div class="dch-btns">
-                  <button class="dch-btn-cart" onclick="addToCart('ord-nia-30')" style="width: 100%;">ADD TO CART</button>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      function changeDchQty(amt) {
-        const inp = document.getElementById('dch-qty-val');
-        let val = parseInt(inp.value) + amt;
-        if (val < 1) val = 1;
-        inp.value = val;
-      }
-    </script>
 
 
 
