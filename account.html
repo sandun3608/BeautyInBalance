@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=59" />
+  <link rel="stylesheet" href="styles.css?v=60" />
   <style>
     :root {
       --accent: #b58646;
@@ -266,9 +266,9 @@
     .sign-out-btn:hover { background: #fecaca; transform: translateY(-2px); }
     .sign-out-btn svg { width: 22px; height: 22px; }
 
-    /* ═══════════════════════════════
-       MOBILE RESPONSIVE (≤ 900px)
-    ═══════════════════════════════ */
+    /* -------------------------------
+       MOBILE RESPONSIVE (= 900px)
+    ------------------------------- */
     @media (max-width: 900px) {
       body { overflow-x: hidden; }
 
@@ -288,7 +288,7 @@
         overflow-x: hidden;
       }
 
-      /* ─── Sticky Tab Bar ─── */
+      /* --- Sticky Tab Bar --- */
       .account-nav {
         position: sticky;
         top: 58px;
@@ -335,7 +335,7 @@
         letter-spacing: 0;
       }
 
-      /* Hide icons on mobile — text only fits cleanly */
+      /* Hide icons on mobile � text only fits cleanly */
       .nav-item svg { display: none !important; }
 
       .nav-item:active { transform: scale(0.96); }
@@ -347,10 +347,10 @@
         box-shadow: 0 4px 10px rgba(45,27,18,0.2);
       }
 
-      /* Sign Out is at page bottom — hide from nav bar */
+      /* Sign Out is at page bottom � hide from nav bar */
       .logout-btn { display: none !important; }
 
-      /* ─── Order Cards ─── */
+      /* --- Order Cards --- */
       .order-card { margin-bottom: 16px; border-radius: 14px; width: 100%; box-sizing: border-box; overflow: hidden; }
       .order-header { padding: 10px 12px; flex-wrap: wrap; gap: 6px; }
       .order-id { font-size: 12px !important; }
@@ -361,13 +361,13 @@
       .order-summary-grid { grid-template-columns: 1fr !important; }
       .order-footer { padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
 
-      /* ─── Typography ─── */
+      /* --- Typography --- */
       h3.section-title { font-size: 20px; margin-bottom: 16px; }
       .user-info h2 { font-size: 22px; }
       .account-hero { padding: 50px 20px; }
       .user-avatar { width: 70px; height: 70px; font-size: 28px; }
 
-      /* ─── Action Buttons ─── */
+      /* --- Action Buttons --- */
       .static-support-btn, .sign-out-btn {
         font-size: 14px !important;
         padding: 14px 16px !important;
@@ -382,7 +382,7 @@
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
     <div class="ann-track">
-      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+      <span>? 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; ?? Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; ??? Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ? FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
 
@@ -444,7 +444,7 @@
     <div class="search-drop" id="search-drop">
       <div class="search-inner">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <input type="search" placeholder="Search for products�" id="search-inp" />
         <button class="ic-btn" id="search-close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
@@ -633,7 +633,7 @@
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-bottom" style="text-align:center; padding: 40px; border-top: 1px solid var(--border); margin-top: 50px;">
-      <p>© 2024 Beauty in Balance Sri Lanka.</p>
+      <p>� 2024 Beauty in Balance Sri Lanka.</p>
     </div>
   </footer>
 
@@ -643,7 +643,7 @@
   <script src="account-nav.js?v=5"></script>
 
   <script>
-    // Global tab switcher — accessible from inline onclick AND event listeners
+    // Global tab switcher � accessible from inline onclick AND event listeners
     function switchTabGlobal(target) {
       const items = document.querySelectorAll('.nav-item[data-target]');
       const secs  = document.querySelectorAll('.content-section');
@@ -695,7 +695,7 @@
       if(pName) pName.value = userInfo.name;
       if(pEmail) pEmail.value = userInfo.email;
 
-      // Tab Logic — both click and touchend for mobile
+      // Tab Logic � both click and touchend for mobile
       const navItems = document.querySelectorAll('.nav-item[data-target]');
       const sections = document.querySelectorAll('.content-section');
 
@@ -774,7 +774,7 @@
                         </div>
                         <div style="flex:1; min-width:0;">
                           <div style="font-size:15px; font-weight:600; color:var(--brown); line-height:1.3; word-wrap: break-word;">${item.name}</div>
-                          <div style="font-size:13px; color:#888; margin-top:4px;">Qty: ${item.qty} · <span style="font-weight:700; color:var(--gold);">Rs. ${item.price.toLocaleString()}</span></div>
+                          <div style="font-size:13px; color:#888; margin-top:4px;">Qty: ${item.qty} � <span style="font-weight:700; color:var(--gold);">Rs. ${item.price.toLocaleString()}</span></div>
                         </div>
                       </div>
                     `;
@@ -792,7 +792,7 @@
                     <div style="color:#555; line-height:1.6; font-size:12px;">
                       <strong style="color:#333; display:block;">${c.firstName || ''} ${c.lastName || ''}</strong>
                       ${c.address || ''}<br>${c.city || ''}${c.district ? ', ' + c.district : ''}<br>
-                      <span style="color:var(--gold); font-weight:600;">📞 ${c.phone || ''}</span>
+                      <span style="color:var(--gold); font-weight:600;">?? ${c.phone || ''}</span>
                     </div>
                   </div>
 
