@@ -121,15 +121,16 @@
 
       /* Mobile adjustment for indicators container under slider */
       .hero-indicators {
-        padding: 10px 0 0 !important;
-        gap: 6px !important;
+        padding: 8px 0 !important;
+        margin: 5px auto !important;
+        gap: 8px !important;
       }
       .hero-dot {
-        width: 6px !important;
-        height: 6px !important;
+        width: 8px !important;
+        height: 8px !important;
       }
       .hero-dot.active {
-        width: 15px !important;
+        width: 20px !important;
       }
     }
     
@@ -170,32 +171,31 @@
     /* Style for slide dots indicator bar (Desktop default) */
     .hero-indicators {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
       justify-content: center;
-      z-index: 5;
-      padding: 15px 0 5px;
+      z-index: 10;
+      padding: 10px 0;
+      margin: 10px auto;
       background: transparent;
-      border: none;
       pointer-events: auto;
-      margin: 0 auto;
     }
     .hero-dot {
       display: inline-block;
-      width: 7px;
-      height: 7px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: rgba(45, 27, 18, 0.2);
+      background: rgba(45, 27, 18, 0.35);
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .hero-dot:hover {
-      background: rgba(45, 27, 18, 0.5);
+      background: rgba(45, 27, 18, 0.6);
     }
     .hero-dot.active {
       background: #2d1b12;
-      width: 18px; /* Capsule style for active dot */
-      border-radius: 4px;
+      width: 26px; /* Capsule style for active dot */
+      border-radius: 5px;
     }
   </style>
 </head>
