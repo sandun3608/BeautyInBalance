@@ -190,9 +190,9 @@ img {
 
 .footer-logo {
   font-family: var(--font-serif);
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: var(--white);
   display: block;
   margin-bottom: 16px;
@@ -2752,7 +2752,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 .footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1.8fr;
   gap: 48px;
   padding: 40px 48px 30px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -7978,6 +7978,11 @@ main {
     margin-top: 40px !important;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
+  }
+
+  .footer-logo {
+    font-size: 26px !important;
+    margin-bottom: 12px !important;
   }
 
   .footer-top {
