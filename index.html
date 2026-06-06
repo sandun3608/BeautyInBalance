@@ -69,7 +69,7 @@
     }
     /* Transparent Header on Desktop */
     @media (min-width: 901px) {
-      #site-header {
+      body:not(.drawer-open) #site-header {
         background: transparent !important;
         border-bottom-color: transparent !important;
         position: absolute !important;
@@ -77,7 +77,7 @@
         width: 100%;
         transition: background 0.3s ease, border-bottom-color 0.3s ease;
       }
-      #site-header.scrolled {
+      body:not(.drawer-open) #site-header.scrolled {
         position: fixed !important;
         top: 0 !important;
         background: var(--white) !important;
@@ -88,9 +88,27 @@
         from { transform: translateY(-100%); }
         to { transform: translateY(0); }
       }
-      /* Optional: ensure hero image stretches full height when header is transparent */
+      /* Reduce vertical stretch and zoom for hero section */
       .hero-section {
-        height: calc(100vh - var(--ann-h)) !important;
+        height: 75vh !important;
+      }
+      /* Increase brightness (light) of hero images */
+      .hero-bg img,
+      .hero-bg video {
+        filter: brightness(1.0) !important;
+      }
+      /* Reduce Ken Burns zoom animation */
+      .hero-slide.active .hero-bg img,
+      .hero-slide.active .hero-bg video {
+        animation: kenburns-desktop 8s ease-out forwards !important;
+      }
+      @keyframes kenburns-desktop {
+        from {
+          transform: scale(1.02) translate(0.5%, -0.5%);
+        }
+        to {
+          transform: scale(1.00) translate(0%, 0%);
+        }
       }
     }
     
