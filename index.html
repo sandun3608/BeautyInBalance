@@ -264,9 +264,9 @@
     <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
-      <div class="hero-slides">
-        <!-- Slide 1: The Ordinary Focus -->
-        <div class="hero-slide active">
+      <div class="hero-slides" id="hero-slides-container">
+        <!-- Slide 1: The Ordinary Focus (FALLBACK - replaced by DB slides if available) -->
+        <div class="hero-slide active" data-fallback="true">
           <div class="hero-bg desktop-only"><img src="1slide/d (1).jpg" alt="Pure Skin Starts with The Ordinary"></div>
           <div class="hero-bg mobile-only"><img src="mobile/create the ordinary cosmetic store name is  BEAUTYINBALACE. with one women.jpg" alt="Pure Skin Starts with The Ordinary"></div>
           <div class="hero-content">
@@ -277,8 +277,8 @@
           </div>
         </div>
 
-        <!-- Slide 2: Beauty Routine Focus -->
-        <div class="hero-slide">
+        <!-- Slide 2: Beauty Routine Focus (FALLBACK) -->
+        <div class="hero-slide" data-fallback="true">
           <div class="hero-bg desktop-only"><img src="1slide/d (2).jpg" alt="Elevate Your Beauty Routine"></div>
           <div class="hero-bg mobile-only"><img src="mobile/create cosmetic store name is  BEAUTYINBALACE. with one women (2).jpg" alt="Elevate Your Beauty Routine"></div>
           <div class="hero-content">
@@ -289,8 +289,8 @@
           </div>
         </div>
 
-        <!-- Slide 3: Dermatologist Focus -->
-        <div class="hero-slide">
+        <!-- Slide 3: Dermatologist Focus (FALLBACK) -->
+        <div class="hero-slide" data-fallback="true">
           <div class="hero-bg desktop-only"><img src="1slide/d (3).jpg" alt="Dermatologist Recommended"></div>
           <div class="hero-bg mobile-only"><img src="mobile/create cosmetic store with one beautiful women have ordinary product her hand. behind wall should BEAUTYINBALACE (2).jpg" alt="Dermatologist Recommended"></div>
           <div class="hero-content">
@@ -1178,41 +1178,7 @@
     if (mbnCart) mbnCart.addEventListener('click', openCart);
     if (cartClose) cartClose.addEventListener('click', closeAll);
 
-    /* ── HERO SLIDER ── */
-    document.addEventListener('DOMContentLoaded', () => {
-      const heroSlides = document.querySelectorAll('.hero-slide');
-      if (heroSlides.length === 0) return;
-      
-      let heroIdx = 0;
-      const hPrev = document.getElementById('hero-prev');
-      const hNext = document.getElementById('hero-next');
-
-      function showHeroSlide(index) {
-        // Find visible slides for current device
-        const isMobile = window.innerWidth <= 768;
-        const visibleSlides = Array.from(heroSlides).filter(s => {
-          return isMobile ? s.classList.contains('mobile-only') : s.classList.contains('desktop-only');
-        });
-        
-        if (visibleSlides.length === 0) return;
-        
-        visibleSlides.forEach(s => s.classList.remove('active'));
-        if (index >= visibleSlides.length) heroIdx = 0;
-        else if (index < 0) heroIdx = visibleSlides.length - 1;
-        else heroIdx = index;
-        
-        visibleSlides[heroIdx].classList.add('active');
-      }
-
-      const hPrevBtn = document.getElementById('hero-prev');
-      const hNextBtn = document.getElementById('hero-next');
-      if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
-      if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
-
-      setInterval(() => {
-        showHeroSlide(heroIdx + 1);
-      }, 6000);
-    });
+    /* ── HERO SLIDER — handled by dynamic loader below ── */
 
     /* ── BEFORE & AFTER ── */
     const baRange = $('ba-range');
@@ -1433,21 +1399,87 @@
       }
     }
 
-    /* ── HERO SLIDER ── */
+    /* ── HERO SLIDER (Dynamic from DB) ── */
     let heroIdx = 0;
-    const heroSlides = document.querySelectorAll('.hero-slide');
-    function showHeroSlide(index) {
+    let heroSliderInterval = null;
+
+    function initHeroSlider() {
+      const heroSlides = document.querySelectorAll('.hero-slide');
       if (!heroSlides.length) return;
-      if (index >= heroSlides.length) heroIdx = 0;
-      else if (index < 0) heroIdx = heroSlides.length - 1;
-      else heroIdx = index;
-      heroSlides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
+
+      function showHeroSlide(index) {
+        const slides = document.querySelectorAll('.hero-slide');
+        if (!slides.length) return;
+        if (index >= slides.length) heroIdx = 0;
+        else if (index < 0) heroIdx = slides.length - 1;
+        else heroIdx = index;
+        slides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
+      }
+
+      const hPrevBtn = $('hero-prev');
+      const hNextBtn = $('hero-next');
+      if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
+      if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
+      
+      if (heroSliderInterval) clearInterval(heroSliderInterval);
+      heroSliderInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
     }
-    const hPrevBtn = $('hero-prev');
-    const hNextBtn = $('hero-next');
-    if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
-    if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
-    setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
+
+    // Load slides from database
+    async function loadHeroSlidesFromDB() {
+      try {
+        const apiUrl = (window.BASE_URL || '') + '/slides';
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error('API error');
+        const slides = await res.json();
+        
+        if (slides && slides.length > 0) {
+          const container = document.getElementById('hero-slides-container');
+          if (!container) return;
+          
+          // Remove fallback slides
+          container.querySelectorAll('[data-fallback]').forEach(el => el.remove());
+          
+          // Build dynamic slides
+          const isMobile = window.innerWidth <= 900;
+          slides.forEach((s, i) => {
+            const div = document.createElement('div');
+            div.className = 'hero-slide' + (i === 0 ? ' active' : '');
+            
+            const desktopImg = s.desktopImage || '';
+            const mobileImg = s.mobileImage || desktopImg;
+            const pillsHTML = s.pills && s.pills.length 
+              ? '<div class="hero-pills">' + s.pills.map(p => '<span class="pill">' + p + '</span>').join('') + '</div>' 
+              : '';
+            const titleHTML = s.title ? (s.subtitle ? s.title + '<br />' + s.subtitle : s.title) : '';
+            
+            div.innerHTML = `
+              <div class="hero-bg desktop-only"><img src="${desktopImg}" alt="${s.title || 'Slide'}"></div>
+              <div class="hero-bg mobile-only"><img src="${mobileImg}" alt="${s.title || 'Slide'}"></div>
+              <div class="hero-content">
+                ${pillsHTML}
+                <h1 class="hero-title">${titleHTML}</h1>
+                <p class="hero-desc">${s.description || ''}</p>
+                <a href="${s.buttonLink || 'shop.html'}" class="btn-dark btn-hero">${s.buttonText || 'SHOP NOW'}</a>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+          
+          // Re-init slider with new slides
+          heroIdx = 0;
+          initHeroSlider();
+        } else {
+          // No DB slides — keep fallbacks, init slider normally
+          initHeroSlider();
+        }
+      } catch (err) {
+        console.log('Using fallback slides (DB unavailable):', err.message);
+        initHeroSlider();
+      }
+    }
+
+    loadHeroSlidesFromDB();
 
 
     fetchProducts();

@@ -37,8 +37,8 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ limit: '20mb', extended: true }));
 
 // Serve API Routes (from root routes/ folder)
 const productRoutes = require('./routes/productRoutes');
@@ -48,6 +48,7 @@ const inquiryRoutes = require('./routes/inquiryRoutes');
 const statsRoutes = require('./routes/statsRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
+const slideRoutes = require('./routes/slideRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
@@ -56,6 +57,7 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/slides', slideRoutes);
 
 // Health Check API
 app.get('/api/health', (req, res) => {

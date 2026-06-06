@@ -1218,6 +1218,432 @@
                 </div>
             </div>
 
+            <!-- HERO SLIDER MANAGEMENT -->
+            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #fdf2e9, #fdebd0); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#CFA56A" stroke-width="2.5" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Hero Slider Management</h3>
+                        <p style="margin: 4px 0 0 0; font-size: 12px; color: #999;">Manage homepage hero slides. Changes reflect on the live site immediately.</p>
+                    </div>
+                </div>
+
+                <!-- Live Preview Carousel -->
+                <div id="admin-slider-preview" style="position: relative; width: 100%; height: 220px; background: #1a1a1a; border-radius: 16px; overflow: hidden; margin: 25px 0;">
+                    <div id="admin-slider-track" style="width: 100%; height: 100%; position: relative;">
+                        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #555; font-size: 14px;">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right: 8px;"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                            Loading slides...
+                        </div>
+                    </div>
+                    <!-- Preview Nav Arrows -->
+                    <button onclick="adminPreviewSlide(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <button onclick="adminPreviewSlide(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <!-- Slide Counter -->
+                    <div id="admin-slide-counter" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.5); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; backdrop-filter: blur(5px);"></div>
+                </div>
+
+                <!-- Slides Grid -->
+                <div id="admin-slides-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                    <!-- JS fills this -->
+                </div>
+
+                <!-- Add New Button -->
+                <button onclick="openSlideModal()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #1b1b1e, #333); color: #fff; border: 2px dashed rgba(207,165,106,0.4); border-radius: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;" onmouseover="this.style.borderColor='#CFA56A'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(207,165,106,0.4)'; this.style.transform='translateY(0)'">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add New Slide
+                </button>
+            </div>
+
+            <!-- SLIDE ADD/EDIT MODAL -->
+            <div id="slide-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px;">
+                <div style="background: #fff; width: 100%; max-width: 650px; border-radius: 24px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 60px rgba(0,0,0,0.3);">
+                    <!-- Modal Header -->
+                    <div style="padding: 30px 35px 0 35px; display: flex; justify-content: space-between; align-items: center;">
+                        <h3 id="slide-modal-title" style="margin: 0; font-size: 22px; font-weight: 800;">Add New Slide</h3>
+                        <button onclick="closeSlideModal()" style="background: #f5f5f5; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f5f5f5'">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#333" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    </div>
+
+                    <div style="padding: 25px 35px 35px 35px;">
+                        <input type="hidden" id="slide-edit-id" value="">
+
+                        <!-- Desktop Image -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Desktop Image <span style="color: #ef4444;">*</span></label>
+                            <div id="slide-desktop-drop" onclick="document.getElementById('slide-desktop-file').click()" style="width: 100%; height: 140px; border: 2px dashed #ddd; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; background: #fafafa; transition: 0.2s; position: relative;" onmouseover="this.style.borderColor='#CFA56A'" onmouseout="this.style.borderColor='#ddd'">
+                                <img id="slide-desktop-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <div id="slide-desktop-placeholder" style="text-align: center; color: #aaa;">
+                                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                                    <p style="margin: 8px 0 0 0; font-size: 12px; font-weight: 600;">Click to upload desktop image</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 10px; color: #bbb;">Recommended: 1920×700</p>
+                                </div>
+                            </div>
+                            <input type="file" id="slide-desktop-file" accept="image/*" style="display: none;" onchange="handleSlideImageUpload(this, 'desktop')">
+                        </div>
+
+                        <!-- Mobile Image -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Mobile Image <span style="color: #999; font-weight: 400;">(Optional)</span></label>
+                            <div id="slide-mobile-drop" onclick="document.getElementById('slide-mobile-file').click()" style="width: 100%; height: 120px; border: 2px dashed #ddd; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; background: #fafafa; transition: 0.2s; position: relative;" onmouseover="this.style.borderColor='#CFA56A'" onmouseout="this.style.borderColor='#ddd'">
+                                <img id="slide-mobile-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <div id="slide-mobile-placeholder" style="text-align: center; color: #aaa;">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                    <p style="margin: 6px 0 0 0; font-size: 11px; font-weight: 600;">Click to upload mobile image</p>
+                                </div>
+                            </div>
+                            <input type="file" id="slide-mobile-file" accept="image/*" style="display: none;" onchange="handleSlideImageUpload(this, 'mobile')">
+                        </div>
+
+                        <!-- Title & Subtitle -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Title</label>
+                                <input type="text" id="slide-title" placeholder="e.g. Pure Skin Starts" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                            </div>
+                            <div>
+                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Subtitle</label>
+                                <input type="text" id="slide-subtitle" placeholder="e.g. with The Ordinary" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Description</label>
+                            <textarea id="slide-description" placeholder="Short description text..." rows="2" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; resize: vertical; font-family: inherit; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'"></textarea>
+                        </div>
+
+                        <!-- Button Text & Link -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Button Text</label>
+                                <input type="text" id="slide-btn-text" placeholder="SHOP NOW" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                            </div>
+                            <div>
+                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Button Link</label>
+                                <input type="text" id="slide-btn-link" placeholder="shop.html" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                            </div>
+                        </div>
+
+                        <!-- Pills -->
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Tags / Pills <span style="color: #999; font-weight: 400;">(comma separated)</span></label>
+                            <input type="text" id="slide-pills" placeholder="CLEANSER, SERUM, MOISTURIZER" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                        </div>
+
+                        <!-- Active Toggle -->
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding: 15px; background: #fafafa; border-radius: 12px;">
+                            <label style="position: relative; width: 44px; height: 24px; cursor: pointer;">
+                                <input type="checkbox" id="slide-active" checked style="opacity: 0; width: 0; height: 0;">
+                                <span id="slide-toggle-track" style="position: absolute; inset: 0; background: #4caf50; border-radius: 24px; transition: 0.3s;" onclick="this.previousElementSibling.checked = !this.previousElementSibling.checked; this.style.background = this.previousElementSibling.checked ? '#4caf50' : '#ccc'; this.querySelector('span').style.transform = this.previousElementSibling.checked ? 'translateX(20px)' : 'translateX(0)'">
+                                    <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: 0.3s; transform: translateX(20px); box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
+                                </span>
+                            </label>
+                            <span style="font-size: 13px; font-weight: 600; color: #333;">Active (visible on website)</span>
+                        </div>
+
+                        <!-- Save Button -->
+                        <button id="slide-save-btn" onclick="saveSlide()" style="width: 100%; padding: 16px; background: var(--admin-sidebar-bg, #1b1b1e); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseover="this.style.background='#CFA56A'" onmouseout="this.style.background='#1b1b1e'">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            Save Slide
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDER MANAGEMENT SCRIPT -->
+            <script>
+            (function() {
+                let adminSlides = [];
+                let adminPreviewIdx = 0;
+                let slideDesktopBase64 = '';
+                let slideMobileBase64 = '';
+
+                // Fetch all slides for admin
+                window.fetchAdminSlides = async function() {
+                    try {
+                        const token = localStorage.getItem('userToken');
+                        const res = await fetch((window.BASE_URL || '') + '/slides/all', {
+                            headers: { 'Authorization': 'Bearer ' + token }
+                        });
+                        if (!res.ok) throw new Error('Failed to fetch slides');
+                        adminSlides = await res.json();
+                        renderAdminSliderPreview();
+                        renderAdminSlidesGrid();
+                    } catch (err) {
+                        console.error('Error fetching admin slides:', err);
+                        document.getElementById('admin-slider-track').innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#777;font-size:13px;">No slides yet. Click "Add New Slide" to get started!</div>';
+                        document.getElementById('admin-slide-counter').textContent = '';
+                        document.getElementById('admin-slides-grid').innerHTML = '';
+                    }
+                };
+
+                // Render preview carousel
+                function renderAdminSliderPreview() {
+                    const track = document.getElementById('admin-slider-track');
+                    const counter = document.getElementById('admin-slide-counter');
+                    if (!adminSlides.length) {
+                        track.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#777;font-size:13px;">No slides yet. Click "Add New Slide" to get started!</div>';
+                        counter.textContent = '';
+                        return;
+                    }
+                    adminPreviewIdx = Math.min(adminPreviewIdx, adminSlides.length - 1);
+                    const s = adminSlides[adminPreviewIdx];
+                    const imgSrc = s.desktopImage || '';
+                    track.innerHTML = `
+                        <img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+                        <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%)"></div>
+                        <div style="position:absolute;bottom:20px;left:20px;color:#fff;z-index:2;">
+                            ${s.pills && s.pills.length ? '<div style="display:flex;gap:6px;margin-bottom:6px;">' + s.pills.map(p => '<span style="background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:0.1em;backdrop-filter:blur(4px);">' + p + '</span>').join('') + '</div>' : ''}
+                            <h4 style="margin:0;font-size:18px;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.3);">${s.title || ''}${s.subtitle ? '<br>' + s.subtitle : ''}</h4>
+                            <p style="margin:4px 0 0 0;font-size:11px;opacity:0.85;max-width:280px;">${s.description || ''}</p>
+                        </div>
+                        <div style="position:absolute;top:12px;right:12px;z-index:2;display:flex;gap:6px;">
+                            <span style="background:${s.isActive ? 'rgba(76,175,80,0.9)' : 'rgba(239,68,68,0.9)'};color:#fff;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;">${s.isActive ? 'ACTIVE' : 'HIDDEN'}</span>
+                        </div>
+                    `;
+                    counter.textContent = (adminPreviewIdx + 1) + ' / ' + adminSlides.length;
+                }
+
+                // Navigate preview
+                window.adminPreviewSlide = function(dir) {
+                    if (!adminSlides.length) return;
+                    adminPreviewIdx += dir;
+                    if (adminPreviewIdx < 0) adminPreviewIdx = adminSlides.length - 1;
+                    if (adminPreviewIdx >= adminSlides.length) adminPreviewIdx = 0;
+                    renderAdminSliderPreview();
+                };
+
+                // Render slides grid cards
+                function renderAdminSlidesGrid() {
+                    const grid = document.getElementById('admin-slides-grid');
+                    if (!adminSlides.length) { grid.innerHTML = ''; return; }
+                    grid.innerHTML = adminSlides.map((s, i) => `
+                        <div style="background:#fafafa;border-radius:14px;overflow:hidden;border:1px solid #eee;transition:0.2s;cursor:pointer;" onmouseover="this.style.borderColor='#CFA56A';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#eee';this.style.transform='translateY(0)'">
+                            <div style="width:100%;height:100px;overflow:hidden;position:relative;">
+                                <img src="${s.desktopImage || ''}" style="width:100%;height:100%;object-fit:cover;">
+                                <span style="position:absolute;top:6px;left:6px;background:${s.isActive ? 'rgba(76,175,80,0.9)' : 'rgba(239,68,68,0.9)'};color:#fff;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;">${s.isActive ? 'LIVE' : 'OFF'}</span>
+                                <span style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:#fff;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;">#${i + 1}</span>
+                            </div>
+                            <div style="padding:10px 12px;">
+                                <h5 style="margin:0 0 4px 0;font-size:12px;font-weight:700;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.title || 'Untitled'}${s.subtitle ? ' ' + s.subtitle : ''}</h5>
+                                <div style="display:flex;gap:6px;margin-top:8px;">
+                                    <button onclick="editSlide('${s._id}')" style="flex:1;padding:7px;background:#f0f0f0;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:4px;" onmouseover="this.style.background='#CFA56A';this.style.color='#fff'" onmouseout="this.style.background='#f0f0f0';this.style.color='#333'">
+                                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        Edit
+                                    </button>
+                                    <button onclick="deleteSlide('${s._id}')" style="flex:1;padding:7px;background:#fff5f5;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:#ef4444;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:4px;" onmouseover="this.style.background='#ef4444';this.style.color='#fff'" onmouseout="this.style.background='#fff5f5';this.style.color='#ef4444'">
+                                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Handle image file upload → base64
+                window.handleSlideImageUpload = function(input, type) {
+                    const file = input.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64 = e.target.result;
+                        if (type === 'desktop') {
+                            slideDesktopBase64 = base64;
+                            document.getElementById('slide-desktop-preview').src = base64;
+                            document.getElementById('slide-desktop-preview').style.display = 'block';
+                            document.getElementById('slide-desktop-placeholder').style.display = 'none';
+                        } else {
+                            slideMobileBase64 = base64;
+                            document.getElementById('slide-mobile-preview').src = base64;
+                            document.getElementById('slide-mobile-preview').style.display = 'block';
+                            document.getElementById('slide-mobile-placeholder').style.display = 'none';
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                // Open modal for new slide
+                window.openSlideModal = function() {
+                    document.getElementById('slide-modal-title').textContent = 'Add New Slide';
+                    document.getElementById('slide-edit-id').value = '';
+                    document.getElementById('slide-title').value = '';
+                    document.getElementById('slide-subtitle').value = '';
+                    document.getElementById('slide-description').value = '';
+                    document.getElementById('slide-btn-text').value = 'SHOP NOW';
+                    document.getElementById('slide-btn-link').value = 'shop.html';
+                    document.getElementById('slide-pills').value = '';
+                    document.getElementById('slide-active').checked = true;
+                    slideDesktopBase64 = '';
+                    slideMobileBase64 = '';
+                    document.getElementById('slide-desktop-preview').style.display = 'none';
+                    document.getElementById('slide-desktop-placeholder').style.display = 'block';
+                    document.getElementById('slide-mobile-preview').style.display = 'none';
+                    document.getElementById('slide-mobile-placeholder').style.display = 'block';
+                    // Reset toggle visual
+                    const toggleTrack = document.getElementById('slide-toggle-track');
+                    if (toggleTrack) { toggleTrack.style.background = '#4caf50'; toggleTrack.querySelector('span').style.transform = 'translateX(20px)'; }
+                    document.getElementById('slide-modal').style.display = 'flex';
+                };
+
+                // Close modal
+                window.closeSlideModal = function() {
+                    document.getElementById('slide-modal').style.display = 'none';
+                };
+
+                // Edit slide
+                window.editSlide = function(id) {
+                    const slide = adminSlides.find(s => s._id === id);
+                    if (!slide) return;
+                    document.getElementById('slide-modal-title').textContent = 'Edit Slide';
+                    document.getElementById('slide-edit-id').value = id;
+                    document.getElementById('slide-title').value = slide.title || '';
+                    document.getElementById('slide-subtitle').value = slide.subtitle || '';
+                    document.getElementById('slide-description').value = slide.description || '';
+                    document.getElementById('slide-btn-text').value = slide.buttonText || 'SHOP NOW';
+                    document.getElementById('slide-btn-link').value = slide.buttonLink || 'shop.html';
+                    document.getElementById('slide-pills').value = (slide.pills || []).join(', ');
+                    document.getElementById('slide-active').checked = slide.isActive !== false;
+                    // Show existing images
+                    slideDesktopBase64 = slide.desktopImage || '';
+                    slideMobileBase64 = slide.mobileImage || '';
+                    if (slideDesktopBase64) {
+                        document.getElementById('slide-desktop-preview').src = slideDesktopBase64;
+                        document.getElementById('slide-desktop-preview').style.display = 'block';
+                        document.getElementById('slide-desktop-placeholder').style.display = 'none';
+                    } else {
+                        document.getElementById('slide-desktop-preview').style.display = 'none';
+                        document.getElementById('slide-desktop-placeholder').style.display = 'block';
+                    }
+                    if (slideMobileBase64) {
+                        document.getElementById('slide-mobile-preview').src = slideMobileBase64;
+                        document.getElementById('slide-mobile-preview').style.display = 'block';
+                        document.getElementById('slide-mobile-placeholder').style.display = 'none';
+                    } else {
+                        document.getElementById('slide-mobile-preview').style.display = 'none';
+                        document.getElementById('slide-mobile-placeholder').style.display = 'block';
+                    }
+                    // Toggle visual
+                    const isActive = slide.isActive !== false;
+                    const toggleTrack = document.getElementById('slide-toggle-track');
+                    if (toggleTrack) { toggleTrack.style.background = isActive ? '#4caf50' : '#ccc'; toggleTrack.querySelector('span').style.transform = isActive ? 'translateX(20px)' : 'translateX(0)'; }
+                    document.getElementById('slide-modal').style.display = 'flex';
+                };
+
+                // Save slide (create or update)
+                window.saveSlide = async function() {
+                    const btn = document.getElementById('slide-save-btn');
+                    const editId = document.getElementById('slide-edit-id').value;
+                    const isEdit = !!editId;
+
+                    if (!slideDesktopBase64) {
+                        alert('Please upload a desktop image!');
+                        return;
+                    }
+
+                    const pillsRaw = document.getElementById('slide-pills').value;
+                    const pills = pillsRaw ? pillsRaw.split(',').map(p => p.trim()).filter(Boolean) : [];
+
+                    const body = {
+                        desktopImage: slideDesktopBase64,
+                        mobileImage: slideMobileBase64 || '',
+                        title: document.getElementById('slide-title').value || 'New Slide',
+                        subtitle: document.getElementById('slide-subtitle').value || '',
+                        description: document.getElementById('slide-description').value || '',
+                        buttonText: document.getElementById('slide-btn-text').value || 'SHOP NOW',
+                        buttonLink: document.getElementById('slide-btn-link').value || 'shop.html',
+                        pills: pills,
+                        isActive: document.getElementById('slide-active').checked
+                    };
+
+                    btn.innerHTML = '<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite;"></span> Saving...';
+                    btn.disabled = true;
+
+                    try {
+                        const token = localStorage.getItem('userToken');
+                        const url = isEdit 
+                            ? (window.BASE_URL || '') + '/slides/' + editId 
+                            : (window.BASE_URL || '') + '/slides';
+                        const method = isEdit ? 'PUT' : 'POST';
+
+                        const res = await fetch(url, {
+                            method,
+                            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                            body: JSON.stringify(body)
+                        });
+
+                        if (!res.ok) {
+                            const err = await res.json();
+                            throw new Error(err.message || 'Failed to save');
+                        }
+
+                        closeSlideModal();
+                        await fetchAdminSlides();
+                        
+                        // Show success notification
+                        if (typeof showAdminNotification === 'function') {
+                            showAdminNotification(isEdit ? '✅ Slide updated!' : '✅ Slide added!');
+                        } else {
+                            const notif = document.getElementById('admin-notification');
+                            if (notif) {
+                                notif.textContent = isEdit ? '✅ Slide updated!' : '✅ Slide added!';
+                                notif.style.display = 'block';
+                                setTimeout(() => notif.style.display = 'none', 3000);
+                            }
+                        }
+                    } catch (err) {
+                        alert('Error: ' + err.message);
+                    } finally {
+                        btn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Slide';
+                        btn.disabled = false;
+                    }
+                };
+
+                // Delete slide
+                window.deleteSlide = async function(id) {
+                    if (!confirm('Are you sure you want to delete this slide? This will immediately remove it from the website.')) return;
+                    try {
+                        const token = localStorage.getItem('userToken');
+                        const res = await fetch((window.BASE_URL || '') + '/slides/' + id, {
+                            method: 'DELETE',
+                            headers: { 'Authorization': 'Bearer ' + token }
+                        });
+                        if (!res.ok) throw new Error('Failed to delete');
+                        await fetchAdminSlides();
+                        const notif = document.getElementById('admin-notification');
+                        if (notif) {
+                            notif.textContent = '🗑️ Slide deleted!';
+                            notif.style.display = 'block';
+                            setTimeout(() => notif.style.display = 'none', 3000);
+                        }
+                    } catch (err) {
+                        alert('Error deleting slide: ' + err.message);
+                    }
+                };
+
+                // Auto-load when settings tab opens
+                const origSwitchTab = window.switchTab;
+                window.switchTab = function(tabName, el) {
+                    origSwitchTab(tabName, el);
+                    if (tabName === 'settings') {
+                        fetchAdminSlides();
+                    }
+                };
+            })();
+            </script>
+
+            <style>
+                @keyframes spin { to { transform: rotate(360deg); } }
+            </style>
+
             <!-- SHIPPING FEE SETTINGS -->
             <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-top: 30px;">
                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
