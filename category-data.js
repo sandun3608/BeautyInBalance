@@ -2,7 +2,7 @@ const categories = {
     'cleansers': {
         title: 'The Art of Cleansing',
         subtitle: 'Cleansers',
-        description: 'Every great skin routine starts here. Cleansing is essential for removing cumulative dirt, sebum, and sweat without stripping the natural barrier. Our curated selection of CeraVe and The Ordinary cleansers are designed for every skin type.',
+        description: 'Every great skin routine starts here. Cleansing is essential for removing cumulative dirt, sebum, and sweat without stripping the natural barrier. Our premium selection of CeraVe and The Ordinary cleansers are designed for every skin type.',
         benefits: [
             { title: 'Removes Impurities', desc: 'Lifts away urban pollutants and microscopic dust that lead to breakouts.' },
             { title: 'Preps for Serums', desc: 'A clean canvas allows active treatments like Niacinamide to penetrate deeper.' },
