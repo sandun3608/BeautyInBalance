@@ -67,6 +67,23 @@
         display: none !important;
       }
     }
+    /* Transparent Header on Desktop */
+    @media (min-width: 901px) {
+      .site-header {
+        background: transparent !important;
+        border-bottom-color: transparent !important;
+        margin-bottom: calc(-1 * var(--nav-h));
+        transition: background 0.3s ease, border-bottom-color 0.3s ease;
+      }
+      .site-header.scrolled {
+        background: var(--white) !important;
+        border-bottom-color: var(--border) !important;
+      }
+      /* Optional: ensure hero image stretches full height when header is transparent */
+      .hero-section {
+        height: calc(100vh - var(--ann-h)) !important;
+      }
+    }
   </style>
 </head>
 <body>
