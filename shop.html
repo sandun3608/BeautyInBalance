@@ -656,46 +656,38 @@
       --font-sans: 'Inter', sans-serif;
     }
 
-    /* Local Force Override for Shop Offer Badges to bypass CDN/browser cache */
+    /* Local Force Override for Shop Offer Badges — Green Pill Design */
     .hap-discount-badge {
       position: absolute !important;
-      top: 10px !important;
-      left: 10px !important;
-      background: rgba(227, 30, 36, 0.95) !important;
-      backdrop-filter: blur(4px) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
+      top: 12px !important;
+      left: 12px !important;
+      background: linear-gradient(135deg, #16a34a, #22c55e) !important;
       color: #ffffff !important;
-      font-size: 10px !important;
+      font-size: 10.5px !important;
       font-weight: 800 !important;
-      padding: 6px 12px !important;
-      border-radius: 6px !important;
+      padding: 5px 14px !important;
+      border-radius: 50px !important;
       z-index: 10 !important;
-      box-shadow: 0 4px 15px rgba(227, 30, 36, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-      letter-spacing: 0.8px !important;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+      letter-spacing: 0.6px !important;
       text-transform: uppercase !important;
       font-family: var(--font-sans, sans-serif) !important;
       pointer-events: none !important;
+      animation: localOfferPulse 2.8s infinite ease-in-out !important;
     }
 
-    @media (max-width: 768px) {
-      .hap-discount-badge {
-        box-shadow: 0 4px 15px rgba(227, 30, 36, 0.4) !important;
-        animation: localBadgePulseGlow 2.5s infinite ease-in-out !important;
-      }
-    }
-
-    @keyframes localBadgePulseGlow {
+    @keyframes localOfferPulse {
       0% {
-        background: rgba(227, 30, 36, 0.95);
-        box-shadow: 0 0 0 0 rgba(227, 30, 36, 0.7), 0 4px 15px rgba(227, 30, 36, 0.4);
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5), 0 4px 14px rgba(22, 163, 74, 0.3);
+        transform: scale(1);
       }
       50% {
-        background: rgba(245, 40, 47, 1);
-        box-shadow: 0 0 0 8px rgba(227, 30, 36, 0), 0 6px 20px rgba(227, 30, 36, 0.6);
+        box-shadow: 0 0 0 7px rgba(22, 163, 74, 0), 0 6px 20px rgba(34, 197, 94, 0.45);
+        transform: scale(1.04);
       }
       100% {
-        background: rgba(227, 30, 36, 0.95);
-        box-shadow: 0 0 0 0 rgba(227, 30, 36, 0), 0 4px 15px rgba(227, 30, 36, 0.4);
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0), 0 4px 14px rgba(22, 163, 74, 0.3);
+        transform: scale(1);
       }
     }
 
