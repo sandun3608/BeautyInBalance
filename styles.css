@@ -7986,8 +7986,15 @@ main {
   }
 
   .footer-top {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 30px 20px !important;
     padding: 30px 20px 10px !important;
-    gap: 20px !important;
+  }
+
+  .footer-top .footer-col:has(.footer-logo),
+  .footer-top .footer-brand-col {
+    grid-column: span 2 !important;
   }
 
   .footer-bottom {
