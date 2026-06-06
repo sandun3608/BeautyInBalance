@@ -2014,7 +2014,7 @@ background: #0a0a0a;
 .fp-price {
   font-size: 14px;
   font-weight: 600;
-  color: var(--brown);
+  color: var(--muted);
 }
 
 .fp-bag {
@@ -3861,7 +3861,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .p-price {
   font-size: 20px;
   font-weight: 800;
-  color: #ff9d00;
+  color: var(--muted);
 }
 
 .p-action {
@@ -7331,7 +7331,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .fg-price {
   font-size: 20px;
   font-weight: 800;
-  color: var(--gold);
+  color: var(--muted);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -8271,7 +8271,7 @@ main {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 600;
-  color: #111;
+  color: var(--muted);
   margin-bottom: 18px;
 }
 
@@ -8837,7 +8837,7 @@ body:not(.drawer-open) .floating-ig {
 .srd-price {
   font-size: 13px;
   font-weight: 700;
-  color: var(--gold, #c9a84c);
+  color: var(--muted);
   white-space: nowrap;
   font-family: var(--font-sans, sans-serif);
 }
@@ -9256,4 +9256,21 @@ body:not(.drawer-open) .floating-ig {
   .newsletter-desc {
     font-size: 13px;
   }
+}
+
+/* Global Product Price Color Override */
+.fp-price,
+.fg-price,
+.hap-card-price,
+.srd-price,
+.p-price,
+.lux-price,
+.pc-price,
+.cart-item-price,
+.p-price-tag {
+  color: var(--muted) !important;
+}
+
+.original-price {
+  color: #999 !important;
 }
