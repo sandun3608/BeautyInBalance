@@ -72,17 +72,44 @@
       .site-header {
         background: transparent !important;
         border-bottom-color: transparent !important;
-        margin-bottom: calc(-1 * var(--nav-h));
+        position: absolute !important;
+        top: var(--ann-h) !important;
+        width: 100%;
         transition: background 0.3s ease, border-bottom-color 0.3s ease;
       }
       .site-header.scrolled {
+        position: fixed !important;
+        top: 0 !important;
         background: var(--white) !important;
         border-bottom-color: var(--border) !important;
+        animation: slideDown 0.3s ease;
+      }
+      @keyframes slideDown {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
       }
       /* Optional: ensure hero image stretches full height when header is transparent */
       .hero-section {
         height: calc(100vh - var(--ann-h)) !important;
       }
+    }
+    
+    /* Hide fallback slides while loading to prevent flash */
+    #hero-slides-container[data-loading="true"] .hero-slide {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+    }
+    #hero-slides-container[data-loading="true"]::before {
+      content: "Loading slides...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      color: #999;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
   </style>
 </head>
@@ -280,7 +307,7 @@
     <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
-      <div class="hero-slides" id="hero-slides-container">
+      <div class="hero-slides" id="hero-slides-container" data-loading="true">
         <!-- Slide 1: The Ordinary Focus (FALLBACK - replaced by DB slides if available) -->
         <div class="hero-slide active" data-fallback="true">
           <div class="hero-bg desktop-only"><img src="1slide/d (1).jpg" alt="Pure Skin Starts with The Ordinary"></div>
@@ -1443,6 +1470,7 @@
 
     // Load slides from database
     async function loadHeroSlidesFromDB() {
+      const container = document.getElementById('hero-slides-container');
       try {
         const apiUrl = (window.BASE_URL || '') + '/slides';
         const res = await fetch(apiUrl);
@@ -1450,7 +1478,6 @@
         const slides = await res.json();
         
         if (slides && slides.length > 0) {
-          const container = document.getElementById('hero-slides-container');
           if (!container) return;
           
           // Remove fallback slides
@@ -1483,14 +1510,17 @@
           });
           
           // Re-init slider with new slides
+          if (container) container.removeAttribute('data-loading');
           heroIdx = 0;
           initHeroSlider();
         } else {
           // No DB slides — keep fallbacks, init slider normally
+          if (container) container.removeAttribute('data-loading');
           initHeroSlider();
         }
       } catch (err) {
         console.log('Using fallback slides (DB unavailable):', err.message);
+        if (container) container.removeAttribute('data-loading');
         initHeroSlider();
       }
     }
