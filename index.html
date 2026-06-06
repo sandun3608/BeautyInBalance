@@ -66,6 +66,15 @@
       #search-open {
         display: none !important;
       }
+      /* Make mobile hero slider 1:1, round corners, and add tiny margin around */
+      .hero-section {
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        margin: 12px !important;
+        width: calc(100% - 24px) !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+      }
     }
     /* Hero section styles on Desktop (reverted transparent navbar) */
     @media (min-width: 901px) {
