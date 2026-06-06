@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=66" />
+  <link rel="stylesheet" href="styles.css?v=67" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -170,32 +170,33 @@
 
     /* Style for slide dots indicator bar (Desktop default) */
     .hero-indicators {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      padding: 10px 0;
-      margin: 10px auto;
-      background: transparent;
-      pointer-events: auto;
+      position: relative !important;
+      display: flex !important;
+      gap: 10px !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 9999 !important;
+      padding: 15px 0 !important;
+      margin: 10px auto !important;
+      background: transparent !important;
+      pointer-events: auto !important;
     }
     .hero-dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(45, 27, 18, 0.35);
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block !important;
+      width: 10px !important;
+      height: 10px !important;
+      border-radius: 50% !important;
+      background: #c1b4ad !important;
+      cursor: pointer !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     .hero-dot:hover {
-      background: rgba(45, 27, 18, 0.6);
+      background: #8e7f77 !important;
     }
     .hero-dot.active {
-      background: #2d1b12;
-      width: 26px; /* Capsule style for active dot */
-      border-radius: 5px;
+      background: #2d1b12 !important;
+      width: 26px !important;
+      border-radius: 5px !important;
     }
   </style>
 </head>
