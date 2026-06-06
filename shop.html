@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=60" />
+  <link rel="stylesheet" href="styles.css?v=61" />
 
   <style>
     /* =========================================
@@ -656,19 +656,19 @@
       --font-sans: 'Inter', sans-serif;
     }
 
-    /* Local Force Override for Shop Offer Badges — Red Pill Design */
+    /* Local Force Override for Shop Offer Badges — Dark Green Pill Design */
     .hap-discount-badge {
       position: absolute !important;
       top: 12px !important;
       left: 12px !important;
-      background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+      background: linear-gradient(135deg, #0d7a2f, #15803d) !important;
       color: #ffffff !important;
       font-size: 10.5px !important;
       font-weight: 800 !important;
       padding: 5px 14px !important;
       border-radius: 50px !important;
       z-index: 10 !important;
-      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 4px 14px rgba(13, 122, 47, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
       letter-spacing: 0.6px !important;
       text-transform: uppercase !important;
       font-family: var(--font-sans, sans-serif) !important;
@@ -678,15 +678,15 @@
 
     @keyframes localOfferPulse {
       0% {
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5), 0 4px 14px rgba(220, 38, 38, 0.35);
+        box-shadow: 0 0 0 0 rgba(13, 122, 47, 0.5), 0 4px 14px rgba(13, 122, 47, 0.4);
         transform: scale(1);
       }
       50% {
-        box-shadow: 0 0 0 7px rgba(220, 38, 38, 0), 0 6px 20px rgba(239, 68, 68, 0.45);
+        box-shadow: 0 0 0 7px rgba(13, 122, 47, 0), 0 6px 20px rgba(21, 128, 61, 0.45);
         transform: scale(1.04);
       }
       100% {
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0), 0 4px 14px rgba(220, 38, 38, 0.35);
+        box-shadow: 0 0 0 0 rgba(13, 122, 47, 0), 0 4px 14px rgba(13, 122, 47, 0.4);
         transform: scale(1);
       }
     }
