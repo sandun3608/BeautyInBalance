@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=61" />
+  <link rel="stylesheet" href="styles.css?v=62" />
 
   <style>
     :root {
@@ -108,10 +108,31 @@
     }
 
     .p-price-tag {
-      font-size: 30px;
-      color: var(--gold);
-      font-weight: 600;
+      font-size: 32px;
+      color: var(--brown);
+      font-weight: 800;
       font-family: var(--font-sans);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .p-price-tag .original-price {
+      font-size: 0.55em;
+      color: #aaa;
+      font-weight: 500;
+      text-decoration: line-through;
+    }
+    .p-price-tag .discount-pill {
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #0d7a2f, #15803d);
+      padding: 4px 12px;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+      animation: offerBadgePulse 2.8s infinite ease-in-out;
     }
 
     .p-summary {
@@ -557,11 +578,20 @@
           ? `<span class="original-price" style="font-size: 0.6em; margin-right: 10px; color: #999; text-decoration: line-through;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
           : `Rs. ${basePrice.toLocaleString()}`;
 
-      const stockLeft = product.stock || ((product.name.length % 12) + 3);
+      const stockLeft = product.stock || ((product.name.length % 12) + 8);
+      const stockPercent = Math.min(100, Math.round((stockLeft / 20) * 100));
+      const urgencyColor = stockLeft <= 5 ? '#ef4444' : stockLeft <= 10 ? '#f59e0b' : '#0d7a2f';
+      const urgencyLabel = stockLeft <= 5 ? 'Almost Gone!' : stockLeft <= 10 ? 'Selling Fast' : 'In Stock';
       const stockHTML = `
-        <div style="display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; background: rgba(255, 77, 79, 0.05); border: 1px solid rgba(255, 77, 79, 0.2); border-radius: 8px; width: fit-content;">
-          <span style="display: inline-block; width: 8px; height: 8px; background-color: #ff4d4f; border-radius: 50%; box-shadow: 0 0 6px rgba(255,77,79,0.5);"></span>
-          <span style="font-size: 13px; font-weight: 700; color: #ff4d4f; font-family: var(--font-sans); letter-spacing: 0.3px;">Only ${stockLeft} items left in stock</span>
+        <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="display: inline-block; width: 8px; height: 8px; background: ${urgencyColor}; border-radius: 50%; box-shadow: 0 0 8px ${urgencyColor}80; animation: stockPulse 1.8s infinite ease-in-out;"></span>
+            <span style="font-size: 12px; font-weight: 800; color: ${urgencyColor}; font-family: var(--font-sans); letter-spacing: 0.5px; text-transform: uppercase;">${urgencyLabel}</span>
+            <span style="font-size: 12px; font-weight: 600; color: #888; font-family: var(--font-sans);">&mdash; ${stockLeft} left</span>
+          </div>
+          <div style="width: 100%; height: 4px; background: rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden;">
+            <div style="width: ${stockPercent}%; height: 100%; background: ${urgencyColor}; border-radius: 10px; transition: width 1s ease;"></div>
+          </div>
         </div>
       `;
 
@@ -588,7 +618,11 @@
             <div>
               <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
               <h1 class="p-name">${product.name}</h1>
-              <div class="p-price-tag">${priceHTML}</div>
+              <div class="p-price-tag">
+                ${discount > 0 ? '<span class="original-price">Rs. ' + basePrice.toLocaleString() + '</span>' : ''}
+                <span>Rs. ${discountedPrice.toLocaleString()}</span>
+                ${discount > 0 ? '<span class="discount-pill">-' + discount + '% OFF</span>' : ''}
+              </div>
             </div>
 
             <p class="p-summary">
