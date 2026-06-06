@@ -691,6 +691,7 @@
     .admin-table td:first-child { border-left: 1px solid var(--admin-border); border-radius: 10px 0 0 10px; }
     .admin-table td:last-child { border-right: 1px solid var(--admin-border); border-radius: 0 10px 10px 0; }
 
+    .prod-thumb,
     .img-cell { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
 
     /* Luxury Buttons */
@@ -897,6 +898,76 @@
       /* Enable scrolling on short height screen devices for the sidebar drawer */
       .admin-sidebar {
         overflow-y: auto !important;
+      }
+
+      /* Transform admin inventory table into clean block-level cards on mobile */
+      #tab-inventory .admin-table-wrap {
+        background: transparent !important;
+        overflow-x: visible !important;
+      }
+      #tab-inventory .admin-table, 
+      #tab-inventory .admin-table thead, 
+      #tab-inventory .admin-table tbody, 
+      #tab-inventory .admin-table th, 
+      #tab-inventory .admin-table td, 
+      #tab-inventory .admin-table tr {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      #tab-inventory .admin-table thead {
+        display: none !important; /* Hide column headers on mobile */
+      }
+      #tab-inventory .admin-table tbody tr {
+        background: #ffffff !important;
+        border: 1px solid var(--admin-border) !important;
+        border-radius: 12px !important;
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important;
+        position: relative !important;
+      }
+      #tab-inventory .admin-table td {
+        border: none !important;
+        padding: 10px 0 !important;
+        font-size: 14px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        border-radius: 0 !important;
+        border-bottom: 1px solid rgba(0,0,0,0.04) !important;
+      }
+      #tab-inventory .admin-table td:first-child {
+        border-left: none !important;
+        justify-content: center !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 10px !important;
+      }
+      #tab-inventory .prod-thumb {
+        width: 70px !important;
+        height: 70px !important;
+        border-radius: 10px !important;
+      }
+      #tab-inventory .admin-table td:last-child {
+        border-right: none !important;
+        border-bottom: none !important;
+        padding-top: 12px !important;
+        margin-top: 5px !important;
+        justify-content: flex-end !important;
+        gap: 10px !important;
+      }
+      #tab-inventory .admin-table td::before {
+        content: attr(data-label) !important;
+        font-weight: 700 !important;
+        color: var(--admin-muted) !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        display: block !important;
+      }
+      #tab-inventory .admin-table td:first-child::before,
+      #tab-inventory .admin-table td:last-child::before {
+        content: "" !important;
       }
     }
   </style>
@@ -2023,14 +2094,14 @@
           const imagePath = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : 'images/placeholder.png');
 
           tr.innerHTML = `
-            <td><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
-            <td style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
-            <td style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
-            <td style="text-transform: capitalize; color: var(--admin-text); font-weight: 500;">${prod.filter || 'None'}</td>
-            <td style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
-            <td style="text-align: center;">${prod.discount || 0}%</td>
-            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
-            <td>
+            <td data-label="Showcase"><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
+            <td data-label="Identity" style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
+            <td data-label="Brand" style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
+            <td data-label="Sub Category" style="text-transform: capitalize; color: var(--admin-text); font-weight: 500;">${prod.filter || 'None'}</td>
+            <td data-label="Value" style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td data-label="Disc." style="text-align: center;">${prod.discount || 0}%</td>
+            <td data-label="Stock" style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
+            <td data-label="Manage">
               <div style="display: flex; gap: 8px;">
                 <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="window.openModal('${pId}')">Edit</button>
                 <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px;" onclick="window.deleteProduct('${pId}')">Delete</button>

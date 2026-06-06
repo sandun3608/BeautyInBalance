@@ -239,8 +239,55 @@
     @media (max-width: 900px) {
       .premium-discovery-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .trust-ribbon { display: none; }
-      .product-stage { padding: 100px 5% 40px; }
+      .product-stage { 
+        padding: 90px 15px 40px !important; 
+        gap: 30px !important;
+      }
       .discovery-section { padding: 60px 5% 60px; }
+      
+      /* Gallery adjustments for mobile */
+      .gallery-wrap {
+        position: relative !important;
+        top: 0 !important;
+        gap: 20px !important;
+      }
+      .main-visual {
+        padding: 30px !important;
+        border-radius: 20px !important;
+      }
+      .t-btn {
+        width: 70px !important;
+        height: 70px !important;
+        border-radius: 10px !important;
+        padding: 6px !important;
+      }
+      
+      /* Detail adjustments for mobile */
+      .detail-column {
+        gap: 24px !important;
+      }
+      .p-name {
+        font-size: 28px !important;
+        margin-top: 5px !important;
+      }
+      .p-price-tag {
+        font-size: 24px !important;
+      }
+      .p-summary {
+        font-size: 14px !important;
+        padding-left: 15px !important;
+        line-height: 1.6 !important;
+      }
+      .editorial-tabs {
+        margin-top: 10px !important;
+      }
+      .tab-head {
+        padding: 18px 0 !important;
+      }
+      .tab-body {
+        font-size: 14px !important;
+      }
+
       /* Mobile: qty + stock badge side by side, compact */
       .qty-wrap {
         flex-direction: row !important;
