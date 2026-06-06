@@ -9066,7 +9066,7 @@ body:not(.drawer-open) .floating-ig {
 }
 
 .discounted-price {
-  color: #0d7a2f;
+  color: var(--muted) !important;
   font-weight: 700;
 }
 
