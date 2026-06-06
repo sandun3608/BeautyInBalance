@@ -1832,6 +1832,7 @@
       if (tabId === 'inventory') renderInventory();
       if (tabId === 'support') fetchInquiries();
       if (tabId === 'subscribers') fetchSubscribers();
+      if (tabId === 'settings' && typeof fetchAdminSlides === 'function') fetchAdminSlides();
     };
 
     const fallbackProducts = [
