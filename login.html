@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login — Beauty in Balance</title>
+  <title>Login Â— Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -333,7 +333,7 @@
 
     <div class="bottom-links">
       <a href="register.html">New customer? <span>Create your account</span></a>
-      <a href="index.html">? Return to Storefront</a>
+      <a href="index.html">&larr; Return to Storefront</a>
     </div>
   </div>
 
@@ -359,12 +359,17 @@
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
+      const icon = type === 'success' 
+        ? `<svg style="width: 20px; height: 20px; color: #4ade80;" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+        : `<svg style="width: 20px; height: 20px; color: #f87171;" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+      
       toast.innerHTML = `
-        <div class="toast-icon">${type === 'success' ? '?' : '?'}</div>
+        <div class="toast-icon" style="display: flex; align-items: center; justify-content: center;">${icon}</div>
         <div class="toast-content">
           <div class="toast-title">${title}</div>
           <div class="toast-message">${message}</div>
-        </div>`;
+        </div>
+      `;
       container.appendChild(toast);
       setTimeout(() => toast.classList.add('active'), 10);
       setTimeout(() => {
