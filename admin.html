@@ -879,6 +879,25 @@
         padding: 30px 20px !important;
         width: 90vw !important;
       }
+      
+      /* Expose and style the mobile top header menu bar */
+      .admin-mobile-header {
+        display: flex !important;
+        background: var(--admin-sidebar-bg) !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 15px !important;
+        height: 60px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        z-index: 1000 !important;
+      }
+
+      /* Enable scrolling on short height screen devices for the sidebar drawer */
+      .admin-sidebar {
+        overflow-y: auto !important;
+      }
     }
   </style>
 </head>
@@ -892,7 +911,11 @@
         <button id="mobile-menu-toggle" style="background: none; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 10px;">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
-        <span style="font-family: var(--font-main); font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.05em; text-transform: uppercase;">BiB Admin</span>
+        <span style="font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.05em; text-transform: uppercase;">Beauty in Balance</span>
+        <button onclick="handleLogout()" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; font-family: var(--font-sans);" title="Sign Out">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+        </button>
     </div>
 
     <!-- SIDEBAR -->

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -231,7 +231,11 @@
 
           document.querySelector('.register-container').innerHTML = `
             <div style="text-align: center; padding: 20px 0;">
-              <div style="width: 80px; height: 80px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); animation: scaleIn 0.5s ease-out;">✓</div>
+              <div style="width: 80px; height: 80px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); animation: scaleIn 0.5s ease-out;">
+                <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
               <h1 style="font-family: var(--font-serif); font-size: 32px; color: var(--brown); margin-bottom: 10px;">Sign Up Successful!</h1>
               <p style="color: #666; font-size: 16px; margin-bottom: 30px;">Welcome to Beauty in Balance, ${data.name.split(' ')[0]}!</p>
               <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px;"></div>
