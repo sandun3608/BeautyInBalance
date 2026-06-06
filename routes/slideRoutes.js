@@ -47,11 +47,11 @@ router.post('/', protect, async (req, res) => {
     const slide = await Slide.create({
       desktopImage,
       mobileImage: mobileImage || '',
-      title: title || 'New Slide',
-      subtitle: subtitle || '',
-      description: description || '',
-      buttonText: buttonText || 'SHOP NOW',
-      buttonLink: buttonLink || 'shop.html',
+      title: title !== undefined ? title : 'New Slide',
+      subtitle: subtitle !== undefined ? subtitle : '',
+      description: description !== undefined ? description : '',
+      buttonText: buttonText !== undefined ? buttonText : 'SHOP NOW',
+      buttonLink: buttonLink !== undefined ? buttonLink : 'shop.html',
       pills: pills || [],
       order: slideOrder,
       isActive: isActive !== undefined ? isActive : true

@@ -1766,7 +1766,7 @@
                     document.getElementById('slide-title').value = slide.title || '';
                     document.getElementById('slide-subtitle').value = slide.subtitle || '';
                     document.getElementById('slide-description').value = slide.description || '';
-                    document.getElementById('slide-btn-text').value = slide.buttonText || 'SHOP NOW';
+                    document.getElementById('slide-btn-text').value = slide.buttonText !== undefined ? slide.buttonText : 'SHOP NOW';
                     document.getElementById('slide-btn-link').value = slide.buttonLink || 'shop.html';
                     document.getElementById('slide-pills').value = (slide.pills || []).join(', ');
                     document.getElementById('slide-active').checked = slide.isActive !== false;
@@ -1813,10 +1813,10 @@
                     const body = {
                         desktopImage: slideDesktopBase64,
                         mobileImage: slideMobileBase64 || '',
-                        title: document.getElementById('slide-title').value || 'New Slide',
+                        title: document.getElementById('slide-title').value,
                         subtitle: document.getElementById('slide-subtitle').value || '',
                         description: document.getElementById('slide-description').value || '',
-                        buttonText: document.getElementById('slide-btn-text').value || 'SHOP NOW',
+                        buttonText: document.getElementById('slide-btn-text').value,
                         buttonLink: document.getElementById('slide-btn-link').value || 'shop.html',
                         pills: pills,
                         isActive: document.getElementById('slide-active').checked
