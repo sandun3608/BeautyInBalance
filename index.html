@@ -166,24 +166,7 @@
       }
     }
     
-    /* Hide fallback slides while loading to prevent flash */
-    #hero-slides-container[data-loading="true"] .hero-slide {
-      opacity: 0 !important;
-      visibility: hidden !important;
-      transition: opacity 0.3s ease;
-    }
-    #hero-slides-container[data-loading="true"]::before {
-      content: "Loading slides...";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 14px;
-      color: #999;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      z-index: 10;
-    }
+
 
     /* Style for slide dots indicator bar (Desktop default) */
     .hero-indicators {
@@ -417,7 +400,7 @@
     <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
-      <div class="hero-slides" id="hero-slides-container" data-loading="true">
+      <div class="hero-slides" id="hero-slides-container">
         <!-- Slide 1: The Ordinary Focus (FALLBACK - replaced by DB slides if available) -->
         <div class="hero-slide active" data-fallback="true">
           <div class="hero-bg desktop-only"><img src="1slide/d (1).jpg" alt="Pure Skin Starts with The Ordinary"></div>
@@ -1673,17 +1656,14 @@
           });
           
           // Re-init slider with new slides
-          if (container) container.removeAttribute('data-loading');
           heroIdx = 0;
           initHeroSlider();
         } else {
           // No DB slides — keep fallbacks, init slider normally
-          if (container) container.removeAttribute('data-loading');
           initHeroSlider();
         }
       } catch (err) {
         console.log('Using fallback slides (DB unavailable):', err.message);
-        if (container) container.removeAttribute('data-loading');
         initHeroSlider();
       }
     }
