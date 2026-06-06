@@ -18,3 +18,4 @@ lerna-debug.log*
 # Coverage directory
 coverage/
 *.zip
+.vercel

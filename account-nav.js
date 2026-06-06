@@ -43,3 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.appendChild(li);
     });
 });
+
+// --- GLOBAL MOBILE DRAWER ACCORDION TOGGLE ---
+function toggleMobileAccordion(btn) {
+    btn.classList.toggle('active');
+    const content = btn.nextElementSibling;
+    if (content) {
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    }
+}
+

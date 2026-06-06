@@ -733,6 +733,12 @@
       justify-content: space-between;
     }
 
+    @media (max-width: 768px) {
+      .pb-section {
+        display: none !important;
+      }
+    }
+
     @media (max-width: 900px) {
       .pb-section {
         padding: 60px 20px;
@@ -779,7 +785,6 @@
               <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
             </ul>
           </li>
-          <li><a href="brand.html">Brands</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li class="has-drop">
@@ -843,7 +848,7 @@
     </div>
     
     <div class="drawer-content">
-      <ul class="mobile-nav">
+            <ul class="mobile-nav">
         <li>
           <a href="index.html">
             <span style="display:flex; align-items:center; gap:12px;">
@@ -862,46 +867,53 @@
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </li>
-        <li>
-          <a href="brand.html">
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
             <span style="display:flex; align-items:center; gap:12px;">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              Brands
+              Brand
             </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content" id="shop-brand-accordion-list">
+            <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+            <li><a href="shop.html?cat=larocheposay">LA ROCHE-POSAY</a></li>
+            <li><a href="shop.html?cat=centellian24">CENTELLIAN24</a></li>
+            <li><a href="shop.html?cat=vatika">VATIKA</a></li>
+            <li><a href="shop.html?cat=vaseline">VASELINE</a></li>
+            <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+          </ul>
         </li>
-        <li>
-          <a href="about.html">
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
             <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              Our Story
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Category
             </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+            <li><a href="shop.html?filter=serums">Serums</a></li>
+            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            <li><a href="shop.html?filter=body">Body Care</a></li>
+            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
+            <li><a href="shop.html?filter=hair">Hair Care</a></li>
+          </ul>
         </li>
-        <li>
-          <a href="contact.html">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              Contact Us
-            </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-        </li>
-        
-        <li class="nav-label">Categories</li>
-        <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
-        <li><a href="shop.html?cat=cerave">CeraVe</a></li>
-        <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
         
         <li class="nav-label">Account</li>
-        <li><a href="login.html">Sign In / Register</a></li>
-        <li class="nav-label">Policies</li>
-          <li><a href="refund-policy.html">Refund Policy</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-        </ul>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Register</a></li>
+        
+        <li class="nav-label">Pages</li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
       </div>
 
       <div class="drawer-footer">
@@ -998,10 +1010,8 @@
         <!-- The Ordinary Section -->
         <div class="cat-section" id="section-ordinary">
           <div class="cat-section-header">
-            <h2>The Ordinary <em
-                style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">Canada</em></h2>
+            <h2>The Ordinary</h2>
             <div class="cat-section-line"></div>
-            <span class="cat-section-badge">DECIEM CA</span>
           </div>
           <div class="premium-shop-grid" id="grid-ordinary"></div>
         </div>
@@ -1009,10 +1019,8 @@
         <!-- CeraVe Section -->
         <div class="cat-section" id="section-cerave">
           <div class="cat-section-header">
-            <h2>CeraVe <em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">United
-                Kingdom</em></h2>
+            <h2>CeraVe</h2>
             <div class="cat-section-line"></div>
-            <span class="cat-section-badge">LORÉAL GB</span>
           </div>
           <div class="premium-shop-grid" id="grid-cerave"></div>
         </div>
@@ -1035,7 +1043,6 @@
         <div class="pb-card">
           <div>
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-              <span style="background:#e31e24; color:#fff; font-size:9px; font-weight:800; letter-spacing:0.15em; padding:5px 12px; border-radius:4px; text-transform:uppercase;">DECIEM CA</span>
               <span style="color:rgba(255,255,255,0.3); font-size:12px;">Canada · Est. 2013</span>
             </div>
             <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:#fff; margin-bottom:14px;">The Ordinary</h3>
@@ -1056,7 +1063,6 @@
         <div class="pb-card">
           <div>
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-              <span style="background:#1a1a2e; color:#fff; font-size:9px; font-weight:800; letter-spacing:0.15em; padding:5px 12px; border-radius:4px; text-transform:uppercase; border:1px solid rgba(255,255,255,0.15);">LORÉAL GB</span>
               <span style="color:rgba(255,255,255,0.3); font-size:12px;">United Kingdom · Est. 1947</span>
             </div>
             <h3 style="font-family:'Playfair Display',serif; font-size:26px; color:#fff; margin-bottom:14px;">CeraVe</h3>
@@ -1153,7 +1159,7 @@
     function buildCard(p) {
       const pCat = (p.cat || '').toLowerCase();
       const brandClass = pCat === 'cerave' ? 'cerave' : (pCat === 'ordinary' ? 'ordinary' : 'custom');
-      const brandLabel = pCat === 'cerave' ? 'CeraVe GB' : (pCat === 'ordinary' ? 'The Ordinary CA' : pCat.toUpperCase());
+      const brandLabel = pCat === 'cerave' ? 'CeraVe' : (pCat === 'ordinary' ? 'The Ordinary' : pCat.toUpperCase());
       const imgSrc = p.img || 'favicon.png';
       
       const discount = Number(p.discount || 0);
@@ -1403,21 +1409,22 @@
 
             if (cat === 'ordinary') {
                 catTitle = 'The Ordinary';
-                catSubtitle = '<em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">Canada</em>';
-                catBadge = 'DECIEM CA';
+                catSubtitle = '';
+                catBadge = '';
             } else if (cat === 'cerave') {
                 catTitle = 'CeraVe';
-                catSubtitle = '<em style="font-style:italic; font-weight:400; color: var(--gold); font-size:0.8em;">United Kingdom</em>';
-                catBadge = 'LORÉAL GB';
+                catSubtitle = '';
+                catBadge = '';
             }
 
+            const badgeHTML = catBadge ? `<span class="cat-section-badge">${catBadge}</span>` : '';
             const section = document.createElement('div');
             section.className = 'cat-section';
             section.innerHTML = `
               <div class="cat-section-header">
                 <h2>${catTitle} ${catSubtitle}</h2>
                 <div class="cat-section-line"></div>
-                <span class="cat-section-badge">${catBadge}</span>
+                ${badgeHTML}
               </div>
               <div class="premium-shop-grid"></div>
             `;
@@ -1548,8 +1555,30 @@
 
 
   </script>
-<script src="account-nav.js?v=2"></script></body>
-
+<script src="account-nav.js?v=2"></script>
+<script>
+  // Dynamically load brand list for mobile drawer
+  document.addEventListener('DOMContentLoaded', () => {
+    const brandListEl = document.getElementById('shop-brand-accordion-list');
+    if (!brandListEl) return;
+    fetch('brands.json')
+      .then(resp => resp.ok ? resp.json() : Promise.reject('Failed to load brands'))
+      .then(brands => {
+        brandListEl.innerHTML = ''; // clear static
+        brands.forEach(b => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `shop.html?cat=${encodeURIComponent(b.slug)}`;
+          a.textContent = b.name;
+          li.appendChild(a);
+          brandListEl.appendChild(li);
+        });
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+</body>
 </html>
+
 
 

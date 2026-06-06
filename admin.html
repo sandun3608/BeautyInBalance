@@ -58,6 +58,7 @@
         orders: 'Orders Management', 
         analytics: 'Analytics', 
         support: 'Inquiries',
+        subscribers: 'Newsletter Subscribers',
         settings: 'Admin Settings' 
       };
       
@@ -67,7 +68,7 @@
       // Handle Back Button Visibility
       var backBtn = document.getElementById('header-back-btn');
       if (backBtn) {
-        backBtn.style.display = (tabName === 'settings' || tabName === 'support' || tabName === 'analytics') ? 'flex' : 'none';
+        backBtn.style.display = (tabName === 'settings' || tabName === 'support' || tabName === 'analytics' || tabName === 'subscribers') ? 'flex' : 'none';
       }
 
       if (tabName === 'inventory' && typeof renderInventory === 'function') renderInventory();
@@ -78,6 +79,7 @@
           if (typeof renderTeamChart === 'function') renderTeamChart();
       }
       if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
+      if (tabName === 'subscribers' && typeof fetchSubscribers === 'function') fetchSubscribers();
       if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
     };
 
@@ -776,6 +778,7 @@
           </li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-analytics" class="admin-nav-link" onclick="window.switchTab('analytics', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Insights</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-support" class="admin-nav-link" onclick="window.switchTab('support', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Support</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-subscribers" class="admin-nav-link" onclick="window.switchTab('subscribers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Subscribers</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-settings" class="admin-nav-link" onclick="window.switchTab('settings', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03); margin-top: 2px;">
             <div class="admin-nav-link" id="nav-logout" onclick="handleLogout()" style="color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 5px 12px;">
@@ -1021,6 +1024,33 @@
                 <table class="admin-table">
                   <thead><tr><th>Received</th><th>Client</th><th>Correspondence</th><th>Message</th><th>Respond</th></tr></thead>
                   <tbody id="inquiries-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBSCRIBERS TAB -->
+          <div id="tab-subscribers" class="admin-content">
+            <div class="admin-section">
+              <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                <h3 style="margin:0;">Registered Newsletter Subscribers</h3>
+                <button onclick="exportSubscribers()" class="admin-btn" style="padding: 10px 20px; font-size: 13px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Export CSV
+                </button>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Email Address</th>
+                      <th>Subscribed Date</th>
+                      <th style="text-align: right; padding-right: 20px;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="subscribers-table">
+                    <!-- JS will render here -->
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -1801,6 +1831,7 @@
       if (tabId === 'orders') fetchOrders();
       if (tabId === 'inventory') renderInventory();
       if (tabId === 'support') fetchInquiries();
+      if (tabId === 'subscribers') fetchSubscribers();
     };
 
     const fallbackProducts = [
@@ -2275,6 +2306,99 @@
         });
         fetchInquiries();
     };
+
+    async function fetchSubscribers() {
+      const table = document.getElementById('subscribers-table');
+      if (!table) return;
+      table.innerHTML = '<tr><td colspan="3" style="text-align:center;">Loading Subscribers...</td></tr>';
+
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
+      try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const res = await fetch(BASE + '/subscribers', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        table.innerHTML = '';
+        if (data.length === 0) {
+          table.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; color:#999;">No subscribers yet.</td></tr>';
+          return;
+        }
+        data.forEach(sub => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-weight:500; color:#111;">${sub.email}</td>
+            <td>${new Date(sub.createdAt).toLocaleString()}</td>
+            <td style="text-align: right; padding-right: 20px;">
+              <button class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; border: 1px solid rgba(211, 47, 47, 0.1); padding:6px 12px; font-size:11px;" onclick="deleteSubscriber('${sub._id}')">Delete</button>
+            </td>
+          `;
+          table.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('fetchSubscribers error:', err);
+        table.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#dc2626;">Failed to load subscribers.</td></tr>';
+      }
+    }
+    window.fetchSubscribers = fetchSubscribers;
+
+    async function deleteSubscriber(id) {
+      if (!confirm('Are you sure you want to delete this subscriber?')) return;
+      const token = localStorage.getItem('userToken');
+      try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const res = await fetch(`${BASE}/subscribers/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (res.ok) {
+          showToast('✓ Subscriber deleted successfully.');
+          fetchSubscribers();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert(err.message || 'Failed to delete subscriber.');
+        }
+      } catch (e) {
+        console.error('Delete subscriber error:', e);
+        alert('Network error.');
+      }
+    }
+    window.deleteSubscriber = deleteSubscriber;
+
+    async function exportSubscribers() {
+      const token = localStorage.getItem('userToken');
+      try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const res = await fetch(BASE + '/subscribers', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Email,Subscribed Date\n";
+        
+        data.forEach(sub => {
+          csvContent += `"${sub.email}","${new Date(sub.createdAt).toISOString()}"\n`;
+        });
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `subscribers_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("✓ CSV exported successfully.");
+      } catch (e) {
+        console.error("Export error:", e);
+        alert("Failed to export CSV.");
+      }
+    }
+    window.exportSubscribers = exportSubscribers;
 
     function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
 
