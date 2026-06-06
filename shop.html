@@ -656,19 +656,19 @@
       --font-sans: 'Inter', sans-serif;
     }
 
-    /* Local Force Override for Shop Offer Badges — Green Pill Design */
+    /* Local Force Override for Shop Offer Badges — Dark Red Pill Design */
     .hap-discount-badge {
       position: absolute !important;
       top: 12px !important;
       left: 12px !important;
-      background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+      background: linear-gradient(135deg, #991b1b, #b91c1c) !important;
       color: #ffffff !important;
       font-size: 10.5px !important;
       font-weight: 800 !important;
       padding: 5px 14px !important;
       border-radius: 50px !important;
       z-index: 10 !important;
-      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+      box-shadow: 0 4px 14px rgba(153, 27, 27, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
       letter-spacing: 0.6px !important;
       text-transform: uppercase !important;
       font-family: var(--font-sans, sans-serif) !important;
@@ -678,15 +678,15 @@
 
     @keyframes localOfferPulse {
       0% {
-        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5), 0 4px 14px rgba(22, 163, 74, 0.3);
+        box-shadow: 0 0 0 0 rgba(153, 27, 27, 0.5), 0 4px 14px rgba(153, 27, 27, 0.35);
         transform: scale(1);
       }
       50% {
-        box-shadow: 0 0 0 7px rgba(22, 163, 74, 0), 0 6px 20px rgba(34, 197, 94, 0.45);
+        box-shadow: 0 0 0 7px rgba(153, 27, 27, 0), 0 6px 20px rgba(185, 28, 28, 0.45);
         transform: scale(1.04);
       }
       100% {
-        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0), 0 4px 14px rgba(22, 163, 74, 0.3);
+        box-shadow: 0 0 0 0 rgba(153, 27, 27, 0), 0 4px 14px rgba(153, 27, 27, 0.35);
         transform: scale(1);
       }
     }
