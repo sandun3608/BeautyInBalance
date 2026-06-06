@@ -75,7 +75,65 @@
         border-radius: 16px !important;
         overflow: hidden !important;
       }
+      
+      /* Disable Ken Burns zoom animation on mobile, keeping image completely flat/static */
+      .hero-slide.active .hero-bg img,
+      .hero-slide.active .hero-bg video {
+        animation: none !important;
+        transform: none !important;
+      }
+      .hero-slide .hero-bg img,
+      .hero-slide .hero-bg video {
+        transform: none !important;
+      }
+
+      /* Expose and style navigation arrows on mobile with beautiful glassmorphism */
+      .hero-arr {
+        display: flex !important;
+        background: rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+      }
+      .hero-arr.prev {
+        left: 10px !important;
+      }
+      .hero-arr.next {
+        right: 10px !important;
+      }
+      .hero-arr svg {
+        width: 16px !important;
+        height: 16px !important;
+        stroke-width: 3px !important;
+        color: #ffffff !important;
+      }
+      .hero-arr:active {
+        background: rgba(255, 255, 255, 0.25) !important;
+        transform: translateY(-50%) scale(0.9) !important;
+      }
+
+      /* Mobile adjustment for transparent indicators container */
+      .hero-indicators {
+        bottom: 12px !important;
+        padding: 5px 12px !important;
+        gap: 6px !important;
+      }
+      .hero-dot {
+        width: 6px !important;
+        height: 6px !important;
+      }
+      .hero-dot.active {
+        width: 15px !important;
+      }
     }
+    
     /* Hero section styles on Desktop (reverted transparent navbar) */
     @media (min-width: 901px) {
       /* Reduce vertical stretch and zoom for hero section */
@@ -120,6 +178,43 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       z-index: 10;
+    }
+
+    /* Style for slide dots indicator bar (Desktop default) */
+    .hero-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      pointer-events: auto;
+    }
+    .hero-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hero-dot:hover {
+      background: rgba(255, 255, 255, 0.75);
+    }
+    .hero-dot.active {
+      background: #ffffff;
+      width: 18px; /* Capsule style for active dot */
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -374,6 +469,8 @@
         <button class="hero-arr next" id="hero-next" aria-label="Next">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
+        <!-- Slide Indicators -->
+        <div class="hero-indicators" id="hero-indicators"></div>
     </section>
 
 
@@ -1472,22 +1569,61 @@
       const heroSlides = document.querySelectorAll('.hero-slide');
       if (!heroSlides.length) return;
 
+      // Build dot indicators dynamically matching the current slides count
+      const indContainer = document.getElementById('hero-indicators');
+      if (indContainer) {
+        indContainer.innerHTML = '';
+        heroSlides.forEach((_, idx) => {
+          const dot = document.createElement('span');
+          dot.className = 'hero-dot' + (idx === heroIdx ? ' active' : '');
+          dot.onclick = (e) => {
+            e.preventDefault();
+            showHeroSlide(idx);
+          };
+          indContainer.appendChild(dot);
+        });
+      }
+
       function showHeroSlide(index) {
         const slides = document.querySelectorAll('.hero-slide');
         if (!slides.length) return;
         if (index >= slides.length) heroIdx = 0;
         else if (index < 0) heroIdx = slides.length - 1;
         else heroIdx = index;
+        
         slides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
+        
+        // Update dot active classes
+        const dots = document.querySelectorAll('.hero-dot');
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === heroIdx);
+        });
+
+        // Reset autoplay timer when manually navigated
+        resetHeroAutoplay();
+      }
+
+      function resetHeroAutoplay() {
+        if (heroSliderInterval) clearInterval(heroSliderInterval);
+        heroSliderInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
       }
 
       const hPrevBtn = $('hero-prev');
       const hNextBtn = $('hero-next');
-      if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
-      if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
+      if (hPrevBtn) {
+        hPrevBtn.onclick = (e) => {
+          e.preventDefault();
+          showHeroSlide(heroIdx - 1);
+        };
+      }
+      if (hNextBtn) {
+        hNextBtn.onclick = (e) => {
+          e.preventDefault();
+          showHeroSlide(heroIdx + 1);
+        };
+      }
       
-      if (heroSliderInterval) clearInterval(heroSliderInterval);
-      heroSliderInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
+      resetHeroAutoplay();
     }
 
     // Load slides from database
