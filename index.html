@@ -1642,15 +1642,27 @@
               : '';
             const titleHTML = s.title ? (s.subtitle ? s.title + '<br />' + s.subtitle : s.title) : '';
             
+            // Only show text overlay if at least one text field has content
+            const hasTitle = s.title && s.title.trim();
+            const hasDesc = s.description && s.description.trim();
+            const hasBtn = s.buttonText && s.buttonText.trim();
+            const hasPills = s.pills && s.pills.length > 0;
+            const hasContent = hasTitle || hasDesc || hasBtn || hasPills;
+
+            let contentHTML = '';
+            if (hasContent) {
+              contentHTML = `<div class="hero-content">
+                ${pillsHTML}
+                ${hasTitle ? '<h1 class="hero-title">' + titleHTML + '</h1>' : ''}
+                ${hasDesc ? '<p class="hero-desc">' + s.description + '</p>' : ''}
+                ${hasBtn ? '<a href="' + (s.buttonLink || 'shop.html') + '" class="btn-dark btn-hero">' + s.buttonText + '</a>' : ''}
+              </div>`;
+            }
+
             div.innerHTML = `
               <div class="hero-bg desktop-only"><img src="${desktopImg}" alt="${s.title || 'Slide'}"></div>
               <div class="hero-bg mobile-only"><img src="${mobileImg}" alt="${s.title || 'Slide'}"></div>
-              <div class="hero-content">
-                ${pillsHTML}
-                <h1 class="hero-title">${titleHTML}</h1>
-                <p class="hero-desc">${s.description || ''}</p>
-                <a href="${s.buttonLink || 'shop.html'}" class="btn-dark btn-hero">${s.buttonText || 'SHOP NOW'}</a>
-              </div>
+              ${contentHTML}
             `;
             container.appendChild(div);
           });
