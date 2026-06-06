@@ -5916,47 +5916,51 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   main>* {
-    order: 10 !important;
+    order: 20 !important;
   }
 
   main>.hero-section {
     order: 1 !important;
   }
 
-  main>.brands-section {
+  main>.hero-indicators {
     order: 2 !important;
   }
 
-  main>.home-all-products-section {
+  main>.brands-section {
     order: 3 !important;
   }
 
-  main>.showcase-section {
+  main>.home-all-products-section {
     order: 4 !important;
   }
 
-  main>.lookbook-section {
+  main>.showcase-section {
     order: 5 !important;
   }
 
-  main>.premium-shade-finder {
+  main>.lookbook-section {
     order: 6 !important;
   }
 
-  main>.video-highlights-section {
+  main>.premium-shade-finder {
     order: 7 !important;
   }
 
-  main>.dynamic-center-highlight {
+  main>.video-highlights-section {
     order: 8 !important;
   }
 
-  main>.ba-slider-section {
+  main>.dynamic-center-highlight {
     order: 9 !important;
   }
 
-  main>.features-section {
+  main>.ba-slider-section {
     order: 10 !important;
+  }
+
+  main>.features-section {
+    order: 11 !important;
   }
 
   main>.featured-gallery {
