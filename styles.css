@@ -4712,8 +4712,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .ps-prod-btn {
   margin-top: auto;
   padding: 9px 0;
-  background: var(--brown);
-  color: #fff;
+  background: #eaeaea;
+  color: #2d1b12;
   border: none;
   border-radius: 8px;
   font-size: 11px;
@@ -4721,11 +4721,11 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 
 .ps-prod-btn:hover {
-  background: var(--gold);
+  background: #2d1b12;
   color: #fff;
 }
 
