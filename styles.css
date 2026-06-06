@@ -196,6 +196,12 @@ img {
   color: var(--white);
   display: block;
   margin-bottom: 16px;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer-logo:hover {
+  color: var(--gold);
 }
 
 .nav-left {
@@ -2748,7 +2754,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 48px;
-  padding: 64px 48px 40px;
+  padding: 40px 48px 30px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
