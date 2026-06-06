@@ -9234,7 +9234,7 @@ body:not(.drawer-open) .floating-ig {
 .newsletter-no-thanks {
   background: none;
   border: none;
-  color: #4b6b94;
+  color: #000000;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -9245,7 +9245,7 @@ body:not(.drawer-open) .floating-ig {
 }
 
 .newsletter-no-thanks:hover {
-  color: #2D1B12;
+  color: #555555;
 }
 
 .newsletter-disclaimer {
