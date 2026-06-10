@@ -788,8 +788,16 @@ window.renderHomeAllProducts = function() {
                 ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
                 : `Rs. ${basePrice.toLocaleString()}`;
 
+            const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const kokoInstallmentHTML = `
+                <div class="koko-installment" style="font-size:11px; color:#555; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px;">
+                    <span>or pay in 3 x Rs ${kokoAmount} with</span>
+                    <img src="koko-logo.png" alt="Koko" style="height:12px; object-fit:contain; transform:translateY(1px);">
+                </div>
+            `;
+
             return `
-            <a href="product.html?id=${prod.id}" class="hap-card">
+            <a href="product.html?id=${prod.id}" class="hap-card" style="text-decoration: none;">
                 <div class="hap-card-img">
                     ${discountBadge}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
@@ -805,6 +813,7 @@ window.renderHomeAllProducts = function() {
                 <div class="hap-card-brand">${brandDisplay}</div>
                 <div class="hap-card-title">${prod.name}</div>
                 <div class="hap-card-price">${priceHTML}</div>
+                ${kokoInstallmentHTML}
             </a>
             `;
         }).join('');
