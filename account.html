@@ -861,17 +861,11 @@
                  <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.25); font-size:8px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.2px; text-transform:uppercase;">${discount}% OFF</span>
                </div>`;
 
-            if (qty > 1) {
-              const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * qty).toLocaleString()}</div>`;
-              priceDisplayHTML = `
-                <div>${unitPriceHTML}</div>
-                <div style="height:20px; display:flex; align-items:center;">${lineTotalHTML}</div>
-              `;
-            } else {
-              priceDisplayHTML = `
-                <div style="height:20px; display:flex; align-items:center;">${unitPriceHTML}</div>
-              `;
-            }
+            const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * qty).toLocaleString()}</div>`;
+            priceDisplayHTML = `
+              <div>${unitPriceHTML}</div>
+              <div style="height:20px; display:flex; align-items:center;">${lineTotalHTML}</div>
+            `;
           } else {
             const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(item.price * qty).toLocaleString()}</div>`;
             priceDisplayHTML = `
