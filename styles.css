@@ -9376,14 +9376,23 @@ body:not(.drawer-open) .floating-ig {
 
 /* Mobile responsive adjustments */
 @media (max-width: 480px) {
+  /* Balance gaps by setting price margins and removing Koko top margin */
+  .hap-card-price,
+  .fg-price,
+  .ps-prod-price,
+  .lux-price,
+  .srd-price {
+    margin-bottom: 6px !important;
+  }
+
   .koko-installment,
   .ps-product-card .koko-installment,
   .fg-card .koko-installment {
     flex-direction: column !important;
     align-items: center !important;
     white-space: normal !important;
-    gap: 3px !important;
-    margin-top: 4px !important;
+    gap: 6px !important; /* Spacing between lines inside Koko */
+    margin-top: 0px !important; /* Controlled by price margin-bottom above */
   }
 
   .koko-or,
