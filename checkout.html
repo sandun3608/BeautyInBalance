@@ -670,39 +670,33 @@
                   if (kokoRes.ok) {
                     const data = await kokoRes.json();
 
-                    if (data.redirectUrl) {
-                        // Koko API successfully generated a redirect URL server-side
-                        $('btn-master-submit').textContent = 'Redirecting to Koko...';
-                        window.location.href = data.redirectUrl;
-                    } else if (data.endpoint && data.formData) {
-                        // Fallback: Create a hidden form to submit the payload to Koko API
-                        const form = document.createElement('form');
-                        form.method = 'POST';
-                        form.action = data.endpoint;
-                        form.style.display = 'none';
+                    // Create a hidden form to submit the payload to Koko API
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = data.endpoint;
+                    form.style.display = 'none';
 
-                        for (const key in data.formData) {
-                          const hiddenField = document.createElement('input');
-                          hiddenField.type = 'hidden';
-                          hiddenField.name = key;
-                          hiddenField.value = data.formData[key];
-                          form.appendChild(hiddenField);
-                        }
-
-                        // Append mobileNumber for redirect context if needed
-                        const mobileNo = data.formData._mobileNo;
-                        if (mobileNo) {
-                          const hiddenField = document.createElement('input');
-                          hiddenField.type = 'hidden';
-                          hiddenField.name = 'mobileNumber';
-                          hiddenField.value = mobileNo;
-                          form.appendChild(hiddenField);
-                        }
-
-                        document.body.appendChild(form);
-                        $('btn-master-submit').textContent = 'Redirecting to Koko...';
-                        form.submit();
+                    for (const key in data.formData) {
+                      const hiddenField = document.createElement('input');
+                      hiddenField.type = 'hidden';
+                      hiddenField.name = key;
+                      hiddenField.value = data.formData[key];
+                      form.appendChild(hiddenField);
                     }
+
+                    // Append mobileNumber for redirect context if needed
+                    const mobileNo = data.formData._mobileNo;
+                    if (mobileNo) {
+                      const hiddenField = document.createElement('input');
+                      hiddenField.type = 'hidden';
+                      hiddenField.name = 'mobileNumber';
+                      hiddenField.value = mobileNo;
+                      form.appendChild(hiddenField);
+                    }
+
+                    document.body.appendChild(form);
+                    $('btn-master-submit').textContent = 'Redirecting to Koko...';
+                    form.submit();
                   } else {
                     alert('Order created, but failed to generate Koko payment session. Please contact support.');
                     $('btn-master-submit').textContent = 'Complete Order';
