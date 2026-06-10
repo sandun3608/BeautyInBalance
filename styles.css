@@ -9305,7 +9305,7 @@ body:not(.drawer-open) .floating-ig {
   height: 28px !important;
   width: auto !important;
   object-fit: contain !important;
-  transform: translateY(1px) !important; /* Lower the logo slightly */
+  transform: translateY(0.5px) !important; /* Raise the logo slightly by 0.5px */
   margin-left: 4px !important;
   margin-right: 5px !important; /* Bring info icon very close to logo without overlap */
   display: inline-block !important;
