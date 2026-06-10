@@ -9296,7 +9296,7 @@ body:not(.drawer-open) .floating-ig {
   width: 100% !important;
   white-space: nowrap !important;
   font-size: 14px !important;
-  font-weight: 700 !important;
+  font-weight: 500 !important; /* Not bold, clean medium weight */
   color: #222 !important;
   margin-top: 6px !important;
 }
@@ -9322,6 +9322,23 @@ body:not(.drawer-open) .floating-ig {
 
 .koko-info-icon:hover {
   transform: scale(1.1) !important;
+}
+
+/* Shade Finder (Choose Your Shade) compact layout adjustments */
+.ps-product-card .koko-installment {
+  font-size: 11px !important;
+  margin-top: 4px !important;
+}
+
+.ps-product-card .koko-logo-img {
+  height: 22px !important;
+  margin-left: 3px !important;
+  margin-right: 4px !important;
+}
+
+.ps-product-card .koko-info-icon {
+  width: 14px !important;
+  height: 14px !important;
 }
 
 /* Mobile responsive adjustments */
