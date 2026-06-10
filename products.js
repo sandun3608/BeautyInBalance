@@ -621,10 +621,8 @@ function renderCart() {
         const priceHTML = discount > 0 
             ? `<div style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.3;">
                  <span style="color:#2D1B12; font-size:13px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
-                 <div style="display:flex; align-items:center; gap:5px; margin-top:2px;">
-                     <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
-                     <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.25); font-size:8.5px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.3px; text-transform:uppercase;">${discount}% OFF</span>
-                 </div>
+                 <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400; margin-top:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.25); font-size:8.5px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.3px; text-transform:uppercase;">${discount}% OFF</span>
                </div>`
             : `<span style="color:var(--dark); font-size:13px; font-weight:700; font-family:var(--font-sans);">Rs. ${(item.price * item.qty).toLocaleString()}</span>`;
 
