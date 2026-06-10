@@ -80,30 +80,59 @@ router.post('/koko/create-session', async (req, res) => {
         console.log('Koko Session dataString:', dataString);
         console.log('Koko Session signature:', signatureEncoded);
 
-        // Return the required form data to the frontend
-        res.json({
-            endpoint: `${BASE_URL}/api/merchants/orderCreate`,
-            formData: {
-                _mId: KOKO_MERCHANT_ID,
-                api_key: KOKO_API_KEY,
-                _returnUrl: returnUrl,
-                _responseUrl: responseUrl,
-                _currency: currency,
-                _amount: amount,
-                _reference: kokoReference,
-                _pluginName: pluginName,
-                _pluginVersion: pluginVersion,
-                _cancelUrl: cancelUrl,
-                _orderId: kokoOrderId,
-                _firstName: firstName,
-                _lastName: lastName,
-                _email: email,
-                _description: productName,
-                dataString: dataString,
-                signature: signatureEncoded,
-                _mobileNo: mobile
+        const formDataParams = new URLSearchParams();
+        formDataParams.append('_mId', KOKO_MERCHANT_ID);
+        formDataParams.append('api_key', KOKO_API_KEY);
+        formDataParams.append('_returnUrl', returnUrl);
+        formDataParams.append('_responseUrl', responseUrl);
+        formDataParams.append('_currency', currency);
+        formDataParams.append('_amount', amount);
+        formDataParams.append('_reference', kokoReference);
+        formDataParams.append('_pluginName', pluginName);
+        formDataParams.append('_pluginVersion', pluginVersion);
+        formDataParams.append('_cancelUrl', cancelUrl);
+        formDataParams.append('_orderId', kokoOrderId);
+        formDataParams.append('_firstName', firstName);
+        formDataParams.append('_lastName', lastName);
+        formDataParams.append('_email', email);
+        formDataParams.append('_description', productName);
+        formDataParams.append('dataString', dataString);
+        formDataParams.append('signature', signatureEncoded);
+        formDataParams.append('_mobileNo', mobile);
+        formDataParams.append('mobileNumber', mobile); // Koko sometimes looks for this explicitly
+
+        try {
+            const kokoResponse = await axios.post(`${BASE_URL}/api/merchants/orderCreate`, formDataParams, {
+                maxRedirects: 0,
+                validateStatus: function (status) {
+                    return status >= 200 && status < 400; // Resolve if status is a redirect (3xx)
+                }
+            });
+
+            if (kokoResponse.status >= 300 && kokoResponse.status < 400 && kokoResponse.headers.location) {
+                const location = kokoResponse.headers.location;
+                const separator = location.includes('?') ? '&' : '?';
+                // Append mobileNumber so Koko skips the OTP/identify screen
+                const finalUrl = `${location}${separator}mobileNumber=${encodeURIComponent(mobile)}`;
+                return res.json({ redirectUrl: finalUrl });
+            } else {
+                console.error("Koko API error or no redirect. Status:", kokoResponse.status);
+                // Fallback to sending form data to frontend if no redirect header found
+                return res.json({
+                    endpoint: `${BASE_URL}/api/merchants/orderCreate`,
+                    formData: {
+                        _mId: KOKO_MERCHANT_ID, api_key: KOKO_API_KEY, _returnUrl: returnUrl, _responseUrl: responseUrl,
+                        _currency: currency, _amount: amount, _reference: kokoReference, _pluginName: pluginName,
+                        _pluginVersion: pluginVersion, _cancelUrl: cancelUrl, _orderId: kokoOrderId, _firstName: firstName,
+                        _lastName: lastName, _email: email, _description: productName, dataString: dataString,
+                        signature: signatureEncoded, _mobileNo: mobile, mobileNumber: mobile
+                    }
+                });
             }
-        });
+        } catch (kokoErr) {
+            console.error('Koko API Request Error:', kokoErr.message);
+            return res.status(500).json({ message: 'Failed to communicate with Koko API' });
+        }
 
     } catch (error) {
         console.error('KOKO Session Error:', error);
