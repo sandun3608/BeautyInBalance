@@ -84,9 +84,17 @@
 
     /* Right Side: Order Summary */
     .chk-right {
+      position: -webkit-sticky;
       position: sticky;
       top: 120px;
       z-index: 10;
+      align-self: start;
+    }
+
+    @media (min-width: 901px) {
+      html, body {
+        overflow: visible !important;
+      }
     }
 
     .summary-box {
@@ -479,7 +487,7 @@
     }
   </style>
 </head>
-<body style="overflow-x: hidden;">
+<body>
 
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="site-header">
@@ -765,11 +773,7 @@
                     </svg>
                   </div>
                 </label>
-                <div class="pg-expanded-content" id="expanded-koko">
-                  <div class="pg-redirect-msg">
-                    You'll be redirected to Koko to complete your purchase.
-                  </div>
-                </div>
+
               </div>
 
               <!-- Option 4: Bank Transfer -->
@@ -910,7 +914,6 @@
       };
       const panels = {
         'Card Payment': 'expanded-card',
-        'Koko': 'expanded-koko',
         'Bank Transfer': 'expanded-bank',
         'Cash on Delivery': 'expanded-cod'
       };
