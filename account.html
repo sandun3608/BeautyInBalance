@@ -848,15 +848,31 @@
         
         let total = 0;
         container.innerHTML = cart.map(item => {
-          total += (item.price * item.quantity);
+          const qty = Number(item.qty || item.quantity || 1);
+          const discount = Number(item.discount || 0);
+          const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+          total += (discountedPrice * qty);
+
+          const priceHTML = discount > 0 
+            ? `<div style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.3;">
+                 <span style="color:#2D1B12; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * qty).toLocaleString()}</span>
+                 <div style="display:flex; align-items:center; gap:5px; margin-top:2px;">
+                     <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${(item.price * qty).toLocaleString()}</span>
+                     <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.25); font-size:8.5px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.3px; text-transform:uppercase;">${discount}% OFF</span>
+                 </div>
+               </div>`
+            : `<span style="font-weight:800; color:var(--brown); font-size:15px; font-family:var(--font-sans);">Rs. ${(item.price * qty).toLocaleString()}</span>`;
+
           return `
             <div class="cart-item-row" style="display:flex; align-items:center; gap:15px; padding:15px 0; border-bottom:1px solid rgba(0,0,0,0.05);">
-              <div class="cart-item-img" style="width:60px; height:60px; flex-shrink:0;"><img src="${item.image}" alt="${item.name}" style="width:100%; height:100%; object-fit:contain;"></div>
+              <div class="cart-item-img" style="width:60px; height:60px; flex-shrink:0; background:#ffffff; border:1px solid #eef0f2; border-radius:8px; padding:4px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;"><img src="${item.img || item.image}" alt="${item.name}" style="max-width:100%; max-height:100%; object-fit:contain;"></div>
               <div class="cart-item-info" style="flex:1;">
-                <h4 style="font-size:14px; margin-bottom:2px;">${item.name}</h4>
-                <p class="cart-item-price" style="font-size:13px; color:var(--gold); font-weight:700;">Rs. ${item.price.toLocaleString()} x ${item.quantity}</p>
+                <h4 style="font-size:14px; margin-bottom:2px; font-weight:600; color:var(--dark);">${item.name}</h4>
+                <p class="cart-item-price" style="font-size:13px; color:#555558; font-weight:500;">Qty: ${qty} (${discount > 0 ? 'Rs. ' + discountedPrice.toLocaleString() : 'Rs. ' + item.price.toLocaleString()}/unit)</p>
               </div>
-              <div style="font-weight:800; color:var(--brown); font-size:15px;">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
+              <div style="text-align:right; flex-shrink:0;">
+                ${priceHTML}
+              </div>
             </div>
           `;
         }).join('');

@@ -619,24 +619,30 @@ function renderCart() {
         const discount = Number(item.discount || 0);
         const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
         const priceHTML = discount > 0 
-            ? `<div style="display:flex; flex-direction:column; gap:2px; font-family:var(--font-sans);">
-                 <span style="color:#999; font-size:11px; text-decoration:line-through;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
-                 <span style="color:#c92c2c; font-size:13px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
-                 <span style="color:#2ec4b6; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">(${discount}% OFF)</span>
+            ? `<div style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.3;">
+                 <span style="color:#2D1B12; font-size:13px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <div style="display:flex; align-items:center; gap:5px; margin-top:2px;">
+                     <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                     <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.25); font-size:8.5px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.3px; text-transform:uppercase;">${discount}% OFF</span>
+                 </div>
                </div>`
-            : `<span style="color:var(--gold); font-size:13px; font-weight:700;">Rs. ${(item.price * item.qty).toLocaleString()}</span>`;
+            : `<span style="color:var(--dark); font-size:13px; font-weight:700; font-family:var(--font-sans);">Rs. ${(item.price * item.qty).toLocaleString()}</span>`;
 
         return `
-        <div style="display:flex; gap:15px; margin-bottom:20px; align-items:center;">
-            <img src="${item.img}" style="width:70px; height:70px; object-fit:contain; background:#f9f9f9; border-radius:8px; border: 1px solid #eee;">
-            <div style="flex-grow:1;">
-                <div style="font-size:14px; font-weight:600; font-family:var(--font-sans); color:var(--dark);">${item.name}</div>
-                <div style="margin-top:5px;">${priceHTML}</div>
+        <div style="display:flex; gap:15px; margin-bottom:20px; align-items:center; justify-content:space-between; width:100%; box-sizing:border-box;">
+            <div style="display:flex; gap:15px; align-items:center; flex-grow:1;">
+                <img src="${item.img}" style="width:64px; height:64px; object-fit:contain; background:#ffffff; border-radius:12px; border:1px solid #eef0f2; box-shadow:0 2px 8px rgba(0,0,0,0.04); flex-shrink:0;">
+                <div style="flex-grow:1;">
+                    <div style="font-size:14px; font-weight:600; font-family:var(--font-sans); color:var(--dark); line-height:1.4;">${item.name}</div>
+                    <div style="display:inline-flex; align-items:center; gap:8px; background:#f5f5f7; border:1px solid #e2e2e5; padding:3px 8px; border-radius:6px; margin-top:6px;">
+                        <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:12px; padding:0 4px;">-</button>
+                        <span style="font-family:var(--font-sans); font-size:12px; font-weight:600; color:#000000; min-width:14px; text-align:center;">${item.qty}</span>
+                        <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:12px; padding:0 4px;">+</button>
+                    </div>
+                </div>
             </div>
-            <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-                <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:#eee; color:#333; cursor:pointer; width:24px; height:24px; border-radius:4px;">+</button>
-                <span style="font-size:13px; font-weight:600;">${item.qty}</span>
-                <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:#eee; color:#333; cursor:pointer; width:24px; height:24px; border-radius:4px;">-</button>
+            <div style="text-align:right; min-width:90px; display:flex; flex-direction:column; gap:2px; align-self:center; flex-shrink:0;">
+                ${priceHTML}
             </div>
         </div>
         `;
@@ -645,12 +651,40 @@ function renderCart() {
     const subtotal = getCartTotal();
     const shipping = window._shippingFee !== undefined ? window._shippingFee : 450; 
     
+    let originalSubtotal = 0;
+    shoppingCart.forEach(item => {
+        originalSubtotal += item.price * item.qty;
+    });
+    const discountSaved = originalSubtotal - subtotal;
+    
+    let summaryDetailsHTML = '';
+    if (discountSaved > 0) {
+        summaryDetailsHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans);">
+                <span style="color:#666;">Subtotal (Original)</span>
+                <span style="font-weight:600; color:var(--dark); text-decoration:line-through; opacity:0.7;">Rs. ${originalSubtotal.toLocaleString()}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans); color: #c6975a; font-weight: 600;">
+                <span>Discount Saved</span>
+                <span>-Rs. ${discountSaved.toLocaleString()}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans); font-weight: 600;">
+                <span style="color:#666;">Subtotal</span>
+                <span style="color:var(--dark); font-weight:700;">Rs. ${subtotal.toLocaleString()}</span>
+            </div>
+        `;
+    } else {
+        summaryDetailsHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans);">
+                <span style="color:#666;">Subtotal</span>
+                <span style="font-weight:600; color:var(--dark);">Rs. ${subtotal.toLocaleString()}</span>
+            </div>
+        `;
+    }
+    
     footerBox.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; font-family:var(--font-sans);">
-            <span style="color:#666;">Subtotal</span>
-            <span style="font-weight:600; color:var(--dark);">Rs. ${subtotal.toLocaleString()}</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:14px; font-family:var(--font-sans);">
+        ${summaryDetailsHTML}
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:14px; font-family:var(--font-sans); border-top: 1px dashed #e2e2e5; padding-top: 10px; margin-top: 10px;">
             <span style="color:#666;">Shipping</span>
             <span style="font-weight:600; color:var(--brown);">Rs. ${shipping.toLocaleString()}</span>
         </div>
@@ -670,34 +704,54 @@ function renderCart() {
                 const discount = Number(item.discount || 0);
                 const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
                 const priceHTML = discount > 0 
-                    ? `<div style="display:flex; flex-direction:column; gap:2px; font-family:var(--font-sans);">
-                         <span style="color:#999; font-size:11px; text-decoration:line-through;">Rs. ${(item.price).toLocaleString()}</span>
-                         <span style="color:#c92c2c; font-size:13px; font-weight:700;">Rs. ${(discountedPrice).toLocaleString()} <span style="color:#2ec4b6; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">(${discount}% OFF)</span></span>
+                    ? `<div style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.3;">
+                         <span style="color:#2D1B12; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                         <div style="display:flex; align-items:center; gap:5px; margin-top:2px;">
+                             <span style="text-decoration:line-through; color:#88888b; font-size:11px; font-weight:400;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                             <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.25); font-size:9px; font-weight:700; padding:1px 5px; border-radius:3px; display:inline-block; letter-spacing:0.3px; text-transform:uppercase;">${discount}% OFF</span>
+                         </div>
                        </div>`
-                    : `Rs. ${item.price.toLocaleString()}`;
+                    : `<span style="font-size:14px; font-weight:700; color:#000000; font-family:var(--font-sans);">Rs. ${(item.price * item.qty).toLocaleString()}</span>`;
 
                 return `
-                <div class="cart-item">
-                    <div class="cart-item-img"><img src="${item.img}"></div>
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${priceHTML}</div>
-                        <div class="cart-item-qty">
-                            <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})">-</span>
-                            <span>${item.qty}</span>
-                            <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty + 1})">+</span>
+                <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; width:100%; border-bottom:1px solid #eaeaea; padding:20px 0;">
+                    <div style="display:flex; gap:20px; align-items:center; flex-grow:1;">
+                        <div class="cart-item-img" style="background:#ffffff; border:1px solid #eef0f2; box-shadow:0 2px 8px rgba(0,0,0,0.04); border-radius:12px; padding:10px; width:80px; height:80px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><img src="${item.img}" style="max-width:100%; max-height:100%; object-fit:contain;"></div>
+                        <div class="cart-item-info" style="display:flex; flex-direction:column; gap:6px;">
+                            <div class="cart-item-name" style="font-weight:600; color:var(--dark); font-size:15px; font-family:var(--font-sans);">${item.name}</div>
+                            <div class="cart-item-qty" style="display:inline-flex; align-items:center; gap:8px; background:#f5f5f7; border:1px solid #e2e2e5; padding:3px 8px; border-radius:6px; width:fit-content; margin-top:2px;">
+                                <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px;">-</span>
+                                <span style="font-family:var(--font-sans); font-size:12px; font-weight:600; color:#000000; min-width:14px; text-align:center;">${item.qty}</span>
+                                <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px;">+</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="price-container" style="text-align:right; min-width:100px; display:flex; flex-direction:column; gap:2px; align-self:center; flex-shrink:0;">
+                        ${priceHTML}
                     </div>
                 </div>
                 `;
             }).join('');
 
             const shipping = window._shippingFee !== undefined ? window._shippingFee : 450;
-            standaloneSummary.innerHTML = `
-                <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
-                <div class="summary-row"><span>Delivery</span><span>Rs. ${shipping.toLocaleString()}</span></div>
-                <div class="summary-row total" style="font-weight:800; border-top:1px solid #eee; padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + shipping).toLocaleString()}</span></div>
-            `;
+            
+            let summaryHTML = '';
+            if (discountSaved > 0) {
+                summaryHTML = `
+                    <div class="summary-row"><span>Subtotal (Original)</span><span style="text-decoration:line-through; opacity:0.8;">Rs. ${originalSubtotal.toLocaleString()}</span></div>
+                    <div class="summary-row" style="color: #c6975a; font-weight: 600;"><span>Discount Saved</span><span>-Rs. ${discountSaved.toLocaleString()}</span></div>
+                    <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
+                    <div class="summary-row"><span>Delivery</span><span>Rs. ${shipping.toLocaleString()}</span></div>
+                    <div class="summary-row total" style="font-weight:800; border-top:1px solid rgba(255,255,255,0.15); padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + shipping).toLocaleString()}</span></div>
+                `;
+            } else {
+                summaryHTML = `
+                    <div class="summary-row"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
+                    <div class="summary-row"><span>Delivery</span><span>Rs. ${shipping.toLocaleString()}</span></div>
+                    <div class="summary-row total" style="font-weight:800; border-top:1px solid rgba(255,255,255,0.15); padding-top:15px; margin-top:15px;"><span>Total</span><span>Rs. ${(subtotal + shipping).toLocaleString()}</span></div>
+                `;
+            }
+            standaloneSummary.innerHTML = summaryHTML;
         }
     }
 }
