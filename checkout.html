@@ -659,55 +659,10 @@
               // Check if payment method is Koko
               if (paymentMethod === 'Koko') {
                 $('btn-master-submit').textContent = 'Preparing Koko Payment...';
-                
-                try {
-                  const kokoRes = await fetch(`${BASE}/payments/koko/create-session`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ orderId: createdOrder._id })
-                  });
-
-                  if (kokoRes.ok) {
-                    const data = await kokoRes.json();
-
-                    // Create a hidden form to submit the payload to Koko API
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = data.endpoint;
-                    form.style.display = 'none';
-
-                    for (const key in data.formData) {
-                      const hiddenField = document.createElement('input');
-                      hiddenField.type = 'hidden';
-                      hiddenField.name = key;
-                      hiddenField.value = data.formData[key];
-                      form.appendChild(hiddenField);
-                    }
-
-                    // Append mobileNumber for redirect context if needed
-                    const mobileNo = data.formData._mobileNo;
-                    if (mobileNo) {
-                      const hiddenField = document.createElement('input');
-                      hiddenField.type = 'hidden';
-                      hiddenField.name = 'mobileNumber';
-                      hiddenField.value = mobileNo;
-                      form.appendChild(hiddenField);
-                    }
-
-                    document.body.appendChild(form);
-                    $('btn-master-submit').textContent = 'Redirecting to Koko...';
-                    form.submit();
-                  } else {
-                    alert('Order created, but failed to generate Koko payment session. Please contact support.');
-                    $('btn-master-submit').textContent = 'Complete Order';
-                    $('btn-master-submit').disabled = false;
-                  }
-                } catch (kokoErr) {
-                  console.error('Koko Session Error:', kokoErr);
-                  alert('Order created, but error connecting to Koko gateway. Please contact support.');
-                  $('btn-master-submit').textContent = 'Complete Order';
-                  $('btn-master-submit').disabled = false;
-                }
+                // Redirect directly to the server-side Koko gateway page
+                // This is a direct navigation to ensure mobile browser deep-links work properly
+                window.location.href = `${BASE}/payments/koko/redirect/${createdOrder._id}`;
+                return;
               } else {
                 // Cash on Delivery or Bank Transfer Success screen
                 localStorage.removeItem('bib_cart');

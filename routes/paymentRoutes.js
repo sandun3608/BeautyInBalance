@@ -17,13 +17,12 @@ const getPrivateKey = (merchantId) => {
 };
 
 
-// @desc    Create KOKO Payment Session (Returns form data for frontend submission)
-// @route   POST /api/payments/koko/create-session
+// @desc    Generate KOKO Payment HTML Redirect
+// @route   GET /api/payments/koko/redirect/:orderId
 // @access  Public
-router.post('/koko/create-session', async (req, res) => {
+router.get('/koko/redirect/:orderId', async (req, res) => {
     try {
-        const { orderId } = req.body;
-        const order = await Order.findById(orderId);
+        const order = await Order.findById(req.params.orderId);
 
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });
@@ -74,34 +73,66 @@ router.post('/koko/create-session', async (req, res) => {
         console.log('Koko Session dataString:', dataString);
         console.log('Koko Session signature:', signatureEncoded);
 
-        // Return the required form data to the frontend
-        res.json({
-            endpoint: `${BASE_URL}/api/merchants/orderCreate`,
-            formData: {
-                _mId: KOKO_MERCHANT_ID,
-                api_key: KOKO_API_KEY,
-                _returnUrl: returnUrl,
-                _responseUrl: responseUrl,
-                _currency: currency,
-                _amount: amount,
-                _reference: kokoReference,
-                _pluginName: pluginName,
-                _pluginVersion: pluginVersion,
-                _cancelUrl: cancelUrl,
-                _orderId: kokoOrderId,
-                _firstName: firstName,
-                _lastName: lastName,
-                _email: email,
-                _description: productName,
-                dataString: dataString,
-                signature: signatureEncoded,
-                _mobileNo: mobile
-            }
-        });
+        const kokoUrl = `${BASE_URL}/api/merchants/orderCreate`;
+
+        // Generate the exact HTML used by the official Koko PHP plugin
+        const darazbnpl_args = {
+            '_mId': KOKO_MERCHANT_ID,
+            'api_key': KOKO_API_KEY,
+            '_returnUrl': returnUrl,
+            '_responseUrl': responseUrl,
+            '_currency': currency,
+            '_amount': amount,
+            '_reference': kokoReference,
+            '_pluginName': pluginName,
+            '_pluginVersion': pluginVersion,
+            '_cancelUrl': cancelUrl,
+            '_orderId': kokoOrderId,
+            '_firstName': firstName,
+            '_lastName': lastName,
+            '_email': email,
+            '_description': productName,
+            'dataString': dataString,
+            'signature': signatureEncoded,
+            '_mobileNo': mobile
+        };
+
+        let inputsHtml = '';
+        for (const key in darazbnpl_args) {
+            inputsHtml += `<input type='hidden' name='${key}' value='${darazbnpl_args[key]}'/>\n`;
+        }
+
+        const htmlResponse = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting to Koko...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f9f9f9; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #f900a0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .button-alt { margin-top: 20px; padding: 10px 20px; background-color: #f900a0; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <p>Redirecting to Koko Payment Gateway...</p>
+    <form action="${kokoUrl}" method="post" id="darazbnpl_payment_form">
+        ${inputsHtml}
+        <input type="submit" class="button-alt" id="submit_darazbnpl_payment_form" value="Click here if not redirected automatically" />
+    </form>
+    <script type="text/javascript">
+        document.getElementById("submit_darazbnpl_payment_form").style.display = "none";
+        document.getElementById("darazbnpl_payment_form").submit();
+    </script>
+</body>
+</html>`;
+
+        res.send(htmlResponse);
 
     } catch (error) {
-        console.error('KOKO Session Error:', error);
-        res.status(500).json({ message: 'Failed to generate KOKO payment session' });
+        console.error('KOKO Redirect Error:', error);
+        res.status(500).send('Failed to generate KOKO payment session');
     }
 });
 
