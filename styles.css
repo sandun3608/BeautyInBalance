@@ -9363,17 +9363,24 @@ body:not(.drawer-open) .floating-ig {
 
 /* Mobile responsive adjustments */
 @media (max-width: 480px) {
-  .koko-installment {
-    font-size: 11px !important;
+  .koko-installment,
+  .ps-product-card .koko-installment,
+  .fg-card .koko-installment {
+    font-size: 9.5px !important;
+    letter-spacing: -0.3px !important;
     margin-top: 4px !important;
   }
-  .koko-logo-img {
-    height: 19px !important;
-    margin-left: 3px !important;
-    margin-right: 4px !important;
+  .koko-logo-img,
+  .ps-product-card .koko-logo-img,
+  .fg-card .koko-logo-img {
+    height: 16px !important;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
   }
-  .koko-info-icon {
-    width: 12px !important;
-    height: 12px !important;
+  .koko-info-icon,
+  .ps-product-card .koko-info-icon,
+  .fg-card .koko-info-icon {
+    width: 10px !important;
+    height: 10px !important;
   }
 }
