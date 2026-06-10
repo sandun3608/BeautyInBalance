@@ -9402,6 +9402,7 @@ body:not(.drawer-open) .floating-ig {
     font-weight: 600 !important;
     margin-right: 0 !important;
     line-height: 1 !important;
+    margin-top: -3px !important; /* Raise the 'or' text slightly higher */
   }
 
   .koko-pay-text,
