@@ -1349,6 +1349,9 @@
             // Use the image path directly as it is already formatted by products.js or works natively
             const formattedImg = rawImg || 'favicon.png';
 
+            const basePrice = Number(p.price || 0);
+            const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
             return `
               <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
                 <div class="ps-prod-img">
@@ -1357,6 +1360,11 @@
                 <div class="ps-prod-info">
                   <p class="ps-prod-name">${p.name}</p>
                   <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
+                  <div class="koko-installment" style="font-size:11px; color:#555; margin-top:4px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; gap:4px;">
+                    <span>or pay in 3 x Rs ${kokoAmount} with</span>
+                    <img src="koko-logo.png" alt="Koko" style="height:12px; object-fit:contain; transform:translateY(1px);">
+                    <svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:12px; height:12px; fill:#555; margin-left:2px;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                  </div>
                   <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
                 </div>
               </div>
@@ -1405,6 +1413,15 @@
             
         const discountBadge = discount > 0 ? `<span class="fp-discount-badge">${discount}% OFF</span>` : '';
 
+        const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const kokoInstallmentHTML = `
+            <div class="koko-installment" style="font-size:11px; color:#555; margin-top:4px; display:flex; align-items:center; justify-content:flex-start; gap:4px;">
+                <span>or pay in 3 x Rs ${kokoAmount} with</span>
+                <img src="koko-logo.png" alt="Koko" style="height:12px; object-fit:contain; transform:translateY(1px);">
+                <svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:12px; height:12px; fill:#555; margin-left:2px;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+            </div>
+        `;
+
         return `
         <div class="fp-item">
           <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
@@ -1431,6 +1448,7 @@
             <span class="fp-name">${p.name}</span>
             <div class="fp-price-row">${priceHTML}</div>
             ${discountBarHTML}
+            ${kokoInstallmentHTML}
           </div>
         </div>
         `;
