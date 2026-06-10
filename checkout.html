@@ -98,12 +98,12 @@
     }
 
     .summary-box {
-      background: linear-gradient(180deg, #0f0f11 0%, #070709 100%);
-      color: #ffffff;
+      background: #ffffff;
+      color: #1a1a1e;
       padding: 40px 35px;
       border-radius: 24px;
-      border: 1px solid #1c1c1f;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(224, 32, 32, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
       position: relative;
       overflow: hidden;
     }
@@ -121,9 +121,9 @@
       font-family: var(--font-serif);
       font-size: 24px;
       margin-bottom: 30px;
-      color: #ffffff;
+      color: #000000;
       font-weight: 600;
-      border-bottom: 1px solid #1c1c1f;
+      border-bottom: 1px solid #f0f0f2;
       padding-bottom: 15px;
       position: relative;
     }
@@ -153,11 +153,11 @@
       background: transparent;
     }
     .summ-items::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.1);
       border-radius: 10px;
     }
     .summ-items::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .summ-item {
@@ -173,13 +173,13 @@
       width: 64px;
       height: 64px;
       background: #ffffff;
-      border: 1px solid #1c1c1f;
+      border: 1px solid #eef0f2;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       transition: border-color 0.2s ease;
     }
     .summ-item:hover .img-wrap {
@@ -204,7 +204,7 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      border: 2px solid #0f0f11;
+      border: 2px solid #ffffff;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
@@ -214,14 +214,14 @@
     .summ-details h4 {
       font-size: 14px;
       font-weight: 500;
-      color: #eeeeee;
+      color: #1a1a1e;
       margin-bottom: 5px;
       line-height: 1.4;
       font-family: var(--font-sans);
       transition: color 0.2s ease;
     }
     .summ-item:hover .summ-details h4 {
-      color: #ffffff;
+      color: #000000;
     }
     .summ-price {
       font-weight: bold;
@@ -233,8 +233,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #151518;
-      border: 1px solid #222225;
+      background: #f5f5f7;
+      border: 1px solid #e2e2e5;
       padding: 3px 8px;
       border-radius: 6px;
       transition: border-color 0.2s ease;
@@ -245,7 +245,7 @@
     .qty-btn {
       border: none;
       background: transparent;
-      color: #88888b;
+      color: #555558;
       cursor: pointer;
       font-weight: 700;
       font-size: 12px;
@@ -260,13 +260,13 @@
       font-family: var(--font-sans);
       font-size: 12px;
       font-weight: 600;
-      color: #ffffff;
+      color: #000000;
       min-width: 14px;
       text-align: center;
     }
 
     .summ-totals {
-      border-top: 1px solid #1c1c1f;
+      border-top: 1px solid #f0f0f2;
       padding-top: 25px;
       display: flex;
       flex-direction: column;
@@ -277,17 +277,21 @@
       display: flex;
       justify-content: space-between;
       font-size: 14px;
-      color: #aaaaaa;
+      color: #555558;
       font-family: var(--font-sans);
+    }
+    .summ-row span:last-child {
+      color: #000000;
+      font-weight: 500;
     }
 
     .summ-row.total {
       font-size: 22px;
-      color: #ffffff;
+      color: #000000;
       font-weight: 700;
       margin-top: 15px;
       padding-top: 20px;
-      border-top: 1px dashed #2a2a2c;
+      border-top: 1px dashed #e2e2e5;
       font-family: var(--font-serif);
     }
     .summ-row.total span:last-child {
@@ -1072,7 +1076,7 @@
                  <span style="color:#e02020; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
                  <span style="color:#e02020; font-size:9.5px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-top:1px;">(${discount}% OFF)</span>
                </div>`
-            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#ffffff;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
+            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
 
         return `<div class="summ-item">
             <div class="img-wrap"><img src="${item.img}"><span class="qty-badge">${item.qty}</span></div>
