@@ -98,19 +98,43 @@
     }
 
     .summary-box {
-      background: #ffffff;
-      color: var(--dark);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.02);
+      background: linear-gradient(180deg, #0f0f11 0%, #070709 100%);
+      color: #ffffff;
+      padding: 40px 35px;
+      border-radius: 24px;
+      border: 1px solid #1c1c1f;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(224, 32, 32, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+    .summary-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e02020 0%, #ff4d4d 50%, #e02020 100%);
     }
 
     .summ-title {
       font-family: var(--font-serif);
-      font-size: 28px;
+      font-size: 24px;
       margin-bottom: 30px;
-      color: var(--gold);
+      color: #ffffff;
+      font-weight: 600;
+      border-bottom: 1px solid #1c1c1f;
+      padding-bottom: 15px;
+      position: relative;
+    }
+    .summ-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: #e02020;
     }
 
     .summ-items {
@@ -129,28 +153,37 @@
       background: transparent;
     }
     .summ-items::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 10px;
     }
     .summ-items::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.3);
     }
 
     .summ-item {
       display: flex;
       gap: 15px;
       align-items: center;
+      transition: transform 0.2s ease;
+    }
+    .summ-item:hover {
+      transform: translateX(4px);
     }
     .img-wrap {
       width: 64px;
       height: 64px;
       background: #ffffff;
-      border: 1px solid #eaeaea;
+      border: 1px solid #1c1c1f;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: border-color 0.2s ease;
+    }
+    .summ-item:hover .img-wrap {
+      border-color: #e02020;
     }
     .img-wrap img {
       width: 80%;
@@ -161,55 +194,107 @@
       position: absolute;
       top: -8px;
       right: -8px;
-      background: var(--gold);
+      background: #e02020;
       color: #fff;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      font-size: 12px;
+      font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      border: 2px solid #0f0f11;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .summ-details {
       flex-grow: 1;
     }
     .summ-details h4 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 500;
-      color: #333;
+      color: #eeeeee;
       margin-bottom: 5px;
       line-height: 1.4;
+      font-family: var(--font-sans);
+      transition: color 0.2s ease;
+    }
+    .summ-item:hover .summ-details h4 {
+      color: #ffffff;
     }
     .summ-price {
       font-weight: bold;
-      color: var(--gold);
+      color: #e02020;
+    }
+
+    /* Qty controls styled classes */
+    .qty-adjust {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #151518;
+      border: 1px solid #222225;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: border-color 0.2s ease;
+    }
+    .qty-adjust:hover {
+      border-color: rgba(224, 32, 32, 0.4);
+    }
+    .qty-btn {
+      border: none;
+      background: transparent;
+      color: #88888b;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 0 4px;
+      transition: color 0.2s ease, transform 0.1s ease;
+    }
+    .qty-btn:hover {
+      color: #e02020;
+      transform: scale(1.2);
+    }
+    .qty-val {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+      min-width: 14px;
+      text-align: center;
     }
 
     .summ-totals {
-      border-top: 1px solid #eee;
+      border-top: 1px solid #1c1c1f;
       padding-top: 25px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
     }
 
     .summ-row {
       display: flex;
       justify-content: space-between;
-      font-size: 15px;
-      color: #666;
+      font-size: 14px;
+      color: #aaaaaa;
+      font-family: var(--font-sans);
     }
 
     .summ-row.total {
+      font-size: 22px;
+      color: #ffffff;
+      font-weight: 700;
+      margin-top: 15px;
+      padding-top: 20px;
+      border-top: 1px dashed #2a2a2c;
+      font-family: var(--font-serif);
+    }
+    .summ-row.total span:last-child {
+      color: #e02020;
       font-size: 24px;
-      color: var(--dark);
-      font-weight: 600;
-      margin-top: 10px;
-      padding-top: 15px;
-      border-top: 1px dashed #ddd;
+      font-weight: 800;
+      font-family: var(--font-sans);
     }
 
     .btn-place-order {
@@ -259,8 +344,9 @@
     }
     .payment-gateway-row-container, .billing-row-container {
       border-bottom: 1px solid #d9d9d9;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, border-left-color 0.2s ease;
       background-color: #fff;
+      border-left: 3px solid transparent;
     }
     .payment-gateway-row-container:last-child, .billing-row-container:last-child {
       border-bottom: none;
@@ -284,6 +370,7 @@
     }
     .payment-gateway-row-container.active-row, .billing-row-container.active-row {
       background-color: #fafafa;
+      border-left-color: #e02020;
     }
     
     /* Custom Radio Buttons */
@@ -314,8 +401,8 @@
       transition: border-color 0.2s, background-color 0.2s;
     }
     .pg-radio-col input[type="radio"]:checked + .custom-radio {
-      border-color: #1b1b1e;
-      background-color: #1b1b1e;
+      border-color: #e02020;
+      background-color: #e02020;
     }
     .pg-radio-col input[type="radio"]:checked + .custom-radio::after {
       content: "";
@@ -370,19 +457,24 @@
     .btn-pay-now {
       width: 100%;
       padding: 18px;
-      background: #000;
-      color: #fff;
+      background: #000000;
+      color: #ffffff;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-family: var(--font-sans);
       font-size: 16px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: all 0.3s ease;
       margin-top: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     .btn-pay-now:hover {
-      background: #1c1c1e;
+      background: #e02020;
+      box-shadow: 0 8px 25px rgba(224, 32, 32, 0.35);
+      transform: translateY(-2px);
     }
 
     @media (max-width: 480px) {
@@ -759,7 +851,7 @@
                     <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block;">
                       <rect width="120" height="80" rx="4" fill="white"/>
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M86.6666 44.9375L90.3239 35.0625L92.3809 44.9375H86.6666ZM100.952 52.8375L95.8086 27.1625H88.7383C86.3525 27.1625 85.7723 29.0759 85.7723 29.0759L76.1904 52.8375H82.8868L84.2269 49.0244H92.3947L93.1479 52.8375H100.952Z" fill="#1434CB"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M77.1866 33.5711L78.0952 28.244C78.0952 28.244 75.2896 27.1625C72.3648 27.1625 69.2031 27.1625 61.6955 28.5638 61.6955 35.3738C61.6955 41.7825 70.5071 41.8621 70.5071 45.2266C70.5071 48.5912 62.6034 47.9901 59.9955 45.8676L59.0476 51.4362C59.0476 51.4362 61.8919 52.8375 66.2397 52.8375C70.5869 52.8375 77.1467 50.5544 77.1467 44.3455C77.1467 37.8964 68.2552 37.296 68.2552 34.4921C68.2552 31.6882 74.4602 32.0484 77.1866 33.5711Z" fill="#1434CB"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M77.1866 33.5711L78.0952 28.244C78.0952 28.244 75.2896 27.1625C72.3648 27.1625C69.2031 27.1625 61.6955 28.5638 61.6955 35.3738C61.6955 41.7825 70.5071 41.8621 70.5071 45.2266C70.5071 48.5912 62.6034 47.9901 59.9955 45.8676L59.0476 51.4362C59.0476 51.4362 61.8919 52.8375 66.2397 52.8375C70.5869 52.8375 77.1467 50.5544 77.1467 44.3455C77.1467 37.8964 68.2552 37.296 68.2552 34.4921C68.2552 31.6882 74.4602 32.0484 77.1866 33.5711Z" fill="#1434CB"/>
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M54.6517 52.8375H47.6191L52.0144 27.1625H59.0477L54.6517 52.8375Z" fill="#1434CB"/>
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M42.3113 27.1625L35.9217 44.8213L35.1663 41.0185L35.167 41.0199L32.9114 29.4749C32.9114 29.4749 32.6394 27.1625 29.7324 27.1625H19.1709L19.0476 27.5966C19.0476 27.5966 22.2782 28.2669 26.057 30.5326L31.8793 52.8375H38.8617L49.5238 27.1625H42.3113Z" fill="#1434CB"/>
                     </svg>
@@ -976,11 +1068,11 @@
 
         const priceHTML = discount > 0 
             ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans);">
-                 <span style="text-decoration:line-through; color:#999; font-size:11px; font-weight:400; margin-bottom:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
-                 <span style="color:#c92c2c; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
-                 <span style="color:#2ec4b6; font-size:9.5px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-top:1px;">(${discount}% OFF)</span>
+                 <span style="text-decoration:line-through; color:#888; font-size:11px; font-weight:400; margin-bottom:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span style="color:#e02020; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="color:#e02020; font-size:9.5px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-top:1px;">(${discount}% OFF)</span>
                </div>`
-            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:var(--dark);">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
+            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#ffffff;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
 
         return `<div class="summ-item">
             <div class="img-wrap"><img src="${item.img}"><span class="qty-badge">${item.qty}</span></div>
@@ -988,10 +1080,10 @@
               <h4>${item.name}</h4>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
                 ${priceHTML}
-                <div style="display:flex; align-items:center; gap:8px; background:#f9f9f9; padding:4px 8px; border-radius:6px;">
-                  <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">-</button>
-                  <span style="font-family:var(--font-sans); font-size:13px; font-weight:600;">${item.qty}</span>
-                  <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" style="border:none; background:transparent; cursor:pointer; font-weight:bold;">+</button>
+                <div class="qty-adjust">
+                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)">-</button>
+                  <span class="qty-val">${item.qty}</span>
+                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)">+</button>
                 </div>
               </div>
             </div>
