@@ -9341,6 +9341,26 @@ body:not(.drawer-open) .floating-ig {
   height: 14px !important;
 }
 
+/* Featured Gallery Card Koko spacing and responsive sizing */
+.fg-card .koko-installment {
+  margin-bottom: 12px !important;
+}
+
+@media (max-width: 1024px) {
+  .fg-card .koko-installment {
+    font-size: 11px !important;
+  }
+  .fg-card .koko-logo-img {
+    height: 22px !important;
+    margin-left: 3px !important;
+    margin-right: 4px !important;
+  }
+  .fg-card .koko-info-icon {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
+
 /* Mobile responsive adjustments */
 @media (max-width: 480px) {
   .koko-installment {
