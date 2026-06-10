@@ -790,9 +790,10 @@ window.renderHomeAllProducts = function() {
 
             const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
             const kokoInstallmentHTML = `
-                <div class="koko-installment" style="font-size:11px; font-weight:700; color:#444; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px; white-space:nowrap;">
+                <div class="koko-installment" style="font-size:12px; font-weight:700; color:#444; margin-top:6px; display:flex; align-items:center; justify-content:center; gap:2px; white-space:nowrap;">
                     <span>or pay in 3 x Rs ${kokoAmount} with</span>
-                    <img src="koko-logo.png" alt="Koko" style="height:12px; object-fit:contain; transform:translateY(1px);">
+                    <img src="koko-logo.png" alt="Koko" style="height:16px; object-fit:contain; transform:translateY(1px); margin-left: 2px;">
+                    <svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:13px; height:13px; fill:#444; margin-left:1px;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                 </div>
             `;
 
