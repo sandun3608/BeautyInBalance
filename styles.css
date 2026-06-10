@@ -9306,8 +9306,8 @@ body:not(.drawer-open) .floating-ig {
   width: auto !important;
   object-fit: contain !important;
   transform: translateY(2px) !important;
-  margin-left: -20px !important;
-  margin-right: -16px !important; /* Bring info icon very close to logo */
+  margin-left: 4px !important;
+  margin-right: 5px !important; /* Bring info icon very close to logo without overlap */
   display: inline-block !important;
 }
 
@@ -9332,8 +9332,8 @@ body:not(.drawer-open) .floating-ig {
   }
   .koko-logo-img {
     height: 22px !important;
-    margin-left: -14px !important;
-    margin-right: -12px !important;
+    margin-left: 3px !important;
+    margin-right: 4px !important;
   }
   .koko-info-icon {
     width: 14px !important;
