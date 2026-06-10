@@ -38,8 +38,9 @@ router.post('/koko/create-session', async (req, res) => {
         const pluginName = 'customapi';
         const pluginVersion = '1.0.1';
         
-        const kokoReference = 'REF-' + order._id.toString();
-        const kokoOrderId = 'ORD-' + order._id.toString();
+        const orderIdStr = order._id.toString();
+        const kokoReference = 'REF-' + orderIdStr.slice(-14);
+        const kokoOrderId = 'ORD-' + orderIdStr.slice(-14);
         const firstName = (order.customerInfo.firstName || 'Customer').trim();
         const lastName = (order.customerInfo.lastName || 'Name').trim();
         const email = (order.customerInfo.email || 'customer@example.com').trim();
@@ -55,7 +56,8 @@ router.post('/koko/create-session', async (req, res) => {
 
         const productName = 'SkincareProducts';
         
-        const host = req.headers['x-forwarded-host'] || req.get('host');
+        const rawHost = req.headers['x-forwarded-host'] || req.get('host');
+        const host = rawHost.split(',')[0].trim();
         const protocol = host.includes('localhost') ? 'http' : 'https';
         const returnUrl = `${protocol}://${host}/api/payments/koko/return`;
         const cancelUrl = `${protocol}://${host}/api/payments/koko/cancel`;
@@ -132,7 +134,8 @@ router.post('/koko/test-session', (req, res) => {
         const mobile = '0777904054'; 
         const productName = 'SkincareProductsTest';
         
-        const host = req.headers['x-forwarded-host'] || req.get('host');
+        const rawHost = req.headers['x-forwarded-host'] || req.get('host');
+        const host = rawHost.split(',')[0].trim();
         const protocol = host.includes('localhost') ? 'http' : 'https';
         const returnUrl = `${protocol}://${host}/api/payments/koko/return`;
         const cancelUrl = `${protocol}://${host}/api/payments/koko/cancel`;
