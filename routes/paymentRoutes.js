@@ -38,12 +38,21 @@ router.post('/koko/create-session', async (req, res) => {
         const pluginName = 'customapi';
         const pluginVersion = '1.0.1';
         
-        const kokoReference = order._id.toString().substring(0, 15);
-        const kokoOrderId = order._id.toString().substring(0, 15);
-        const firstName = (order.customerInfo.firstName || 'Customer').replace(/\s+/g, '');
-        const lastName = (order.customerInfo.lastName || 'Name').replace(/\s+/g, '');
+        const kokoReference = 'REF-' + order._id.toString();
+        const kokoOrderId = 'ORD-' + order._id.toString();
+        const firstName = (order.customerInfo.firstName || 'Customer').trim();
+        const lastName = (order.customerInfo.lastName || 'Name').trim();
         const email = (order.customerInfo.email || 'customer@example.com').trim();
-        const mobile = (order.customerInfo.phone || '0770000000').replace(/\s+/g, ''); 
+        
+        // Convert mobile to international format (94...) just like PHP script
+        const rawMobile = (order.customerInfo.phone || '0770000000').replace(/[^0-9]/g, '');
+        let mobile = rawMobile;
+        if (rawMobile.length === 10 && rawMobile[0] === '0') {
+            mobile = '94' + rawMobile.substring(1);
+        } else if (rawMobile.length === 9) {
+            mobile = '94' + rawMobile;
+        }
+
         const productName = 'SkincareProducts';
         
         const protocol = req.get('host').includes('localhost') ? 'http' : 'https';
@@ -211,9 +220,15 @@ fr01xf7lBG3bGqNXZkdXb0txnoXSmPya+B4oGqZc+KWNrKTntY3sNKD6k4tdOeoX
             return res.status(400).send('Invalid Signature');
         }
 
-        // 4. Find the order (prefix match of first 15 chars)
-        const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
-        const order = orders.find(o => o._id.toString().startsWith(orderId));
+        // 4. Find the order (using clean full orderId)
+        const cleanOrderId = orderId.replace('ORD-', '').replace('REF-', '');
+        let order = null;
+        if (cleanOrderId && cleanOrderId.length === 24) {
+            order = await Order.findById(cleanOrderId);
+        } else {
+            const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
+            order = orders.find(o => o._id.toString().startsWith(cleanOrderId));
+        }
 
         if (order) {
             if (status === 'SUCCESS') {
@@ -248,8 +263,14 @@ router.get('/koko/callback', async (req, res) => {
 
     try {
         if (reference) {
-            const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
-            const order = orders.find(o => o._id.toString().startsWith(reference));
+            const cleanRef = reference.replace('REF-', '').replace('ORD-', '');
+            let order = null;
+            if (cleanRef && cleanRef.length === 24) {
+                order = await Order.findById(cleanRef);
+            } else {
+                const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
+                order = orders.find(o => o._id.toString().startsWith(cleanRef));
+            }
 
             if (order && status === 'SUCCESS') {
                 order.isPaid = true;
@@ -273,8 +294,14 @@ router.get('/koko/return', async (req, res) => {
 
     try {
         if (orderId) {
-            const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
-            const order = orders.find(o => o._id.toString().startsWith(orderId));
+            const cleanOrderId = orderId.replace('ORD-', '').replace('REF-', '');
+            let order = null;
+            if (cleanOrderId && cleanOrderId.length === 24) {
+                order = await Order.findById(cleanOrderId);
+            } else {
+                const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
+                order = orders.find(o => o._id.toString().startsWith(cleanOrderId));
+            }
 
             if (order && (status === 'SUCCESS' || !status)) {
                 order.isPaid = true;
