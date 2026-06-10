@@ -29,9 +29,9 @@ router.post('/koko/create-session', async (req, res) => {
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        const KOKO_MERCHANT_ID = process.env.KOKO_MERCHANT_ID || 'c8cca514bdfa0582cdc40c9703c71e9d';
-        const KOKO_API_KEY = process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
-        const BASE_URL = process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com';
+        const KOKO_MERCHANT_ID = (process.env.KOKO_MERCHANT_ID || 'c8cca514bdfa0582cdc40c9703c71e9d').trim().replace(/^"(.*)"$/, '$1');
+        const KOKO_API_KEY = (process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi').trim().replace(/^"(.*)"$/, '$1');
+        const BASE_URL = (process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com').trim().replace(/^"(.*)"$/, '$1');
 
         const amount = parseFloat(order.totalPrice).toFixed(2);
         const currency = 'LKR';
@@ -64,6 +64,9 @@ router.post('/koko/create-session', async (req, res) => {
         const sign = crypto.createSign('SHA256');
         sign.update(dataString);
         const signatureEncoded = sign.sign(privateKey, 'base64');
+
+        console.log('Koko Session dataString:', dataString);
+        console.log('Koko Session signature:', signatureEncoded);
 
         // Return the required form data to the frontend
         res.json({
@@ -101,9 +104,9 @@ router.post('/koko/create-session', async (req, res) => {
 // @access  Public
 router.post('/koko/test-session', (req, res) => {
     try {
-        const KOKO_MERCHANT_ID = process.env.KOKO_MERCHANT_ID || 'c8cca514bdfa0582cdc40c9703c71e9d';
-        const KOKO_API_KEY = process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi';
-        const BASE_URL = process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com';
+        const KOKO_MERCHANT_ID = (process.env.KOKO_MERCHANT_ID || 'c8cca514bdfa0582cdc40c9703c71e9d').trim().replace(/^"(.*)"$/, '$1');
+        const KOKO_API_KEY = (process.env.KOKO_API_KEY || '83fA5n1xUaj8OKnX23YY5vlni5q39gBi').trim().replace(/^"(.*)"$/, '$1');
+        const BASE_URL = (process.env.KOKO_BASE_URL || 'https://qaapi.paykoko.com').trim().replace(/^"(.*)"$/, '$1');
 
         const amount = '300.00';
         const currency = 'LKR';
@@ -137,6 +140,9 @@ router.post('/koko/test-session', (req, res) => {
         const sign = crypto.createSign('SHA256');
         sign.update(dataString);
         const signatureEncoded = sign.sign(privateKey, 'base64');
+
+        console.log('Koko Test Session dataString:', dataString);
+        console.log('Koko Test Session signature:', signatureEncoded);
 
         // Return the required form data to the frontend
         res.json({
