@@ -9301,6 +9301,19 @@ body:not(.drawer-open) .floating-ig {
   margin-top: 6px !important;
 }
 
+.koko-or {
+  margin-right: 4px !important;
+}
+
+.koko-pay-text {
+  margin-right: 4px !important;
+}
+
+.koko-logo-wrapper {
+  display: flex !important;
+  align-items: center !important;
+}
+
 .koko-logo-img {
   height: 25px !important;
   width: auto !important;
@@ -9366,21 +9379,43 @@ body:not(.drawer-open) .floating-ig {
   .koko-installment,
   .ps-product-card .koko-installment,
   .fg-card .koko-installment {
-    font-size: 9.5px !important;
-    letter-spacing: -0.3px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    white-space: normal !important;
+    gap: 3px !important;
     margin-top: 4px !important;
   }
+
+  .koko-or,
+  .ps-product-card .koko-or,
+  .fg-card .koko-or {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    margin-right: 0 !important;
+    line-height: 1 !important;
+  }
+
+  .koko-pay-text,
+  .ps-product-card .koko-pay-text,
+  .fg-card .koko-pay-text {
+    font-size: 11px !important;
+    margin-right: 0 !important;
+    line-height: 1 !important;
+  }
+
   .koko-logo-img,
   .ps-product-card .koko-logo-img,
   .fg-card .koko-logo-img {
-    height: 16px !important;
-    margin-left: 2px !important;
-    margin-right: 2px !important;
+    height: 22px !important;
+    margin-left: 0 !important;
+    margin-right: 4px !important;
+    transform: translateY(0.1px) !important;
   }
+
   .koko-info-icon,
   .ps-product-card .koko-info-icon,
   .fg-card .koko-info-icon {
-    width: 10px !important;
-    height: 10px !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 }
