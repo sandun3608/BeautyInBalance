@@ -443,6 +443,10 @@
                 <div><strong>Cash on Delivery</strong><div style="font-size:12px; color:#777;">Pay when your order arrives.</div></div>
              </label>
              <label class="payment-method">
+                <input type="radio" name="payment_method" value="Koko" onchange="toggleBankDetails(false)" />
+                <div><strong>Koko (Pay in 3 instalments)</strong><div style="font-size:12px; color:#777;">Buy now, pay later with Koko.</div></div>
+             </label>
+             <label class="payment-method">
                 <input type="radio" name="payment_method" value="Bank Transfer" onchange="toggleBankDetails(true)" />
                 <div><strong>Bank Transfer</strong><div style="font-size:12px; color:#777;">Direct deposit to BOC.</div></div>
              </label>
@@ -558,6 +562,39 @@
     };
 
     document.addEventListener('DOMContentLoaded', async () => {
+      // Koko Payment Redirect Handling
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentStatus = urlParams.get('payment');
+      if (paymentStatus) {
+          if (paymentStatus === 'success') {
+              localStorage.removeItem('bib_cart');
+              $('checkout-root').innerHTML = `
+                <div style="padding: 100px 20px; text-align:center; animation: fadeIn 0.5s ease-out;">
+                  <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color:#10b981;">
+                    <svg style="width: 80px; height: 80px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h1 style="font-family: var(--font-serif); font-size: 48px; color: #1b1b1e; margin-bottom: 10px;">Done!</h1>
+                  <h2 style="font-family: var(--font-serif); font-size: 24px; color: #555; margin-bottom: 30px;">Payment Completed Successfully</h2>
+                  <p style="max-width: 500px; margin: 0 auto 40px; color: #777; line-height: 1.6;">
+                    Thank you! Your payment via Koko was processed successfully. We are getting your order ready for delivery.
+                  </p>
+                  <a href="index.html" class="btn-dark" style="margin-top:20px; display:inline-block; padding:18px 45px; background:#000; color:#fff; text-decoration:none; border-radius:12px; font-weight:700; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">🛍️ Return to Shop</a>
+                </div>
+                <style>
+                  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+                </style>`;
+              return;
+          } else if (paymentStatus === 'cancelled') {
+              alert('Payment was cancelled. You can try placing the order again.');
+              window.history.replaceState({}, document.title, window.location.pathname);
+          } else {
+              alert('Payment was unsuccessful. Please check your card or select another payment option.');
+              window.history.replaceState({}, document.title, window.location.pathname);
+          }
+      }
+
       try {
         const BASE = window.BASE_URL || '/api';
         const sfRes = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
@@ -593,6 +630,7 @@
           $('btn-master-submit').textContent = 'Processing...';
           $('btn-master-submit').disabled = true;
 
+          const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
           const userInfo = JSON.parse(localStorage.getItem('userInfo'));
           const orderData = {
             user: userInfo ? userInfo._id : null,
@@ -604,47 +642,109 @@
             }),
             shippingPrice: window._shippingFee || 450,
             totalPrice: window.currentOrderTotal,
-            paymentMethod: document.querySelector('input[name="payment_method"]:checked').value
+            paymentMethod: paymentMethod
           };
 
           try {
-            const res = await fetch(`${window.BASE_URL || '/api'}/orders`, {
+            const BASE = window.BASE_URL || '/api';
+            const res = await fetch(`${BASE}/orders`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(orderData)
-            }).catch(() => ({ ok: true, _local: true }));
+            });
 
             if (res.ok) {
-              localStorage.removeItem('bib_cart');
-              $('checkout-root').innerHTML = `
-                <div style="padding: 100px 20px; text-align:center; animation: fadeIn 0.5s ease-out;">
-                  <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color:#10b981;">
-                    <svg style="width: 80px; height: 80px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
+              const createdOrder = await res.json();
+
+              // Check if payment method is Koko
+              if (paymentMethod === 'Koko') {
+                $('btn-master-submit').textContent = 'Preparing Koko Payment...';
+                
+                try {
+                  const kokoRes = await fetch(`${BASE}/payments/koko/create-session`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orderId: createdOrder._id })
+                  });
+
+                  if (kokoRes.ok) {
+                    const data = await kokoRes.json();
+
+                    // Create a hidden form to submit the payload to Koko API
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = data.endpoint;
+                    form.style.display = 'none';
+
+                    for (const key in data.formData) {
+                      const hiddenField = document.createElement('input');
+                      hiddenField.type = 'hidden';
+                      hiddenField.name = key;
+                      hiddenField.value = data.formData[key];
+                      form.appendChild(hiddenField);
+                    }
+
+                    // Append mobileNumber for redirect context if needed
+                    const mobileNo = data.formData._mobileNo;
+                    if (mobileNo) {
+                      const hiddenField = document.createElement('input');
+                      hiddenField.type = 'hidden';
+                      hiddenField.name = 'mobileNumber';
+                      hiddenField.value = mobileNo;
+                      form.appendChild(hiddenField);
+                    }
+
+                    document.body.appendChild(form);
+                    $('btn-master-submit').textContent = 'Redirecting to Koko...';
+                    form.submit();
+                  } else {
+                    alert('Order created, but failed to generate Koko payment session. Please contact support.');
+                    $('btn-master-submit').textContent = 'Complete Order';
+                    $('btn-master-submit').disabled = false;
+                  }
+                } catch (kokoErr) {
+                  console.error('Koko Session Error:', kokoErr);
+                  alert('Order created, but error connecting to Koko gateway. Please contact support.');
+                  $('btn-master-submit').textContent = 'Complete Order';
+                  $('btn-master-submit').disabled = false;
+                }
+              } else {
+                // Cash on Delivery or Bank Transfer Success screen
+                localStorage.removeItem('bib_cart');
+                $('checkout-root').innerHTML = `
+                  <div style="padding: 100px 20px; text-align:center; animation: fadeIn 0.5s ease-out;">
+                    <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color:#10b981;">
+                      <svg style="width: 80px; height: 80px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <h1 style="font-family: var(--font-serif); font-size: 48px; color: #1b1b1e; margin-bottom: 10px;">Done!</h1>
+                    <h2 style="font-family: var(--font-serif); font-size: 24px; color: #555; margin-bottom: 30px;">Order Received Successfully</h2>
+                    <p style="max-width: 500px; margin: 0 auto 40px; color: #777; line-height: 1.6;">
+                      Thank you, <strong>${fields.firstName}</strong>! Your order has been placed. 
+                      We have sent a confirmation email to <strong>${fields.email}</strong>.
+                    </p>
+                    <a href="index.html" class="btn-dark" style="margin-top:20px; display:inline-block; padding:18px 45px; background:#000; color:#fff; text-decoration:none; border-radius:12px; font-weight:700; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">🛍️ Return to Shop</a>
                   </div>
-                  <h1 style="font-family: var(--font-serif); font-size: 48px; color: #1b1b1e; margin-bottom: 10px;">Done!</h1>
-                  <h2 style="font-family: var(--font-serif); font-size: 24px; color: #555; margin-bottom: 30px;">Order Received Successfully</h2>
-                  <p style="max-width: 500px; margin: 0 auto 40px; color: #777; line-height: 1.6;">
-                    Thank you, <strong>${fields.firstName}</strong>! Your order has been placed. 
-                    We have sent a confirmation email to <strong>${fields.email}</strong>.
-                  </p>
-                  <a href="index.html" class="btn-dark" style="margin-top:20px; display:inline-block; padding:18px 45px; background:#000; color:#fff; text-decoration:none; border-radius:12px; font-weight:700; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">🛍️ Return to Shop</a>
-                </div>
-                <style>
-                  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-                </style>`;
+                  <style>
+                    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+                  </style>`;
+              }
             } else {
-               alert('Order failed');
+               alert('Order creation failed');
                $('btn-master-submit').textContent = 'Complete Order';
                $('btn-master-submit').disabled = false;
             }
-          } catch (err) { alert('Error'); }
+          } catch (err) { 
+            console.error('Order Submission Error:', err);
+            alert('An error occurred during order submission.');
+            $('btn-master-submit').textContent = 'Complete Order';
+            $('btn-master-submit').disabled = false;
+          }
       };
     });
   </script>
   <script src="account-nav.js?v=2"></script>
 </body>
 </html>
-
 
