@@ -220,6 +220,16 @@
       align-items: center;
       gap: 15px;
       margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .payment-method.selected {
+      background: #ffffff !important;
+      border-color: #cfa56a !important; /* gold color */
+      box-shadow: 0 10px 25px rgba(207, 165, 106, 0.12), inset 0 1.5px 0 rgba(255, 255, 255, 0.9) !important;
+      transform: translateY(-3px) !important;
+      border-width: 1.5px !important;
     }
 
     .empty-cart-msg {
@@ -439,15 +449,15 @@
 
           <div class="payment-methods-wrapper" style="margin-top: 20px;">
              <label class="payment-method">
-                <input type="radio" name="payment_method" value="Cash on Delivery" checked onchange="toggleBankDetails(false)" />
+                <input type="radio" name="payment_method" value="Cash on Delivery" checked onchange="toggleBankDetails(false); toggleCardDetails(false); updatePaymentMethodStyles();" />
                 <div><strong>Cash on Delivery</strong><div style="font-size:12px; color:#777;">Pay when your order arrives.</div></div>
              </label>
              <label class="payment-method">
-                <input type="radio" name="payment_method" value="Koko" onchange="toggleBankDetails(false)" />
+                <input type="radio" name="payment_method" value="Koko" onchange="toggleBankDetails(false); toggleCardDetails(false); updatePaymentMethodStyles();" />
                 <div><strong>Koko (Pay in 3 instalments)</strong><div style="font-size:12px; color:#777;">Buy now, pay later with Koko.</div></div>
              </label>
              <label class="payment-method">
-                <input type="radio" name="payment_method" value="Bank Transfer" onchange="toggleBankDetails(true)" />
+                <input type="radio" name="payment_method" value="Bank Transfer" onchange="toggleBankDetails(true); toggleCardDetails(false); updatePaymentMethodStyles();" />
                 <div><strong>Bank Transfer</strong><div style="font-size:12px; color:#777;">Direct deposit to BOC.</div></div>
              </label>
              <div id="bank-details-box" style="display: none; background: #fdfaf7; border: 1px solid #eaeaea; padding: 20px; border-radius: 8px; margin-top: 10px;">
@@ -457,6 +467,54 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
                     Send Slip via WhatsApp
                   </a>
+                </div>
+             </div>
+             <label class="payment-method">
+                <input type="radio" name="payment_method" value="Card Payment" onchange="toggleBankDetails(false); toggleCardDetails(true); updatePaymentMethodStyles();" />
+                <div style="flex-grow: 1;">
+                   <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                      <strong>Visa / Mastercard</strong>
+                      <div class="card-icons" style="display: flex; gap: 5px; align-items: center;">
+                         <svg width="30" height="18" viewBox="0 0 24 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="15" rx="2" fill="#1A1F71"/>
+                            <path d="M9.1 11.2h1.4l.9-5.4H10L9.1 11.2z" fill="#FFF"/>
+                            <path d="M14.5 5.8h-1.3c-.3 0-.6.2-.7.5l-2.4 5.7h1.5l.3-.8h1.8l.2.8h1.3L14.5 5.8zm-1.8 4.2l.6-1.7.3 1.7h-.9z" fill="#FFF"/>
+                            <path d="M5.8 5.8H3.6l-.1.4c1.7.4 2.8 1.4 3.3 2.7l-.6-3.1zm1.2 5.4l1.4-5.4H7L5.3 9.4 4.7 6.1C4.5 5.9 4 5.8 3.5 5.8h2.1l3 5.4h1.4z" fill="#F7B600"/>
+                            <path d="M20.2 5.8h-1.1c-.3 0-.6.2-.7.5l-2 4.9h1.5l.3-.8h1.8l.2.8h1.3l-1.3-5.4zm-1.8 3.4l.6-1.7.3 1.7h-.9z" fill="#FFF"/>
+                         </svg>
+                         <svg width="30" height="18" viewBox="0 0 24 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="15" rx="2" fill="#111"/>
+                            <circle cx="9.5" cy="7.5" r="4.5" fill="#EB001B"/>
+                            <circle cx="14.5" cy="7.5" r="4.5" fill="#F79E1B" fill-opacity="0.8"/>
+                         </svg>
+                      </div>
+                   </div>
+                   <div style="font-size:12px; color:#777; margin-top:2px;">Pay securely with credit or debit card.</div>
+                </div>
+             </label>
+             <div id="card-details-box" style="display: none; background: #faf9f7; border: 1px solid #eaeaea; padding: 20px; border-radius: 8px; margin-top: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto;">
+                   <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                      <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #555; text-align: left;">Cardholder Name</label>
+                      <input type="text" id="card-name" placeholder="John Doe" style="padding: 10px; border: 1px solid #eaeaea; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box;" />
+                   </div>
+                   <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                      <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #555; text-align: left;">Card Number</label>
+                      <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                         <input type="text" id="card-number" placeholder="4111 2222 3333 4444" maxlength="19" style="padding: 10px 10px 10px 40px; border: 1px solid #eaeaea; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box;" />
+                         <span style="position: absolute; left: 12px; color: #999;">💳</span>
+                      </div>
+                   </div>
+                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                      <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                         <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #555; text-align: left;">Expiry Date</label>
+                         <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" style="padding: 10px; border: 1px solid #eaeaea; border-radius: 6px; font-size: 14px; text-align: center; width: 100%; box-sizing: border-box;" />
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                         <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #555; text-align: left;">CVV / CVC</label>
+                         <input type="password" id="card-cvv" placeholder="123" maxlength="3" style="padding: 10px; border: 1px solid #eaeaea; border-radius: 6px; font-size: 14px; text-align: center; width: 100%; box-sizing: border-box;" />
+                      </div>
+                   </div>
                 </div>
              </div>
           </div>
@@ -485,6 +543,60 @@
     if (overlay) overlay.onclick = closeAll;
 
     function toggleBankDetails(show) { $('bank-details-box').style.display = show ? 'block' : 'none'; }
+    function toggleCardDetails(show) { $('card-details-box').style.display = show ? 'block' : 'none'; }
+    
+    function updatePaymentMethodStyles() {
+      document.querySelectorAll('.payment-method').forEach(lbl => {
+        const r = lbl.querySelector('input[type="radio"]');
+        if (r && r.checked) {
+          lbl.classList.add('selected');
+        } else {
+          lbl.classList.remove('selected');
+        }
+      });
+    }
+
+    // Initialize layout formatting
+    updatePaymentMethodStyles();
+
+    // Auto-formatters for credit card inputs
+    document.addEventListener('DOMContentLoaded', () => {
+      updatePaymentMethodStyles();
+      
+      const cardNumberInput = document.getElementById('card-number');
+      if (cardNumberInput) {
+        cardNumberInput.oninput = function (e) {
+          let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+          let formatted = '';
+          for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) {
+              formatted += ' ';
+            }
+            formatted += value[i];
+          }
+          e.target.value = formatted;
+        };
+      }
+
+      const cardExpiryInput = document.getElementById('card-expiry');
+      if (cardExpiryInput) {
+        cardExpiryInput.oninput = function (e) {
+          let value = e.target.value.replace(/\//g, '').replace(/[^0-9]/gi, '');
+          if (value.length > 2) {
+            e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+          } else {
+            e.target.value = value;
+          }
+        };
+      }
+
+      const cardCvvInput = document.getElementById('card-cvv');
+      if (cardCvvInput) {
+        cardCvvInput.oninput = function (e) {
+          e.target.value = e.target.value.replace(/[^0-9]/gi, '');
+        };
+      }
+    });
 
     window.renderOrderSummary = function() {
       const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
@@ -627,10 +739,14 @@
           };
           if (Object.values(fields).some(v => !v)) { alert('Please fill in all details'); return; }
 
+          const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+          if (paymentMethod === 'Card Payment') {
+             alert('Visa / Mastercard Payment is coming soon! Please use Cash on Delivery or Koko.');
+             return;
+          }
+
           $('btn-master-submit').textContent = 'Processing...';
           $('btn-master-submit').disabled = true;
-
-          const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
           const userInfo = JSON.parse(localStorage.getItem('userInfo'));
           const orderData = {
             user: userInfo ? userInfo._id : null,
