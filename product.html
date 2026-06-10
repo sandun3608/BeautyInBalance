@@ -614,36 +614,84 @@
           </div>
 
           <!-- Content -->
-          <div class="detail-column">
+          <div class="detail-column" style="gap: 24px;">
             <div>
-              <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
-              <h1 class="p-name">${product.name}</h1>
-              <div class="p-price-tag" style="margin-bottom: 5px;">
-                ${discount > 0 ? '<span class="original-price">Rs. ' + basePrice.toLocaleString() + '</span>' : ''}
-                <span>Rs. ${discountedPrice.toLocaleString()}</span>
+              <span class="brand-tag" style="display:block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #88888b; font-weight: 600; margin-bottom: 8px;">${product.cat.replace(/-/g, ' ')}</span>
+              <h1 class="p-name" style="font-family: var(--font-sans); font-size: 28px; color: #2D1B12; line-height: 1.25; font-weight: 700; margin: 0 0 12px 0;">${product.name}</h1>
+              
+              <!-- Price Tag Row -->
+              <div style="display: flex; align-items: baseline; gap: 10px; font-family: var(--font-sans); margin-top: 12px; flex-wrap: wrap;">
+                <span style="font-size: 24px; font-weight: 700; color: #2D1B12;">Rs. ${discountedPrice.toLocaleString()}</span>
+                ${discount > 0 ? `
+                  <span style="font-size: 15px; color: #88888b; text-decoration: line-through; font-weight: 400;">Rs. ${basePrice.toLocaleString()}</span>
+                  <span style="background: rgba(198, 151, 90, 0.1); color: #c6975a; border: 1px solid rgba(198, 151, 90, 0.2); font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;">Save ${discount}%</span>
+                ` : ''}
               </div>
-              <div class="koko-installment">
-                <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${(discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+
+              <!-- Koko installment block -->
+              <div style="background: #f5f5f7; border: 1px solid #e2e2e5; border-radius: 8px; padding: 10px 14px; font-family: var(--font-sans); font-size: 13px; color: #333335; display: inline-flex; align-items: center; gap: 6px; margin-top: 15px; width: 100%; box-sizing: border-box;">
+                <span>or 3 interest-free payments of <strong>Rs. ${(discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong> with</span>
+                <img src="koko-logo.png" alt="Koko" style="height: 14px; object-fit: contain; vertical-align: middle;">
               </div>
             </div>
 
-            <p class="p-summary">
-              ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
-            </p>
-
-            <div class="purchase-zone">
+            <!-- Purchase Zone (Qty and Buttons) -->
+            <div class="purchase-zone" style="display: flex; flex-direction: column; gap: 16px; margin-top: 5px;">
               <div class="qty-wrap" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                 <div class="qty-toggle">
-                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.max(1, parseInt(document.getElementById('p-qty').value)-1)">-</span>
-                    <input type="number" id="p-qty" value="1" min="1" max="${stockLeft}" onchange="if(this.value > ${stockLeft}) this.value = ${stockLeft}; if(this.value < 1) this.value = 1;">
-                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.min(${stockLeft}, parseInt(document.getElementById('p-qty').value)+1)">+</span>
+                 <div style="font-size: 14px; font-weight: 600; color: #555558; font-family: var(--font-sans);">Qty:</div>
+                 <div class="qty-toggle" style="display: inline-flex; align-items: center; border: 1px solid #e2e2e5; border-radius: 6px; background: #fff; height: 36px; box-sizing: border-box; overflow: hidden;">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.max(1, parseInt(document.getElementById('p-qty').value)-1)" style="cursor:pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 100%; color: #555558; font-weight: 700; user-select: none;">-</span>
+                    <input type="number" id="p-qty" value="1" min="1" max="${stockLeft}" onchange="if(this.value > ${stockLeft}) this.value = ${stockLeft}; if(this.value < 1) this.value = 1;" style="border: none; text-align: center; width: 34px; height: 100%; font-size: 13.5px; font-weight: 700; color: #000; outline: none; background: transparent; -moz-appearance: textfield; pointer-events: none;">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.min(${stockLeft}, parseInt(document.getElementById('p-qty').value)+1)" style="cursor:pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 100%; color: #555558; font-weight: 700; user-select: none;">+</span>
                  </div>
                  ${stockHTML}
               </div>
-              <button class="btn-primary" onclick="addToCart('${product.id}', document.getElementById('p-qty').value)">Add to your bag</button>
+
+              <!-- Sleek Rounded Buttons vertically stacked -->
+              <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+                 <button onclick="buyItNow('${product.id}', document.getElementById('p-qty').value)" onmouseover="this.style.background='#c6975a'" onmouseout="this.style.background='#2D1B12'" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: #2D1B12; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.25s; font-family: var(--font-sans);">
+                   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
+                   Buy It Now
+                 </button>
+                 <button onclick="addToCart('${product.id}', document.getElementById('p-qty').value)" onmouseover="this.style.background='rgba(45,27,18,0.03)'" onmouseout="this.style.background='#fff'" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: #fff; border: 1.5px solid #2D1B12; border-radius: 8px; color: #2D1B12; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.25s; font-family: var(--font-sans);">
+                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                   Add to Bag
+                 </button>
+              </div>
             </div>
 
-            <div class="editorial-tabs">
+            <!-- Delivery Banner -->
+            <div style="background: rgba(198, 151, 90, 0.08); border: 1px solid rgba(198, 151, 90, 0.15); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 13px; color: #2D1B12;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #c6975a; flex-shrink: 0;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              <span>Estimated delivery: <strong>2-4 business days</strong></span>
+            </div>
+
+            <!-- Micro feature badges inline -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-family: var(--font-sans);">
+              <div style="background: #fdfaf7; border: 1px solid rgba(0,0,0,0.03); border-radius: 6px; padding: 8px 4px; font-size: 11px; color: #555558; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: center; text-align: center;">
+                <span style="font-size: 12px;">🛡️</span>
+                <span style="font-weight: 600;">100% Authentic</span>
+              </div>
+              <div style="background: #fdfaf7; border: 1px solid rgba(0,0,0,0.03); border-radius: 6px; padding: 8px 4px; font-size: 11px; color: #555558; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: center; text-align: center;">
+                <span style="font-size: 12px;">🚚</span>
+                <span style="font-weight: 600;">Island-wide Delivery</span>
+              </div>
+              <div style="background: #fdfaf7; border: 1px solid rgba(0,0,0,0.03); border-radius: 6px; padding: 8px 4px; font-size: 11px; color: #555558; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: center; text-align: center;">
+                <span style="font-size: 12px;">✨</span>
+                <span style="font-weight: 600;">Brand New</span>
+              </div>
+            </div>
+
+            <!-- Description Block -->
+            <div style="border-top: 1px solid #eaeaea; padding-top: 18px; margin-top: 5px;">
+              <h3 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #2D1B12; margin: 0 0 10px 0;">Description</h3>
+              <p style="font-family: var(--font-sans); font-size: 13.5px; color: #555558; line-height: 1.6; margin: 0;">
+                ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
+              </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="editorial-tabs" style="margin-top: 5px;">
               <div class="tab-item active">
                 <div class="tab-head" onclick="toggleTab(this)">The Science <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
                 <div class="tab-body">
@@ -664,12 +712,6 @@
                   Island-wide delivery within 2-4 business days. Secure packaging to maintain product integrity. Rs. 450 flat rate shipping Sri Lanka wide.
                 </div>
               </div>
-            </div>
-
-            <div class="trust-ribbon">
-              <div class="trust-item"><span class="trust-icon">🛡️</span><p>100% Authentic</p></div>
-              <div class="trust-item"><span class="trust-icon">🚚</span><p>Fast Shipping</p></div>
-              <div class="trust-item"><span class="trust-icon">💎</span><p>Premium Quality</p></div>
             </div>
           </div>
         </div>
