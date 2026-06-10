@@ -9302,7 +9302,7 @@ body:not(.drawer-open) .floating-ig {
 }
 
 .koko-logo-img {
-  height: 28px !important;
+  height: 25px !important;
   width: auto !important;
   object-fit: contain !important;
   transform: translateY(0.5px) !important; /* Raise the logo slightly by 0.5px */
@@ -9313,8 +9313,8 @@ body:not(.drawer-open) .floating-ig {
 
 .koko-info-icon {
   cursor: pointer !important;
-  width: 19px !important;
-  height: 19px !important;
+  width: 17px !important;
+  height: 17px !important;
   fill: #888 !important; /* Ash gray color for info icon */
   transition: transform 0.2s ease !important;
   display: inline-block !important;
@@ -9331,14 +9331,14 @@ body:not(.drawer-open) .floating-ig {
 }
 
 .ps-product-card .koko-logo-img {
-  height: 22px !important;
+  height: 19px !important;
   margin-left: 3px !important;
   margin-right: 4px !important;
 }
 
 .ps-product-card .koko-info-icon {
-  width: 14px !important;
-  height: 14px !important;
+  width: 12px !important;
+  height: 12px !important;
 }
 
 /* Featured Gallery Card Koko spacing and responsive sizing */
@@ -9351,13 +9351,13 @@ body:not(.drawer-open) .floating-ig {
     font-size: 11px !important;
   }
   .fg-card .koko-logo-img {
-    height: 22px !important;
+    height: 19px !important;
     margin-left: 3px !important;
     margin-right: 4px !important;
   }
   .fg-card .koko-info-icon {
-    width: 14px !important;
-    height: 14px !important;
+    width: 12px !important;
+    height: 12px !important;
   }
 }
 
@@ -9368,12 +9368,12 @@ body:not(.drawer-open) .floating-ig {
     margin-top: 4px !important;
   }
   .koko-logo-img {
-    height: 22px !important;
+    height: 19px !important;
     margin-left: 3px !important;
     margin-right: 4px !important;
   }
   .koko-info-icon {
-    width: 14px !important;
-    height: 14px !important;
+    width: 12px !important;
+    height: 12px !important;
   }
 }
