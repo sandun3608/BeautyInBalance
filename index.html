@@ -1360,8 +1360,8 @@
                 <div class="ps-prod-info">
                   <p class="ps-prod-name">${p.name}</p>
                   <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
-                  <div class="koko-installment" style="font-size:16px; font-weight:700; color:#222; margin-top:6px; margin-bottom:8px; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;">
-                    <span>or pay in 3 x Rs ${kokoAmount} with</span><img src="koko-logo.png" alt="Koko" style="height:34px; object-fit:contain; transform:translateY(2px); margin-left:-28px; margin-right:-18px;"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:20px; height:20px; fill:#222;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                  <div class="koko-installment" style="font-size:16px; font-weight:700; color:#222; margin-top:6px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; width:100%; white-space:nowrap;">
+                    <span>or pay in 3 x Rs ${kokoAmount} with</span><img src="koko-logo.png" alt="Koko" style="height:34px; object-fit:contain; transform:translateY(2px); margin-left:-34px; margin-right:-22px;"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:20px; height:20px; fill:#222;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                   </div>
                   <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
                 </div>
@@ -1413,8 +1413,8 @@
 
         const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const kokoInstallmentHTML = `
-            <div class="koko-installment" style="font-size:16px; font-weight:700; color:#222; margin-top:6px; display:inline-flex; align-items:center; justify-content:flex-start; white-space:nowrap;">
-                <span>or pay in 3 x Rs ${kokoAmount} with</span><img src="koko-logo.png" alt="Koko" style="height:34px; object-fit:contain; transform:translateY(2px); margin-left:-28px; margin-right:-18px;"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:20px; height:20px; fill:#222;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+            <div class="koko-installment" style="font-size:16px; font-weight:700; color:#222; margin-top:6px; display:flex; align-items:center; justify-content:center; width:100%; white-space:nowrap;">
+                <span>or pay in 3 x Rs ${kokoAmount} with</span><img src="koko-logo.png" alt="Koko" style="height:34px; object-fit:contain; transform:translateY(2px); margin-left:-34px; margin-right:-22px;"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" style="cursor:pointer; width:20px; height:20px; fill:#222;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
             </div>
         `;
 
