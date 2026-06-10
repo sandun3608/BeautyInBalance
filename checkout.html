@@ -114,7 +114,7 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #e02020 0%, #ff4d4d 50%, #e02020 100%);
+      background: linear-gradient(90deg, var(--brown) 0%, var(--gold) 50%, var(--brown) 100%);
     }
 
     .summ-title {
@@ -134,7 +134,7 @@
       left: 0;
       width: 50px;
       height: 2px;
-      background: #e02020;
+      background: var(--gold);
     }
 
     .summ-items {
@@ -183,7 +183,7 @@
       transition: border-color 0.2s ease;
     }
     .summ-item:hover .img-wrap {
-      border-color: #e02020;
+      border-color: var(--gold);
     }
     .img-wrap img {
       width: 80%;
@@ -194,7 +194,7 @@
       position: absolute;
       top: -8px;
       right: -8px;
-      background: #e02020;
+      background: var(--brown);
       color: #fff;
       width: 20px;
       height: 20px;
@@ -225,7 +225,7 @@
     }
     .summ-price {
       font-weight: bold;
-      color: #e02020;
+      color: var(--brown);
     }
 
     /* Qty controls styled classes */
@@ -240,7 +240,7 @@
       transition: border-color 0.2s ease;
     }
     .qty-adjust:hover {
-      border-color: rgba(224, 32, 32, 0.4);
+      border-color: rgba(198, 151, 90, 0.4);
     }
     .qty-btn {
       border: none;
@@ -253,7 +253,7 @@
       transition: color 0.2s ease, transform 0.1s ease;
     }
     .qty-btn:hover {
-      color: #e02020;
+      color: var(--gold);
       transform: scale(1.2);
     }
     .qty-val {
@@ -295,7 +295,7 @@
       font-family: var(--font-serif);
     }
     .summ-row.total span:last-child {
-      color: #e02020;
+      color: var(--brown);
       font-size: 24px;
       font-weight: 800;
       font-family: var(--font-sans);
@@ -374,7 +374,7 @@
     }
     .payment-gateway-row-container.active-row, .billing-row-container.active-row {
       background-color: #fafafa;
-      border-left-color: #e02020;
+      border-left-color: var(--brown);
     }
     
     /* Custom Radio Buttons */
@@ -405,8 +405,8 @@
       transition: border-color 0.2s, background-color 0.2s;
     }
     .pg-radio-col input[type="radio"]:checked + .custom-radio {
-      border-color: #e02020;
-      background-color: #e02020;
+      border-color: var(--brown);
+      background-color: var(--brown);
     }
     .pg-radio-col input[type="radio"]:checked + .custom-radio::after {
       content: "";
@@ -476,8 +476,8 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     .btn-pay-now:hover {
-      background: #e02020;
-      box-shadow: 0 8px 25px rgba(224, 32, 32, 0.35);
+      background: var(--brown);
+      box-shadow: 0 8px 25px rgba(45, 27, 18, 0.25);
       transform: translateY(-2px);
     }
 
@@ -974,7 +974,7 @@
           <div class="summ-items" id="summ-items"></div>
           <div class="summ-totals">
             <div class="summ-row"><span>Subtotal</span><span id="summ-subtotal">Rs. 0</span></div>
-            <div class="summ-row" id="summ-discount-row" style="display: none; color: #c92c2c;"><span>Discount</span><span id="summ-discount">-Rs. 0</span></div>
+            <div class="summ-row" id="summ-discount-row" style="display: none; color: var(--gold);"><span>Discount</span><span id="summ-discount" style="color: var(--gold);">-Rs. 0</span></div>
             <div class="summ-row"><span>Shipping</span><span id="summ-shipping">Rs. 350</span></div>
             <div class="summ-row total"><span>Total</span><span id="summ-total">Rs. 0</span></div>
           </div>
@@ -1071,25 +1071,30 @@
         totalDiscount += ((item.price - discountedPrice) * item.qty);
 
         const priceHTML = discount > 0 
-            ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans);">
-                 <span style="text-decoration:line-through; color:#888; font-size:11px; font-weight:400; margin-bottom:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
-                 <span style="color:#e02020; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
-                 <span style="color:#e02020; font-size:9.5px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-top:1px;">(${discount}% OFF)</span>
+            ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
+                 <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="text-decoration:line-through; color:#88888b; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span class="discount-badge" style="background:rgba(198, 151, 90, 0.12); color:#c6975a; font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px; text-transform:uppercase;">${discount}% OFF</span>
                </div>`
             : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
 
-        return `<div class="summ-item">
-            <div class="img-wrap"><img src="${item.img}"><span class="qty-badge">${item.qty}</span></div>
-            <div class="summ-details">
-              <h4>${item.name}</h4>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
-                ${priceHTML}
-                <div class="qty-adjust">
+        return `<div class="summ-item" style="justify-content: space-between; width: 100%;">
+            <div style="display: flex; gap: 15px; align-items: center; flex-grow: 1;">
+              <div class="img-wrap">
+                <img src="${item.img}">
+                <span class="qty-badge">${item.qty}</span>
+              </div>
+              <div class="summ-details">
+                <h4>${item.name}</h4>
+                <div class="qty-adjust" style="margin-top: 5px; align-self: flex-start; display: inline-flex;">
                   <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)">-</button>
                   <span class="qty-val">${item.qty}</span>
                   <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)">+</button>
                 </div>
               </div>
+            </div>
+            <div class="price-container" style="text-align: right; min-width: 90px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0;">
+              ${priceHTML}
             </div>
           </div>`;
       }).join('');
