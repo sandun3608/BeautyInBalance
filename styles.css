@@ -9285,3 +9285,58 @@ body:not(.drawer-open) .floating-ig {
 .original-price {
   color: #999 !important;
 }
+
+/* ============================================================
+   KOKO INSTALLMENT STYLING (RESPONSIVE)
+   ============================================================ */
+.koko-installment {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  white-space: nowrap !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #222 !important;
+  margin-top: 6px !important;
+}
+
+.koko-logo-img {
+  height: 28px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  transform: translateY(2px) !important;
+  margin-left: -20px !important;
+  margin-right: -16px !important; /* Bring info icon very close to logo */
+  display: inline-block !important;
+}
+
+.koko-info-icon {
+  cursor: pointer !important;
+  width: 19px !important;
+  height: 19px !important;
+  fill: #222 !important;
+  transition: transform 0.2s ease !important;
+  display: inline-block !important;
+}
+
+.koko-info-icon:hover {
+  transform: scale(1.1) !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .koko-installment {
+    font-size: 11px !important;
+    margin-top: 4px !important;
+  }
+  .koko-logo-img {
+    height: 22px !important;
+    margin-left: -14px !important;
+    margin-right: -12px !important;
+  }
+  .koko-info-icon {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
