@@ -45,14 +45,8 @@ router.post('/koko/create-session', async (req, res) => {
         const lastName = (order.customerInfo.lastName || 'Name').trim();
         const email = (order.customerInfo.email || 'customer@example.com').trim();
         
-        // Convert mobile to international format (94...) just like PHP script
         const rawMobile = (order.customerInfo.phone || '0770000000').replace(/[^0-9]/g, '');
-        let mobile = rawMobile;
-        if (rawMobile.length === 10 && rawMobile[0] === '0') {
-            mobile = '94' + rawMobile.substring(1);
-        } else if (rawMobile.length === 9) {
-            mobile = '94' + rawMobile;
-        }
+        let mobile = rawMobile; // Use raw 077... format as Koko seems to reject 9477... format
 
         const productName = 'SkincareProducts';
         
