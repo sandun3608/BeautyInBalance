@@ -790,7 +790,7 @@ window.renderHomeAllProducts = function() {
 
             const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
             const kokoInstallmentHTML = `
-                <div class="koko-installment" style="font-size:11px; color:#555; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px;">
+                <div class="koko-installment" style="font-size:11px; font-weight:700; color:#444; margin-top:4px; display:flex; align-items:center; justify-content:center; gap:4px; white-space:nowrap;">
                     <span>or pay in 3 x Rs ${kokoAmount} with</span>
                     <img src="koko-logo.png" alt="Koko" style="height:12px; object-fit:contain; transform:translateY(1px);">
                 </div>
