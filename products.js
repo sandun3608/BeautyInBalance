@@ -623,16 +623,33 @@ function renderCart() {
     itemsContainer.innerHTML = shoppingCart.map(item => {
         const discount = Number(item.discount || 0);
         const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+        const qty = item.qty;
         
-        const unitPriceHTML = discount > 0 
-            ? `<div style="display:flex; align-items:center; gap:6px; font-family:var(--font-sans); white-space:nowrap;">
+        let priceDisplayHTML = '';
+        if (discount > 0) {
+            const unitPriceHTML = `<div style="display:flex; align-items:center; gap:6px; font-family:var(--font-sans); white-space:nowrap;">
                  <span style="color:#2D1B12; font-size:12.5px; font-weight:600;">Rs. ${discountedPrice.toLocaleString()}</span>
                  <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${item.price.toLocaleString()}</span>
                  <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.2); font-size:8px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.2px; text-transform:uppercase;">${discount}% OFF</span>
-               </div>`
-            : `<span style="color:#2D1B12; font-size:12.5px; font-weight:600; font-family:var(--font-sans); white-space:nowrap;">Rs. ${item.price.toLocaleString()}</span>`;
+               </div>`;
 
-        const lineTotalHTML = `<div style="font-size:13px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * item.qty).toLocaleString()}</div>`;
+            if (qty > 1) {
+                const lineTotalHTML = `<div style="font-size:13px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * qty).toLocaleString()}</div>`;
+                priceDisplayHTML = `
+                    <div>${unitPriceHTML}</div>
+                    <div style="height:26px; display:flex; align-items:center;">${lineTotalHTML}</div>
+                `;
+            } else {
+                priceDisplayHTML = `
+                    <div style="height:26px; display:flex; align-items:center;">${unitPriceHTML}</div>
+                `;
+            }
+        } else {
+            const lineTotalHTML = `<div style="font-size:13px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(item.price * qty).toLocaleString()}</div>`;
+            priceDisplayHTML = `
+                <div style="height:26px; display:flex; align-items:center;">${lineTotalHTML}</div>
+            `;
+        }
 
         return `
         <div style="display:flex; gap:16px; margin-bottom:24px; align-items:flex-start; justify-content:space-between; width:100%; box-sizing:border-box;">
@@ -650,8 +667,7 @@ function renderCart() {
                 </div>
             </div>
             <div style="text-align:right; display:flex; flex-direction:column; gap:12px; align-items:flex-end; flex-shrink:0; margin-top:2px; min-width:100px;">
-                <div>${unitPriceHTML}</div>
-                <div style="height:26px; display:flex; align-items:center;">${lineTotalHTML}</div>
+                ${priceDisplayHTML}
             </div>
         </div>
         `;
@@ -726,16 +742,33 @@ function renderCart() {
             standaloneItems.innerHTML = shoppingCart.map(item => {
                 const discount = Number(item.discount || 0);
                 const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
+                const qty = item.qty;
                 
-                const unitPriceHTML = discount > 0 
-                    ? `<div style="display:flex; align-items:center; gap:6px; font-family:var(--font-sans); white-space:nowrap;">
+                let priceDisplayHTML = '';
+                if (discount > 0) {
+                    const unitPriceHTML = `<div style="display:flex; align-items:center; gap:6px; font-family:var(--font-sans); white-space:nowrap;">
                          <span style="color:#2D1B12; font-size:13.5px; font-weight:600;">Rs. ${discountedPrice.toLocaleString()}</span>
                          <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${item.price.toLocaleString()}</span>
                          <span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.2); font-size:8px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.2px; text-transform:uppercase;">${discount}% OFF</span>
-                       </div>`
-                    : `<span style="color:#2D1B12; font-size:13.5px; font-weight:600; font-family:var(--font-sans); white-space:nowrap;">Rs. ${item.price.toLocaleString()}</span>`;
+                       </div>`;
 
-                const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * item.qty).toLocaleString()}</div>`;
+                    if (qty > 1) {
+                        const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * qty).toLocaleString()}</div>`;
+                        priceDisplayHTML = `
+                            <div>${unitPriceHTML}</div>
+                            <div style="height:28px; display:flex; align-items:center;">${lineTotalHTML}</div>
+                        `;
+                    } else {
+                        priceDisplayHTML = `
+                            <div style="height:28px; display:flex; align-items:center;">${unitPriceHTML}</div>
+                        `;
+                    }
+                } else {
+                    const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(item.price * qty).toLocaleString()}</div>`;
+                    priceDisplayHTML = `
+                        <div style="height:28px; display:flex; align-items:center;">${lineTotalHTML}</div>
+                    `;
+                }
 
                 return `
                 <div class="cart-item" style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; border-bottom:1px solid #eaeaea; padding:20px 0;">
@@ -751,8 +784,7 @@ function renderCart() {
                         </div>
                     </div>
                     <div class="price-container" style="text-align:right; display:flex; flex-direction:column; gap:12px; align-items:flex-end; flex-shrink:0; margin-top:2px; min-width:100px;">
-                        <div>${unitPriceHTML}</div>
-                        <div style="height:28px; display:flex; align-items:center;">${lineTotalHTML}</div>
+                        ${priceDisplayHTML}
                     </div>
                 </div>
                 `;
