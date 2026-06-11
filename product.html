@@ -308,7 +308,28 @@
       
       /* Detail adjustments for mobile */
       .detail-column {
-        gap: 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+      }
+      .product-header-block {
+        order: 1 !important;
+      }
+      .purchase-zone {
+        order: 2 !important;
+        border-top: 1px solid #eaeaea !important;
+        padding-top: 15px !important;
+        margin-top: 0 !important;
+      }
+      .product-description-block {
+        order: 3 !important;
+        border-top: 1px solid #eaeaea !important;
+        padding-top: 15px !important;
+        margin-top: 0 !important;
+      }
+      .editorial-tabs {
+        order: 4 !important;
+        margin-top: 0 !important;
       }
       .p-name {
         font-size: 28px !important;
@@ -696,7 +717,7 @@
 
           <!-- Content -->
           <div class="detail-column" style="gap: 24px;">
-            <div>
+            <div class="product-header-block">
               <span class="brand-tag" style="display:block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #88888b; font-weight: 600; margin-bottom: 8px;">${product.cat.replace(/-/g, ' ')}</span>
               <h1 class="p-name" style="font-family: var(--font-sans); font-size: 28px; color: #2D1B12; line-height: 1.25; font-weight: 700; margin: 0 0 12px 0;">${product.name}</h1>
               
@@ -721,7 +742,7 @@
             </div>
 
             <!-- Description Block -->
-            <div style="border-top: 1px solid #eaeaea; padding-top: 18px; margin-top: 20px;">
+            <div class="product-description-block" style="border-top: 1px solid #eaeaea; padding-top: 18px; margin-top: 20px;">
               <h3 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #2D1B12; margin: 0 0 10px 0;">Description</h3>
               <p style="font-family: var(--font-sans); font-size: 13.5px; color: #555558; line-height: 1.6; margin: 0;">
                 ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
