@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const axios = require('axios');
 const Subscriber = require('../models/Subscriber');
 const { protect } = require('../middleware/auth');
 
@@ -22,6 +23,49 @@ router.post('/', async (req, res) => {
 
         const subscriber = new Subscriber({ email });
         const savedSubscriber = await subscriber.save();
+
+        // --- WHATSAPP NOTIFICATION ---
+        const wpPhone = process.env.WHATSAPP_PHONE;
+        const greenApiId = process.env.GREEN_API_ID_INSTANCE;
+        const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
+        const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
+        const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
+        const wpApiKey = process.env.WHATSAPP_API_KEY;
+
+        if (wpPhone) {
+            let wpMessage = `*📧 New Newsletter Subscriber!*\n\n` +
+                            `*Email:* ${email}\n\n` +
+                            `Check details: https://www.beautyinbalance.lk/admin`;
+
+            // Option A: Green API Integration
+            if (greenApiId && greenApiToken) {
+                const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+                axios.post(url, {
+                    chatId: `${wpPhone}@c.us`,
+                    message: wpMessage
+                })
+                .then(() => console.log(`💬 Green API WhatsApp subscriber notification sent`))
+                .catch(err => console.error("❌ Green API subscriber notification failed:", err.message));
+            }
+            // Option B: UltraMsg Integration
+            else if (ultraMsgInstance && ultraMsgToken) {
+                const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+                axios.post(url, {
+                    token: ultraMsgToken,
+                    to: wpPhone,
+                    body: wpMessage
+                })
+                .then(() => console.log(`💬 UltraMsg WhatsApp subscriber notification sent`))
+                .catch(err => console.error("❌ UltraMsg subscriber notification failed:", err.message));
+            }
+            // Option C: CallMeBot Integration (Fallback)
+            else if (wpApiKey) {
+                const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+                axios.get(url)
+                .then(() => console.log(`💬 CallMeBot WhatsApp subscriber notification sent`))
+                .catch(err => console.error("❌ CallMeBot subscriber notification failed:", err.message));
+            }
+        }
         res.status(201).json(savedSubscriber);
     } catch (error) {
         console.error("Subscriber save error:", error);
