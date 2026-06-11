@@ -262,15 +262,20 @@ fr01xf7lBG3bGqNXZkdXb0txnoXSmPya+B4oGqZc+KWNrKTntY3sNKD6k4tdOeoX
 
         if (order) {
             if (status === 'SUCCESS') {
-                order.isPaid = true;
-                order.paidAt = Date.now();
-                order.paymentResult = {
-                    id: trnId,
-                    status: status,
-                    update_time: new Date().toISOString()
-                };
-                await order.save();
-                console.log(`✅ Order ${order._id} marked as paid via Koko Webhook`);
+                if (!order.isPaid) {
+                    order.isPaid = true;
+                    order.paidAt = Date.now();
+                    order.paymentResult = {
+                        id: trnId,
+                        status: status,
+                        update_time: new Date().toISOString()
+                    };
+                    await order.save();
+                    console.log(`✅ Order ${order._id} marked as paid via Koko Webhook`);
+                    await sendWhatsAppNotification(order);
+                } else {
+                    console.log(`Order ${order._id} is already marked as paid.`);
+                }
             } else {
                 console.warn(`KOKO Webhook status: ${status} for order ${order._id}`);
             }
@@ -303,9 +308,12 @@ router.get('/koko/callback', async (req, res) => {
             }
 
             if (order && status === 'SUCCESS') {
-                order.isPaid = true;
-                order.paidAt = Date.now();
-                await order.save();
+                if (!order.isPaid) {
+                    order.isPaid = true;
+                    order.paidAt = Date.now();
+                    await order.save();
+                    await sendWhatsAppNotification(order);
+                }
                 return res.redirect('/checkout.html?payment=success');
             }
         }
@@ -334,9 +342,12 @@ router.get('/koko/return', async (req, res) => {
             }
 
             if (order && (status === 'SUCCESS' || !status)) {
-                order.isPaid = true;
-                order.paidAt = Date.now();
-                await order.save();
+                if (!order.isPaid) {
+                    order.isPaid = true;
+                    order.paidAt = Date.now();
+                    await order.save();
+                    await sendWhatsAppNotification(order);
+                }
             }
         }
     } catch (error) {
@@ -350,5 +361,58 @@ router.get('/koko/return', async (req, res) => {
 router.get('/koko/cancel', (req, res) => {
     res.redirect('/checkout.html?payment=cancelled');
 });
+
+// Helper function to send WhatsApp Notifications on Payment Success
+const sendWhatsAppNotification = async (order) => {
+    try {
+        const wpPhone = process.env.WHATSAPP_PHONE;
+        const greenApiId = process.env.GREEN_API_ID_INSTANCE;
+        const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
+        const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
+        const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
+        const wpApiKey = process.env.WHATSAPP_API_KEY;
+
+        if (!wpPhone) return;
+
+        const customerName = `${order.customerInfo?.firstName || 'Customer'} ${order.customerInfo?.lastName || ''}`;
+        const orderIdShort = order._id.toString().slice(-6).toUpperCase();
+        
+        let wpMessage = `*🚨 New Order Placed! #${orderIdShort}*\n\n` +
+                        `*Customer:* ${customerName}\n` +
+                        `*Total:* Rs. ${order.totalPrice.toLocaleString()}\n` +
+                        `*Payment:* ${order.paymentMethod}\n` +
+                        `*Phone:* ${order.customerInfo?.phone || 'N/A'}\n` +
+                        `*City:* ${order.customerInfo?.city || 'N/A'}\n\n` +
+                        `Check details: https://www.beautyinbalance.lk/admin`;
+
+        // Option A: Green API Integration
+        if (greenApiId && greenApiToken) {
+            const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+            await axios.post(url, {
+                chatId: `${wpPhone}@c.us`,
+                message: wpMessage
+            });
+            console.log(`💬 Green API WhatsApp notification sent for order ${order._id}`);
+        }
+        // Option B: UltraMsg Integration
+        else if (ultraMsgInstance && ultraMsgToken) {
+            const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+            await axios.post(url, {
+                token: ultraMsgToken,
+                to: wpPhone,
+                body: wpMessage
+            });
+            console.log(`💬 UltraMsg WhatsApp notification sent for order ${order._id}`);
+        }
+        // Option C: CallMeBot Integration (Fallback)
+        else if (wpApiKey) {
+            const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+            await axios.get(url);
+            console.log(`💬 CallMeBot WhatsApp notification sent for order ${order._id}`);
+        }
+    } catch (err) {
+        console.error("❌ WhatsApp notification failed:", err.message);
+    }
+};
 
 module.exports = router;

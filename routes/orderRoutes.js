@@ -102,7 +102,8 @@ router.post('/', async (req, res) => {
         const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
         const wpApiKey = process.env.WHATSAPP_API_KEY;
 
-        if (wpPhone) {
+        const isOnlinePayment = ['Koko', 'Card Payment'].includes(createdOrder.paymentMethod);
+        if (wpPhone && (!isOnlinePayment || createdOrder.isPaid)) {
             const axios = require('axios');
             const customerName = `${createdOrder.customerInfo?.firstName || 'Customer'} ${createdOrder.customerInfo?.lastName || ''}`;
             const orderIdShort = createdOrder._id.toString().slice(-6).toUpperCase();
@@ -157,7 +158,12 @@ router.post('/', async (req, res) => {
 // @access  Private (Admins Only)
 router.get('/', protect, async (req, res) => {
     try {
-        const orders = await Order.find({}).sort({ createdAt: -1 }); // Newest first
+        const orders = await Order.find({
+            $or: [
+                { paymentMethod: { $nin: ['Koko', 'Card Payment'] } },
+                { paymentMethod: { $in: ['Koko', 'Card Payment'] }, isPaid: true }
+            ]
+        }).sort({ createdAt: -1 }); // Newest first
         res.json(orders);
     } catch (error) {
         console.error("Error fetching orders:", error);
