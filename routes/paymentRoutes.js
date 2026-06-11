@@ -273,6 +273,7 @@ fr01xf7lBG3bGqNXZkdXb0txnoXSmPya+B4oGqZc+KWNrKTntY3sNKD6k4tdOeoX
                     await order.save();
                     console.log(`✅ Order ${order._id} marked as paid via Koko Webhook`);
                     await sendWhatsAppNotification(order);
+                    await sendCustomerWhatsAppNotification(order, 'placed');
                 } else {
                     console.log(`Order ${order._id} is already marked as paid.`);
                 }
@@ -313,6 +314,7 @@ router.get('/koko/callback', async (req, res) => {
                     order.paidAt = Date.now();
                     await order.save();
                     await sendWhatsAppNotification(order);
+                    await sendCustomerWhatsAppNotification(order, 'placed');
                 }
                 return res.redirect('/checkout.html?payment=success');
             }
@@ -347,6 +349,7 @@ router.get('/koko/return', async (req, res) => {
                     order.paidAt = Date.now();
                     await order.save();
                     await sendWhatsAppNotification(order);
+                    await sendCustomerWhatsAppNotification(order, 'placed');
                 }
             }
         }
@@ -412,6 +415,83 @@ const sendWhatsAppNotification = async (order) => {
         }
     } catch (err) {
         console.error("❌ WhatsApp notification failed:", err.message);
+    }
+};
+
+// Helper function to format Sri Lankan phone numbers for WhatsApp
+const formatWhatsAppPhone = (phone) => {
+    if (!phone) return null;
+    let cleaned = phone.replace(/[^0-9+]/g, '');
+    if (cleaned.startsWith('+')) {
+        cleaned = cleaned.substring(1);
+    }
+    if (cleaned.startsWith('0')) {
+        cleaned = '94' + cleaned.substring(1);
+    }
+    if (cleaned.length === 9 && !cleaned.startsWith('94')) {
+        cleaned = '94' + cleaned;
+    }
+    return cleaned;
+};
+
+// Helper function to send WhatsApp messages to customers
+const sendCustomerWhatsAppNotification = async (order, type) => {
+    try {
+        const greenApiId = process.env.GREEN_API_ID_INSTANCE;
+        const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
+        const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
+        const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
+        const wpApiKey = process.env.WHATSAPP_API_KEY;
+
+        const rawPhone = order.customerInfo?.phone;
+        const customerPhone = formatWhatsAppPhone(rawPhone);
+        if (!customerPhone) return;
+
+        const customerName = order.customerInfo?.firstName || 'Customer';
+        const orderIdShort = order._id.toString().slice(-6).toUpperCase();
+
+        let wpMessage = '';
+        if (type === 'placed') {
+            const itemsList = (order.orderItems || []).map(i => `- ${i.qty}x ${i.name}`).join('\n');
+            wpMessage = `Hello ${customerName},\n\n` +
+                        `Thank you for your order with *Beauty in Balance*! 🌸\n` +
+                        `We have received your order *#${orderIdShort}* and it is now being processed.\n\n` +
+                        `*Order Details:*\n` +
+                        `${itemsList}\n\n` +
+                        `*Total:* Rs. ${order.totalPrice.toLocaleString()}\n` +
+                        `*Payment Method:* ${order.paymentMethod}\n\n` +
+                        `We will notify you once your order is on the way. If you have any questions, feel free to reply to this message.\n\n` +
+                        `Best regards,\n` +
+                        `*Beauty in Balance*`;
+        }
+
+        // Option A: Green API Integration
+        if (greenApiId && greenApiToken) {
+            const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+            await axios.post(url, {
+                chatId: `${customerPhone}@c.us`,
+                message: wpMessage
+            });
+            console.log(`💬 WhatsApp notification sent to customer ${customerPhone} for order ${order._id} (${type})`);
+        }
+        // Option B: UltraMsg Integration
+        else if (ultraMsgInstance && ultraMsgToken) {
+            const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+            await axios.post(url, {
+                token: ultraMsgToken,
+                to: customerPhone,
+                body: wpMessage
+            });
+            console.log(`💬 WhatsApp notification sent to customer ${customerPhone} for order ${order._id} (${type})`);
+        }
+        // Option C: CallMeBot Integration (Fallback)
+        else if (wpApiKey) {
+            const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(customerPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+            await axios.get(url);
+            console.log(`💬 WhatsApp notification sent to customer ${customerPhone} for order ${order._id} (${type})`);
+        }
+    } catch (err) {
+        console.error("❌ WhatsApp notification to customer failed:", err.message);
     }
 };
 
