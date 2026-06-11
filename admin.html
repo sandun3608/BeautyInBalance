@@ -1168,7 +1168,7 @@
               <div class="admin-sec-head" style="margin-bottom: 30px;"><h3 style="margin:0;">Live Acquisitions</h3></div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
+                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th>Payment</th><th>Time</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
 
                   <tbody id="orders-table"></tbody>
                 </table>
@@ -2329,7 +2329,7 @@
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
       if (!ordersTable) return;
-      ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
+      ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>';
       
       const token = localStorage.getItem('userToken');
       if (!token) { window.location.href = 'login.html'; return; }
@@ -2359,6 +2359,26 @@
         orders.forEach(order => {
           const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
           const tr = document.createElement('tr');
+          
+          // Payment method badge colors
+          const pm = order.paymentMethod || 'Cash on Delivery';
+          let pmBg, pmColor, pmLabel;
+          if (pm.toLowerCase().includes('cod') || pm.toLowerCase().includes('cash')) {
+            pmBg = '#fff7ed'; pmColor = '#ea580c'; pmLabel = '💵 COD';
+          } else if (pm.toLowerCase().includes('bank') || pm.toLowerCase().includes('deposit')) {
+            pmBg = '#eff6ff'; pmColor = '#2563eb'; pmLabel = '🏦 Bank';
+          } else if (pm.toLowerCase().includes('card')) {
+            pmBg = '#f0fdf4'; pmColor = '#16a34a'; pmLabel = '💳 Card';
+          } else if (pm.toLowerCase().includes('koko')) {
+            pmBg = '#fdf4ff'; pmColor = '#9333ea'; pmLabel = '🔄 Koko';
+          } else {
+            pmBg = '#f5f5f5'; pmColor = '#666'; pmLabel = pm;
+          }
+          
+          // Format order time
+          const orderDate = new Date(order.createdAt);
+          const timeStr = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'short', day: 'numeric' }) + '<br><span style="font-size:10px; color:#999;">' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true }) + '</span>';
+          
           tr.innerHTML = `
             <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
             <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
@@ -2367,7 +2387,9 @@
                 ${itemsSummary}
               </div>
             </td>
-            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td> 
+            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td>
+            <td><span style="background: ${pmBg}; color: ${pmColor}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap;">${pmLabel}</span></td>
+            <td style="font-size: 12px; white-space: nowrap;">${timeStr}</td>
             <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Processing'}</span></td>
             <td>
                <div style="display:flex; gap:8px; min-width: 240px;">
@@ -2379,7 +2401,7 @@
           `;
           ordersTable.appendChild(tr);
         });
-      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="6">Failed to load.</td></tr>'; }
+      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="8">Failed to load.</td></tr>'; }
     }
 
     window.viewCustomerDetails = (orderId) => {
@@ -2392,6 +2414,24 @@
         document.getElementById('view-cust-phone').innerText = ci.phone;
         document.getElementById('view-cust-district').innerText = ci.district;
         document.getElementById('view-cust-address').innerText = ci.address + ', ' + ci.city;
+        
+        // Payment Method
+        const pmEl = document.getElementById('view-cust-payment');
+        if (pmEl) {
+            const pm = order.paymentMethod || 'Cash on Delivery';
+            let pmEmoji = '💵';
+            if (pm.toLowerCase().includes('bank') || pm.toLowerCase().includes('deposit')) pmEmoji = '🏦';
+            else if (pm.toLowerCase().includes('card')) pmEmoji = '💳';
+            else if (pm.toLowerCase().includes('koko')) pmEmoji = '🔄';
+            pmEl.innerText = pmEmoji + ' ' + pm;
+        }
+        
+        // Order Time
+        const timeEl = document.getElementById('view-cust-time');
+        if (timeEl) {
+            const orderDate = new Date(order.createdAt);
+            timeEl.innerText = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'long', day: 'numeric' }) + ' at ' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
         
         const itemsDiv = document.getElementById('view-cust-items');
         itemsDiv.innerHTML = order.orderItems.map(item => `
@@ -3162,6 +3202,11 @@
           </div>
           <div style="margin-top:25px;"><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Shipping Residence</label><p id="view-cust-address" style="font-size: 14px; margin: 5px 0 0 0; line-height: 1.5;"></p></div>
           
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--admin-border);">
+            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Payment Method</label><p id="view-cust-payment" style="font-size: 14px; margin: 5px 0 0 0; font-weight: 600;"></p></div>
+            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Order Time</label><p id="view-cust-time" style="font-size: 14px; margin: 5px 0 0 0;"></p></div>
+          </div>
+
           <div style="margin-top:35px; border-top: 1px solid var(--admin-border); padding-top: 25px;">
             <label style="font-size:10px; text-transform:uppercase; color:var(--admin-muted); letter-spacing:0.1em; display:block; margin-bottom:15px;">Itemized Manifest</label>
             <div id="view-cust-items" style="display: flex; flex-direction: column; gap: 12px;"></div>
