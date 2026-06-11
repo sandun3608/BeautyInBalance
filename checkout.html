@@ -994,7 +994,10 @@
     if ($('cart-close')) $('cart-close').onclick = closeAll;
     if (overlay) overlay.onclick = closeAll;
 
+    let selectedPaymentMethod = 'Card Payment';
+
     function handlePaymentChange(method) {
+      selectedPaymentMethod = method;
       const methods = ['Card Payment', 'Koko', 'Bank Transfer', 'Cash on Delivery'];
       const containers = {
         'Card Payment': 'row-container-card',
@@ -1019,6 +1022,10 @@
           if (panel) panel.style.display = 'none';
         }
       });
+
+      if (typeof window.renderOrderSummary === 'function') {
+        window.renderOrderSummary();
+      }
     }
 
     function handleBillingChange(option) {
@@ -1055,9 +1062,10 @@
       let originalSubtotal = 0;
       let discountedSubtotal = 0;
       let totalDiscount = 0;
+      const isKoko = (selectedPaymentMethod === 'Koko');
 
       itemsContainer.innerHTML = localCart.map(item => {
-        const discount = Number(item.discount || 0);
+        const discount = isKoko ? 0 : Number(item.discount || 0);
         const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
         
         originalSubtotal += (item.price * item.qty);
@@ -1097,7 +1105,7 @@
       $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
       
       const discountRow = $('summ-discount-row');
-      if (totalDiscount > 0) {
+      if (totalDiscount > 0 && !isKoko) {
         $('summ-discount').textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
         discountRow.style.display = 'flex';
       } else {
@@ -1105,8 +1113,9 @@
       }
 
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
-      $('summ-total').textContent = `Rs. ${(discountedSubtotal + fee).toLocaleString()}`;
-      window.currentOrderTotal = discountedSubtotal + fee;
+      const finalSubtotal = isKoko ? originalSubtotal : discountedSubtotal;
+      $('summ-total').textContent = `Rs. ${(finalSubtotal + fee).toLocaleString()}`;
+      window.currentOrderTotal = finalSubtotal + fee;
     };
 
     window.updateQtyCheckout = function(id, change) {
@@ -1279,7 +1288,7 @@
             user: userInfo ? userInfo._id : null,
             customerInfo: fields,
             orderItems: currentCart.map(i => {
-              const discount = Number(i.discount || 0);
+              const discount = (paymentMethod === 'Koko') ? 0 : Number(i.discount || 0);
               const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
               return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
             }),
