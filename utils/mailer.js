@@ -1,100 +1,36 @@
-const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
+const axios = require('axios');
 
 const sendEmail = async (options) => {
-    // 1. Try SMTP App Password first (Detects Gmail vs Zoho automatically)
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-        try {
-            const isGmail = process.env.EMAIL_USER.includes('gmail.com');
-            
-            const transporterConfig = isGmail ? {
-                service: 'gmail',
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS.trim()
-                }
-            } : {
-                host: process.env.EMAIL_HOST || 'smtp.zoho.com', // Universal Zoho SMTP server
-                port: parseInt(process.env.EMAIL_PORT) || 587, // Use port 587 (TLS) as default to prevent Render timeout on port 465
-                secure: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) === 465 : false, // false for 587 TLS
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS.trim()
-                },
-                tls: {
-                    rejectUnauthorized: false // Avoid connection failures due to self-signed certs
-                }
-            };
+    const resendApiKey = process.env.RESEND_API_KEY;
 
-            const transporter = nodemailer.createTransport(transporterConfig);
-
-            const mailOptions = {
-                from: `Beauty in Balance <${process.env.EMAIL_USER}>`,
-                to: options.email,
-                subject: options.subject,
-                html: options.html || options.message
-            };
-
-            await transporter.sendMail(mailOptions);
-            console.log(`✅ Email sent successfully via SMTP (${isGmail ? 'Gmail' : 'Zoho/Custom'})`);
-            return;
-        } catch (smtpError) {
-            console.error("❌ Nodemailer SMTP Error:", smtpError.message);
-            // If SMTP fails, we will fall back to Gmail API OAuth2 if credentials exist
-        }
+    if (!resendApiKey) {
+        console.error("❌ Resend API Key is missing! Please configure RESEND_API_KEY.");
+        throw new Error("Resend API Key is not configured in Environment Variables");
     }
 
-    // 2. Fallback: Gmail REST API with OAuth2 (Only runs if Gmail API env keys are configured)
-    if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_REFRESH_TOKEN) {
-        try {
-            const OAuth2 = google.auth.OAuth2;
-            const oauth2Client = new OAuth2(
-                process.env.GOOGLE_CLIENT_ID,
-                process.env.GOOGLE_CLIENT_SECRET,
-                "https://developers.google.com/oauthplayground"
-            );
+    try {
+        // If they verified their domain, process.env.EMAIL_USER (support@beautyinbalance.lk) will be used as sender.
+        // Otherwise, onboarding@resend.dev can be used for initial testing.
+        const fromEmail = process.env.EMAIL_USER || 'onboarding@resend.dev';
 
-            oauth2Client.setCredentials({
-                refresh_token: process.env.GOOGLE_REFRESH_TOKEN
-            });
+        const response = await axios.post('https://api.resend.com/emails', {
+            from: `Beauty in Balance <${fromEmail}>`,
+            to: [options.email],
+            subject: options.subject,
+            html: options.html || options.message
+        }, {
+            headers: {
+                'Authorization': `Bearer ${resendApiKey.trim()}`,
+                'Content-Type': 'application/json'
+            }
+        });
 
-            const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
-
-            const subject = options.subject;
-            const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
-            const messageParts = [
-                `From: Beauty in Balance <${process.env.EMAIL_USER}>`,
-                `To: ${options.email}`,
-                `Content-Type: text/html; charset=utf-8`,
-                `MIME-Version: 1.0`,
-                `Subject: ${utf8Subject}`,
-                '',
-                options.html || options.message,
-            ];
-            const message = messageParts.join('\n');
-
-            const encodedMessage = Buffer.from(message)
-                .toString('base64')
-                .replace(/\+/g, '-')
-                .replace(/\//g, '_')
-                .replace(/=+$/, '');
-
-            await gmail.users.messages.send({
-                userId: 'me',
-                requestBody: {
-                    raw: encodedMessage,
-                },
-            });
-
-            console.log("✅ Email sent successfully via Gmail REST API (HTTPS)");
-            return;
-        } catch (oauthError) {
-            console.error("❌ Gmail API OAuth Error:", oauthError.message);
-            throw oauthError;
-        }
+        console.log("✅ Email sent successfully via Resend API (HTTPS):", response.data.id);
+    } catch (error) {
+        const errorData = error.response ? JSON.stringify(error.response.data) : error.message;
+        console.error("❌ Resend API Error:", errorData);
+        throw new Error(`Resend sending failed: ${errorData}`);
     }
-
-    throw new Error("No valid email configuration found (missing SMTP App Password or Gmail OAuth credentials)");
 };
 
 module.exports = sendEmail;
