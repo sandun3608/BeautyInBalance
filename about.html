@@ -26,30 +26,34 @@
     .about-hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 88vh;
-      background: #fff;
-      margin-top: 0;
+      align-items: center;
+      gap: 0;
+      background: #fdfaf7;
+      padding: 80px 5% 80px;
+      min-height: 90vh;
+      box-sizing: border-box;
     }
 
     .about-hero-img {
       position: relative;
-      overflow: hidden;
+      padding-right: 40px;
     }
 
     .about-hero-img img {
       width: 100%;
-      height: 100%;
+      height: 560px;
       object-fit: cover;
-      object-position: center;
+      object-position: center top;
       display: block;
+      border-radius: 320px 320px 320px 320px / 280px 280px 280px 280px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.13);
     }
 
     .about-hero-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 64px;
-      background: #fff;
+      padding: 20px 0 20px 40px;
     }
 
     .about-hero-eyebrow {
@@ -59,18 +63,18 @@
       text-transform: uppercase;
       color: #c6975a;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       display: block;
     }
 
     .about-hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(38px, 4.5vw, 72px);
+      font-size: clamp(36px, 4vw, 64px);
       font-weight: 700;
       color: #1a1a1a;
-      line-height: 1.08;
+      line-height: 1.1;
       letter-spacing: -0.02em;
-      margin: 0 0 32px 0;
+      margin: 0 0 28px 0;
     }
 
     .about-hero-title span {
@@ -80,15 +84,15 @@
 
     .about-hero-lead {
       font-family: var(--font-sans);
-      font-size: 16px;
-      line-height: 1.75;
+      font-size: 15px;
+      line-height: 1.78;
       color: #555;
-      margin: 0 0 16px 0;
+      margin: 0 0 14px 0;
       font-weight: 400;
     }
 
     .about-hero-lead:last-of-type {
-      margin-bottom: 36px;
+      margin-bottom: 32px;
     }
 
     .about-hero-cta {
@@ -98,12 +102,12 @@
       background: #1a1a1a;
       color: #fff;
       font-family: var(--font-sans);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 16px 36px;
+      padding: 15px 34px;
       border-radius: 50px;
       transition: background 0.3s, transform 0.2s;
       align-self: flex-start;
@@ -114,27 +118,28 @@
       transform: translateY(-2px);
     }
 
-    .about-hero-cta svg {
-      transition: transform 0.2s;
-    }
-
-    .about-hero-cta:hover svg {
-      transform: translateX(4px);
-    }
+    .about-hero-cta svg { transition: transform 0.2s; }
+    .about-hero-cta:hover svg { transform: translateX(4px); }
 
     @media (max-width: 900px) {
       .about-hero {
         grid-template-columns: 1fr;
+        padding: 60px 6% 50px;
         min-height: auto;
+        gap: 40px;
       }
       .about-hero-img {
-        height: 55vw;
-        min-height: 260px;
+        padding-right: 0;
+      }
+      .about-hero-img img {
+        height: 70vw;
+        max-height: 420px;
+        border-radius: 200px 200px 200px 200px / 160px 160px 160px 160px;
       }
       .about-hero-content {
-        padding: 48px 28px;
+        padding: 0;
       }
-      .about-hero-title { font-size: 36px; }
+      .about-hero-title { font-size: 34px; }
     }
 
     /* Be Yours Inspired Hero Section */
@@ -279,7 +284,7 @@
       font-family: var(--font-serif);
       font-size: 40px;
       color: #1a1a1a;
-      margin-bottom: 60px;
+      margin-bottom: 36px;
     }
 
     .why-bib-grid {
