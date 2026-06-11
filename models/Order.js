@@ -47,6 +47,11 @@ const orderSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    isStockReduced: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 }, { timestamps: true });
 

@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const axios = require('axios');
 const Order = require('../models/Order');
+const Product = require('../models/Product');
 const { protect } = require('../middleware/auth');
 
 // @route   POST /api/orders
@@ -150,6 +151,7 @@ router.post('/', async (req, res) => {
         // --- CUSTOMER WHATSAPP NOTIFICATION (ORDER PLACED) ---
         if (!isOnlinePayment || createdOrder.isPaid) {
             sendCustomerWhatsAppNotification(createdOrder, 'placed');
+            reduceProductStock(createdOrder);
         }
 
         return res.status(201).json(createdOrder);
@@ -338,6 +340,98 @@ const sendCustomerWhatsAppNotification = async (order, type) => {
         }
     } catch (err) {
         console.error("❌ WhatsApp notification to customer failed:", err.message);
+    }
+};
+
+// Helper function to reduce product stock and send low stock alerts
+const reduceProductStock = async (order) => {
+    try {
+        if (order.isStockReduced) {
+            console.log(`Stock already reduced for order ${order._id}`);
+            return;
+        }
+
+        const orderItems = order.orderItems || [];
+        for (const item of orderItems) {
+            if (item.product) {
+                let product = null;
+                // Find by ObjectId or custom id string
+                if (mongoose.Types.ObjectId.isValid(item.product)) {
+                    product = await Product.findById(item.product);
+                }
+                if (!product) {
+                    product = await Product.findOne({ id: item.product });
+                }
+                if (!product) {
+                    // Try by exact name match as fallback
+                    product = await Product.findOne({ name: item.name });
+                }
+
+                if (product) {
+                    const newStock = Math.max(0, (product.stock || 0) - (item.qty || 1));
+                    product.stock = newStock;
+                    await product.save();
+                    console.log(`📉 Stock reduced for ${product.name} to ${newStock}`);
+
+                    if (newStock <= 3) {
+                        await sendLowStockAlert(product);
+                    }
+                }
+            }
+        }
+
+        order.isStockReduced = true;
+        await order.save();
+    } catch (err) {
+        console.error("❌ Failed to reduce stock:", err.message);
+    }
+};
+
+// Helper function to send low stock alerts to Admin WhatsApp
+const sendLowStockAlert = async (product) => {
+    try {
+        const wpPhone = process.env.WHATSAPP_PHONE;
+        const greenApiId = process.env.GREEN_API_ID_INSTANCE;
+        const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
+        const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
+        const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
+        const wpApiKey = process.env.WHATSAPP_API_KEY;
+
+        if (!wpPhone) return;
+
+        let wpMessage = `*⚠️ LOW STOCK ALERT! ⚠️*\n\n` +
+                        `*Product:* ${product.name}\n` +
+                        `*Remaining Stock:* ${product.stock}\n` +
+                        `*Category:* ${product.cat}\n\n` +
+                        `Please restock: https://www.beautyinbalance.lk/admin`;
+
+        // Option A: Green API
+        if (greenApiId && greenApiToken) {
+            const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+            await axios.post(url, {
+                chatId: `${wpPhone}@c.us`,
+                message: wpMessage
+            });
+            console.log(`💬 Low Stock Alert sent for ${product.name}`);
+        }
+        // Option B: UltraMsg
+        else if (ultraMsgInstance && ultraMsgToken) {
+            const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+            await axios.post(url, {
+                token: ultraMsgToken,
+                to: wpPhone,
+                body: wpMessage
+            });
+            console.log(`💬 Low Stock Alert sent for ${product.name}`);
+        }
+        // Option C: CallMeBot
+        else if (wpApiKey) {
+            const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+            await axios.get(url);
+            console.log(`💬 Low Stock Alert sent for ${product.name}`);
+        }
+    } catch (err) {
+        console.error("❌ Failed to send low stock alert:", err.message);
     }
 };
 
