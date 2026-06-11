@@ -212,90 +212,119 @@
       color: #777;
     }
 
-    /* ===== MODERN INFO PANELS ===== */
-    .info-panels {
-      padding: 60px 5%;
+    /* ===== OUR WORKFLOW SECTION ===== */
+    .workflow-section {
+      padding: 80px 5%;
       background: #fdfaf7;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      text-align: center;
       max-width: 1300px;
       margin: 0 auto;
-      box-sizing: border-box;
     }
 
-    .info-panel {
-      background: #f1ebd9;
-      border-radius: 20px;
-      padding: 36px 32px;
-      color: #3d352b;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    .workflow-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 5vw, 48px);
+      color: var(--brown);
+      margin-bottom: 60px;
     }
 
-    .info-panel-header {
+    .workflow-grid {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      justify-content: space-between;
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    .info-panel-icon {
-      width: 40px;
-      height: 40px;
-      background: rgba(198,151,90,0.18);
-      border-radius: 10px;
+    /* Connecting horizontal line */
+    .workflow-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: rgba(198,151,90,0.3);
+      z-index: 1;
+    }
+
+    .workflow-step {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .workflow-icon {
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 20px rgba(198,151,90,0.15);
+      transition: transform 0.3s;
     }
 
-    .info-panel-icon svg {
-      width: 20px;
-      height: 20px;
-      color: #9c733f;
+    .workflow-icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--gold);
     }
 
-    .info-panel-header h3 {
-      font-family: var(--font-serif);
-      font-size: 19px;
-      font-weight: 600;
-      color: #1a1510;
+    .workflow-step h4 {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 0 0 8px;
+    }
+
+    .workflow-step p {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
       margin: 0;
     }
 
-    .info-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .info-chip {
-      background: var(--brown, #2D1B12);
-      border: 1px solid var(--brown, #2D1B12);
-      border-radius: 50px;
-      padding: 7px 16px;
-      font-size: 13px;
-      color: #fff;
-      font-family: var(--font-sans);
-      font-weight: 400;
-      letter-spacing: 0.2px;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-
-    .info-chip:hover {
-      background: #4A3125;
-      border-color: #4A3125;
-      color: #fff;
-    }
-
     @media (max-width: 768px) {
-      .info-panels {
-        grid-template-columns: 1fr;
-        padding: 32px 5%;
-        gap: 16px;
+      .workflow-section { padding: 50px 5%; }
+      .workflow-title { margin-bottom: 40px; font-size: 30px; }
+      .workflow-grid {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        padding-left: 20px;
       }
-      .info-panel { padding: 28px 22px; }
+      .workflow-grid::before {
+        top: 20px;
+        bottom: 20px;
+        left: 49px; /* 20px padding + 30px half icon - 1px line */
+        width: 2px;
+        height: auto;
+        right: auto;
+      }
+      .workflow-step {
+        flex-direction: row;
+        text-align: left;
+        gap: 20px;
+        width: 100%;
+        padding: 0;
+      }
+      .workflow-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      .workflow-icon svg { width: 24px; height: 24px; }
     }
 
     /* Why BIB Section (Be Yours Style) */
@@ -581,46 +610,56 @@
           </a>
         </div>
       </div>
-    <!-- ===== MODERN INFO PANELS ===== -->
-    <div class="info-panels">
-
-      <!-- Panel 1: Key Ingredients -->
-      <div class="info-panel">
-        <div class="info-panel-header">
-          <div class="info-panel-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+    <!-- ===== OUR WORKFLOW SECTION ===== -->
+    <div class="workflow-section">
+      <h2 class="workflow-title">Our Work Flow</h2>
+      <div class="workflow-grid">
+        
+        <!-- Step 1 -->
+        <div class="workflow-step">
+          <div class="workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
-          <h3>Key Ingredients</h3>
-        </div>
-        <div class="info-chips">
-          <span class="info-chip">Niacinamide &amp; Retinoids</span>
-          <span class="info-chip">Hyaluronic Acid</span>
-          <span class="info-chip">Ceramides</span>
-          <span class="info-chip">Pure AHAs &amp; BHAs</span>
-          <span class="info-chip">Antioxidant Extracts</span>
-          <span class="info-chip">Fragrance-free Actives</span>
-        </div>
-      </div>
-
-      <!-- Panel 2: Auth Guarantee -->
-      <div class="info-panel">
-        <div class="info-panel-header">
-          <div class="info-panel-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <div>
+            <h4>Import</h4>
+            <p>Direct from global brands</p>
           </div>
-          <h3>Auth Guarantee</h3>
         </div>
-        <div class="info-chips">
-          <span class="info-chip">Directly Imported</span>
-          <span class="info-chip">Verified Source Tracking</span>
-          <span class="info-chip">Climate-controlled Storage</span>
-          <span class="info-chip">Original Factory Sealing</span>
-          <span class="info-chip">Hologram Verified</span>
-          <span class="info-chip">Fresh &amp; Potent Formulas</span>
-        </div>
-      </div>
 
-    </div></div>
+        <!-- Step 2 -->
+        <div class="workflow-step">
+          <div class="workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+          </div>
+          <div>
+            <h4>Store</h4>
+            <p>Climate-controlled safety</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="workflow-step">
+          <div class="workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div>
+            <h4>Website</h4>
+            <p>Secure online shopping</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="workflow-step">
+          <div class="workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div>
+            <h4>Courier</h4>
+            <p>Fast island-wide delivery</p>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- Why Beauty in Balance Section -->
