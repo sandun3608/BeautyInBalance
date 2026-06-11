@@ -15,11 +15,14 @@ const sendEmail = async (options) => {
                 }
             } : {
                 host: process.env.EMAIL_HOST || 'smtp.zoho.com', // Universal Zoho SMTP server
-                port: parseInt(process.env.EMAIL_PORT) || 465,
-                secure: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) === 465 : true,
+                port: parseInt(process.env.EMAIL_PORT) || 587, // Use port 587 (TLS) as default to prevent Render timeout on port 465
+                secure: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) === 465 : false, // false for 587 TLS
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS.trim()
+                },
+                tls: {
+                    rejectUnauthorized: false // Avoid connection failures due to self-signed certs
                 }
             };
 
