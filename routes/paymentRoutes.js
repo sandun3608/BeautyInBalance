@@ -6,6 +6,22 @@ const Order = require('../models/Order');
 const Product = require('../models/Product');
 const crypto = require('crypto');
 
+// Helper function to format Sri Lankan phone numbers for WhatsApp
+const formatWhatsAppPhone = (phone) => {
+    if (!phone) return null;
+    let cleaned = phone.replace(/[^0-9+]/g, '');
+    if (cleaned.startsWith('+')) {
+        cleaned = cleaned.substring(1);
+    }
+    if (cleaned.startsWith('0')) {
+        cleaned = '94' + cleaned.substring(1);
+    }
+    if (cleaned.length === 9 && !cleaned.startsWith('94')) {
+        cleaned = '94' + cleaned;
+    }
+    return cleaned;
+};
+
 // Koko Private Keys
 const QA_PRIVATE_KEY = `-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQCnAPcpmvA3Iipb7Fn+eAmO/P4Xv8y+PVm8FrDhqOSeMqaUQmzf\niZ6xw+ejCmye46MMW5SaA03Hnm0WGDXqYhMR0TiWUgXRCeQImxSq+wXwd+0ufxW+\nANnvH9l/mxcPwlGr2BKJTUJy2NQt8FZ9R6NSfIlKzdyGStvzF3j0KdBnjQIDAQAB\nAoGAVMjwsnaurc7yomiD5+UZNTbL6VK+p3aOMCd09ZvBNW+RkoOGspYzsxw6ZVPN\ngX0gMg3si6RRwJ5101nHRY81DmysZ90kgJsknqxUuwKGU6k2Wk18JqJBLGLXilwR\nZ5/NjdgohoZDrJbbr029LNLZ06pvpdXtvVRM9A1XZVzEnAECQQDQ02Wg7nGFvS4M\nyRWMHNARLto19W/Q+BlCsWRCDYO5zns9BtaqzZ3CyOAaXObDs6ZWpCEY+3e84u3X\npvBpdOGtAkEAzLr15YBG9Y3hQgErwIUd0dSlYiDzaIM9DszIh+lzCIi/bUM6nXQi\nIZ0zDJmLjwa0bMduO+ZDiUbxuCFlxhEZYQJAdpTEbhlYr4gYwTvil3i5EjjXwrJH\nt5NazMts0jFYbsd4pdPfTIiMIFLvJylABTtbpnF3Nfd+K+10//OVK10q1QJBAMLU\nqW3exaipfNTziE+OXvJxC3J3KS0st85909iDsZVNjd7NO9rbyh9zGkHDXayfFNTw\ndVdLqrnZae9w2QnE/AECQF+cRPcQMA1wbmOBCyn/C1YAMji71DtplJF9fFOxlp9P\nXdzBrBj9flrwjasEs3WKrepvZ9A0GT5HaG15ULd2/rc=\n-----END RSA PRIVATE KEY-----`;
 
@@ -374,7 +390,7 @@ router.get('/koko/cancel', (req, res) => {
 const sendWhatsAppNotification = async (order) => {
     try {
         const rawWpPhone = process.env.WHATSAPP_PHONE;
-        const wpPhone = rawWpPhone ? rawWpPhone.replace(/[^0-9]/g, '') : null;
+        const wpPhone = formatWhatsAppPhone(rawWpPhone);
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
@@ -424,21 +440,7 @@ const sendWhatsAppNotification = async (order) => {
     }
 };
 
-// Helper function to format Sri Lankan phone numbers for WhatsApp
-const formatWhatsAppPhone = (phone) => {
-    if (!phone) return null;
-    let cleaned = phone.replace(/[^0-9+]/g, '');
-    if (cleaned.startsWith('+')) {
-        cleaned = cleaned.substring(1);
-    }
-    if (cleaned.startsWith('0')) {
-        cleaned = '94' + cleaned.substring(1);
-    }
-    if (cleaned.length === 9 && !cleaned.startsWith('94')) {
-        cleaned = '94' + cleaned;
-    }
-    return cleaned;
-};
+
 
 // Helper function to send WhatsApp messages to customers
 const sendCustomerWhatsAppNotification = async (order, type) => {
@@ -609,7 +611,8 @@ const reduceProductStock = async (order) => {
 // Helper function to send low stock alerts to Admin WhatsApp
 const sendLowStockAlert = async (product) => {
     try {
-        const wpPhone = process.env.WHATSAPP_PHONE;
+        const rawWpPhone = process.env.WHATSAPP_PHONE;
+        const wpPhone = formatWhatsAppPhone(rawWpPhone);
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;

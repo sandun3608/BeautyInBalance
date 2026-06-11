@@ -5,6 +5,22 @@ const axios = require('axios');
 const Inquiry = require('../models/Inquiry');
 const { protect } = require('../middleware/auth');
 
+// Helper function to format Sri Lankan phone numbers for WhatsApp
+const formatWhatsAppPhone = (phone) => {
+    if (!phone) return null;
+    let cleaned = phone.replace(/[^0-9+]/g, '');
+    if (cleaned.startsWith('+')) {
+        cleaned = cleaned.substring(1);
+    }
+    if (cleaned.startsWith('0')) {
+        cleaned = '94' + cleaned.substring(1);
+    }
+    if (cleaned.length === 9 && !cleaned.startsWith('94')) {
+        cleaned = '94' + cleaned;
+    }
+    return cleaned;
+};
+
 // @route   POST /api/inquiries
 // @desc    Send a new inquiry from Contact page
 // @access  Public
@@ -35,7 +51,7 @@ router.post('/', async (req, res) => {
 
         // --- WHATSAPP NOTIFICATION ---
         const rawWpPhone = process.env.WHATSAPP_PHONE;
-        const wpPhone = rawWpPhone ? rawWpPhone.replace(/[^0-9]/g, '') : null;
+        const wpPhone = formatWhatsAppPhone(rawWpPhone);
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;

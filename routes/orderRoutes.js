@@ -6,6 +6,22 @@ const Order = require('../models/Order');
 const Product = require('../models/Product');
 const { protect } = require('../middleware/auth');
 
+// Helper function to format Sri Lankan phone numbers for WhatsApp
+const formatWhatsAppPhone = (phone) => {
+    if (!phone) return null;
+    let cleaned = phone.replace(/[^0-9+]/g, '');
+    if (cleaned.startsWith('+')) {
+        cleaned = cleaned.substring(1);
+    }
+    if (cleaned.startsWith('0')) {
+        cleaned = '94' + cleaned.substring(1);
+    }
+    if (cleaned.length === 9 && !cleaned.startsWith('94')) {
+        cleaned = '94' + cleaned;
+    }
+    return cleaned;
+};
+
 // @route   POST /api/orders
 // @desc    Create new order in the database (Open to Guests)
 // @access  Public
@@ -98,7 +114,7 @@ router.post('/', async (req, res) => {
 
         // --- WHATSAPP NOTIFICATIONS (Green API / UltraMsg / CallMeBot) ---
         const rawWpPhone = process.env.WHATSAPP_PHONE;
-        const wpPhone = rawWpPhone ? rawWpPhone.replace(/[^0-9]/g, '') : null;
+        const wpPhone = formatWhatsAppPhone(rawWpPhone);
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
@@ -261,21 +277,6 @@ router.get('/test-email', async (req, res) => {
     }
 });
 
-// Helper function to format Sri Lankan phone numbers for WhatsApp
-const formatWhatsAppPhone = (phone) => {
-    if (!phone) return null;
-    let cleaned = phone.replace(/[^0-9+]/g, '');
-    if (cleaned.startsWith('+')) {
-        cleaned = cleaned.substring(1);
-    }
-    if (cleaned.startsWith('0')) {
-        cleaned = '94' + cleaned.substring(1);
-    }
-    if (cleaned.length === 9 && !cleaned.startsWith('94')) {
-        cleaned = '94' + cleaned;
-    }
-    return cleaned;
-};
 
 // Helper function to send WhatsApp messages to customers
 const sendCustomerWhatsAppNotification = async (order, type) => {
@@ -391,7 +392,8 @@ const reduceProductStock = async (order) => {
 // Helper function to send low stock alerts to Admin WhatsApp
 const sendLowStockAlert = async (product) => {
     try {
-        const wpPhone = process.env.WHATSAPP_PHONE;
+        const rawWpPhone = process.env.WHATSAPP_PHONE;
+        const wpPhone = formatWhatsAppPhone(rawWpPhone);
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
