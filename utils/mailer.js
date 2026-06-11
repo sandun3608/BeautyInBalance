@@ -2,16 +2,28 @@ const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 
 const sendEmail = async (options) => {
-    // 1. Try SMTP App Password first (Highly stable, doesn't expire)
+    // 1. Try SMTP App Password first (Detects Gmail vs Zoho automatically)
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
         try {
-            const transporter = nodemailer.createTransport({
+            const isGmail = process.env.EMAIL_USER.includes('gmail.com');
+            
+            const transporterConfig = isGmail ? {
                 service: 'gmail',
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS.trim()
                 }
-            });
+            } : {
+                host: process.env.EMAIL_HOST || 'smtppro.zoho.com', // Default to Zoho SMTP
+                port: parseInt(process.env.EMAIL_PORT) || 465,
+                secure: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) === 465 : true,
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS.trim()
+                }
+            };
+
+            const transporter = nodemailer.createTransport(transporterConfig);
 
             const mailOptions = {
                 from: `Beauty in Balance <${process.env.EMAIL_USER}>`,
@@ -21,7 +33,7 @@ const sendEmail = async (options) => {
             };
 
             await transporter.sendMail(mailOptions);
-            console.log("✅ Email sent successfully via Nodemailer SMTP (App Password)");
+            console.log(`✅ Email sent successfully via SMTP (${isGmail ? 'Gmail' : 'Zoho/Custom'})`);
             return;
         } catch (smtpError) {
             console.error("❌ Nodemailer SMTP Error:", smtpError.message);
@@ -29,7 +41,7 @@ const sendEmail = async (options) => {
         }
     }
 
-    // 2. Fallback: Gmail REST API with OAuth2
+    // 2. Fallback: Gmail REST API with OAuth2 (Only runs if Gmail API env keys are configured)
     if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_REFRESH_TOKEN) {
         try {
             const OAuth2 = google.auth.OAuth2;
