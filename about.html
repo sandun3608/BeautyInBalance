@@ -209,72 +209,89 @@
       color: #777;
     }
 
-    /* Info Grid (Be Yours Style) */
-    .info-grid-section {
-      padding: 100px 48px;
-      background: #fff;
-    }
-
-    .info-grid-inner {
-      max-width: 1200px;
+    /* ===== MODERN INFO PANELS ===== */
+    .info-panels {
+      padding: 60px 5%;
+      background: #fdfaf7;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1300px;
       margin: 0 auto;
+      box-sizing: border-box;
     }
 
-    .info-cat {
-      margin-bottom: 50px;
+    .info-panel {
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 36px 32px;
+      color: #fff;
     }
 
-    .info-header {
-      background: #F9F5F0;
-      padding: 15px 25px;
+    .info-panel-header {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 25px;
-      border-radius: 4px;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    .info-header svg {
-      width: 24px;
-      height: 24px;
-      color: var(--brown);
+    .info-panel-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(198,151,90,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .info-header h3 {
+    .info-panel-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #c6975a;
+    }
+
+    .info-panel-header h3 {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 600;
-      color: var(--brown);
+      color: #fff;
       margin: 0;
     }
 
-    .info-content {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      padding: 0 25px;
+    .info-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .info-column ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .info-chip {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: 13px;
+      color: #e0d9d0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .info-column li {
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 12px;
-      font-size: 16px;
-      color: #555;
+    .info-chip:hover {
+      background: rgba(198,151,90,0.18);
+      border-color: rgba(198,151,90,0.4);
+      color: #f5e8d5;
     }
 
-    .info-column li::before {
-      content: 'o';
-      position: absolute;
-      left: 0;
-      color: #999;
-      font-weight: 300;
+    @media (max-width: 768px) {
+      .info-panels {
+        grid-template-columns: 1fr;
+        padding: 32px 5%;
+        gap: 16px;
+      }
+      .info-panel { padding: 28px 22px; }
     }
 
     /* Why BIB Section (Be Yours Style) */
@@ -560,35 +577,46 @@
           </a>
         </div>
       </div>
-    </section>
+    <!-- ===== MODERN INFO PANELS ===== -->
+    <div class="info-panels">
 
-    <div class="info-grid-section">
-      <div class="info-grid-inner">
-
-        <div class="info-cat">
-          <div class="info-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L12 2l-9.3 8.3z"/></svg>
-            <h3>Key Ingredients</h3>
+      <!-- Panel 1: Key Ingredients -->
+      <div class="info-panel">
+        <div class="info-panel-header">
+          <div class="info-panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
           </div>
-          <div class="info-content">
-            <div class="info-column"><ul><li>Niacinamide & Retinoids</li><li>Authentic Hyaluronic Acid</li></ul></div>
-            <div class="info-column"><ul><li>Ceramides for barrier repair</li><li>Pure AHAs and BHAs</li></ul></div>
-            <div class="info-column"><ul><li>Antioxidant-rich extracts</li><li>Fragrance-free clinical actives</li></ul></div>
-          </div>
+          <h3>Key Ingredients</h3>
         </div>
-
-        <div class="info-cat">
-          <div class="info-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <h3>Auth Guarantee</h3>
-          </div>
-          <div class="info-content">
-            <div class="info-column"><ul><li>Directly imported batches</li><li>Verified source tracking</li></ul></div>
-            <div class="info-column"><ul><li>Climate-controlled storage</li><li>Original factory sealing</li></ul></div>
-            <div class="info-column"><ul><li>Hologram and batch verified</li><li>Fresh and potent formulas</li></ul></div>
-          </div>
+        <div class="info-chips">
+          <span class="info-chip">Niacinamide &amp; Retinoids</span>
+          <span class="info-chip">Hyaluronic Acid</span>
+          <span class="info-chip">Ceramides</span>
+          <span class="info-chip">Pure AHAs &amp; BHAs</span>
+          <span class="info-chip">Antioxidant Extracts</span>
+          <span class="info-chip">Fragrance-free Actives</span>
         </div>
       </div>
+
+      <!-- Panel 2: Auth Guarantee -->
+      <div class="info-panel">
+        <div class="info-panel-header">
+          <div class="info-panel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3>Auth Guarantee</h3>
+        </div>
+        <div class="info-chips">
+          <span class="info-chip">Directly Imported</span>
+          <span class="info-chip">Verified Source Tracking</span>
+          <span class="info-chip">Climate-controlled Storage</span>
+          <span class="info-chip">Original Factory Sealing</span>
+          <span class="info-chip">Hologram Verified</span>
+          <span class="info-chip">Fresh &amp; Potent Formulas</span>
+        </div>
+      </div>
+
+    </div></div>
     </div>
 
     <!-- Why Beauty in Balance Section -->
