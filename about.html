@@ -104,23 +104,26 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: #1a1a1a;
+      background: var(--gold);
       color: #fff;
       font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 15px 34px;
-      border-radius: 50px;
-      transition: background 0.3s, transform 0.2s;
+      padding: 14px 28px;
+      border-radius: var(--radius, 50px);
+      transition: all 0.4s;
       align-self: flex-start;
+      border: 1.5px solid var(--gold);
     }
 
     .about-hero-cta:hover {
-      background: #c6975a;
-      transform: translateY(-2px);
+      background: var(--brown);
+      border-color: var(--brown);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .about-hero-cta svg { transition: transform 0.2s; }
