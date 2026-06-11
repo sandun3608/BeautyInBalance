@@ -14,7 +14,7 @@ const sendEmail = async (options) => {
                     pass: process.env.EMAIL_PASS.trim()
                 }
             } : {
-                host: process.env.EMAIL_HOST || 'smtppro.zoho.com', // Default to Zoho SMTP
+                host: process.env.EMAIL_HOST || 'smtp.zoho.com', // Universal Zoho SMTP server
                 port: parseInt(process.env.EMAIL_PORT) || 465,
                 secure: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) === 465 : true,
                 auth: {
