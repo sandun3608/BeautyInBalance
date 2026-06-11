@@ -17,66 +17,124 @@
   <link rel="stylesheet" href="styles.css?v=77" />
   
   <style>
-    /* Header Section with Effect */
-    .about-header-main {
-      padding: 160px 24px 40px;
-      text-align: center;
+    body {
+      background-color: #fdfaf7;
+      color: #333;
+    }
+
+    /* ===== ABOUT HERO SPLIT LAYOUT ===== */
+    .about-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      background: #fff;
+      margin-top: 0;
+    }
+
+    .about-hero-img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .about-hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
       background: #fff;
     }
 
-    .about-header-main h2 {
+    .about-hero-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c6975a;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .about-hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(50px, 10vw, 100px);
-      color: var(--brown);
+      font-size: clamp(38px, 4.5vw, 72px);
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.08;
       letter-spacing: -0.02em;
-      margin: 0;
-      position: relative;
-      display: inline-block;
+      margin: 0 0 32px 0;
     }
 
-    .about-header-main h2::before {
-      content: 'AUTHENTIC';
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.4em;
-      letter-spacing: 0.5em;
-      color: var(--gold);
-      opacity: 0.4;
+    .about-hero-title span {
+      color: #c6975a;
+      font-style: italic;
+    }
+
+    .about-hero-lead {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.75;
+      color: #555;
+      margin: 0 0 16px 0;
       font-weight: 400;
-      animation: floatText 3s ease-in-out infinite;
     }
 
-    @keyframes floatText {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, -10px); }
+    .about-hero-lead:last-of-type {
+      margin-bottom: 36px;
     }
 
-    /* Top Banner Section */
-    .about-top-banner {
-      width: 100%;
-      padding: 0 24px 20px;
-      display: flex;
-      justify-content: center;
-      background: transparent;
+    .about-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 50px;
+      transition: background 0.3s, transform 0.2s;
+      align-self: flex-start;
     }
 
-    .about-top-banner img {
-      width: 100%;
-      max-width: 450px;
-      height: auto;
-      animation: fadeIn 1.5s ease;
+    .about-hero-cta:hover {
+      background: #c6975a;
+      transform: translateY(-2px);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .about-hero-cta svg {
+      transition: transform 0.2s;
     }
 
-    body {
-      background-color: #fdfaf7; /* Soft aesthetic background */
-      color: #333;
+    .about-hero-cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 900px) {
+      .about-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .about-hero-img {
+        height: 55vw;
+        min-height: 260px;
+      }
+      .about-hero-content {
+        padding: 48px 28px;
+      }
+      .about-hero-title { font-size: 36px; }
     }
 
     /* Be Yours Inspired Hero Section */
@@ -472,29 +530,24 @@
   </div>
 
   <main>
-    <section class="about-welcome-section">
-      <div class="welcome-content">
-        <h1 class="welcome-display-title">
-          <span class="top-word">Beauty</span>
-          <span class="bottom-words">In Balance</span>
-        </h1>
-        
-        <div class="welcome-body-text">
-          <p class="lead-p">
-            We bring you the best beauty products directly imported from Korea, Canada, the UK, and Australia. 
-            Our goal is simple: to help you look and feel your best with 100% original products you can trust.
-          </p>
-          
-          <div class="secondary-p">
-            <p>We believe in quality without high prices. That’s why all our products are offered at reasonable prices, so everyone can enjoy safe and effective beauty care.</p>
-            <p>Your trust is our priority. Every item is carefully selected to ensure it is genuine and authentic. When you shop with us, you can be confident that you are getting the real deal.</p>
-            <p>Join our family of happy customers and discover beauty that’s safe, effective, and affordable.</p>
-          </div>
-        </div>
+    <!-- ===== ABOUT HERO SPLIT ===== -->
+    <section class="about-hero">
+      <!-- Left: Image -->
+      <div class="about-hero-img">
+        <img src="abouticon/k.jpg" alt="Beauty in Balance – Authentic Skincare">
+      </div>
 
-        <div class="welcome-actions">
-          <a href="shop.html" class="welcome-btn">Explore Collection</a>
-        </div>
+      <!-- Right: Content -->
+      <div class="about-hero-content">
+        <span class="about-hero-eyebrow">Our Story</span>
+        <h1 class="about-hero-title">Beauty That's <span>Truly</span><br>In Balance</h1>
+        <p class="about-hero-lead">We bring you the best beauty products directly imported from Korea, Canada, the UK, and Australia. Our goal is simple: to help you look and feel your best with 100% original products you can trust.</p>
+        <p class="about-hero-lead">We believe in quality without high prices — so everyone can enjoy safe and effective beauty care. Every item is carefully selected to ensure it is genuine and authentic.</p>
+        <p class="about-hero-lead">Your trust is our priority. Join our family of happy customers and discover beauty that's safe, effective, and affordable.</p>
+        <a href="shop.html" class="about-hero-cta">
+          Explore Collection
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
       </div>
     </section>
 
