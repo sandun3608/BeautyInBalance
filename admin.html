@@ -2156,6 +2156,7 @@
             'p-img3': (prod.images && prod.images[2]) || '',
             'p-img4': (prod.images && prod.images[3]) || '',
             'p-desc': prod.desc,
+            'p-how-to-use': prod.howToUse || '',
             'p-stock': prod.stock
           };
           for (let fid in fields) {
@@ -2223,6 +2224,7 @@
                   img: imagesArray[0] || img1,
                   images: imagesArray,
                   desc: document.getElementById('p-desc').value,
+                  howToUse: document.getElementById('p-how-to-use').value || '',
                   stock: Number(document.getElementById('p-stock').value)
                 };
 
@@ -3159,6 +3161,7 @@
                     </div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Unique ID</label><input type="text" id="p-id-field" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Philosophy / Description</label><textarea id="p-desc" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
+                    <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">How to Use (Step-by-step)</label><textarea id="p-how-to-use" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="window.closeModal()">Discard</button>
