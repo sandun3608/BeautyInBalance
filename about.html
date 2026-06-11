@@ -22,38 +22,43 @@
       color: #333;
     }
 
-    /* ===== ABOUT HERO SPLIT LAYOUT ===== */
+    /* ===== ABOUT HERO CARD ===== */
     .about-hero {
+      background: #fdfaf7;
+      padding: 60px 5% 60px;
+      box-sizing: border-box;
+    }
+
+    .about-hero-card {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 0;
-      background: #fdfaf7;
-      padding: 80px 5% 80px;
-      min-height: 90vh;
-      box-sizing: border-box;
+      align-items: stretch;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.10);
+      background: #fff;
+      min-height: 580px;
     }
 
     .about-hero-img {
       position: relative;
-      padding-right: 40px;
+      overflow: hidden;
     }
 
     .about-hero-img img {
       width: 100%;
-      height: 560px;
+      height: 100%;
       object-fit: cover;
       object-position: center top;
       display: block;
-      border-radius: 320px 320px 320px 320px / 280px 280px 280px 280px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.13);
     }
 
     .about-hero-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 20px 0 20px 40px;
+      padding: 64px 56px;
+      background: #fff;
     }
 
     .about-hero-eyebrow {
@@ -69,7 +74,7 @@
 
     .about-hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(36px, 4vw, 64px);
+      font-size: clamp(32px, 3.5vw, 58px);
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.1;
@@ -84,7 +89,7 @@
 
     .about-hero-lead {
       font-family: var(--font-sans);
-      font-size: 15px;
+      font-size: 14.5px;
       line-height: 1.78;
       color: #555;
       margin: 0 0 14px 0;
@@ -123,23 +128,22 @@
 
     @media (max-width: 900px) {
       .about-hero {
+        padding: 24px 5% 40px;
+      }
+      .about-hero-card {
         grid-template-columns: 1fr;
-        padding: 60px 6% 50px;
+        border-radius: 20px;
         min-height: auto;
-        gap: 40px;
       }
       .about-hero-img {
-        padding-right: 0;
-      }
-      .about-hero-img img {
-        height: 70vw;
-        max-height: 420px;
-        border-radius: 200px 200px 200px 200px / 160px 160px 160px 160px;
+        height: 65vw;
+        min-height: 240px;
+        max-height: 380px;
       }
       .about-hero-content {
-        padding: 0;
+        padding: 40px 28px;
       }
-      .about-hero-title { font-size: 34px; }
+      .about-hero-title { font-size: 30px; }
     }
 
     /* Be Yours Inspired Hero Section */
@@ -535,24 +539,26 @@
   </div>
 
   <main>
-    <!-- ===== ABOUT HERO SPLIT ===== -->
+    <!-- ===== ABOUT HERO CARD ===== -->
     <section class="about-hero">
-      <!-- Left: Image -->
-      <div class="about-hero-img">
-        <img src="abouticon/k.jpg" alt="Beauty in Balance – Authentic Skincare">
-      </div>
+      <div class="about-hero-card">
+        <!-- Left: Image -->
+        <div class="about-hero-img">
+          <img src="abouticon/k.jpg" alt="Beauty in Balance – Authentic Skincare">
+        </div>
 
-      <!-- Right: Content -->
-      <div class="about-hero-content">
-        <span class="about-hero-eyebrow">Our Story</span>
-        <h1 class="about-hero-title">Beauty That's <span>Truly</span><br>In Balance</h1>
-        <p class="about-hero-lead">We bring you the best beauty products directly imported from Korea, Canada, the UK, and Australia. Our goal is simple: to help you look and feel your best with 100% original products you can trust.</p>
-        <p class="about-hero-lead">We believe in quality without high prices — so everyone can enjoy safe and effective beauty care. Every item is carefully selected to ensure it is genuine and authentic.</p>
-        <p class="about-hero-lead">Your trust is our priority. Join our family of happy customers and discover beauty that's safe, effective, and affordable.</p>
-        <a href="shop.html" class="about-hero-cta">
-          Explore Collection
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <!-- Right: Content -->
+        <div class="about-hero-content">
+          <span class="about-hero-eyebrow">Our Story</span>
+          <h1 class="about-hero-title">Beauty That's <span>Truly</span><br>In Balance</h1>
+          <p class="about-hero-lead">We bring you the best beauty products directly imported from Korea, Canada, the UK, and Australia. Our goal is simple: to help you look and feel your best with 100% original products you can trust.</p>
+          <p class="about-hero-lead">We believe in quality without high prices — so everyone can enjoy safe and effective beauty care. Every item is carefully selected to ensure it is genuine and authentic.</p>
+          <p class="about-hero-lead">Your trust is our priority. Join our family of happy customers and discover beauty that's safe, effective, and affordable.</p>
+          <a href="shop.html" class="about-hero-cta">
+            Explore Collection
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
       </div>
     </section>
 
