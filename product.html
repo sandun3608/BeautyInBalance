@@ -639,8 +639,32 @@
               </div>
             </div>
 
+            <!-- Description Block -->
+            <div style="border-top: 1px solid #eaeaea; padding-top: 18px; margin-top: 20px;">
+              <h3 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #2D1B12; margin: 0 0 10px 0;">Description</h3>
+              <p style="font-family: var(--font-sans); font-size: 13.5px; color: #555558; line-height: 1.6; margin: 0;">
+                ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
+              </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="editorial-tabs" style="margin-top: 20px;">
+              <div class="tab-item active">
+                <div class="tab-head" onclick="toggleTab(this)">How to Ritual <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  ${product.howToUse || 'Apply a few drops to the face in the AM and PM as part of your skincare regimen. Transition gradually if new to clinical actives.'}
+                </div>
+              </div>
+              <div class="tab-item">
+                <div class="tab-head" onclick="toggleTab(this)">Shipping & Delivery <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  Island-wide delivery within 2-4 business days. Secure packaging to maintain product integrity. Rs. 450 flat rate shipping Sri Lanka wide.
+                </div>
+              </div>
+            </div>
+
             <!-- Purchase Zone (Qty and Buttons) -->
-            <div class="purchase-zone" style="display: flex; flex-direction: column; gap: 16px; margin-top: 5px;">
+            <div class="purchase-zone" style="display: flex; flex-direction: column; gap: 16px; margin-top: 25px; border-top: 1px solid #eaeaea; padding-top: 20px;">
               <div class="qty-wrap" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
                  <div style="font-size: 14px; font-weight: 600; color: #555558; font-family: var(--font-sans);">Qty:</div>
                  <div class="qty-toggle" style="display: inline-flex; align-items: center; border: 1px solid #e2e2e5; border-radius: 6px; background: #fff; height: 36px; box-sizing: border-box; overflow: hidden;">
@@ -665,13 +689,13 @@
             </div>
 
             <!-- Delivery Banner -->
-            <div style="background: rgba(198, 151, 90, 0.08); border: 1px solid rgba(198, 151, 90, 0.15); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 13px; color: #2D1B12;">
+            <div style="background: rgba(198, 151, 90, 0.08); border: 1px solid rgba(198, 151, 90, 0.15); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 13px; color: #2D1B12; margin-top: 15px;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #c6975a; flex-shrink: 0;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
               <span>Estimated delivery: <strong>2-4 business days</strong></span>
             </div>
 
             <!-- Micro feature badges inline -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-family: var(--font-sans);">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-family: var(--font-sans); margin-top: 15px;">
               <div style="background: #fdfaf7; border: 1px solid rgba(0,0,0,0.03); border-radius: 6px; padding: 8px 4px; font-size: 11px; color: #555558; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: center; text-align: center;">
                 <span style="font-size: 12px;">🛡️</span>
                 <span style="font-weight: 600;">100% Authentic</span>
@@ -683,30 +707,6 @@
               <div style="background: #fdfaf7; border: 1px solid rgba(0,0,0,0.03); border-radius: 6px; padding: 8px 4px; font-size: 11px; color: #555558; display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: center; text-align: center;">
                 <span style="font-size: 12px;">✨</span>
                 <span style="font-weight: 600;">Brand New</span>
-              </div>
-            </div>
-
-            <!-- Description Block -->
-            <div style="border-top: 1px solid #eaeaea; padding-top: 18px; margin-top: 5px;">
-              <h3 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #2D1B12; margin: 0 0 10px 0;">Description</h3>
-              <p style="font-family: var(--font-sans); font-size: 13.5px; color: #555558; line-height: 1.6; margin: 0;">
-                ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
-              </p>
-            </div>
-
-            <!-- Tabs -->
-            <div class="editorial-tabs" style="margin-top: 5px;">
-              <div class="tab-item active">
-                <div class="tab-head" onclick="toggleTab(this)">How to Ritual <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
-                <div class="tab-body">
-                  ${product.howToUse || 'Apply a few drops to the face in the AM and PM as part of your skincare regimen. Transition gradually if new to clinical actives.'}
-                </div>
-              </div>
-              <div class="tab-item">
-                <div class="tab-head" onclick="toggleTab(this)">Shipping & Delivery <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
-                <div class="tab-body">
-                  Island-wide delivery within 2-4 business days. Secure packaging to maintain product integrity. Rs. 450 flat rate shipping Sri Lanka wide.
-                </div>
               </div>
             </div>
           </div>
