@@ -94,6 +94,29 @@ router.post('/', async (req, res) => {
             }
         }
 
+        // --- WHATSAPP NOTIFICATIONS (CallMeBot) ---
+        const wpPhone = process.env.WHATSAPP_PHONE;
+        const wpApiKey = process.env.WHATSAPP_API_KEY;
+        if (wpPhone && wpApiKey) {
+            const axios = require('axios');
+            const customerName = `${createdOrder.customerInfo?.firstName || 'Customer'} ${createdOrder.customerInfo?.lastName || ''}`;
+            const orderIdShort = createdOrder._id.toString().slice(-6).toUpperCase();
+            
+            let wpMessage = `*🚨 New Order Placed! #${orderIdShort}*\n\n` +
+                            `*Customer:* ${customerName}\n` +
+                            `*Total:* Rs. ${createdOrder.totalPrice.toLocaleString()}\n` +
+                            `*Payment:* ${createdOrder.paymentMethod}\n` +
+                            `*Phone:* ${createdOrder.customerInfo?.phone || 'N/A'}\n` +
+                            `*City:* ${createdOrder.customerInfo?.city || 'N/A'}\n\n` +
+                            `Check details: https://www.beautyinbalance.lk/admin`;
+
+            const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+            
+            axios.get(url)
+                .then(() => console.log(`💬 WhatsApp notification sent for order ${createdOrder._id}`))
+                .catch(err => console.error("❌ WhatsApp notification failed:", err.message));
+        }
+
         return res.status(201).json(createdOrder);
     } catch (error) {
         console.error("Order Creation Error:", error);
