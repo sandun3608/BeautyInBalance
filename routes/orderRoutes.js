@@ -97,7 +97,8 @@ router.post('/', async (req, res) => {
         }
 
         // --- WHATSAPP NOTIFICATIONS (Green API / UltraMsg / CallMeBot) ---
-        const wpPhone = process.env.WHATSAPP_PHONE;
+        const rawWpPhone = process.env.WHATSAPP_PHONE;
+        const wpPhone = rawWpPhone ? rawWpPhone.replace(/[^0-9]/g, '') : null;
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
