@@ -114,7 +114,7 @@ router.post('/', async (req, res) => {
 
         // --- WHATSAPP NOTIFICATIONS (Green API / UltraMsg / CallMeBot) ---
         const rawWpPhone = process.env.WHATSAPP_PHONE;
-        const wpPhone = formatWhatsAppPhone(rawWpPhone);
+        const wpPhones = rawWpPhone ? rawWpPhone.split(',').map(p => formatWhatsAppPhone(p.trim())).filter(p => p) : [];
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
@@ -122,7 +122,7 @@ router.post('/', async (req, res) => {
         const wpApiKey = process.env.WHATSAPP_API_KEY;
 
         const isOnlinePayment = ['Koko', 'Card Payment'].includes(createdOrder.paymentMethod);
-        if (wpPhone && (!isOnlinePayment || createdOrder.isPaid)) {
+        if (wpPhones.length > 0 && (!isOnlinePayment || createdOrder.isPaid)) {
             const axios = require('axios');
             const customerName = `${createdOrder.customerInfo?.firstName || 'Customer'} ${createdOrder.customerInfo?.lastName || ''}`;
             const orderIdShort = createdOrder._id.toString().slice(-6).toUpperCase();
@@ -135,33 +135,35 @@ router.post('/', async (req, res) => {
                             `*City:* ${createdOrder.customerInfo?.city || 'N/A'}\n\n` +
                             `Check details: https://www.beautyinbalance.lk/admin`;
 
-            // Option A: Green API Integration
-            if (greenApiId && greenApiToken) {
-                const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
-                axios.post(url, {
-                    chatId: `${wpPhone}@c.us`,
-                    message: wpMessage
-                })
-                .then(() => console.log(`💬 Green API WhatsApp notification sent for order ${createdOrder._id}`))
-                .catch(err => console.error("❌ Green API notification failed:", err.message));
-            }
-            // Option B: UltraMsg Integration
-            else if (ultraMsgInstance && ultraMsgToken) {
-                const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
-                axios.post(url, {
-                    token: ultraMsgToken,
-                    to: wpPhone,
-                    body: wpMessage
-                })
-                .then(() => console.log(`💬 UltraMsg WhatsApp notification sent for order ${createdOrder._id}`))
-                .catch(err => console.error("❌ UltraMsg notification failed:", err.message));
-            }
-            // Option C: CallMeBot Integration (Fallback)
-            else if (wpApiKey) {
-                const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
-                axios.get(url)
-                    .then(() => console.log(`💬 CallMeBot WhatsApp notification sent for order ${createdOrder._id}`))
-                    .catch(err => console.error("❌ CallMeBot notification failed:", err.message));
+            for (const wpPhone of wpPhones) {
+                // Option A: Green API Integration
+                if (greenApiId && greenApiToken) {
+                    const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+                    axios.post(url, {
+                        chatId: `${wpPhone}@c.us`,
+                        message: wpMessage
+                    })
+                    .then(() => console.log(`💬 Green API WhatsApp notification sent for order ${createdOrder._id} to ${wpPhone}`))
+                    .catch(err => console.error(`❌ Green API notification failed for ${wpPhone}:`, err.message));
+                }
+                // Option B: UltraMsg Integration
+                else if (ultraMsgInstance && ultraMsgToken) {
+                    const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+                    axios.post(url, {
+                        token: ultraMsgToken,
+                        to: wpPhone,
+                        body: wpMessage
+                    })
+                    .then(() => console.log(`💬 UltraMsg WhatsApp notification sent for order ${createdOrder._id} to ${wpPhone}`))
+                    .catch(err => console.error(`❌ UltraMsg notification failed for ${wpPhone}:`, err.message));
+                }
+                // Option C: CallMeBot Integration (Fallback)
+                else if (wpApiKey) {
+                    const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+                    axios.get(url)
+                        .then(() => console.log(`💬 CallMeBot WhatsApp notification sent for order ${createdOrder._id} to ${wpPhone}`))
+                        .catch(err => console.error(`❌ CallMeBot notification failed for ${wpPhone}:`, err.message));
+                }
             }
         }
 
@@ -393,14 +395,14 @@ const reduceProductStock = async (order) => {
 const sendLowStockAlert = async (product) => {
     try {
         const rawWpPhone = process.env.WHATSAPP_PHONE;
-        const wpPhone = formatWhatsAppPhone(rawWpPhone);
+        const wpPhones = rawWpPhone ? rawWpPhone.split(',').map(p => formatWhatsAppPhone(p.trim())).filter(p => p) : [];
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
         const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
         const wpApiKey = process.env.WHATSAPP_API_KEY;
 
-        if (!wpPhone) return;
+        if (wpPhones.length === 0) return;
 
         let wpMessage = `*⚠️ LOW STOCK ALERT! ⚠️*\n\n` +
                         `*Product:* ${product.name}\n` +
@@ -408,30 +410,32 @@ const sendLowStockAlert = async (product) => {
                         `*Category:* ${product.cat}\n\n` +
                         `Please restock: https://www.beautyinbalance.lk/admin`;
 
-        // Option A: Green API
-        if (greenApiId && greenApiToken) {
-            const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
-            await axios.post(url, {
-                chatId: `${wpPhone}@c.us`,
-                message: wpMessage
-            });
-            console.log(`💬 Low Stock Alert sent for ${product.name}`);
-        }
-        // Option B: UltraMsg
-        else if (ultraMsgInstance && ultraMsgToken) {
-            const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
-            await axios.post(url, {
-                token: ultraMsgToken,
-                to: wpPhone,
-                body: wpMessage
-            });
-            console.log(`💬 Low Stock Alert sent for ${product.name}`);
-        }
-        // Option C: CallMeBot
-        else if (wpApiKey) {
-            const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
-            await axios.get(url);
-            console.log(`💬 Low Stock Alert sent for ${product.name}`);
+        for (const wpPhone of wpPhones) {
+            // Option A: Green API
+            if (greenApiId && greenApiToken) {
+                const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+                await axios.post(url, {
+                    chatId: `${wpPhone}@c.us`,
+                    message: wpMessage
+                });
+                console.log(`💬 Low Stock Alert sent for ${product.name} to ${wpPhone}`);
+            }
+            // Option B: UltraMsg
+            else if (ultraMsgInstance && ultraMsgToken) {
+                const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+                await axios.post(url, {
+                    token: ultraMsgToken,
+                    to: wpPhone,
+                    body: wpMessage
+                });
+                console.log(`💬 Low Stock Alert sent for ${product.name} to ${wpPhone}`);
+            }
+            // Option C: CallMeBot
+            else if (wpApiKey) {
+                const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+                await axios.get(url);
+                console.log(`💬 Low Stock Alert sent for ${product.name} to ${wpPhone}`);
+            }
         }
     } catch (err) {
         console.error("❌ Failed to send low stock alert:", err.message);

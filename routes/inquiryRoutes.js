@@ -51,47 +51,49 @@ router.post('/', async (req, res) => {
 
         // --- WHATSAPP NOTIFICATION ---
         const rawWpPhone = process.env.WHATSAPP_PHONE;
-        const wpPhone = formatWhatsAppPhone(rawWpPhone);
+        const wpPhones = rawWpPhone ? rawWpPhone.split(',').map(p => formatWhatsAppPhone(p.trim())).filter(p => p) : [];
         const greenApiId = process.env.GREEN_API_ID_INSTANCE;
         const greenApiToken = process.env.GREEN_API_TOKEN_INSTANCE;
         const ultraMsgInstance = process.env.ULTRAMSG_INSTANCE_ID;
         const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
         const wpApiKey = process.env.WHATSAPP_API_KEY;
 
-        if (wpPhone) {
+        if (wpPhones.length > 0) {
             let wpMessage = `*✉️ New Customer Inquiry Received!*\n\n` +
                             `*Name:* ${savedInquiry.name}\n` +
                             `*Email:* ${savedInquiry.email || 'N/A'}\n` +
                             `*Message:* ${savedInquiry.message || 'N/A'}\n\n` +
                             `Check details: https://www.beautyinbalance.lk/admin`;
 
-            // Option A: Green API Integration
-            if (greenApiId && greenApiToken) {
-                const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
-                axios.post(url, {
-                    chatId: `${wpPhone}@c.us`,
-                    message: wpMessage
-                })
-                .then(() => console.log(`💬 Green API WhatsApp inquiry notification sent`))
-                .catch(err => console.error("❌ Green API inquiry notification failed:", err.message));
-            }
-            // Option B: UltraMsg Integration
-            else if (ultraMsgInstance && ultraMsgToken) {
-                const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
-                axios.post(url, {
-                    token: ultraMsgToken,
-                    to: wpPhone,
-                    body: wpMessage
-                })
-                .then(() => console.log(`💬 UltraMsg WhatsApp inquiry notification sent`))
-                .catch(err => console.error("❌ UltraMsg inquiry notification failed:", err.message));
-            }
-            // Option C: CallMeBot Integration (Fallback)
-            else if (wpApiKey) {
-                const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
-                axios.get(url)
-                .then(() => console.log(`💬 CallMeBot WhatsApp inquiry notification sent`))
-                .catch(err => console.error("❌ CallMeBot inquiry notification failed:", err.message));
+            for (const wpPhone of wpPhones) {
+                // Option A: Green API Integration
+                if (greenApiId && greenApiToken) {
+                    const url = `https://api.green-api.com/waInstance${greenApiId}/sendMessage/${greenApiToken}`;
+                    axios.post(url, {
+                        chatId: `${wpPhone}@c.us`,
+                        message: wpMessage
+                    })
+                    .then(() => console.log(`💬 Green API WhatsApp inquiry notification sent to ${wpPhone}`))
+                    .catch(err => console.error(`❌ Green API inquiry notification failed for ${wpPhone}:`, err.message));
+                }
+                // Option B: UltraMsg Integration
+                else if (ultraMsgInstance && ultraMsgToken) {
+                    const url = `https://api.ultramsg.com/${ultraMsgInstance}/messages/chat`;
+                    axios.post(url, {
+                        token: ultraMsgToken,
+                        to: wpPhone,
+                        body: wpMessage
+                    })
+                    .then(() => console.log(`💬 UltraMsg WhatsApp inquiry notification sent to ${wpPhone}`))
+                    .catch(err => console.error(`❌ UltraMsg inquiry notification failed for ${wpPhone}:`, err.message));
+                }
+                // Option C: CallMeBot Integration (Fallback)
+                else if (wpApiKey) {
+                    const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(wpPhone)}&text=${encodeURIComponent(wpMessage)}&apikey=${encodeURIComponent(wpApiKey)}`;
+                    axios.get(url)
+                    .then(() => console.log(`💬 CallMeBot WhatsApp inquiry notification sent to ${wpPhone}`))
+                    .catch(err => console.error(`❌ CallMeBot inquiry notification failed for ${wpPhone}:`, err.message));
+                }
             }
         }
 
