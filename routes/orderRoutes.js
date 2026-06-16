@@ -185,12 +185,7 @@ router.post('/', async (req, res) => {
 // @access  Private (Admins Only)
 router.get('/', protect, async (req, res) => {
     try {
-        const orders = await Order.find({
-            $or: [
-                { paymentMethod: { $nin: ['Koko', 'Card Payment'] } },
-                { paymentMethod: { $in: ['Koko', 'Card Payment'] }, isPaid: true }
-            ]
-        }).sort({ createdAt: -1 }); // Newest first
+        const orders = await Order.find({}).sort({ createdAt: -1 }); // Newest first
         res.json(orders);
     } catch (error) {
         console.error("Error fetching orders:", error);

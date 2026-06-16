@@ -2377,6 +2377,17 @@
             pmBg = '#f5f5f5'; pmColor = '#666'; pmLabel = pm;
           }
           
+          // Payment Status for Online Payments
+          const isOnline = pm.toLowerCase().includes('card') || pm.toLowerCase().includes('koko');
+          let paymentStatusHtml = '';
+          if (isOnline) {
+            if (order.isPaid) {
+              paymentStatusHtml = '<br><span style="background: #ecfdf5; color: #10b981; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; display: inline-block; margin-top: 4px; border: 1px solid rgba(16, 185, 129, 0.2);">✓ PAID</span>';
+            } else {
+              paymentStatusHtml = '<br><span style="background: #fef2f2; color: #ef4444; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; display: inline-block; margin-top: 4px; border: 1px solid rgba(239, 68, 68, 0.2);">✗ UNPAID</span>';
+            }
+          }
+          
           // Format order time
           const orderDate = new Date(order.createdAt);
           const timeStr = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'short', day: 'numeric' }) + '<br><span style="font-size:10px; color:#999;">' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true }) + '</span>';
@@ -2390,7 +2401,7 @@
               </div>
             </td>
             <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td>
-            <td><span style="background: ${pmBg}; color: ${pmColor}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap;">${pmLabel}</span></td>
+            <td><span style="background: ${pmBg}; color: ${pmColor}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap;">${pmLabel}</span>${paymentStatusHtml}</td>
             <td style="font-size: 12px; white-space: nowrap;">${timeStr}</td>
             <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Processing'}</span></td>
             <td>
