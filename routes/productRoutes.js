@@ -24,6 +24,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @route   GET /api/products/set-all-discounts-12
+router.get('/set-all-discounts-12', async (req, res) => {
+    try {
+        const result = await Product.updateMany({}, { $set: { discount: 12 } });
+        res.json({ message: 'SUCCESS! Updated all products to 12% discount.', updatedCount: result.modifiedCount });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to update discounts!', error: err.message });
+    }
+});
+
 // ⚡ IMPORTANT: /seed-now MUST BE BEFORE /:id or Express matches "seed-now" as an :id
 // @route   GET /api/products/seed-now (NUCLEAR RESET 🔥)
 router.get('/seed-now', async (req, res) => {

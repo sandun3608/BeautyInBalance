@@ -1,300 +1,663 @@
 const defaultProducts = [
-  { 
-    id: 'cer-am-spf30',
-    name: 'AM Facial Moisturizing Lotion SPF 30 (89ml)', price: 6500, cat: 'cerave', filter: 'sunscreen', 
-    images: ['cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png'], img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png',
-    desc: 'A morning skincare multitasker, featuring three essential ceramides, hydrating hyaluronic acid and soothing niacinamide, plus our patented MVE Delivery Technology to supply much-needed moisture throughout the day. Offering Broad Spectrum sunscreen, our moisturizer with SPF 30 features InVisibleZinc Technology.',
-    benefits: ['Broad Spectrum SPF 30', 'Provides All-Day Hydration', 'Restores Skin Barrier'],
-    howToUse: 'Apply liberally 15 minutes before sun exposure. Reapply at least every 2 hours.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-am-spf30",
+    "name": "AM Facial Moisturizing Lotion SPF 30 (89ml)",
+    "price": 6500,
+    "cat": "cerave",
+    "filter": "sunscreen",
+    "images": [
+      "cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png"
+    ],
+    "img": "cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png",
+    "desc": "A morning skincare multitasker, featuring three essential ceramides, hydrating hyaluronic acid and soothing niacinamide, plus our patented MVE Delivery Technology to supply much-needed moisture throughout the day. Offering Broad Spectrum sunscreen, our moisturizer with SPF 30 features InVisibleZinc Technology.",
+    "benefits": [
+      "Broad Spectrum SPF 30",
+      "Provides All-Day Hydration",
+      "Restores Skin Barrier"
+    ],
+    "howToUse": "Apply liberally 15 minutes before sun exposure. Reapply at least every 2 hours.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-acne-control',
-    name: 'Acne Control Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'cleansers', 
-    images: ['cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png'], img: 'cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png',
-    desc: 'An expertly formulated daily gel-to-foam acne treatment that visibly clears acne breakouts while gently exfoliating with 2% Salicylic Acid. Enriched with Hectorite Clay to absorb excess oil, and essential ceramides to maintain the skin’s natural barrier, it effectively prevents new breakouts without stripping the skin of moisture.',
-    benefits: ['Clears Acne', 'Absorbs Excess Oil', 'Restores Skin Barrier'],
-    howToUse: 'Wet face, gently massage product into a lather. Rinse completely. Use every morning and evening.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-acne-control",
+    "name": "Acne Control Cleanser (237ml)",
+    "price": 6800,
+    "cat": "cerave",
+    "filter": "cleansers",
+    "images": [
+      "cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png"
+    ],
+    "img": "cerave prodcut/Acne Control Cleanser (237ml)  Rs.6800.png",
+    "desc": "An expertly formulated daily gel-to-foam acne treatment that visibly clears acne breakouts while gently exfoliating with 2% Salicylic Acid. Enriched with Hectorite Clay to absorb excess oil, and essential ceramides to maintain the skin’s natural barrier, it effectively prevents new breakouts without stripping the skin of moisture.",
+    "benefits": [
+      "Clears Acne",
+      "Absorbs Excess Oil",
+      "Restores Skin Barrier"
+    ],
+    "howToUse": "Wet face, gently massage product into a lather. Rinse completely. Use every morning and evening.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-blemish-control',
-    name: 'Blemish Control Cleanser (236ml)', price: 7400, cat: 'cerave', filter: 'cleansers', 
-    images: ['cerave prodcut/Blemish Control Cleanser (236ml)  Rs.7400.png'], img: 'cerave prodcut/Blemish Control Cleanser (236ml)  Rs.7400.png',
-    desc: 'A refreshing daily gel cleanser specifically developed for blemish-prone skin. Infused with Purifying Clay, 2% Salicylic Acid, and Niacinamide, it clears clogged pores, regulates sebum production, and visibly reduces the appearance of blackheads and blemishes. The formula guarantees a soft, smoothed texture without disrupting the protective skin barrier.',
-    benefits: ['Targets Blemishes', 'Soothes Redness', 'Unclogs Pores'],
-    howToUse: 'Massage gently onto wet skin in circular motions. Rinse thoroughly. Ideal for daily use.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-blemish-control",
+    "name": "Blemish Control Cleanser (236ml)",
+    "price": 7400,
+    "cat": "cerave",
+    "filter": "cleansers",
+    "images": [
+      "cerave prodcut/Blemish Control Cleanser (236ml)  Rs.7400.png"
+    ],
+    "img": "cerave prodcut/Blemish Control Cleanser (236ml)  Rs.7400.png",
+    "desc": "A refreshing daily gel cleanser specifically developed for blemish-prone skin. Infused with Purifying Clay, 2% Salicylic Acid, and Niacinamide, it clears clogged pores, regulates sebum production, and visibly reduces the appearance of blackheads and blemishes. The formula guarantees a soft, smoothed texture without disrupting the protective skin barrier.",
+    "benefits": [
+      "Targets Blemishes",
+      "Soothes Redness",
+      "Unclogs Pores"
+    ],
+    "howToUse": "Massage gently onto wet skin in circular motions. Rinse thoroughly. Ideal for daily use.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-forming',
-    name: 'Foaming Cleanser (236ml)', price: 6600, cat: 'cerave', filter: 'cleansers', 
-    images: ['cerave prodcut/Forming Cleanser (236ml)  Rs.6600.png'], img: 'cerave prodcut/Forming Cleanser (236ml)  Rs.6600.png',
-    desc: 'Developed alongside dermatologists, this deeply purifying gel-based Foaming Cleanser effortlessly washes away dirt, excess oil, and stubborn makeup. Featuring three essential ceramides, hyaluronic acid, and calming niacinamide, it deeply cleanses the surface without compromising or upsetting the skin\'s natural moisture balance. Ideal for normal to oily skin types.',
-    benefits: ['Deep Cleansing Foaming Action', 'Balances Oily Skin', 'Non-drying Formula'],
-    howToUse: 'Apply to wet skin, massage gently into a rich foam. Rinse off completely with lukewarm water.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-forming",
+    "name": "Foaming Cleanser (236ml)",
+    "price": 6600,
+    "cat": "cerave",
+    "filter": "cleansers",
+    "images": [
+      "cerave prodcut/Forming Cleanser (236ml)  Rs.6600.png"
+    ],
+    "img": "cerave prodcut/Forming Cleanser (236ml)  Rs.6600.png",
+    "desc": "Developed alongside dermatologists, this deeply purifying gel-based Foaming Cleanser effortlessly washes away dirt, excess oil, and stubborn makeup. Featuring three essential ceramides, hyaluronic acid, and calming niacinamide, it deeply cleanses the surface without compromising or upsetting the skin's natural moisture balance. Ideal for normal to oily skin types.",
+    "benefits": [
+      "Deep Cleansing Foaming Action",
+      "Balances Oily Skin",
+      "Non-drying Formula"
+    ],
+    "howToUse": "Apply to wet skin, massage gently into a rich foam. Rinse off completely with lukewarm water.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-hydrating',
-    name: 'Hydrating Cleanser (236ml)', price: 6800, cat: 'cerave', filter: 'cleansers', 
-    images: ['cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png'], img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png',
-    desc: 'A uniquely comforting, non-foaming lotion cleanser designed specifically to hydrate and restore normal to dry skin types. It utilizes patented MVE Delivery Technology combined with hyaluronic acid to effectively cleanse the skin of impurities while locking in moisture all day. Leaves the skin feeling incredibly soft, soothed, and perfectly nourished.',
-    benefits: ['All-Day Hydration', 'Gentle Lotion Texture', 'Soothes Dryness'],
-    howToUse: 'Wet face, apply a generous amount and massage gently. Rinse off cleanly with water.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-hydrating",
+    "name": "Hydrating Cleanser (236ml)",
+    "price": 6800,
+    "cat": "cerave",
+    "filter": "cleansers",
+    "images": [
+      "cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png"
+    ],
+    "img": "cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png",
+    "desc": "A uniquely comforting, non-foaming lotion cleanser designed specifically to hydrate and restore normal to dry skin types. It utilizes patented MVE Delivery Technology combined with hyaluronic acid to effectively cleanse the skin of impurities while locking in moisture all day. Leaves the skin feeling incredibly soft, soothed, and perfectly nourished.",
+    "benefits": [
+      "All-Day Hydration",
+      "Gentle Lotion Texture",
+      "Soothes Dryness"
+    ],
+    "howToUse": "Wet face, apply a generous amount and massage gently. Rinse off cleanly with water.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-hydrating-oil',
-    name: 'Hydrating Foaming Oil Cleanser (237ml)', price: 8000, cat: 'cerave', filter: 'bodycare', 
-    images: ['cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png'], img: 'cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png',
-    desc: 'A luxurious, beautifully transforming oil-to-foam cleanser perfectly tailored for extremely dry, sensitive, or atopic-prone skin. Infused with squalane oil and rich triglycerides, it softly melts away dirt and impurities without leaving a greasy residue. The skin is instantly replenished with deep hydration, resulting in a supremely soft and comfortable skin barrier.',
-    benefits: ['Oil-to-Foam Texture', 'Deeply Nourishing Squalane', 'Ultra-Mild Cleansing'],
-    howToUse: 'Apply onto wet skin and gently massage until the oil transforms into a lather. Rinse fully.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-hydrating-oil",
+    "name": "Hydrating Foaming Oil Cleanser (237ml)",
+    "price": 8000,
+    "cat": "cerave",
+    "filter": "bodycare",
+    "images": [
+      "cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png"
+    ],
+    "img": "cerave prodcut/Hydrating Forming Oil Cleanser (237ml)  Rs.8000.png",
+    "desc": "A luxurious, beautifully transforming oil-to-foam cleanser perfectly tailored for extremely dry, sensitive, or atopic-prone skin. Infused with squalane oil and rich triglycerides, it softly melts away dirt and impurities without leaving a greasy residue. The skin is instantly replenished with deep hydration, resulting in a supremely soft and comfortable skin barrier.",
+    "benefits": [
+      "Oil-to-Foam Texture",
+      "Deeply Nourishing Squalane",
+      "Ultra-Mild Cleansing"
+    ],
+    "howToUse": "Apply onto wet skin and gently massage until the oil transforms into a lather. Rinse fully.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-psoriasis',
-    name: 'Psoriasis Cleanser (237ml)', price: 6800, cat: 'cerave', filter: 'bodycare', 
-    images: ['cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png'], img: 'cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png',
-    desc: 'A highly specialized, therapeutic body and face wash formulated to relieve discomfort associated with psoriasis. Medicated with 2% Salicylic Acid to gently remove scaling, and infused with Lactic Acid and Niacinamide, it actively calms stubborn redness, intense itching, and visible flaking. Promotes calmer, visibly smoother, and comfortably restored skin.',
-    benefits: ['Relieves Itching & Redness', 'Removes Scales', 'Therapeutic Formula'],
-    howToUse: 'Use on affected areas generously. Massage carefully and leave for a few moments before rinsing off.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-psoriasis",
+    "name": "Psoriasis Cleanser (237ml)",
+    "price": 6800,
+    "cat": "cerave",
+    "filter": "bodycare",
+    "images": [
+      "cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png"
+    ],
+    "img": "cerave prodcut/Psoriasis Cleanser(237ml) rs 6800.png",
+    "desc": "A highly specialized, therapeutic body and face wash formulated to relieve discomfort associated with psoriasis. Medicated with 2% Salicylic Acid to gently remove scaling, and infused with Lactic Acid and Niacinamide, it actively calms stubborn redness, intense itching, and visible flaking. Promotes calmer, visibly smoother, and comfortably restored skin.",
+    "benefits": [
+      "Relieves Itching & Redness",
+      "Removes Scales",
+      "Therapeutic Formula"
+    ],
+    "howToUse": "Use on affected areas generously. Massage carefully and leave for a few moments before rinsing off.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-renewing-sa',
-    name: 'Renewing SA Cleanser (237ml)', price: 7200, cat: 'cerave', filter: 'cleansers', 
-    images: ['cerave prodcut/Renewing SA Cleanser (237ml) Rs.7200.png'], img: 'cerave prodcut/Renewing SA Cleanser (237ml) Rs.7200.png',
-    desc: 'A gentle yet powerfully effective salicylic acid cleanser that delivers non-irritating exfoliation to slough off dead skin cells. Infused with antioxidant Vitamin D and a ceramide-rich complex, it targets rough, bumpy textures while avoiding mechanical scrubbing, leaving the skin feeling deeply revitalized, incredibly smooth, and beautifully renewed.',
-    benefits: ['Exfoliates gently', 'Rich in Vitamin D', 'Smoothes Bumpy Skin'],
-    howToUse: 'Wet skin with lukewarm water. Massage the cleanser in a gentle motion. Rinse thoroughly.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-renewing-sa",
+    "name": "Renewing SA Cleanser (237ml)",
+    "price": 7200,
+    "cat": "cerave",
+    "filter": "cleansers",
+    "images": [
+      "cerave prodcut/Renewing SA Cleanser (237ml) Rs.7200.png"
+    ],
+    "img": "cerave prodcut/Renewing SA Cleanser (237ml) Rs.7200.png",
+    "desc": "A gentle yet powerfully effective salicylic acid cleanser that delivers non-irritating exfoliation to slough off dead skin cells. Infused with antioxidant Vitamin D and a ceramide-rich complex, it targets rough, bumpy textures while avoiding mechanical scrubbing, leaving the skin feeling deeply revitalized, incredibly smooth, and beautifully renewed.",
+    "benefits": [
+      "Exfoliates gently",
+      "Rich in Vitamin D",
+      "Smoothes Bumpy Skin"
+    ],
+    "howToUse": "Wet skin with lukewarm water. Massage the cleanser in a gentle motion. Rinse thoroughly.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'cer-sa-smoothing',
-    name: 'SA Smoothing Cleanser (236ml)', price: 6750, cat: 'cerave', filter: 'cleansers', 
-    images: ['cerave prodcut/SA Smoothing Cleanser (236ml) Rs.6750.png'], img: 'cerave prodcut/SA Smoothing Cleanser (236ml) Rs.6750.png',
-    desc: 'Designed for dry, rough, and noticeably bumpy skin surfaces, this specialized smoothing cleanser provides targeted chemical exfoliation. Utilizing Salicylic Acid combined with hydrating Hyaluronic Acid, it effectively buffs away dead layers while reinforcing the skin barrier. Experience a transformative difference in skin softness without any abrasive microbeads.',
-    benefits: ['Targets Rough Exfoliation', 'Fragrance-Free', 'Enhances Skin Softness'],
-    howToUse: 'Massage an adequate amount onto wet skin. Wash off completely for best results.',
-    authenticity: '100% Genuine Direct Import.'
+  {
+    "id": "cer-sa-smoothing",
+    "name": "SA Smoothing Cleanser (236ml)",
+    "price": 6750,
+    "cat": "cerave",
+    "filter": "cleansers",
+    "images": [
+      "cerave prodcut/SA Smoothing Cleanser (236ml) Rs.6750.png"
+    ],
+    "img": "cerave prodcut/SA Smoothing Cleanser (236ml) Rs.6750.png",
+    "desc": "Designed for dry, rough, and noticeably bumpy skin surfaces, this specialized smoothing cleanser provides targeted chemical exfoliation. Utilizing Salicylic Acid combined with hydrating Hyaluronic Acid, it effectively buffs away dead layers while reinforcing the skin barrier. Experience a transformative difference in skin softness without any abrasive microbeads.",
+    "benefits": [
+      "Targets Rough Exfoliation",
+      "Fragrance-Free",
+      "Enhances Skin Softness"
+    ],
+    "howToUse": "Massage an adequate amount onto wet skin. Wash off completely for best results.",
+    "authenticity": "100% Genuine Direct Import.",
+    "discount": 12
   },
-  { 
-    id: 'ord-caffeine-30',
-    name: 'Caffeine Solution 5% + EGCG (30ml)', price: 4600, cat: 'ordinary', filter: 'eye-care', 
-    images: ['the ordinary/Caffeine solution (30ml)  Rs.4600.png'], img: 'the ordinary/Caffeine solution (30ml)  Rs.4600.png',
-    desc: 'A brilliantly light-textured eye serum optimized with an extraordinarily high 5% concentration of caffeine and highly-purified EGCG extracted from green tea leaves. Independent studies show that topical application of these active ingredients dramatically reduces puffiness, under-eye bags, and dark pigmentation contours around the delicate eye area.',
-    benefits: ['Reduces eye bags', 'Minimizes dark circles', 'Antioxidant-rich EGCG'],
-    howToUse: 'Massage a small amount onto the eye contour AM and PM.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-caffeine-30",
+    "name": "Caffeine Solution 5% + EGCG (30ml)",
+    "price": 4600,
+    "cat": "ordinary",
+    "filter": "eye-care",
+    "images": [
+      "the ordinary/Caffeine solution (30ml)  Rs.4600.png"
+    ],
+    "img": "the ordinary/Caffeine solution (30ml)  Rs.4600.png",
+    "desc": "A brilliantly light-textured eye serum optimized with an extraordinarily high 5% concentration of caffeine and highly-purified EGCG extracted from green tea leaves. Independent studies show that topical application of these active ingredients dramatically reduces puffiness, under-eye bags, and dark pigmentation contours around the delicate eye area.",
+    "benefits": [
+      "Reduces eye bags",
+      "Minimizes dark circles",
+      "Antioxidant-rich EGCG"
+    ],
+    "howToUse": "Massage a small amount onto the eye contour AM and PM.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-aha-bha-30',
-    name: 'AHA 30% + BHA 2% Peeling Solution (30ml)', price: 5200, cat: 'ordinary', filter: 'acids', 
-    images: ['the ordinary/Aha bha peeling solution (30ml) Rs.5200.png'], img: 'the ordinary/Aha bha peeling solution (30ml) Rs.5200.png',
-    desc: 'A highly sought-after 10-minute exfoliating facial treatment featuring a potent 32% blend of alpha and beta-hydroxy acids. It is expertly formulated to deeply exfoliate the skin\'s topmost surface for a brighter, more even appearance. This dramatic peeling solution clears congested pores, combats active blemishes, and helps smooth out fine lines and skin texture irregularities with continuous, careful use.',
-    benefits: ['Exfoliates top layers', 'Clears pores', 'Improves textrue & radiance'],
-    howToUse: 'Use ideally in the PM, no more frequently than twice per week. Leave on for no more than 10 minutes. Rinse thoroughly.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-aha-bha-30",
+    "name": "AHA 30% + BHA 2% Peeling Solution (30ml)",
+    "price": 5200,
+    "cat": "ordinary",
+    "filter": "acids",
+    "images": [
+      "the ordinary/Aha bha peeling solution (30ml) Rs.5200.png"
+    ],
+    "img": "the ordinary/Aha bha peeling solution (30ml) Rs.5200.png",
+    "desc": "A highly sought-after 10-minute exfoliating facial treatment featuring a potent 32% blend of alpha and beta-hydroxy acids. It is expertly formulated to deeply exfoliate the skin's topmost surface for a brighter, more even appearance. This dramatic peeling solution clears congested pores, combats active blemishes, and helps smooth out fine lines and skin texture irregularities with continuous, careful use.",
+    "benefits": [
+      "Exfoliates top layers",
+      "Clears pores",
+      "Improves textrue & radiance"
+    ],
+    "howToUse": "Use ideally in the PM, no more frequently than twice per week. Leave on for no more than 10 minutes. Rinse thoroughly.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-rosehip-30',
-    name: '100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)', price: 5600, cat: 'ordinary', filter: 'face-oils', 
-    images: ['the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png'], img: 'the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png',
-    desc: 'An exquisite, 100% organic, cold-pressed oil that deeply hydrates the skin while supporting a healthy, radiant complexion. Rich in linoleic acid, linolenic acid, and pro-vitamin A, this luxurious daily oil actively targets visible signs of photo-aging, balances uneven skin tone, reduces dullness, and boosts overall skin resilience for a glowing, youthful finish.',
-    benefits: ['Deeply Hydrates', 'Improves Skin Tone', 'Anti-aging properties'],
-    howToUse: 'Apply once a day to the face, ideally in the PM after application of water-based treatments.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-rosehip-30",
+    "name": "100% Organic Cold-Pressed Rose Hip Seed Oil (30ml)",
+    "price": 5600,
+    "cat": "ordinary",
+    "filter": "face-oils",
+    "images": [
+      "the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png"
+    ],
+    "img": "the ordinary/100%25 Organic Cold-Pressed Rose Hip Seed Oil (30ml)  Rs.5600.png",
+    "desc": "An exquisite, 100% organic, cold-pressed oil that deeply hydrates the skin while supporting a healthy, radiant complexion. Rich in linoleic acid, linolenic acid, and pro-vitamin A, this luxurious daily oil actively targets visible signs of photo-aging, balances uneven skin tone, reduces dullness, and boosts overall skin resilience for a glowing, youthful finish.",
+    "benefits": [
+      "Deeply Hydrates",
+      "Improves Skin Tone",
+      "Anti-aging properties"
+    ],
+    "howToUse": "Apply once a day to the face, ideally in the PM after application of water-based treatments.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-granactive-retinoid-30',
-    name: 'Granactive Retinoid 2% Emulsion (30ml)', price: 5500, cat: 'ordinary', filter: 'retinoids', 
-    images: ['the ordinary/Granactive retinoid 2 emulsion (30ml)  Rs.5500.png'], img: 'the ordinary/Granactive retinoid 2 emulsion (30ml)  Rs.5500.png',
-    desc: 'This highly advanced, creamy emulsion combines two forms of next-generation retinoid actives in a 2% concentration weight. It effectively delivers better results against multiple signs of aging—such as fine lines, dullness, and textural irregularities—than traditional retinol, all while avoiding the typical irritation and peeling associated with retinoid use.',
-    benefits: ['Targets visible aging', 'Refines skin texture', 'Low irritation risk'],
-    howToUse: 'Apply a small amount to face in the PM as part of your skincare regimen, after water based serums but before heavier treatments.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-granactive-retinoid-30",
+    "name": "Granactive Retinoid 2% Emulsion (30ml)",
+    "price": 5500,
+    "cat": "ordinary",
+    "filter": "retinoids",
+    "images": [
+      "the ordinary/Granactive retinoid 2 emulsion (30ml)  Rs.5500.png"
+    ],
+    "img": "the ordinary/Granactive retinoid 2 emulsion (30ml)  Rs.5500.png",
+    "desc": "This highly advanced, creamy emulsion combines two forms of next-generation retinoid actives in a 2% concentration weight. It effectively delivers better results against multiple signs of aging—such as fine lines, dullness, and textural irregularities—than traditional retinol, all while avoiding the typical irritation and peeling associated with retinoid use.",
+    "benefits": [
+      "Targets visible aging",
+      "Refines skin texture",
+      "Low irritation risk"
+    ],
+    "howToUse": "Apply a small amount to face in the PM as part of your skincare regimen, after water based serums but before heavier treatments.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-alpha-arbutin-30',
-    name: 'Alpha Arbutin 2% + HA (30ml)', price: 4800, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Alpha arbutin (30ml)  Rs.4800.png'], img: 'the ordinary/Alpha arbutin (30ml)  Rs.4800.png',
-    desc: 'A concentrated daily serum featuring a high 2% concentration of purified Alpha Arbutin, fortified with Hyaluronic Acid for enhanced delivery. This advanced formula actively reduces the look of stubborn dark spots, hyperpigmentation, and acne scars by suppressing melanin production, ensuring a unified, visibly luminous, and hydrated complexion.',
-    benefits: ['Reduces dark spots', 'Evens skin tone', 'Hydrating with HA'],
-    howToUse: 'Apply a few drops to face in the AM and PM as part of your skincare regimen.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-alpha-arbutin-30",
+    "name": "Alpha Arbutin 2% + HA (30ml)",
+    "price": 4800,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/Alpha arbutin (30ml)  Rs.4800.png"
+    ],
+    "img": "the ordinary/Alpha arbutin (30ml)  Rs.4800.png",
+    "desc": "A concentrated daily serum featuring a high 2% concentration of purified Alpha Arbutin, fortified with Hyaluronic Acid for enhanced delivery. This advanced formula actively reduces the look of stubborn dark spots, hyperpigmentation, and acne scars by suppressing melanin production, ensuring a unified, visibly luminous, and hydrated complexion.",
+    "benefits": [
+      "Reduces dark spots",
+      "Evens skin tone",
+      "Hydrating with HA"
+    ],
+    "howToUse": "Apply a few drops to face in the AM and PM as part of your skincare regimen.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-ascorbic-arbutin-30',
-    name: 'Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)', price: 5200, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png'], img: 'the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png',
-    desc: 'A water-free, stable formulation combining two of the most powerful brightening agents in skincare: pure Vitamin C (Ascorbic Acid) and Alpha Arbutin. This dual-action powerhouse visibly brightens the skin tone, fades dark spots and post-blemish marks, and provides intense antioxidant protection against environmental stressors, resulting in a flawless glow.',
-    benefits: ['Brightens Complexion', 'Fades Dark Spots', 'Antioxidant Support'],
-    howToUse: 'Apply a few drops to face in the AM and PM as part of your skincare regimen. Avoid use around eyes.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-ascorbic-arbutin-30",
+    "name": "Ascorbic Acid 8% + Alpha Arbutin 2% (30ml)",
+    "price": 5200,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png"
+    ],
+    "img": "the ordinary/Ascorbic Acid 8%25 %2B Alpha Arbutin 2%25 (30ml)  Rs.5200.png",
+    "desc": "A water-free, stable formulation combining two of the most powerful brightening agents in skincare: pure Vitamin C (Ascorbic Acid) and Alpha Arbutin. This dual-action powerhouse visibly brightens the skin tone, fades dark spots and post-blemish marks, and provides intense antioxidant protection against environmental stressors, resulting in a flawless glow.",
+    "benefits": [
+      "Brightens Complexion",
+      "Fades Dark Spots",
+      "Antioxidant Support"
+    ],
+    "howToUse": "Apply a few drops to face in the AM and PM as part of your skincare regimen. Avoid use around eyes.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-azelaic-10-30',
-    name: 'Azelaic Acid Suspension 10% (30ml)', price: 7200, cat: 'ordinary', filter: 'acids', 
-    images: ['the ordinary/Azelaic Acid Suspension 10%25 (30ml)  Rs.7200.png'], img: 'the ordinary/Azelaic Acid Suspension 10%25 (30ml)  Rs.7200.png',
-    desc: 'Powered by highly purified Azelaic Acid, this multi-functional, lightweight cream-gel suspension brightens skin tone while radically improving the uniformity of skin texture. Known for its remarkable ability to reduce redness and target blemishes, it acts as an effective antioxidant that guards against skin deterioration, making it perfect for sensitive or rosacea-prone skin.',
-    benefits: ['Brightens skin tone', 'Improves texture', 'Reduces redness'],
-    howToUse: 'Apply to face AM and/or PM to improve visible brightness and the appearance of skin texture.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-azelaic-10-30",
+    "name": "Azelaic Acid Suspension 10% (30ml)",
+    "price": 7200,
+    "cat": "ordinary",
+    "filter": "acids",
+    "images": [
+      "the ordinary/Azelaic Acid Suspension 10%25 (30ml)  Rs.7200.png"
+    ],
+    "img": "the ordinary/Azelaic Acid Suspension 10%25 (30ml)  Rs.7200.png",
+    "desc": "Powered by highly purified Azelaic Acid, this multi-functional, lightweight cream-gel suspension brightens skin tone while radically improving the uniformity of skin texture. Known for its remarkable ability to reduce redness and target blemishes, it acts as an effective antioxidant that guards against skin deterioration, making it perfect for sensitive or rosacea-prone skin.",
+    "benefits": [
+      "Brightens skin tone",
+      "Improves texture",
+      "Reduces redness"
+    ],
+    "howToUse": "Apply to face AM and/or PM to improve visible brightness and the appearance of skin texture.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-glycolic-240',
-    name: 'Glycolic Acid 7% Toning Solution (240ml)', price: 4800, cat: 'ordinary', filter: 'acids', 
-    images: ['the ordinary/Glycolic Acid Toning Solution (240ml)  Rs.4800.png'], img: 'the ordinary/Glycolic Acid Toning Solution (240ml)  Rs.4800.png',
-    desc: 'A daily exfoliating toner that offers mild, skin-resurfacing exfoliation with 7% Glycolic Acid to vastly improve skin radiance and visible clarity. The formula is soothingly enhanced with Tasmanian Pepperberry derivative to help reduce irritation associated with acid use, alongside Aloe Vera and Ginseng root to soothe and re-energize the skin structure.',
-    benefits: ['Mild exfoliation', 'Improves skin radiance', 'Visible clarity'],
-    howToUse: 'Use ideally in the PM, no more frequently than once per day. Saturate a cotton pad and sweep across face and neck.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-glycolic-240",
+    "name": "Glycolic Acid 7% Toning Solution (240ml)",
+    "price": 4800,
+    "cat": "ordinary",
+    "filter": "acids",
+    "images": [
+      "the ordinary/Glycolic Acid Toning Solution (240ml)  Rs.4800.png"
+    ],
+    "img": "the ordinary/Glycolic Acid Toning Solution (240ml)  Rs.4800.png",
+    "desc": "A daily exfoliating toner that offers mild, skin-resurfacing exfoliation with 7% Glycolic Acid to vastly improve skin radiance and visible clarity. The formula is soothingly enhanced with Tasmanian Pepperberry derivative to help reduce irritation associated with acid use, alongside Aloe Vera and Ginseng root to soothe and re-energize the skin structure.",
+    "benefits": [
+      "Mild exfoliation",
+      "Improves skin radiance",
+      "Visible clarity"
+    ],
+    "howToUse": "Use ideally in the PM, no more frequently than once per day. Saturate a cotton pad and sweep across face and neck.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-ha-30',
-    name: 'Hyaluronic Acid 2% + B5 (30ml)', price: 4800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Hyaluronic Acid (30ml) Rs.4800.png'], img: 'the ordinary/Hyaluronic Acid (30ml) Rs.4800.png',
-    desc: 'An ultra-pure hydrating serum that intricately combines low, medium, and high-molecular-weight Hyaluronic Acid, alongside a next-generation HA crosspolymer at a collective 2% concentration. This exceptional system delivers intense, multi-depth hydration that plumps the skin instantly while Vitamin B5 enhances surface hydration and skin barrier restoration.',
-    benefits: ['Deep multi-depth Hydration', 'Plumps skin', 'Enriched with Vitamin B5'],
-    howToUse: 'Apply a few drops to face AM and PM before creams.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-ha-30",
+    "name": "Hyaluronic Acid 2% + B5 (30ml)",
+    "price": 4800,
+    "cat": "ordinary",
+    "filter": "serums",
+    "images": [
+      "the ordinary/Hyaluronic Acid (30ml) Rs.4800.png"
+    ],
+    "img": "the ordinary/Hyaluronic Acid (30ml) Rs.4800.png",
+    "desc": "An ultra-pure hydrating serum that intricately combines low, medium, and high-molecular-weight Hyaluronic Acid, alongside a next-generation HA crosspolymer at a collective 2% concentration. This exceptional system delivers intense, multi-depth hydration that plumps the skin instantly while Vitamin B5 enhances surface hydration and skin barrier restoration.",
+    "benefits": [
+      "Deep multi-depth Hydration",
+      "Plumps skin",
+      "Enriched with Vitamin B5"
+    ],
+    "howToUse": "Apply a few drops to face AM and PM before creams.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-lactic-30',
-    name: 'Lactic Acid 10% + HA (30ml)', price: 4700, cat: 'ordinary', filter: 'acids', 
-    images: ['the ordinary/Lactic acid (30ml)  Rs.4700.png'], img: 'the ordinary/Lactic acid (30ml)  Rs.4700.png',
-    desc: 'A highly effective but gentle surface peeling formulation that utilizes a 10% high-strength Lactic Acid to dissolve dead skin cells. The addition of purified Tasmanian Pepperberry brilliantly mitigates the signs of inflammation and sensitivity that often occur with exfoliation, resulting in noticeably brighter, smoother, and healthier-looking skin.',
-    benefits: ['Gentle Exfoliation', 'Promotes brighter skin', 'Reduces inflammation'],
-    howToUse: 'Apply once per day, ideally in the PM. Can be diluted with other treatments until skin tolerance develops.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-lactic-30",
+    "name": "Lactic Acid 10% + HA (30ml)",
+    "price": 4700,
+    "cat": "ordinary",
+    "filter": "acids",
+    "images": [
+      "the ordinary/Lactic acid (30ml)  Rs.4700.png"
+    ],
+    "img": "the ordinary/Lactic acid (30ml)  Rs.4700.png",
+    "desc": "A highly effective but gentle surface peeling formulation that utilizes a 10% high-strength Lactic Acid to dissolve dead skin cells. The addition of purified Tasmanian Pepperberry brilliantly mitigates the signs of inflammation and sensitivity that often occur with exfoliation, resulting in noticeably brighter, smoother, and healthier-looking skin.",
+    "benefits": [
+      "Gentle Exfoliation",
+      "Promotes brighter skin",
+      "Reduces inflammation"
+    ],
+    "howToUse": "Apply once per day, ideally in the PM. Can be diluted with other treatments until skin tolerance develops.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-multi-peptide-copper-30',
-    name: 'Multi-Peptide + Copper Peptides 1% (30ml)', price: 7800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png'], img: 'the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png',
-    desc: 'A universal "buffet" serum built to simultaneously address maximum signs of aging. It incorporates a sophisticated array of peptide complexes alongside direct Copper Peptides (1%), all dissolved in a base of 11 skin-friendly amino acids and multiple hyaluronic acid complexes. It intensely boosts collagen, repairs skin damage, and significantly improves facial firmness.',
-    benefits: ['Reduces fine lines', 'Promotes facial firmness', 'Supports overall skin health'],
-    howToUse: 'Apply to the entire face in the AM and PM after cleaning.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-multi-peptide-copper-30",
+    "name": "Multi-Peptide + Copper Peptides 1% (30ml)",
+    "price": 7800,
+    "cat": "ordinary",
+    "filter": "serums",
+    "images": [
+      "the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png"
+    ],
+    "img": "the ordinary/Multi-Peptide %2B Copper Peptides 1%25 Serum (30ml)  Rs.7800.png",
+    "desc": "A universal \"buffet\" serum built to simultaneously address maximum signs of aging. It incorporates a sophisticated array of peptide complexes alongside direct Copper Peptides (1%), all dissolved in a base of 11 skin-friendly amino acids and multiple hyaluronic acid complexes. It intensely boosts collagen, repairs skin damage, and significantly improves facial firmness.",
+    "benefits": [
+      "Reduces fine lines",
+      "Promotes facial firmness",
+      "Supports overall skin health"
+    ],
+    "howToUse": "Apply to the entire face in the AM and PM after cleaning.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-lash-brow-5',
-    name: 'Multi-Peptide Lash And Brow Serum (5ml)', price: 4800, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png'], img: 'the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png',
-    desc: 'A specialized, non-greasy conditioning serum highly engineered to nourish and strengthen your natural lashes and brows. Formulated with four potent peptide complexes, botanical extracts, and active ingredients, it fortifies hair density, thickness, and overall health to give you noticeably fuller, voluminous, and lush lashes and brows in just a few weeks.',
-    benefits: ['Enhances lash density', 'Thickens brows', 'Nourishing peptides'],
-    howToUse: 'After cleansing, apply a thin layer along the lash line and eyebrows in the morning and evening.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-lash-brow-5",
+    "name": "Multi-Peptide Lash And Brow Serum (5ml)",
+    "price": 4800,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png"
+    ],
+    "img": "the ordinary/Multi-Peptide Lash And Brow Serum 5ml  rs 4800.png",
+    "desc": "A specialized, non-greasy conditioning serum highly engineered to nourish and strengthen your natural lashes and brows. Formulated with four potent peptide complexes, botanical extracts, and active ingredients, it fortifies hair density, thickness, and overall health to give you noticeably fuller, voluminous, and lush lashes and brows in just a few weeks.",
+    "benefits": [
+      "Enhances lash density",
+      "Thickens brows",
+      "Nourishing peptides"
+    ],
+    "howToUse": "After cleansing, apply a thin layer along the lash line and eyebrows in the morning and evening.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-hair-density-30',
-    name: 'Multi-Peptide Serum for Hair Density (30ml)', price: 3600, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png'], img: 'the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png',
-    desc: 'A revolutionary, ultra-lightweight hair care serum densely packed with revitalizing technologies including REDENSYL complex, Procapil peptide complex, and BAICAPIL in an ultra-penetrating emollient base. It explicitly supports blood circulation in the scalp, drastically reduces hair loss, and fosters incredibly thicker, denser, and healthier-looking hair.',
-    benefits: ['Supports hair density', 'Promotes thicker hair', 'Nourishes scalp'],
-    howToUse: 'Massage a few drops thoroughly into clean, dry scalp once daily, ideally at bedtime.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-hair-density-30",
+    "name": "Multi-Peptide Serum for Hair Density (30ml)",
+    "price": 3600,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png"
+    ],
+    "img": "the ordinary/Multi-peptide serum for hair density (30ml)  Rs.3600.png",
+    "desc": "A revolutionary, ultra-lightweight hair care serum densely packed with revitalizing technologies including REDENSYL complex, Procapil peptide complex, and BAICAPIL in an ultra-penetrating emollient base. It explicitly supports blood circulation in the scalp, drastically reduces hair loss, and fosters incredibly thicker, denser, and healthier-looking hair.",
+    "benefits": [
+      "Supports hair density",
+      "Promotes thicker hair",
+      "Nourishes scalp"
+    ],
+    "howToUse": "Massage a few drops thoroughly into clean, dry scalp once daily, ideally at bedtime.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-hair-density-60',
-    name: 'Multi-Peptide Serum for Hair Density (60ml)', price: 5800, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png'], img: 'the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png',
-    desc: 'The fantastic, high-capacity 60ml version of the beloved hair density serum. This lightweight formula utilizes highly advanced peptide complexes, caffeine, and exclusive botanical extracts in an alcohol-free base to deeply stimulate the hair follicles. By promoting a flourishing scalp environment, it efficiently builds visible, lasting hair thickness and fullness.',
-    benefits: ['Supports hair density', 'Promotes thicker hair', 'Value size (60ml)'],
-    howToUse: 'Massage a few drops thoroughly into clean, dry scalp once daily, ideally at bedtime.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-hair-density-60",
+    "name": "Multi-Peptide Serum for Hair Density (60ml)",
+    "price": 5800,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png"
+    ],
+    "img": "the ordinary/Multi-peptide serum for hair density (60ml)  Rs.5800.png",
+    "desc": "The fantastic, high-capacity 60ml version of the beloved hair density serum. This lightweight formula utilizes highly advanced peptide complexes, caffeine, and exclusive botanical extracts in an alcohol-free base to deeply stimulate the hair follicles. By promoting a flourishing scalp environment, it efficiently builds visible, lasting hair thickness and fullness.",
+    "benefits": [
+      "Supports hair density",
+      "Promotes thicker hair",
+      "Value size (60ml)"
+    ],
+    "howToUse": "Massage a few drops thoroughly into clean, dry scalp once daily, ideally at bedtime.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-nmf-ha-30',
-    name: 'Natural Moisturizing Factors + HA (30ml)', price: 8000, cat: 'ordinary', filter: 'moisturizers', 
-    images: ['the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png'], img: 'the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png',
-    desc: 'An essential, non-greasy surface hydrator packed with elements naturally present in the skin—amino acids, dermal lipids, and hyaluronic acid. Designed as a universal protective outer shield, it supplements the skin\'s impaired Natural Moisturizing Factors (NMF) to provide immediate, prolonged soothing hydration and dramatically improve barrier strength without a heavy feel.',
-    benefits: ['Immediate Hydration', 'Barrier Support', 'Non-greasy formula'],
-    howToUse: 'Apply after serums as needed for effective surface hydration.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-nmf-ha-30",
+    "name": "Natural Moisturizing Factors + HA (30ml)",
+    "price": 8000,
+    "cat": "ordinary",
+    "filter": "moisturizers",
+    "images": [
+      "the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png"
+    ],
+    "img": "the ordinary/Natural moisturizing factors %2B ha (30ml) Rs.8000.png",
+    "desc": "An essential, non-greasy surface hydrator packed with elements naturally present in the skin—amino acids, dermal lipids, and hyaluronic acid. Designed as a universal protective outer shield, it supplements the skin's impaired Natural Moisturizing Factors (NMF) to provide immediate, prolonged soothing hydration and dramatically improve barrier strength without a heavy feel.",
+    "benefits": [
+      "Immediate Hydration",
+      "Barrier Support",
+      "Non-greasy formula"
+    ],
+    "howToUse": "Apply after serums as needed for effective surface hydration.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-niacinamide-30',
-    name: 'Niacinamide 10% + Zinc 1% (30ml)', price: 3800, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Niacinamide (30ml) Rs.3800.png'], img: 'the ordinary/Niacinamide (30ml) Rs.3800.png',
-    desc: 'A staple in any skincare routine, this high-strength vitamin (B3) and mineral (Zinc PCA) blemish-fighting fluid dynamically regulates surface sebum production to eliminate excess oiliness. By rapidly minimizing the appearance of enlarged pores, persistent blemishes, and uneven skin texture, it significantly promotes a refined, beautifully clear, and balanced complexion.',
-    benefits: ['Regulates Sebum', 'Minimizes pores', 'Reduces blemishes'],
-    howToUse: 'Apply to entire face morning and evening before heavier creams.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-niacinamide-30",
+    "name": "Niacinamide 10% + Zinc 1% (30ml)",
+    "price": 3800,
+    "cat": "ordinary",
+    "filter": "serums",
+    "images": [
+      "the ordinary/Niacinamide (30ml) Rs.3800.png"
+    ],
+    "img": "the ordinary/Niacinamide (30ml) Rs.3800.png",
+    "desc": "A staple in any skincare routine, this high-strength vitamin (B3) and mineral (Zinc PCA) blemish-fighting fluid dynamically regulates surface sebum production to eliminate excess oiliness. By rapidly minimizing the appearance of enlarged pores, persistent blemishes, and uneven skin texture, it significantly promotes a refined, beautifully clear, and balanced complexion.",
+    "benefits": [
+      "Regulates Sebum",
+      "Minimizes pores",
+      "Reduces blemishes"
+    ],
+    "howToUse": "Apply to entire face morning and evening before heavier creams.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-niacinamide-60',
-    name: 'Niacinamide 10% + Zinc 1% (60ml)', price: 5500, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Niacinamide (60ml) Rs.5500.png'], img: 'the ordinary/Niacinamide (60ml) Rs.5500.png',
-    desc: 'The highly requested 60ml ultra-value variant of the globally top-selling Niacinamide formula. By maintaining steady delivery of continuous Vitamin B3 and Zinc PCA into the skin day and night, this serum remains the ultimate defense mechanism against acne congestion, enlarged pores, and oil imbalance while building long-lasting visible skin clarity.',
-    benefits: ['Regulates Sebum', 'Minimizes pores', 'Value Size (60ml)'],
-    howToUse: 'Apply to entire face morning and evening before heavier creams.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-niacinamide-60",
+    "name": "Niacinamide 10% + Zinc 1% (60ml)",
+    "price": 5500,
+    "cat": "ordinary",
+    "filter": "serums",
+    "images": [
+      "the ordinary/Niacinamide (60ml) Rs.5500.png"
+    ],
+    "img": "the ordinary/Niacinamide (60ml) Rs.5500.png",
+    "desc": "The highly requested 60ml ultra-value variant of the globally top-selling Niacinamide formula. By maintaining steady delivery of continuous Vitamin B3 and Zinc PCA into the skin day and night, this serum remains the ultimate defense mechanism against acne congestion, enlarged pores, and oil imbalance while building long-lasting visible skin clarity.",
+    "benefits": [
+      "Regulates Sebum",
+      "Minimizes pores",
+      "Value Size (60ml)"
+    ],
+    "howToUse": "Apply to entire face morning and evening before heavier creams.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-pha-lip-serum-15',
-    name: 'PHA 5% Exfoliating Lip Serum (15ml)', price: 4600, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png'], img: 'the ordinary/PHA 5%25 his Exfoliating Lip Serum (15ml)  Rs.4600.png',
-    desc: 'A groundbreaking treatment curated specifically for the sensitive lips utilizing a gentle 5% Polyhydroxy Acid (PHA) concentration. It expertly lifts and buffs away dead skin cells and dryness while intensely infusing hydrating components to leave behind plush, smooth, and naturally plump-looking lips ready for perfect makeup application.',
-    benefits: ['Gentle Exfoliation', 'Softens Lips', 'Improves lip texture'],
-    howToUse: 'Apply a small amount to lips as needed. Do not rinse off.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-pha-lip-serum-15",
+    "name": "PHA 5% Exfoliating Lip Serum (15ml)",
+    "price": 4600,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/PHA 5%25 Exfoliating Lip Serum (15ml)  Rs.4600.png"
+    ],
+    "img": "the ordinary/PHA 5%25 his Exfoliating Lip Serum (15ml)  Rs.4600.png",
+    "desc": "A groundbreaking treatment curated specifically for the sensitive lips utilizing a gentle 5% Polyhydroxy Acid (PHA) concentration. It expertly lifts and buffs away dead skin cells and dryness while intensely infusing hydrating components to leave behind plush, smooth, and naturally plump-looking lips ready for perfect makeup application.",
+    "benefits": [
+      "Gentle Exfoliation",
+      "Softens Lips",
+      "Improves lip texture"
+    ],
+    "howToUse": "Apply a small amount to lips as needed. Do not rinse off.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-retinol-02-30',
-    name: 'Retinol 0.2% in Squalane (30ml)', price: 5200, cat: 'ordinary', filter: 'retinoids', 
-    images: ['the ordinary/Retinol 0.2 in squalane (30ml)  Rs.5200.png'], img: 'the ordinary/Retinol 0.2 in squalane (30ml)  Rs.5200.png',
-    desc: 'A meticulously crafted introductory formulation offering 0.2% pure Retinol seamlessly suspended in a lightweight layer of deeply moisturizing Squalane oil. Absolutely ideal for retinoid novices, this low-strength formula gently fades the look of preliminary fine lines, photoaging, and spots, while squalane ensures the skin remains calm and hydrated during the transition.',
-    benefits: ['Targets fine lines', 'Improves skin tone', 'Hydrating squalane base'],
-    howToUse: 'Apply a small amount to face in the PM, after water-based serums but before heavier treatments.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-retinol-02-30",
+    "name": "Retinol 0.2% in Squalane (30ml)",
+    "price": 5200,
+    "cat": "ordinary",
+    "filter": "retinoids",
+    "images": [
+      "the ordinary/Retinol 0.2 in squalane (30ml)  Rs.5200.png"
+    ],
+    "img": "the ordinary/Retinol 0.2 in squalane (30ml)  Rs.5200.png",
+    "desc": "A meticulously crafted introductory formulation offering 0.2% pure Retinol seamlessly suspended in a lightweight layer of deeply moisturizing Squalane oil. Absolutely ideal for retinoid novices, this low-strength formula gently fades the look of preliminary fine lines, photoaging, and spots, while squalane ensures the skin remains calm and hydrated during the transition.",
+    "benefits": [
+      "Targets fine lines",
+      "Improves skin tone",
+      "Hydrating squalane base"
+    ],
+    "howToUse": "Apply a small amount to face in the PM, after water-based serums but before heavier treatments.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-retinol-05-30',
-    name: 'Retinol 0.5% in Squalane (30ml)', price: 5500, cat: 'ordinary', filter: 'retinoids', 
-    images: ['the ordinary/Retinol 0.5 in squalane (30ml)  Rs.5500.png'], img: 'the ordinary/Retinol 0.5 in squalane (30ml)  Rs.5500.png',
-    desc: 'A moderate strength anti-aging marvel containing 0.5% pure Retinol designed for skin that has successfully adapted to introductory formulas. Delivering powerful results against deep-set fine lines, elasticity loss, and stubborn hyperpigmentation marks, its replenishing Squalane infusion protects against dehydration for a wonderfully transformed youthful skin surface.',
-    benefits: ['Moderate anti-aging', 'Refines skin texture', 'Nourishing squalane'],
-    howToUse: 'Apply a small amount to face in the PM. Build tolerance gradually.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-retinol-05-30",
+    "name": "Retinol 0.5% in Squalane (30ml)",
+    "price": 5500,
+    "cat": "ordinary",
+    "filter": "retinoids",
+    "images": [
+      "the ordinary/Retinol 0.5 in squalane (30ml)  Rs.5500.png"
+    ],
+    "img": "the ordinary/Retinol 0.5 in squalane (30ml)  Rs.5500.png",
+    "desc": "A moderate strength anti-aging marvel containing 0.5% pure Retinol designed for skin that has successfully adapted to introductory formulas. Delivering powerful results against deep-set fine lines, elasticity loss, and stubborn hyperpigmentation marks, its replenishing Squalane infusion protects against dehydration for a wonderfully transformed youthful skin surface.",
+    "benefits": [
+      "Moderate anti-aging",
+      "Refines skin texture",
+      "Nourishing squalane"
+    ],
+    "howToUse": "Apply a small amount to face in the PM. Build tolerance gradually.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-retinol-1-30',
-    name: 'Retinol 1% in Squalane (30ml)', price: 6200, cat: 'ordinary', filter: 'retinoids', 
-    images: ['the ordinary/Retinol 1 in squalane (30ml)  Rs.6200.png'], img: 'the ordinary/Retinol 1 in squalane (30ml)  Rs.6200.png',
-    desc: 'An expert-level, highly potent formulation containing 1% pure Retinol for experienced retinoid users. This high-strength treatment pushes cellular turnover into high gear, dramatically eradicating prevalent signs of aging, deep wrinkles, major textural deterioration, and visible sun damage. Squalane enhances delivery and maintains essential moisture barrier equilibrium.',
-    benefits: ['High-strength anti-aging', 'Visibly smoother skin', 'Boosts cellular turnover'],
-    howToUse: 'Apply a small amount to face in the PM. Only use if skin has built tolerance to lower strength retinols.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-retinol-1-30",
+    "name": "Retinol 1% in Squalane (30ml)",
+    "price": 6200,
+    "cat": "ordinary",
+    "filter": "retinoids",
+    "images": [
+      "the ordinary/Retinol 1 in squalane (30ml)  Rs.6200.png"
+    ],
+    "img": "the ordinary/Retinol 1 in squalane (30ml)  Rs.6200.png",
+    "desc": "An expert-level, highly potent formulation containing 1% pure Retinol for experienced retinoid users. This high-strength treatment pushes cellular turnover into high gear, dramatically eradicating prevalent signs of aging, deep wrinkles, major textural deterioration, and visible sun damage. Squalane enhances delivery and maintains essential moisture barrier equilibrium.",
+    "benefits": [
+      "High-strength anti-aging",
+      "Visibly smoother skin",
+      "Boosts cellular turnover"
+    ],
+    "howToUse": "Apply a small amount to face in the PM. Only use if skin has built tolerance to lower strength retinols.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-salicylic-30',
-    name: 'Salicylic Acid 2% Solution (30ml)', price: 4800, cat: 'ordinary', filter: 'acids', 
-    images: ['the ordinary/Salicylic acid (30ml)  Rs.4800.png'], img: 'the ordinary/Salicylic acid (30ml)  Rs.4800.png',
-    desc: 'An iconic targeted BHA serum that actively penetrates the lipid layers to exfoliate the interior walls of pores. By effectively dislodging trapped dirt, oil, and dead skin cells, it drastically minimizes the frequency of acne breakouts, dissolves blackheads, refines pores, and ultimately restores continuous, visible skin clarity and radiance.',
-    benefits: ['Cleanses deep pores', 'Fights blemishes', 'Improves skin clarity'],
-    howToUse: 'Apply a small dot directly onto spots for visible improvement or apply a small amount over the face to maintain visible clarity.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-salicylic-30",
+    "name": "Salicylic Acid 2% Solution (30ml)",
+    "price": 4800,
+    "cat": "ordinary",
+    "filter": "acids",
+    "images": [
+      "the ordinary/Salicylic acid (30ml)  Rs.4800.png"
+    ],
+    "img": "the ordinary/Salicylic acid (30ml)  Rs.4800.png",
+    "desc": "An iconic targeted BHA serum that actively penetrates the lipid layers to exfoliate the interior walls of pores. By effectively dislodging trapped dirt, oil, and dead skin cells, it drastically minimizes the frequency of acne breakouts, dissolves blackheads, refines pores, and ultimately restores continuous, visible skin clarity and radiance.",
+    "benefits": [
+      "Cleanses deep pores",
+      "Fights blemishes",
+      "Improves skin clarity"
+    ],
+    "howToUse": "Apply a small dot directly onto spots for visible improvement or apply a small amount over the face to maintain visible clarity.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-soothing-barrier-30',
-    name: 'Soothing & Barrier Support Serum (30ml)', price: 5200, cat: 'ordinary', filter: 'serums', 
-    images: ['the ordinary/Soothing and barrier support serum (30ml)  Rs.5200.png'], img: 'the ordinary/Soothing and barrier support serum (30ml)  Rs.5200.png',
-    desc: 'An intensive, multi-active recovery concentrate specially tailored to repair compromised skin barriers and immediately mitigate tightness, stinging, and visible redness. Built with a powerhouse complex of Vitamin B12, Gallic Acid derivatives, Centella Asiatica, and crucial Ceramides, this calming pink serum quickly restores complete dermal hydration, elasticity, and comfort.',
-    benefits: ['Soothes irritation', 'Repairs skin barrier', 'Reduces redness'],
-    howToUse: 'Apply a few drops to the face in the morning and evening.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-soothing-barrier-30",
+    "name": "Soothing & Barrier Support Serum (30ml)",
+    "price": 5200,
+    "cat": "ordinary",
+    "filter": "serums",
+    "images": [
+      "the ordinary/Soothing and barrier support serum (30ml)  Rs.5200.png"
+    ],
+    "img": "the ordinary/Soothing and barrier support serum (30ml)  Rs.5200.png",
+    "desc": "An intensive, multi-active recovery concentrate specially tailored to repair compromised skin barriers and immediately mitigate tightness, stinging, and visible redness. Built with a powerhouse complex of Vitamin B12, Gallic Acid derivatives, Centella Asiatica, and crucial Ceramides, this calming pink serum quickly restores complete dermal hydration, elasticity, and comfort.",
+    "benefits": [
+      "Soothes irritation",
+      "Repairs skin barrier",
+      "Reduces redness"
+    ],
+    "howToUse": "Apply a few drops to the face in the morning and evening.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   },
-  { 
-    id: 'ord-squalane-lip-15',
-    name: 'Squalane + Amino Acid Lip Balm (15ml)', price: 3900, cat: 'ordinary', filter: 'targeted', 
-    images: ['the ordinary/lip burm.png'], img: 'the ordinary/lip burm.png',
-    desc: 'An innovative, deeply conditioning balm utilizing exceptional plant-derived Squalane and fundamental Amino Acids precisely targeted to lock in moisture on the lip barrier. It intensely protects drying, cracking, and peeling lips against harsh temperature changes, delivering instantaneous softness, deep hydration, and sustained smooth protection throughout the entire day.',
-    benefits: ['Intense Lip Hydration', 'Locks in moisture', 'Nourishing Amino Acids'],
-    howToUse: 'Apply to lips as needed throughout the day for continuous hydration.',
-    authenticity: 'DECIEM Canada Original.'
+  {
+    "id": "ord-squalane-lip-15",
+    "name": "Squalane + Amino Acid Lip Balm (15ml)",
+    "price": 3900,
+    "cat": "ordinary",
+    "filter": "targeted",
+    "images": [
+      "the ordinary/lip burm.png"
+    ],
+    "img": "the ordinary/lip burm.png",
+    "desc": "An innovative, deeply conditioning balm utilizing exceptional plant-derived Squalane and fundamental Amino Acids precisely targeted to lock in moisture on the lip barrier. It intensely protects drying, cracking, and peeling lips against harsh temperature changes, delivering instantaneous softness, deep hydration, and sustained smooth protection throughout the entire day.",
+    "benefits": [
+      "Intense Lip Hydration",
+      "Locks in moisture",
+      "Nourishing Amino Acids"
+    ],
+    "howToUse": "Apply to lips as needed throughout the day for continuous hydration.",
+    "authenticity": "DECIEM Canada Original.",
+    "discount": 12
   }
 ];
 
