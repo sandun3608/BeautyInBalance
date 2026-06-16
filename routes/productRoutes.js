@@ -78,6 +78,35 @@ router.get('/recover-lost-products', async (req, res) => {
     }
 });
 
+// @route   GET /api/products/inspect-db
+router.get('/inspect-db', async (req, res) => {
+    try {
+        const adminDb = mongoose.connection.db.admin();
+        const dbs = await adminDb.listDatabases();
+        
+        const report = [];
+        for (const dbInfo of dbs.databases) {
+            const dbName = dbInfo.name;
+            // Skip system databases to be fast
+            if (['admin', 'local', 'config'].includes(dbName)) continue;
+            
+            const dbConnection = mongoose.connection.useDb(dbName);
+            const collections = await dbConnection.db.listCollections().toArray();
+            
+            const colReports = [];
+            for (const col of collections) {
+                const count = await dbConnection.db.collection(col.name).countDocuments();
+                colReports.push({ collection: col.name, count });
+            }
+            report.push({ database: dbName, collections: colReports });
+        }
+        
+        res.json({ message: 'Databases inspected successfully.', databases: report });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to inspect databases', error: err.message });
+    }
+});
+
 // @route   GET /api/products/set-all-discounts-12
 router.get('/set-all-discounts-12', async (req, res) => {
     try {
