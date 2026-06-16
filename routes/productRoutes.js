@@ -24,6 +24,60 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @route   GET /api/products/recover-lost-products
+router.get('/recover-lost-products', async (req, res) => {
+    try {
+        const Order = require('../models/Order');
+        const products = await Product.find({});
+        const productNames = new Set(products.map(p => p.name.trim().toLowerCase()));
+
+        const orders = await Order.find({});
+        const missing = [];
+        const seen = new Set();
+
+        orders.forEach(order => {
+            if (order.orderItems) {
+                order.orderItems.forEach(item => {
+                    const name = item.name.trim();
+                    if (!productNames.has(name.toLowerCase()) && !seen.has(name.toLowerCase())) {
+                        seen.add(name.toLowerCase());
+                        missing.push({
+                            name: name,
+                            price: item.price,
+                            id: item.productId || item.id || 'recovered-' + Math.random().toString(36).substring(2, 7),
+                            cat: 'recovered',
+                            filter: 'recovered',
+                            img: item.image || 'images/placeholder.png',
+                            images: [item.image || 'images/placeholder.png'],
+                            desc: 'Recovered from order history.',
+                            benefits: ['Recovered Product'],
+                            howToUse: 'N/A',
+                            authenticity: 'Recovered Product',
+                            stock: 50,
+                            discount: 12
+                        });
+                    }
+                });
+            }
+        });
+
+        // Optionally insert them back
+        if (req.query.action === 'restore' && missing.length > 0) {
+            const inserted = await Product.insertMany(missing);
+            return res.json({ message: 'Restored missing products successfully!', count: inserted.length, products: inserted });
+        }
+
+        res.json({ 
+            message: 'Scan complete.', 
+            missingCount: missing.length, 
+            missingProducts: missing,
+            instruction: 'To restore these products automatically to the database, add ?action=restore to the URL'
+        });
+    } catch (err) {
+        res.status(500).json({ message: 'Recovery failed!', error: err.message });
+    }
+});
+
 // @route   GET /api/products/set-all-discounts-12
 router.get('/set-all-discounts-12', async (req, res) => {
     try {
