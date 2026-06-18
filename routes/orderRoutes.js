@@ -220,6 +220,52 @@ router.put('/:id/deliver', protect, async (req, res) => {
             order.isDelivered = true;
             const updatedOrder = await order.save();
             sendCustomerWhatsAppNotification(updatedOrder, 'delivered');
+
+            // --- SEND DELIVERY EMAIL TO CUSTOMER (BACKGROUND) ---
+            if (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS)) {
+                const sendEmail = require('../utils/mailer');
+                
+                try {
+                    const customerName = `${updatedOrder.customerInfo?.firstName || 'Customer'} ${updatedOrder.customerInfo?.lastName || ''}`;
+                    const orderIdShort = updatedOrder._id.toString().slice(-6).toUpperCase();
+
+                    sendEmail({
+                        email: updatedOrder.customerInfo.email,
+                        subject: `Delivered: Your Beauty in Balance Order #${orderIdShort} 🎉`,
+                        html: `
+                            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px; margin: 0 auto;">
+                                <h1 style="color: #b58646; text-align: center;">Your Order Has Been Delivered!</h1>
+                                <p>Hi ${updatedOrder.customerInfo.firstName || 'Customer'},</p>
+                                <p>Great news! Your Beauty in Balance order <strong>#${orderIdShort}</strong> has been successfully delivered. We hope you love your new products!</p>
+                                
+                                <div style="background: #fdfbf7; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                                    <h3 style="margin-top: 0; color: #1b1b1e; border-bottom: 1px solid #eee; padding-bottom: 10px;">Order Details</h3>
+                                    <ul style="list-style: none; padding: 0;">
+                                        ${(updatedOrder.orderItems || []).map(i => `
+                                            <li style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                                <span>${i.qty}x ${i.name}</span>
+                                                <span style="font-weight: bold;">Rs. ${(i.price * i.qty).toLocaleString()}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                    <div style="display: flex; justify-content: space-between; padding-top: 15px; font-weight: bold; font-size: 18px;">
+                                        <span>Total Paid</span>
+                                        <span style="color: #b58646;">Rs. ${updatedOrder.totalPrice.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                                
+                                <p style="text-align: center; color: #666; font-size: 12px; margin-top: 20px;">
+                                    Thank you for choosing Beauty in Balance. If you have any questions or feedback, please reply to this email or contact us at ${process.env.EMAIL_USER}.
+                                </p>
+                            </div>
+                        `
+                    }).then(() => console.log(`📧 Delivery email sent to customer for order ${updatedOrder._id}`))
+                      .catch(err => console.error("📧 Customer delivery email error:", err));
+                } catch (emailBuildErr) {
+                    console.error("❌ Failed to build delivery email:", emailBuildErr);
+                }
+            }
+
             res.json(updatedOrder);
         } else {
             res.status(404).json({ message: 'Order not found' });
