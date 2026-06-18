@@ -160,8 +160,8 @@ router.post('/', protect, async (req, res) => {
             cat: req.body.cat || 'others',
             filter: req.body.filter || '',
             price: Number(req.body.price) || 0,
-            img: req.body.img,
-            images: req.body.images || [req.body.img],
+            img: req.body.img ? decodeURIComponent(req.body.img) : '',
+            images: req.body.images ? req.body.images.map(img => decodeURIComponent(img)) : (req.body.img ? [decodeURIComponent(req.body.img)] : []),
             stock: Number(req.body.stock) || 50,
             desc: req.body.desc || '',
             benefits: req.body.benefits || [],
@@ -189,6 +189,8 @@ router.put('/:id', protect, async (req, res) => {
 
         if (p) {
             Object.assign(p, req.body);
+            if(req.body.img) p.img = decodeURIComponent(req.body.img);
+            if(req.body.images) p.images = req.body.images.map(img => decodeURIComponent(img));
             if(req.body.price) p.price = Number(req.body.price);
             if(req.body.stock) p.stock = Number(req.body.stock);
             if(req.body.discount) p.discount = Number(req.body.discount);
