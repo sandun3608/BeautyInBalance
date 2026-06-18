@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Sync Tool | Beauty in Balance</title>
+    <link rel="stylesheet" href="styles.css?v=44">
+    <style>
+        body { background: #fdfaf7; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .sync-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
+        h1 { color: #2d1b12; margin-bottom: 20px; font-family: serif; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
+        .btn-sync { background: #2d1b12; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
+        .btn-sync:hover { background: #cFA56A; transform: translateY(-2px); }
+        .btn-sync:disabled { background: #ccc; cursor: not-allowed; }
+        #status { margin-top: 30px; text-align: left; font-size: 12px; color: #444; max-height: 200px; overflow-y: auto; padding: 10px; background: #f5f5f5; border-radius: 10px; display: none; }
+        .log-entry { margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="sync-card">
+        <h1>Database Sync Tool</h1>
+        <p>This tool will <strong>CLEAR</strong> all products from the live database and <strong>RESTORE</strong> them using the local <code>products.js</code> file.</p>
+        
+        <div id="login-check" style="color: red; margin-bottom: 20px; display: none;">
+            ⚠️ You must be logged in as an Admin to perform this action.
+        </div>
+
+        <button id="sync-btn" class="btn-sync">START DISASTER RECOVERY SYNC</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script src="config.js?v=16"></script>
+    <script src="products.js?v=12"></script>
+    <script>
+        const btn = document.getElementById('sync-btn');
+        const statusDiv = document.getElementById('status');
+        const loginCheck = document.getElementById('login-check');
+
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+            btn.disabled = true;
+            loginCheck.style.display = 'block';
+        }
+
+        function log(msg, type = '') {
+            statusDiv.style.display = 'block';
+            const div = document.createElement('div');
+            div.className = 'log-entry ' + type;
+            div.innerText = msg;
+            statusDiv.prepend(div);
+        }
+
+        btn.onclick = async () => {
+            if (!confirm("CRITICAL ACTION: This will delete ALL live products. Proceed?")) return;
+            
+            btn.disabled = true;
+            statusDiv.innerHTML = '';
+            log("🚀 Starting Recovery Sync...");
+
+            try {
+                // 1. Fetch current products to delete them
+                log("🔍 Fetching current database products...");
+                const res = await fetch(`${BASE_URL}/products`);
+                const products = await res.json();
+                log(`Found ${products.length} products to clear.`);
+
+                // 2. Delete all products
+                for (const p of products) {
+                    log(`🗑️ Deleting: ${p.name}...`);
+                    await fetch(`${BASE_URL}/products/${p._id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                }
+                log("✅ Database cleared successfully.", "success");
+
+                // 3. Upload local products
+                log(`📤 Uploading ${defaultProducts.length} products from products.js...`);
+                for (const p of defaultProducts) {
+                    log(`✨ Uploading: ${p.name}...`);
+                    // Create normalized data structure
+                    const productData = {
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        cat: p.cat,
+                        filter: p.filter,
+                        img: p.img,
+                        images: p.images || [p.img],
+                        desc: p.desc || '',
+                        benefits: p.benefits || [],
+                        howToUse: p.howToUse || '',
+                        authenticity: p.authenticity || '',
+                        stock: 50
+                    };
+
+                    const postRes = await fetch(`${BASE_URL}/products`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}` 
+                        },
+                        body: JSON.stringify(productData)
+                    });
+                    
+                    if (!postRes.ok) {
+                        const err = await postRes.json();
+                        log(`❌ Failed to upload ${p.name}: ${err.message}`, "error");
+                    }
+                }
+
+                log("🎊 RECOVERY SYNC COMPLETE!", "success");
+                log("You can now close this tool and refresh your website.", "success");
+                
+            } catch (err) {
+                log(`🚨 CRITICAL ERROR: ${err.message}`, "error");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "RUN SYNC AGAIN";
+            }
+        };
+    </script>
+</body>
+</html>
+
+

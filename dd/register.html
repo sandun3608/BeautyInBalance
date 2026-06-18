@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — Beauty in Balance</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=44" />
+  <style>
+    /* Elegant Centered Register Layout */
+    body {
+      background-color: #faf9f7;
+      min-height: 100vh;
+      margin: 0;
+      font-family: var(--font-sans);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .register-container {
+      margin: 140px 20px 100px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      position: relative;
+    }
+
+    .register-container h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 5px;
+    }
+
+    .register-container p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #555;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .register-btn {
+      width: 100%;
+      background-color: var(--brown);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    .register-btn:hover {
+      background-color: var(--gold);
+    }
+
+    .error-msg {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .success-msg {
+      color: #2e7d32;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .switch-auth {
+      display: inline-block;
+      margin-top: 20px;
+      color: #777;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .switch-auth:hover {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav" style="padding: 20px 20px; display: flex; flex-direction: column; gap: 12px;">
+      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
+      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
+      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
+      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
+      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>© 2024 Beauty in Balance | Lanka's Premier Skincare Destination.</p>
+      <div class="footer-payment">
+        <span class="pay-icon" style="opacity: 0.8;">Cash on Delivery</span>
+        <span class="pay-icon" style="opacity: 0.8;">Bank Transfer</span>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <div class="register-container">
+    <h1>Create Account</h1>
+    <p>Join Beauty in Balance for a curated skin journey</p>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="John Doe" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="john@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="••••••••" required />
+      </div>
+
+      <div class="error-msg" id="error-box"></div>
+      <div class="success-msg" id="success-box">Account created successfully! Redirecting...</div>
+
+      <button type="submit" class="register-btn" id="register-btn">Sign Up</button>
+    </form>
+
+    <a href="login.html" class="switch-auth">Already have an account? Login here</a>
+    <br>
+    <a href="index.html" class="switch-auth" style="margin-top: 10px; font-size: 12px;">← Return to Storefront</a>
+  </div>
+
+  <script src="config.js?v=16"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    $('ham-open')?.addEventListener('click', () => { 
+      document.getElementById('mobile-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+      const mBar = $('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
+
+    $('cart-open')?.addEventListener('click', () => { 
+      document.getElementById('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    });
+    
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    }
+    
+    $('ham-close')?.addEventListener('click', closeAll);
+    $('cart-close')?.addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // Mobile Search Bar Scroll Effect
+    let lastScrollTop = 0;
+    const mSearchBar = $('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    
+
+    const registerForm = document.getElementById('register-form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const errorBox = document.getElementById('error-box');
+    const successBox = document.getElementById('success-box');
+    const registerBtn = document.getElementById('register-btn');
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      errorBox.style.display = 'none';
+      successBox.style.display = 'none';
+
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        errorBox.textContent = 'Passwords do not match.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      registerBtn.textContent = 'Creating Account...';
+      registerBtn.disabled = true;
+
+      try {
+        const response = await fetch(`${BASE_URL}/users/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: nameInput.value,
+            email: emailInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          successBox.style.display = 'block';
+          localStorage.setItem('userToken', data.token);
+          localStorage.setItem('userInfo', JSON.stringify({
+            _id: data._id,
+            name: data.name,
+            email: data.email,
+            isAdmin: data.isAdmin,
+            avatar: data.avatar || ''
+          }));
+
+          setTimeout(() => {
+            window.location.href = 'account.html'; // Usually redirect to home or dashboard
+          }, 2000);
+        } else {
+          errorBox.textContent = data.message || 'Registration failed.';
+          errorBox.style.display = 'block';
+        }
+
+      } catch (err) {
+        console.error(err);
+        errorBox.textContent = "Cannot connect to server.";
+        errorBox.style.display = 'block';
+      } finally {
+        registerBtn.textContent = 'Sign Up';
+        registerBtn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+

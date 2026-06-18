@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+  // VIP SECURITY CHECK
+  const token = localStorage.getItem('userToken');
+  if (!token) {
+    window.location.href = 'login.html';
+  } else {
+    // Initial Lock State Check
+    document.documentElement.style.overflow = 'hidden'; 
+  }
+</script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard GÇö Beauty in Balance</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <!-- Navigation Logic - Head Placement for Immediate Interactivity -->
+  <script>
+    console.log("GÜí BiB Admin: Core Logic Loading...");
+    
+    window.switchTab = function(tabName, el) {
+      console.log('=ƒöä Tab Switch Requested:', tabName);
+      
+      const productModal = document.getElementById('product-modal');
+      const customerModal = document.getElementById('customer-modal');
+      if (productModal) productModal.style.display = 'none';
+      if (customerModal) customerModal.style.display = 'none';
+      
+      document.querySelectorAll('.admin-content').forEach(function(c) { 
+        c.classList.remove('active'); 
+        c.style.display = 'none';
+      });
+      
+      var tab = document.getElementById('tab-' + tabName);
+      if (tab) {
+        tab.classList.add('active');
+        tab.style.display = 'block';
+      }
+      
+      document.querySelectorAll('.admin-nav-link').forEach(function(l) { 
+        l.classList.remove('active'); 
+      });
+      
+      if (el) {
+        el.classList.add('active');
+      } else {
+        var link = document.getElementById('nav-' + tabName);
+        if (link) link.classList.add('active');
+      }
+
+      var titles = { 
+        dashboard: 'Dashboard Overview', 
+        inventory: 'Inventory Management', 
+        orders: 'Orders Management', 
+        analytics: 'Analytics', 
+        support: 'Inquiries' 
+      };
+      
+      var titleEl = document.getElementById('view-title');
+      if (titleEl) titleEl.innerText = titles[tabName] || tabName;
+
+      if (tabName === 'inventory' && typeof renderInventory === 'function') renderInventory();
+      if (tabName === 'orders' && typeof fetchOrders === 'function') fetchOrders();
+      if (tabName === 'analytics') {
+          if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
+          if (typeof renderAnalyticsDashboard === 'function') renderAnalyticsDashboard();
+      }
+      if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
+      if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
+    };
+
+    window.handleLogout = function() {
+      console.log("=ƒÜ¬ Logging out...");
+      localStorage.clear();
+      window.location.href = 'login.html';
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Admin Premium - Beauty in Balance Branding */
+    :root {
+      --admin-bg: #FDFBF7; /* Near White Ivory */
+      --admin-sidebar-bg: #1B1B1E; /* Dark grey sidebar */
+      --admin-card-bg: #ffffff;
+      --admin-panel-bg: #ffffff; 
+      --admin-accent: #CFA56A; /* Gold banner and active state */
+      --admin-accent-soft: #F6F1EA; /* Muted beige for right sidebar */
+      --admin-border: rgba(0,0,0,0.04);
+      --admin-text: #222222;
+      --admin-muted: #888888;
+      --font-main: 'DM Sans', sans-serif;
+      --font-serif: 'DM Sans', sans-serif; /* PBD design is entirely modern sans-serif */
+      --shadow-sm: 0 4px 15px rgba(0,0,0,0.03);
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.1);
+      --radius-lg: 35px;
+    }
+
+    /* Admin Security Lock Screen */
+    .admin-lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(27, 27, 30, 0.95);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      z-index: 99999;
+      display: flex; /* Always flex but controlled by biblical lock state */
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+
+    body.system-unlocked .admin-lock-screen {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .lock-card {
+      background: #fff;
+      padding: 50px 40px;
+      border-radius: 30px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .admin-lock-screen.active .lock-card {
+      transform: translateY(0);
+    }
+
+    .lock-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 24px;
+      color: #1b1b1e;
+      margin-bottom: 30px;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+
+    .lock-icon-box {
+      width: 60px;
+      height: 60px;
+      background: #F6F1EA;
+      border-radius: 50%;
+      color: var(--admin-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .lock-card h2 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .lock-card p {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .pin-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .pin-field {
+      width: 100%;
+      padding: 18px;
+      border: 1px solid #eee;
+      border-radius: 15px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 10px;
+      font-weight: 700;
+      background: #fdfaf7;
+      transition: 0.3s;
+    }
+
+    .pin-field:focus {
+      outline: none;
+      border-color: var(--admin-accent);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(198, 151, 90, 0.1);
+    }
+
+    .btn-unlock {
+      width: 100%;
+      padding: 18px;
+      background: var(--admin-sidebar-bg);
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-unlock:hover {
+      background: #000;
+      transform: translateY(-2px);
+    }
+
+    .lock-error {
+      color: #d93025;
+      font-size: 13px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .lock-error.show {
+      display: block;
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    * { box-sizing: border-box; }
+
+    body.admin-body {
+      background: var(--admin-bg);
+      color: var(--admin-text);
+      font-family: var(--font-main);
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .admin-container {
+      width: 100vw;
+      height: 100vh;
+      background: var(--admin-sidebar-bg);
+      border-radius: 0;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    /* Sidebar - BiB Brown Premium */
+    .admin-sidebar {
+      background: var(--admin-sidebar-bg);
+      padding: 5px 12px;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      width: 240px;
+      flex-shrink: 0;
+    }
+
+    .admin-logo {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-family: var(--font-serif);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .admin-nav {
+      flex: 1;
+    }
+
+    .admin-nav ul {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .admin-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 4px;
+    }
+
+    .admin-nav-link:hover {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      transform: translateX(4px);
+      border-left: 3px solid var(--gold);
+    }
+
+    .admin-nav-link.active {
+      background: var(--admin-accent);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(198, 151, 90, 0.3);
+    }
+
+    /* Force interactive priority for sidebar */
+    .admin-sidebar {
+      position: relative;
+      z-index: 1000 !important;
+      pointer-events: auto !important;
+    }
+    .admin-nav-link {
+      pointer-events: auto !important;
+    }
+    .sidebar-user {
+        margin-top: auto;
+        padding: 18px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    .sidebar-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--admin-accent);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 15px;
+    }
+    .sidebar-user-info h5 { margin: 0; font-size: 14px; font-weight: 500; font-family: var(--font-serif); letter-spacing: 0.05em; }
+    .sidebar-user-info p { 
+        margin: 0; font-size: 11px; opacity: 0.6; 
+        display: flex; align-items: center; gap: 6px; 
+    }
+    .status-dot {
+        width: 6px;
+        height: 6px;
+        background: #4caf50;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #4caf50;
+        animation: pulseStatus 2s infinite;
+    }
+    @keyframes pulseStatus {
+        0% { opacity: 0.6; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+        100% { opacity: 0.6; transform: scale(1); }
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+        display: flex;
+        background: rgba(0,0,0,0.3);
+        border-radius: 12px;
+        padding: 4px;
+        gap: 4px;
+    }
+    .toggle-btn {
+        flex: 1;
+        padding: 8px;
+        border-radius: 10px;
+        border: none;
+        background: transparent;
+        color: rgba(255,255,255,0.4);
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: 0.3s;
+    }
+    .toggle-btn.active {
+        background: #fff;
+        color: #000;
+    }
+
+    /* Main Content Area */
+    .admin-main {
+      background: var(--admin-card-bg);
+      border-radius: var(--radius-lg);
+      margin: 20px 20px 20px 0;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      min-width: 0;
+      padding-bottom: 30px; 
+    }
+
+    .main-body {
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-bottom: 50px;
+      overflow-y: auto;
+    }
+
+    .admin-header {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-header h2 {
+      font-size: 38px;
+      font-weight: 500;
+      color: var(--admin-text);
+      font-family: var(--font-serif);
+      margin: 0;
+    }
+
+    /* Luxury Stat Cards */
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      margin-bottom: 15px;
+    }
+
+    .admin-stat-card {
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    .stat-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--admin-accent-soft);
+      color: var(--admin-accent);
+      flex-shrink: 0;
+    }
+    .stat-icon-box svg { width: 18px; height: 18px; }
+
+    .stat-content { display: flex; flex-direction: column; }
+    .admin-stat-card h5 { font-size: 11px; color: var(--admin-muted); font-weight: 500; margin: 4px 0 0 0; }
+    .admin-stat-card .val { font-size: 20px; font-weight: 700; color: var(--admin-text); font-family: var(--font-main); }
+
+    /* Chart Tabs */
+    .chart-tab {
+        background: transparent;
+        border: 1px solid var(--admin-border);
+        color: var(--admin-text);
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .chart-tab.active {
+        background: var(--admin-sidebar-bg);
+        color: #fff;
+        border-color: var(--admin-sidebar-bg);
+    }
+    .chart-tab:hover:not(.active) {
+        background: var(--admin-accent-soft);
+    }
+
+    /* Welcome Banner - PBD Edition */
+    .welcome-banner {
+      background: var(--admin-accent);
+      padding: 15px 30px;
+      border-radius: var(--radius-md);
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 800px; /* Reduced width for a cleaner look */
+    }
+
+    .welcome-banner h1 {
+      font-size: 22px;
+      margin: 0 0 5px 0;
+      font-weight: 700;
+      font-family: var(--font-main);
+    }
+    .welcome-banner p {
+      font-size: 12px;
+      opacity: 0.9;
+      margin: 0 0 15px 0;
+      font-weight: 400;
+    }
+    .welcome-btns {
+        display: flex;
+        gap: 12px;
+    }
+    .w-btn {
+        background: #fff;
+        color: var(--admin-text);
+        padding: 12px 24px;
+        border-radius: 24px;
+        font-size: 13px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .w-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
+
+    .profile-progress { position: relative; width: 100px; height: 100px; }
+    .progress-svg { transform: rotate(-90deg); }
+    .profile-img {
+        position: absolute; top: 10px; left: 10px;
+        width: 80px; height: 80px;
+        border-radius: 50%; object-fit: cover;
+        border: 2px solid #fff;
+    }
+
+    /* Right Sidebar - Luxury Feed */
+    .activity-sidebar {
+        background: var(--admin-accent-soft);
+        color: var(--admin-text);
+        padding: 50px 25px;
+        overflow-y: auto;
+        border-left: 1px solid var(--admin-border);
+    }
+
+    .act-sec { margin-bottom: 50px; }
+    .act-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .act-head h4 { font-size: 18px; margin: 0; font-weight: 700; font-family: var(--font-main); color: var(--admin-text); }
+    .act-head .view-all { font-size: 11px; color: var(--admin-accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; text-decoration: none; margin-top: auto;}
+
+    .act-list { display: flex; flex-direction: column; gap: 15px; }
+    .act-card {
+        background: #fff;
+        padding: 16px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        transition: 0.3s;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid transparent;
+    }
+    .act-card:hover { border-color: var(--admin-accent); transform: translateX(5px); box-shadow: var(--shadow-md); }
+
+    .act-date {
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+        background: var(--admin-accent-soft);
+        color: var(--admin-accent);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    .act-date span { font-size: 9px; font-weight: 500; text-transform: uppercase; }
+
+    .act-info h5 { margin: 0 0 4px 0; font-size: 14px; font-weight: 700; color: var(--admin-text); }
+    .act-info p { margin: 0; font-size: 11px; color: var(--admin-muted); font-weight: 500; }
+
+    /* Dashboard Layout Grid */
+    .db-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .chart-panel {
+        background: #fff;
+        border-radius: var(--radius-md);
+        border: none;
+        box-shadow: var(--shadow-sm);
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .chart-info h3 { font-family: var(--font-main); font-size: 18px; font-weight: 700; margin: 0 0 25px 0; color: var(--admin-text); }
+    
+    .donut-wrap { position: relative; height: 220px; width: 220px; }
+    .donut-val {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .donut-val span { display: block; font-size: 32px; font-weight: 700; color: var(--admin-sidebar-bg); }
+    .donut-val p { margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted); }
+
+    .progress-list { display: flex; flex-direction: column; gap: 25px; }
+    .prog-item { width: 100%; }
+    .prog-head { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; font-weight: 500; }
+    .prog-bar-bg { width: 100%; height: 8px; background: var(--admin-accent-soft); border-radius: 4px; overflow: hidden; }
+    .prog-bar { height: 100%; border-radius: 4px; transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+
+    /* Tables - Luxury Refinement */
+    .admin-section {
+        background: #fff;
+        border-radius: var(--radius-md);
+        padding: 30px; /* Reduced padding for more space */
+        border: 1px solid var(--admin-border);
+        box-shadow: var(--shadow-sm);
+    }
+    .admin-sec-head h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin: 0; }
+
+    .admin-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    .admin-table { width: 100%; border-collapse: separate; border-spacing: 0 5px; }
+    .admin-table th { text-align: left; padding: 10px 8px; font-size: 10px; color: var(--admin-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .admin-table tbody tr { background: #fff; transition: 0.2s; }
+    .admin-table tbody tr:hover { background: #fafafa; }
+    .admin-table td { padding: 10px 8px; font-size: 13px; border-top: 1px solid var(--admin-border); border-bottom: 1px solid var(--admin-border); color: var(--admin-text); }
+    .admin-table td:first-child { border-left: 1px solid var(--admin-border); border-radius: 10px 0 0 10px; }
+    .admin-table td:last-child { border-right: 1px solid var(--admin-border); border-radius: 0 10px 10px 0; }
+
+    .img-cell { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
+
+    /* Luxury Buttons */
+    .admin-btn {
+        background: var(--admin-sidebar-bg);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .admin-btn:hover { background: var(--admin-accent); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(198,151,90,0.3); }
+
+    .btn-cancel { background: #f5f5f5; color: #666; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(45,27,18,0.1); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(45,27,18,0.2); }
+
+    #admin-notification {
+        position: fixed; bottom: 40px; right: 40px; background: var(--admin-sidebar-bg); color: #fff;
+        padding: 20px 40px; border-radius: 16px; display: none; z-index: 10000;
+        font-family: var(--font-serif); font-size: 18px; box-shadow: var(--shadow-lg);
+    }
+
+    /* Tab Display Logic */
+    .admin-content { display: none; }
+    .admin-content.active { display: block; }
+    
+    /* Modals */
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(45, 27, 18, 0.4);
+        backdrop-filter: blur(10px);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-box {
+        background: #F5EEE4; /* BiB Beige */
+        width: 600px;
+        max-width: 90vw;
+        border-radius: var(--radius-md);
+        padding: 50px;
+        position: relative;
+        box-shadow: var(--shadow-lg);
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body class="admin-body">
+
+  <div class="admin-container">    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="admin-logo" style="font-size: 32px; font-family: var(--font-serif); color: #fff; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 25px; line-height: 1.1; text-align: center; border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding: 30px 0 15px 0;">
+        <span>Beauty in Balance</span>
+      </div>
+      <nav class="admin-nav">
+        <ul>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-dashboard" class="admin-nav-link active" onclick="window.switchTab('dashboard', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-inventory" class="admin-nav-link" onclick="window.switchTab('inventory', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg> Inventory</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-orders" class="admin-nav-link" onclick="window.switchTab('orders', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg> Orders</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-analytics" class="admin-nav-link" onclick="window.switchTab('analytics', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Insights</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-support" class="admin-nav-link" onclick="window.switchTab('support', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Support</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03); margin-top: 2px;">
+            <div class="admin-nav-link" id="nav-logout" onclick="handleLogout()" style="color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 5px 12px;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout
+            </div>
+          </li>
+          <li style="margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px;">
+            <div class="admin-nav-link" onclick="window.openSite()" style="color: rgba(255,255,255,0.8); padding: 5px 12px;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home
+            </div>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-user" style="padding: 10px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+        <div class="sidebar-avatar" style="position: relative; width: 40px; height: 40px; border: 2px solid var(--gold); border-radius: 50%; overflow: hidden; background: #333;">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Nipuni" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="sidebar-user-info">
+          <h5 id="sidebar-name" style="font-size: 16px; color: #fff; margin: 0; font-weight: 700; letter-spacing: 0.02em;">Nipuni</h5>
+          <p style="font-size: 10px; color: #10b981; margin: 2px 0 0 0; display: flex; align-items: center; gap: 5px; font-weight: 600;">
+            <span class="status-dot" style="width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #10b981;"></span> Online
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="admin-main" style="padding: 0px 10px 15px 10px;">
+      <div class="main-body">
+        <header class="admin-header" style="margin-bottom: 5px;">
+            <h2 id="view-title" style="margin: 0; font-size: 36px; font-weight: 800; color: var(--admin-text); letter-spacing: -0.02em;">Dashboard</h2>
+        </header>
+
+        <!-- DASHBOARD TAB -->
+        <div id="tab-dashboard" class="admin-content active">
+            <!-- LUXURY WELCOME -->
+            <div class="welcome-banner" style="border-radius: 25px; padding: 20px 30px; margin-bottom: 15px;">
+                <div>
+                   <h1 style="font-size: 24px; margin-bottom: 5px;">Welcome back, Nipuni</h1>
+                   <p style="font-size: 13px; opacity: 0.8;">Your business overview is ready at a glance.</p>
+                   <div class="welcome-btns" style="margin-top: 15px;">
+                       <button class="w-btn" style="padding: 8px 18px; font-size: 13px;" onclick="window.switchTab('analytics')">View Insights</button>
+                       <button class="w-btn" style="background: rgba(45,27,18,0.05); color: var(--admin-text); padding: 8px 18px; font-size: 13px;" onclick="window.switchTab('inventory')">Manage Products</button>
+                   </div>
+                </div>
+                <div class="profile-progress" style="height: 80px; width: 80px;">
+                    <svg class="progress-svg" width="80" height="80">
+                        <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="5"/>
+                        <circle cx="40" cy="40" r="36" fill="none" stroke="#CFA56A" stroke-width="5" stroke-dasharray="226" stroke-dashoffset="50" stroke-linecap="round"/>
+                    </svg>
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" class="profile-img" style="background: #fff; padding: 2px; width: 65px; height: 65px;">
+                </div>
+            </div>
+
+            <!-- LUXURY STATS -->
+            <div class="admin-stats" style="margin-bottom: 15px;">
+              <div class="admin-stat-card" style="padding: 15px;">
+                  <div class="stat-icon-box" style="width: 40px; height: 40px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                  <div class="stat-content"><div class="val" id="stat-sales" style="font-size: 18px;">Rs. 0</div><h5>Revenue</h5></div>
+              </div>
+              <div class="admin-stat-card" style="padding: 15px;">
+                  <div class="stat-icon-box" style="background: #f0fdf4; color: #16a34a; width: 40px; height: 40px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+                  <div class="stat-content"><div class="val" id="stat-orders" style="font-size: 18px;">0</div><h5>Orders</h5></div>
+              </div>
+              <div class="admin-stat-card" style="padding: 15px;">
+                  <div class="stat-icon-box" style="background: #eff6ff; color: #2563eb; width: 40px; height: 40px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                  <div class="stat-content"><div class="val" style="font-size: 18px;">0</div><h5>Clients</h5></div>
+              </div>
+              <div class="admin-stat-card" style="padding: 15px;">
+                  <div class="stat-icon-box" style="background: #fff7ed; color: #ea580c; width: 40px; height: 40px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                  <div class="stat-content"><div class="val" style="font-size: 18px;">12</div><h5>Inquiries</h5></div>
+              </div>
+            </div>
+
+            <div class="db-grid">
+                <div class="chart-panel" style="display: block; padding: 15px 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="font-family: var(--font-main); font-size: 16px; font-weight: 700; margin: 0; color: var(--admin-text);">Stock Distribution</h3>
+                        <div style="font-size: 12px; color: var(--admin-text); font-weight: 700;">450 Items</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; align-items: center;">
+                        <div class="donut-wrap" style="height: 140px; width: 140px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center;">
+                            <!-- Premium SVG Circle Graph -->
+                            <svg width="140" height="140" viewBox="0 0 180 180" style="transform: rotate(-90deg);">
+                                <!-- Background Track -->
+                                <circle cx="90" cy="90" r="75" fill="transparent" stroke="#f0f0f0" stroke-width="15"></circle>
+                                <!-- The Ordinary Segment (70%) -->
+                                <circle cx="90" cy="90" r="75" fill="transparent" stroke="#CFA56A" stroke-width="18" stroke-dasharray="329.84 471.2" stroke-dashoffset="0"></circle>
+                                <!-- CeraVe Segment (30%) -->
+                                <circle cx="90" cy="90" r="75" fill="transparent" stroke="#1B1B1E" stroke-width="18" stroke-dasharray="141.36 471.2" stroke-dashoffset="-329.84"></circle>
+                                <!-- Other Brands Segment (0%) -->
+                                <circle cx="90" cy="90" r="75" fill="transparent" stroke="#7A6459" stroke-width="18" stroke-dasharray="0 471.2" stroke-dashoffset="-471.2"></circle>
+                            </svg>
+                            <div class="donut-val" style="position: absolute; text-align: center;">
+                                <span id="donut-center-text" style="color: var(--admin-text); font-size: 22px; font-weight: 800; display: block; line-height: 1.1;">85%</span>
+                                <p style="font-size: 9px; margin: 0; text-transform: uppercase; font-weight: 700; opacity: 0.6; letter-spacing: 0.1em;">Available</p>
+                            </div>
+                        </div>
+                        <div class="progress-list" style="gap: 15px;">
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #CFA56A;"></div>The Ordinary</div>
+                                <div style="font-size: 13px; font-weight: 700;">70%</div>
+                            </div>
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #1B1B1E;"></div>CeraVe</div>
+                                <div style="font-size: 13px; font-weight: 700;">30%</div>
+                            </div>
+
+                            <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);"><div style="width: 10px; height: 10px; border-radius: 50%; background: #E8DFD3;"></div>Other Brands</div>
+                                <div style="font-size: 13px; font-weight: 700;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- CLOSE FIRST DB-GRID -->
+
+            <div class="db-grid" style="margin-top: 30px;">
+                <div class="chart-panel" style="grid-template-columns: 1fr;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <h3 style="margin:0; font-family: var(--font-serif); font-size: 22px;">Revenue Momentum</h3>
+                            <span style="background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">+24.5% Gåæ</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="chart-tab active">30D</button>
+                            <button class="chart-tab">7D</button>
+                            <button class="chart-tab">1Y</button>
+                        </div>
+                    </div>
+                    <div id="revenue-graph-container" style="height: 300px; margin-bottom: 40px; position: relative; padding: 10px 10px 30px 60px; background: rgba(0,0,0,0.01); border-radius: 12px; overflow: visible;">
+                        <!-- Y-Axis Labels (HTML for zero stretching) -->
+                        <div style="position: absolute; left: 0; top: 10px; bottom: 30px; width: 50px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; color: #A0A0A0; font-size: 11px; font-weight: 700; padding-right: 10px; pointer-events: none;">
+                            <span>45k</span>
+                            <span>30k</span>
+                            <span>15k</span>
+                            <span>0</span>
+                        </div>
+
+                        <!-- Custom SVG Line Chart -->
+                        <svg id="revenue-svg" width="100%" height="100%" viewBox="0 0 1000 300" preserveAspectRatio="none" style="display: block; overflow: visible;">
+                            <!-- Grid Lines -->
+                            <line x1="0" y1="0" x2="1000" y2="0" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
+                            <line x1="0" y1="100" x2="1000" y2="100" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
+                            <line x1="0" y1="200" x2="1000" y2="200" stroke="rgba(0,0,0,0.03)" stroke-width="1"></line>
+                            <line x1="0" y1="300" x2="1000" y2="300" stroke="rgba(0,0,0,0.08)" stroke-width="2"></line>
+                            
+                            <!-- Revenue Path -->
+                            <defs>
+                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="rgba(198, 151, 90, 0.4)"></stop>
+                                    <stop offset="100%" stop-color="rgba(198, 151, 90, 0)"></stop>
+                                </linearGradient>
+                            </defs>
+                            <path id="revenue-path-bg" fill="url(#chartGradient)" d="M0,280 C150,260 250,290 400,210 S700,180 850,90 L1000,40 L1000,300 L0,300 Z" style="transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);"></path>
+                            <path id="revenue-path" fill="none" stroke="#C6975A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M0,280 C150,260 250,290 400,210 S700,180 850,90 L1000,40" style="transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);"></path>
+                        </svg>
+
+                        <!-- X-Axis Labels (HTML for zero stretching) -->
+                        <div style="position: absolute; left: 60px; right: 10px; bottom: 0; height: 30px; display: flex; justify-content: space-between; align-items: center; color: #A0A0A0; font-size: 11px; font-weight: 700; pointer-events: none;">
+                            <span>01 Apr</span>
+                            <span>05 Apr</span>
+                            <span>09 Apr</span>
+                            <span>13 Apr</span>
+                            <span>Today</span>
+                        </div>
+                    </div>
+                    <!-- Detailed Insight Stats -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid #f8f8f8; padding: 30px 0 10px 0; margin-top: 10px;">
+                        <div style="text-align: center; border-right: 1px solid #f0f0f0;">
+                            <p style="font-size: 10px; color: var(--admin-muted); text-transform: uppercase; margin-bottom: 5px; font-weight: 700; letter-spacing: 0.05em;">Avg. Transaction</p>
+                            <p id="stat-avg-trans" style="font-size: 18px; font-weight: 700; color: var(--admin-sidebar-bg);">Rs. 0</p>
+                        </div>
+                        <div style="text-align: center; border-right: 1px solid #f0f0f0;">
+                            <p style="font-size: 10px; color: var(--admin-muted); text-transform: uppercase; margin-bottom: 5px; font-weight: 700; letter-spacing: 0.05em;">Active Success</p>
+                            <p id="stat-success-rate" style="font-size: 18px; font-weight: 700; color: var(--admin-sidebar-bg);">0%</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="font-size: 10px; color: var(--admin-muted); text-transform: uppercase; margin-bottom: 5px; font-weight: 700; letter-spacing: 0.05em;">Revenue Target</p>
+                            <p id="stat-target-val" style="font-size: 18px; font-weight: 700; color: var(--admin-accent);">0% Achieved</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- CLOSE SECOND DB-GRID -->
+          </div>
+
+          <!-- INVENTORY TAB -->
+          <div id="tab-inventory" class="admin-content">
+            <div class="admin-section">
+              <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                <h3>Product Collection</h3>
+                <button class="admin-btn" onclick="window.openModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Create New Product
+                </button>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 150px;">Collection</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
+                  <tbody id="inventory-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ORDERS TAB -->
+          <div id="tab-orders" class="admin-content">
+            <div class="admin-section">
+              <div class="admin-sec-head" style="margin-bottom: 30px;"><h3 style="margin:0;">Live Acquisitions</h3></div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
+
+                  <tbody id="orders-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUPPORT TAB -->
+          <div id="tab-support" class="admin-content">
+            <div class="admin-section">
+              <div class="admin-sec-head" style="margin-bottom: 30px;"><h3 style="margin:0;">Client Inquiries</h3></div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead><tr><th>Received</th><th>Client</th><th>Correspondence</th><th>Message</th><th>Respond</th></tr></thead>
+                  <tbody id="inquiries-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ANALYTICS TAB -->
+          <div id="tab-analytics" class="admin-content">
+            <!-- Analytics Hero Header -->
+            <div style="background: var(--admin-sidebar-bg); border-radius: var(--radius-md); padding: 40px; color: #fff; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="font-family: var(--font-serif); font-size: 28px; margin: 0 0 10px 0;">Executive Analytics</h3>
+                    <p style="opacity: 0.6; font-size: 14px; margin: 0;">Real-time intelligence and market performance metrics.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 5px;">Platform Health</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #34d399;">99.9% Robust</div>
+                </div>
+            </div>
+
+            <div class="db-grid">
+                <!-- Row 1: Traffic & Success -->
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 30px;">
+                    <div class="admin-section" style="padding: 25px;">
+                        <div class="act-head"><h4>Traffic Momentum</h4></div>
+                        <div id="traffic-graph-container" style="height: 250px; position: relative; margin-top: 20px; padding: 10px 10px 30px 60px;">
+                            <!-- Y-Axis Labels -->
+                            <div style="position: absolute; left: 0; top: 10px; bottom: 30px; width: 50px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; color: #A0A0A0; font-size: 11px; font-weight: 700; padding-right: 10px; pointer-events: none;">
+                                <span>2.5k</span>
+                                <span>1.5k</span>
+                                <span>500</span>
+                                <span>0</span>
+                            </div>
+                            
+                            <svg id="traffic-svg" width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none" style="display: block; overflow: visible;">
+                                <defs>
+                                    <linearGradient id="trafficGradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(37, 99, 235, 0.2)"></stop>
+                                        <stop offset="100%" stop-color="rgba(37, 99, 235, 0)"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <path id="traffic-path-bg" fill="url(#trafficGradient)" d="M0,250 L800,250"></path>
+                                <path id="traffic-path" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" d="M0,250 L800,250"></path>
+                            </svg>
+
+                            <!-- X-Axis Labels -->
+                            <div style="position: absolute; left: 60px; right: 10px; bottom: 0; height: 30px; display: flex; justify-content: space-between; align-items: center; color: #A0A0A0; font-size: 11px; font-weight: 700; pointer-events: none;">
+                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admin-section" style="padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                        <div class="act-head" style="width: 100%;"><h4>Order Fulfillment</h4></div>
+                        <div style="position: relative; width: 180px; height: 180px; margin: 20px 0;">
+                            <svg width="180" height="180" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f0f0f0" stroke-width="12"></circle>
+                                <circle id="success-circle" cx="50" cy="50" r="40" fill="transparent" stroke="#CFA56A" stroke-width="12" stroke-dasharray="0 251.2"></circle>
+                                <circle id="return-circle" cx="50" cy="50" r="40" fill="transparent" stroke="#1B1B1E" stroke-width="12" stroke-dasharray="0 251.2"></circle>
+                            </svg>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <div style="font-size: 24px; font-weight: 800; color: var(--admin-text);">85%</div>
+                                <div style="font-size: 9px; text-transform: uppercase; color: var(--admin-muted);">Success</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px; font-size: 11px; font-weight: 700; color: var(--admin-muted);">
+                            <span><i style="display:inline-block; width:8px; height:8px; background:#CFA56A; border-radius:2px; margin-right:5px;"></i> Success</span>
+                            <span><i style="display:inline-block; width:8px; height:8px; background:#1B1B1E; border-radius:2px; margin-right:5px;"></i> Returns</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Map & Social Sources -->
+                <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; margin-bottom: 30px;">
+                    <div class="admin-section" style="padding: 25px;">
+                        <div class="act-head"><h4>Master Brand Inventory</h4></div>
+                        <div style="height: 380px; display: flex; flex-direction: column; gap: 30px; padding-top: 20px;">
+                            <!-- The Ordinary Stock -->
+                            <div style="background: #fafafa; border-radius: 20px; padding: 25px; border: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 5px solid #16a34a; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #16a34a; font-size: 18px; flex-shrink: 0;">100%</div>
+                                    <div>
+                                        <h5 style="margin: 0; font-size: 16px; font-weight: 700;">The Ordinary</h5>
+                                        <p style="margin: 5px 0 0 0; font-size: 12px; color: var(--admin-muted);">Maximum Capacity Reached</p>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span style="background: #f0fdf4; color: #16a34a; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">FULL STOCK</span>
+                                </div>
+                            </div>
+
+                            <!-- CeraVe Stock -->
+                            <div style="background: #fafafa; border-radius: 20px; padding: 25px; border: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 5px solid #16a34a; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #16a34a; font-size: 18px; flex-shrink: 0;">100%</div>
+                                    <div>
+                                        <h5 style="margin: 0; font-size: 16px; font-weight: 700;">CeraVe</h5>
+                                        <p style="margin: 5px 0 0 0; font-size: 12px; color: var(--admin-muted);">Maximum Capacity Reached</p>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span style="background: #f0fdf4; color: #16a34a; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">FULL STOCK</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section" style="padding: 25px;">
+                        <div class="act-head" style="margin-bottom: 30px;"><h4>Traffic Origin</h4></div>
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- Web Search -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Web Search (Organic)</span><span>942 Clicks</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 100%; background: #34a853;"></div></div>
+                            </div>
+                            <!-- FB -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Facebook Ecosystem</span><span>0%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 0%; background: #3b5998;"></div></div>
+                            </div>
+                            <!-- TikTok -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>TikTok Trends</span><span>0%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 0%; background: #000000;"></div></div>
+                            </div>
+                            <!-- Instagram -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Instagram Aesthetics</span><span>18%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 18%; background: #e1306c;"></div></div>
+                            </div>
+                            <!-- Direct -->
+                            <div class="prog-item">
+                                <div class="prog-head"><span>Direct / Organic</span><span>12%</span></div>
+                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 12%; background: var(--admin-accent);"></div></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--admin-border); display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="admin-stat-card" style="padding: 15px;">
+                                <h6 style="font-size: 10px; text-transform: uppercase;">Social ROAS</h6>
+                                <div style="font-size: 18px; font-weight: 800;">4.8x</div>
+                            </div>
+                            <div class="admin-stat-card" style="padding: 15px;">
+                                <h6 style="font-size: 10px; text-transform: uppercase;">CPC Average</h6>
+                                <div style="font-size: 18px; font-weight: 800;">Rs. 24</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="activity-sidebar">
+          <div class="act-sec">
+              <div class="act-head" style="margin-bottom: 30px;"><h4>My Activity</h4></div>
+              
+              <!-- Weekly Overview Bar Chart -->
+              <div class="act-head" style="margin-top: 20px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; font-size: 13px; font-weight: 700; margin-bottom: 20px; color: var(--admin-text);">Weekly Overview</div>
+              <div style="background: #fff; border: 1px solid var(--admin-border); box-shadow: var(--shadow-sm); border-radius: var(--radius-md); padding: 25px 20px; margin-bottom: 30px;">
+                  <div style="height: 100px; position: relative;">
+                      <svg id="weekly-bar-svg" width="100%" height="100%" viewBox="0 0 220 100" preserveAspectRatio="none" style="display: block; overflow: visible;">
+                          <!-- Hardcoded Initial Heights to prevent 'Empty' look -->
+                          <rect x="5" y="70" width="22" height="30" rx="6" fill="#CFA56A" fill-opacity="0.3" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);"></rect>
+                          <rect x="35" y="50" width="22" height="50" rx="6" fill="#CFA56A" fill-opacity="0.3" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;"></rect>
+                          <rect x="65" y="65" width="22" height="35" rx="6" fill="#CFA56A" fill-opacity="0.3" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;"></rect>
+                          <rect x="95" y="20" width="22" height="80" rx="6" fill="#CFA56A" fill-opacity="1" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s; filter: drop-shadow(0 4px 8px rgba(207,165,106,0.4));"></rect>
+                          <rect x="125" y="60" width="22" height="40" rx="6" fill="#CFA56A" fill-opacity="0.3" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;"></rect>
+                          <rect x="155" y="75" width="22" height="25" rx="6" fill="#CFA56A" fill-opacity="0.3" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;"></rect>
+                          <rect x="185" y="55" width="22" height="45" rx="6" fill="#CFA56A" fill-opacity="0.3" style="transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;"></rect>
+                      </svg>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; margin-top:15px; font-size:10px; color: var(--admin-muted); font-weight: 700;">
+                      <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                  </div>
+              </div>
+
+              <div class="act-head" style="margin-top: 20px;"><h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Latest Arrivals</h4><a href="#" class="view-all" onclick="window.switchTab('inventory')">Explore</a></div>
+              <div class="act-list" id="latest-products-sidebar"></div>
+          </div>
+          <div class="act-sec">
+              <div class="act-head" style="margin-top: 40px;"><h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Recent Orders</h4><a href="#" class="view-all" onclick="window.switchTab('orders')">Journal</a></div>
+              <div class="act-list" id="recent-orders-sidebar"></div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+  <script src="config.js?v=16"></script>
+  <script src="products.js?v=11"></script>
+  <script>
+    console.log("BiB Admin: DOM Logic Attached");
+    window.onerror = (m,u,l) => console.error("Error: " + m + " at line " + l);
+    // Using global BASE_URL from config.js?v=16
+
+    
+    // Clean up cached name suffixes if any
+    const cleanUIName = () => {
+        const nameElements = [document.getElementById('sidebar-name'), document.querySelector('.welcome-banner h1')];
+        nameElements.forEach(el => {
+            if (el && el.innerText.includes('(Admin)')) {
+                el.innerText = el.innerText.replace('(Admin)', '').trim();
+            }
+        });
+    }
+    cleanUIName();
+    
+    window.switchTab = function(tabId, el) {
+      console.log("Switching to tab:", tabId);
+      // Update Title
+      const titles = { 
+        'dashboard': 'Dashboard Overview', 
+        'inventory': 'Inventory Management', 
+        'orders': 'Live Orders', 
+        'analytics': 'Business Intelligence', 
+        'support': 'Customer Support' 
+      };
+      if (document.getElementById('view-title')) {
+        document.getElementById('view-title').innerText = titles[tabId] || 'Admin Panel';
+      }
+
+      // Hide all tabs
+      document.querySelectorAll('.admin-content').forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.display = 'none';
+      });
+
+      // Show selected tab
+      const target = document.getElementById('tab-' + tabId);
+      if (target) {
+        target.classList.add('active');
+        target.style.display = 'block';
+      }
+
+      // Update Nav Link styling
+      document.querySelectorAll('.admin-nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      if (el) {
+        el.classList.add('active');
+      } else {
+        const navEl = document.getElementById('nav-' + tabId);
+        if (navEl) navEl.classList.add('active');
+      }
+
+      // Trigger specific tab logic
+      if (tabId === 'analytics') renderAnalyticsDashboard();
+      if (tabId === 'orders') fetchOrders();
+      if (tabId === 'inventory') renderInventory();
+      if (tabId === 'support') fetchInquiries();
+    };
+
+    const fallbackProducts = [
+        { _id: 'FALLBACK1', name: 'AM Facial Moisturizing Lotion', cat: 'cerave', price: 6500, stock: 50, discount: 0, img: 'cerave prodcut/AM Facial Moisturizing Lotion with Sunscreen Rs.6500.png' },
+        { _id: 'FALLBACK2', name: 'Acne Control Cleanser', cat: 'cerave', price: 6800, stock: 35, discount: 5, img: 'cerave prodcut/Acne Control Cleanser  Rs.6800.png' },
+        { _id: 'FALLBACK3', name: 'AHA 30% + BHA 2% Peeling Solution', cat: 'ordinary', price: 4200, stock: 20, discount: 10, img: 'the ordinary/AHA 30%25 %2B BHA 2%25 Peeling Solution (30ml)  Rs.4200.png' },
+        { _id: 'FALLBACK4', name: 'Alpha Arbutin 2% + HA', cat: 'ordinary', price: 4800, stock: 45, discount: 0, img: 'the ordinary/Alpha arbutin (30ml)  Rs.4800.png' }
+    ];
+
+    function renderInventory() {
+      try {
+        const tableBody = document.getElementById('inventory-table');
+        if (!tableBody) return;
+        
+        // Safety Fallback Logic: Prioritize DB data, then hardcoded fallbacks
+        let data = (window.productsData && window.productsData.length > 0) ? window.productsData : fallbackProducts;
+        
+        // If still empty and DB is supposed to be loaded, show a message
+        if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 40px; color: var(--admin-muted);">No products found in the collection.</td></tr>';
+            return;
+        }
+
+        tableBody.innerHTML = '';
+        
+        data.forEach(prod => {
+          const tr = document.createElement('tr');
+          const pId = String(prod._id || prod.id || '');
+          
+          // Safety for image path
+          const imagePath = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : 'images/placeholder.png');
+
+          tr.innerHTML = `
+            <td><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
+            <td style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
+            <td style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
+            <td style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td style="text-align: center;">${prod.discount || 0}%</td>
+            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
+            <td>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="window.openModal('${pId}')">Edit</button>
+                <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px;" onclick="window.deleteProduct('${pId}')">Delete</button>
+              </div>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+        console.log("G£à Inventory Rendered:", data.length, "items");
+      } catch (err) {
+        console.error("Critical Error in renderInventory:", err);
+      }
+    }
+    window.renderInventory = renderInventory;
+    
+    // Initial Render Actions
+    setTimeout(renderInventory, 500);
+    setTimeout(renderInventory, 2000);
+
+    window.fetchOrders = fetchOrders;
+    window.fetchInquiries = fetchInquiries;
+    window.fetchDashboardSummary = fetchDashboardSummary;
+    window.renderAnalyticsDashboard = renderAnalyticsDashboard;
+    window.updateRightSidebar = updateRightSidebar;
+    window.renderTeamChart = renderTeamChart;
+
+    window.openModal = (prodId = null) => {
+      const pModal = document.getElementById('product-modal');
+      const addProductForm = document.getElementById('add-product-form');
+      const pImgPreview = document.getElementById('p-img-preview');
+      const pImgPlaceholder = document.getElementById('p-img-placeholder');
+
+      editingId = prodId;
+      if (addProductForm) addProductForm.reset();
+      if (pImgPreview) pImgPreview.style.display = 'none';
+      if (pImgPlaceholder) pImgPlaceholder.style.display = 'block';
+      if (pModal) pModal.style.display = 'flex';
+      
+      if (prodId && typeof window.productsData !== 'undefined') {
+        const titleH3 = document.querySelector('#product-modal h3');
+        if (titleH3) titleH3.innerText = 'Edit Skincare Product';
+        
+        const prod = window.productsData.find(p => p._id === prodId || p.id === prodId);
+        if (prod) {
+          const fields = {
+            'p-name': prod.name,
+            'p-cat': prod.cat,
+            'p-filter': prod.filter,
+            'p-price': prod.price,
+            'p-id-field': prod.id,
+            'p-discount': prod.discount,
+            'p-img': prod.img,
+            'p-desc': prod.desc,
+            'p-stock': prod.stock
+          };
+          for (let fid in fields) {
+            const el = document.getElementById(fid);
+            if (el) el.value = fields[fid] || (fid.includes('price') || fid.includes('stock') ? 0 : '');
+          }
+
+          const imageToShow = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : '');
+          if (imageToShow && imageToShow !== 'undefined' && pImgPreview) {
+             pImgPreview.src = imageToShow;
+             pImgPreview.style.display = 'block';
+             if (pImgPlaceholder) pImgPlaceholder.style.display = 'none';
+          }
+        }
+      } else if (document.querySelector('#product-modal h3')) {
+        document.querySelector('#product-modal h3').innerText = 'Add New Skincare Product';
+      }
+    };
+
+    window.closeModal = () => {
+      const pModal = document.getElementById('product-modal');
+      if (pModal) pModal.style.display = 'none';
+      editingId = null;
+    };
+
+    // Primary DOM Init
+    function initApp() {
+        console.log("=ƒÜÇ BiB Admin: Initializing App Shell");
+        // Navigation is handled via inline HTML onclick to prevent race conditions
+        const addProductForm = document.getElementById('add-product-form');
+        if (addProductForm) {
+            // Remove previous if any
+            const newForm = addProductForm.cloneNode(true);
+            addProductForm.parentNode.replaceChild(newForm, addProductForm);
+            
+            newForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const sendBtn = newForm.querySelector('button[type="submit"]');
+                const mainImg = document.getElementById('p-img') ? document.getElementById('p-img').value : '';
+
+                if (!mainImg || mainImg.trim() === '') {
+                    alert('G¥î Image URL or Upload required!');
+                    return;
+                }
+
+                if (sendBtn) { sendBtn.textContent = 'Saving...'; sendBtn.disabled = true; }
+
+                const productData = {
+                  name: document.getElementById('p-name').value,
+                  cat: document.getElementById('p-cat').value,
+                  filter: document.getElementById('p-filter').value || 'serums',
+                  price: Number(document.getElementById('p-price').value),
+                  id: document.getElementById('p-id-field').value,
+                  discount: Number(document.getElementById('p-discount').value),
+                  img: mainImg,
+                  desc: document.getElementById('p-desc').value,
+                  stock: Number(document.getElementById('p-stock').value)
+                };
+
+                try {
+                  const method = editingId ? 'PUT' : 'POST';
+                  const url = editingId ? `${BASE_URL}/products/${editingId}` : `${BASE_URL}/products`;
+                  const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('userToken') },
+                    body: JSON.stringify(productData)
+                  });
+                  if (res.ok) { window.closeModal(); await fetchDatabaseProducts(); renderInventory(); } 
+                  else { const eb = await res.json(); alert('Failed: ' + (eb.message || 'Error')); }
+                } catch (err) { alert('Server Unreachable'); }
+                finally { if (sendBtn) { sendBtn.textContent = 'Save Product'; sendBtn.disabled = false; } }
+            });
+        }
+
+        // File compression logic
+        const pFileInput = document.getElementById('p-img-file');
+        if (pFileInput) {
+            pFileInput.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const r = new FileReader();
+                r.onload = (ev) => {
+                    const i = new Image();
+                    i.onload = () => {
+                        const c = document.createElement('canvas');
+                        const ctx = c.getContext('2d');
+                        let w = i.width; let h = i.height;
+                        if (w > 600) { h = Math.round((h * 600) / w); w = 600; }
+                        c.width = w; c.height = h;
+                        ctx.drawImage(i, 0, 0, w, h);
+                        const b64 = c.toDataURL('image/webp', 0.8);
+                        const pImg = document.getElementById('p-img');
+                        const pPre = document.getElementById('p-img-preview');
+                        const pPlc = document.getElementById('p-img-placeholder');
+                        if (pImg) pImg.value = b64;
+                        if (pPre) { pPre.src = b64; pPre.style.display = 'block'; }
+                        if (pPlc) pPlc.style.display = 'none';
+                    };
+                    i.src = ev.target.result;
+                };
+                r.readAsDataURL(file);
+            };
+        }
+
+        safetyInit();
+    }
+    window.initApp = initApp;
+
+    // The redundant renderInventory function here has been removed to prevent overrides.
+
+
+    // Self-healing render check
+    setInterval(() => {
+        const tb = document.getElementById('inventory-table');
+        if (tb && tb.innerHTML.trim() === '' && window.productsData && window.productsData.length > 0) {
+            console.log("Automatic repair: Table was empty but data exists. Re-rendering...");
+            renderInventory();
+        }
+    }, 5000);
+
+
+    window.deleteProduct = async (id) => {
+        if(!id) { alert("Error: No product ID found."); return; }
+        if(!confirm("GÜán+Å Are you sure you want to delete this product? This action cannot be undone.")) return;
+        
+        try {
+            const token = localStorage.getItem('userToken');
+            if (!token) {
+                alert("Session expired. Please log in again.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const res = await fetch(`${BASE_URL}/products/${id}`, {
+                method: 'DELETE',
+                headers: { 
+                  'Authorization': 'Bearer ' + token,
+                  'Content-Type': 'application/json' 
+                }
+            });
+            
+            if(res.ok) {
+                showToast("G£à Product Deleted Successfully");
+                await fetchDatabaseProducts();
+                renderInventory();
+            } else {
+                const errData = await res.json();
+                console.error("Delete Failed:", errData);
+                alert("G¥î Failed to delete: " + (errData.message || "Server error (" + res.status + ")"));
+            }
+        } catch(e) { 
+            console.error("Delete Error:", e);
+            alert("G¥î Network Error: Could not connect to server.");
+        }
+    };
+
+    async function fetchOrders() {
+      const ordersTable = document.getElementById('orders-table');
+      if (!ordersTable) return;
+      ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
+      
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
+      try {
+        const res = await fetch(BASE_URL + '/orders', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const orders = await res.json();
+        // Store for viewing details
+        window.allOrders = orders;
+
+        ordersTable.innerHTML = '';
+        orders.forEach(order => {
+          const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
+            <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
+            <td>
+              <div style="width: 120px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #777;" title="${itemsSummary}">
+                ${itemsSummary}
+              </div>
+            </td>
+            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td> 
+            <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Pending'}</span></td>
+            <td>
+               <div style="display:flex; gap:8px; min-width: 240px;">
+                  <button class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="viewCustomerDetails('${order._id}')">Details</button>
+                  ${!order.isDelivered ? `<button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="markDelivered('${order._id}')">Deliver</button>` : '<span style="color:#10b981; font-weight:bold; align-self:center; font-size: 11px; letter-spacing: 0.05em;">COMPLETED</span>'}
+                  <button class="admin-btn" style="background:rgba(255, 0, 0, 0.05); color:#ef4444; border: 1px solid rgba(255, 0, 0, 0.1); padding: 6px 12px; font-size: 11px;" onclick="deleteOrder('${order._id}')">Delete</button>
+               </div>
+            </td>
+          `;
+          ordersTable.appendChild(tr);
+        });
+      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="6">Failed to load.</td></tr>'; }
+    }
+
+    window.viewCustomerDetails = (orderId) => {
+        const order = window.allOrders.find(o => o._id === orderId);
+        if(!order) return;
+        
+        const ci = order.customerInfo;
+        document.getElementById('view-cust-name').innerText = ci.firstName + ' ' + ci.lastName;
+        document.getElementById('view-cust-email').innerText = ci.email;
+        document.getElementById('view-cust-phone').innerText = ci.phone;
+        document.getElementById('view-cust-district').innerText = ci.district;
+        document.getElementById('view-cust-address').innerText = ci.address + ', ' + ci.city;
+        
+        const itemsDiv = document.getElementById('view-cust-items');
+        itemsDiv.innerHTML = order.orderItems.map(item => `
+            <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span>${item.qty}x ${item.name}</span>
+                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 0) ).toLocaleString()}</span>
+            </div>
+        `).join('');
+        
+        document.getElementById('customer-modal').style.display = 'flex';
+    };
+
+    window.markDelivered = async (id) => {
+        try {
+            await fetch(`${BASE_URL}/orders/${id}/deliver`, {
+                method: 'PUT',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+            });
+            fetchOrders();
+        } catch(e) { console.error(e); }
+    };
+
+    window.deleteOrder = async (id) => {
+        if(!confirm("Are you sure you want to permanently DELETE this order?")) return;
+        try {
+            const res = await fetch(`${BASE_URL}/orders/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+            });
+            if(res.ok) {
+                showToast("=ƒùæn+Å Order Deleted Successfully");
+                fetchOrders();
+            } else {
+                alert("Failed to delete order. Check logs.");
+            }
+        } catch(e) { console.error("Order delete error:", e); }
+    };
+
+    window.openSite = () => { window.location.href = 'index.html'; };
+
+    async function fetchInquiries() {
+      const table = document.querySelector('#tab-support tbody');
+      if (!table) return;
+      table.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading Inquiries...</td></tr>';
+
+      const token = localStorage.getItem('userToken');
+      if (!token) { window.location.href = 'login.html'; return; }
+
+      try {
+        const res = await fetch(BASE_URL + '/inquiries', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const data = await res.json();
+        table.innerHTML = '';
+        data.forEach(msg => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(msg.createdAt).toLocaleDateString()}</td>
+            <td>${msg.name}</td>
+            <td>${msg.email}</td>
+            <td>${msg.message.substring(0, 30)}...</td>
+            <td><button class="admin-btn" onclick="markRead('${msg._id}')">${msg.isRead ? 'Read' : 'Mark Read'}</button></td>
+          `;
+          table.appendChild(tr);
+        });
+      } catch (err) { table.innerHTML = '<tr><td colspan="5">Failed to load.</td></tr>'; }
+    }
+
+    window.markRead = async (id) => {
+        await fetch(`${BASE_URL}/inquiries/${id}/read`, {
+            method: 'PUT',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+        });
+        fetchInquiries();
+    };
+
+    function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
+
+    function showToast(msg) {
+        const toast = document.getElementById('admin-notification');
+        toast.innerText = msg;
+        toast.style.display = 'flex';
+        setTimeout(() => { toast.style.display = 'none'; }, 5000);
+    }
+
+    const chartInstances = {};
+    let visitsChartInstance = null, ordersChartInstance = null, salesChartInstance = null;
+    // Premium Number Counting Animation
+    function animateValue(id, start, end, duration, prefix = "") {
+        const obj = document.getElementById(id);
+        if (!obj) return;
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const current = Math.floor(progress * (end - start) + start);
+            obj.innerHTML = prefix + current.toLocaleString();
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    async function fetchDashboardSummary() {
+       const token = localStorage.getItem('userToken');
+       if (!token) { window.location.href = 'login.html'; return; }
+
+       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+       if (userInfo.name) {
+         if (document.getElementById('sidebar-name')) document.getElementById('sidebar-name').innerText = userInfo.name;
+         if (document.getElementById('welcome-name')) document.getElementById('welcome-name').innerText = userInfo.name.split(' ')[0];
+       }
+
+       try {
+          const res = await fetch(BASE_URL + '/stats/summary', {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          const data = await res.json();
+          
+          if (data) {
+              const sales = data.totalSales || 0;
+              const orders = data.totalOrders || 0;
+              const visits = data.totalVisits || 0;
+              
+              animateValue('stat-sales', 0, sales, 1500, "Rs. ");
+              animateValue('stat-orders', 0, orders, 1500);
+              
+              // Find and update Client and Inquiry stats (mapping from data)
+              const statCards = document.querySelectorAll('.admin-stat-card .val');
+              if (statCards[2]) animateValue(statCards[2].id || 'stat-clients', 0, data.totalUsers || 0, 1500);
+              if (statCards[3]) animateValue(statCards[3].id || 'stat-inquiries', 0, data.recentActivity ? data.recentActivity.filter(a => a.event.includes('Inquiry')).length : 0, 1500);
+
+              // Calculate Average Transaction
+              const avg = orders > 0 ? Math.round(sales / orders) : 0;
+              const avgEl = document.getElementById('stat-avg-trans');
+              if (avgEl) animateValue('stat-avg-trans', 0, avg, 1500, "Rs. ");
+
+              // Success Rate
+              const successEl = document.getElementById('stat-success-rate');
+              if (successEl) successEl.innerText = orders > 0 ? "100%" : "0%";
+              
+              const targetEl = document.getElementById('stat-target-val');
+              if (targetEl) {
+                  const percent = Math.min(Math.round((sales / 100000) * 100), 100); // 100k target
+                  targetEl.innerText = percent + "% Achieved";
+              }
+
+              // Update Stock Distribution (Calculated from Products)
+              updateStockDistribution();
+              
+              if (data.graphData) {
+                  renderDashboardSalesChart(data.graphData);
+                  renderAnalyticsDashboard(data.graphData);
+              }
+          }
+          renderTeamChart();
+          updateRightSidebar();
+        } catch (e) {
+            console.error("Dashboard fetch error:", e);
+            renderTeamChart();
+        }
+    }
+
+    function updateStockDistribution() {
+        if (!window.productsData || window.productsData.length === 0) return;
+        
+        let brands = { ordinary: 0, cerave: 0, other: 0 };
+        let totalStock = 0;
+        
+        window.productsData.forEach(p => {
+            const cat = (p.cat || "").toLowerCase();
+            const stock = Number(p.stock) || 0;
+            totalStock += stock;
+            if (cat.includes('ordinary')) brands.ordinary += stock;
+            else if (cat.includes('cerave')) brands.cerave += stock;
+            else brands.other += stock;
+        });
+
+        if (totalStock === 0) return;
+
+        const ordP = Math.round((brands.ordinary / totalStock) * 100);
+        const cerP = Math.round((brands.cerave / totalStock) * 100);
+        const othP = 100 - ordP - cerP;
+
+        // Update Text
+        const centerText = document.getElementById('donut-center-text');
+        if (centerText) centerText.innerText = ordP + cerP + "%";
+        
+        const progItems = document.querySelectorAll('#tab-dashboard .prog-item');
+        if (progItems.length >= 3) {
+            progItems[0].querySelector('div:last-child').innerText = ordP + "%";
+            progItems[1].querySelector('div:last-child').innerText = cerP + "%";
+            progItems[2].querySelector('div:last-child').innerText = (othP > 0 ? othP : 0) + "%";
+        }
+
+        // Update SVG segments (Simplified for this 3-segment case)
+        const circles = document.querySelectorAll('.donut-wrap svg circle');
+        if (circles.length >= 4) {
+             const ordOffset = (ordP / 100) * 471.2;
+             const cerOffset = (cerP / 100) * 471.2;
+             const othOffset = (othP / 100) * 471.2;
+             
+             circles[1].setAttribute('stroke-dasharray', `${ordOffset} 471.2`);
+             circles[2].setAttribute('stroke-dasharray', `${cerOffset} 471.2`);
+             circles[2].setAttribute('stroke-dashoffset', `-${ordOffset}`);
+             circles[3].setAttribute('stroke-dasharray', `${othOffset} 471.2`);
+             circles[3].setAttribute('stroke-dashoffset', `-${ordOffset + cerOffset}`);
+        }
+    }
+
+    function updateRightSidebar(data) {
+        // 1. LATEST PRODUCTS (with deep safety)
+        const prodList = document.getElementById('latest-products-sidebar');
+        if (prodList) {
+            // Priority: Live Data -> defaultProducts (from products.js) -> Hardcoded Premium Fallback
+            const source = (window.productsData && window.productsData.length > 0) ? window.productsData : 
+                          (typeof defaultProducts !== 'undefined' ? defaultProducts : [
+                { name: 'CeraVe Hydrating Cleanser', cat: 'cerave', price: 6800, img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
+                { name: 'Niacinamide 10% + Zinc 1%', cat: 'ordinary', price: 3800, img: 'the ordinary/Niacinamide (30ml) Rs.3800.png' },
+                { name: 'SA Smoothing Cleanser', cat: 'cerave', price: 6750, img: 'cerave prodcut/SA Smoothing Cleanser (236ml) Rs.6750.png' }
+            ]);
+
+            const latest = source.slice(0, 3);
+            prodList.innerHTML = latest.map(p => `
+                <div class="act-card">
+                    <div class="act-date" style="background: var(--admin-accent-soft); color: var(--admin-accent); overflow: hidden;">
+                        <img src="${p.img}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='favicon.png'">
+                    </div>
+                    <div class="act-info">
+                        <h5>${(p.name || 'Premium Product').substring(0, 18)}...</h5>
+                        <p>${p.cat ? p.cat.toUpperCase() : 'SKINCARE'} GÇó Rs. ${(p.price || 0).toLocaleString()}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 2. RECENT ORDERS (with deep safety)
+        const orderList = document.getElementById('recent-orders-sidebar');
+        if (orderList) {
+            const sourceOrders = (window.allOrders && window.allOrders.length > 0) ? window.allOrders : [
+                { _id: 'X7K29B', customerInfo: { firstName: 'Janith' }, totalPrice: 12500, isDelivered: false },
+                { _id: 'R4M11P', customerInfo: { firstName: 'Sandun' }, totalPrice: 8400, isDelivered: true },
+                { _id: 'W9L33Z', customerInfo: { firstName: 'Dilhara' }, totalPrice: 21000, isDelivered: false }
+            ];
+
+            const recentOrders = sourceOrders.slice(0, 3);
+            orderList.innerHTML = recentOrders.map(o => `
+                <div class="act-card">
+                    <div class="act-date" style="background: #f0fdf4; color: #16a34a; font-size: 10px; font-weight: 800;">ORD</div>
+                    <div class="act-info">
+                        <h5># ${(o._id || '').substring((o._id || '').length-4).toUpperCase()} - ${o.customerInfo?.firstName || 'Client'}</h5>
+                        <p>${o.isDelivered ? 'Delivered' : 'Awaiting'} GÇó Rs. ${(o.totalPrice || 0).toLocaleString()}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+
+
+    let firstLoadCount = 0;
+    function renderDashboardSalesChart(graphData) {
+        if (!graphData || !graphData.dailyOrders) return;
+        
+        const svgPath = document.getElementById('revenue-path');
+        const svgPathBg = document.getElementById('revenue-path-bg');
+        if (!svgPath) return;
+
+        const data = graphData.dailyOrders;
+        if (data.length < 2) {
+            // If not enough data points, just draw a straight line or hide
+            svgPath.setAttribute('d', 'M0,280 L1000,280');
+            if (svgPathBg) svgPathBg.setAttribute('d', 'M0,280 L1000,280 L1000,300 L0,300 Z');
+            return;
+        }
+
+        const maxVal = Math.max(...data.map(o => o.sales), 10000); 
+        const chartWidth = 1000; 
+        const chartHeight = 300;
+
+        let points = [];
+        data.forEach((o, i) => {
+            const x = (i / (data.length - 1)) * chartWidth;
+            const y = chartHeight - (o.sales / maxVal) * (chartHeight - 40) - 20; // 20px padding
+            points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+        });
+
+        const d = "M" + points.join(" L");
+        
+        svgPath.setAttribute('d', d);
+        if (svgPathBg) {
+            svgPathBg.setAttribute('d', `${d} L1000,300 L0,300 Z`);
+        }
+    }
+
+    function renderAnalyticsDashboard(graphData) {
+        // 1. Traffic Momentum (Visits)
+        const trafficPath = document.getElementById('traffic-path');
+        const trafficPathBg = document.getElementById('traffic-path-bg');
+        if (trafficPath && graphData && graphData.dailyVisits) {
+            const data = graphData.dailyVisits;
+            if (data.length >= 2) {
+                const maxVal = Math.max(...data.map(v => v.count), 100);
+                let points = [];
+                data.forEach((v, i) => {
+                    const x = (i / (data.length - 1)) * 800;
+                    const y = 250 - (v.count / maxVal) * 200 - 20;
+                    points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+                });
+                const d = "M" + points.join(" L");
+                trafficPath.setAttribute('d', d);
+                if (trafficPathBg) trafficPathBg.setAttribute('d', d + " L800,250 L0,250 Z");
+            }
+        }
+
+        // 2. Order Fulfillment Doughnut (Success vs Returns)
+        // Hardcoded for now as real business logic usually marks these differently
+        const successCircle = document.getElementById('success-circle');
+        const returnCircle = document.getElementById('return-circle');
+        if (successCircle) {
+            const successVal = 210; // ~85% of 251.2 circumference
+            const returnVal = 10;
+            setTimeout(() => {
+                successCircle.style.transition = 'stroke-dasharray 1.5s ease-out';
+                successCircle.setAttribute('stroke-dasharray', `${successVal} 251.2`);
+                
+                if (returnCircle) {
+                  returnCircle.style.transition = 'stroke-dasharray 1s ease-out 0.5s';
+                  returnCircle.setAttribute('stroke-dasharray', `${returnVal} 251.2`);
+                  returnCircle.setAttribute('stroke-dashoffset', `-${successVal}`);
+                }
+            }, 500);
+        }
+    }
+
+    // G£à SIDEBAR LOGIC
+    function initSidebar() {
+        const toggleBtns = document.querySelectorAll('.toggle-btn');
+        toggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                if (btn.innerText.includes('Dark')) {
+                    document.body.style.filter = 'invert(0.9) hue-rotate(180deg)';
+                    document.querySelectorAll('img').forEach(img => img.style.filter = 'invert(1) hue-rotate(180deg)');
+                } else {
+                    document.body.style.filter = 'none';
+                    document.querySelectorAll('img').forEach(img => img.style.filter = 'none');
+                }
+            });
+        });
+
+        window.handleLogout = () => {
+          console.log("Logout triggered");
+          localStorage.clear();
+          window.location.href = 'login.html';
+        };
+    }
+
+    async function safetyInit() {
+      try {
+        // Force immediate hover capability
+        document.body.classList.add('ui-ready');
+        initSidebar();
+        
+        // 1. CLEAN UI INITIALIZATION
+        window.allOrders = [];
+        if (typeof renderInventory === 'function') renderInventory();
+        if (typeof renderTeamChart === 'function') renderTeamChart();
+        if (typeof updateRightSidebar === 'function') updateRightSidebar();
+
+        // 2. LIVE DATA SYNC (Aggressive)
+        setTimeout(() => { 
+            if (typeof updateRightSidebar === 'function') updateRightSidebar(); 
+            if (typeof renderTeamChart === 'function') renderTeamChart();
+        }, 100);
+        setTimeout(() => { 
+            if (typeof updateRightSidebar === 'function') updateRightSidebar(); 
+            if (typeof renderTeamChart === 'function') renderTeamChart();
+        }, 800);
+        setTimeout(() => { 
+            if (typeof renderTeamChart === 'function') renderTeamChart();
+        }, 3000);
+        // Load everything at once instead of one-by-one
+        Promise.all([
+            typeof fetchDatabaseProducts === 'function' ? fetchDatabaseProducts() : Promise.resolve(),
+            typeof fetchOrders === 'function' ? fetchOrders() : Promise.resolve(),
+            typeof fetchDashboardSummary === 'function' ? fetchDashboardSummary() : Promise.resolve(),
+            typeof fetchInquiries === 'function' ? fetchInquiries() : Promise.resolve()
+        ]).then(() => {
+            if (typeof renderInventory === 'function') renderInventory();
+            if (typeof renderTeamChart === 'function') renderTeamChart();
+            if (typeof updateRightSidebar === 'function') updateRightSidebar();
+            console.log("DASHBOARD LIVE.");
+        });
+
+        // Background Updates (Every 30 seconds)
+        setInterval(() => {
+            fetchDashboardSummary();
+            fetchOrders();
+        }, 30000);
+      } catch (err) {
+        console.error("Critical Dashboard Error:", err);
+      }
+    }
+
+    // Single and Final Initialization Trigger
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+        initApp();
+    }
+  </script>
+
+
+    <!-- PRODUCT MODAL -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-box">
+             <h3 style="font-family: var(--font-serif); font-size: 28px; margin-bottom: 30px;">Curate Product</h3>
+             <form id="add-product-form">
+                <div class="form-grid" style="overflow-y:auto; max-height: 60vh; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Product Name</label><input type="text" id="p-name" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Collection</label><select id="p-cat" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"><option value="ordinary">The Ordinary</option><option value="cerave">CeraVe</option></select></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Price (LKR)</label><input type="number" id="p-price" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Stock</label><input type="number" id="p-stock" value="50" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Discount %</label><input type="number" id="p-discount" value="0" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Imagery</label>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <input type="text" id="p-img" placeholder="http://..." style="flex: 1; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
+                            <button type="button" class="admin-btn" onclick="document.getElementById('p-img-file').click()">Upload</button>
+                            <input type="file" id="p-img-file" accept="image/*" style="display:none;">
+                        </div>
+                    </div>
+                    <div id="p-img-preview-box" style="width:100px;height:100px;border:1px dashed var(--admin-border);border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;grid-column: span 2;"><img id="p-img-preview" src="" style="width:100%;display:none;"><span id="p-img-placeholder" style="font-size: 10px; color: var(--admin-muted);">No Archive</span></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Unique ID</label><input type="text" id="p-id-field" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Philosophy / Description</label><textarea id="p-desc" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
+                    <input type="hidden" id="p-filter" value="serums">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="window.closeModal()">Discard</button>
+                    <button type="submit" class="admin-btn">Save Masterpiece</button>
+                </div>
+             </form>
+        </div>
+    </div>
+
+    <!-- CUSTOMER DETAILS MODAL -->
+    <div id="customer-modal" class="modal-overlay">
+      <div class="modal-box">
+        <h3 style="font-family: var(--font-serif); font-size: 28px; margin-bottom: 30px;">Acquisition Profile</h3>
+        <div id="customer-details-content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Client</label><p id="view-cust-name" style="font-weight: 600; font-size: 16px; margin: 5px 0 0 0;"></p></div>
+            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Contact</label><p id="view-cust-email" style="font-size: 14px; margin: 5px 0 0 0;"></p></div>
+            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Phone</label><p id="view-cust-phone" style="font-size: 14px; margin: 5px 0 0 0;"></p></div>
+            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">District</label><p id="view-cust-district" style="font-size: 14px; margin: 5px 0 0 0;"></p></div>
+          </div>
+          <div style="margin-top:25px;"><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Shipping Residence</label><p id="view-cust-address" style="font-size: 14px; margin: 5px 0 0 0; line-height: 1.5;"></p></div>
+          
+          <div style="margin-top:35px; border-top: 1px solid var(--admin-border); padding-top: 25px;">
+            <label style="font-size:10px; text-transform:uppercase; color:var(--admin-muted); letter-spacing:0.1em; display:block; margin-bottom:15px;">Itemized Manifest</label>
+            <div id="view-cust-items" style="display: flex; flex-direction: column; gap: 12px;"></div>
+          </div>
+        </div>
+        <div class="modal-actions" style="margin-top: 40px;">
+           <button class="admin-btn" style="width: 100%; justify-content: center;" onclick="window.closeCustomerModal()">Acknowledge</button>
+        </div>
+      </div>
+    </div>
+    <script>window.closeCustomerModal = () => document.getElementById('customer-modal').style.display = 'none';</script>
+
+  <div id="admin-notification">New Notification</div>
+  <!-- ADMIN LOCK SCREEN OVERLAY -->
+  <div id="admin-lock-screen" class="admin-lock-screen">
+    <div class="lock-card">
+      <div class="lock-icon-box">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <span class="lock-logo">Beauty in Balance</span>
+      <h2>Security Verification</h2>
+      <p>Please enter your 4-digit Master PIN.</p>
+      
+      <div class="pin-input-group">
+        <input type="password" id="admin-pin-input" class="pin-field" maxlength="4" placeholder="GÇóGÇóGÇóGÇó" autocomplete="off">
+        <button id="btn-unlock-admin" class="btn-unlock">Unlock System</button>
+      </div>
+      <div id="lock-error-msg" class="lock-error">Invalid PIN. Please try again.</div>
+    </div>
+  </div>
+
+  <script>
+    // CRITICAL SECURITY PIN LOGIC
+    (function() {
+      const lockOverlay = document.getElementById('admin-lock-screen');
+      const pinInput = document.getElementById('admin-pin-input');
+      const unlockBtn = document.getElementById('btn-unlock-admin');
+      const errorMsg = document.getElementById('lock-error-msg');
+      
+      const MASTER_PIN = "1234";
+
+      function attemptUnlock() {
+        if (pinInput.value === MASTER_PIN) {
+          sessionStorage.setItem('bib_admin_locked', 'false');
+          document.body.classList.add('system-unlocked');
+        } else {
+          errorMsg.classList.add('show');
+          pinInput.value = '';
+          pinInput.focus();
+        }
+      }
+
+      // Check Session State Immediately
+      if (sessionStorage.getItem('bib_admin_locked') === 'false') {
+        document.body.classList.add('system-unlocked');
+      }
+
+      unlockBtn.addEventListener('click', attemptUnlock);
+      pinInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') attemptUnlock();
+      });
+
+      // Auto-focus on start
+      window.addEventListener('load', () => {
+         if (sessionStorage.getItem('bib_admin_locked') !== 'false') {
+            pinInput.focus();
+         }
+      });
+    })();
+  </script>
+</body>
+</html>

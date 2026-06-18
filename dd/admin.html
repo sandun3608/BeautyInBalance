@@ -59,7 +59,6 @@
         orders: 'Orders Management', 
         analytics: 'Analytics', 
         support: 'Inquiries',
-        subscribers: 'Newsletter Subscribers',
         settings: 'Admin Settings' 
       };
       
@@ -69,7 +68,7 @@
       // Handle Back Button Visibility
       var backBtn = document.getElementById('header-back-btn');
       if (backBtn) {
-        backBtn.style.display = (tabName === 'settings' || tabName === 'support' || tabName === 'analytics' || tabName === 'subscribers') ? 'flex' : 'none';
+        backBtn.style.display = (tabName === 'settings' || tabName === 'support' || tabName === 'analytics') ? 'flex' : 'none';
       }
 
       if (tabName === 'inventory' && typeof renderInventory === 'function') renderInventory();
@@ -80,7 +79,6 @@
           if (typeof renderTeamChart === 'function') renderTeamChart();
       }
       if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
-      if (tabName === 'subscribers' && typeof fetchSubscribers === 'function') fetchSubscribers();
       if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
     };
 
@@ -95,7 +93,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=77" />
+  <link rel="stylesheet" href="styles.css?v=44" />
   <style>
     /* Admin Premium - Beauty in Balance Branding */
     :root {
@@ -692,7 +690,6 @@
     .admin-table td:first-child { border-left: 1px solid var(--admin-border); border-radius: 10px 0 0 10px; }
     .admin-table td:last-child { border-right: 1px solid var(--admin-border); border-radius: 0 10px 10px 0; }
 
-    .prod-thumb,
     .img-cell { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
 
     /* Luxury Buttons */
@@ -758,171 +755,12 @@
         gap: 15px;
         margin-top: 30px;
     }
-
-    /* ==========================================
-       MOBILE RESPONSIVITY FOR ADMIN DASHBOARD
-       ========================================== */
-    @media (max-width: 900px) {
-      .admin-container {
-        grid-template-columns: 1fr !important;
-        height: 100vh !important;
-        display: flex !important;
-        flex-direction: column !important;
-        overflow: hidden !important;
-      }
-      
-      .admin-sidebar {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        height: 100vh !important;
-        width: 260px !important;
-        z-index: 2000 !important;
-        transform: translateX(-100%) !important;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 10px 0 30px rgba(0,0,0,0.3) !important;
-      }
-      .admin-sidebar.sidebar-open {
-        transform: translateX(0) !important;
-      }
-      
-      .admin-main {
-        grid-template-columns: 1fr !important;
-        margin: 0 !important;
-        height: calc(100vh - 60px) !important;
-        border-radius: 0 !important;
-        overflow-y: auto !important;
-      }
-      
-      .main-body {
-        padding: 20px 15px !important;
-        height: auto !important;
-        overflow-y: visible !important;
-      }
-      
-      .activity-sidebar {
-        border-left: none !important;
-        border-top: 1px solid var(--admin-border) !important;
-        padding: 30px 15px !important;
-        height: auto !important;
-        overflow-y: visible !important;
-      }
-      
-      .admin-stats {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
-        gap: 15px !important;
-      }
-      
-      .chart-inner-grid {
-        grid-template-columns: 1fr !important;
-        gap: 30px !important;
-        justify-items: center !important;
-      }
-      
-      .progress-list {
-        width: 100% !important;
-      }
-      
-      .modal-box {
-        padding: 25px 20px !important;
-        width: 95vw !important;
-        max-height: 95vh !important;
-      }
-      
-      .admin-header {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 12px !important;
-      }
-      .admin-header h2 {
-        font-size: 28px !important;
-      }
-      .admin-header div {
-        width: 100% !important;
-        margin-left: 0 !important;
-      }
-      .admin-header button {
-        width: 100% !important;
-        justify-content: center !important;
-      }
-      
-      .admin-sec-head {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 12px !important;
-      }
-      .admin-sec-head button {
-        width: 100% !important;
-        justify-content: center !important;
-      }
-
-      .welcome-banner {
-        flex-direction: column-reverse !important;
-        align-items: center !important;
-        text-align: center !important;
-        gap: 15px !important;
-        padding: 20px 15px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .welcome-btns {
-        justify-content: center !important;
-        flex-wrap: wrap !important;
-      }
-      .welcome-btns button {
-        width: 100% !important;
-      }
-
-      .admin-table {
-        min-width: 600px !important;
-      }
-      
-      .lock-card {
-        padding: 30px 20px !important;
-        width: 90vw !important;
-      }
-      
-      /* Expose and style the mobile top header menu bar */
-      .admin-mobile-header {
-        display: flex !important;
-        background: var(--admin-sidebar-bg) !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 0 15px !important;
-        height: 60px !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-sizing: border-box !important;
-        position: relative !important;
-        z-index: 1000 !important;
-      }
-
-      /* Enable scrolling on short height screen devices for the sidebar drawer */
-      .admin-sidebar {
-        overflow-y: auto !important;
-      }
-
-
-    }
   </style>
 </head>
 
 <body class="admin-body">
 
-  <div class="admin-container">
-    <!-- MOBILE HEADER & OVERLAY -->
-    <div id="sidebar-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1999; display: none;"></div>
-    <div class="admin-mobile-header" style="display: none;">
-        <button id="mobile-menu-toggle" style="background: none; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 10px;">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-        <span style="font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.05em; text-transform: uppercase;">Beauty in Balance</span>
-        <button onclick="handleLogout()" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; font-family: var(--font-sans);" title="Sign Out">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Sign Out
-        </button>
-    </div>
-
-    <!-- SIDEBAR -->
+  <div class="admin-container">    <!-- SIDEBAR -->
     <aside class="admin-sidebar">
       <div class="admin-logo" style="font-size: 32px; font-family: var(--font-serif); color: #fff; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 25px; line-height: 1.1; text-align: center; border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding: 30px 0 15px 0;">
         <span>Beauty in Balance</span>
@@ -931,15 +769,9 @@
         <ul>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-dashboard" class="admin-nav-link active" onclick="window.switchTab('dashboard', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-inventory" class="admin-nav-link" onclick="window.switchTab('inventory', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg> Inventory</div></li>
-          <li style="border-bottom: 1px solid rgba(255,255,255,0.03); position: relative;">
-            <div id="nav-orders" class="admin-nav-link" onclick="window.switchTab('orders', this)">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg> Orders
-              <span id="order-badge" style="display: none; background: #ef4444; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 10px; margin-left: auto;">0</span>
-            </div>
-          </li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-orders" class="admin-nav-link" onclick="window.switchTab('orders', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg> Orders</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-analytics" class="admin-nav-link" onclick="window.switchTab('analytics', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg> Insights</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-support" class="admin-nav-link" onclick="window.switchTab('support', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Support</div></li>
-          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-subscribers" class="admin-nav-link" onclick="window.switchTab('subscribers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Subscribers</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-settings" class="admin-nav-link" onclick="window.switchTab('settings', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03); margin-top: 2px;">
             <div class="admin-nav-link" id="nav-logout" onclick="handleLogout()" style="color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 5px 12px;">
@@ -1143,20 +975,14 @@
             <div class="admin-section">
               <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
                 <h3>Product Collection</h3>
-                <div style="display: flex; gap: 10px;">
-                    <button class="admin-btn" style="background: #e74c3c; color: white;" onclick="window.openDeleteCategoryModal()">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        Delete Brand
-                    </button>
-                    <button class="admin-btn" onclick="window.openModal()">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                        Create New Product
-                    </button>
-                </div>
+                <button class="admin-btn" onclick="window.openModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Create New Product
+                </button>
               </div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 130px;">Brand</th><th style="width: 130px;">Sub Category</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
+                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 150px;">Collection</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
                   <tbody id="inventory-table"></tbody>
                 </table>
               </div>
@@ -1169,7 +995,7 @@
               <div class="admin-sec-head" style="margin-bottom: 30px;"><h3 style="margin:0;">Live Acquisitions</h3></div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th>Payment</th><th>Time</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
+                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
 
                   <tbody id="orders-table"></tbody>
                 </table>
@@ -1185,33 +1011,6 @@
                 <table class="admin-table">
                   <thead><tr><th>Received</th><th>Client</th><th>Correspondence</th><th>Message</th><th>Respond</th></tr></thead>
                   <tbody id="inquiries-table"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- SUBSCRIBERS TAB -->
-          <div id="tab-subscribers" class="admin-content">
-            <div class="admin-section">
-              <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-                <h3 style="margin:0;">Registered Newsletter Subscribers</h3>
-                <button onclick="exportSubscribers()" class="admin-btn" style="padding: 10px 20px; font-size: 13px;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Export CSV
-                </button>
-              </div>
-              <div class="admin-table-wrap">
-                <table class="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Email Address</th>
-                      <th>Subscribed Date</th>
-                      <th style="text-align: right; padding-right: 20px;">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="subscribers-table">
-                    <!-- JS will render here -->
-                  </tbody>
                 </table>
               </div>
             </div>
@@ -1409,457 +1208,7 @@
                 </div>
             </div>
 
-            <!-- HERO SLIDER MANAGEMENT -->
-            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-bottom: 30px;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #fdf2e9, #fdebd0); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#CFA56A" stroke-width="2.5" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                    </div>
-                    <div>
-                        <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Hero Slider Management</h3>
-                        <p style="margin: 4px 0 0 0; font-size: 12px; color: #999;">Manage homepage hero slides. Changes reflect on the live site immediately.</p>
-                    </div>
-                </div>
-
-                <!-- Live Preview Carousel -->
-                <div id="admin-slider-preview" style="position: relative; width: 100%; height: 220px; background: #1a1a1a; border-radius: 16px; overflow: hidden; margin: 25px 0;">
-                    <div id="admin-slider-track" style="width: 100%; height: 100%; position: relative;">
-                        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #555; font-size: 14px;">
-                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right: 8px;"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                            Loading slides...
-                        </div>
-                    </div>
-                    <!-- Preview Nav Arrows -->
-                    <button onclick="adminPreviewSlide(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-                    </button>
-                    <button onclick="adminPreviewSlide(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                    <!-- Slide Counter -->
-                    <div id="admin-slide-counter" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.5); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; backdrop-filter: blur(5px);"></div>
-                </div>
-
-                <!-- Slides Grid -->
-                <div id="admin-slides-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px;">
-                    <!-- JS fills this -->
-                </div>
-
-                <!-- Add New Button -->
-                <button onclick="openSlideModal()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #1b1b1e, #333); color: #fff; border: 2px dashed rgba(207,165,106,0.4); border-radius: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;" onmouseover="this.style.borderColor='#CFA56A'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(207,165,106,0.4)'; this.style.transform='translateY(0)'">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    Add New Slide
-                </button>
-            </div>
-
-            <!-- SLIDE ADD/EDIT MODAL -->
-            <div id="slide-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px;">
-                <div style="background: #fff; width: 100%; max-width: 650px; border-radius: 24px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 60px rgba(0,0,0,0.3);">
-                    <!-- Modal Header -->
-                    <div style="padding: 30px 35px 0 35px; display: flex; justify-content: space-between; align-items: center;">
-                        <h3 id="slide-modal-title" style="margin: 0; font-size: 22px; font-weight: 800;">Add New Slide</h3>
-                        <button onclick="closeSlideModal()" style="background: #f5f5f5; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f5f5f5'">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#333" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                        </button>
-                    </div>
-
-                    <div style="padding: 25px 35px 35px 35px;">
-                        <input type="hidden" id="slide-edit-id" value="">
-
-                        <!-- Desktop Image -->
-                        <div style="margin-bottom: 20px;">
-                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Desktop Image <span style="color: #ef4444;">*</span></label>
-                            <div id="slide-desktop-drop" onclick="document.getElementById('slide-desktop-file').click()" style="width: 100%; height: 140px; border: 2px dashed #ddd; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; background: #fafafa; transition: 0.2s; position: relative;" onmouseover="this.style.borderColor='#CFA56A'" onmouseout="this.style.borderColor='#ddd'">
-                                <img id="slide-desktop-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                <div id="slide-desktop-placeholder" style="text-align: center; color: #aaa;">
-                                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                                    <p style="margin: 8px 0 0 0; font-size: 12px; font-weight: 600;">Click to upload desktop image</p>
-                                    <p style="margin: 4px 0 0 0; font-size: 10px; color: #bbb;">Recommended: 1920×810</p>
-                                </div>
-                            </div>
-                            <input type="file" id="slide-desktop-file" accept="image/*" style="display: none;" onchange="handleSlideImageUpload(this, 'desktop')">
-                        </div>
-
-                        <!-- Mobile Image -->
-                        <div style="margin-bottom: 20px;">
-                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Mobile Image <span style="color: #999; font-weight: 400;">(Optional)</span></label>
-                            <div id="slide-mobile-drop" onclick="document.getElementById('slide-mobile-file').click()" style="width: 100%; height: 120px; border: 2px dashed #ddd; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; background: #fafafa; transition: 0.2s; position: relative;" onmouseover="this.style.borderColor='#CFA56A'" onmouseout="this.style.borderColor='#ddd'">
-                                <img id="slide-mobile-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                <div id="slide-mobile-placeholder" style="text-align: center; color: #aaa;">
-                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                                    <p style="margin: 6px 0 0 0; font-size: 11px; font-weight: 600;">Click to upload mobile image</p>
-                                </div>
-                            </div>
-                            <input type="file" id="slide-mobile-file" accept="image/*" style="display: none;" onchange="handleSlideImageUpload(this, 'mobile')">
-                        </div>
-
-                        <!-- Title & Subtitle -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                            <div>
-                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Title</label>
-                                <input type="text" id="slide-title" placeholder="e.g. Pure Skin Starts" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
-                            </div>
-                            <div>
-                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Subtitle</label>
-                                <input type="text" id="slide-subtitle" placeholder="e.g. with The Ordinary" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
-                            </div>
-                        </div>
-
-                        <!-- Description -->
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Description</label>
-                            <textarea id="slide-description" placeholder="Short description text..." rows="2" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; resize: vertical; font-family: inherit; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'"></textarea>
-                        </div>
-
-                        <!-- Button Text & Link -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                            <div>
-                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Button Text</label>
-                                <input type="text" id="slide-btn-text" placeholder="SHOP NOW" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
-                            </div>
-                            <div>
-                                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Button Link</label>
-                                <input type="text" id="slide-btn-link" placeholder="shop.html" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
-                            </div>
-                        </div>
-
-                        <!-- Pills -->
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px;">Tags / Pills <span style="color: #999; font-weight: 400;">(comma separated)</span></label>
-                            <input type="text" id="slide-pills" placeholder="CLEANSER, SERUM, MOISTURIZER" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; box-sizing: border-box;" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
-                        </div>
-
-                        <!-- Active Toggle -->
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding: 15px; background: #fafafa; border-radius: 12px;">
-                            <label style="position: relative; width: 44px; height: 24px; cursor: pointer;">
-                                <input type="checkbox" id="slide-active" checked style="opacity: 0; width: 0; height: 0;">
-                                <span id="slide-toggle-track" style="position: absolute; inset: 0; background: #4caf50; border-radius: 24px; transition: 0.3s;" onclick="this.previousElementSibling.checked = !this.previousElementSibling.checked; this.style.background = this.previousElementSibling.checked ? '#4caf50' : '#ccc'; this.querySelector('span').style.transform = this.previousElementSibling.checked ? 'translateX(20px)' : 'translateX(0)'">
-                                    <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: 0.3s; transform: translateX(20px); box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
-                                </span>
-                            </label>
-                            <span style="font-size: 13px; font-weight: 600; color: #333;">Active (visible on website)</span>
-                        </div>
-
-                        <!-- Save Button -->
-                        <button id="slide-save-btn" onclick="saveSlide()" style="width: 100%; padding: 16px; background: var(--admin-sidebar-bg, #1b1b1e); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseover="this.style.background='#CFA56A'" onmouseout="this.style.background='#1b1b1e'">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                            Save Slide
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SLIDER MANAGEMENT SCRIPT -->
-            <script>
-            (function() {
-                let adminSlides = [];
-                let adminPreviewIdx = 0;
-                let slideDesktopBase64 = '';
-                let slideMobileBase64 = '';
-
-                // Fetch all slides for admin
-                window.fetchAdminSlides = async function() {
-                    try {
-                        const token = localStorage.getItem('userToken');
-                        const res = await fetch((window.BASE_URL || '') + '/slides/all', {
-                            headers: { 'Authorization': 'Bearer ' + token }
-                        });
-                        if (!res.ok) throw new Error('Failed to fetch slides');
-                        adminSlides = await res.json();
-                        renderAdminSliderPreview();
-                        renderAdminSlidesGrid();
-                    } catch (err) {
-                        console.error('Error fetching admin slides:', err);
-                        document.getElementById('admin-slider-track').innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#777;font-size:13px;">No slides yet. Click "Add New Slide" to get started!</div>';
-                        document.getElementById('admin-slide-counter').textContent = '';
-                        document.getElementById('admin-slides-grid').innerHTML = '';
-                    }
-                };
-
-                // Render preview carousel
-                function renderAdminSliderPreview() {
-                    const track = document.getElementById('admin-slider-track');
-                    const counter = document.getElementById('admin-slide-counter');
-                    if (!adminSlides.length) {
-                        track.innerHTML = '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#777;font-size:13px;">No slides yet. Click "Add New Slide" to get started!</div>';
-                        counter.textContent = '';
-                        return;
-                    }
-                    adminPreviewIdx = Math.min(adminPreviewIdx, adminSlides.length - 1);
-                    const s = adminSlides[adminPreviewIdx];
-                    const imgSrc = s.desktopImage || '';
-                    track.innerHTML = `
-                        <img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%)"></div>
-                        <div style="position:absolute;bottom:20px;left:20px;color:#fff;z-index:2;">
-                            ${s.pills && s.pills.length ? '<div style="display:flex;gap:6px;margin-bottom:6px;">' + s.pills.map(p => '<span style="background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:0.1em;backdrop-filter:blur(4px);">' + p + '</span>').join('') + '</div>' : ''}
-                            <h4 style="margin:0;font-size:18px;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.3);">${s.title || ''}${s.subtitle ? '<br>' + s.subtitle : ''}</h4>
-                            <p style="margin:4px 0 0 0;font-size:11px;opacity:0.85;max-width:280px;">${s.description || ''}</p>
-                        </div>
-                        <div style="position:absolute;top:12px;right:12px;z-index:2;display:flex;gap:6px;">
-                            <span style="background:${s.isActive ? 'rgba(76,175,80,0.9)' : 'rgba(239,68,68,0.9)'};color:#fff;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;">${s.isActive ? 'ACTIVE' : 'HIDDEN'}</span>
-                        </div>
-                    `;
-                    counter.textContent = (adminPreviewIdx + 1) + ' / ' + adminSlides.length;
-                }
-
-                // Navigate preview
-                window.adminPreviewSlide = function(dir) {
-                    if (!adminSlides.length) return;
-                    adminPreviewIdx += dir;
-                    if (adminPreviewIdx < 0) adminPreviewIdx = adminSlides.length - 1;
-                    if (adminPreviewIdx >= adminSlides.length) adminPreviewIdx = 0;
-                    renderAdminSliderPreview();
-                };
-
-                // Render slides grid cards
-                function renderAdminSlidesGrid() {
-                    const grid = document.getElementById('admin-slides-grid');
-                    if (!adminSlides.length) { grid.innerHTML = ''; return; }
-                    grid.innerHTML = adminSlides.map((s, i) => `
-                        <div style="background:#fafafa;border-radius:14px;overflow:hidden;border:1px solid #eee;transition:0.2s;cursor:pointer;" onmouseover="this.style.borderColor='#CFA56A';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#eee';this.style.transform='translateY(0)'">
-                            <div style="width:100%;height:100px;overflow:hidden;position:relative;">
-                                <img src="${s.desktopImage || ''}" style="width:100%;height:100%;object-fit:cover;">
-                                <span style="position:absolute;top:6px;left:6px;background:${s.isActive ? 'rgba(76,175,80,0.9)' : 'rgba(239,68,68,0.9)'};color:#fff;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;">${s.isActive ? 'LIVE' : 'OFF'}</span>
-                                <span style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:#fff;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;">#${i + 1}</span>
-                            </div>
-                            <div style="padding:10px 12px;">
-                                <h5 style="margin:0 0 4px 0;font-size:12px;font-weight:700;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.title || 'Untitled'}${s.subtitle ? ' ' + s.subtitle : ''}</h5>
-                                <div style="display:flex;gap:6px;margin-top:8px;">
-                                    <button onclick="editSlide('${s._id}')" style="flex:1;padding:7px;background:#f0f0f0;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:4px;" onmouseover="this.style.background='#CFA56A';this.style.color='#fff'" onmouseout="this.style.background='#f0f0f0';this.style.color='#333'">
-                                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                                        Edit
-                                    </button>
-                                    <button onclick="deleteSlide('${s._id}')" style="flex:1;padding:7px;background:#fff5f5;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:#ef4444;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:4px;" onmouseover="this.style.background='#ef4444';this.style.color='#fff'" onmouseout="this.style.background='#fff5f5';this.style.color='#ef4444'">
-                                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-
-                // Handle image file upload → base64
-                window.handleSlideImageUpload = function(input, type) {
-                    const file = input.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const base64 = e.target.result;
-                        if (type === 'desktop') {
-                            slideDesktopBase64 = base64;
-                            document.getElementById('slide-desktop-preview').src = base64;
-                            document.getElementById('slide-desktop-preview').style.display = 'block';
-                            document.getElementById('slide-desktop-placeholder').style.display = 'none';
-                        } else {
-                            slideMobileBase64 = base64;
-                            document.getElementById('slide-mobile-preview').src = base64;
-                            document.getElementById('slide-mobile-preview').style.display = 'block';
-                            document.getElementById('slide-mobile-placeholder').style.display = 'none';
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                };
-
-                // Open modal for new slide
-                window.openSlideModal = function() {
-                    document.getElementById('slide-modal-title').textContent = 'Add New Slide';
-                    document.getElementById('slide-edit-id').value = '';
-                    document.getElementById('slide-title').value = '';
-                    document.getElementById('slide-subtitle').value = '';
-                    document.getElementById('slide-description').value = '';
-                    document.getElementById('slide-btn-text').value = 'SHOP NOW';
-                    document.getElementById('slide-btn-link').value = 'shop.html';
-                    document.getElementById('slide-pills').value = '';
-                    document.getElementById('slide-active').checked = true;
-                    slideDesktopBase64 = '';
-                    slideMobileBase64 = '';
-                    document.getElementById('slide-desktop-preview').style.display = 'none';
-                    document.getElementById('slide-desktop-placeholder').style.display = 'block';
-                    document.getElementById('slide-mobile-preview').style.display = 'none';
-                    document.getElementById('slide-mobile-placeholder').style.display = 'block';
-                    // Reset toggle visual
-                    const toggleTrack = document.getElementById('slide-toggle-track');
-                    if (toggleTrack) { toggleTrack.style.background = '#4caf50'; toggleTrack.querySelector('span').style.transform = 'translateX(20px)'; }
-                    document.getElementById('slide-modal').style.display = 'flex';
-                };
-
-                // Close modal
-                window.closeSlideModal = function() {
-                    document.getElementById('slide-modal').style.display = 'none';
-                };
-
-                // Edit slide
-                window.editSlide = function(id) {
-                    const slide = adminSlides.find(s => s._id === id);
-                    if (!slide) return;
-                    document.getElementById('slide-modal-title').textContent = 'Edit Slide';
-                    document.getElementById('slide-edit-id').value = id;
-                    document.getElementById('slide-title').value = slide.title || '';
-                    document.getElementById('slide-subtitle').value = slide.subtitle || '';
-                    document.getElementById('slide-description').value = slide.description || '';
-                    document.getElementById('slide-btn-text').value = slide.buttonText !== undefined ? slide.buttonText : 'SHOP NOW';
-                    document.getElementById('slide-btn-link').value = slide.buttonLink || 'shop.html';
-                    document.getElementById('slide-pills').value = (slide.pills || []).join(', ');
-                    document.getElementById('slide-active').checked = slide.isActive !== false;
-                    // Show existing images
-                    slideDesktopBase64 = slide.desktopImage || '';
-                    slideMobileBase64 = slide.mobileImage || '';
-                    if (slideDesktopBase64) {
-                        document.getElementById('slide-desktop-preview').src = slideDesktopBase64;
-                        document.getElementById('slide-desktop-preview').style.display = 'block';
-                        document.getElementById('slide-desktop-placeholder').style.display = 'none';
-                    } else {
-                        document.getElementById('slide-desktop-preview').style.display = 'none';
-                        document.getElementById('slide-desktop-placeholder').style.display = 'block';
-                    }
-                    if (slideMobileBase64) {
-                        document.getElementById('slide-mobile-preview').src = slideMobileBase64;
-                        document.getElementById('slide-mobile-preview').style.display = 'block';
-                        document.getElementById('slide-mobile-placeholder').style.display = 'none';
-                    } else {
-                        document.getElementById('slide-mobile-preview').style.display = 'none';
-                        document.getElementById('slide-mobile-placeholder').style.display = 'block';
-                    }
-                    // Toggle visual
-                    const isActive = slide.isActive !== false;
-                    const toggleTrack = document.getElementById('slide-toggle-track');
-                    if (toggleTrack) { toggleTrack.style.background = isActive ? '#4caf50' : '#ccc'; toggleTrack.querySelector('span').style.transform = isActive ? 'translateX(20px)' : 'translateX(0)'; }
-                    document.getElementById('slide-modal').style.display = 'flex';
-                };
-
-                // Save slide (create or update)
-                window.saveSlide = async function() {
-                    const btn = document.getElementById('slide-save-btn');
-                    const editId = document.getElementById('slide-edit-id').value;
-                    const isEdit = !!editId;
-
-                    if (!slideDesktopBase64) {
-                        alert('Please upload a desktop image!');
-                        return;
-                    }
-
-                    const pillsRaw = document.getElementById('slide-pills').value;
-                    const pills = pillsRaw ? pillsRaw.split(',').map(p => p.trim()).filter(Boolean) : [];
-
-                    const body = {
-                        desktopImage: slideDesktopBase64,
-                        mobileImage: slideMobileBase64 || '',
-                        title: document.getElementById('slide-title').value,
-                        subtitle: document.getElementById('slide-subtitle').value || '',
-                        description: document.getElementById('slide-description').value || '',
-                        buttonText: document.getElementById('slide-btn-text').value,
-                        buttonLink: document.getElementById('slide-btn-link').value || 'shop.html',
-                        pills: pills,
-                        isActive: document.getElementById('slide-active').checked
-                    };
-
-                    btn.innerHTML = '<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite;"></span> Saving...';
-                    btn.disabled = true;
-
-                    try {
-                        const token = localStorage.getItem('userToken');
-                        const url = isEdit 
-                            ? (window.BASE_URL || '') + '/slides/' + editId 
-                            : (window.BASE_URL || '') + '/slides';
-                        const method = isEdit ? 'PUT' : 'POST';
-
-                        const res = await fetch(url, {
-                            method,
-                            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-                            body: JSON.stringify(body)
-                        });
-
-                        if (!res.ok) {
-                            const err = await res.json();
-                            throw new Error(err.message || 'Failed to save');
-                        }
-
-                        closeSlideModal();
-                        await fetchAdminSlides();
-                        
-                        // Show success notification
-                        if (typeof showAdminNotification === 'function') {
-                            showAdminNotification(isEdit ? '✅ Slide updated!' : '✅ Slide added!');
-                        } else {
-                            const notif = document.getElementById('admin-notification');
-                            if (notif) {
-                                notif.textContent = isEdit ? '✅ Slide updated!' : '✅ Slide added!';
-                                notif.style.display = 'block';
-                                setTimeout(() => notif.style.display = 'none', 3000);
-                            }
-                        }
-                    } catch (err) {
-                        alert('Error: ' + err.message);
-                    } finally {
-                        btn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Slide';
-                        btn.disabled = false;
-                    }
-                };
-
-                // Delete slide
-                window.deleteSlide = async function(id) {
-                    if (!confirm('Are you sure you want to delete this slide? This will immediately remove it from the website.')) return;
-                    try {
-                        const token = localStorage.getItem('userToken');
-                        const res = await fetch((window.BASE_URL || '') + '/slides/' + id, {
-                            method: 'DELETE',
-                            headers: { 'Authorization': 'Bearer ' + token }
-                        });
-                        if (!res.ok) throw new Error('Failed to delete');
-                        await fetchAdminSlides();
-                        const notif = document.getElementById('admin-notification');
-                        if (notif) {
-                            notif.textContent = '🗑️ Slide deleted!';
-                            notif.style.display = 'block';
-                            setTimeout(() => notif.style.display = 'none', 3000);
-                        }
-                    } catch (err) {
-                        alert('Error deleting slide: ' + err.message);
-                    }
-                };
-
-                // Auto-load when settings tab opens
-                const origSwitchTab = window.switchTab;
-                window.switchTab = function(tabName, el) {
-                    origSwitchTab(tabName, el);
-                    if (tabName === 'settings') {
-                        fetchAdminSlides();
-                    }
-                };
-            })();
-            </script>
-
-            <style>
-                @keyframes spin { to { transform: rotate(360deg); } }
-            </style>
-
-            <!-- SHIPPING FEE SETTINGS -->
-            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-top: 30px;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
-                    <div style="width: 40px; height: 40px; background: #f0f9ff; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" width="20" height="20"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                    </div>
-                    <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Shipping Fee</h3>
-                </div>
-                <p style="font-size: 13px; color: #777; margin: 0 0 25px 0;">This amount will be added to every order at checkout. Changes apply immediately to all new orders.</p>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="display: flex; align-items: center; border: 1px solid #eee; border-radius: 12px; overflow: hidden; flex: 1; background: #fafafa;">
-                        <span style="padding: 15px 18px; background: #f5f5f5; font-weight: 800; font-size: 14px; color: #555; border-right: 1px solid #eee;">Rs.</span>
-                        <input type="number" id="admin-shipping-fee" min="0" step="50" placeholder="350"
-                            style="flex: 1; padding: 15px; border: none; font-size: 16px; font-weight: 700; background: transparent; outline: none;"
-                            onfocus="this.style.background='#fff'">
-                    </div>
-                    <button onclick="saveShippingFee(this)" class="admin-btn" style="padding: 15px 28px; font-size: 14px; white-space: nowrap;">
-                        Save Fee
-                    </button>
-                </div>
-                <div id="shipping-fee-msg" style="margin-top: 12px; font-size: 13px; display: none;"></div>
-            </div>
-
             <!-- DANGER ZONE -->
-
             <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #fee2e2;">
                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
                     <div style="width: 40px; height: 40px; background: #fff1f1; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
@@ -1925,7 +1274,7 @@
     </div>
 
   <script src="config.js?v=16"></script>
-  <script src="products.js?v=27"></script>
+  <script src="products.js?v=13"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     let editingId = null;
@@ -1951,8 +1300,7 @@
         'inventory': 'Inventory Management', 
         'orders': 'Live Orders', 
         'analytics': 'Business Intelligence', 
-        'support': 'Customer Support',
-        'settings': 'Admin Settings'
+        /'support': 'Customer Support',\n        'settings': 'Admin Settings'/ 
       };
       if (document.getElementById('view-title')) {
         document.getElementById('view-title').innerText = titles[tabId] || 'Admin Panel';
@@ -1992,8 +1340,6 @@
       if (tabId === 'orders') fetchOrders();
       if (tabId === 'inventory') renderInventory();
       if (tabId === 'support') fetchInquiries();
-      if (tabId === 'subscribers') fetchSubscribers();
-      if (tabId === 'settings' && typeof fetchAdminSlides === 'function') fetchAdminSlides();
     };
 
     const fallbackProducts = [
@@ -2027,14 +1373,13 @@
           const imagePath = prod.img || (prod.images && prod.images.length > 0 ? prod.images[0] : 'images/placeholder.png');
 
           tr.innerHTML = `
-            <td data-label="Showcase"><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
-            <td data-label="Identity" style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
-            <td data-label="Brand" style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
-            <td data-label="Sub Category" style="text-transform: capitalize; color: var(--admin-text); font-weight: 500;">${prod.filter || 'None'}</td>
-            <td data-label="Value" style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
-            <td data-label="Disc." style="text-align: center;">${prod.discount || 0}%</td>
-            <td data-label="Stock" style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
-            <td data-label="Manage">
+            <td><img src="${imagePath}" class="prod-thumb" onerror="this.src='images/placeholder.png'"></td>
+            <td style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
+            <td style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
+            <td style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td style="text-align: center;">${prod.discount || 0}%</td>
+            <td style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
+            <td>
               <div style="display: flex; gap: 8px;">
                 <button type="button" class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="window.openModal('${pId}')">Edit</button>
                 <button type="button" class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; padding: 6px 12px; border: 1px solid rgba(211, 47, 47, 0.1); font-size: 11px;" onclick="window.deleteProduct('${pId}')">Delete</button>
@@ -2061,50 +1406,6 @@
     window.updateRightSidebar = updateRightSidebar;
     window.renderTeamChart = renderTeamChart;
 
-    // Category Delete Methods (renamed conceptually to Brand)
-    window.openDeleteCategoryModal = () => {
-        const modal = document.getElementById('delete-cat-modal');
-        const select = document.getElementById('del-cat-select');
-        if (modal && select && window.productsData) {
-            const uniqueCats = [...new Set(window.productsData.map(p => p.cat).filter(c => c))];
-            if(uniqueCats.length === 0) {
-                alert("No brands exist!");
-                return;
-            }
-            select.innerHTML = uniqueCats.map(c => `<option value="${c}">${c.toUpperCase()}</option>`).join('');
-            modal.style.display = 'flex';
-        }
-    };
-
-    window.confirmDeleteCategory = async () => {
-        const select = document.getElementById('del-cat-select');
-        const catName = select.value;
-        if (!catName) return;
-        
-        if (confirm(`Are you absolutely sure you want to delete the brand "${catName}" and ALL its products? This cannot be undone.`)) {
-            try {
-                const token = localStorage.getItem('userToken');
-                const res = await fetch(`${BASE_URL}/products/category/${encodeURIComponent(catName)}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    alert(data.message);
-                    document.getElementById('delete-cat-modal').style.display = 'none';
-                    // Reload dynamic state
-                    if (typeof fetchDatabaseProducts === 'function') await fetchDatabaseProducts();
-                    renderInventory();
-                } else {
-                    alert(data.message || 'Delete failed');
-                }
-            } catch (e) {
-                console.error(e);
-                alert("Failed to delete brand.");
-            }
-        }
-    };
-
     window.openModal = (prodId = null) => {
       const pModal = document.getElementById('product-modal');
       const addProductForm = document.getElementById('add-product-form');
@@ -2125,20 +1426,6 @@
 
       if (pModal) pModal.style.display = 'flex';
       
-      // Populate dynamic category datalist
-      const catList = document.getElementById('p-cat-list');
-      if (catList && window.productsData) {
-          const uniqueCats = [...new Set(window.productsData.map(p => p.cat).filter(c => c))];
-          catList.innerHTML = uniqueCats.map(c => `<option value="${c}">`).join('');
-      }
-
-      // Populate dynamic sub category datalist
-      const filterList = document.getElementById('p-filter-list');
-      if (filterList && window.productsData) {
-          const uniqueFilters = [...new Set(window.productsData.map(p => p.filter).filter(f => f))];
-          filterList.innerHTML = uniqueFilters.map(f => `<option value="${f}">`).join('');
-      }
-      
       if (prodId && typeof window.productsData !== 'undefined') {
         const titleH3 = document.querySelector('#product-modal h3');
         if (titleH3) titleH3.innerText = 'Edit Skincare Product';
@@ -2157,7 +1444,6 @@
             'p-img3': (prod.images && prod.images[2]) || '',
             'p-img4': (prod.images && prod.images[3]) || '',
             'p-desc': prod.desc,
-            'p-how-to-use': prod.howToUse || '',
             'p-stock': prod.stock
           };
           for (let fid in fields) {
@@ -2225,7 +1511,6 @@
                   img: imagesArray[0] || img1,
                   images: imagesArray,
                   desc: document.getElementById('p-desc').value,
-                  howToUse: document.getElementById('p-how-to-use').value || '',
                   stock: Number(document.getElementById('p-stock').value)
                 };
 
@@ -2238,14 +1523,7 @@
                     body: JSON.stringify(productData)
                   });
                   if (res.ok) { window.closeModal(); await fetchDatabaseProducts(); renderInventory(); } 
-                  else { 
-                      const eb = await res.json(); 
-                      alert('Failed: ' + (eb.message || 'Error')); 
-                      if (res.status === 401) {
-                          localStorage.clear();
-                          window.location.href = 'login.html';
-                      }
-                  }
+                  else { const eb = await res.json(); alert('Failed: ' + (eb.message || 'Error')); }
                 } catch (err) { alert('Server Unreachable'); }
                 finally { if (sendBtn) { sendBtn.textContent = 'Save Product'; sendBtn.disabled = false; } }
             });
@@ -2339,7 +1617,7 @@
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
       if (!ordersTable) return;
-      ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>';
+      ordersTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
       
       const token = localStorage.getItem('userToken');
       if (!token) { window.location.href = 'login.html'; return; }
@@ -2349,19 +1627,6 @@
           headers: { 'Authorization': 'Bearer ' + token }
         });
         const orders = await res.json();
-        
-        // --- ORDER BADGE UPDATE ---
-        const pendingCount = orders.filter(o => !o.isDelivered).length;
-        const badge = document.getElementById('order-badge');
-        if (badge) {
-          if (pendingCount > 0) {
-            badge.textContent = pendingCount;
-            badge.style.display = 'inline-block';
-          } else {
-            badge.style.display = 'none';
-          }
-        }
-
         // Store for viewing details
         window.allOrders = orders;
 
@@ -2369,37 +1634,6 @@
         orders.forEach(order => {
           const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
           const tr = document.createElement('tr');
-          
-          // Payment method badge colors
-          const pm = order.paymentMethod || 'Cash on Delivery';
-          let pmBg, pmColor, pmLabel;
-          if (pm.toLowerCase().includes('cod') || pm.toLowerCase().includes('cash')) {
-            pmBg = '#fff7ed'; pmColor = '#ea580c'; pmLabel = '💵 COD';
-          } else if (pm.toLowerCase().includes('bank') || pm.toLowerCase().includes('deposit')) {
-            pmBg = '#eff6ff'; pmColor = '#2563eb'; pmLabel = '🏦 Bank';
-          } else if (pm.toLowerCase().includes('card')) {
-            pmBg = '#f0fdf4'; pmColor = '#16a34a'; pmLabel = '💳 Card';
-          } else if (pm.toLowerCase().includes('koko')) {
-            pmBg = '#fdf4ff'; pmColor = '#9333ea'; pmLabel = '🔄 Koko';
-          } else {
-            pmBg = '#f5f5f5'; pmColor = '#666'; pmLabel = pm;
-          }
-          
-          // Payment Status for Online Payments
-          const isOnline = pm.toLowerCase().includes('card') || pm.toLowerCase().includes('koko');
-          let paymentStatusHtml = '';
-          if (isOnline) {
-            if (order.isPaid) {
-              paymentStatusHtml = '<br><span style="background: #ecfdf5; color: #10b981; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; display: inline-block; margin-top: 4px; border: 1px solid rgba(16, 185, 129, 0.2);">✓ PAID</span>';
-            } else {
-              paymentStatusHtml = '<br><span style="background: #fef2f2; color: #ef4444; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; display: inline-block; margin-top: 4px; border: 1px solid rgba(239, 68, 68, 0.2);">✗ UNPAID</span>';
-            }
-          }
-          
-          // Format order time
-          const orderDate = new Date(order.createdAt);
-          const timeStr = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'short', day: 'numeric' }) + '<br><span style="font-size:10px; color:#999;">' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true }) + '</span>';
-          
           tr.innerHTML = `
             <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
             <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
@@ -2408,9 +1642,7 @@
                 ${itemsSummary}
               </div>
             </td>
-            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td>
-            <td><span style="background: ${pmBg}; color: ${pmColor}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap;">${pmLabel}</span>${paymentStatusHtml}</td>
-            <td style="font-size: 12px; white-space: nowrap;">${timeStr}</td>
+            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td> 
             <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Processing'}</span></td>
             <td>
                <div style="display:flex; gap:8px; min-width: 240px;">
@@ -2422,7 +1654,7 @@
           `;
           ordersTable.appendChild(tr);
         });
-      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="8">Failed to load.</td></tr>'; }
+      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="6">Failed to load.</td></tr>'; }
     }
 
     window.viewCustomerDetails = (orderId) => {
@@ -2435,24 +1667,6 @@
         document.getElementById('view-cust-phone').innerText = ci.phone;
         document.getElementById('view-cust-district').innerText = ci.district;
         document.getElementById('view-cust-address').innerText = ci.address + ', ' + ci.city;
-        
-        // Payment Method
-        const pmEl = document.getElementById('view-cust-payment');
-        if (pmEl) {
-            const pm = order.paymentMethod || 'Cash on Delivery';
-            let pmEmoji = '💵';
-            if (pm.toLowerCase().includes('bank') || pm.toLowerCase().includes('deposit')) pmEmoji = '🏦';
-            else if (pm.toLowerCase().includes('card')) pmEmoji = '💳';
-            else if (pm.toLowerCase().includes('koko')) pmEmoji = '🔄';
-            pmEl.innerText = pmEmoji + ' ' + pm;
-        }
-        
-        // Order Time
-        const timeEl = document.getElementById('view-cust-time');
-        if (timeEl) {
-            const orderDate = new Date(order.createdAt);
-            timeEl.innerText = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'long', day: 'numeric' }) + ' at ' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
-        }
         
         const itemsDiv = document.getElementById('view-cust-items');
         itemsDiv.innerHTML = order.orderItems.map(item => `
@@ -2528,99 +1742,6 @@
         });
         fetchInquiries();
     };
-
-    async function fetchSubscribers() {
-      const table = document.getElementById('subscribers-table');
-      if (!table) return;
-      table.innerHTML = '<tr><td colspan="3" style="text-align:center;">Loading Subscribers...</td></tr>';
-
-      const token = localStorage.getItem('userToken');
-      if (!token) { window.location.href = 'login.html'; return; }
-
-      try {
-        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-        const res = await fetch(BASE + '/subscribers', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        table.innerHTML = '';
-        if (data.length === 0) {
-          table.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px; color:#999;">No subscribers yet.</td></tr>';
-          return;
-        }
-        data.forEach(sub => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td style="font-weight:500; color:#111;">${sub.email}</td>
-            <td>${new Date(sub.createdAt).toLocaleString()}</td>
-            <td style="text-align: right; padding-right: 20px;">
-              <button class="admin-btn" style="background:rgba(211, 47, 47, 0.05); color:#d32f2f; border: 1px solid rgba(211, 47, 47, 0.1); padding:6px 12px; font-size:11px;" onclick="deleteSubscriber('${sub._id}')">Delete</button>
-            </td>
-          `;
-          table.appendChild(tr);
-        });
-      } catch (err) {
-        console.error('fetchSubscribers error:', err);
-        table.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#dc2626;">Failed to load subscribers.</td></tr>';
-      }
-    }
-    window.fetchSubscribers = fetchSubscribers;
-
-    async function deleteSubscriber(id) {
-      if (!confirm('Are you sure you want to delete this subscriber?')) return;
-      const token = localStorage.getItem('userToken');
-      try {
-        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-        const res = await fetch(`${BASE}/subscribers/${id}`, {
-          method: 'DELETE',
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        if (res.ok) {
-          showToast('✓ Subscriber deleted successfully.');
-          fetchSubscribers();
-        } else {
-          const err = await res.json().catch(() => ({}));
-          alert(err.message || 'Failed to delete subscriber.');
-        }
-      } catch (e) {
-        console.error('Delete subscriber error:', e);
-        alert('Network error.');
-      }
-    }
-    window.deleteSubscriber = deleteSubscriber;
-
-    async function exportSubscribers() {
-      const token = localStorage.getItem('userToken');
-      try {
-        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-        const res = await fetch(BASE + '/subscribers', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        });
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
-        
-        let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Email,Subscribed Date\n";
-        
-        data.forEach(sub => {
-          csvContent += `"${sub.email}","${new Date(sub.createdAt).toISOString()}"\n`;
-        });
-        
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `subscribers_${new Date().toISOString().split('T')[0]}.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        showToast("✓ CSV exported successfully.");
-      } catch (e) {
-        console.error("Export error:", e);
-        alert("Failed to export CSV.");
-      }
-    }
-    window.exportSubscribers = exportSubscribers;
 
     function handleLogout() { localStorage.clear(); window.location.href = 'login.html'; }
 
@@ -2814,88 +1935,48 @@
     function updateStockDistribution() {
         if (!window.productsData || window.productsData.length === 0) return;
         
-        let brandStocks = {};
+        let brands = { ordinary: 0, cerave: 0, other: 0 };
         let totalStock = 0;
         
         window.productsData.forEach(p => {
-            let cat = (p.cat || "others").trim().toLowerCase();
-            if (cat === 'ordinary' || cat === 'the ordinary') cat = 'ordinary';
+            const cat = (p.cat || "").toLowerCase();
             const stock = Number(p.stock) || 0;
             totalStock += stock;
-            brandStocks[cat] = (brandStocks[cat] || 0) + stock;
+            if (cat.includes('ordinary')) brands.ordinary += stock;
+            else if (cat.includes('cerave')) brands.cerave += stock;
+            else brands.other += stock;
         });
 
         if (totalStock === 0) return;
 
-        // Map and sort brands by stock descending
-        const brandTitles = {
-            'ordinary': 'The Ordinary',
-            'cerave': 'CeraVe'
-        };
-        const brandColors = {
-            'ordinary': '#CFA56A',
-            'cerave': '#1B1B1E',
-            'others': '#7A6459',
-            'other': '#7A6459'
-        };
-        const defaultPalette = ['#CFA56A', '#1B1B1E', '#7A6459', '#2E5A44', '#8C3B32', '#4B6B94', '#927499', '#788258', '#A29B70', '#5B8C5A'];
+        const ordP = Math.round((brands.ordinary / totalStock) * 100);
+        const cerP = Math.round((brands.cerave / totalStock) * 100);
+        const othP = 100 - ordP - cerP;
 
-        let brandsList = Object.keys(brandStocks).map((b, idx) => {
-            const stock = brandStocks[b];
-            const pct = Math.round((stock / totalStock) * 100);
-            const title = brandTitles[b] || (b.charAt(0).toUpperCase() + b.slice(1));
-            const color = brandColors[b] || defaultPalette[idx % defaultPalette.length];
-            return { id: b, title, stock, pct, color };
-        }).sort((a, b) => b.stock - a.stock);
-
-        // Update Center Text
+        // Update Text
         const centerText = document.getElementById('donut-center-text');
-        if (centerText) centerText.innerText = totalStock;
-
-        // Render Dynamic SVG segments inside the SVG
-        const donutSvg = document.querySelector('.donut-wrap svg');
-        if (donutSvg) {
-            // Keep background track, remove other circles
-            donutSvg.innerHTML = `<circle cx="90" cy="90" r="75" fill="transparent" stroke="#f0f0f0" stroke-width="15"></circle>`;
-            
-            let currentOffset = 0;
-            brandsList.forEach(brand => {
-                if (brand.pct <= 0) return;
-                const segmentLength = (brand.pct / 100) * 471.2;
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', '90');
-                circle.setAttribute('cy', '90');
-                circle.setAttribute('r', '75');
-                circle.setAttribute('fill', 'transparent');
-                circle.setAttribute('stroke', brand.color);
-                circle.setAttribute('stroke-width', '18');
-                circle.setAttribute('stroke-dasharray', `${segmentLength} 471.2`);
-                circle.setAttribute('stroke-dashoffset', `-${currentOffset}`);
-                circle.style.transition = 'stroke-dasharray 1s ease-out, stroke-dashoffset 1s ease-out';
-                donutSvg.appendChild(circle);
-                
-                currentOffset += segmentLength;
-            });
-        }
-
-        // Render the progress list / legend
-        const progressList = document.querySelector('.progress-list');
-        if (progressList) {
-            progressList.innerHTML = brandsList.map(brand => `
-                <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-bottom: 8px;">
-                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--admin-text);">
-                        <div style="width: 10px; height: 10px; border-radius: 50%; background: ${brand.color};"></div>
-                        ${brand.title}
-                    </div>
-                    <div style="font-size: 13px; font-weight: 700; color: var(--admin-text);">${brand.pct}% <span style="font-weight:400; font-size:11px; color:#999; margin-left: 5px;">(${brand.stock})</span></div>
-                </div>
-            `).join('');
-        }
+        if (centerText) centerText.innerText = ordP + cerP + "%";
         
-        // Update the item count in the card header if it exists
-        const countHeader = document.querySelector('.chart-panel div[style*="font-size: 12px"]');
-        if (countHeader) {
-            countHeader.innerText = totalStock + " Items";
+        const ordEl = document.getElementById('ord-perc');
+        const cerEl = document.getElementById('cer-perc');
+        const othEl = document.getElementById('oth-perc');
+        
+        if (ordEl) ordEl.innerText = ordP + "%";
+        if (cerEl) cerEl.innerText = cerP + "%";
+        if (othEl) othEl.innerText = (othP > 0 ? othP : 0) + "%";
+
+        // Update SVG segments (Simplified for this 3-segment case)
+        const circles = document.querySelectorAll('.donut-wrap svg circle');
+        if (circles.length >= 4) {
+             const ordOffset = (ordP / 100) * 471.2;
+             const cerOffset = (cerP / 100) * 471.2;
+             const othOffset = (othP / 100) * 471.2;
+             
+             circles[1].setAttribute('stroke-dasharray', `${ordOffset} 471.2`);
+             circles[2].setAttribute('stroke-dasharray', `${cerOffset} 471.2`);
+             circles[2].setAttribute('stroke-dashoffset', `-${ordOffset}`);
+             circles[3].setAttribute('stroke-dasharray', `${othOffset} 471.2`);
+             circles[3].setAttribute('stroke-dashoffset', `-${ordOffset + cerOffset}`);
         }
     }
 
@@ -3111,12 +2192,7 @@
              <form id="add-product-form">
                 <div class="form-grid" style="overflow-y:auto; max-height: 60vh; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Product Name</label><input type="text" id="p-name" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
-                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Brand</label>
-                    <input type="text" id="p-cat" list="p-cat-list" required placeholder="Select or type new..." style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
-                    <datalist id="p-cat-list"></datalist></div>
-                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Sub Category</label>
-                    <input type="text" id="p-filter" list="p-filter-list" required placeholder="Select or type new..." style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
-                    <datalist id="p-filter-list"></datalist></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Collection</label><select id="p-cat" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"><option value="ordinary">The Ordinary</option><option value="cerave">CeraVe</option></select></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Price (LKR)</label><input type="number" id="p-price" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Stock</label><input type="number" id="p-stock" value="50" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Discount %</label><input type="number" id="p-discount" value="0" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
@@ -3180,7 +2256,7 @@
                     </div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Unique ID</label><input type="text" id="p-id-field" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Philosophy / Description</label><textarea id="p-desc" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
-                    <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">How to Use (Step-by-step)</label><textarea id="p-how-to-use" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
+                    <input type="hidden" id="p-filter" value="serums">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="window.closeModal()">Discard</button>
@@ -3193,23 +2269,6 @@
       </div><!-- end main-body -->
     </main><!-- end admin-main -->
 </div><!-- end admin-container -->
-
-    <!-- DELETE CATEGORY MODAL -->
-    <div id="delete-cat-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">
-        <div style="background:#fff; border-radius:20px; padding:40px; max-width:460px; width:90%; box-shadow:0 30px 80px rgba(0,0,0,0.2); text-align:center;">
-            <h3 style="font-size:22px; font-weight:800; margin:0 0 10px; color:#ef4444;">Delete Brand</h3>
-            <p style="font-size:14px; color:#666; margin:0 0 25px;">Select a brand to permanently delete. <br><b>WARNING:</b> This will delete ALL products within this brand!</p>
-            <div style="text-align: left; margin-bottom: 25px;">
-                <label style="font-size: 11px; text-transform: uppercase; color: #999; font-weight: 800; display: block; margin-bottom: 8px;">Select Brand</label>
-                <select id="del-cat-select" style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px;">
-                </select>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <button type="button" style="flex: 1; padding: 12px; background: transparent; color: #666; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;" onclick="document.getElementById('delete-cat-modal').style.display='none'">Cancel</button>
-                <button type="button" style="flex: 1; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 700;" onclick="window.confirmDeleteCategory()">Delete All</button>
-            </div>
-        </div>
-    </div>
 
     <!-- CUSTOMER DETAILS MODAL -->
     <div id="customer-modal" class="modal-overlay">
@@ -3224,18 +2283,13 @@
           </div>
           <div style="margin-top:25px;"><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Shipping Residence</label><p id="view-cust-address" style="font-size: 14px; margin: 5px 0 0 0; line-height: 1.5;"></p></div>
           
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--admin-border);">
-            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Payment Method</label><p id="view-cust-payment" style="font-size: 14px; margin: 5px 0 0 0; font-weight: 600;"></p></div>
-            <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Order Time</label><p id="view-cust-time" style="font-size: 14px; margin: 5px 0 0 0;"></p></div>
-          </div>
-
           <div style="margin-top:35px; border-top: 1px solid var(--admin-border); padding-top: 25px;">
             <label style="font-size:10px; text-transform:uppercase; color:var(--admin-muted); letter-spacing:0.1em; display:block; margin-bottom:15px;">Itemized Manifest</label>
             <div id="view-cust-items" style="display: flex; flex-direction: column; gap: 12px;"></div>
           </div>
         </div>
         <div class="modal-actions" style="margin-top: 40px;">
-           <button class="admin-btn" style="width: 100%; justify-content: center;" onclick="window.closeCustomerModal()">Done</button>
+           <button class="admin-btn" style="width: 100%; justify-content: center;" onclick="window.closeCustomerModal()">Acknowledge</button>
         </div>
       </div>
     </div>
@@ -3326,84 +2380,6 @@
           btn.style.opacity = '1';
         }
       }
-
-      // ===== SHIPPING FEE SETTINGS =====
-      async function loadShippingFee() {
-        try {
-          const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-          console.log('Loading shipping fee from:', `${BASE}/settings/shippingFee`);
-          const res = await fetch(`${BASE}/settings/shippingFee?cb=${Date.now()}`);
-          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-          const data = await res.json();
-          const input = document.getElementById('admin-shipping-fee');
-          if (input && data.value != null) {
-            input.value = data.value;
-            console.log('Shipping fee loaded:', data.value);
-          }
-        } catch(e) { 
-          console.error('Could not load shipping fee:', e); 
-        }
-      }
-
-      window.saveShippingFee = async function(btn) {
-        const input = document.getElementById('admin-shipping-fee');
-        const msg = document.getElementById('shipping-fee-msg');
-        if (!input || !msg) return;
-        
-        const fee = parseInt(input.value);
-        if (isNaN(fee) || fee < 0) {
-          msg.textContent = '⚠️ Please enter a valid amount.';
-          msg.style.color = '#dc2626';
-          msg.style.display = 'block';
-          return;
-        }
-
-        btn.textContent = 'Saving...';
-        btn.disabled = true;
-
-        try {
-          const token = localStorage.getItem('userToken');
-          const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-          
-          console.log('Saving shipping fee to:', `${BASE}/settings/shippingFee`, { value: fee });
-
-          const res = await fetch(`${BASE}/settings/shippingFee`, {
-            method: 'PUT',
-            headers: { 
-              'Content-Type': 'application/json', 
-              'Authorization': `Bearer ${token}` 
-            },
-            body: JSON.stringify({ value: fee })
-          });
-
-          if (res.ok) {
-            msg.textContent = `✅ Shipping fee updated to Rs. ${fee}`;
-            msg.style.color = '#16a34a';
-            console.log('Shipping fee updated successfully');
-          } else {
-            const errData = await res.json().catch(() => ({}));
-            msg.textContent = `❌ Failed: ${errData.message || res.status}`;
-            msg.style.color = '#dc2626';
-          }
-          msg.style.display = 'block';
-          setTimeout(() => { msg.style.display = 'none'; }, 3000);
-        } catch(e) {
-          console.error('Save shipping fee error:', e);
-          msg.textContent = '❌ Network error.';
-          msg.style.color = '#dc2626';
-          msg.style.display = 'block';
-        } finally {
-          btn.textContent = 'Save Fee';
-          btn.disabled = false;
-        }
-      };
-
-      // Load shipping fee when settings tab is opened
-      const origSwitchTab = window.switchTab;
-      window.switchTab = function(tabName, el) {
-        origSwitchTab(tabName, el);
-        if (tabName === 'settings') loadShippingFee();
-      };
     </script>
 
   <div id="admin-notification">New Notification</div>
@@ -3463,42 +2439,6 @@
          }
       });
     })();
-    
-    // Background Order Monitoring for Badge
-    if (typeof fetchOrders === 'function') {
-      fetchOrders();
-      setInterval(fetchOrders, 60000);
-    }
-
-    // Mobile Sidebar Toggle Logic
-    window.addEventListener('DOMContentLoaded', () => {
-      const sidebar = document.querySelector('.admin-sidebar');
-      const overlay = document.getElementById('sidebar-overlay');
-      const menuToggle = document.getElementById('mobile-menu-toggle');
-      
-      menuToggle?.addEventListener('click', () => {
-        if (sidebar && overlay) {
-          sidebar.classList.add('sidebar-open');
-          overlay.style.display = 'block';
-        }
-      });
-      
-      overlay?.addEventListener('click', () => {
-        if (sidebar && overlay) {
-          sidebar.classList.remove('sidebar-open');
-          overlay.style.display = 'none';
-        }
-      });
-      
-      document.querySelectorAll('.admin-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          if (sidebar && overlay) {
-            sidebar.classList.remove('sidebar-open');
-            overlay.style.display = 'none';
-          }
-        });
-      });
-    });
   </script>
 </body>
 </html>

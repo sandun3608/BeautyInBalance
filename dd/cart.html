@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Shopping Cart | Beauty in Balance Sri Lanka</title>
+  <meta name="description" content="View your cart and proceed to checkout. Secure your 100% original skincare products with Beauty in Balance Sri Lanka." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css?v=44">
+  <style>
+    .cart-page { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; }
+    .cart-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; }
+    .cart-items { background: var(--beige-light, #fcf7f5); border-radius: 20px; padding: 30px; }
+    .cart-item { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid #ddd; }
+    .cart-item-img { width: 100px; height: 100px; border-radius: 10px; background: #fff; padding: 10px; flex-shrink: 0; }
+    .cart-item-img img { width: 100%; height: 100%; object-fit: contain; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-weight: 700; color: var(--dark-brown); font-size: 1.1rem; }
+    .cart-item-price { color: var(--orange); font-weight: 600; margin-top: 5px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+    .cart-item-qty-btn { font-size: 1.2rem; cursor: pointer; color: #777; transition: color 0.3s; }
+    .cart-item-qty-btn:hover { color: var(--dark-brown); }
+    .cart-item-remove { margin-left: auto; color: #ff6b6b; cursor: pointer; font-size: 0.9rem; font-weight: 600; text-decoration: underline; }
+
+    .cart-summary { background: var(--dark-brown); color: #fff; border-radius: 20px; padding: 40px; height: fit-content; position: sticky; top: 100px; }
+    .cart-summary h2 { font-size: 1.8rem; margin-bottom: 30px; }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+    .summary-row.total { font-weight: 800; font-size: 1.4rem; border-bottom: none; padding-top: 10px; }
+    .btn-checkout { background: var(--orange, #ff6b6b); color: #fff; width: 100%; height: 60px; border-radius: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; cursor: pointer; transition: background 0.3s; }
+    .btn-checkout:hover { background: #ff8e8e; }
+    
+    @media (max-width: 800px) { .cart-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="cart-page-body">
+  <!-- ===== HEADER ===== -->
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="policies.html">Policies</a></li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+
+        <!-- Mobile User Icon -->
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav" style="padding: 20px 20px; display: flex; flex-direction: column; gap: 12px;">
+      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
+      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
+      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
+      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
+      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  <main class="cart-page">
+    <div class="cart-grid" id="cart-main-grid">
+      <div class="cart-items" id="cart-items-list">
+        <!-- Rendered via JS -->
+      </div>
+      <div class="cart-summary" id="cart-summary-box">
+        <h2>Summary</h2>
+        <div id="summary-details">
+            <!-- Rendered via JS -->
+        </div>
+        <a href="checkout.html" class="btn-checkout" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Proceed to Checkout</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-top" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 40px;">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+        <p style="color: rgba(255,255,255,0.7); max-width: 300px;">Your source for high-end skincare. 100% Genuine imports from CA & GB.</p>
+      </div>
+      <div class="footer-col" style="color: white;">
+        <h5 style="margin-bottom: 20px; font-size: 16px;">Quick Links</h5>
+        <ul style="color: rgba(255,255,255,0.7);">
+          <li style="margin-bottom:10px;"><a href="index.html">Home</a></li>
+          <li style="margin-bottom:10px;"><a href="shop.html">Shop All</a></li>
+          <li style="margin-bottom:10px;"><a href="contact.html">Contact Us</a></li>
+          <li style="margin-bottom:10px;"><a href="policies.html" style="color: var(--gold);">Shipping & Policies</a></li>
+          <li style="margin-bottom:10px;"><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 40px;">
+      <p>&#169; 2024 Beauty in Balance. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    $('ham-open')?.addEventListener('click', () => { 
+      document.getElementById('mobile-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+      const mBar = $('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
+
+    $('cart-open')?.addEventListener('click', () => { 
+      document.getElementById('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    });
+    
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    }
+    
+    $('ham-close')?.addEventListener('click', closeAll);
+    $('cart-close')?.addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // Mobile Search Bar Scroll Effect
+    let lastScrollTop = 0;
+    const mSearchBar = $('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    
+
+  </script>
+  <script src="config.js?v=16"></script>
+  <script src="products.js?v=12"></script>
+</body>
+</html>
+
+

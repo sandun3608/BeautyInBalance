@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Beauty in Balance | Genuine Cosmetics Shop Sri Lanka</title>
+  <meta name="description" content="Discover Beauty in Balance. We are Sri Lanka's leading importers of genuine skincare brands including The Ordinary and CeraVe from CA & GB. Trust us for 100% authentic beauty." />
+  <meta name="keywords" content="authentic skincare shop colombo, beauty in balance sri lanka, buy ordinary cerave colombo, original cosmetics sri lanka, trusted beauty store sl, skincare importers lanka" />
+  <meta name="author" content="Beauty in Balance" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta property="og:title" content="About Beauty in Balance | Genuine Cosmetics Shop Sri Lanka" />
+  <p style="color: rgba(255,255,255,0.3); font-size: 12px;">&copy; 2024 Beauty in Balance. Licensed Skincare Importers in Sri Lanka.</p>
+  <meta property="og:description" content="Learn about our mission to bring 100% authentic international skincare to Sri Lanka." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=44" />
+  
+  <style>
+    /* Header Section with Effect */
+    .about-header-main {
+      padding: 160px 24px 40px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .about-header-main h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(50px, 10vw, 100px);
+      color: var(--brown);
+      letter-spacing: -0.02em;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+    }
+
+    .about-header-main h2::before {
+      content: 'AUTHENTIC';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.4em;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      opacity: 0.4;
+      font-weight: 400;
+      animation: floatText 3s ease-in-out infinite;
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -10px); }
+    }
+
+    /* Top Banner Section */
+    .about-top-banner {
+      width: 100%;
+      padding: 0 24px 20px;
+      display: flex;
+      justify-content: center;
+      background: transparent;
+    }
+
+    .about-top-banner img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    body {
+      background-color: #fdfaf7; /* Soft aesthetic background */
+      color: #333;
+    }
+
+    /* Be Yours Inspired Hero Section */
+    .by-intro {
+      padding: 40px 24px 80px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .by-title {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 6vw, 75px);
+      color: #1a1a1a;
+      margin-bottom: 40px;
+      line-height: 1.1;
+      font-weight: 500;
+    }
+
+    .by-title span.highlight {
+      position: relative;
+      color: var(--gold);
+      display: inline-block;
+    }
+
+    .by-title span.highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q50,0 100,15" stroke="%23CCA47C" stroke-width="2" fill="none" /></svg>') bottom/100% 100% no-repeat;
+      z-index: -1;
+    }
+
+    .by-desc {
+      max-width: 900px;
+      margin: 0 auto 50px;
+      font-size: 20px;
+      line-height: 1.7;
+      color: #555;
+      font-weight: 400;
+    }
+
+    .by-desc span.underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .by-desc span.underline::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,8 Q50,2 100,8" stroke="%23CCA47C" stroke-width="1.5" fill="none" /></svg>') bottom/100% 100% no-repeat;
+    }
+
+    .by-footer {
+      font-size: 18px;
+      font-style: italic;
+      color: #777;
+    }
+
+    /* Info Grid (Be Yours Style) */
+    .info-grid-section {
+      padding: 100px 48px;
+      background: #fff;
+    }
+
+    .info-grid-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .info-cat {
+      margin-bottom: 50px;
+    }
+
+    .info-header {
+      background: #F9F5F0;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      border-radius: 4px;
+    }
+
+    .info-header svg {
+      width: 24px;
+      height: 24px;
+      color: var(--brown);
+    }
+
+    .info-header h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--brown);
+      margin: 0;
+    }
+
+    .info-content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      padding: 0 25px;
+    }
+
+    .info-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .info-column li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .info-column li::before {
+      content: 'o';
+      position: absolute;
+      left: 0;
+      color: #999;
+      font-weight: 300;
+    }
+
+    /* Why BIB Section (Be Yours Style) */
+    .why-bib-section {
+      padding: 100px 48px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .why-bib-title {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      color: #1a1a1a;
+      margin-bottom: 60px;
+    }
+
+    .why-bib-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .why-bib-item {
+      padding: 20px;
+    }
+
+    .why-bib-item svg {
+      width: 40px;
+      height: 40px;
+      color: var(--brown);
+      margin-bottom: 25px;
+    }
+
+    .why-bib-item h4 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 15px;
+    }
+
+    .why-bib-item p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #777;
+    }
+
+    @media (max-width: 900px) {
+      .about-header-main { padding: 80px 24px 30px; }
+      .by-intro { padding: 40px 24px 60px; }
+      .by-title { font-size: 40px; }
+      .by-desc { font-size: 18px; }
+      .info-grid-section { padding: 60px 24px; }
+      .info-content { grid-template-columns: 1fr; gap: 20px; }
+      .why-bib-section { padding: 60px 24px; }
+      .why-bib-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    }
+    
+    @media (max-width: 600px) {
+      .about-header-main h2 { font-size: 45px; }
+      .about-top-banner img { max-width: 300px; }
+      .why-bib-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <!-- Mobile Social Icon -->
+        <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span class="ic-label mobile-only">Social</span>
+        </a>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">Skin Care</a></li>
+              <li><a href="shop.html?cat=acids">Acids & Exfoliants</a></li>
+              <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+
+        <!-- Mobile User Icon -->
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav" style="padding: 20px 20px; display: flex; flex-direction: column; gap: 12px;">
+      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
+      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
+      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
+      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
+      <li class="nav-label" style="padding: 10px 0 5px; color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">Policies</li>
+      <li><a href="refund-policy.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Refund Policy</a></li>
+      <li><a href="privacy-policy.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Privacy Policy</a></li>
+      <li><a href="terms-and-conditions.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Terms & Conditions</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  
+  <main>
+    <section class="about-welcome-section">
+      <div class="welcome-content">
+        <h1 class="welcome-display-title">
+          <span class="top-word">Beauty</span>
+          <span class="bottom-words">In Balance</span>
+        </h1>
+        
+        <div class="welcome-body-text">
+          <p class="lead-p">
+            We bring you the best beauty products directly imported from Korea, Canada, the UK, and Australia. 
+            Our goal is simple: to help you look and feel your best with 100% original products you can trust.
+          </p>
+          
+          <div class="secondary-p">
+            <p>We believe in quality without high prices. That’s why all our products are offered at reasonable prices, so everyone can enjoy safe and effective beauty care.</p>
+            <p>Your trust is our priority. Every item is carefully selected to ensure it is genuine and authentic. When you shop with us, you can be confident that you are getting the real deal.</p>
+            <p>Join our family of happy customers and discover beauty that’s safe, effective, and affordable.</p>
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <a href="shop.html" class="welcome-btn">Explore Collection</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="info-grid-section">
+      <div class="info-grid-inner">
+
+        <div class="info-cat">
+          <div class="info-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L12 2l-9.3 8.3z"/></svg>
+            <h3>Key Ingredients</h3>
+          </div>
+          <div class="info-content">
+            <div class="info-column"><ul><li>Niacinamide & Retinoids</li><li>Authentic Hyaluronic Acid</li></ul></div>
+            <div class="info-column"><ul><li>Ceramides for barrier repair</li><li>Pure AHAs and BHAs</li></ul></div>
+            <div class="info-column"><ul><li>Antioxidant-rich extracts</li><li>Fragrance-free clinical actives</li></ul></div>
+          </div>
+        </div>
+        <!-- Category 3 -->
+        <div class="info-cat">
+          <div class="info-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <h3>Auth Guarantee</h3>
+          </div>
+          <div class="info-content">
+            <div class="info-column"><ul><li>Directly imported batches</li><li>Verified source tracking</li></ul></div>
+            <div class="info-column"><ul><li>Climate-controlled storage</li><li>Original factory sealing</li></ul></div>
+            <div class="info-column"><ul><li>Hologram and batch verified</li><li>Fresh and potent formulas</li></ul></div>
+          </div>
+        </div>
+      </div>
+    <!-- Why Beauty in Balance Section -->
+    <section class="why-bib-section">
+      <h2 class="why-bib-title">Why Beauty in Balance?</h2>
+      <div class="why-bib-grid">
+        
+        <div class="why-bib-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <h4>Direct Imports</h4>
+          <p>Premium beauty products directly sourced from Korea, Canada, the UK, and Australia.</p>
+        </div>
+
+        <div class="why-bib-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h4>100% Authentic</h4>
+          <p>Every item is verified original, ensuring you receive only genuine skincare and cosmetics.</p>
+        </div>
+
+        <div class="why-bib-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+          <h4>Reasonable Prices</h4>
+          <p>We believe in quality without high prices, making safe beauty care accessible to everyone.</p>
+        </div>
+
+        <div class="why-bib-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.89-8.89 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <h4>Trusted Care</h4>
+          <p>Your trust is our priority. We are committed to providing beauty that is safe and effective.</p>
+        </div>
+
+      </div>
+      <div style="margin-top: 60px;">
+        <a href="shop.html" class="btn-dark" style="padding: 15px 40px; display: inline-block;">Explore the Collection</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+        <p>Beauty In Balance – Where authenticity meets care. Providing 100% original imports to elevate your skincare routine.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/beauty.in.balance_?igsh=aTRvd2k0ZjgzMWx1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1JCkUgUeSH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@beauty_in_balance_?_r=1&_t=ZS-9597oMhi8cm" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop All</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Customer Care</h5><ul><li><a href="refund-policy.html">Refund Policy</a></li><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-and-conditions.html">Terms & Conditions</a></li><li><a href="admin.html" style="opacity: 0.5; font-size: 10px;">Admin Login</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2024 Beauty in Balance. All rights reserved.</p></div>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    window.addEventListener('scroll', () => {
+      $('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    $('ham-open').addEventListener('click', () => { 
+      document.getElementById('mobile-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+      const mBar = $('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
+
+    $('cart-open').addEventListener('click', () => { 
+      document.getElementById('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    });
+    
+    function closeAll() {
+      document.getElementById('mobile-drawer').classList.remove('open');
+      document.getElementById('cart-drawer').classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    }
+    
+    $('ham-close')?.addEventListener('click', closeAll);
+    $('cart-close')?.addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // Mobile Search Bar Scroll Effect
+    let lastScrollTop = 0;
+    const mSearchBar = $('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    
+
+  </script>
+  <script src="config.js?v=16"></script>
+  <script src="products.js?v=12"></script>
+  <script src="account-nav.js?v=2"></script>
+</body>
+</html>
+
+
