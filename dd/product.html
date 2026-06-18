@@ -250,12 +250,25 @@
       border-radius: 10px;
     }
     .premium-discovery-grid .hp-prod-card {
-      flex: 0 0 280px;
+      flex: 0 0 calc((100% - 90px) / 3.5);
       scroll-snap-align: start;
     }
-    @media (min-width: 1250px) {
+
+    @media (max-width: 1200px) {
       .premium-discovery-grid {
-        justify-content: center;
+        gap: 20px;
+      }
+      .premium-discovery-grid .hp-prod-card {
+        flex: 0 0 calc((100% - 50px) / 2.5);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .premium-discovery-grid {
+        gap: 15px;
+      }
+      .premium-discovery-grid .hp-prod-card {
+        flex: 0 0 calc((100% - 22px) / 1.5);
       }
     }
 
