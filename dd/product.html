@@ -229,15 +229,37 @@
     .discovery-header h2 { font-family: var(--font-serif); font-size: 3rem; color: var(--brown); }
 
     .premium-discovery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
+      display: flex;
+      overflow-x: auto;
+      gap: 30px;
       max-width: 1400px;
       margin: 0 auto;
+      padding: 10px 10px 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .premium-discovery-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+    .premium-discovery-grid::-webkit-scrollbar-track {
+      background: #f2efe9;
+      border-radius: 10px;
+    }
+    .premium-discovery-grid::-webkit-scrollbar-thumb {
+      background: #b58646;
+      border-radius: 10px;
+    }
+    .premium-discovery-grid .hp-prod-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+    }
+    @media (min-width: 1250px) {
+      .premium-discovery-grid {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 900px) {
-      .premium-discovery-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .trust-ribbon { grid-template-columns: 1fr; gap: 30px; }
       .product-stage { padding: 100px 5% 40px; }
       .discovery-section { padding: 60px 5% 60px; }
