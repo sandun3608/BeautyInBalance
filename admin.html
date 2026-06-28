@@ -1478,6 +1478,10 @@
                                 </div>
                             </div>
                             <input type="file" id="slide-desktop-file" accept="image/*" style="display: none;" onchange="handleSlideImageUpload(this, 'desktop')">
+                            <div style="margin-top: 10px;">
+                                <span style="font-size: 11px; color: #999; display: block; margin-bottom: 5px; font-weight: 700;">- OR PASTE IMAGE URL -</span>
+                                <input type="text" id="slide-desktop-url" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 8px; font-size: 13px; outline: none; background: #fafafa; box-sizing: border-box;" oninput="handleSlideUrlChange(this.value, 'desktop')" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                            </div>
                         </div>
 
                         <!-- Mobile Image -->
@@ -1491,6 +1495,10 @@
                                 </div>
                             </div>
                             <input type="file" id="slide-mobile-file" accept="image/*" style="display: none;" onchange="handleSlideImageUpload(this, 'mobile')">
+                            <div style="margin-top: 10px;">
+                                <span style="font-size: 11px; color: #999; display: block; margin-bottom: 5px; font-weight: 700;">- OR PASTE IMAGE URL -</span>
+                                <input type="text" id="slide-mobile-url" placeholder="https://example.com/image_mobile.jpg" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 8px; font-size: 13px; outline: none; background: #fafafa; box-sizing: border-box;" oninput="handleSlideUrlChange(this.value, 'mobile')" onfocus="this.style.borderColor='#CFA56A'; this.style.background='#fff'">
+                            </div>
                         </div>
 
                         <!-- Title & Subtitle -->
@@ -1652,14 +1660,44 @@
                             document.getElementById('slide-desktop-preview').src = base64;
                             document.getElementById('slide-desktop-preview').style.display = 'block';
                             document.getElementById('slide-desktop-placeholder').style.display = 'none';
+                            document.getElementById('slide-desktop-url').value = ''; // Clear URL input when file is uploaded
                         } else {
                             slideMobileBase64 = base64;
                             document.getElementById('slide-mobile-preview').src = base64;
                             document.getElementById('slide-mobile-preview').style.display = 'block';
                             document.getElementById('slide-mobile-placeholder').style.display = 'none';
+                            document.getElementById('slide-mobile-url').value = ''; // Clear URL input when file is uploaded
                         }
                     };
                     reader.readAsDataURL(file);
+                };
+
+                // Handle direct URL input
+                window.handleSlideUrlChange = function(val, type) {
+                    const url = val.trim();
+                    if (type === 'desktop') {
+                        slideDesktopBase64 = url;
+                        if (url) {
+                            document.getElementById('slide-desktop-preview').src = url;
+                            document.getElementById('slide-desktop-preview').style.display = 'block';
+                            document.getElementById('slide-desktop-placeholder').style.display = 'none';
+                            document.getElementById('slide-desktop-file').value = ''; // Clear file input
+                        } else {
+                            document.getElementById('slide-desktop-preview').style.display = 'none';
+                            document.getElementById('slide-desktop-placeholder').style.display = 'block';
+                        }
+                    } else {
+                        slideMobileBase64 = url;
+                        if (url) {
+                            document.getElementById('slide-mobile-preview').src = url;
+                            document.getElementById('slide-mobile-preview').style.display = 'block';
+                            document.getElementById('slide-mobile-placeholder').style.display = 'none';
+                            document.getElementById('slide-mobile-file').value = ''; // Clear file input
+                        } else {
+                            document.getElementById('slide-mobile-preview').style.display = 'none';
+                            document.getElementById('slide-mobile-placeholder').style.display = 'block';
+                        }
+                    }
                 };
 
                 // Open modal for new slide
@@ -1673,6 +1711,10 @@
                     document.getElementById('slide-btn-link').value = 'shop.html';
                     document.getElementById('slide-pills').value = '';
                     document.getElementById('slide-active').checked = true;
+                    document.getElementById('slide-desktop-url').value = '';
+                    document.getElementById('slide-mobile-url').value = '';
+                    document.getElementById('slide-desktop-file').value = '';
+                    document.getElementById('slide-mobile-file').value = '';
                     slideDesktopBase64 = '';
                     slideMobileBase64 = '';
                     document.getElementById('slide-desktop-preview').style.display = 'none';
@@ -1703,9 +1745,26 @@
                     document.getElementById('slide-btn-link').value = slide.buttonLink || 'shop.html';
                     document.getElementById('slide-pills').value = (slide.pills || []).join(', ');
                     document.getElementById('slide-active').checked = slide.isActive !== false;
+                    
+                    document.getElementById('slide-desktop-file').value = '';
+                    document.getElementById('slide-mobile-file').value = '';
+                    
                     // Show existing images
                     slideDesktopBase64 = slide.desktopImage || '';
                     slideMobileBase64 = slide.mobileImage || '';
+                    
+                    // Populate URL fields if values are urls
+                    if (slideDesktopBase64 && (slideDesktopBase64.startsWith('http') || slideDesktopBase64.startsWith('/') || slideDesktopBase64.startsWith('images/'))) {
+                        document.getElementById('slide-desktop-url').value = slideDesktopBase64;
+                    } else {
+                        document.getElementById('slide-desktop-url').value = '';
+                    }
+                    if (slideMobileBase64 && (slideMobileBase64.startsWith('http') || slideMobileBase64.startsWith('/') || slideMobileBase64.startsWith('images/'))) {
+                        document.getElementById('slide-mobile-url').value = slideMobileBase64;
+                    } else {
+                        document.getElementById('slide-mobile-url').value = '';
+                    }
+
                     if (slideDesktopBase64) {
                         document.getElementById('slide-desktop-preview').src = slideDesktopBase64;
                         document.getElementById('slide-desktop-preview').style.display = 'block';
