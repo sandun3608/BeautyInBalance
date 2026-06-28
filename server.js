@@ -100,7 +100,16 @@ app.use((req, res, next) => {
 
 // IMPORTANT: Serve static files from the ROOT directory
 // This allows the same Render service to host both HTML frontend and the Node API
-app.use(express.static(path.join(__dirname, '.')));
+// Prevent browser caching of HTML files so they always get the latest version tags
+app.use(express.static(path.join(__dirname, '.'), {
+    setHeaders: (res, filepath) => {
+        if (filepath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
+        }
+    }
+}));
 
 // Fallback for SPA-like navigation: Send index.html for all non-API GET requests
 app.get('*', (req, res, next) => {
