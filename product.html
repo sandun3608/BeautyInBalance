@@ -13,6 +13,11 @@
   <link rel="stylesheet" href="styles.css?v=78" />
 
   <style>
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     :root {
       --editorial-bg: #fdfaf7; /* Rose Cream */
       --luxury-border: #f2efe9;
@@ -559,6 +564,10 @@
   <main>
     <div id="pd-frame">
         <!-- Dynamic Premium Content -->
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px; color: #888; font-family: var(--font-sans);">
+          <span style="display:inline-block; width:36px; height:36px; border:3px solid rgba(45,27,18,0.1); border-top-color:#2D1B12; border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom: 15px;"></span>
+          <p style="margin: 0; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; color: #2D1B12; opacity: 0.6;">Loading Product Details...</p>
+        </div>
     </div>
 
     <!-- ===== DISCOVERY / RECOMMENDED ===== -->
@@ -679,6 +688,45 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
+
+    // Fast target fetch for the active product to render details immediately
+    if (prodId) {
+      const singleProductApiUrl = `${window.BASE_URL || '/api'}/products/${prodId}`;
+      fetch(singleProductApiUrl)
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Not found');
+        })
+        .then(dbProd => {
+          if (dbProd) {
+            dbProd.id = dbProd.id || dbProd._id;
+            const formatImg = (str) => {
+              if (!str) return 'images/placeholder.png';
+              if (str.startsWith('data:image') || str.startsWith('http')) return str;
+              try { str = decodeURIComponent(str); } catch (e) {}
+              return str.replace(/%25/g, '%').replace(/%2B/g, '+').split('/').map(part => encodeURIComponent(part)).join('/');
+            };
+            dbProd.img = formatImg(dbProd.img);
+            dbProd.images = Array.isArray(dbProd.images) ? dbProd.images.map(img => formatImg(img)) : [formatImg(dbProd.img)];
+
+            const tempData = [dbProd];
+            // Render immediately with this product if productsData hasn't finished loading yet
+            if (window.renderProduct) {
+              if (window.productsData) {
+                const idx = window.productsData.findIndex(p => p.id === dbProd.id);
+                if (idx !== -1) window.productsData[idx] = dbProd;
+                else window.productsData.unshift(dbProd);
+                window.renderProduct(window.productsData);
+              } else {
+                window.renderProduct(tempData);
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Single product fast fetch failed:', err.message);
+        });
+    }
 
     function toggleTab(el) {
       el.closest('.tab-item').classList.toggle('active');
