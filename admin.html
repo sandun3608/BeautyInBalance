@@ -1369,14 +1369,22 @@
     <!-- BRANDS TAB -->
     <div id="tab-brands" class="admin-content" style="padding-bottom: 120px; display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <div style="display: flex;">
             <div>
                 <h1 style="font-size: 32px; font-weight: 800; margin: 0; color: var(--admin-text); letter-spacing: -0.02em;">Brand Logos</h1>
                 <p style="margin: 5px 0 0 0; color: #777;">Manage the scrolling brand logos on the homepage</p>
             </div>
-            <button onclick="document.getElementById('brand-modal').style.display='flex'; document.getElementById('brand-id').value=''; document.getElementById('brand-link').value=''; document.getElementById('brand-name').value=''; document.getElementById('brand-order').value='0';" style="background: var(--admin-sidebar-bg, #1b1b1e); color: #fff; border: none; padding: 14px 28px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-                Add New Brand
-            </button>
+            
+            <div style="display: flex; gap: 10px;">
+                <button onclick="restoreDefaultBrands()" id="restore-brands-btn" style="background: #fff; color: #111; border: 1px solid #ddd; padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Restore Defaults
+                </button>
+                <button onclick="document.getElementById('brand-modal').style.display='flex'; document.getElementById('brand-id').value=''; document.getElementById('brand-link').value=''; document.getElementById('brand-name').value=''; document.getElementById('brand-order').value='0';" style="background: var(--admin-sidebar-bg, #1b1b1e); color: #fff; border: none; padding: 14px 28px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                    Add New Brand
+                </button>
+            </div>
         </div>
 
         <div style="background: #fff; padding: 25px; border-radius: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--admin-border);">
@@ -1437,6 +1445,44 @@
             };
             reader.readAsDataURL(file);
         });
+
+        
+        async function restoreDefaultBrands() {
+            const btn = document.getElementById('restore-brands-btn');
+            if (!confirm('This will load the 6 original brands. Continue?')) return;
+            
+            btn.disabled = true;
+            btn.innerText = 'Restoring...';
+            
+            const defaults = [
+                { name: 'The Ordinary', image: 'brand/1.png', order: 1 },
+                { name: 'CeraVe', image: 'brand/2.png', order: 2 },
+                { name: 'Beauty of Joseon', image: 'brand/3.png', order: 3 },
+                { name: 'Skin1004', image: 'brand/4.png', order: 4 },
+                { name: 'Cetaphil', image: 'brand/5.png', order: 5 },
+                { name: 'Dr. Althea', image: 'brand/6.png', order: 6 }
+            ];
+            
+            try {
+                const token = localStorage.getItem('userToken');
+                const baseUrl = (window.BASE_URL || '');
+                
+                for (const b of defaults) {
+                    await fetch(baseUrl + '/brands', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                        body: JSON.stringify(b)
+                    });
+                }
+                alert('Default brands restored successfully!');
+                fetchAdminBrands();
+            } catch (err) {
+                alert('Error restoring brands: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Restore Defaults';
+            }
+        }
 
         async function fetchAdminBrands() {
             try {
