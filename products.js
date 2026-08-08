@@ -295,8 +295,8 @@ const defaultProducts = [
   }
 ];
 
-// Global products data used by the UI
-window.productsData = []; // Start empty to trigger skeleton loaders
+// Global products data used by the UI - Instant 0ms initial load
+window.productsData = typeof defaultProducts !== 'undefined' ? [...defaultProducts] : [];
 
 // Fetch from Database
 async function fetchDatabaseProducts() {
@@ -851,9 +851,11 @@ async function loadGlobalSettings() {
     }
 }
 
-// Call initially
+// Call initially for instant 0ms rendering
 document.addEventListener('DOMContentLoaded', () => {
     loadGlobalSettings();
+    if (typeof renderHomeAllProducts === 'function') renderHomeAllProducts();
+    if (typeof renderFeaturedProducts === 'function') renderFeaturedProducts();
     setTimeout(renderCart, 200);
 });
 
@@ -862,8 +864,8 @@ window.renderHomeAllProducts = function() {
     const grid = document.getElementById('hap-grid');
     if (!grid) return;
 
-    // If database fetch is not completed yet, show skeletons
-    if (!window.DB_FETCH_COMPLETED) {
+    // If no products available at all, show skeletons
+    if (!window.productsData || window.productsData.length === 0) {
         grid.innerHTML = Array(8).fill(0).map(() => `
           <div class="skeleton-card">
             <div class="skeleton-element skeleton-img"></div>
