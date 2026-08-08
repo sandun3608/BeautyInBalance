@@ -2120,7 +2120,7 @@
   </script>
 
   <script>
-    // Luxury 1.8-Second Preloader Logic
+    // Smart Luxury Preloader Logic - Opens curtain ONLY when all images & products are 100% loaded
     document.body.classList.add('loading');
     document.addEventListener("DOMContentLoaded", function() {
       let isHidden = false;
@@ -2137,8 +2137,36 @@
         window.dispatchEvent(new Event('PreloaderFinished'));
       };
       
-      // Hide smoothly after 1.5s for seamless background loading
-      setTimeout(hidePreloader, 1500);
+      let windowLoaded = false;
+      window.addEventListener('load', () => { windowLoaded = true; });
+
+      // Poll every 100ms until all images in viewport are 100% downloaded & complete
+      const checkReady = setInterval(() => {
+         const heroContainer = document.getElementById('hero-slides-container');
+         const scriptsDone = !heroContainer || heroContainer.classList.contains('loaded');
+         
+         const dynamicImgs = document.querySelectorAll('img');
+         let imgsLoaded = true;
+         if (dynamicImgs.length > 0) {
+            for (let img of dynamicImgs) {
+               if (!img.complete) {
+                  imgsLoaded = false;
+                  break;
+               }
+            }
+         }
+
+         if ((windowLoaded || document.readyState === 'complete') && scriptsDone && imgsLoaded) {
+            clearInterval(checkReady);
+            setTimeout(hidePreloader, 200); // Instant smooth reveal once images are ready
+         }
+      }, 100);
+
+      // Safety fallback max timeout (3.5 seconds)
+      setTimeout(() => {
+         clearInterval(checkReady);
+         hidePreloader();
+      }, 3500);
     });
 
     // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
