@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Brand = require('../models/Brand');
-const { verifyAdmin } = require('../middleware/auth');
+const { protect } = require('../middleware/auth');
 
 // Get all active brands (public)
 router.get('/', async (req, res) => {
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get all brands (admin)
-router.get('/all', verifyAdmin, async (req, res) => {
+router.get('/all', protect, async (req, res) => {
     try {
         const brands = await Brand.find().sort('order');
         res.json(brands);
@@ -24,7 +24,7 @@ router.get('/all', verifyAdmin, async (req, res) => {
 });
 
 // Create brand (admin)
-router.post('/', verifyAdmin, async (req, res) => {
+router.post('/', protect, async (req, res) => {
     try {
         const brand = new Brand(req.body);
         const savedBrand = await brand.save();
@@ -35,7 +35,7 @@ router.post('/', verifyAdmin, async (req, res) => {
 });
 
 // Update brand (admin)
-router.put('/:id', verifyAdmin, async (req, res) => {
+router.put('/:id', protect, async (req, res) => {
     try {
         const brand = await Brand.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!brand) return res.status(404).json({ message: 'Brand not found' });
@@ -46,7 +46,7 @@ router.put('/:id', verifyAdmin, async (req, res) => {
 });
 
 // Delete brand (admin)
-router.delete('/:id', verifyAdmin, async (req, res) => {
+router.delete('/:id', protect, async (req, res) => {
     try {
         const brand = await Brand.findByIdAndDelete(req.params.id);
         if (!brand) return res.status(404).json({ message: 'Brand not found' });
