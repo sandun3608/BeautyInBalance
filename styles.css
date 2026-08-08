@@ -9316,10 +9316,11 @@ body:not(.drawer-open) .floating-ig {
 }
 
 .koko-logo-img {
-  height: 18px !important;
+  height: 20px !important;
   width: auto !important;
   object-fit: contain !important;
   vertical-align: middle !important;
+  image-rendering: auto !important;
   margin-left: 4px !important;
   margin-right: 4px !important;
   display: inline-block !important;

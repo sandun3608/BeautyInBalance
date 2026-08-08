@@ -65,11 +65,7 @@
     .main-visual img {
       width: 100%; height: 100%;
       object-fit: contain;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      transform: translateZ(0);
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08));
       transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .main-visual:hover img { transform: scale(1.05); }
