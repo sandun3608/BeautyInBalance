@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KokoPay Test</title>
+</head>
+<body>
+<form action="https://qaapi.paykoko.com/api/merchants/orderCreate" method="post" id="darazbnpl_payment_form">
+    <input type='hidden' name='_mId' value='c8cca514bdfa0582cdc40c9703c71e9d'/>
+    <input type='hidden' name='api_key' value='83fA5n1xUaj8OKnX23YY5vlni5q39gBi'/>
+    <input type='hidden' name='_returnUrl' value='https://www.beimmune.lk/return'/>
+    <input type='hidden' name='_responseUrl' value='https://www.beimmune.lk/response'/>
+    <input type='hidden' name='_currency' value='LKR'/>
+    <input type='hidden' name='_amount' value='300.00'/>
+    <input type='hidden' name='_reference' value='REF123'/>
+    <input type='hidden' name='_pluginName' value='customapi'/>
+    <input type='hidden' name='_pluginVersion' value='1.0.1'/>
+    <input type='hidden' name='_cancelUrl' value='https://www.beimmune.lk/cancel'/>
+    <input type='hidden' name='_orderId' value='ORD123'/>
+    <input type='hidden' name='_firstName' value='John'/>
+    <input type='hidden' name='_lastName' value='Doe'/>
+    <input type='hidden' name='_email' value='john@gmail.com'/>
+    <input type='hidden' name='_description' value='products'/>
+    <input type='hidden' name='dataString' value='c8cca514bdfa0582cdc40c9703c71e9d300.00LKRcustomapi1.0.1https://www.beimmune.lk/returnhttps://www.beimmune.lk/cancelORD123REF123JohnDoejohn@gmail.comproducts83fA5n1xUaj8OKnX23YY5vlni5q39gBihttps://www.beimmune.lk/response'/>
+    <input type='hidden' name='signature' value='ZJIYv/BFu8DZD/C6L+ZjvtZhBZZttka7kVsvG9xqA1oIypBlKvTC2xl+jNwuGsXnUTVxcAeZMdlENemGRONe0OHJk2olGzwKSrm/7aFagP7P6RGRC3oo2fVaSkBVQORvigYYSidtzziJ/4LFQ6aQVmK9+Hx5zI++D7+C2Y7Qg+Y='/>
+    <input type='hidden' name='_mobileNo' value='0777904054'/>
+    <input type="submit" value="Test Koko Pay" />
+</form>
+<script type="text/javascript">
+    document.getElementById("darazbnpl_payment_form").submit();
+</script>
+</body>
+</html>

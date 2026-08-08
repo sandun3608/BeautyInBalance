@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment Link | Preview Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --koko-pink: #FF005E;
+            --koko-pink-hover: #e60054;
+            --bg-color: #050505;
+            --surface-color: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #8a8a93;
+            --input-bg: rgba(255, 255, 255, 0.05);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; align-items: center; justify-content: center; background-image: radial-gradient(circle at 15% 50%, rgba(255, 0, 94, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.08), transparent 25%); overflow-x: hidden; padding: 20px; }
+        .container { width: 100%; max-width: 500px; z-index: 10; }
+        .card { background: var(--surface-color); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: 24px; padding: 40px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1); animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .header { text-align: center; margin-bottom: 35px; }
+        .koko-brand { font-size: 32px; font-weight: 800; color: var(--koko-pink); letter-spacing: -1.5px; margin-bottom: 10px; display: inline-block; }
+        .header h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .header p { color: var(--text-muted); font-size: 15px; font-weight: 300; line-height: 1.5; }
+        .form-group { margin-bottom: 20px; }
+        .form-row { display: flex; gap: 15px; } .form-row .form-group { flex: 1; }
+        label { display: block; font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        input { width: 100%; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 16px; color: var(--text-main); font-family: 'Outfit', sans-serif; font-size: 15px; transition: all 0.3s ease; outline: none; }
+        input::placeholder { color: rgba(255, 255, 255, 0.2); }
+        input:focus { background: rgba(255, 255, 255, 0.08); border-color: var(--koko-pink); box-shadow: 0 0 0 4px rgba(255, 0, 94, 0.1); }
+        .amount-wrapper { position: relative; }
+        .amount-wrapper::before { content: "LKR"; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-weight: 500; font-size: 15px; }
+        .amount-wrapper input { padding-left: 55px; font-weight: 600; font-size: 18px; color: var(--koko-pink); }
+        .btn-submit { width: 100%; background: var(--koko-pink); color: #fff; border: none; border-radius: 12px; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; box-shadow: 0 8px 20px rgba(255, 0, 94, 0.4); }
+        .btn-submit:hover { background: var(--koko-pink-hover); transform: translateY(-2px); box-shadow: 0 12px 25px rgba(255, 0, 94, 0.5); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="koko-brand">koko.</div>
+                <h1>Complete Your Order</h1>
+                <p>Pay in 3 interest-free instalments.<br>Enter your details below to proceed.</p>
+            </div>
+
+            <form onsubmit="event.preventDefault(); alert('This is just a design preview! The real payment requires the PHP file to be on a live server.');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Doe" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" placeholder="077XXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>Order Description</label>
+                    <input type="text" placeholder="e.g. Website Design" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount Payable</label>
+                    <div class="amount-wrapper">
+                        <input type="number" placeholder="0.00" step="0.01" min="10" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Proceed to Pay</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
