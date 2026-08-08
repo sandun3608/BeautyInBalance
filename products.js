@@ -96,7 +96,7 @@ const defaultProducts = [
   { 
     id: 'ord-aha-bha-30',
     name: 'AHA 30% + BHA 2% Peeling Solution (30ml)', price: 5200, cat: 'ordinary', filter: 'acids', 
-    images: ['the ordinary/Aha bha peeling solution (30ml) Rs.5200.png'], img: 'the ordinary/Caffeine solution (30ml)  Rs.4600.png',
+    images: ['the ordinary/Aha bha peeling solution (30ml) Rs.5200.png'], img: 'the ordinary/Aha bha peeling solution (30ml) Rs.5200.png',
     desc: 'A highly sought-after 10-minute exfoliating facial treatment featuring a potent 32% blend of alpha and beta-hydroxy acids. It is expertly formulated to deeply exfoliate the skin\'s topmost surface for a brighter, more even appearance. This dramatic peeling solution clears congested pores, combats active blemishes, and helps smooth out fine lines and skin texture irregularities with continuous, careful use.',
     benefits: ['Exfoliates top layers', 'Clears pores', 'Improves textrue & radiance'],
     howToUse: 'Use ideally in the PM, no more frequently than twice per week. Leave on for no more than 10 minutes. Rinse thoroughly.',
