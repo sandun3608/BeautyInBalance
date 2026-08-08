@@ -881,7 +881,7 @@ window.renderHomeAllProducts = function() {
         let categories = [...new Set(window.productsData.map(p => (p.cat || 'others').toLowerCase()))];
         
         // Define exact custom order
-        const customOrder = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita'];
+        const customOrder = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
         
         categories.sort((a, b) => {
             const indexA = customOrder.indexOf(a);
