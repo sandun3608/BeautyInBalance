@@ -1234,8 +1234,8 @@
 
 
 
-  <script src="config.js?v=18"></script>
-  <script src="products.js?v=29"></script>
+  <script src="config.js?v=20"></script>
+  <script src="products.js?v=40"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -2116,8 +2116,8 @@
         window.dispatchEvent(new Event('PreloaderFinished'));
       };
       
-      // Hide smoothly after exactly 1.8 seconds
-      setTimeout(hidePreloader, 1800);
+      // Hide smoothly after 400ms for ultra-fast instant loading
+      setTimeout(hidePreloader, 400);
     });
   </script>
 </body>
