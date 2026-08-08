@@ -2146,15 +2146,15 @@
       let windowLoaded = false;
       window.addEventListener('load', () => { windowLoaded = true; });
 
-      // Poll every 100ms until all images in viewport are 100% downloaded & complete
+      // Poll every 50ms for hero readiness only
       const checkReady = setInterval(() => {
          const heroContainer = document.getElementById('hero-slides-container');
-         const scriptsDone = !heroContainer || heroContainer.classList.contains('loaded');
+         const scriptsDone = !heroContainer || heroContainer.children.length > 0;
          
-         const dynamicImgs = document.querySelectorAll('img');
+         const heroImgs = document.querySelectorAll('#hero-slides-container img');
          let imgsLoaded = true;
-         if (dynamicImgs.length > 0) {
-            for (let img of dynamicImgs) {
+         if (heroImgs.length > 0) {
+            for (let img of heroImgs) {
                if (!img.complete) {
                   imgsLoaded = false;
                   break;
@@ -2162,17 +2162,17 @@
             }
          }
 
-         if ((windowLoaded || document.readyState === 'complete') && scriptsDone && imgsLoaded) {
+         if (scriptsDone && imgsLoaded) {
             clearInterval(checkReady);
-            setTimeout(hidePreloader, 200); // Instant smooth reveal once images are ready
+            setTimeout(hidePreloader, 100);
          }
-      }, 100);
+      }, 50);
 
-      // Safety fallback max timeout (3.5 seconds)
+      // Fast max timeout: 1.0s (1000ms) guarantee
       setTimeout(() => {
          clearInterval(checkReady);
          hidePreloader();
-      }, 3500);
+      }, 1000);
     });
 
     // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
