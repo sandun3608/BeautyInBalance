@@ -512,55 +512,41 @@
 
     <!-- FETCH DYNAMIC BRANDS -->
     <script>
-      (async function() {
+      async function loadDynamicBrands() {
+        const track = document.getElementById('brands-track-container');
+        if (!track) return;
+        
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+        
         try {
-          const track = document.getElementById('brands-track-container');
-          if (!track) return;
-          
-          const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
           const res = await fetch(BASE + '/brands');
-          
           if (!res.ok) throw new Error('Failed to fetch brands');
           const brands = await res.json();
           
-          if (brands && brands.length > 0) {
+          if (Array.isArray(brands) && brands.length > 0) {
               let html = '';
-              // Create the HTML for one set
               brands.forEach(b => {
-                  html += `<div class="brand-item"><img src="${b.image}" alt="${b.name}"></div>`;
+                  const imgTag = `<img src="${b.image}" alt="${b.name}">`;
+                  if (b.link) {
+                      html += `<div class="brand-item"><a href="${b.link}">${imgTag}</a></div>`;
+                  } else {
+                      html += `<div class="brand-item">${imgTag}</div>`;
+                  }
               });
               
-              // Duplicate it for the seamless scrolling effect
+              // Duplicate for continuous infinite scroll loop
               track.innerHTML = html + html;
           } else {
-              // Fallback to defaults if DB is empty
-              const defaultHtml = `
-                <div class="brand-item"><img src="brand/1.png" alt="The Ordinary"></div>
-                <div class="brand-item"><img src="brand/2.png" alt="CeraVe"></div>
-                <div class="brand-item"><img src="brand/3.png" alt="Beauty of Joseon"></div>
-                <div class="brand-item"><img src="brand/4.png" alt="Skin1004"></div>
-                <div class="brand-item"><img src="brand/5.png" alt="Cetaphil"></div>
-                <div class="brand-item"><img src="brand/6.png" alt="Dr. Althea"></div>
-              `;
-              track.innerHTML = defaultHtml + defaultHtml;
+              track.innerHTML = '';
           }
         } catch (err) {
-          console.error('Brands fetch error:', err);
-          // Fallback if API fails or is still deploying
-          const track = document.getElementById('brands-track-container');
-          if (track) {
-              const defaultHtml = `
-                <div class="brand-item"><img src="brand/1.png" alt="The Ordinary"></div>
-                <div class="brand-item"><img src="brand/2.png" alt="CeraVe"></div>
-                <div class="brand-item"><img src="brand/3.png" alt="Beauty of Joseon"></div>
-                <div class="brand-item"><img src="brand/4.png" alt="Skin1004"></div>
-                <div class="brand-item"><img src="brand/5.png" alt="Cetaphil"></div>
-                <div class="brand-item"><img src="brand/6.png" alt="Dr. Althea"></div>
-              `;
-              track.innerHTML = defaultHtml + defaultHtml;
-          }
+          console.error('Brands fetch error, retrying in 3s...', err);
+          setTimeout(loadDynamicBrands, 3000);
         }
-      })();
+      }
+      
+      document.addEventListener('DOMContentLoaded', loadDynamicBrands);
+      loadDynamicBrands();
     </script>
 
     <!-- ===== SECTION: SHOP ALL PRODUCTS GRID ===== -->
