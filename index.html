@@ -963,7 +963,7 @@
       <div class="vh-container">
         <!-- Row 1 -->
         <div class="vh-row">
-          <div class="vh-media vh-media-wide"><video src="vedio/1.mp4" autoplay muted loop playsinline></video></div>
+          <div class="vh-media vh-media-wide"><video data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
           <div class="vh-info">
             <span class="vh-tag">SKINCARE SECRETS</span>
             <h2 class="vh-title">Master the Art of Layering</h2>
@@ -974,7 +974,7 @@
 
         <!-- Row 2 -->
         <div class="vh-row vh-reverse">
-          <div class="vh-media vh-media-wide"><video src="vedio/2.mp4" autoplay muted loop playsinline></video></div>
+          <div class="vh-media vh-media-wide"><video data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
           <div class="vh-info">
             <span class="vh-tag">LUXURY CARE</span>
             <h2 class="vh-title">The Perfect Day Routine</h2>
@@ -2118,6 +2118,31 @@
       
       // Hide smoothly after 400ms for ultra-fast instant loading
       setTimeout(hidePreloader, 400);
+    });
+
+    // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
+    document.addEventListener('DOMContentLoaded', () => {
+      const lazyVideos = document.querySelectorAll('.lazy-video');
+      if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const video = entry.target;
+              if (!video.src && video.dataset.src) {
+                video.src = video.dataset.src;
+              }
+              video.play().catch(() => {});
+              observer.unobserve(video);
+            }
+          });
+        }, { rootMargin: '300px 0px' });
+        lazyVideos.forEach(v => videoObserver.observe(v));
+      } else {
+        lazyVideos.forEach(v => {
+          if (v.dataset.src) v.src = v.dataset.src;
+          v.play().catch(() => {});
+        });
+      }
     });
   </script>
 </body>
