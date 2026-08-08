@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy Original Skincare | Beauty in Balance Sri Lanka</title>
+  <meta name="description" content="Official Beauty in Balance Store. Shop 100% authentic The Ordinary & CeraVe treatments with island-wide delivery." />
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=3" />
+
+  <style>
+    :root {
+      --editorial-bg: #fdfaf7; /* Rose Cream */
+      --luxury-border: #f2efe9;
+    }
+
+    body { background: #fff; overflow-x: hidden; }
+
+    /* GöÇGöÇ PREMIUM PRODUCT LAYOUT GöÇGöÇ */
+    .product-stage {
+      padding: 140px 5% 100px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 100px;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .product-stage { grid-template-columns: 1fr; gap: 60px; padding-top: 100px; }
+    }
+
+    /* Left: Editorial Gallery */
+    .gallery-wrap {
+      position: sticky;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .main-visual {
+      background: var(--editorial-bg);
+      border-radius: 40px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    .main-visual img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+      transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .main-visual:hover img { transform: scale(1.05); }
+
+    .thumbs-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    .t-btn {
+      width: 90px; height: 90px;
+      background: var(--editorial-bg);
+      border-radius: 15px;
+      border: 1px solid var(--luxury-border);
+      cursor: pointer;
+      padding: 10px;
+      transition: 0.3s;
+    }
+    .t-btn.active { border-color: var(--gold); background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .t-btn img { width: 100%; height: 100%; object-fit: contain; opacity: 0.6; }
+    .t-btn.active img { opacity: 1; }
+
+    /* Right: Detailed Narrative */
+    .detail-column {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: -20px;
+    }
+
+    .p-name {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 4vw, 54px);
+      color: var(--brown);
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .p-price-tag {
+      font-size: 30px;
+      color: var(--gold);
+      font-weight: 600;
+      font-family: var(--font-sans);
+    }
+
+    .p-summary {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      border-left: 2px solid var(--luxury-border);
+      padding-left: 24px;
+    }
+
+    /* Actions */
+    .purchase-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 20px;
+    }
+    .qty-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .qty-toggle {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--luxury-border);
+      border-radius: 40px;
+      padding: 5px 20px;
+    }
+    .qty-toggle input {
+      width: 50px; border: none; text-align: center; font-weight: 700; font-size: 1.1rem; outline: none; background: transparent;
+    }
+    .qty-btn { font-size: 1.5rem; color: var(--brown); cursor: pointer; padding: 5px 10px; }
+
+    .btn-primary {
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      padding: 22px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(198,151,90,0.25); }
+
+    /* Accordion / Info Tabs */
+    .editorial-tabs {
+      margin-top: 20px;
+      border-top: 1px solid var(--luxury-border);
+    }
+    .tab-item {
+      border-bottom: 1px solid var(--luxury-border);
+    }
+    .tab-head {
+      width: 100%;
+      padding: 25px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--brown);
+    }
+    .tab-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.5s cubic-bezier(0, 1, 0, 1);
+      color: #777;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .tab-item.active .tab-body { max-height: 1000px; padding-bottom: 30px; }
+    .tab-head svg { transition: 0.4s; }
+    .tab-item.active .tab-head svg { transform: rotate(45deg); }
+
+    /* Trust Highlights */
+    .trust-ribbon {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .trust-item { text-align: center; }
+    .trust-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+    .trust-item p { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #aaa; }
+
+    /* Recommendations */
+    .discovery-section {
+      padding: 100px 5% 150px;
+      background: #fafafa;
+    }
+    .discovery-header { text-align: center; margin-bottom: 70px; }
+    .discovery-header h2 { font-family: var(--font-serif); font-size: 3rem; color: var(--brown); }
+
+    .premium-discovery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .premium-discovery-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .trust-ribbon { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main desktop-only">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+
+        <!-- Mobile User Icon -->
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+    <div id="pd-frame">
+        <!-- Dynamic Premium Content -->
+    </div>
+
+    <!-- ===== DISCOVERY / RECOMMENDED ===== -->
+    <section class="discovery-section">
+      <div class="discovery-header">
+        <h2 id="rec-title">Curated For You</h2>
+      </div>
+      <div class="premium-discovery-grid" id="rec-grid">
+         <!-- Injected via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== OVERLAYS & DRAWERS ===== -->
+  <div class="overlay" id="overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3>Cart (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="cart-items-container"></div>
+  </div>
+
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-top" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+       <span class="site-logo" style="font-size:20px;">Beauty in Balance</span>
+       <button class="ic-btn" id="ham-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <ul class="mobile-nav" style="padding: 40px 20px; display: flex; flex-direction: column; gap: 20px;">
+      <li><a href="index.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Home</a></li>
+      <li><a href="shop.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Shop All</a></li>
+      <li><a href="about.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Our Story</a></li>
+      <li><a href="contact.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Contact Us</a></li>
+      <li><a href="policies.html" style="font-size: 1.2rem; font-weight: 500; color: var(--brown);">Policies</a></li>
+    </ul>
+  </div>
+
+  
+
+          <!-- Content -->
+          <div class="detail-column">
+            <div>
+              <span class="brand-tag">${product.cat.replace(/-/g, ' ')}</span>
+              <h1 class="p-name">${product.name}</h1>
+              <div class="p-price-tag">Rs. ${product.price.toLocaleString()}</div>
+            </div>
+
+            <p class="p-summary">
+              ${product.desc || 'An exceptionally formulated treatment designed to deliver visible clarity and long-lasting dermal hydration. Imported directly to ensure maximum potency and clinical effectiveness.'}
+            </p>
+
+            <div class="purchase-zone">
+              <div class="qty-wrap">
+                 <div class="qty-toggle">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = Math.max(1, parseInt(document.getElementById('p-qty').value)-1)">-</span>
+                    <input type="number" id="p-qty" value="1" min="1">
+                    <span class="qty-btn" onclick="document.getElementById('p-qty').value = parseInt(document.getElementById('p-qty').value)+1">+</span>
+                 </div>
+              </div>
+              <button class="btn-primary" onclick="addToCart('${product.id}', document.getElementById('p-qty').value)">Add to your bag</button>
+            </div>
+
+            <div class="editorial-tabs">
+              <div class="tab-item active">
+                <div class="tab-head" onclick="toggleTab(this)">The Science <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  <ul style="list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                    ${(product.benefits || ['Clinically proven', 'Barrier Support', 'Hydration focus']).map(b => `<li>${b}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-item">
+                <div class="tab-head" onclick="toggleTab(this)">How to Ritual <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  ${product.howToUse || 'Apply a few drops to the face in the AM and PM as part of your skincare regimen. Transition gradually if new to clinical actives.'}
+                </div>
+              </div>
+              <div class="tab-item">
+                <div class="tab-head" onclick="toggleTab(this)">Shipping & Delivery <span><svg width="12" viewBox="0 0 12 12"><path d="M5 0v5H0v2h5v5h2V7h5V5H7V0H5z" fill="currentColor"/></svg></span></div>
+                <div class="tab-body">
+                  Island-wide delivery within 2-4 business days. Secure packaging to maintain product integrity. Rs. 350 flat rate shipping Sri Lanka wide.
+                </div>
+              </div>
+            </div>
+
+            <div class="trust-ribbon">
+              <div class="trust-item"><span class="trust-icon">=ƒ¢ín+Å</span><p>100% Authentic</p></div>
+              <div class="trust-item"><span class="trust-icon">=ƒÜÜ</span><p>Fast Shipping</p></div>
+              <div class="trust-item"><span class="trust-icon">=ƒÆÄ</span><p>Premium Quality</p></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      renderRecs(product.cat, data);
+    }
+
+    function renderRecs(cat, data) {
+      const recs = data.filter(p => p.cat === cat && p.id !== prodId).slice(0, 4);
+      document.getElementById('rec-grid').innerHTML = recs.map(p => `
+        <a href="product.html?id=${p.id}" class="hp-prod-card">
+          <div class="hp-prod-img"><img src="${p.img}" alt="${p.name}"></div>
+          <div class="hp-prod-name">${p.name}</div>
+          <div class="hp-prod-price">Rs. ${p.price.toLocaleString()}</div>
+        </a>
+      `).join('');
+    }
+
+    // Connect with global products.js 
+    window.renderProduct = renderProduct;
+    if (window.productsData) renderProduct(window.productsData);
+
+    // Sidebar/Header Logic
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    $('ham-open')?.addEventListener('click', () => { 
+      document.getElementById('mobile-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+      const mBar = $('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
+
+    $('cart-open')?.addEventListener('click', () => { 
+      document.getElementById('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    });
+    
+    function closeAll() {
+      document.getElementById('mobile-drawer')?.classList.remove('open');
+      document.getElementById('cart-drawer')?.classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = $('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    }
+    
+    $('ham-close')?.addEventListener('click', closeAll);
+    $('cart-close')?.addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // Mobile Search Bar Scroll Effect
+    let lastScrollTop = 0;
+    const mSearchBar = $('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    
+  </script>
+</body>
+</html>

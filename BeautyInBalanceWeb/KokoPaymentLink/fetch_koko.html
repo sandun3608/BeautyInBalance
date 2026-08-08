@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting to Koko...</title>
+</head>
+<body>
+    <h2>Sending request to Koko...</h2>
+    <form id="kokoForm" action="https://qaapi.paykoko.com/api/merchants/orderCreate" method="POST">
+        <input type="hidden" name="_mId" value="c8cca514bdfa0582cdc40c9703c71e9d">
+        <input type="hidden" name="api_key" value="83fA5n1xUaj8OKnX23YY5vlni5q39gBi">
+        <input type="hidden" name="_amount" value="1500.00">
+        <input type="hidden" name="_currency" value="LKR">
+        <input type="hidden" name="_orderId" value="ORD-1715760000-123">
+        <input type="hidden" name="_reference" value="REF-1715760000">
+        <input type="hidden" name="_firstName" value="John">
+        <input type="hidden" name="_lastName" value="Doe">
+        <input type="hidden" name="_email" value="john@example.com">
+        <input type="hidden" name="_mobileNo" value="0771234567">
+        <input type="hidden" name="_description" value="Test Product">
+        <input type="hidden" name="_returnUrl" value="https://your-app.render.com/index.php/return">
+        <input type="hidden" name="_cancelUrl" value="https://your-app.render.com/index.php/cancel">
+        <input type="hidden" name="_responseUrl" value="https://your-app.render.com/index.php/response">
+        <input type="hidden" name="_pluginName" value="customapi">
+        <input type="hidden" name="_pluginVersion" value="1.0.1">
+        <input type="hidden" name="dataString" value="c8cca514bdfa0582cdc40c9703c71e9d1500.00LKRcustomapi1.0.1https://your-app.render.com/index.php/returnhttps://your-app.render.com/index.php/cancelORD-1715760000-123REF-1715760000JohnDoejohn@example.comTest Product83fA5n1xUaj8OKnX23YY5vlni5q39gBihttps://your-app.render.com/index.php/response">
+        <input type="hidden" name="signature" value="XIHoFz7Dg2Ajq1o0sRqshSZMA6WzekRBwV6wtI5VdrGZB8Dl8yWA8NykWoipRI2EeC8cZCnWauV96dFM3RPqy25ZEG9i/qNrv07LKMIpLhe4d4RUNFEqbtbSEbY/V9nEfkGd4mwpjubesYS5aZtWXHuiJ3jrPLeXblO7D69iNls=">
+    </form>
+    <script>
+        document.getElementById('kokoForm').submit();
+    </script>
+</body>
+</html>

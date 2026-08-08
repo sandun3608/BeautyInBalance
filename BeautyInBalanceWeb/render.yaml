@@ -1,0 +1,32 @@
+services:
+  # --- BACKEND + FULLSTACK SERVICE ---
+  - type: web
+    name: BeautyInBalance-Standard
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false # Set this in Render Dashboard!
+      - key: JWT_SECRET
+        value: supersecret123
+      - key: NODE_VERSION
+        value: 20.0.0
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+
+  # --- OPTIONAL: FRONTEND ONLY (Optional, can just use the web service above) ---
+  - type: static
+    name: BeautyInBalance-UIPage
+    runtime: static
+    buildCommand: ""
+    publishPath: "."
+    headers:
+      - path: "/*"
+        name: Access-Control-Allow-Origin
+        value: "*"

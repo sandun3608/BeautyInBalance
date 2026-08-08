@@ -1,0 +1,2945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty in Balance | #1 Authentic Skincare & Cosmetics Shop Sri Lanka</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="Shop 100% original cosmetics & skincare in Sri Lanka. Buy authentic The Ordinary, CeraVe & more. Fast island-wide delivery from our Colombo boutique. Achieve your glowing skin today!" />
+  <meta name="keywords" content="cosmetics sri lanka, skincare sri lanka, the ordinary sri lanka, cerave buy online sri lanka, authentic skincare colombo, original beauty products sl, best cosmetic shop lanka, buy makeup colombo" />
+  <meta name="author" content="Beauty in Balance" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://beautyinbalance.lk/" />
+  <meta property="og:title" content="Beauty in Balance | Best Skincare & Cosmetics in Sri Lanka" />
+  <meta property="og:description" content="Sri Lanka's most trusted destination for genuine The Ordinary and CeraVe products. Island-wide fast delivery, cash on delivery available. Shop 100% Original." />
+  <meta property="og:image" content="images/og-preview.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://beautyinbalance.lk/" />
+  <meta property="twitter:title" content="Beauty in Balance | Authentic Skincare & Cosmetics Sri Lanka" />
+  <meta property="twitter:description" content="Buy 100% original skincare products in Sri Lanka. The Ordinary, CeraVe and more." />
+  <meta property="twitter:image" content="images/og-preview.jpg" />
+
+  <!-- Local Business Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Beauty in Balance",
+    "image": "https://beautyinbalance.lk/images/logo.png",
+    "description": "Premium authentic skincare and cosmetics imported to Sri Lanka. Buy The Ordinary, CeraVe with island-wide delivery.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "No. 45, Flower Road",
+      "addressLocality": "Colombo 07",
+      "addressRegion": "Western Province",
+      "addressCountry": "LK"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 6.910689,
+      "longitude": 79.851963
+    },
+    "telephone": "+94766190550",
+    "openingHours": "Mo,Tu,We,Th,Fr 09:00-20:00 Sa 10:00-18:00 Su 10:00-14:00",
+    "priceRange": "$$"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=78" />
+  <style>
+    /* Absolute Force Override for Mobile Header Cleanup */
+    @media (max-width: 900px) {
+      .m-social-icon, 
+      .m-user-icon, 
+      .mobile-hidden, 
+      #search-open {
+        display: none !important;
+      }
+      /* Make mobile hero slider 1:1, round corners, and add tiny margin around */
+      .hero-section {
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        margin: 12px !important;
+        width: calc(100% - 24px) !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+      }
+      
+      /* Disable Ken Burns zoom animation on mobile, keeping image completely flat/static */
+      .hero-slide.active .hero-bg img,
+      .hero-slide.active .hero-bg video {
+        animation: none !important;
+        transform: none !important;
+      }
+      .hero-slide .hero-bg img,
+      .hero-slide .hero-bg video {
+        transform: none !important;
+      }
+
+      /* Expose and style navigation arrows on mobile with beautiful glassmorphism */
+      .hero-arr {
+        display: flex !important;
+        background: rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+      }
+      .hero-arr.prev {
+        left: 10px !important;
+      }
+      .hero-arr.next {
+        right: 10px !important;
+      }
+      .hero-arr svg {
+        width: 16px !important;
+        height: 16px !important;
+        stroke-width: 3px !important;
+        color: #ffffff !important;
+      }
+      .hero-arr:active {
+        background: rgba(255, 255, 255, 0.25) !important;
+        transform: translateY(-50%) scale(0.9) !important;
+      }
+
+      /* Mobile adjustment for indicators container under slider */
+      .hero-indicators {
+        order: 2 !important;
+        padding: 8px 0 !important;
+        margin: 5px auto !important;
+        gap: 8px !important;
+      }
+      .hero-dot {
+        width: 8px !important;
+        height: 8px !important;
+      }
+      .hero-dot.active {
+        width: 20px !important;
+      }
+    }
+    
+    /* Hero section styles on Desktop (reverted transparent navbar) */
+    @media (min-width: 901px) {
+      /* Scale slider height dynamically based on the 1920x810 aspect ratio to prevent cropping */
+      .hero-section {
+        height: auto !important;
+        aspect-ratio: 1920 / 810 !important;
+        width: 100% !important;
+      }
+      /* Increase brightness (light) of hero images and align top to prevent crop */
+      .hero-bg img,
+      .hero-bg video {
+        filter: brightness(1.0) !important;
+        object-fit: cover !important;
+        object-position: center top !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      /* Reduce Ken Burns zoom animation */
+      .hero-slide.active .hero-bg img,
+      .hero-slide.active .hero-bg video {
+        animation: kenburns-desktop 8s ease-out forwards !important;
+      }
+      @keyframes kenburns-desktop {
+        from {
+          transform: scale(1.02) translate(0.5%, -0.5%);
+        }
+        to {
+          transform: scale(1.00) translate(0%, 0%);
+        }
+      }
+    }
+    
+
+
+    /* Style for slide dots indicator bar (Desktop default) */
+    .hero-indicators {
+      position: relative !important;
+      display: flex !important;
+      gap: 10px !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 9999 !important;
+      padding: 15px 0 !important;
+      margin: 10px auto !important;
+      background: transparent !important;
+      pointer-events: auto !important;
+    }
+    .hero-dot {
+      display: inline-block !important;
+      width: 10px !important;
+      height: 10px !important;
+      border-radius: 50% !important;
+      background: #c1b4ad !important;
+      cursor: pointer !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .hero-dot:hover {
+      background: #8e7f77 !important;
+    }
+    .hero-dot.active {
+      background: #2d1b12 !important;
+      width: 26px !important;
+      border-radius: 5px !important;
+    }
+  </style>
+  <style>
+    /* Preloader Styles */
+    #site-preloader {
+      position: fixed;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: calc(100% + 100px);
+      background-color: #ffffff;
+      z-index: 2147483647;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .preloader-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #2d1b12;
+      margin: 0;
+      letter-spacing: 4px;
+      opacity: 0;
+      transform: translateY(20px);
+      text-shadow: 0px 4px 15px rgba(45, 27, 18, 0.15);
+      animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s, pulseText 3s ease-in-out infinite 1.3s;
+    }
+    @keyframes slideUpFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.98); }
+    }
+    
+    .preloader-spinner-wrap {
+      margin-top: 30px;
+      opacity: 0;
+      animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.8s;
+    }
+    .dotted-spinner {
+      width: 50px;
+      height: 50px;
+      animation: spinSteps 1.2s steps(12, end) infinite;
+      fill: #2d1b12;
+    }
+    @keyframes spinSteps {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .preloader-text {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+      }
+      .preloader-spinner-wrap {
+        margin-top: 20px;
+        transform: scale(0.85);
+      }
+      .preloader-content {
+        padding: 0 20px;
+        text-align: center;
+      }
+    }
+
+    /* Prevent scrolling while loading (guaranteed iOS scroll lock) */
+    body.loading {
+      overflow: hidden !important;
+      position: fixed !important;
+      width: 100% !important;
+      height: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PRELOADER DISABLED ===== -->
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <!-- Mobile Social Icon -->
+        <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span class="ic-label mobile-only">Social</span>
+        </a>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+              <li><a href="shop.html?filter=serums">Serums</a></li>
+              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+
+        <!-- Mobile User Icon -->
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
+    </div>
+    
+    <div class="drawer-content">
+            <ul class="mobile-nav">
+        <li>
+          <a href="index.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="shop.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Shop All
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brand
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content" id="brand-accordion-list"></ul>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Category
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+            <li><a href="shop.html?filter=serums">Serums</a></li>
+            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            <li><a href="shop.html?filter=body">Body Care</a></li>
+            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
+            <li><a href="shop.html?filter=hair">Hair Care</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Register</a></li>
+        
+        <li class="nav-label">Pages</li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="drawer-social">
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-14 8.38 8.38 0 0 1 3.8.9L21 3z"/></svg></a>
+      </div>
+      <div class="drawer-contact">
+        <p>support@beautyinbalance.lk</p>
+        <p>+94 71 915 2136</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  <main>
+    <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
+    <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
+    <section class="hero-section" id="hero-slider">
+      <div class="hero-slides" id="hero-slides-container">
+        <!-- Slides will be loaded dynamically from the database -->
+      </div>
+
+        <!-- Slider Navigation Arrows -->
+        <button class="hero-arr prev" id="hero-prev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="hero-arr next" id="hero-next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+    </section>
+    <!-- Slide Indicators -->
+    <div class="hero-indicators" id="hero-indicators"></div>
+
+
+
+
+    <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
+
+
+
+
+    <section class="brands-section">
+      <div class="brands-marquee">
+        <div class="brands-track">
+          <!-- Brands set 1 -->
+          <div class="brand-item">
+             <img src="brand/1.png" alt="The Ordinary">
+          </div>
+          <div class="brand-item">
+             <img src="brand/2.png" alt="CeraVe">
+          </div>
+          <div class="brand-item">
+             <img src="brand/3.png" alt="Beauty of Joseon">
+          </div>
+          <div class="brand-item">
+             <img src="brand/4.png" alt="Skin1004">
+          </div>
+          <div class="brand-item">
+             <img src="brand/5.png" alt="Cetaphil">
+          </div>
+          <div class="brand-item">
+             <img src="brand/6.png" alt="Dr. Althea">
+          </div>
+          <!-- Duplicated for seamless loop -->
+          <div class="brand-item">
+             <img src="brand/1.png" alt="The Ordinary">
+          </div>
+          <div class="brand-item">
+             <img src="brand/2.png" alt="CeraVe">
+          </div>
+          <div class="brand-item">
+             <img src="brand/3.png" alt="Beauty of Joseon">
+          </div>
+          <div class="brand-item">
+             <img src="brand/4.png" alt="Skin1004">
+          </div>
+          <div class="brand-item">
+             <img src="brand/5.png" alt="Cetaphil">
+          </div>
+          <div class="brand-item">
+             <img src="brand/6.png" alt="Dr. Althea">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: SHOP ALL PRODUCTS GRID ===== -->
+    <section class="home-all-products-section">
+      <!-- Modern Category Tabs -->
+      <div class="hap-tabs-wrapper">
+        <div class="hap-tabs">
+          <button class="hap-tab active" data-filter="ordinary">The Ordinary</button>
+          <button class="hap-tab" data-filter="cerave">CeraVe</button>
+          <button class="hap-tab" data-filter="vaseline">VASELINE</button>
+          <button class="hap-tab" data-filter="manee">MANEE</button>
+          <button class="hap-tab" data-filter="cool-vita">COOL-VITA</button>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="hap-grid" id="hap-grid">
+        <!-- JS WILL INJECT HERE -->
+      </div>
+      
+      <div class="hap-footer">
+        <a href="shop.html" class="btn-dark btn-hero">View Entire Collection</a>
+      </div>
+    </section>
+
+
+
+
+    <!-- ===== SECTION 6: PREMIUM PRODUCT SHOWCASE (PURITY STYLE) ===== -->
+    <section class="showcase-section">
+      <div class="showcase-header fp-header"> <!-- Reuse fp-header for script positioning -->
+        <span class="fp-script">Ultimate Glow</span>
+        <h2 class="fp-title">Pure Skin Starts Here</h2>
+        <p class="showcase-subtitle">Clinically-proven formulas designed to brighten, hydrate, and perfect your skin every single day.</p>
+      </div>
+
+      <div class="showcase-main">
+        <!-- Left Pills -->
+        <div class="showcase-pills-left">
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v1m0 16v1m9-9h-1M4 11H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span>
+            <span>Smooths Lines</span>
+          </div>
+          <div class="scp-pill pill-tuck">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg></span>
+            <span>Collagen Boost</span>
+          </div>
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5 .5a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></span>
+            <span>Anti-Aging Shield</span>
+          </div>
+        </div>
+
+        <!-- Center Image -->
+        <div class="showcase-image-wrap">
+          <img src="bottle/bottle.png" alt="Premium Product" />
+        </div>
+
+        <!-- Right Pills -->
+        <div class="showcase-pills-right">
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+            <span>Brightens Skin</span>
+          </div>
+          <div class="scp-pill pill-tuck">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span>
+            <span>48h Hydration</span>
+          </div>
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+            <span>Fast Absorption</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-footer">
+        <a href="shop.html" class="showcase-btn">View Products</a>
+      </div>
+    </section>
+
+
+    <!-- ===== SECTION: SHOP THE LOOK (PURITY LOOKBOOK) ===== -->
+    <section class="lookbook-section">
+      <div class="look-container">
+        <!-- Left: Model Visual with Interactive Dots -->
+        <div class="look-visual" id="look-visual">
+          <img src="t2/hero_1.png" alt="Editorial Look">
+          
+          <!-- Lip Dot -->
+          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-ha-30', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+          <!-- Face/Cheek Dot -->
+          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-nmf-30', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+          <!-- Eye/Lash Dot -->
+          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-lash-brow-5', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+
+          <!-- Product Popup (Small Box) -->
+          <div class="look-popup" id="look-popup" onclick="handlePopupClick()">
+            <div class="lp-close" onclick="event.stopPropagation(); closeLookPopup();">&times;</div>
+            <div class="lp-inner" id="lp-single-container">
+              <!-- Single Item with small image and name injected here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Bundled Items -->
+        <div class="look-details">
+          <div class="look-list">
+            <!-- Item 1 -->
+            <div class="look-item" id="item-ord-lash-brow-5" onclick="showLookProduct('ord-lash-brow-5')">
+              <div class="look-item-img"><img src="the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png" alt="Mascara"></div>
+              <div class="look-item-info">
+                <h4>Lash & Brow Serum</h4>
+                <p>Rs. 4,800.00</p>
+                <span class="look-variant">Volume: 5ml</span>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="look-item" id="item-ord-nmf-30" onclick="showLookProduct('ord-nmf-30')">
+              <div class="look-item-img"><img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Blush"></div>
+              <div class="look-item-info">
+                <h4>Moisturizing Factors</h4>
+                <p>Rs. 8,000.00</p>
+                <span class="look-variant">Finish: Dewy</span>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="look-item" id="item-ord-ha-30" onclick="showLookProduct('ord-ha-30')">
+              <div class="look-item-img"><img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Lip"></div>
+              <div class="look-item-info">
+                <h4>Hyaluronic Acid</h4>
+                <p>Rs. 4,800.00</p>
+                <span class="look-variant">Focus: Deep Hydration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="look-footer">
+            <button class="look-bundle-btn" onclick="addLookToBag()">
+              Add all to Bag — Rs. 17,600.00
+            </button>
+            <a href="#" class="look-guide-link">View Usage Guide</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const lookData = {
+        'ord-lash-brow-5': { 
+          title: 'Lash & Brow Serum', 
+          price: 'Rs. 4,800.00', 
+          attr: 'Volume: 5ml',
+          img: 'the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png' 
+        },
+        'ord-nmf-30': { 
+          title: 'Natural Moisturizing Factors + HA', 
+          price: 'Rs. 8,000.00', 
+          attr: 'Finish: Dewy',
+          img: 'the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png' 
+        },
+        'ord-ha-30': { 
+          title: 'Hyaluronic Acid 2% + B5', 
+          price: 'Rs. 4,800.00', 
+          attr: 'Hydrating',
+          img: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' 
+        }
+      };
+
+      let currentPopupProductId = '';
+
+      function showLookProduct(id, event) {
+        const prod = lookData[id];
+        const popup = document.getElementById('look-popup');
+        const container = document.getElementById('lp-single-container');
+        if(!prod || !popup || !container) return;
+        
+        currentPopupProductId = id;
+        container.innerHTML = `
+            <img src="${prod.img}" alt="${prod.title}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 4px; background: #f9f9f9;">
+            <div style="flex: 1; text-align: left;">
+                <h6 style="margin: 0; font-size: 11px; font-weight: 700; line-height: 1.2; color: #1a1a1a;">${prod.title}</h6>
+                <p style="margin: 2px 0 0; font-size: 10px; color: #CFA56A; font-weight: 600;">${prod.price}</p>
+            </div>
+        `;
+
+        // Positioning logic
+        if (event) {
+          const rect = document.getElementById('look-visual').getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          
+          let finalX = x;
+          if (x + 180 > rect.width) finalX = rect.width - 190;
+
+          popup.style.left = `${finalX}px`;
+          popup.style.top = `${y}px`;
+          popup.classList.add('active');
+        }
+      }
+
+      function handlePopupClick() {
+          if(currentPopupProductId) {
+              // Extract simple ID for link
+              let cleanId = currentPopupProductId.replace('ord-', '').replace('-5', '').replace('-30', '');
+              // Or just use the full ID if your product.html expects it
+              location.href = `product.html?id=${currentPopupProductId}`;
+          }
+      }
+
+      function closeLookPopup() {
+        const popup = document.getElementById('look-popup');
+        if(popup) popup.classList.remove('active');
+      }
+
+      function addLookToBag() {
+        ['ord-lash-brow-5', 'ord-nmf-30', 'ord-ha-30'].forEach(id => addToCart(id));
+        showToast("Look bundle added to bag!");
+      }
+    </script>
+
+    <!-- ===== SECTION: FEATURED GALLERY (SCREENSHOT REPLICATE) ===== -->
+    <section class="featured-gallery">
+      <div class="fg-header">
+        <span class="fg-subtitle">Discover Our</span>
+        <h2 class="fg-title">Featured Products</h2>
+      </div>
+      
+      <div class="fg-grid" id="featured-track">
+<div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty in Balance | #1 Authentic Skincare & Cosmetics Shop Sri Lanka</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="Shop 100% original cosmetics & skincare in Sri Lanka. Buy authentic The Ordinary, CeraVe & more. Fast island-wide delivery from our Colombo boutique. Achieve your glowing skin today!" />
+  <meta name="keywords" content="cosmetics sri lanka, skincare sri lanka, the ordinary sri lanka, cerave buy online sri lanka, authentic skincare colombo, original beauty products sl, best cosmetic shop lanka, buy makeup colombo" />
+  <meta name="author" content="Beauty in Balance" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://beautyinbalance.lk/" />
+  <meta property="og:title" content="Beauty in Balance | Best Skincare & Cosmetics in Sri Lanka" />
+  <meta property="og:description" content="Sri Lanka's most trusted destination for genuine The Ordinary and CeraVe products. Island-wide fast delivery, cash on delivery available. Shop 100% Original." />
+  <meta property="og:image" content="images/og-preview.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://beautyinbalance.lk/" />
+  <meta property="twitter:title" content="Beauty in Balance | Authentic Skincare & Cosmetics Sri Lanka" />
+  <meta property="twitter:description" content="Buy 100% original skincare products in Sri Lanka. The Ordinary, CeraVe and more." />
+  <meta property="twitter:image" content="images/og-preview.jpg" />
+
+  <!-- Local Business Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Beauty in Balance",
+    "image": "https://beautyinbalance.lk/images/logo.png",
+    "description": "Premium authentic skincare and cosmetics imported to Sri Lanka. Buy The Ordinary, CeraVe with island-wide delivery.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "No. 45, Flower Road",
+      "addressLocality": "Colombo 07",
+      "addressRegion": "Western Province",
+      "addressCountry": "LK"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 6.910689,
+      "longitude": 79.851963
+    },
+    "telephone": "+94766190550",
+    "openingHours": "Mo,Tu,We,Th,Fr 09:00-20:00 Sa 10:00-18:00 Su 10:00-14:00",
+    "priceRange": "$$"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=78" />
+  <style>
+    /* Absolute Force Override for Mobile Header Cleanup */
+    @media (max-width: 900px) {
+      .m-social-icon, 
+      .m-user-icon, 
+      .mobile-hidden, 
+      #search-open {
+        display: none !important;
+      }
+      /* Make mobile hero slider 1:1, round corners, and add tiny margin around */
+      .hero-section {
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        margin: 12px !important;
+        width: calc(100% - 24px) !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+      }
+      
+      /* Disable Ken Burns zoom animation on mobile, keeping image completely flat/static */
+      .hero-slide.active .hero-bg img,
+      .hero-slide.active .hero-bg video {
+        animation: none !important;
+        transform: none !important;
+      }
+      .hero-slide .hero-bg img,
+      .hero-slide .hero-bg video {
+        transform: none !important;
+      }
+
+      /* Expose and style navigation arrows on mobile with beautiful glassmorphism */
+      .hero-arr {
+        display: flex !important;
+        background: rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+      }
+      .hero-arr.prev {
+        left: 10px !important;
+      }
+      .hero-arr.next {
+        right: 10px !important;
+      }
+      .hero-arr svg {
+        width: 16px !important;
+        height: 16px !important;
+        stroke-width: 3px !important;
+        color: #ffffff !important;
+      }
+      .hero-arr:active {
+        background: rgba(255, 255, 255, 0.25) !important;
+        transform: translateY(-50%) scale(0.9) !important;
+      }
+
+      /* Mobile adjustment for indicators container under slider */
+      .hero-indicators {
+        order: 2 !important;
+        padding: 8px 0 !important;
+        margin: 5px auto !important;
+        gap: 8px !important;
+      }
+      .hero-dot {
+        width: 8px !important;
+        height: 8px !important;
+      }
+      .hero-dot.active {
+        width: 20px !important;
+      }
+    }
+    
+    /* Hero section styles on Desktop (reverted transparent navbar) */
+    @media (min-width: 901px) {
+      /* Scale slider height dynamically based on the 1920x810 aspect ratio to prevent cropping */
+      .hero-section {
+        height: auto !important;
+        aspect-ratio: 1920 / 810 !important;
+        width: 100% !important;
+      }
+      /* Increase brightness (light) of hero images and align top to prevent crop */
+      .hero-bg img,
+      .hero-bg video {
+        filter: brightness(1.0) !important;
+        object-fit: cover !important;
+        object-position: center top !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      /* Reduce Ken Burns zoom animation */
+      .hero-slide.active .hero-bg img,
+      .hero-slide.active .hero-bg video {
+        animation: kenburns-desktop 8s ease-out forwards !important;
+      }
+      @keyframes kenburns-desktop {
+        from {
+          transform: scale(1.02) translate(0.5%, -0.5%);
+        }
+        to {
+          transform: scale(1.00) translate(0%, 0%);
+        }
+      }
+    }
+    
+
+
+    /* Style for slide dots indicator bar (Desktop default) */
+    .hero-indicators {
+      position: relative !important;
+      display: flex !important;
+      gap: 10px !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 9999 !important;
+      padding: 15px 0 !important;
+      margin: 10px auto !important;
+      background: transparent !important;
+      pointer-events: auto !important;
+    }
+    .hero-dot {
+      display: inline-block !important;
+      width: 10px !important;
+      height: 10px !important;
+      border-radius: 50% !important;
+      background: #c1b4ad !important;
+      cursor: pointer !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .hero-dot:hover {
+      background: #8e7f77 !important;
+    }
+    .hero-dot.active {
+      background: #2d1b12 !important;
+      width: 26px !important;
+      border-radius: 5px !important;
+    }
+  </style>
+  <style>
+    /* Preloader Styles */
+    #site-preloader {
+      position: fixed;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: calc(100% + 100px);
+      background-color: #ffffff;
+      z-index: 2147483647;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .preloader-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #2d1b12;
+      margin: 0;
+      letter-spacing: 4px;
+      opacity: 0;
+      transform: translateY(20px);
+      text-shadow: 0px 4px 15px rgba(45, 27, 18, 0.15);
+      animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s, pulseText 3s ease-in-out infinite 1.3s;
+    }
+    @keyframes slideUpFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.98); }
+    }
+    
+    .preloader-spinner-wrap {
+      margin-top: 30px;
+      opacity: 0;
+      animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.8s;
+    }
+    .dotted-spinner {
+      width: 50px;
+      height: 50px;
+      animation: spinSteps 1.2s steps(12, end) infinite;
+      fill: #2d1b12;
+    }
+    @keyframes spinSteps {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .preloader-text {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+      }
+      .preloader-spinner-wrap {
+        margin-top: 20px;
+        transform: scale(0.85);
+      }
+      .preloader-content {
+        padding: 0 20px;
+        text-align: center;
+      }
+    }
+
+    /* Prevent scrolling while loading (guaranteed iOS scroll lock) */
+    body.loading {
+      overflow: hidden !important;
+      position: fixed !important;
+      width: 100% !important;
+      height: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PRELOADER DISABLED ===== -->
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links + Email -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <!-- Mobile Social Icon -->
+        <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span class="ic-label mobile-only">Social</span>
+        </a>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+              <li><a href="shop.html?filter=serums">Serums</a></li>
+              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="has-drop">
+            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <span class="ic-label mobile-only">Search</span>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+            <span class="ic-label mobile-only">Bag</span>
+        </button>
+
+        <!-- Mobile User Icon -->
+        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="ic-label mobile-only">User</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Top Search Row -->
+    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
+      <div class="m-search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+       <span class="site-logo">Beauty in Balance</span>
+       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+       </button>
+    </div>
+    
+    <div class="drawer-content">
+            <ul class="mobile-nav">
+        <li>
+          <a href="index.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="shop.html">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Shop All
+            </span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brand
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content" id="brand-accordion-list"></ul>
+        </li>
+        <li class="drawer-accordion-item">
+          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
+            <span style="display:flex; align-items:center; gap:12px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Category
+            </span>
+            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <ul class="drawer-accordion-content">
+            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+            <li><a href="shop.html?filter=serums">Serums</a></li>
+            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
+            <li><a href="shop.html?filter=body">Body Care</a></li>
+            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
+            <li><a href="shop.html?filter=hair">Hair Care</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-label">Account</li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Register</a></li>
+        
+        <li class="nav-label">Pages</li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="drawer-social">
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-14 8.38 8.38 0 0 1 3.8.9L21 3z"/></svg></a>
+      </div>
+      <div class="drawer-contact">
+        <p>support@beautyinbalance.lk</p>
+        <p>+94 71 915 2136</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag (0)</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
+      <p>Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  <main>
+    <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
+    <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
+    <section class="hero-section" id="hero-slider">
+      <div class="hero-slides" id="hero-slides-container">
+        <!-- Slides will be loaded dynamically from the database -->
+      </div>
+
+        <!-- Slider Navigation Arrows -->
+        <button class="hero-arr prev" id="hero-prev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="hero-arr next" id="hero-next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+    </section>
+    <!-- Slide Indicators -->
+    <div class="hero-indicators" id="hero-indicators"></div>
+
+
+
+
+    <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
+
+
+
+
+    <section class="brands-section">
+      <div class="brands-marquee">
+        <div class="brands-track">
+          <!-- Brands set 1 -->
+          <div class="brand-item">
+             <img src="brand/1.png" alt="The Ordinary">
+          </div>
+          <div class="brand-item">
+             <img src="brand/2.png" alt="CeraVe">
+          </div>
+          <div class="brand-item">
+             <img src="brand/3.png" alt="Beauty of Joseon">
+          </div>
+          <div class="brand-item">
+             <img src="brand/4.png" alt="Skin1004">
+          </div>
+          <div class="brand-item">
+             <img src="brand/5.png" alt="Cetaphil">
+          </div>
+          <div class="brand-item">
+             <img src="brand/6.png" alt="Dr. Althea">
+          </div>
+          <!-- Duplicated for seamless loop -->
+          <div class="brand-item">
+             <img src="brand/1.png" alt="The Ordinary">
+          </div>
+          <div class="brand-item">
+             <img src="brand/2.png" alt="CeraVe">
+          </div>
+          <div class="brand-item">
+             <img src="brand/3.png" alt="Beauty of Joseon">
+          </div>
+          <div class="brand-item">
+             <img src="brand/4.png" alt="Skin1004">
+          </div>
+          <div class="brand-item">
+             <img src="brand/5.png" alt="Cetaphil">
+          </div>
+          <div class="brand-item">
+             <img src="brand/6.png" alt="Dr. Althea">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION: SHOP ALL PRODUCTS GRID ===== -->
+    <section class="home-all-products-section">
+      <!-- Modern Category Tabs -->
+      <div class="hap-tabs-wrapper">
+        <div class="hap-tabs">
+          <button class="hap-tab active" data-filter="ordinary">The Ordinary</button>
+          <button class="hap-tab" data-filter="cerave">CeraVe</button>
+          <button class="hap-tab" data-filter="vaseline">VASELINE</button>
+          <button class="hap-tab" data-filter="manee">MANEE</button>
+          <button class="hap-tab" data-filter="cool-vita">COOL-VITA</button>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="hap-grid" id="hap-grid">
+        <!-- JS WILL INJECT HERE -->
+      </div>
+      
+      <div class="hap-footer">
+        <a href="shop.html" class="btn-dark btn-hero">View Entire Collection</a>
+      </div>
+    </section>
+
+
+
+
+    <!-- ===== SECTION 6: PREMIUM PRODUCT SHOWCASE (PURITY STYLE) ===== -->
+    <section class="showcase-section">
+      <div class="showcase-header fp-header"> <!-- Reuse fp-header for script positioning -->
+        <span class="fp-script">Ultimate Glow</span>
+        <h2 class="fp-title">Pure Skin Starts Here</h2>
+        <p class="showcase-subtitle">Clinically-proven formulas designed to brighten, hydrate, and perfect your skin every single day.</p>
+      </div>
+
+      <div class="showcase-main">
+        <!-- Left Pills -->
+        <div class="showcase-pills-left">
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v1m0 16v1m9-9h-1M4 11H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span>
+            <span>Smooths Lines</span>
+          </div>
+          <div class="scp-pill pill-tuck">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg></span>
+            <span>Collagen Boost</span>
+          </div>
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5 .5a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></span>
+            <span>Anti-Aging Shield</span>
+          </div>
+        </div>
+
+        <!-- Center Image -->
+        <div class="showcase-image-wrap">
+          <img src="bottle/bottle.png" alt="Premium Product" />
+        </div>
+
+        <!-- Right Pills -->
+        <div class="showcase-pills-right">
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+            <span>Brightens Skin</span>
+          </div>
+          <div class="scp-pill pill-tuck">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span>
+            <span>48h Hydration</span>
+          </div>
+          <div class="scp-pill">
+            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+            <span>Fast Absorption</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-footer">
+        <a href="shop.html" class="showcase-btn">View Products</a>
+      </div>
+    </section>
+
+
+    <!-- ===== SECTION: SHOP THE LOOK (PURITY LOOKBOOK) ===== -->
+    <section class="lookbook-section">
+      <div class="look-container">
+        <!-- Left: Model Visual with Interactive Dots -->
+        <div class="look-visual" id="look-visual">
+          <img src="t2/hero_1.png" alt="Editorial Look">
+          
+          <!-- Lip Dot -->
+          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-ha-30', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+          <!-- Face/Cheek Dot -->
+          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-nmf-30', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+          <!-- Eye/Lash Dot -->
+          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-lash-brow-5', event)">
+            <div class="hotspot-pulse"></div>
+          </div>
+
+          <!-- Product Popup (Small Box) -->
+          <div class="look-popup" id="look-popup" onclick="handlePopupClick()">
+            <div class="lp-close" onclick="event.stopPropagation(); closeLookPopup();">&times;</div>
+            <div class="lp-inner" id="lp-single-container">
+              <!-- Single Item with small image and name injected here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Bundled Items -->
+        <div class="look-details">
+          <div class="look-list">
+            <!-- Item 1 -->
+            <div class="look-item" id="item-ord-lash-brow-5" onclick="showLookProduct('ord-lash-brow-5')">
+              <div class="look-item-img"><img src="the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png" alt="Mascara"></div>
+              <div class="look-item-info">
+                <h4>Lash & Brow Serum</h4>
+                <p>Rs. 4,800.00</p>
+                <span class="look-variant">Volume: 5ml</span>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="look-item" id="item-ord-nmf-30" onclick="showLookProduct('ord-nmf-30')">
+              <div class="look-item-img"><img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Blush"></div>
+              <div class="look-item-info">
+                <h4>Moisturizing Factors</h4>
+                <p>Rs. 8,000.00</p>
+                <span class="look-variant">Finish: Dewy</span>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="look-item" id="item-ord-ha-30" onclick="showLookProduct('ord-ha-30')">
+              <div class="look-item-img"><img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Lip"></div>
+              <div class="look-item-info">
+                <h4>Hyaluronic Acid</h4>
+                <p>Rs. 4,800.00</p>
+                <span class="look-variant">Focus: Deep Hydration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="look-footer">
+            <button class="look-bundle-btn" onclick="addLookToBag()">
+              Add all to Bag — Rs. 17,600.00
+            </button>
+            <a href="#" class="look-guide-link">View Usage Guide</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const lookData = {
+        'ord-lash-brow-5': { 
+          title: 'Lash & Brow Serum', 
+          price: 'Rs. 4,800.00', 
+          attr: 'Volume: 5ml',
+          img: 'the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png' 
+        },
+        'ord-nmf-30': { 
+          title: 'Natural Moisturizing Factors + HA', 
+          price: 'Rs. 8,000.00', 
+          attr: 'Finish: Dewy',
+          img: 'the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png' 
+        },
+        'ord-ha-30': { 
+          title: 'Hyaluronic Acid 2% + B5', 
+          price: 'Rs. 4,800.00', 
+          attr: 'Hydrating',
+          img: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' 
+        }
+      };
+
+      let currentPopupProductId = '';
+
+      function showLookProduct(id, event) {
+        const prod = lookData[id];
+        const popup = document.getElementById('look-popup');
+        const container = document.getElementById('lp-single-container');
+        if(!prod || !popup || !container) return;
+        
+        currentPopupProductId = id;
+        container.innerHTML = `
+            <img src="${prod.img}" alt="${prod.title}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 4px; background: #f9f9f9;">
+            <div style="flex: 1; text-align: left;">
+                <h6 style="margin: 0; font-size: 11px; font-weight: 700; line-height: 1.2; color: #1a1a1a;">${prod.title}</h6>
+                <p style="margin: 2px 0 0; font-size: 10px; color: #CFA56A; font-weight: 600;">${prod.price}</p>
+            </div>
+        `;
+
+        // Positioning logic
+        if (event) {
+          const rect = document.getElementById('look-visual').getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          
+          let finalX = x;
+          if (x + 180 > rect.width) finalX = rect.width - 190;
+
+          popup.style.left = `${finalX}px`;
+          popup.style.top = `${y}px`;
+          popup.classList.add('active');
+        }
+      }
+
+      function handlePopupClick() {
+          if(currentPopupProductId) {
+              // Extract simple ID for link
+              let cleanId = currentPopupProductId.replace('ord-', '').replace('-5', '').replace('-30', '');
+              // Or just use the full ID if your product.html expects it
+              location.href = `product.html?id=${currentPopupProductId}`;
+          }
+      }
+
+      function closeLookPopup() {
+        const popup = document.getElementById('look-popup');
+        if(popup) popup.classList.remove('active');
+      }
+
+      function addLookToBag() {
+        ['ord-lash-brow-5', 'ord-nmf-30', 'ord-ha-30'].forEach(id => addToCart(id));
+        showToast("Look bundle added to bag!");
+      }
+    </script>
+
+    <!-- ===== SECTION: FEATURED GALLERY (SCREENSHOT REPLICATE) ===== -->
+    <section class="featured-gallery">
+      <div class="fg-header">
+        <span class="fg-subtitle">Discover Our</span>
+        <h2 class="fg-title">Featured Products</h2>
+      </div>
+      
+      <div class="fg-grid" id="featured-track">
+        <!-- Product 1 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ordinary">THE ORDINARY</span>
+            <button class="fg-bag-btn" onclick="addToCart('ord-nia-30')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="the%20ordinary/Niacinamide%20(30ml)%20Rs.3800.png" alt="Product 1">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Niacinamide 10% + Zinc 1%</h4>
+            <p class="fg-price">Rs. 3,800.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 1,266.67 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('ord-nia-30'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/theordinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/TheOrdinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@theordinary" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Niacinamide%2010%25%20%2B%20Zinc%201%25" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ordinary">THE ORDINARY</span>
+            <button class="fg-bag-btn" onclick="addToCart('ord-ha-30')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Product 2">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Hyaluronic Acid 2% + B5</h4>
+            <p class="fg-price">Rs. 4,800.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 1,600.00 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('ord-ha-30'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/theordinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/TheOrdinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@theordinary" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Hyaluronic%20Acid%202%25%20%2B%20B5" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ordinary">THE ORDINARY</span>
+            <button class="fg-bag-btn" onclick="addToCart('ord-nmf-30')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Product 3">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Natural Moisturizing Factors + HA</h4>
+            <p class="fg-price">Rs. 8,000.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 2,666.67 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('ord-nmf-30'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/theordinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/TheOrdinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@theordinary" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Natural%20Moisturizing%20Factors%20%2B%20HA" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge cerave">CERAVE</span>
+            <button class="fg-bag-btn" onclick="addToCart('cv-hyd-236')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="cerave%20prodcut/Hydrating%20Cleanser%20(236ml)%20%20Rs.6800.png" alt="Product 4">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Hydrating Cleanser (236ml)</h4>
+            <p class="fg-price">Rs. 6,800.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 2,266.67 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('cv-hyd-236'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/cerave/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/CeraVe/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@cerave" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Hydrating%20Cleanser%20(236ml)" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ordinary">THE ORDINARY</span>
+            <button class="fg-bag-btn" onclick="addToCart('ord-caf-30')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="the%20ordinary/Caffeine%20solution%20(30ml)%20%20Rs.4600.png" alt="Product 5">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Caffeine Solution 5% + EGCG</h4>
+            <p class="fg-price">Rs. 4,600.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 1,533.33 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('ord-caf-30'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/theordinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/TheOrdinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@theordinary" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Caffeine%20Solution%205%25%20%2B%20EGCG" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ordinary">THE ORDINARY</span>
+            <button class="fg-bag-btn" onclick="addToCart('ord-gr-30')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="the%20ordinary/Granactive%20retinoid%202%20emulsion%20(30ml)%20%20Rs.5500.png" alt="Product 6">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Granactive Retinoid 2% Emulsion</h4>
+            <p class="fg-price">Rs. 5,500.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 1,833.33 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('ord-gr-30'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/theordinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/TheOrdinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@theordinary" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Granactive%20Retinoid%202%25%20Emulsion" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge cerave">CERAVE</span>
+            <button class="fg-bag-btn" onclick="addToCart('cv-moist-236')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png" alt="Product 7">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Daily Moisturising Lotion (236ml)</h4>
+            <p class="fg-price">Rs. 5,800.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 1,933.33 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('cv-moist-236'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/cerave/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/CeraVe/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@cerave" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Daily%20Moisturising%20Lotion%20(236ml)" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="fg-card">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ordinary">THE ORDINARY</span>
+            <button class="fg-bag-btn" onclick="addToCart('ord-gly-240')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="the ordinary/Glycolic Acid Toning Solution (240ml)  Rs.4800.png" alt="Product 8">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">Glycolic Acid 7% Toning Solution</h4>
+            <p class="fg-price">Rs. 7,800.00</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs 2,600.00 with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="addToCart('ord-gly-240'); location.href='shop.html'">BUY NOW</button>
+              <div class="fg-socials">
+                <a href="https://www.instagram.com/theordinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/TheOrdinary/" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="https://www.tiktok.com/@theordinary" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="14" height="14"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                <a href="https://wa.me/94766190550?text=I'm%20interested%20in%20Glycolic%20Acid%207%25%20Toning%20Solution" target="_blank"><svg viewBox="0 0 448 512" fill="currentColor" width="15" height="15"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
+    <section class="video-highlights-section">
+      <div class="vh-container">
+        <!-- Row 1 -->
+        <div class="vh-row">
+          <div class="vh-media vh-media-wide"><video src="vedio/1.mp4" autoplay muted loop playsinline></video></div>
+          <div class="vh-info">
+            <span class="vh-tag">SKINCARE SECRETS</span>
+            <h2 class="vh-title">Master the Art of Layering</h2>
+            <p>Learn how to apply your products for maximum absorption and effectiveness.</p>
+            <a href="#" class="vh-link">WATCH FULL GUIDE</a>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="vh-row vh-reverse">
+          <div class="vh-media vh-media-wide"><video src="vedio/2.mp4" autoplay muted loop playsinline></video></div>
+          <div class="vh-info">
+            <span class="vh-tag">LUXURY CARE</span>
+            <h2 class="vh-title">The Perfect Day Routine</h2>
+            <p>A step-by-step guide to protecting and hydrating your skin throughout the day.</p>
+            <a href="#" class="vh-link">DISCOVER MORE</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== SECTION 9: SHADE FINDER (THEME PURITY VER. 2) ===== -->
+    <section class="premium-shade-finder">
+      <div class="ps-header fp-header">
+        <span class="fp-script">Ultimate Glow</span>
+        <h2 class="fp-title">Choose Your Shade</h2>
+      </div>
+
+      <div class="ps-grid-wrap">
+        <div class="ps-tones-grid">
+          <div class="ps-tone-item active" data-val="0">
+            <div class="ps-pill-outer">
+              <div class="ps-pill-inner"><img src="purity_fair_v2_1775877643004.png" alt="Fair"></div>
+            </div>
+            <span class="ps-label">Fair Skin</span>
+          </div>
+          <div class="ps-tone-item" data-val="33">
+            <div class="ps-pill-outer">
+              <div class="ps-pill-inner"><img src="purity_light_v2_1775877671302.png" alt="Light"></div>
+            </div>
+            <span class="ps-label">Light Skin</span>
+          </div>
+          <div class="ps-tone-item" data-val="66">
+            <div class="ps-pill-outer">
+              <div class="ps-pill-inner"><img src="purity_medium_v2_1775877723012.png" alt="Medium"></div>
+            </div>
+            <span class="ps-label">Medium Skin</span>
+          </div>
+          <div class="ps-tone-item" data-val="100">
+            <div class="ps-pill-outer">
+              <div class="ps-pill-inner"><img src="purity_dark_v2_1775877753430.png" alt="Dark"></div>
+            </div>
+            <span class="ps-label">Dark Skin</span>
+          </div>
+        </div>
+
+        <div class="ps-slider-container">
+          <input type="range" min="0" max="100" value="0" class="ps-range" id="ps-range">
+        </div>
+      </div>
+
+      <div class="ps-products-grid" id="ps-products-grid">
+        <!-- Filtered results -->
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ===== SECTION 5: BEFORE & AFTER SLIDER ===== -->
+    <section class="ba-slider-section">
+      <div class="ba-container">
+        <div class="ba-after-wrap">
+          <img src="before after section new/Brighting boost.png" alt="After" />
+          <span class="ba-label lab-after">After</span>
+        </div>
+        <div class="ba-before-wrap" id="ba-before">
+          <img src="before after section new/1.png" alt="Before" />
+          <span class="ba-label lab-before">Before</span>
+        </div>
+        <div class="ba-line" id="ba-line">
+          <div class="ba-handle"></div>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="ba-range" id="ba-range" />
+      </div>
+    </section>
+
+
+    <!-- ===== SECTION: FEATURES (PREMIUM ICONS) ===== -->
+    <section class="features-section">
+      <div class="features-grid">
+        <!-- Delivery -->
+        <div class="feature-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h15v13H1V3zM16 8l5 2v6h-5V8zM3 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0M17 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h4>FAST DELIVERY</h4>
+          <p>Island-wide shipping within 48 hours.</p>
+        </div>
+        <!-- Authentic -->
+        <div class="feature-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h4>100% AUTHENTIC</h4>
+          <p>Guaranteed genuine products imported directly.</p>
+        </div>
+        <!-- Quality -->
+        <div class="feature-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h4>PREMIUM QUALITY</h4>
+          <p>Only the best science-backed skincare brands.</p>
+        </div>
+        <!-- Secure -->
+        <div class="feature-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <h4>SECURE PAYMENT</h4>
+          <p>Safe bank transfers and cash on delivery.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
+    <section class="feedback-section">
+      <div class="fb-inner-header fp-header">
+        <span class="fp-script">Local Reviews</span>
+        <h2 class="fp-title">Verified Experiences</h2>
+      </div>
+
+      <div class="fb-container">
+        <!-- Review 1 -->
+        <div class="fb-card">
+          <div class="fb-card-top">
+            <div class="fb-stars">★★★★★</div>
+            <p class="fb-text">"The Ordinary products really changed my skin. I'm finally glowing and my dark spots are fading!"</p>
+          </div>
+          <div class="fb-user">
+            <div class="fb-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="fb-user-details">
+              <h4>Hirushika Fernando</h4>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="fb-card">
+          <div class="fb-card-top">
+            <div class="fb-stars">★★★★★</div>
+            <p class="fb-text">"Authentic products and very fast delivery in Sri Lanka. My routine has never been more consistent."</p>
+          </div>
+          <div class="fb-user">
+            <div class="fb-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="fb-user-details">
+              <h4>Imaansha Dahami</h4>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="fb-card">
+          <div class="fb-card-top">
+            <div class="fb-stars">★★★★★</div>
+            <p class="fb-text">"Perfect customer support and even better results. Beauty in Balance is my only go-to for skincare!"</p>
+          </div>
+          <div class="fb-user">
+            <div class="fb-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="fb-user-details">
+              <h4>Aloka Perera</h4>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 11: FEATURES (PREMIUM ICONS) ===== -->
+
+
+
+    <!-- ===== FOOTER ===== -->
+
+  </main>
+  
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3>SHOP</h3>
+        <ul>
+          <li><a href="shop.html">Best Sellers</a></li>
+          <li><a href="shop.html">New Arrivals</a></li>
+          <li><a href="shop.html">Special Offers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>SUPPORT</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="refund-policy.html">Refund Policy</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+        <p>Your destination for authentic, high-quality skincare in Sri Lanka.</p>
+        <div class="footer-social">
+          <a href="https://facebook.com/beautyinbalance" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://instagram.com/beautyinbalance_sl" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://wa.me/94766190550" target="_blank" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Beauty in Balance. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING WHATSAPP & INSTAGRAM ICONS ===== -->
+  <a href="https://wa.me/94766190550" target="_blank" rel="noopener noreferrer" class="floating-wa" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/beauty.in.balance_" target="_blank" rel="noopener noreferrer" class="floating-ig" aria-label="Follow on Instagram">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+  </a>
+
+
+
+  <script src="config.js?v=18"></script>
+  <script src="products.js?v=29"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const overlay = $('overlay');
+
+    /* ── MOBILE DRAWER ── */
+    $('ham-open').addEventListener('click', () => { 
+      $('mobile-drawer').classList.add('open'); 
+      document.body.classList.add('drawer-open');
+      overlay.classList.add('show'); 
+      const mBar = document.getElementById('mobile-search-bar');
+      if(mBar) mBar.classList.add('hide-search');
+    });
+    $('ham-close').addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+    function closeAll() {
+      $('mobile-drawer').classList.remove('open');
+      document.body.classList.remove('drawer-open');
+      $('cart-drawer').classList.remove('open');
+      $('search-drop').classList.remove('open');
+      overlay.classList.remove('show');
+      const mBar = document.getElementById('mobile-search-bar');
+      if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+    }
+
+    /* ── SEARCH ── */
+    const searchOpen = document.getElementById('search-open');
+    const searchClose = document.getElementById('search-close');
+    const searchDrop = document.getElementById('search-drop');
+    const searchInp = document.getElementById('search-inp');
+    
+    const mbnSearch = document.getElementById('mbn-search-trigger');
+    const openSearch = () => { searchDrop.classList.add('open'); searchInp.focus(); };
+    
+    if (searchOpen) searchOpen.addEventListener('click', openSearch);
+    if (mbnSearch) mbnSearch.addEventListener('click', openSearch);
+    if (searchClose) searchClose.addEventListener('click', () => searchDrop.classList.remove('open'));
+
+    /* ── CART ── */
+    const cartOpen = document.getElementById('cart-open');
+    const cartClose = document.getElementById('cart-close');
+    const mbnCart = document.getElementById('mbn-cart-trigger');
+    
+    const openCart = () => { 
+      document.getElementById('cart-drawer').classList.add('open'); 
+      overlay.classList.add('show'); 
+    };
+    
+    if (cartOpen) cartOpen.addEventListener('click', openCart);
+    if (mbnCart) mbnCart.addEventListener('click', openCart);
+    if (cartClose) cartClose.addEventListener('click', closeAll);
+
+    /* ── HERO SLIDER — handled by dynamic loader below ── */
+
+    /* ── BEFORE & AFTER ── */
+    const baRange = $('ba-range');
+    const baBefore = $('ba-before');
+    const baLine = $('ba-line');
+    if (baRange) {
+      baRange.addEventListener('input', (e) => {
+        const val = e.target.value;
+        requestAnimationFrame(() => {
+          baBefore.style.clipPath = `inset(0 0 ${100 - val}% 0)`;
+          baLine.style.top = val + '%';
+        });
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    let productsData = [];
+
+    /* ── SHADE FINDER LOGIC (REFINED) ── */
+    function initShadeFinder() {
+      // Prevent multiple initialization
+      if (window.shadeFinderInitialized) return;
+      
+      const range = document.getElementById('ps-range');
+      const items = document.querySelectorAll('.ps-tone-item');
+      
+      if (!range || !items.length) return;
+
+      function updateShadeUI(val) {
+        let closest = items[0];
+        let minDiff = 1000;
+        
+        items.forEach(item => {
+          const itemVal = parseInt(item.getAttribute('data-val'));
+          const diff = Math.abs(val - itemVal);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closest = item;
+          }
+        });
+
+        items.forEach(i => i.classList.remove('active'));
+        closest.classList.add('active');
+        
+        // Get clean label text
+        const label = closest.querySelector('.ps-label').textContent.trim();
+        renderShadeProducts(label);
+      }
+
+      range.addEventListener('input', (e) => updateShadeUI(e.target.value));
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const val = item.getAttribute('data-val');
+          range.value = val;
+          updateShadeUI(val);
+        });
+      });
+
+      // Default start
+      updateShadeUI(0);
+      window.shadeFinderInitialized = true;
+    }
+
+    function renderShadeProducts(shadeName) {
+      const grid = document.getElementById('ps-products-grid');
+      if (!grid) return;
+
+      // Robust data retrieval
+      const allProducts = (window.productsData && window.productsData.length > 0)
+        ? window.productsData
+        : (typeof productsData !== 'undefined' && productsData.length > 0 ? productsData : []);
+
+      if (!allProducts || allProducts.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">Loading expert recommendations…</p>';
+        return;
+      }
+
+      // Map filters to specific skin tones for a curated feel
+      // Uses EXACT filter values from products.js
+      const toneMap = {
+        'Fair Skin':   ['cleansers', 'sunscreen', 'face-oils'],
+        'Light Skin':  ['serums', 'eye', 'glow', 'moisturizers'],
+        'Medium Skin': ['acids', 'targeted'],
+        'Dark Skin':   ['retinoids', 'body', 'lip']
+      };
+
+      const allMappedFilters = Object.values(toneMap).flat();
+      const shadeIndex = ['Fair Skin', 'Light Skin', 'Medium Skin', 'Dark Skin'].indexOf(shadeName);
+
+      // Filter products: either explicitly mapped, or assigned via hash if their filter is unknown
+      let items = allProducts.filter(p => {
+        const cat = toneMap[shadeName] || [];
+        const f = (p.filter || '').toLowerCase();
+        
+        if (cat.includes(f)) return true;
+        
+        // Distribute unmapped products evenly across the 4 shades
+        if (!allMappedFilters.includes(f)) {
+            const hash = Array.from(p._id || p.id || p.name || '').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            return (hash % 4) === Math.max(0, shadeIndex);
+        }
+        return false;
+      });
+      
+      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
+      items = items.sort(() => 0.5 - Math.random());
+
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
+        return;
+      }
+
+      grid.innerHTML = `
+        <div class="ps-inner-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+          ${items.map(p => {
+            const pid = p.id || p._id || '';
+            const rawImg = p.img || (p.images && p.images[0]) || '';
+            
+            // Use the image path directly as it is already formatted by products.js or works natively
+            const formattedImg = rawImg || 'favicon.png';
+
+            const basePrice = Number(p.price || 0);
+            const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            return `
+              <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
+                <div class="ps-prod-img">
+                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'">
+                </div>
+                <div class="ps-prod-info">
+                  <p class="ps-prod-name">${p.name}</p>
+                  <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
+                  <div class="koko-installment">
+                    <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+                  </div>
+                  <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>`;
+    }
+
+    async function fetchProducts() {
+      const checkAndRender = () => {
+        if (window.DB_FETCH_COMPLETED) {
+          productsData = window.productsData || [];
+          if (typeof renderRoundCategories === 'function') {
+            try { renderRoundCategories(); } catch(e) {}
+          }
+          renderFeaturedProducts();
+          initShadeFinder();
+          
+          const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+          if (activeItem) renderShadeProducts(activeItem.textContent.trim());
+        } else {
+          setTimeout(checkAndRender, 100);
+        }
+      };
+      checkAndRender();
+    }
+
+    function renderFeaturedProducts() {
+      const track = document.getElementById('featured-track');
+      if (!track || !productsData.length) return;
+      
+      const shuffled = [...productsData].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 8);
+      track.innerHTML = selected.map(p => {
+        const discount = Number(p.discount || 0);
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        
+        const priceHTML = 'Rs. ' + discountedPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        
+        const brandClass = p.brand ? p.brand.toLowerCase().replace(' ', '') : '';
+        const img = p.img || (p.images && p.images[0]) || '';
+        
+        return `
+        <div class="fg-card" onclick="location.href='product.html?id=${p.id || p._id}'" style="cursor:pointer;">
+          <div class="fg-img-wrap">
+            <span class="fg-brand-badge ${brandClass}">${(p.brand || '').toUpperCase()}</span>
+            <button class="fg-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </button>
+            <img src="${img}" alt="${p.name}">
+          </div>
+          <div class="fg-info">
+            <h4 class="fg-name">${p.name}</h4>
+            <p class="fg-price">${priceHTML}</p>
+            <div class="koko-installment">
+              <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"></span>
+            </div>
+            <div class="fg-actions-row">
+              <button class="fg-buy-now" onclick="event.stopPropagation(); addToCart('${p.id || p._id}'); location.href='shop.html'">BUY NOW</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function initShadeFinder() {
+      // Prevent multiple initialization
+      if (window.shadeFinderInitialized) return;
+      
+      const range = document.getElementById('ps-range');
+      const items = document.querySelectorAll('.ps-tone-item');
+      
+      if (!range || !items.length) return;
+
+      function updateShadeUI(val) {
+        let closest = items[0];
+        let minDiff = 1000;
+        
+        items.forEach(item => {
+          const itemVal = parseInt(item.getAttribute('data-val'));
+          const diff = Math.abs(val - itemVal);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closest = item;
+          }
+        });
+
+        items.forEach(i => i.classList.remove('active'));
+        closest.classList.add('active');
+        
+        // Get clean label text
+        const label = closest.querySelector('.ps-label').textContent.trim();
+        renderShadeProducts(label);
+      }
+
+      range.addEventListener('input', (e) => updateShadeUI(e.target.value));
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const val = item.getAttribute('data-val');
+          range.value = val;
+          updateShadeUI(val);
+        });
+      });
+
+      // Default start
+      updateShadeUI(0);
+      window.shadeFinderInitialized = true;
+    }
+
+    function renderShadeProducts(shadeName) {
+      const grid = document.getElementById('ps-products-grid');
+      if (!grid) return;
+
+      // Robust data retrieval
+      const allProducts = (window.productsData && window.productsData.length > 0)
+        ? window.productsData
+        : (typeof productsData !== 'undefined' && productsData.length > 0 ? productsData : []);
+
+      if (!allProducts || allProducts.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">Loading expert recommendations…</p>';
+        return;
+      }
+
+      // Map filters to specific skin tones for a curated feel
+      // Uses EXACT filter values from products.js
+      const toneMap = {
+        'Fair Skin':   ['cleansers', 'sunscreen', 'face-oils'],
+        'Light Skin':  ['serums', 'eye', 'glow', 'moisturizers'],
+        'Medium Skin': ['acids', 'targeted'],
+        'Dark Skin':   ['retinoids', 'body', 'lip']
+      };
+
+      const allMappedFilters = Object.values(toneMap).flat();
+      const shadeIndex = ['Fair Skin', 'Light Skin', 'Medium Skin', 'Dark Skin'].indexOf(shadeName);
+
+      // Filter products: either explicitly mapped, or assigned via hash if their filter is unknown
+      let items = allProducts.filter(p => {
+        const cat = toneMap[shadeName] || [];
+        const f = (p.filter || '').toLowerCase();
+        
+        if (cat.includes(f)) return true;
+        
+        // Distribute unmapped products evenly across the 4 shades
+        if (!allMappedFilters.includes(f)) {
+            const hash = Array.from(p._id || p.id || p.name || '').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            return (hash % 4) === Math.max(0, shadeIndex);
+        }
+        return false;
+      });
+      
+      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
+      items = items.sort(() => 0.5 - Math.random());
+
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
+        return;
+      }
+
+      grid.innerHTML = `
+        <div class="ps-inner-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+          ${items.map(p => {
+            const pid = p.id || p._id || '';
+            const rawImg = p.img || (p.images && p.images[0]) || '';
+            
+            // Use the image path directly as it is already formatted by products.js or works natively
+            const formattedImg = rawImg || 'favicon.png';
+
+            const basePrice = Number(p.price || 0);
+            const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            return `
+              <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
+                <div class="ps-prod-img">
+                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'">
+                </div>
+                <div class="ps-prod-info">
+                  <p class="ps-prod-name">${p.name}</p>
+                  <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
+                  <div class="koko-installment">
+                    <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+                  </div>
+                  <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>`;
+    }
+
+    async function fetchProducts() {
+      const checkAndRender = () => {
+        if (window.DB_FETCH_COMPLETED) {
+          productsData = window.productsData || [];
+          if (typeof renderRoundCategories === 'function') {
+            try { renderRoundCategories(); } catch(e) {}
+          }
+          renderFeaturedProducts();
+          initShadeFinder();
+          
+          const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+          if (activeItem) renderShadeProducts(activeItem.textContent.trim());
+        } else {
+          setTimeout(checkAndRender, 100);
+        }
+      };
+      checkAndRender();
+    }
+
+    function renderFeaturedProducts() {
+      const track = document.getElementById('featured-track');
+      if (!track || !productsData.length) return;
+      
+      const shuffled = [...productsData].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 4);
+      track.innerHTML = selected.map(p => {
+        const discount = Number(p.discount || 0);
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        
+        const priceHTML = discount > 0 
+            ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
+            : `Rs. ${basePrice.toLocaleString()}`;
+        
+        const discountBarHTML = discount > 0 
+            ? `<div class="fp-discount-bar">-${discount}% OFF APPLIED</div>`
+            : ``;
+            
+        const discountBadge = discount > 0 ? `<span class="fp-discount-badge">${discount}% OFF</span>` : '';
+
+        const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const kokoInstallmentHTML = `
+            <div class="koko-installment">
+                <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
+            </div>
+        `;
+
+        return `
+        <div class="fp-item">
+          <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
+             ${discountBadge}
+             <div class="fp-img-wrap">
+               <img src="${p.img || p.images[0]}" alt="${p.name}">
+             </div>
+             <div class="fp-variants">
+                <div class="fp-var-thumb"><img src="${p.img || p.images[0]}" alt=""></div>
+                <div class="fp-var-thumb" style="filter:grayscale(1); opacity:0.5;"><img src="${p.img || p.images[0]}" alt=""></div>
+             </div>
+             <button class="fp-view-btn" onclick="event.stopPropagation(); location.href='product.html?id=${p.id || p._id}'">
+               View Product
+             </button>
+          </div>
+          <button class="fp-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')" aria-label="Add to Bag">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+          </button>
+          <div class="fp-details" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
+            <div class="fp-tag-row">
+              <span class="fp-tag" style="border-color: #000; color: #000;">Latest</span>
+              <span class="fp-tag">${p.category || 'Luxury'}</span>
+            </div>
+            <span class="fp-name">${p.name}</span>
+            <div class="fp-price-row">${priceHTML}</div>
+            ${discountBarHTML}
+            ${kokoInstallmentHTML}
+          </div>
+        </div>
+        `;
+      }).join('');
+
+      const nextBtn = document.getElementById('fp-next');
+      const prevBtn = document.getElementById('fp-prev');
+      if (nextBtn && prevBtn) {
+        nextBtn.onclick = () => track.scrollBy({ left: 360, behavior: 'smooth' });
+        prevBtn.onclick = () => track.scrollBy({ left: -360, behavior: 'smooth' });
+      }
+    }
+
+    /* ── HERO SLIDER (Dynamic from DB) ── */
+    let heroIdx = 0;
+    let heroSliderInterval = null;
+
+    function initHeroSlider() {
+      const heroSlides = document.querySelectorAll('.hero-slide');
+      if (!heroSlides.length) return;
+
+      const container = document.getElementById('hero-slides-container');
+      if (container) container.classList.add('loaded');
+
+      // Build dot indicators dynamically matching the current slides count
+      const indContainer = document.getElementById('hero-indicators');
+      if (indContainer) {
+        indContainer.innerHTML = '';
+        heroSlides.forEach((_, idx) => {
+          const dot = document.createElement('span');
+          dot.className = 'hero-dot' + (idx === heroIdx ? ' active' : '');
+          dot.onclick = (e) => {
+            e.preventDefault();
+            showHeroSlide(idx);
+          };
+          indContainer.appendChild(dot);
+        });
+      }
+
+      function showHeroSlide(index) {
+        const slides = document.querySelectorAll('.hero-slide');
+        if (!slides.length) return;
+        if (index >= slides.length) heroIdx = 0;
+        else if (index < 0) heroIdx = slides.length - 1;
+        else heroIdx = index;
+        
+        slides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
+        
+        // Update dot active classes
+        const dots = document.querySelectorAll('.hero-dot');
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === heroIdx);
+        });
+
+        // Reset autoplay timer when manually navigated
+        resetHeroAutoplay();
+      }
+
+      function resetHeroAutoplay() {
+        if (heroSliderInterval) clearInterval(heroSliderInterval);
+        heroSliderInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
+      }
+
+      const hPrevBtn = $('hero-prev');
+      const hNextBtn = $('hero-next');
+      if (hPrevBtn) {
+        hPrevBtn.onclick = (e) => {
+          e.preventDefault();
+          showHeroSlide(heroIdx - 1);
+        };
+      }
+      if (hNextBtn) {
+        hNextBtn.onclick = (e) => {
+          e.preventDefault();
+          showHeroSlide(heroIdx + 1);
+        };
+      }
+      
+      resetHeroAutoplay();
+    }
+
+    // Load slides from database
+    async function loadHeroSlidesFromDB() {
+      const container = document.getElementById('hero-slides-container');
+      try {
+        const apiUrl = (window.BASE_URL || '') + '/slides';
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error('API error');
+        const slides = await res.json();
+        
+        if (slides && slides.length > 0) {
+          if (!container) return;
+          
+          // Remove fallback slides
+          container.querySelectorAll('[data-fallback]').forEach(el => el.remove());
+          
+          // Build dynamic slides
+          const isMobile = window.innerWidth <= 900;
+          slides.forEach((s, i) => {
+            const div = document.createElement('div');
+            div.className = 'hero-slide' + (i === 0 ? ' active' : '');
+            
+            const desktopImg = s.desktopImage || '';
+            const mobileImg = s.mobileImage || desktopImg;
+            const pillsHTML = s.pills && s.pills.length 
+              ? '<div class="hero-pills">' + s.pills.map(p => '<span class="pill">' + p + '</span>').join('') + '</div>' 
+              : '';
+            const titleHTML = s.title ? (s.subtitle ? s.title + '<br />' + s.subtitle : s.title) : '';
+            
+            // Only show text overlay if at least one text field has content
+            const hasTitle = s.title && s.title.trim();
+            const hasDesc = s.description && s.description.trim();
+            const hasBtn = s.buttonText && s.buttonText.trim();
+            const hasPills = s.pills && s.pills.length > 0;
+            const hasContent = hasTitle || hasDesc || hasBtn || hasPills;
+
+            let contentHTML = '';
+            if (hasContent) {
+              contentHTML = `<div class="hero-content">
+                ${pillsHTML}
+                ${hasTitle ? '<h1 class="hero-title">' + titleHTML + '</h1>' : ''}
+                ${hasDesc ? '<p class="hero-desc">' + s.description + '</p>' : ''}
+                ${hasBtn ? '<a href="' + (s.buttonLink || 'shop.html') + '" class="btn-dark btn-hero">' + s.buttonText + '</a>' : ''}
+              </div>`;
+            }
+
+            div.innerHTML = `
+              <div class="hero-bg desktop-only"><img src="${desktopImg}" alt="${s.title || 'Slide'}"></div>
+              <div class="hero-bg mobile-only"><img src="${mobileImg}" alt="${s.title || 'Slide'}"></div>
+              ${contentHTML}
+            `;
+            container.appendChild(div);
+          });
+          
+          // Re-init slider with new slides
+          heroIdx = 0;
+          initHeroSlider();
+        } else {
+          // No DB slides — keep fallbacks, init slider normally
+          initHeroSlider();
+        }
+      } catch (err) {
+        console.log('Using fallback slides (DB unavailable):', err.message);
+        initHeroSlider();
+      }
+    }
+
+    loadHeroSlidesFromDB();
+
+
+    fetchProducts();
+    // Init shade finder immediately using products.js data (no API wait needed)
+    setTimeout(function() { initShadeFinder(); }, 150);
+
+
+    /* ── SCROLL HEADER ── */
+    window.addEventListener('scroll', () => {
+      $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    $('cart-close')?.addEventListener('click', closeAll);
+
+
+    // scroll behavior for mobile search bar
+    let lastScrollTop = 0;
+    const mSearchBar = document.getElementById('mobile-search-bar');
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > 100) {
+        if (st > lastScrollTop) {
+          // scroll down
+          if(mSearchBar) mSearchBar.classList.add('hide-search');
+        } else {
+          // scroll up
+          if(mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+      } else {
+        if(mSearchBar) mSearchBar.classList.remove('hide-search');
+      }
+      lastScrollTop = st;
+    });
+
+    
+
+    // ===== SHARE FUNCTIONALITY =====
+    function shareProduct(prodId) {
+      const product = window.productsData.find(p => p.id === prodId || p._id === prodId);
+      if (!product) return;
+      
+      const shareUrl = window.location.origin + '/product.html?id=' + (product.id || product._id);
+      const shareText = `Check out ${product.name} at Beauty in Balance!`;
+      
+      const modal = document.getElementById('share-modal');
+      const overlay = document.getElementById('overlay');
+      
+      // Update links
+      document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+      document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      document.getElementById('share-copy').onclick = () => {
+        navigator.clipboard.writeText(shareUrl);
+        const btn = document.getElementById('share-copy');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span style="color:var(--gold)">Copied!</span>';
+        setTimeout(() => btn.innerHTML = originalText, 2000);
+      };
+      
+      modal.classList.add('active');
+      overlay.classList.add('show');
+    }
+    window.shareProduct = shareProduct;
+
+    function closeShare() {
+      document.getElementById('share-modal').classList.remove('active');
+      overlay.classList.remove('show');
+    }
+    window.closeShare = closeShare;
+
+    // Extend overlay click
+    const originalCloseAll = closeAll;
+    window.closeAll = function() {
+      originalCloseAll();
+      closeShare();
+    };
+  </script>
+
+  <!-- ===== SHARE MODAL ===== -->
+  <div class="share-modal" id="share-modal">
+    <div class="share-header">
+      <h3>Share Product</h3>
+      <button class="share-close-btn" onclick="closeShare()">&times;</button>
+    </div>
+    <div class="share-options">
+      <a href="#" id="share-wa" target="_blank" class="share-opt-item">
+        <div class="share-icon-circle wa"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.8c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.6-9.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></div>
+        <span>WhatsApp</span>
+      </a>
+      <a href="#" id="share-fb" target="_blank" class="share-opt-item">
+        <div class="share-icon-circle fb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+        <span>Facebook</span>
+      </a>
+      <div id="share-copy" class="share-opt-item" style="cursor:pointer">
+        <div class="share-icon-circle link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <span>Copy Link</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEWSLETTER POPUP MODAL ===== -->
+  <div class="newsletter-modal-overlay" id="newsletter-modal-overlay">
+    <div class="newsletter-modal-card">
+      <button class="newsletter-close-btn" id="newsletter-close-btn" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="newsletter-modal-content">
+        <h2 class="newsletter-title">DON'T MISS OUT!!!</h2>
+        <p class="newsletter-desc">Sign up now for special offers, exclusive giveaways and be the first to find out about new product launches in our line-up!</p>
+        
+        <form id="newsletter-signup-form">
+          <input type="email" placeholder="Email address" id="newsletter-email-inp" required class="newsletter-input" />
+          <button type="submit" class="newsletter-submit-btn" id="newsletter-submit-btn">SIGN UP</button>
+        </form>
+        
+        <button class="newsletter-no-thanks" id="newsletter-no-thanks-btn">No, thanks</button>
+
+        <p class="newsletter-disclaimer">You are signing up to receive communication via email and can unsubscribe at any time.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="account-nav.js?v=3"></script>
+  <script>
+    // Dynamically load brand list for mobile drawer
+    document.addEventListener('DOMContentLoaded', () => {
+      const brandListEl = document.getElementById('brand-accordion-list');
+      if (!brandListEl) return;
+      fetch('brands.json')
+        .then(resp => resp.ok ? resp.json() : Promise.reject('Failed to load brands'))
+        .then(brands => {
+          brands.forEach(b => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `shop.html?cat=${encodeURIComponent(b.slug)}`;
+            a.textContent = b.name;
+            li.appendChild(a);
+            brandListEl.appendChild(li);
+          });
+        })
+        .catch(err => console.error(err));
+    });
+  </script>
+
+  <script>
+    // --- NEWSLETTER POPUP TRIGGER LOGIC ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('newsletter-modal-overlay');
+      const closeBtn = document.getElementById('newsletter-close-btn');
+      const noThanksBtn = document.getElementById('newsletter-no-thanks-btn');
+      const form = document.getElementById('newsletter-signup-form');
+      const emailInp = document.getElementById('newsletter-email-inp');
+      const submitBtn = document.getElementById('newsletter-submit-btn');
+
+      if (!modal) return;
+
+      const today = new Date().toDateString();
+      const lastShown = localStorage.getItem('newsletter_last_shown');
+      const isSubscribed = localStorage.getItem('newsletter_subscribed');
+
+      // Show popup after 1.5 seconds if not subscribed and not shown today
+      if (!isSubscribed && lastShown !== today) {
+        const showPopup = () => setTimeout(() => modal.classList.add('active'), 1500);
+        if (window.isPreloaderFinished) showPopup();
+        else window.addEventListener('PreloaderFinished', showPopup);
+      }
+
+      const closeModal = () => {
+        modal.classList.remove('active');
+        localStorage.setItem('newsletter_last_shown', new Date().toDateString());
+      };
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (noThanksBtn) noThanksBtn.addEventListener('click', closeModal);
+
+      // Close on clicking outside the card
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = emailInp ? emailInp.value.trim() : '';
+          if (!email) return;
+
+          submitBtn.textContent = 'SIGNING UP...';
+          submitBtn.disabled = true;
+
+          try {
+            const apiBase = window.BASE_URL || '/api';
+            const response = await fetch(`${apiBase}/subscribers`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              // Save to localStorage and close immediately — no thank you message
+              localStorage.setItem('newsletter_subscribed', 'true');
+              closeModal();
+            } else {
+              if (typeof showToast === 'function') {
+                showToast(data.message || 'Failed to sign up.', 'error');
+              } else {
+                alert(data.message || 'Failed to sign up.');
+              }
+            }
+          } catch (error) {
+            console.error('Newsletter error:', error);
+            if (typeof showToast === 'function') {
+              showToast('Connection error. Please try again.', 'error');
+            } else {
+              alert('Connection error. Please try again.');
+            }
+          } finally {
+            submitBtn.textContent = 'SIGN UP';
+            submitBtn.disabled = false;
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    // Preloader logic - wait for full page load including dynamic slider & products
+    document.addEventListener("DOMContentLoaded", function() {
+      let isHidden = false;
+      const hidePreloader = () => {
+        if (isHidden) return;
+        isHidden = true;
+        const preloader = document.getElementById('site-preloader');
+        if (preloader) {
+          preloader.style.opacity = '0';
+          preloader.style.visibility = 'hidden';
+        }
+        document.body.classList.remove('loading');
+        window.isPreloaderFinished = true;
+        window.dispatchEvent(new Event('PreloaderFinished'));
+      };
+      
+      let windowLoaded = false;
+      window.addEventListener('load', () => { windowLoaded = true; });
+
+      // Poll until all dynamic images are loaded
+      const checkReady = setInterval(() => {
+         const heroContainer = document.getElementById('hero-slides-container');
+         // We know the dynamic JS finished injecting if it has the 'loaded' class
+         const scriptsDone = heroContainer && heroContainer.classList.contains('loaded');
+         
+         const dynamicImgs = document.querySelectorAll('img');
+         let imgsLoaded = true;
+         if (dynamicImgs.length > 0) {
+            for (let img of dynamicImgs) {
+               if (!img.complete) {
+                  imgsLoaded = false;
+                  break;
+               }
+            }
+         }
+
+         if (windowLoaded && scriptsDone && imgsLoaded) {
+            clearInterval(checkReady);
+            setTimeout(hidePreloader, 600); // Extra smoothness delay
+         }
+      }, 250);
+
+      // Fallback max timeout (e.g. 12 seconds) in case of slow networks or errors
+      setTimeout(() => {
+         clearInterval(checkReady);
+         hidePreloader();
+      }, 12000);
+    });
+  </script>
+</body>
+</html>
