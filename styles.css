@@ -5905,7 +5905,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   .round-list-section,
   .exclusive-section,
   .featured-products-section,
-  .ny-offers-section {
+  .ny-offers-section,
+  .featured-gallery {
     display: none !important;
   }
 
