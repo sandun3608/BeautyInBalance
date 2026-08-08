@@ -1417,8 +1417,8 @@
         return false;
       });
       
-      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
-      items = items.sort(() => 0.5 - Math.random());
+      // Shuffle results and slice to 4 products max as requested by the user
+      items = items.sort(() => 0.5 - Math.random()).slice(0, 4);
 
       if (items.length === 0) {
         grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
@@ -1617,8 +1617,8 @@
         return false;
       });
       
-      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
-      items = items.sort(() => 0.5 - Math.random());
+      // Shuffle results and slice to 4 products max as requested by the user
+      items = items.sort(() => 0.5 - Math.random()).slice(0, 4);
 
       if (items.length === 0) {
         grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
