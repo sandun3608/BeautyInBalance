@@ -681,45 +681,6 @@
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
 
-    // Fast target fetch for the active product to render details immediately
-    if (prodId) {
-      const singleProductApiUrl = `${window.BASE_URL || '/api'}/products/${prodId}`;
-      fetch(singleProductApiUrl)
-        .then(res => {
-          if (res.ok) return res.json();
-          throw new Error('Not found');
-        })
-        .then(dbProd => {
-          if (dbProd) {
-            dbProd.id = dbProd.id || dbProd._id;
-            const formatImg = (str) => {
-              if (!str) return 'images/placeholder.png';
-              if (str.startsWith('data:image') || str.startsWith('http')) return str;
-              try { str = decodeURIComponent(str); } catch (e) {}
-              return str.replace(/%25/g, '%').replace(/%2B/g, '+').split('/').map(part => encodeURIComponent(part)).join('/');
-            };
-            dbProd.img = formatImg(dbProd.img);
-            dbProd.images = Array.isArray(dbProd.images) ? dbProd.images.map(img => formatImg(img)) : [formatImg(dbProd.img)];
-
-            const tempData = [dbProd];
-            // Render immediately with this product if productsData hasn't finished loading yet
-            if (window.renderProduct) {
-              if (window.productsData) {
-                const idx = window.productsData.findIndex(p => p.id === dbProd.id);
-                if (idx !== -1) window.productsData[idx] = dbProd;
-                else window.productsData.unshift(dbProd);
-                window.renderProduct(window.productsData);
-              } else {
-                window.renderProduct(tempData);
-              }
-            }
-          }
-        })
-        .catch(err => {
-          console.log('Single product fast fetch failed:', err.message);
-        });
-    }
-
     function toggleTab(el) {
       el.closest('.tab-item').classList.toggle('active');
     }
@@ -742,6 +703,7 @@
     }
 
     function renderProduct(data) {
+      if (!data || !data.length) return;
       const product = data.find(p => p.id === prodId || p.name === prodId);
       if (!product) return;
 
@@ -872,12 +834,47 @@
         </div>
       `;
     }
-
-    // Connect with global products.js 
     window.renderProduct = renderProduct;
+
+    // 1. INSTANT 0MS RENDER WITH OFFLINE PRODUCTS DATA
+    if (prodId) {
+      const initialProducts = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+      renderProduct(initialProducts);
+
+      // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
+      const singleProductApiUrl = `${window.BASE_URL || '/api'}/products/${prodId}`;
+      fetch(singleProductApiUrl)
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Not found');
+        })
+        .then(dbProd => {
+          if (dbProd) {
+            dbProd.id = dbProd.id || dbProd._id;
+            const formatImg = (str) => {
+              if (!str) return 'images/placeholder.png';
+              if (str.startsWith('data:image') || str.startsWith('http')) return str;
+              try { str = decodeURIComponent(str); } catch (e) {}
+              return str.replace(/%25/g, '%').replace(/%2B/g, '+').split('/').map(part => encodeURIComponent(part)).join('/');
+            };
+            dbProd.img = formatImg(dbProd.img);
+            dbProd.images = Array.isArray(dbProd.images) ? dbProd.images.map(img => formatImg(img)) : [formatImg(dbProd.img)];
+
+            if (window.productsData) {
+              const idx = window.productsData.findIndex(p => p.id === dbProd.id);
+              if (idx !== -1) window.productsData[idx] = dbProd;
+              else window.productsData.unshift(dbProd);
+              renderProduct(window.productsData);
+            } else {
+              renderProduct([dbProd]);
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Single product fast fetch fallback:', err.message);
+        });
+    }
   </script>
-  <script src="config.js?v=17"></script>
-  <script src="products.js?v=28"></script>
   <script>
     // Positioning logic
     const $ = id => document.getElementById(id);
