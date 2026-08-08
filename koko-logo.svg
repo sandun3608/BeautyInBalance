@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 44" width="140" height="44">
+  <defs>
+    <linearGradient id="kokoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E6007E" />
+      <stop offset="45%" stop-color="#8E24AA" />
+      <stop offset="100%" stop-color="#00BCD4" />
+    </linearGradient>
+  </defs>
+  <text x="2" y="34" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-0.5" fill="url(#kokoGrad)">koko</text>
+</svg>
