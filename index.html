@@ -285,7 +285,28 @@
 </head>
 <body>
 
-  <!-- ===== PRELOADER DISABLED ===== -->
+  <!-- ===== LUXURY SITE PRELOADER ===== -->
+  <div id="site-preloader">
+    <div class="preloader-content">
+      <h1 class="preloader-text">Beauty in Balance</h1>
+      <div class="preloader-spinner-wrap">
+        <svg class="dotted-spinner" viewBox="0 0 50 50">
+          <circle cx="25" cy="5" r="3" opacity="0.2"/>
+          <circle cx="35" cy="8" r="3" opacity="0.3"/>
+          <circle cx="42" cy="15" r="3" opacity="0.4"/>
+          <circle cx="45" cy="25" r="3" opacity="0.5"/>
+          <circle cx="42" cy="35" r="3" opacity="0.6"/>
+          <circle cx="35" cy="42" r="3" opacity="0.7"/>
+          <circle cx="25" cy="45" r="3" opacity="0.8"/>
+          <circle cx="15" cy="42" r="3" opacity="0.9"/>
+          <circle cx="8" cy="35" r="3" opacity="1"/>
+          <circle cx="5" cy="25" r="3" opacity="0.4"/>
+          <circle cx="8" cy="15" r="3" opacity="0.3"/>
+          <circle cx="15" cy="8" r="3" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
 
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
@@ -2889,7 +2910,8 @@
   </script>
 
   <script>
-    // Preloader logic - wait for full page load including dynamic slider & products
+    // Luxury 1.8-Second Preloader Logic
+    document.body.classList.add('loading');
     document.addEventListener("DOMContentLoaded", function() {
       let isHidden = false;
       const hidePreloader = () => {
@@ -2905,37 +2927,8 @@
         window.dispatchEvent(new Event('PreloaderFinished'));
       };
       
-      let windowLoaded = false;
-      window.addEventListener('load', () => { windowLoaded = true; });
-
-      // Poll until all dynamic images are loaded
-      const checkReady = setInterval(() => {
-         const heroContainer = document.getElementById('hero-slides-container');
-         // We know the dynamic JS finished injecting if it has the 'loaded' class
-         const scriptsDone = heroContainer && heroContainer.classList.contains('loaded');
-         
-         const dynamicImgs = document.querySelectorAll('img');
-         let imgsLoaded = true;
-         if (dynamicImgs.length > 0) {
-            for (let img of dynamicImgs) {
-               if (!img.complete) {
-                  imgsLoaded = false;
-                  break;
-               }
-            }
-         }
-
-         if (windowLoaded && scriptsDone && imgsLoaded) {
-            clearInterval(checkReady);
-            setTimeout(hidePreloader, 600); // Extra smoothness delay
-         }
-      }, 250);
-
-      // Fallback max timeout (e.g. 12 seconds) in case of slow networks or errors
-      setTimeout(() => {
-         clearInterval(checkReady);
-         hidePreloader();
-      }, 12000);
+      // Hide smoothly after exactly 1.8 seconds
+      setTimeout(hidePreloader, 1800);
     });
   </script>
 </body>
