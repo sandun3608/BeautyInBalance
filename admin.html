@@ -1418,7 +1418,8 @@
                 </div>
 
                 <div style="margin-bottom: 25px;">
-                    <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Brand Image</label>
+                    <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Brand Image (File OR Link)</label>
+                    <input type="text" id="brand-image-url" placeholder="Paste image link here (e.g. from postimg.cc)" style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;">
                     <div id="brand-img-preview" style="width: 100px; height: 100px; background: #fafafa; border: 1px dashed #ccc; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                         <span style="color: #999; font-size: 12px;">No Image</span>
                     </div>
@@ -1443,6 +1444,15 @@
                 document.getElementById('brand-img-preview').innerHTML = `<img src="${brandBase64}" style="max-width: 100%; max-height: 100%;">`;
             };
             reader.readAsDataURL(file);
+        });
+
+        document.getElementById('brand-image-url').addEventListener('input', function(e) {
+            const url = e.target.value.trim();
+            if (url) {
+                document.getElementById('brand-img-preview').innerHTML = `<img src="${url}" style="max-width: 100%; max-height: 100%;">`;
+            } else {
+                if (!brandBase64) document.getElementById('brand-img-preview').innerHTML = `<span style="color: #999; font-size: 12px;">No Image</span>`;
+            }
         });
 
         
@@ -1520,9 +1530,10 @@
             const name = document.getElementById('brand-name').value;
             const order = document.getElementById('brand-order').value;
             const link = document.getElementById('brand-link').value;
+            const imgUrlInput = document.getElementById('brand-image-url').value.trim();
             
             if (!name) return alert('Brand Name is required');
-            if (!id && !brandBase64) return alert('Brand Image is required for new brands');
+            if (!id && !brandBase64 && !imgUrlInput) return alert('Brand Image or URL is required for new brands');
 
             btn.disabled = true;
             btn.innerText = 'Saving...';
@@ -1534,6 +1545,7 @@
                 
                 const body = { name, order: Number(order), link };
                 if (brandBase64) body.image = brandBase64;
+                else if (imgUrlInput) body.image = imgUrlInput;
 
                 const res = await fetch(url, {
                     method,
@@ -1570,6 +1582,7 @@
                 document.getElementById('brand-name').value = b.name;
                 document.getElementById('brand-order').value = b.order || 0;
                 document.getElementById('brand-link').value = b.link || '';
+                document.getElementById('brand-image-url').value = (b.image && b.image.startsWith('http')) ? b.image : '';
                 document.getElementById('brand-img-preview').innerHTML = `<img src="${b.image}" style="max-width: 100%; max-height: 100%;">`;
                 brandBase64 = ''; // Reset, only send if new image chosen
                 document.getElementById('brand-image-file').value = '';
