@@ -8184,6 +8184,7 @@ main {
   gap: 25px;
   max-width: 1300px;
   margin: 0 auto 50px;
+  min-height: 400px;
 }
 
 @media (max-width: 1024px) {

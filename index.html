@@ -504,48 +504,51 @@
 
     <section class="brands-section">
       <div class="brands-marquee">
-        <div class="brands-track">
-          <!-- Brands set 1 -->
-          <div class="brand-item">
-             <img src="brand/1.png" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="brand/2.png" alt="CeraVe">
-          </div>
-          <div class="brand-item">
-             <img src="brand/3.png" alt="Beauty of Joseon">
-          </div>
-          <div class="brand-item">
-             <img src="brand/4.png" alt="Skin1004">
-          </div>
-          <div class="brand-item">
-             <img src="brand/5.png" alt="Cetaphil">
-          </div>
-          <div class="brand-item">
-             <img src="brand/6.png" alt="Dr. Althea">
-          </div>
-          <!-- Duplicated for seamless loop -->
-          <div class="brand-item">
-             <img src="brand/1.png" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="brand/2.png" alt="CeraVe">
-          </div>
-          <div class="brand-item">
-             <img src="brand/3.png" alt="Beauty of Joseon">
-          </div>
-          <div class="brand-item">
-             <img src="brand/4.png" alt="Skin1004">
-          </div>
-          <div class="brand-item">
-             <img src="brand/5.png" alt="Cetaphil">
-          </div>
-          <div class="brand-item">
-             <img src="brand/6.png" alt="Dr. Althea">
-          </div>
+        <div class="brands-track" id="brands-track-container">
+            <!-- JS WILL INJECT BRANDS HERE -->
         </div>
       </div>
     </section>
+
+    <!-- FETCH DYNAMIC BRANDS -->
+    <script>
+      (async function() {
+        try {
+          const track = document.getElementById('brands-track-container');
+          if (!track) return;
+          
+          const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+          const res = await fetch(BASE + '/brands');
+          
+          if (!res.ok) throw new Error('Failed to fetch brands');
+          const brands = await res.json();
+          
+          if (brands && brands.length > 0) {
+              let html = '';
+              // Create the HTML for one set
+              brands.forEach(b => {
+                  html += `<div class="brand-item"><img src="${b.image}" alt="${b.name}"></div>`;
+              });
+              
+              // Duplicate it for the seamless scrolling effect
+              track.innerHTML = html + html;
+          } else {
+              // Fallback to defaults if DB is empty
+              const defaultHtml = `
+                <div class="brand-item"><img src="brand/1.png" alt="The Ordinary"></div>
+                <div class="brand-item"><img src="brand/2.png" alt="CeraVe"></div>
+                <div class="brand-item"><img src="brand/3.png" alt="Beauty of Joseon"></div>
+                <div class="brand-item"><img src="brand/4.png" alt="Skin1004"></div>
+                <div class="brand-item"><img src="brand/5.png" alt="Cetaphil"></div>
+                <div class="brand-item"><img src="brand/6.png" alt="Dr. Althea"></div>
+              `;
+              track.innerHTML = defaultHtml + defaultHtml;
+          }
+        } catch (err) {
+          console.error('Brands fetch error:', err);
+        }
+      })();
+    </script>
 
     <!-- ===== SECTION: SHOP ALL PRODUCTS GRID ===== -->
     <section class="home-all-products-section">
