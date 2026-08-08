@@ -734,6 +734,14 @@
       `;
 
       const frame = document.getElementById('pd-frame');
+      const existingMainView = document.getElementById('main-view');
+      if (existingMainView && existingMainView.src && !existingMainView.src.includes('placeholder.png') && existingMainView.complete) {
+        // Preserve currently rendered image so there is ZERO image swap or flicker when background DB fetch finishes!
+        if (existingMainView.src !== product.img) {
+          product.img = existingMainView.src;
+        }
+      }
+
       const thumbs = (product.images || [product.img]).map((src, i) => `
         <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
           <img src="${src}" alt="Thumb">
