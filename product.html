@@ -676,7 +676,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="config.js?v=20"></script>
-  <script src="products.js?v=80"></script>
+  <script src="products.js?v=90"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
@@ -738,15 +738,6 @@
       `;
 
       const frame = document.getElementById('pd-frame');
-      const existingMainView = document.getElementById('main-view');
-      const isImgWorking = existingMainView && existingMainView.naturalWidth > 0 && !existingMainView.src.includes('placeholder.png');
-      if (isImgWorking) {
-        // Preserve currently working rendered image so there is ZERO image swap or flicker when background DB fetch finishes!
-        if (existingMainView.src !== product.img) {
-          product.img = existingMainView.src;
-        }
-      }
-
       const thumbs = (product.images || [product.img]).map((src, i) => `
         <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
           <img src="${src}" alt="Thumb">
