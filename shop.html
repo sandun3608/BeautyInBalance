@@ -758,8 +758,192 @@
       }
     }
 
-    /* ── SHOP BY CATEGORY SECTION ── */
-    .shop-categories-section {
+    /* ── SHOP BY BRAND SECTION ── */
+    .shop-brands-section {
+      background: #fdfaf7;
+      padding: 60px 60px 52px;
+      border-bottom: 1px solid rgba(45, 27, 18, 0.06);
+    }
+
+    .shop-brands-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .shop-brands-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .shop-brands-title {
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.15;
+    }
+
+    .shop-brand-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .shop-brand-card {
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      border: 1.5px solid rgba(45, 27, 18, 0.07);
+      background: #fff;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+    }
+
+    .shop-brand-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(45, 27, 18, 0.12);
+      border-color: rgba(198, 151, 90, 0.4);
+    }
+
+    /* Colored top strip */
+    .shop-brand-strip {
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s;
+    }
+
+    .shop-brand-card:hover .shop-brand-strip {
+      height: 118px;
+    }
+
+    /* Brand monogram */
+    .shop-brand-mono {
+      font-family: var(--font-serif);
+      font-size: 38px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      z-index: 1;
+      transition: transform 0.4s;
+      text-align: center;
+    }
+
+    .shop-brand-card:hover .shop-brand-mono {
+      transform: scale(1.08);
+    }
+
+    /* Floating orb behind monogram */
+    .shop-brand-strip::after {
+      content: '';
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.4s;
+    }
+
+    .shop-brand-card:hover .shop-brand-strip::after {
+      width: 110px;
+      height: 110px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* Brand-specific gradients */
+    .shop-brand-card[data-brand="ordinary"]    .shop-brand-strip { background: linear-gradient(135deg, #1a1a1a, #3d3d3d); }
+    .shop-brand-card[data-brand="cerave"]      .shop-brand-strip { background: linear-gradient(135deg, #0f3460, #16213e); }
+    .shop-brand-card[data-brand="vaseline"]    .shop-brand-strip { background: linear-gradient(135deg, #0071ce, #005fa3); }
+    .shop-brand-card[data-brand="manee"]       .shop-brand-strip { background: linear-gradient(135deg, #c0395a, #8b1a35); }
+    .shop-brand-card[data-brand="cosrx"]       .shop-brand-strip { background: linear-gradient(135deg, #2d6a4f, #1b4332); }
+    .shop-brand-card[data-brand="drRashel"]    .shop-brand-strip { background: linear-gradient(135deg, #6a0572, #3d0140); }
+    .shop-brand-card[data-brand="centellian24"].shop-brand-strip { background: linear-gradient(135deg, #b5571a, #7a3410); }
+    .shop-brand-card[data-brand="larocheposay"].shop-brand-strip { background: linear-gradient(135deg, #144789, #0c2d5e); }
+
+    /* Card bottom info */
+    .shop-brand-info {
+      padding: 16px 18px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .shop-brand-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--brown);
+      transition: color 0.3s;
+    }
+
+    .shop-brand-card:hover .shop-brand-name {
+      color: var(--gold);
+    }
+
+    .shop-brand-arrow {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(45, 27, 18, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brown);
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+
+    .shop-brand-card:hover .shop-brand-arrow {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    @media (max-width: 1024px) {
+      .shop-brands-section {
+        padding: 36px 16px 32px;
+      }
+      .shop-brand-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .shop-brand-strip {
+        height: 90px;
+      }
+      .shop-brand-mono {
+        font-size: 30px;
+      }
+      .shop-brand-name {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .shop-brand-strip {
+        height: 80px;
+      }
+      .shop-brand-mono {
+        font-size: 26px;
+      }
+    }
       background: #fdfaf7;
       padding: 64px 60px 56px;
       border-bottom: 1px solid rgba(45, 27, 18, 0.06);
@@ -1205,125 +1389,114 @@
       </div>
     </section>
 
-    <!-- ===== SHOP BY CATEGORY ===== -->
-    <section class="shop-categories-section" id="shop-categories-section">
-      <div class="shop-categories-header">
-        <span class="shop-categories-eyebrow">Browse By</span>
-        <h2 class="shop-categories-title">Shop by Category</h2>
+    <!-- ===== SHOP BY BRAND ===== -->
+    <section class="shop-brands-section" id="shop-brands-section">
+      <div class="shop-brands-header">
+        <span class="shop-brands-eyebrow">Our Collection</span>
+        <h2 class="shop-brands-title">Shop by Brand</h2>
       </div>
-      <div class="shop-cat-grid">
+      <div class="shop-brand-grid">
 
-        <!-- Cleansers -->
-        <a class="shop-cat-card" href="#" data-cat-filter="cleansers" id="catcard-cleansers">
-          <div class="shop-cat-icon-wrap">
-            <div class="shop-cat-icon-bg">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2C8 2 5 5.5 5 9c0 3 1.5 5.5 4 7v2h6v-2c2.5-1.5 4-4 4-7 0-3.5-3-7-7-7z"/>
-                <line x1="12" y1="18" x2="12" y2="22"/>
-                <line x1="9" y1="22" x2="15" y2="22"/>
-              </svg>
-            </div>
+        <a class="shop-brand-card" href="#" data-brand="ordinary" id="brandcard-ordinary">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">TO</span>
           </div>
-          <div class="shop-cat-label">
-            <span class="shop-cat-name">Cleansers</span>
-            <span class="shop-cat-count">Face Wash &amp; Foam</span>
-            <span class="shop-cat-arrow">Shop &rarr;</span>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">The Ordinary</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </a>
 
-        <!-- Serums -->
-        <a class="shop-cat-card" href="#" data-cat-filter="serums" id="catcard-serums">
-          <div class="shop-cat-icon-wrap">
-            <div class="shop-cat-icon-bg">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 2v6l-4 8a2 2 0 0 0 1.8 2.9h10.4A2 2 0 0 0 19 16l-4-8V2"/>
-                <line x1="9" y1="2" x2="15" y2="2"/>
-                <circle cx="13" cy="15" r="1" fill="currentColor"/>
-              </svg>
-            </div>
+        <a class="shop-brand-card" href="#" data-brand="cerave" id="brandcard-cerave">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">CV</span>
           </div>
-          <div class="shop-cat-label">
-            <span class="shop-cat-name">Serums</span>
-            <span class="shop-cat-count">Boosters &amp; Actives</span>
-            <span class="shop-cat-arrow">Shop &rarr;</span>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">CeraVe</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </a>
 
-        <!-- Moisturizers -->
-        <a class="shop-cat-card" href="#" data-cat-filter="moisturizers" id="catcard-moisturizers">
-          <div class="shop-cat-icon-wrap">
-            <div class="shop-cat-icon-bg">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a7 7 0 0 0-7 7c0 4.5 7 13 7 13s7-8.5 7-13a7 7 0 0 0-7-7z"/>
-              </svg>
-            </div>
+        <a class="shop-brand-card" href="#" data-brand="vaseline" id="brandcard-vaseline">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">VS</span>
           </div>
-          <div class="shop-cat-label">
-            <span class="shop-cat-name">Moisturizers</span>
-            <span class="shop-cat-count">Creams &amp; Lotions</span>
-            <span class="shop-cat-arrow">Shop &rarr;</span>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">Vaseline</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </a>
 
-        <!-- Sunscreen -->
-        <a class="shop-cat-card" href="#" data-cat-filter="sunscreen" id="catcard-sunscreen">
-          <div class="shop-cat-icon-wrap">
-            <div class="shop-cat-icon-bg">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-              </svg>
-            </div>
+        <a class="shop-brand-card" href="#" data-brand="manee" id="brandcard-manee">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">MN</span>
           </div>
-          <div class="shop-cat-label">
-            <span class="shop-cat-name">Sunscreen</span>
-            <span class="shop-cat-count">SPF &amp; UV Protection</span>
-            <span class="shop-cat-arrow">Shop &rarr;</span>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">Manee</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </a>
 
-        <!-- Acids & Exfoliants -->
-        <a class="shop-cat-card" href="#" data-cat-filter="acids" id="catcard-acids">
-          <div class="shop-cat-icon-wrap">
-            <div class="shop-cat-icon-bg">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 3h12l4 6-10 13L2 9z"/>
-                <line x1="2" y1="9" x2="22" y2="9"/>
-              </svg>
-            </div>
+        <a class="shop-brand-card" href="#" data-brand="cosrx" id="brandcard-cosrx">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">CX</span>
           </div>
-          <div class="shop-cat-label">
-            <span class="shop-cat-name">Acids &amp; Exfoliants</span>
-            <span class="shop-cat-count">AHA, BHA &amp; More</span>
-            <span class="shop-cat-arrow">Shop &rarr;</span>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">COSRX</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </a>
 
-        <!-- Retinoids -->
-        <a class="shop-cat-card" href="#" data-cat-filter="retinoids" id="catcard-retinoids">
-          <div class="shop-cat-icon-wrap">
-            <div class="shop-cat-icon-bg">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-            </div>
+        <a class="shop-brand-card" href="#" data-brand="drRashel" id="brandcard-drRashel">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">DR</span>
           </div>
-          <div class="shop-cat-label">
-            <span class="shop-cat-name">Retinoids</span>
-            <span class="shop-cat-count">Anti-Ageing &amp; Renewal</span>
-            <span class="shop-cat-arrow">Shop &rarr;</span>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">Dr. Rashel</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="shop-brand-card" href="#" data-brand="centellian24" id="brandcard-centellian24">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">C24</span>
+          </div>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">Centellian24</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="shop-brand-card" href="#" data-brand="larocheposay" id="brandcard-larocheposay">
+          <div class="shop-brand-strip">
+            <span class="shop-brand-mono">LRP</span>
+          </div>
+          <div class="shop-brand-info">
+            <span class="shop-brand-name">La Roche-Posay</span>
+            <span class="shop-brand-arrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </a>
 
       </div>
     </section>
+
+
 
     <!-- ===== FILTER TOOLBAR ===== -->
     <div class="shop-toolbar" id="shop-toolbar">
@@ -1794,13 +1967,13 @@
     syncFilterUI();
     renderShop();
 
-    // ── CATEGORY CARD CLICK HANDLERS ──
-    document.querySelectorAll('.shop-cat-card[data-cat-filter]').forEach(card => {
+    // ── BRAND CARD CLICK HANDLERS ──
+    document.querySelectorAll('.shop-brand-card[data-brand]').forEach(card => {
       card.addEventListener('click', (e) => {
         e.preventDefault();
-        const filter = card.dataset.catFilter;
-        currentFilter = filter;
-        currentBrand = 'all';
+        const brand = card.dataset.brand;
+        currentBrand = brand;
+        currentFilter = 'all';
         syncFilterUI();
         renderShop();
         // Scroll to toolbar smoothly
