@@ -1476,11 +1476,18 @@
       // Dynamically generate brand tabs based on data
       const brandTabsContainer = document.querySelector('.brand-tabs');
       if (brandTabsContainer && data.length > 0) {
-        const categories = [...new Set(data.map(p => {
+        const rawCategories = [...new Set(data.map(p => {
           let cat = (p.cat || 'others').toLowerCase().trim();
           if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
           return cat;
         }))];
+
+        // Priority order: ordinary first, cerave second, vaseline third, rest after
+        const brandPriority = ['ordinary', 'cerave', 'vaseline'];
+        const categories = [
+          ...brandPriority.filter(b => rawCategories.includes(b)),
+          ...rawCategories.filter(b => !brandPriority.includes(b))
+        ];
         
         if (document.getElementById('stat-brands')) {
           document.getElementById('stat-brands').textContent = categories.length;
@@ -1589,11 +1596,18 @@
         const browseMode = $('browse-mode');
         browseMode.innerHTML = '';
 
-        const categories = [...new Set(data.map(p => {
+        const rawCats = [...new Set(data.map(p => {
           let cat = (p.cat || 'others').toLowerCase().trim();
           if (cat === 'the ordinary' || cat === 'ordinary') return 'ordinary';
           return cat;
         }))];
+
+        // Priority order: ordinary first, cerave second, vaseline third, rest after
+        const brandPriority2 = ['ordinary', 'cerave', 'vaseline'];
+        const categories = [
+          ...brandPriority2.filter(b => rawCats.includes(b)),
+          ...rawCats.filter(b => !brandPriority2.includes(b))
+        ];
 
         categories.forEach(cat => {
             const catProducts = data.filter(p => {
