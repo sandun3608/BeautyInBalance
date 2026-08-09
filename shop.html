@@ -800,10 +800,9 @@
     }
 
     .shop-cat-card {
-      background: #fff;
-      border-radius: 20px;
+      border-radius: 22px;
       overflow: hidden;
-      border: 1px solid rgba(45, 27, 18, 0.07);
+      border: 1.5px solid rgba(45, 27, 18, 0.07);
       cursor: pointer;
       transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: flex;
@@ -811,50 +810,104 @@
       align-items: center;
       text-decoration: none;
       position: relative;
+      background: #fff;
     }
 
     .shop-cat-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px rgba(45, 27, 18, 0.12);
-      border-color: rgba(198, 151, 90, 0.35);
+      transform: translateY(-7px);
+      box-shadow: 0 28px 56px rgba(45, 27, 18, 0.13);
+      border-color: rgba(198, 151, 90, 0.4);
     }
 
-    .shop-cat-img-wrap {
+    /* Gradient icon area */
+    .shop-cat-icon-wrap {
       width: 100%;
       aspect-ratio: 1;
-      overflow: hidden;
-      background: #f7f3ef;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
-    .shop-cat-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    .shop-cat-card:hover .shop-cat-icon-wrap {
+      transform: scale(1.04);
     }
 
-    .shop-cat-card:hover .shop-cat-img-wrap img {
-      transform: scale(1.07);
-    }
-
-    .shop-cat-overlay {
+    .shop-cat-icon-wrap::before {
+      content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(45,27,18,0.62) 0%, rgba(45,27,18,0.0) 55%);
       opacity: 0;
       transition: opacity 0.4s;
     }
 
-    .shop-cat-card:hover .shop-cat-overlay {
-      opacity: 1;
+    .shop-cat-card:hover .shop-cat-icon-wrap::before {
+      opacity: 0.18;
     }
 
+    /* Floating circle behind icon */
+    .shop-cat-icon-bg {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s;
+    }
+
+    .shop-cat-card:hover .shop-cat-icon-bg {
+      transform: scale(1.12);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    }
+
+    .shop-cat-icon-bg svg {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.4s;
+    }
+
+    .shop-cat-card:hover .shop-cat-icon-bg svg {
+      transform: scale(1.1);
+    }
+
+    /* Per-category gradient backgrounds */
+    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #dff0f8, #b3d9f0); }
+    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #4eafd4, #1a7fa8); }
+    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-bg svg { stroke: #fff; }
+    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-wrap::before { background: #4eafd4; }
+
+    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #ede0f5, #d1b3ea); }
+    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #9b59d4, #6a3fa8); }
+    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-bg svg { stroke: #fff; }
+    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-wrap::before { background: #9b59d4; }
+
+    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #d8f0e4, #a8dfc0); }
+    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #36b37e, #1a7a53); }
+    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-bg svg { stroke: #fff; }
+    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-wrap::before { background: #36b37e; }
+
+    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #fff3d0, #ffe09a); }
+    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #f5a623, #c97d00); }
+    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-bg svg { stroke: #fff; }
+    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-wrap::before { background: #f5a623; }
+
+    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #fde8e0, #f9c4b0); }
+    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #e8623a, #b83a18); }
+    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-bg svg { stroke: #fff; }
+    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-wrap::before { background: #e8623a; }
+
+    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #fde8f2, #f5b8d8); }
+    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #d4397a, #9a1c52); }
+    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-bg svg { stroke: #fff; }
+    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-wrap::before { background: #d4397a; }
+
     .shop-cat-label {
-      padding: 14px 10px 16px;
+      padding: 16px 12px 18px;
       text-align: center;
       width: 100%;
     }
@@ -875,11 +928,11 @@
     .shop-cat-count {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
-      opacity: 0.6;
-      margin-top: 4px;
+      opacity: 0.55;
+      margin-top: 5px;
       display: block;
     }
 
@@ -892,9 +945,9 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-top: 8px;
+      margin-top: 10px;
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(5px);
       transition: all 0.3s;
     }
 
@@ -912,11 +965,22 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
       }
+      .shop-cat-icon-bg {
+        width: 52px;
+        height: 52px;
+      }
+      .shop-cat-icon-bg svg {
+        width: 24px;
+        height: 24px;
+      }
       .shop-cat-name {
         font-size: 12px;
       }
       .shop-cat-label {
         padding: 10px 8px 12px;
+      }
+      .shop-cat-arrow {
+        display: none;
       }
     }
 
@@ -1149,10 +1213,16 @@
       </div>
       <div class="shop-cat-grid">
 
+        <!-- Cleansers -->
         <a class="shop-cat-card" href="#" data-cat-filter="cleansers" id="catcard-cleansers">
-          <div class="shop-cat-img-wrap">
-            <img src="cat_cleansers_1775880089938.png" alt="Cleansers" loading="lazy">
-            <div class="shop-cat-overlay"></div>
+          <div class="shop-cat-icon-wrap">
+            <div class="shop-cat-icon-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2C8 2 5 5.5 5 9c0 3 1.5 5.5 4 7v2h6v-2c2.5-1.5 4-4 4-7 0-3.5-3-7-7-7z"/>
+                <line x1="12" y1="18" x2="12" y2="22"/>
+                <line x1="9" y1="22" x2="15" y2="22"/>
+              </svg>
+            </div>
           </div>
           <div class="shop-cat-label">
             <span class="shop-cat-name">Cleansers</span>
@@ -1161,10 +1231,16 @@
           </div>
         </a>
 
+        <!-- Serums -->
         <a class="shop-cat-card" href="#" data-cat-filter="serums" id="catcard-serums">
-          <div class="shop-cat-img-wrap">
-            <img src="cat_serums_1775880130640.png" alt="Serums" loading="lazy">
-            <div class="shop-cat-overlay"></div>
+          <div class="shop-cat-icon-wrap">
+            <div class="shop-cat-icon-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2v6l-4 8a2 2 0 0 0 1.8 2.9h10.4A2 2 0 0 0 19 16l-4-8V2"/>
+                <line x1="9" y1="2" x2="15" y2="2"/>
+                <circle cx="13" cy="15" r="1" fill="currentColor"/>
+              </svg>
+            </div>
           </div>
           <div class="shop-cat-label">
             <span class="shop-cat-name">Serums</span>
@@ -1173,10 +1249,14 @@
           </div>
         </a>
 
+        <!-- Moisturizers -->
         <a class="shop-cat-card" href="#" data-cat-filter="moisturizers" id="catcard-moisturizers">
-          <div class="shop-cat-img-wrap">
-            <img src="cat_retinoids_1775880236409.png" alt="Moisturizers" loading="lazy">
-            <div class="shop-cat-overlay"></div>
+          <div class="shop-cat-icon-wrap">
+            <div class="shop-cat-icon-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a7 7 0 0 0-7 7c0 4.5 7 13 7 13s7-8.5 7-13a7 7 0 0 0-7-7z"/>
+              </svg>
+            </div>
           </div>
           <div class="shop-cat-label">
             <span class="shop-cat-name">Moisturizers</span>
@@ -1185,10 +1265,22 @@
           </div>
         </a>
 
+        <!-- Sunscreen -->
         <a class="shop-cat-card" href="#" data-cat-filter="sunscreen" id="catcard-sunscreen">
-          <div class="shop-cat-img-wrap">
-            <img src="cat_sunscreen_1775880264642.png" alt="Sunscreen" loading="lazy">
-            <div class="shop-cat-overlay"></div>
+          <div class="shop-cat-icon-wrap">
+            <div class="shop-cat-icon-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            </div>
           </div>
           <div class="shop-cat-label">
             <span class="shop-cat-name">Sunscreen</span>
@@ -1197,10 +1289,15 @@
           </div>
         </a>
 
+        <!-- Acids & Exfoliants -->
         <a class="shop-cat-card" href="#" data-cat-filter="acids" id="catcard-acids">
-          <div class="shop-cat-img-wrap">
-            <img src="cat_acids_1775880213334.png" alt="Acids & Exfoliants" loading="lazy">
-            <div class="shop-cat-overlay"></div>
+          <div class="shop-cat-icon-wrap">
+            <div class="shop-cat-icon-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h12l4 6-10 13L2 9z"/>
+                <line x1="2" y1="9" x2="22" y2="9"/>
+              </svg>
+            </div>
           </div>
           <div class="shop-cat-label">
             <span class="shop-cat-name">Acids &amp; Exfoliants</span>
@@ -1209,10 +1306,14 @@
           </div>
         </a>
 
+        <!-- Retinoids -->
         <a class="shop-cat-card" href="#" data-cat-filter="retinoids" id="catcard-retinoids">
-          <div class="shop-cat-img-wrap">
-            <img src="cat_makeup_1775880295806.png" alt="Retinoids" loading="lazy">
-            <div class="shop-cat-overlay"></div>
+          <div class="shop-cat-icon-wrap">
+            <div class="shop-cat-icon-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
           </div>
           <div class="shop-cat-label">
             <span class="shop-cat-name">Retinoids</span>
