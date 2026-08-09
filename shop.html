@@ -143,33 +143,38 @@
     /* Brand tabs */
     .brand-tabs {
       display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
       border-right: 1px solid rgba(45, 27, 18, 0.08);
-      padding-right: 30px;
-      margin-right: 30px;
-      flex-shrink: 0;
+      padding: 14px 24px 14px 0;
+      margin-right: 20px;
     }
 
     .brand-tab {
-      padding: 20px 0;
-      margin-right: 28px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      padding: 7px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--muted);
-      border-bottom: 2px solid transparent;
+      border: 1px solid rgba(45, 27, 18, 0.14);
+      border-radius: 50px;
       transition: all 0.3s;
       cursor: pointer;
       white-space: nowrap;
+      background: #fff;
     }
 
     .brand-tab:hover {
       color: var(--brown);
+      border-color: var(--gold);
     }
 
     .brand-tab.active {
-      color: var(--brown);
-      border-bottom-color: var(--gold);
+      color: #fff;
+      background: var(--brown);
+      border-color: var(--brown);
     }
 
     /* Filter chips scroll */
@@ -484,16 +489,16 @@
         gap: 0;
       }
 
-      /* Brand tabs row — horizontally scrollable */
+      /* Brand tabs row — multi-line wrap */
       .brand-tabs {
         display: flex;
-        overflow-x: auto;
-        scrollbar-width: none;
+        flex-wrap: wrap;
+        overflow-x: visible;
         border-right: none;
         border-bottom: 1px solid rgba(45,27,18,0.08);
-        padding: 0 16px;
+        padding: 12px 16px;
         margin-right: 0;
-        gap: 4px;
+        gap: 8px;
       }
 
       .brand-tabs::-webkit-scrollbar { display: none; }
@@ -501,7 +506,7 @@
       .brand-tab {
         font-size: 11px;
         margin-right: 0;
-        padding: 12px 14px;
+        padding: 6px 12px;
         flex-shrink: 0;
         white-space: nowrap;
       }
@@ -758,422 +763,7 @@
       }
     }
 
-    /* ── SHOP BY BRAND SECTION ── */
-    .shop-brands-section {
-      background: #fdfaf7;
-      padding: 60px 60px 52px;
-      border-bottom: 1px solid rgba(45, 27, 18, 0.06);
-    }
 
-    .shop-brands-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .shop-brands-eyebrow {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .shop-brands-title {
-      font-family: var(--font-serif);
-      font-size: clamp(24px, 3vw, 38px);
-      font-weight: 500;
-      color: var(--brown);
-      line-height: 1.15;
-    }
-
-    .shop-brand-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .shop-brand-card {
-      border-radius: 20px;
-      overflow: hidden;
-      text-decoration: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      border: 1.5px solid rgba(45, 27, 18, 0.07);
-      background: #fff;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      position: relative;
-    }
-
-    .shop-brand-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px rgba(45, 27, 18, 0.12);
-      border-color: rgba(198, 151, 90, 0.4);
-    }
-
-    /* Colored top strip */
-    .shop-brand-strip {
-      height: 110px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s;
-    }
-
-    .shop-brand-card:hover .shop-brand-strip {
-      height: 118px;
-    }
-
-    /* Brand monogram */
-    .shop-brand-mono {
-      font-family: var(--font-serif);
-      font-size: 38px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.92);
-      letter-spacing: -0.02em;
-      line-height: 1;
-      z-index: 1;
-      transition: transform 0.4s;
-      text-align: center;
-    }
-
-    .shop-brand-card:hover .shop-brand-mono {
-      transform: scale(1.08);
-    }
-
-    /* Floating orb behind monogram */
-    .shop-brand-strip::after {
-      content: '';
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transition: all 0.4s;
-    }
-
-    .shop-brand-card:hover .shop-brand-strip::after {
-      width: 110px;
-      height: 110px;
-      background: rgba(255,255,255,0.12);
-    }
-
-    /* Brand-specific gradients */
-    .shop-brand-card[data-brand="ordinary"]    .shop-brand-strip { background: linear-gradient(135deg, #1a1a1a, #3d3d3d); }
-    .shop-brand-card[data-brand="cerave"]      .shop-brand-strip { background: linear-gradient(135deg, #0f3460, #16213e); }
-    .shop-brand-card[data-brand="vaseline"]    .shop-brand-strip { background: linear-gradient(135deg, #0071ce, #005fa3); }
-    .shop-brand-card[data-brand="manee"]       .shop-brand-strip { background: linear-gradient(135deg, #c0395a, #8b1a35); }
-    .shop-brand-card[data-brand="cosrx"]       .shop-brand-strip { background: linear-gradient(135deg, #2d6a4f, #1b4332); }
-    .shop-brand-card[data-brand="drRashel"]    .shop-brand-strip { background: linear-gradient(135deg, #6a0572, #3d0140); }
-    .shop-brand-card[data-brand="centellian24"].shop-brand-strip { background: linear-gradient(135deg, #b5571a, #7a3410); }
-    .shop-brand-card[data-brand="larocheposay"].shop-brand-strip { background: linear-gradient(135deg, #144789, #0c2d5e); }
-
-    /* Card bottom info */
-    .shop-brand-info {
-      padding: 16px 18px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .shop-brand-name {
-      font-family: var(--font-serif);
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--brown);
-      transition: color 0.3s;
-    }
-
-    .shop-brand-card:hover .shop-brand-name {
-      color: var(--gold);
-    }
-
-    .shop-brand-arrow {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(45, 27, 18, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--brown);
-      transition: all 0.3s;
-      flex-shrink: 0;
-    }
-
-    .shop-brand-card:hover .shop-brand-arrow {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #fff;
-    }
-
-    @media (max-width: 1024px) {
-      .shop-brands-section {
-        padding: 36px 16px 32px;
-      }
-      .shop-brand-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-      .shop-brand-strip {
-        height: 90px;
-      }
-      .shop-brand-mono {
-        font-size: 30px;
-      }
-      .shop-brand-name {
-        font-size: 13px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .shop-brand-strip {
-        height: 80px;
-      }
-      .shop-brand-mono {
-        font-size: 26px;
-      }
-    }
-      background: #fdfaf7;
-      padding: 64px 60px 56px;
-      border-bottom: 1px solid rgba(45, 27, 18, 0.06);
-    }
-
-    .shop-categories-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      margin-bottom: 42px;
-      text-align: center;
-      flex-direction: column;
-    }
-
-    .shop-categories-eyebrow {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .shop-categories-title {
-      font-family: var(--font-serif);
-      font-size: clamp(26px, 3vw, 40px);
-      font-weight: 500;
-      color: var(--brown);
-      line-height: 1.15;
-    }
-
-    .shop-cat-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 18px;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    .shop-cat-card {
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1.5px solid rgba(45, 27, 18, 0.07);
-      cursor: pointer;
-      transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      position: relative;
-      background: #fff;
-    }
-
-    .shop-cat-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 28px 56px rgba(45, 27, 18, 0.13);
-      border-color: rgba(198, 151, 90, 0.4);
-    }
-
-    /* Gradient icon area */
-    .shop-cat-icon-wrap {
-      width: 100%;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .shop-cat-card:hover .shop-cat-icon-wrap {
-      transform: scale(1.04);
-    }
-
-    .shop-cat-icon-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .shop-cat-card:hover .shop-cat-icon-wrap::before {
-      opacity: 0.18;
-    }
-
-    /* Floating circle behind icon */
-    .shop-cat-icon-bg {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-      transition: all 0.4s;
-    }
-
-    .shop-cat-card:hover .shop-cat-icon-bg {
-      transform: scale(1.12);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-    }
-
-    .shop-cat-icon-bg svg {
-      width: 30px;
-      height: 30px;
-      transition: transform 0.4s;
-    }
-
-    .shop-cat-card:hover .shop-cat-icon-bg svg {
-      transform: scale(1.1);
-    }
-
-    /* Per-category gradient backgrounds */
-    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #dff0f8, #b3d9f0); }
-    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #4eafd4, #1a7fa8); }
-    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-bg svg { stroke: #fff; }
-    .shop-cat-card[data-cat-filter="cleansers"] .shop-cat-icon-wrap::before { background: #4eafd4; }
-
-    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #ede0f5, #d1b3ea); }
-    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #9b59d4, #6a3fa8); }
-    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-bg svg { stroke: #fff; }
-    .shop-cat-card[data-cat-filter="serums"] .shop-cat-icon-wrap::before { background: #9b59d4; }
-
-    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #d8f0e4, #a8dfc0); }
-    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #36b37e, #1a7a53); }
-    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-bg svg { stroke: #fff; }
-    .shop-cat-card[data-cat-filter="moisturizers"] .shop-cat-icon-wrap::before { background: #36b37e; }
-
-    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #fff3d0, #ffe09a); }
-    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #f5a623, #c97d00); }
-    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-bg svg { stroke: #fff; }
-    .shop-cat-card[data-cat-filter="sunscreen"] .shop-cat-icon-wrap::before { background: #f5a623; }
-
-    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #fde8e0, #f9c4b0); }
-    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #e8623a, #b83a18); }
-    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-bg svg { stroke: #fff; }
-    .shop-cat-card[data-cat-filter="acids"] .shop-cat-icon-wrap::before { background: #e8623a; }
-
-    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-wrap { background: linear-gradient(145deg, #fde8f2, #f5b8d8); }
-    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-bg  { background: linear-gradient(135deg, #d4397a, #9a1c52); }
-    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-bg svg { stroke: #fff; }
-    .shop-cat-card[data-cat-filter="retinoids"] .shop-cat-icon-wrap::before { background: #d4397a; }
-
-    .shop-cat-label {
-      padding: 16px 12px 18px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .shop-cat-name {
-      font-family: var(--font-serif);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--brown);
-      display: block;
-      transition: color 0.3s;
-    }
-
-    .shop-cat-card:hover .shop-cat-name {
-      color: var(--gold);
-    }
-
-    .shop-cat-count {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      opacity: 0.55;
-      margin-top: 5px;
-      display: block;
-    }
-
-    .shop-cat-arrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 10px;
-      opacity: 0;
-      transform: translateY(5px);
-      transition: all 0.3s;
-    }
-
-    .shop-cat-card:hover .shop-cat-arrow {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Mobile adjustments */
-    @media (max-width: 1024px) {
-      .shop-categories-section {
-        padding: 40px 16px 36px;
-      }
-      .shop-cat-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-      }
-      .shop-cat-icon-bg {
-        width: 52px;
-        height: 52px;
-      }
-      .shop-cat-icon-bg svg {
-        width: 24px;
-        height: 24px;
-      }
-      .shop-cat-name {
-        font-size: 12px;
-      }
-      .shop-cat-label {
-        padding: 10px 8px 12px;
-      }
-      .shop-cat-arrow {
-        display: none;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .shop-cat-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-    }
   </style>
 </head>
 
@@ -1389,112 +979,7 @@
       </div>
     </section>
 
-    <!-- ===== SHOP BY BRAND ===== -->
-    <section class="shop-brands-section" id="shop-brands-section">
-      <div class="shop-brands-header">
-        <span class="shop-brands-eyebrow">Our Collection</span>
-        <h2 class="shop-brands-title">Shop by Brand</h2>
-      </div>
-      <div class="shop-brand-grid">
 
-        <a class="shop-brand-card" href="#" data-brand="ordinary" id="brandcard-ordinary">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">TO</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">The Ordinary</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="cerave" id="brandcard-cerave">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">CV</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">CeraVe</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="vaseline" id="brandcard-vaseline">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">VS</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">Vaseline</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="manee" id="brandcard-manee">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">MN</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">Manee</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="cosrx" id="brandcard-cosrx">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">CX</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">COSRX</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="drRashel" id="brandcard-drRashel">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">DR</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">Dr. Rashel</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="centellian24" id="brandcard-centellian24">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">C24</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">Centellian24</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="shop-brand-card" href="#" data-brand="larocheposay" id="brandcard-larocheposay">
-          <div class="shop-brand-strip">
-            <span class="shop-brand-mono">LRP</span>
-          </div>
-          <div class="shop-brand-info">
-            <span class="shop-brand-name">La Roche-Posay</span>
-            <span class="shop-brand-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </a>
-
-      </div>
-    </section>
 
 
 
