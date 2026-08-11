@@ -245,27 +245,31 @@ img {
   left: -16px;
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  min-width: 180px;
-  padding: 8px 0;
+  border-radius: 12px;
+  min-width: 200px;
+  padding: 10px 0;
   box-shadow: var(--shadow-lg);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
   transition: all var(--transition);
-  max-height: 350px;
+  max-height: 310px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
+/* Premium micro-scrollbar styling */
 .drop-menu::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 .drop-menu::-webkit-scrollbar-track {
   background: transparent;
+  margin: 10px 0;
 }
 .drop-menu::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
+  background: rgba(198, 151, 90, 0.35);
+  border-radius: 10px;
+  transition: background var(--transition);
 }
 .drop-menu::-webkit-scrollbar-thumb:hover {
   background: var(--gold);
@@ -279,14 +283,16 @@ img {
 
 .drop-menu li a {
   display: block;
-  padding: 10px 20px;
-  font-size: 14px;
-  transition: background var(--transition);
+  padding: 10px 24px 10px 20px;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all var(--transition);
 }
 
 .drop-menu li a:hover {
   background: var(--cream);
   color: var(--gold);
+  padding-left: 24px;
 }
 
 .nav-icons {
