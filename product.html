@@ -724,6 +724,17 @@
       </div>
     </nav>
 
+    <!-- Search Bar Dropdown -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
     <!-- Mobile Top Search Row -->
     <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
       <div class="m-search-inner">
@@ -1166,10 +1177,24 @@
     if (cartOpen) cartOpen.addEventListener('click', openCart);
     if (mbnCart) mbnCart.addEventListener('click', openCart);
     
+    /* ── SEARCH ── */
+    const searchOpen = document.getElementById('search-open');
+    const searchClose = document.getElementById('search-close');
+    const searchDrop = document.getElementById('search-drop');
+    const searchInp = document.getElementById('search-inp');
+    
+    const mbnSearch = document.getElementById('mbn-search-trigger');
+    const openSearch = () => { searchDrop.classList.add('open'); searchInp.focus(); };
+    
+    if (searchOpen) searchOpen.addEventListener('click', openSearch);
+    if (mbnSearch) mbnSearch.addEventListener('click', openSearch);
+    if (searchClose) searchClose.addEventListener('click', () => searchDrop.classList.remove('open'));
+
     function closeAll() {
       document.getElementById('mobile-drawer')?.classList.remove('open');
       document.body.classList.remove('drawer-open');
       document.getElementById('cart-drawer')?.classList.remove('open');
+      document.getElementById('search-drop')?.classList.remove('open');
       overlay.classList.remove('show');
       const mBar = $('mobile-search-bar');
       if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
