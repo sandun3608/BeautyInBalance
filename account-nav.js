@@ -1,13 +1,10 @@
-// Global Image Cache Buster to reload replaced images immediately once per session
+// Global Image Cache Buster — reads last admin product update time
 (function() {
     const getImgCacheBuster = () => {
-        if (typeof sessionStorage === 'undefined') return '';
-        let cb = sessionStorage.getItem('img_cache_v');
-        if (!cb) {
-            cb = Date.now();
-            sessionStorage.setItem('img_cache_v', cb);
-        }
-        return '?v=' + cb;
+        // Use the timestamp of the last admin product save (via localStorage)
+        // so that any image updated in admin is immediately reflected on the frontend
+        const lastUpdate = localStorage.getItem('last_product_update') || '1';
+        return '?v=' + lastUpdate;
     };
 
     const formatImgGlobal = (str) => {

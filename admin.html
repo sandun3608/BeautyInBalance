@@ -2565,7 +2565,11 @@
                     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('userToken') },
                     body: JSON.stringify(productData)
                   });
-                  if (res.ok) { window.closeModal(); await fetchDatabaseProducts(); renderInventory(); } 
+                  if (res.ok) { 
+                    // Stamp the update time so frontend immediately loads new images
+                    localStorage.setItem('last_product_update', Date.now());
+                    window.closeModal(); await fetchDatabaseProducts(); renderInventory(); 
+                  } 
                   else { 
                       const eb = await res.json(); 
                       alert('Failed: ' + (eb.message || 'Error')); 
