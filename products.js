@@ -964,9 +964,9 @@ const defaultProducts = [
     "cat": "ordinary",
     "filter": "eye",
     "images": [
-      "the ordinary/Caffeine solution (30ml)  Rs.4600.png"
+      "the ordinary/Caffeine_solution_30ml.png"
     ],
-    "img": "the ordinary/Caffeine solution (30ml)  Rs.4600.png",
+    "img": "the ordinary/Caffeine_solution_30ml.png",
     "desc": "A brilliantly light-textured eye serum optimized with an extraordinarily high 5% concentration of caffeine and highly-purified EGCG extracted from green tea leaves. Independent studies show that topical application of these active ingredients dramatically reduces puffiness, under-eye bags, and dark pigmentation contours around the delicate eye area.",
     "benefits": [
       "Reduces eye bags",
