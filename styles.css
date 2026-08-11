@@ -2118,22 +2118,20 @@ background: #0a0a0a;
 }
 
 .fp-img-box {
-  background: #ffffff;
-  /* Pure white background as requested */
+  background: transparent;
   width: 100%;
   aspect-ratio: 0.95;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 15px 15px;
+  padding: 15px 5px;
   position: relative;
-  border-radius: 20px;
-  /* Separate rounding */
+  border-radius: 0;
   margin-bottom: 12px;
-  /* PHYSICAL GAP seen in screenshot */
-  overflow: hidden;
-  border: 1px solid #f2f2f2;
+  overflow: visible;
+  border: none;
+  box-shadow: none;
 }
 
 .fp-img-wrap {
@@ -2146,14 +2144,17 @@ background: #0a0a0a;
 }
 
 .fp-img-wrap img {
-  max-width: 85%;
+  max-width: 95%;
   max-height: 100%;
   object-fit: contain;
-  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .fp-item:hover .fp-img-wrap img {
-  transform: scale(1.08);
+  transform: scale(1.06);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
 }
 
 .fp-variants {
@@ -2240,16 +2241,14 @@ background: #0a0a0a;
 
 .fp-details {
   text-align: center;
-  padding: 25px 20px;
-  background: #ffffff;
-  /* Pure White Background */
+  padding: 15px 5px;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 24px;
-  /* Separate rounding */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-  border: 1px solid #f2f2f2;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .fp-tag-row {
