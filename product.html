@@ -450,27 +450,57 @@
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .discovery-section {
         padding: 50px 16px 60px;
+        overflow: hidden;
+      }
+      .discovery-header {
+        margin-bottom: 30px;
+        text-align: left;
+        padding-left: 8px;
       }
       .rec-grid-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 10px 8px 24px;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE/Edge */
+      }
+      .rec-grid-container::-webkit-scrollbar {
+        display: none; /* Safari/Chrome */
+      }
+      .rec-card {
+        flex: 0 0 240px;
+        scroll-snap-align: start;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 8px 24px rgba(45, 27, 18, 0.04);
+        border: 1px solid rgba(45, 27, 18, 0.05);
+      }
+      .rec-img-wrap {
+        background: #faf7f5;
+        border-radius: 12px;
+        padding: 8px;
       }
       .rec-body {
-        padding: 12px;
+        padding: 12px 0 0 0;
       }
       .rec-title {
-        font-size: 13px;
-        min-height: 34px;
+        font-size: 14px;
+        min-height: 36px;
+        margin-bottom: 8px;
       }
       .rec-price {
-        font-size: 14px;
+        font-size: 15px;
       }
       .rec-add-btn {
-        padding: 9px;
-        font-size: 10px;
+        margin-top: 12px;
+        padding: 12px;
+        font-size: 11px;
       }
     }
 
