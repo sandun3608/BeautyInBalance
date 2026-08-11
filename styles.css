@@ -8233,34 +8233,30 @@ main {
 .hap-card-img {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 14px;
-  background: var(--beige-light);
+  border-radius: 0;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  transition: all 0.3s ease;
+  overflow: visible;
+  border: none;
+  box-shadow: none;
 }
 
 .hap-card-img img {
-  width: 85%;
-  height: 85%;
+  width: 95%;
+  height: 95%;
   object-fit: contain;
-  filter: none;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.hap-card:hover .hap-card-img {
-  background: var(--beige);
-  border-color: var(--gold);
-  box-shadow: 0 6px 20px rgba(45, 27, 18, 0.08);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .hap-card:hover .hap-card-img img {
   transform: scale(1.05);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
 }
 
 .hap-card-brand {
