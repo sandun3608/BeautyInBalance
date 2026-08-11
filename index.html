@@ -1697,7 +1697,7 @@
       if (!track || !productsData.length) return;
       
       const shuffled = [...productsData].sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 4);
+      const selected = shuffled.slice(0, 8);
       track.innerHTML = selected.map(p => {
         const discount = Number(p.discount || 0);
         const basePrice = Number(p.price || 0);
