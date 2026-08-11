@@ -2118,8 +2118,8 @@ background: #0a0a0a;
 }
 
 .fp-img-box {
-  background: #fdf8f5;
-  /* Image Pedestal Tint */
+  background: #ffffff;
+  /* Pure white background as requested */
   width: 100%;
   aspect-ratio: 0.95;
   display: flex;
@@ -2133,6 +2133,7 @@ background: #0a0a0a;
   margin-bottom: 12px;
   /* PHYSICAL GAP seen in screenshot */
   overflow: hidden;
+  border: 1px solid #f2f2f2;
 }
 
 .fp-img-wrap {
@@ -2240,15 +2241,15 @@ background: #0a0a0a;
 .fp-details {
   text-align: center;
   padding: 25px 20px;
-  background: #fdf8f5;
-  /* Matching Top Pedestal Color */
+  background: #ffffff;
+  /* Pure White Background */
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 24px;
   /* Separate rounding */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  border: 1px solid #f2f2f2;
 }
 
 .fp-tag-row {
