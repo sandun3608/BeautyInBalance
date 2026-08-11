@@ -1,3 +1,59 @@
+// Global Image Cache Buster to reload replaced images immediately once per session
+(function() {
+    const getImgCacheBuster = () => {
+        if (typeof sessionStorage === 'undefined') return '';
+        let cb = sessionStorage.getItem('img_cache_v');
+        if (!cb) {
+            cb = Date.now();
+            sessionStorage.setItem('img_cache_v', cb);
+        }
+        return '?v=' + cb;
+    };
+
+    const formatImgGlobal = (str) => {
+        if (!str) return 'images/placeholder.png';
+        if (str.startsWith('data:image') || str.startsWith('http')) return str;
+        try {
+            str = decodeURIComponent(str);
+        } catch (e) {}
+        let path = str.replace(/%25/g, '%').replace(/%2B/g, '+');
+        let formatted = path.split('/').map(part => encodeURIComponent(part)).join('/');
+        if (formatted.includes('?')) return formatted;
+        return formatted + getImgCacheBuster();
+    };
+
+    const formatProduct = (p) => {
+        if (!p) return p;
+        return {
+            ...p,
+            img: formatImgGlobal(p.img),
+            images: Array.isArray(p.images) ? p.images.map(img => formatImgGlobal(img)) : [formatImgGlobal(p.img)]
+        };
+    };
+
+    const formatCollection = (arr) => {
+        if (!Array.isArray(arr)) return arr;
+        return arr.map(formatProduct);
+    };
+
+    // Format initial productsData if loaded
+    if (window.productsData) {
+        window.productsData = formatCollection(window.productsData);
+    }
+
+    // Intercept future assignments to window.productsData
+    let currentData = window.productsData || [];
+    Object.defineProperty(window, 'productsData', {
+        get() {
+            return currentData;
+        },
+        set(newValue) {
+            currentData = formatCollection(newValue);
+        },
+        configurable: true
+    });
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     const userIcons = document.querySelectorAll('a[href="login.html"], a[href="dashboard.html"]');
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
