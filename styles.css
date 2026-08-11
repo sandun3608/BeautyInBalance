@@ -253,6 +253,22 @@ img {
   visibility: hidden;
   transform: translateY(-8px);
   transition: all var(--transition);
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.drop-menu::-webkit-scrollbar {
+  width: 4px;
+}
+.drop-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.drop-menu::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.drop-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
 }
 
 .has-drop:hover .drop-menu {
