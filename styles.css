@@ -7220,31 +7220,41 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .fg-card {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 20px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
   text-align: center;
   transition: all 0.4s ease;
+  box-shadow: none;
 }
 
 .fg-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  transform: translateY(-6px);
+  box-shadow: none;
 }
 
 .fg-img-wrap {
   position: relative;
-  padding: 40px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent;
 }
 
 .fg-img-wrap img {
-  width: 100%;
+  width: 95%;
   height: auto;
   object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  transition: transform 0.5s ease, filter 0.3s ease;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.fg-card:hover .fg-img-wrap img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
 }
 
 .fg-brand-badge {
@@ -7302,9 +7312,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .fg-info {
-  background: #fff;
-  padding: 30px;
-  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  background: transparent;
+  padding: 20px 10px;
+  border-top: none;
   text-align: center;
 }
 

@@ -294,42 +294,46 @@
 
     /* Luxury Product Card */
     .lux-card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(45, 27, 18, 0.06);
+      background: transparent;
+      border-radius: 0;
+      overflow: visible;
+      border: none;
       transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
       cursor: pointer;
       position: relative;
+      box-shadow: none;
     }
 
     .lux-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(45, 27, 18, 0.10);
-      border-color: rgba(198, 151, 90, 0.3);
+      transform: translateY(-6px);
+      box-shadow: none;
+      border-color: transparent;
     }
 
     /* Image container */
     .lux-img {
       position: relative;
-      background: #fdfaf7;
+      background: transparent;
       aspect-ratio: 1;
-      overflow: hidden;
+      overflow: visible;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 30px;
+      padding: 10px;
     }
 
     .lux-img img {
-      width: 100%;
-      height: 100%;
+      width: 95%;
+      height: 95%;
       object-fit: contain;
-      transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+      transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
+      image-rendering: -webkit-optimize-contrast;
     }
 
     .lux-card:hover .lux-img img {
-      transform: scale(1.07);
+      transform: scale(1.05);
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
     }
 
     /* Brand label — below image, above product name */
