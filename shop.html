@@ -1137,7 +1137,7 @@
       card.innerHTML = `
         <div class="lux-img" onclick="location.href='product.html?id=${p.id}'" style="position: relative;">
           ${discountBadge}
-          <img src="${imgSrc}" alt="${p.name}" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
+          <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
           <button class="lux-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">
             + Add to Bag
           </button>
