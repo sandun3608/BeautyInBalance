@@ -1697,8 +1697,6 @@ background: #0a0a0a;
   object-fit: cover;
   display: block;
   pointer-events: none;
-  image-rendering: -webkit-optimize-contrast;
-  /* Sharper images */
 }
 
 /* Before layer is always on top but clipped */
@@ -2149,7 +2147,6 @@ background: #0a0a0a;
   object-fit: contain;
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
   transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
-  image-rendering: -webkit-optimize-contrast;
 }
 
 .fp-item:hover .fp-img-wrap img {
@@ -7249,7 +7246,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   object-fit: contain;
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
   transition: transform 0.5s ease, filter 0.3s ease;
-  image-rendering: -webkit-optimize-contrast;
 }
 
 .fg-card:hover .fg-img-wrap img {
@@ -8261,7 +8257,6 @@ main {
   object-fit: contain;
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
-  image-rendering: -webkit-optimize-contrast;
 }
 
 .hap-card:hover .hap-card-img img {
