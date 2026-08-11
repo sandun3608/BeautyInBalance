@@ -8234,14 +8234,14 @@ main {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 14px;
-  background: #f5f5f7;
+  background: var(--beige-light);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border);
   transition: all 0.3s ease;
 }
 
@@ -8254,8 +8254,9 @@ main {
 }
 
 .hap-card:hover .hap-card-img {
-  background: #eef0f3;
-  border-color: rgba(0, 0, 0, 0.08);
+  background: var(--beige);
+  border-color: var(--gold);
+  box-shadow: 0 6px 20px rgba(45, 27, 18, 0.08);
 }
 
 .hap-card:hover .hap-card-img img {
