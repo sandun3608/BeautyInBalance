@@ -1960,10 +1960,9 @@ window.renderHomeAllProducts = function() {
         });
 
         const activeTab = document.querySelector('.hap-tab.active');
-        let currentFilter = activeTab ? activeTab.getAttribute('data-filter') : categories[0];
-        if (currentFilter === 'all') currentFilter = categories[0] || 'ordinary';
+        let currentFilter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
 
-        let tabsHTML = '';
+        let tabsHTML = `<button class="hap-tab ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">ALL</button>`;
         
         categories.forEach(cat => {
             let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
@@ -1973,15 +1972,44 @@ window.renderHomeAllProducts = function() {
         tabsWrapper.innerHTML = tabsHTML;
     }
 
-    // Get up to 28 products
+    // Get up to 12 or 28 products
     const displayProducts = (category) => {
-        let filtered = window.productsData;
-        if (category && category !== 'all') {
-            filtered = filtered.filter(p => (p.cat || 'others').toLowerCase() === category);
+        let filtered = [];
+        if (!category || category === 'all') {
+            // Group products by category and interleave (round-robin) so products come from every category
+            const catGroups = {};
+            const order = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
+            
+            (window.productsData || []).forEach(p => {
+                const c = (p.cat || 'others').toLowerCase();
+                if (!catGroups[c]) catGroups[c] = [];
+                catGroups[c].push(p);
+            });
+
+            const catKeys = Object.keys(catGroups).sort((a, b) => {
+                const indexA = order.indexOf(a);
+                const indexB = order.indexOf(b);
+                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                if (indexA !== -1) return -1;
+                if (indexB !== -1) return 1;
+                return a.localeCompare(b);
+            });
+
+            const maxItems = Math.max(...catKeys.map(k => catGroups[k].length), 0);
+            for (let i = 0; i < maxItems; i++) {
+                for (const k of catKeys) {
+                    if (catGroups[k][i]) {
+                        filtered.push(catGroups[k][i]);
+                    }
+                }
+            }
+        } else {
+            filtered = (window.productsData || []).filter(p => (p.cat || 'others').toLowerCase() === category);
         }
         
-        // Take up to 28 items (7 rows of 4)
-        const productsToShow = filtered.slice(0, 28);
+        // Take up to 12 items for 'all', or up to 28 items for specific categories
+        const limit = (!category || category === 'all') ? 12 : 28;
+        const productsToShow = filtered.slice(0, limit);
         
         grid.innerHTML = productsToShow.map(prod => {
             const catLower = (prod.cat || 'others').toLowerCase();
@@ -2029,8 +2057,7 @@ window.renderHomeAllProducts = function() {
 
     // Initial render
     const activeTabNow = document.querySelector('.hap-tab.active');
-    let initialFilter = activeTabNow ? activeTabNow.getAttribute('data-filter') : 'ordinary';
-    if (initialFilter === 'all') initialFilter = 'ordinary';
+    let initialFilter = activeTabNow ? activeTabNow.getAttribute('data-filter') : 'all';
     displayProducts(initialFilter);
 
     // Setup Tab Listeners
