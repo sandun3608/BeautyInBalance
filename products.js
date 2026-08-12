@@ -1393,7 +1393,7 @@ async function fetchDatabaseProducts() {
             // Re-map the variable names slightly if they differ between DB and Frontend
             const mappedDbProducts = dbProducts.map(p => {
                 const formatImg = (str) => {
-                    if (!str) return 'images/placeholder.png';
+                    if (!str) return '';
                     if (str.startsWith('data:image') || str.startsWith('http')) return str;
                     try {
                         str = decodeURIComponent(str);
@@ -1404,11 +1404,17 @@ async function fetchDatabaseProducts() {
                     return path.split('/').map(part => encodeURIComponent(part)).join('/');
                 };
 
+                const rawImg = p.img || (Array.isArray(p.images) && p.images[0]) || '';
+                const mainImg = formatImg(rawImg) || 'images/placeholder.png';
+                const imgList = Array.isArray(p.images) && p.images.length > 0 
+                    ? p.images.map(img => formatImg(img)).filter(Boolean) 
+                    : [mainImg];
+
                 return {
                     ...p,
                     id: p.id || p._id,
-                    img: formatImg(p.img),
-                    images: Array.isArray(p.images) ? p.images.map(img => formatImg(img)) : [formatImg(p.img)]
+                    img: mainImg,
+                    images: imgList
                 };
             });
 
@@ -1422,6 +1428,11 @@ async function fetchDatabaseProducts() {
 
                 const index = updatedProductsData.findIndex(p => (p.id && (p.id === dbProd.id)) || p.name === dbProd.name);
                 if (index !== -1) {
+                    // Preserve working image from defaultProducts if dbProd image is placeholder or empty
+                    if ((!dbProd.img || dbProd.img === 'images/placeholder.png') && updatedProductsData[index].img && updatedProductsData[index].img !== 'images/placeholder.png') {
+                        dbProd.img = updatedProductsData[index].img;
+                        dbProd.images = updatedProductsData[index].images;
+                    }
                     updatedProductsData[index] = dbProd; // Override existing
                 } else {
                     updatedProductsData.unshift(dbProd); // Add as new at the top
@@ -1462,7 +1473,7 @@ async function fetchDatabaseProducts() {
         });
 
     } catch (error) {
-        console.warn("⚠️ Using hardcoded products fallback.", error.message);
+        console.warn("⚠️ Using hardcoded products fallback.", error?.message || error || "");
         
         window.productsData = [...defaultProducts];
         window.DB_FETCH_COMPLETED = true;

@@ -2238,7 +2238,7 @@
     </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=29"></script>
+  <script src="products.js?v=300"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     let editingId = null;
@@ -3245,7 +3245,7 @@
         // 1. LATEST PRODUCTS (with deep safety)
         const prodList = document.getElementById('latest-products-sidebar');
         if (prodList) {
-            // Priority: Live Data -> defaultProducts (from products.js) -> Hardcoded Premium Fallback
+            // Priority: Live Data -> defaultProducts (from products.js?v=300) -> Hardcoded Premium Fallback
             const source = (window.productsData && window.productsData.length > 0) ? window.productsData : 
                           (typeof defaultProducts !== 'undefined' ? defaultProducts : [
                 { name: 'CeraVe Hydrating Cleanser', cat: 'cerave', price: 6800, img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
