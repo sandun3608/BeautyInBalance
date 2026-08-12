@@ -891,17 +891,10 @@
       }});
     }
 
-    let lastRenderedProductJSON = "";
-
-    function renderProduct(data, isOffline = false) {
+    function renderProduct(data) {
       if (!data || !data.length) return;
       const product = data.find(p => p.id === prodId || p.name === prodId);
       if (!product) return;
-
-      // Prevent flicker: if exact same data is already rendered, skip
-      const productJSON = JSON.stringify(product) + isOffline;
-      if (lastRenderedProductJSON === productJSON) return;
-      lastRenderedProductJSON = productJSON;
 
       document.title = product.name + " | Beauty in Balance";
 
@@ -934,25 +927,19 @@
       `;
 
       const frame = document.getElementById('pd-frame');
-      frame.style.transition = 'opacity 0.3s ease';
-      
-      const thumbs = isOffline ? '' : (product.images || [product.img]).map((src, i) => `
+      const thumbs = (product.images || [product.img]).map((src, i) => `
         <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
           <img src="${src}" alt="Thumb">
         </button>
       `).join('');
 
-      const imageContent = isOffline ? 
-        `<div style="width: 50px; height: 50px; border: 4px solid #f2efe9; border-top: 4px solid #c6975a; border-radius: 50%; animation: spin 1s linear infinite;"></div>` : 
-        `<img id="main-view" src="${product.img}" alt="${product.name}">`;
-
-      const newHTML = `
+      frame.innerHTML = `
         <div class="product-stage">
           <!-- Gallery -->
           <div class="gallery-wrap">
             <div class="main-visual">
               ${discountBadge}
-              ${imageContent}
+              <img id="main-view" src="${product.img}" alt="${product.name}">
             </div>
             <div class="thumbs-container">${thumbs}</div>
           </div>
@@ -1036,19 +1023,8 @@
         </div>
       `;
 
-      if (frame.innerHTML.trim() !== '') {
-         frame.style.opacity = '0';
-         setTimeout(() => {
-            frame.innerHTML = newHTML;
-            // Render Recommended Products section
-            renderRecommendations(product, data);
-            frame.style.opacity = '1';
-         }, 300);
-      } else {
-         frame.innerHTML = newHTML;
-         // Render Recommended Products section
-         renderRecommendations(product, data);
-      }
+      // Render Recommended Products section
+      renderRecommendations(product, data);
     }
     window.renderProduct = renderProduct;
 
@@ -1134,10 +1110,10 @@
       });
     }
 
-    // 1. INSTANT 0MS RENDER WITH OFFLINE PRODUCTS DATA (Image delayed until DB fetch)
+    // 1. INSTANT 0MS RENDER WITH OFFLINE PRODUCTS DATA
     if (prodId) {
       const initialProducts = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-      renderProduct(initialProducts, true);
+      renderProduct(initialProducts);
 
       // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
       const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
@@ -1163,16 +1139,14 @@
               const idx = window.productsData.findIndex(p => p.id === dbProd.id);
               if (idx !== -1) window.productsData[idx] = dbProd;
               else window.productsData.unshift(dbProd);
-              renderProduct(window.productsData, false);
+              renderProduct(window.productsData);
             } else {
-              renderProduct([dbProd], false);
+              renderProduct([dbProd]);
             }
           }
         })
         .catch(err => {
           console.log('Single product fast fetch fallback:', err.message);
-          // Fallback to offline image if API fails
-          renderProduct(initialProducts, false);
         });
     }
   </script>

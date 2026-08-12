@@ -1250,7 +1250,7 @@
 
 
   <script src="config.js?v=21"></script>
-  <script src="products.js?v=1786572160518"></script>
+  <script src="products.js?v=300"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1324,82 +1324,6 @@
 
     let productsData = [];
 
-    // --- HOME ALL PRODUCTS GRID ---
-    function renderHomeAllProducts(isOffline = false) {
-      const grid = document.getElementById('hap-grid');
-      if (!grid) return;
-
-      const displayProducts = (category) => {
-        const allProducts = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-        let filtered = allProducts;
-        if (category && category !== 'all') {
-          filtered = allProducts.filter(p => (p.cat || '').toLowerCase() === category.toLowerCase());
-        }
-
-        const productsToShow = filtered.slice(0, 28);
-
-        if (!productsToShow.length) {
-          grid.innerHTML = '<p style="text-align:center;padding:40px;color:#999;font-size:15px;">No products found in this category.</p>';
-          return;
-        }
-
-        grid.innerHTML = productsToShow.map(prod => {
-          const discount = Number(prod.discount || 0);
-          const basePrice = Number(prod.price || 0);
-          const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
-          const img = prod.img || (prod.images && prod.images[0]) || '';
-
-          const priceHTML = discount > 0
-            ? `<span class="original-price" style="text-decoration:line-through;color:#999;font-size:13px;">Rs. ${basePrice.toLocaleString()}</span> <span>Rs. ${discountedPrice.toLocaleString()}</span>`
-            : `Rs. ${basePrice.toLocaleString()}`;
-
-          const discountBadge = discount > 0 ? `<span style="position:absolute;top:10px;left:10px;background:#e74c3c;color:#fff;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;z-index:2;">${discount}% OFF</span>` : '';
-
-          const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-          const brandName = (prod.cat || '').toLowerCase() === 'cerave' ? 'CeraVe'
-            : (prod.cat || '').toLowerCase() === 'ordinary' ? 'The Ordinary'
-            : (prod.cat || '');
-
-          return `
-            <a href="product.html?id=${prod.id || prod._id}" class="hap-card">
-                <div class="hap-card-img">
-                    ${discountBadge}
-                    <img src="${img}" alt="${prod.name}" loading="lazy">
-                    <div class="hap-card-actions">
-                        <span class="h-icon" onclick="event.preventDefault(); addToCart('${prod.id || prod._id}')" aria-label="Add to Cart">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                        </span>
-                    </div>
-                </div>
-                <div class="hap-card-brand">${brandName}</div>
-                <div class="hap-card-title">${prod.name}</div>
-                <div class="hap-card-price">${priceHTML}</div>
-                <div class="koko-installment">
-                    <span class="koko-or">or pay in 3 x Rs ${kokoAmount} with</span>
-                    <span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"></span>
-                    <svg onclick="event.preventDefault(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
-                </div>
-                <button class="hap-card-btn btn-buy-animated" onclick="event.preventDefault(); addToCart('${prod.id || prod._id}'); window.location.href='checkout.html';">Buy It Now</button>
-            </a>
-          `;
-        }).join('');
-      };
-
-      // Initial render
-      displayProducts('all');
-
-      // Setup Tab Listeners
-      const tabs = document.querySelectorAll('.hap-tab:not(.coming-soon)');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          displayProducts(tab.getAttribute('data-filter'));
-        });
-      });
-    }
-
     async function fetchProducts() {
       const renderAll = () => {
         productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
@@ -1407,17 +1331,17 @@
           try { renderRoundCategories(); } catch(e) {}
         }
         if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
+          try { renderHomeAllProducts(); } catch(e) {}
         }
         if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
+          try { renderFeaturedProducts(); } catch(e) {}
         }
         if (typeof initShadeFinder === 'function') {
           try { initShadeFinder(); } catch(e) {}
         }
         const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
         if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim(), !window.DB_FETCH_COMPLETED); } catch(e) {}
+          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
         }
       };
 
@@ -1435,7 +1359,7 @@
       }
     }
 
-    function renderFeaturedProducts(isOffline = false) {
+    function renderFeaturedProducts() {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
@@ -1459,7 +1383,7 @@
             <button class="fg-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             </button>
-            ${isOffline ? `<div style='width: 100%; padding-top: 100%; position: relative; background: #f9f9f9;'><div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border: 3px solid #f2efe9; border-top: 3px solid #c6975a; border-radius: 50%; animation: spin 1s linear infinite;'></div></div>` : `<img src="${img}" alt="${p.name}">`}
+            <img src="${img}" alt="${p.name}">
           </div>
           <div class="fg-info">
             <h4 class="fg-name">${p.name}</h4>
@@ -1476,9 +1400,42 @@
     }
 
 
+    async function fetchProducts() {
+      const renderAll = () => {
+        productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+        if (typeof renderRoundCategories === 'function') {
+          try { renderRoundCategories(); } catch(e) {}
+        }
+        if (typeof renderHomeAllProducts === 'function') {
+          try { renderHomeAllProducts(); } catch(e) {}
+        }
+        if (typeof renderFeaturedProducts === 'function') {
+          try { renderFeaturedProducts(); } catch(e) {}
+        }
+        if (typeof initShadeFinder === 'function') {
+          try { initShadeFinder(); } catch(e) {}
+        }
+        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+        if (activeItem && typeof renderShadeProducts === 'function') {
+          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
+        }
+      };
 
+      // 1. Render INSTANTLY with available products
+      renderAll();
 
-    function renderFeaturedProducts(isOffline = false) {
+      // 2. Re-render once background DB fetch completes
+      if (!window.DB_FETCH_COMPLETED) {
+        const timer = setInterval(() => {
+          if (window.DB_FETCH_COMPLETED) {
+            clearInterval(timer);
+            renderAll();
+          }
+        }, 100);
+      }
+    }
+
+    function renderFeaturedProducts() {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
