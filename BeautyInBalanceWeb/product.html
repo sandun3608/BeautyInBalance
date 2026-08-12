@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=78" />
+  <link rel="stylesheet" href="styles.css?v=79" />
 
   <style>
     @keyframes spin {
@@ -19,7 +19,7 @@
     }
 
     :root {
-      --editorial-bg: #fdfaf7; /* Rose Cream */
+      --editorial-bg: #ffffff; /* Pure White */
       --luxury-border: #f2efe9;
     }
 
@@ -33,10 +33,13 @@
       display: grid;
       grid-template-columns: 1fr 480px;
       gap: 100px;
-      align-items: start;
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
+      .product-stage { grid-template-columns: 1fr 400px; gap: 50px; }
+    }
+
+    @media (max-width: 900px) {
       .product-stage { grid-template-columns: 1fr; gap: 60px; padding-top: 100px; }
     }
 
@@ -50,22 +53,23 @@
     }
 
     .main-visual {
-      background: var(--editorial-bg);
+      background: #ffffff;
       border-radius: 40px;
       aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px;
+      padding: 60px;
       position: relative;
       overflow: hidden;
       transition: background 0.5s ease;
     }
 
     .main-visual img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+      filter: drop-shadow(0 15px 35px rgba(0,0,0,0.07));
       transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .main-visual:hover img { transform: scale(1.05); }
@@ -77,7 +81,7 @@
     }
     .t-btn {
       width: 90px; height: 90px;
-      background: var(--editorial-bg);
+      background: #ffffff;
       border-radius: 15px;
       border: 1px solid var(--luxury-border);
       cursor: pointer;
@@ -269,55 +273,224 @@
     .trust-icon { font-size: 20px; margin-bottom: 8px; display: block; }
     .trust-item p { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #aaa; }
 
-    /* Recommendations */
+    /* ── RECOMMENDED PRODUCTS SECTION ── */
     .discovery-section {
-      padding: 100px 5% 150px;
-      background: #fafafa;
+      padding: 80px 5% 120px;
+      background: #fdfaf7;
+      border-top: 1px solid rgba(45, 27, 18, 0.08);
     }
-    .discovery-header { text-align: center; margin-bottom: 70px; }
-    .discovery-header h2 { font-family: var(--font-serif); font-size: 3rem; color: var(--brown); }
 
-    .premium-discovery-grid {
-      display: flex;
-      overflow-x: auto;
-      gap: 30px;
-      max-width: 1400px;
+    .discovery-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .discovery-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .discovery-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.5vw, 44px);
+      color: var(--brown);
+      font-weight: 500;
+      font-style: italic;
+      margin: 0;
+    }
+
+    .rec-grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1350px;
       margin: 0 auto;
-      padding: 10px 10px 20px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .premium-discovery-grid::-webkit-scrollbar {
-      height: 6px;
-    }
-    .premium-discovery-grid::-webkit-scrollbar-track {
-      background: #f2efe9;
-      border-radius: 10px;
-    }
-    .premium-discovery-grid::-webkit-scrollbar-thumb {
-      background: #b58646;
-      border-radius: 10px;
-    }
-    .premium-discovery-grid .hp-prod-card {
-      flex: 0 0 calc((100% - 90px) / 3.5);
-      scroll-snap-align: start;
     }
 
-    @media (max-width: 1200px) {
-      .premium-discovery-grid {
-        gap: 20px;
-      }
-      .premium-discovery-grid .hp-prod-card {
-        flex: 0 0 calc((100% - 50px) / 2.5);
+    .rec-card {
+      background: transparent;
+      border-radius: 0;
+      overflow: visible;
+      border: none;
+      box-shadow: none;
+      transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .rec-card:hover {
+      transform: translateY(-6px);
+      box-shadow: none;
+      border-color: transparent;
+    }
+
+    .rec-img-wrap {
+      position: relative;
+      background: transparent;
+      aspect-ratio: 1;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .rec-img-wrap img {
+      width: 95%;
+      height: 95%;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
+    }
+
+    .rec-card:hover .rec-img-wrap img {
+      transform: scale(1.05);
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
+    }
+
+    .rec-discount-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(135deg, #0d7a2f, #15803d);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 50px;
+      z-index: 2;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .rec-body {
+      padding: 15px 5px;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .rec-brand-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .rec-title {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.3;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 38px;
+    }
+
+    .rec-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .rec-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .rec-original-price {
+      font-size: 12px;
+      color: #aaa;
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+
+    .rec-add-btn {
+      margin-top: 14px;
+      width: 100%;
+      padding: 11px;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .rec-card:hover .rec-add-btn {
+      background: var(--gold);
+    }
+
+    @media (max-width: 1024px) {
+      .rec-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
       }
     }
 
     @media (max-width: 768px) {
-      .premium-discovery-grid {
-        gap: 15px;
+      .discovery-section {
+        padding: 50px 16px 60px;
       }
-      .premium-discovery-grid .hp-prod-card {
-        flex: 0 0 calc((100% - 22px) / 1.5);
+      .discovery-header {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .rec-grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 10px 0;
+      }
+      .rec-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 8px 24px rgba(45, 27, 18, 0.04);
+        border: 1px solid rgba(45, 27, 18, 0.05);
+      }
+      .rec-img-wrap {
+        background: #faf7f5;
+        border-radius: 12px;
+        padding: 8px;
+      }
+      .rec-body {
+        padding: 12px 0 0 0;
+      }
+      .rec-title {
+        font-size: 14px;
+        min-height: 36px;
+        margin-bottom: 8px;
+      }
+      .rec-price {
+        font-size: 15px;
+      }
+      .rec-add-btn {
+        margin-top: 12px;
+        padding: 12px;
+        font-size: 11px;
       }
     }
 
@@ -551,6 +724,17 @@
       </div>
     </nav>
 
+    <!-- Search Bar Dropdown -->
+    <div class="search-drop" id="search-drop">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        <input type="search" placeholder="Search for products…" id="search-inp" />
+        <button class="ic-btn" id="search-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
     <!-- Mobile Top Search Row -->
     <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
       <div class="m-search-inner">
@@ -563,14 +747,19 @@
 
   <main>
     <div id="pd-frame">
-        <!-- Dynamic Premium Content -->
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px; color: #888; font-family: var(--font-sans);">
-          <span style="display:inline-block; width:36px; height:36px; border:3px solid rgba(45,27,18,0.1); border-top-color:#2D1B12; border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom: 15px;"></span>
-          <p style="margin: 0; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; color: #2D1B12; opacity: 0.6;">Loading Product Details...</p>
-        </div>
+      <!-- Dynamic Premium Content -->
     </div>
 
-    <!-- Discovery section removed -->
+    <!-- ===== RECOMMENDED PRODUCTS SECTION ===== -->
+    <section class="discovery-section" id="recommended-section" style="display: none;">
+      <div class="discovery-header">
+        <span class="discovery-eyebrow">Complete Your Routine</span>
+        <h2>You May Also Like</h2>
+      </div>
+      <div class="rec-grid-container" id="rec-grid">
+        <!-- Dynamic recommended products rendered here -->
+      </div>
+    </section>
   </main>
 
 
@@ -675,50 +864,11 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="config.js?v=17"></script>
-  <script src="products.js?v=28"></script>
+  <script src="config.js?v=21"></script>
+  <script src="products.js?v=201"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
-
-    // Fast target fetch for the active product to render details immediately
-    if (prodId) {
-      const singleProductApiUrl = `${window.BASE_URL || '/api'}/products/${prodId}`;
-      fetch(singleProductApiUrl)
-        .then(res => {
-          if (res.ok) return res.json();
-          throw new Error('Not found');
-        })
-        .then(dbProd => {
-          if (dbProd) {
-            dbProd.id = dbProd.id || dbProd._id;
-            const formatImg = (str) => {
-              if (!str) return 'images/placeholder.png';
-              if (str.startsWith('data:image') || str.startsWith('http')) return str;
-              try { str = decodeURIComponent(str); } catch (e) {}
-              return str.replace(/%25/g, '%').replace(/%2B/g, '+').split('/').map(part => encodeURIComponent(part)).join('/');
-            };
-            dbProd.img = formatImg(dbProd.img);
-            dbProd.images = Array.isArray(dbProd.images) ? dbProd.images.map(img => formatImg(img)) : [formatImg(dbProd.img)];
-
-            const tempData = [dbProd];
-            // Render immediately with this product if productsData hasn't finished loading yet
-            if (window.renderProduct) {
-              if (window.productsData) {
-                const idx = window.productsData.findIndex(p => p.id === dbProd.id);
-                if (idx !== -1) window.productsData[idx] = dbProd;
-                else window.productsData.unshift(dbProd);
-                window.renderProduct(window.productsData);
-              } else {
-                window.renderProduct(tempData);
-              }
-            }
-          }
-        })
-        .catch(err => {
-          console.log('Single product fast fetch failed:', err.message);
-        });
-    }
 
     function toggleTab(el) {
       el.closest('.tab-item').classList.toggle('active');
@@ -742,6 +892,7 @@
     }
 
     function renderProduct(data) {
+      if (!data || !data.length) return;
       const product = data.find(p => p.id === prodId || p.name === prodId);
       if (!product) return;
 
@@ -811,7 +962,7 @@
               <!-- Koko installment block -->
               <div class="koko-installment">
                 <span class="koko-or">or</span>
-                <span class="koko-pay-text">pay in 3 x Rs. <strong>${(basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong> with</span>
+                <span class="koko-pay-text">pay in 3 x Rs. <strong>${(discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong> with</span>
                 <span class="koko-logo-wrapper">
                   <img src="koko-logo.png" alt="Koko" class="koko-logo-img">
                   <svg onclick="window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
@@ -871,13 +1022,134 @@
           </div>
         </div>
       `;
+
+      // Render Recommended Products section
+      renderRecommendations(product, data);
+    }
+    window.renderProduct = renderProduct;
+
+    // ── RENDER RECOMMENDED PRODUCTS ──
+    function renderRecommendations(currentProd, data) {
+      if (!currentProd || !data || !data.length) return;
+
+      const recContainer = document.getElementById('recommended-section');
+      const recGrid = document.getElementById('rec-grid');
+      if (!recContainer || !recGrid) return;
+
+      const pCat = (currentProd.cat || '').toLowerCase().trim();
+      const pFilter = (currentProd.filter || '').toLowerCase().trim();
+
+      // Find related products (same brand or category first, excluding current product)
+      let related = data.filter(p => {
+        if (p.id === currentProd.id) return false;
+        const catMatch = (p.cat || '').toLowerCase().trim() === pCat;
+        const filterMatch = pFilter && (p.filter || '').toLowerCase().trim() === pFilter;
+        return catMatch || filterMatch;
+      });
+
+      // If not enough related products, fill with other products
+      if (related.length < 4) {
+        const remaining = data.filter(p => p.id !== currentProd.id && !related.includes(p));
+        related = related.concat(remaining);
+      }
+
+      // Take top 4 recommendations
+      const recommended = related.slice(0, 4);
+
+      if (recommended.length === 0) {
+        recContainer.style.display = 'none';
+        return;
+      }
+
+      recContainer.style.display = 'block';
+      recGrid.innerHTML = '';
+
+      recommended.forEach(p => {
+        const discount = Number(p.discount || 0);
+        const discountBadge = discount > 0 ? `<span class="rec-discount-badge">${discount}% OFF</span>` : '';
+        const basePrice = Number(p.price || 0);
+        const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
+        
+        let brandName = (p.cat || '').toLowerCase().trim();
+        if (brandName === 'ordinary' || brandName === 'the ordinary') brandName = 'THE ORDINARY';
+        else if (brandName === 'cerave') brandName = 'CERAVE';
+        else brandName = brandName.replace(/-/g, ' ').toUpperCase();
+
+        const imgSrc = p.img || 'favicon.png';
+        const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+        const card = document.createElement('div');
+        card.className = 'rec-card';
+        card.onclick = () => { window.location.href = `product.html?id=${p.id}`; };
+
+        card.innerHTML = `
+          <div class="rec-img-wrap">
+            ${discountBadge}
+            <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'; this.style.opacity='0.4';">
+          </div>
+          <div class="rec-body">
+            <div>
+              <span class="rec-brand-label">${brandName}</span>
+              <div class="rec-title">${p.name}</div>
+              <div class="rec-price-row">
+                <span class="rec-price">Rs. ${discountedPrice.toLocaleString()}</span>
+                ${discount > 0 ? `<span class="rec-original-price">Rs. ${basePrice.toLocaleString()}</span>` : ''}
+              </div>
+              <div class="koko-installment" style="margin-top: 8px; padding: 4px 8px; font-size: 10.5px;">
+                <span class="koko-pay-text">3 x Rs. ${kokoAmount} with</span>
+                <img src="koko-logo.png" alt="Koko" class="koko-logo-img" style="height: 13px;">
+              </div>
+            </div>
+            <button class="rec-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}', 1);">
+              + Add to Bag
+            </button>
+          </div>
+        `;
+
+        recGrid.appendChild(card);
+      });
     }
 
-    // Connect with global products.js 
-    window.renderProduct = renderProduct;
+    // 1. INSTANT 0MS RENDER WITH OFFLINE PRODUCTS DATA
+    if (prodId) {
+      const initialProducts = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+      renderProduct(initialProducts);
+
+      // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
+      const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+      const singleProductApiUrl = `${BASE}/products/${prodId}`;
+      fetch(singleProductApiUrl)
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Not found');
+        })
+        .then(dbProd => {
+          if (dbProd) {
+            dbProd.id = dbProd.id || dbProd._id;
+            const formatImg = (str) => {
+              if (!str) return 'images/placeholder.png';
+              if (str.startsWith('data:image') || str.startsWith('http')) return str;
+              try { str = decodeURIComponent(str); } catch (e) {}
+              return str.replace(/%25/g, '%').replace(/%2B/g, '+').split('/').map(part => encodeURIComponent(part)).join('/');
+            };
+            dbProd.img = formatImg(dbProd.img);
+            dbProd.images = Array.isArray(dbProd.images) ? dbProd.images.map(img => formatImg(img)) : [formatImg(dbProd.img)];
+
+            if (window.productsData) {
+              const idx = window.productsData.findIndex(p => p.id === dbProd.id);
+              if (idx !== -1) window.productsData[idx] = dbProd;
+              else window.productsData.unshift(dbProd);
+              renderProduct(window.productsData);
+            } else {
+              renderProduct([dbProd]);
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Single product fast fetch fallback:', err.message);
+        });
+    }
   </script>
-  <script src="config.js?v=17"></script>
-  <script src="products.js?v=28"></script>
   <script>
     // Positioning logic
     const $ = id => document.getElementById(id);
@@ -905,10 +1177,24 @@
     if (cartOpen) cartOpen.addEventListener('click', openCart);
     if (mbnCart) mbnCart.addEventListener('click', openCart);
     
+    /* ── SEARCH ── */
+    const searchOpen = document.getElementById('search-open');
+    const searchClose = document.getElementById('search-close');
+    const searchDrop = document.getElementById('search-drop');
+    const searchInp = document.getElementById('search-inp');
+    
+    const mbnSearch = document.getElementById('mbn-search-trigger');
+    const openSearch = () => { searchDrop.classList.add('open'); searchInp.focus(); };
+    
+    if (searchOpen) searchOpen.addEventListener('click', openSearch);
+    if (mbnSearch) mbnSearch.addEventListener('click', openSearch);
+    if (searchClose) searchClose.addEventListener('click', () => searchDrop.classList.remove('open'));
+
     function closeAll() {
       document.getElementById('mobile-drawer')?.classList.remove('open');
       document.body.classList.remove('drawer-open');
       document.getElementById('cart-drawer')?.classList.remove('open');
+      document.getElementById('search-drop')?.classList.remove('open');
       overlay.classList.remove('show');
       const mBar = $('mobile-search-bar');
       if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
@@ -935,7 +1221,7 @@
       lastScrollTop = st;
     });
   </script>
-  <script src="account-nav.js?v=3"></script>
+  <script src="account-nav.js?v=4"></script>
 </body>
 </html>
 

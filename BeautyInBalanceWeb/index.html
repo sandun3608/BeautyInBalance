@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=78" />
+  <link rel="stylesheet" href="styles.css?v=151" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -285,7 +285,28 @@
 </head>
 <body>
 
-  <!-- ===== PRELOADER DISABLED ===== -->
+  <!-- ===== LUXURY SITE PRELOADER ===== -->
+  <div id="site-preloader">
+    <div class="preloader-content">
+      <h1 class="preloader-text">Beauty in Balance</h1>
+      <div class="preloader-spinner-wrap">
+        <svg class="dotted-spinner" viewBox="0 0 50 50">
+          <circle cx="25" cy="5" r="3" opacity="0.2"/>
+          <circle cx="35" cy="8" r="3" opacity="0.3"/>
+          <circle cx="42" cy="15" r="3" opacity="0.4"/>
+          <circle cx="45" cy="25" r="3" opacity="0.5"/>
+          <circle cx="42" cy="35" r="3" opacity="0.6"/>
+          <circle cx="35" cy="42" r="3" opacity="0.7"/>
+          <circle cx="25" cy="45" r="3" opacity="0.8"/>
+          <circle cx="15" cy="42" r="3" opacity="0.9"/>
+          <circle cx="8" cy="35" r="3" opacity="1"/>
+          <circle cx="5" cy="25" r="3" opacity="0.4"/>
+          <circle cx="8" cy="15" r="3" opacity="0.3"/>
+          <circle cx="15" cy="8" r="3" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
 
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
@@ -502,57 +523,15 @@
 
 
 
-    <section class="brands-section">
-      <div class="brands-marquee">
-        <div class="brands-track">
-          <!-- Brands set 1 -->
-          <div class="brand-item">
-             <img src="brand/1.png" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="brand/2.png" alt="CeraVe">
-          </div>
-          <div class="brand-item">
-             <img src="brand/3.png" alt="Beauty of Joseon">
-          </div>
-          <div class="brand-item">
-             <img src="brand/4.png" alt="Skin1004">
-          </div>
-          <div class="brand-item">
-             <img src="brand/5.png" alt="Cetaphil">
-          </div>
-          <div class="brand-item">
-             <img src="brand/6.png" alt="Dr. Althea">
-          </div>
-          <!-- Duplicated for seamless loop -->
-          <div class="brand-item">
-             <img src="brand/1.png" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="brand/2.png" alt="CeraVe">
-          </div>
-          <div class="brand-item">
-             <img src="brand/3.png" alt="Beauty of Joseon">
-          </div>
-          <div class="brand-item">
-             <img src="brand/4.png" alt="Skin1004">
-          </div>
-          <div class="brand-item">
-             <img src="brand/5.png" alt="Cetaphil">
-          </div>
-          <div class="brand-item">
-             <img src="brand/6.png" alt="Dr. Althea">
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <!-- ===== SECTION: SHOP ALL PRODUCTS GRID ===== -->
     <section class="home-all-products-section">
       <!-- Modern Category Tabs -->
       <div class="hap-tabs-wrapper">
         <div class="hap-tabs">
-          <button class="hap-tab active" data-filter="ordinary">The Ordinary</button>
+          <button class="hap-tab active" data-filter="all">ALL</button>
+          <button class="hap-tab" data-filter="ordinary">The Ordinary</button>
           <button class="hap-tab" data-filter="cerave">CeraVe</button>
           <button class="hap-tab" data-filter="vaseline">VASELINE</button>
           <button class="hap-tab" data-filter="manee">MANEE</button>
@@ -772,789 +751,7 @@
     </script>
 
     <!-- ===== SECTION: FEATURED GALLERY (SCREENSHOT REPLICATE) ===== -->
-    <section class="featured-gallery">
-      <div class="fg-header">
-        <span class="fg-subtitle">Discover Our</span>
-        <h2 class="fg-title">Featured Products</h2>
-      </div>
-      
-      <div class="fg-grid" id="featured-track">
-<div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div><div class="skeleton-card"><div class="skeleton-element skeleton-img"></div><div class="skeleton-element skeleton-brand" style="width: 50%; margin: 8px auto 0;"></div><div class="skeleton-element skeleton-title" style="margin-top: 10px;"></div><div class="skeleton-element skeleton-price" style="width: 40%; margin: 8px auto 0;"></div></div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beauty in Balance | #1 Authentic Skincare & Cosmetics Shop Sri Lanka</title>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <meta name="description" content="Shop 100% original cosmetics & skincare in Sri Lanka. Buy authentic The Ordinary, CeraVe & more. Fast island-wide delivery from our Colombo boutique. Achieve your glowing skin today!" />
-  <meta name="keywords" content="cosmetics sri lanka, skincare sri lanka, the ordinary sri lanka, cerave buy online sri lanka, authentic skincare colombo, original beauty products sl, best cosmetic shop lanka, buy makeup colombo" />
-  <meta name="author" content="Beauty in Balance" />
-  <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/png" href="favicon.png">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://beautyinbalance.lk/" />
-  <meta property="og:title" content="Beauty in Balance | Best Skincare & Cosmetics in Sri Lanka" />
-  <meta property="og:description" content="Sri Lanka's most trusted destination for genuine The Ordinary and CeraVe products. Island-wide fast delivery, cash on delivery available. Shop 100% Original." />
-  <meta property="og:image" content="images/og-preview.jpg" />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://beautyinbalance.lk/" />
-  <meta property="twitter:title" content="Beauty in Balance | Authentic Skincare & Cosmetics Sri Lanka" />
-  <meta property="twitter:description" content="Buy 100% original skincare products in Sri Lanka. The Ordinary, CeraVe and more." />
-  <meta property="twitter:image" content="images/og-preview.jpg" />
-
-  <!-- Local Business Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HealthAndBeautyBusiness",
-    "name": "Beauty in Balance",
-    "image": "https://beautyinbalance.lk/images/logo.png",
-    "description": "Premium authentic skincare and cosmetics imported to Sri Lanka. Buy The Ordinary, CeraVe with island-wide delivery.",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "No. 45, Flower Road",
-      "addressLocality": "Colombo 07",
-      "addressRegion": "Western Province",
-      "addressCountry": "LK"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 6.910689,
-      "longitude": 79.851963
-    },
-    "telephone": "+94766190550",
-    "openingHours": "Mo,Tu,We,Th,Fr 09:00-20:00 Sa 10:00-18:00 Su 10:00-14:00",
-    "priceRange": "$$"
-  }
-  </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=78" />
-  <style>
-    /* Absolute Force Override for Mobile Header Cleanup */
-    @media (max-width: 900px) {
-      .m-social-icon, 
-      .m-user-icon, 
-      .mobile-hidden, 
-      #search-open {
-        display: none !important;
-      }
-      /* Make mobile hero slider 1:1, round corners, and add tiny margin around */
-      .hero-section {
-        height: auto !important;
-        aspect-ratio: 1 / 1 !important;
-        margin: 12px !important;
-        width: calc(100% - 24px) !important;
-        border-radius: 16px !important;
-        overflow: hidden !important;
-      }
-      
-      /* Disable Ken Burns zoom animation on mobile, keeping image completely flat/static */
-      .hero-slide.active .hero-bg img,
-      .hero-slide.active .hero-bg video {
-        animation: none !important;
-        transform: none !important;
-      }
-      .hero-slide .hero-bg img,
-      .hero-slide .hero-bg video {
-        transform: none !important;
-      }
-
-      /* Expose and style navigation arrows on mobile with beautiful glassmorphism */
-      .hero-arr {
-        display: flex !important;
-        background: rgba(0, 0, 0, 0.25) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        width: 38px !important;
-        height: 38px !important;
-        border-radius: 50% !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-      }
-      .hero-arr.prev {
-        left: 10px !important;
-      }
-      .hero-arr.next {
-        right: 10px !important;
-      }
-      .hero-arr svg {
-        width: 16px !important;
-        height: 16px !important;
-        stroke-width: 3px !important;
-        color: #ffffff !important;
-      }
-      .hero-arr:active {
-        background: rgba(255, 255, 255, 0.25) !important;
-        transform: translateY(-50%) scale(0.9) !important;
-      }
-
-      /* Mobile adjustment for indicators container under slider */
-      .hero-indicators {
-        order: 2 !important;
-        padding: 8px 0 !important;
-        margin: 5px auto !important;
-        gap: 8px !important;
-      }
-      .hero-dot {
-        width: 8px !important;
-        height: 8px !important;
-      }
-      .hero-dot.active {
-        width: 20px !important;
-      }
-    }
-    
-    /* Hero section styles on Desktop (reverted transparent navbar) */
-    @media (min-width: 901px) {
-      /* Scale slider height dynamically based on the 1920x810 aspect ratio to prevent cropping */
-      .hero-section {
-        height: auto !important;
-        aspect-ratio: 1920 / 810 !important;
-        width: 100% !important;
-      }
-      /* Increase brightness (light) of hero images and align top to prevent crop */
-      .hero-bg img,
-      .hero-bg video {
-        filter: brightness(1.0) !important;
-        object-fit: cover !important;
-        object-position: center top !important;
-        width: 100% !important;
-        height: 100% !important;
-      }
-      /* Reduce Ken Burns zoom animation */
-      .hero-slide.active .hero-bg img,
-      .hero-slide.active .hero-bg video {
-        animation: kenburns-desktop 8s ease-out forwards !important;
-      }
-      @keyframes kenburns-desktop {
-        from {
-          transform: scale(1.02) translate(0.5%, -0.5%);
-        }
-        to {
-          transform: scale(1.00) translate(0%, 0%);
-        }
-      }
-    }
-    
-
-
-    /* Style for slide dots indicator bar (Desktop default) */
-    .hero-indicators {
-      position: relative !important;
-      display: flex !important;
-      gap: 10px !important;
-      align-items: center !important;
-      justify-content: center !important;
-      z-index: 9999 !important;
-      padding: 15px 0 !important;
-      margin: 10px auto !important;
-      background: transparent !important;
-      pointer-events: auto !important;
-    }
-    .hero-dot {
-      display: inline-block !important;
-      width: 10px !important;
-      height: 10px !important;
-      border-radius: 50% !important;
-      background: #c1b4ad !important;
-      cursor: pointer !important;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    }
-    .hero-dot:hover {
-      background: #8e7f77 !important;
-    }
-    .hero-dot.active {
-      background: #2d1b12 !important;
-      width: 26px !important;
-      border-radius: 5px !important;
-    }
-  </style>
-  <style>
-    /* Preloader Styles */
-    #site-preloader {
-      position: fixed;
-      top: -50px;
-      left: 0;
-      width: 100%;
-      height: calc(100% + 100px);
-      background-color: #ffffff;
-      z-index: 2147483647;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-    .preloader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    .preloader-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: #2d1b12;
-      margin: 0;
-      letter-spacing: 4px;
-      opacity: 0;
-      transform: translateY(20px);
-      text-shadow: 0px 4px 15px rgba(45, 27, 18, 0.15);
-      animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s, pulseText 3s ease-in-out infinite 1.3s;
-    }
-    @keyframes slideUpFade {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseText {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.85; transform: scale(0.98); }
-    }
-    
-    .preloader-spinner-wrap {
-      margin-top: 30px;
-      opacity: 0;
-      animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.8s;
-    }
-    .dotted-spinner {
-      width: 50px;
-      height: 50px;
-      animation: spinSteps 1.2s steps(12, end) infinite;
-      fill: #2d1b12;
-    }
-    @keyframes spinSteps {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 768px) {
-      .preloader-text {
-        font-size: 2.2rem;
-        letter-spacing: 2px;
-      }
-      .preloader-spinner-wrap {
-        margin-top: 20px;
-        transform: scale(0.85);
-      }
-      .preloader-content {
-        padding: 0 20px;
-        text-align: center;
-      }
-    }
-
-    /* Prevent scrolling while loading (guaranteed iOS scroll lock) */
-    body.loading {
-      overflow: hidden !important;
-      position: fixed !important;
-      width: 100% !important;
-      height: 100% !important;
-      top: 0 !important;
-      left: 0 !important;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ===== PRELOADER DISABLED ===== -->
-
-  <!-- ===== ANNOUNCEMENT BAR ===== -->
-  <div class="ann-bar">
-    <div class="ann-track">
-      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
-    </div>
-  </div>
-
-  <!-- ===== HEADER ===== -->
-  <header class="site-header" id="site-header">
-    <nav class="nav-wrap">
-      <!-- Left: Navigation Links + Email -->
-      <div class="nav-left">
-        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <span class="ic-label mobile-only">Menu</span>
-        </button>
-        <!-- Mobile Social Icon -->
-        <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            <span class="ic-label mobile-only">Social</span>
-        </a>
-        <ul class="nav-main">
-          <li><a href="index.html">Home</a></li>
-          <li class="has-drop">
-            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-            <ul class="drop-menu">
-              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
-              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
-              <li><a href="shop.html?filter=serums">Serums</a></li>
-              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
-              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
-              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
-            </ul>
-          </li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li class="has-drop">
-            <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
-            <ul class="drop-menu">
-              <li><a href="refund-policy.html">Refund Policy</a></li>
-              <li><a href="privacy-policy.html">Privacy Policy</a></li>
-              <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Center: Logo -->
-      <a href="index.html" class="site-logo">Beauty in Balance</a>
-
-      <!-- Right: Search + Account + Cart -->
-      <div class="nav-icons">
-        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-            <span class="ic-label mobile-only">Search</span>
-        </button>
-
-        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            <span class="cart-badge">0</span>
-            <span class="ic-label mobile-only">Bag</span>
-        </button>
-
-        <!-- Mobile User Icon -->
-        <a href="login.html" class="ic-btn m-user-icon" aria-label="Account">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span class="ic-label mobile-only">User</span>
-        </a>
-      </div>
-    </nav>
-
-    <!-- Search Bar Dropdown (Stay for Desktop usage if needed) -->
-    <div class="search-drop" id="search-drop">
-      <div class="search-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-        <input type="search" placeholder="Search for products…" id="search-inp" />
-        <button class="ic-btn" id="search-close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Top Search Row -->
-    <div class="mobile-search-bar mobile-only" id="mobile-search-bar">
-      <div class="m-search-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-        <input type="search" placeholder="Search for products..." id="m-search-inp-top">
-      </div>
-    </div>
-  </header>
-
-  <div class="overlay" id="overlay"></div>
-
-  <!-- ===== MOBILE DRAWER ===== -->
-  <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-header">
-       <span class="site-logo">Beauty in Balance</span>
-       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
-         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-       </button>
-    </div>
-    
-    <div class="drawer-content">
-            <ul class="mobile-nav">
-        <li>
-          <a href="index.html">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              Home
-            </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="shop.html">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              Shop All
-            </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-        </li>
-        <li class="drawer-accordion-item">
-          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              Brand
-            </span>
-            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <ul class="drawer-accordion-content" id="brand-accordion-list"></ul>
-        </li>
-        <li class="drawer-accordion-item">
-          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              Category
-            </span>
-            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <ul class="drawer-accordion-content">
-            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
-            <li><a href="shop.html?filter=serums">Serums</a></li>
-            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
-            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
-            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
-            <li><a href="shop.html?filter=body">Body Care</a></li>
-            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
-            <li><a href="shop.html?filter=hair">Hair Care</a></li>
-          </ul>
-        </li>
-        
-        <li class="nav-label">Account</li>
-        <li><a href="login.html">Sign In</a></li>
-        <li><a href="register.html">Register</a></li>
-        
-        <li class="nav-label">Pages</li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="about.html">Our Story</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
-    </div>
-
-    <div class="drawer-footer">
-      <div class="drawer-social">
-        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-14 8.38 8.38 0 0 1 3.8.9L21 3z"/></svg></a>
-      </div>
-      <div class="drawer-contact">
-        <p>support@beautyinbalance.lk</p>
-        <p>+94 71 915 2136</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== CART DRAWER ===== -->
-  <div class="cart-drawer" id="cart-drawer">
-    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
-      <h3>Bag (0)</h3>
-      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
-      <p>Your bag is currently empty.</p>
-    </div>
-  </div>
-
-  <main>
-    <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
-    <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
-    <section class="hero-section" id="hero-slider">
-      <div class="hero-slides" id="hero-slides-container">
-        <!-- Slides will be loaded dynamically from the database -->
-      </div>
-
-        <!-- Slider Navigation Arrows -->
-        <button class="hero-arr prev" id="hero-prev" aria-label="Previous">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="hero-arr next" id="hero-next" aria-label="Next">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-    </section>
-    <!-- Slide Indicators -->
-    <div class="hero-indicators" id="hero-indicators"></div>
-
-
-
-
-    <!-- ===== MOBILE CATEGORY SLIDER (Maximize Style) ===== -->
-
-
-
-
-    <section class="brands-section">
-      <div class="brands-marquee">
-        <div class="brands-track">
-          <!-- Brands set 1 -->
-          <div class="brand-item">
-             <img src="brand/1.png" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="brand/2.png" alt="CeraVe">
-          </div>
-          <div class="brand-item">
-             <img src="brand/3.png" alt="Beauty of Joseon">
-          </div>
-          <div class="brand-item">
-             <img src="brand/4.png" alt="Skin1004">
-          </div>
-          <div class="brand-item">
-             <img src="brand/5.png" alt="Cetaphil">
-          </div>
-          <div class="brand-item">
-             <img src="brand/6.png" alt="Dr. Althea">
-          </div>
-          <!-- Duplicated for seamless loop -->
-          <div class="brand-item">
-             <img src="brand/1.png" alt="The Ordinary">
-          </div>
-          <div class="brand-item">
-             <img src="brand/2.png" alt="CeraVe">
-          </div>
-          <div class="brand-item">
-             <img src="brand/3.png" alt="Beauty of Joseon">
-          </div>
-          <div class="brand-item">
-             <img src="brand/4.png" alt="Skin1004">
-          </div>
-          <div class="brand-item">
-             <img src="brand/5.png" alt="Cetaphil">
-          </div>
-          <div class="brand-item">
-             <img src="brand/6.png" alt="Dr. Althea">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SECTION: SHOP ALL PRODUCTS GRID ===== -->
-    <section class="home-all-products-section">
-      <!-- Modern Category Tabs -->
-      <div class="hap-tabs-wrapper">
-        <div class="hap-tabs">
-          <button class="hap-tab active" data-filter="ordinary">The Ordinary</button>
-          <button class="hap-tab" data-filter="cerave">CeraVe</button>
-          <button class="hap-tab" data-filter="vaseline">VASELINE</button>
-          <button class="hap-tab" data-filter="manee">MANEE</button>
-          <button class="hap-tab" data-filter="cool-vita">COOL-VITA</button>
-        </div>
-      </div>
-
-      <!-- Product Grid -->
-      <div class="hap-grid" id="hap-grid">
-        <!-- JS WILL INJECT HERE -->
-      </div>
-      
-      <div class="hap-footer">
-        <a href="shop.html" class="btn-dark btn-hero">View Entire Collection</a>
-      </div>
-    </section>
-
-
-
-
-    <!-- ===== SECTION 6: PREMIUM PRODUCT SHOWCASE (PURITY STYLE) ===== -->
-    <section class="showcase-section">
-      <div class="showcase-header fp-header"> <!-- Reuse fp-header for script positioning -->
-        <span class="fp-script">Ultimate Glow</span>
-        <h2 class="fp-title">Pure Skin Starts Here</h2>
-        <p class="showcase-subtitle">Clinically-proven formulas designed to brighten, hydrate, and perfect your skin every single day.</p>
-      </div>
-
-      <div class="showcase-main">
-        <!-- Left Pills -->
-        <div class="showcase-pills-left">
-          <div class="scp-pill">
-            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v1m0 16v1m9-9h-1M4 11H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span>
-            <span>Smooths Lines</span>
-          </div>
-          <div class="scp-pill pill-tuck">
-            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v5l3 3"/></svg></span>
-            <span>Collagen Boost</span>
-          </div>
-          <div class="scp-pill">
-            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5 .5a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></span>
-            <span>Anti-Aging Shield</span>
-          </div>
-        </div>
-
-        <!-- Center Image -->
-        <div class="showcase-image-wrap">
-          <img src="bottle/bottle.png" alt="Premium Product" />
-        </div>
-
-        <!-- Right Pills -->
-        <div class="showcase-pills-right">
-          <div class="scp-pill">
-            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
-            <span>Brightens Skin</span>
-          </div>
-          <div class="scp-pill pill-tuck">
-            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span>
-            <span>48h Hydration</span>
-          </div>
-          <div class="scp-pill">
-            <span class="scp-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
-            <span>Fast Absorption</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="showcase-footer">
-        <a href="shop.html" class="showcase-btn">View Products</a>
-      </div>
-    </section>
-
-
-    <!-- ===== SECTION: SHOP THE LOOK (PURITY LOOKBOOK) ===== -->
-    <section class="lookbook-section">
-      <div class="look-container">
-        <!-- Left: Model Visual with Interactive Dots -->
-        <div class="look-visual" id="look-visual">
-          <img src="t2/hero_1.png" alt="Editorial Look">
-          
-          <!-- Lip Dot -->
-          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-ha-30', event)">
-            <div class="hotspot-pulse"></div>
-          </div>
-          <!-- Face/Cheek Dot -->
-          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-nmf-30', event)">
-            <div class="hotspot-pulse"></div>
-          </div>
-          <!-- Eye/Lash Dot -->
-          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-lash-brow-5', event)">
-            <div class="hotspot-pulse"></div>
-          </div>
-
-          <!-- Product Popup (Small Box) -->
-          <div class="look-popup" id="look-popup" onclick="handlePopupClick()">
-            <div class="lp-close" onclick="event.stopPropagation(); closeLookPopup();">&times;</div>
-            <div class="lp-inner" id="lp-single-container">
-              <!-- Single Item with small image and name injected here -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Bundled Items -->
-        <div class="look-details">
-          <div class="look-list">
-            <!-- Item 1 -->
-            <div class="look-item" id="item-ord-lash-brow-5" onclick="showLookProduct('ord-lash-brow-5')">
-              <div class="look-item-img"><img src="the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png" alt="Mascara"></div>
-              <div class="look-item-info">
-                <h4>Lash & Brow Serum</h4>
-                <p>Rs. 4,800.00</p>
-                <span class="look-variant">Volume: 5ml</span>
-              </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="look-item" id="item-ord-nmf-30" onclick="showLookProduct('ord-nmf-30')">
-              <div class="look-item-img"><img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Blush"></div>
-              <div class="look-item-info">
-                <h4>Moisturizing Factors</h4>
-                <p>Rs. 8,000.00</p>
-                <span class="look-variant">Finish: Dewy</span>
-              </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="look-item" id="item-ord-ha-30" onclick="showLookProduct('ord-ha-30')">
-              <div class="look-item-img"><img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Lip"></div>
-              <div class="look-item-info">
-                <h4>Hyaluronic Acid</h4>
-                <p>Rs. 4,800.00</p>
-                <span class="look-variant">Focus: Deep Hydration</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="look-footer">
-            <button class="look-bundle-btn" onclick="addLookToBag()">
-              Add all to Bag — Rs. 17,600.00
-            </button>
-            <a href="#" class="look-guide-link">View Usage Guide</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      const lookData = {
-        'ord-lash-brow-5': { 
-          title: 'Lash & Brow Serum', 
-          price: 'Rs. 4,800.00', 
-          attr: 'Volume: 5ml',
-          img: 'the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png' 
-        },
-        'ord-nmf-30': { 
-          title: 'Natural Moisturizing Factors + HA', 
-          price: 'Rs. 8,000.00', 
-          attr: 'Finish: Dewy',
-          img: 'the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png' 
-        },
-        'ord-ha-30': { 
-          title: 'Hyaluronic Acid 2% + B5', 
-          price: 'Rs. 4,800.00', 
-          attr: 'Hydrating',
-          img: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' 
-        }
-      };
-
-      let currentPopupProductId = '';
-
-      function showLookProduct(id, event) {
-        const prod = lookData[id];
-        const popup = document.getElementById('look-popup');
-        const container = document.getElementById('lp-single-container');
-        if(!prod || !popup || !container) return;
-        
-        currentPopupProductId = id;
-        container.innerHTML = `
-            <img src="${prod.img}" alt="${prod.title}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 4px; background: #f9f9f9;">
-            <div style="flex: 1; text-align: left;">
-                <h6 style="margin: 0; font-size: 11px; font-weight: 700; line-height: 1.2; color: #1a1a1a;">${prod.title}</h6>
-                <p style="margin: 2px 0 0; font-size: 10px; color: #CFA56A; font-weight: 600;">${prod.price}</p>
-            </div>
-        `;
-
-        // Positioning logic
-        if (event) {
-          const rect = document.getElementById('look-visual').getBoundingClientRect();
-          const x = event.clientX - rect.left;
-          const y = event.clientY - rect.top;
-          
-          let finalX = x;
-          if (x + 180 > rect.width) finalX = rect.width - 190;
-
-          popup.style.left = `${finalX}px`;
-          popup.style.top = `${y}px`;
-          popup.classList.add('active');
-        }
-      }
-
-      function handlePopupClick() {
-          if(currentPopupProductId) {
-              // Extract simple ID for link
-              let cleanId = currentPopupProductId.replace('ord-', '').replace('-5', '').replace('-30', '');
-              // Or just use the full ID if your product.html expects it
-              location.href = `product.html?id=${currentPopupProductId}`;
-          }
-      }
-
-      function closeLookPopup() {
-        const popup = document.getElementById('look-popup');
-        if(popup) popup.classList.remove('active');
-      }
-
-      function addLookToBag() {
-        ['ord-lash-brow-5', 'ord-nmf-30', 'ord-ha-30'].forEach(id => addToCart(id));
-        showToast("Look bundle added to bag!");
-      }
-    </script>
-
-    <!-- ===== SECTION: FEATURED GALLERY (SCREENSHOT REPLICATE) ===== -->
-    <section class="featured-gallery">
+    <section class="featured-gallery mobile-hidden">
       <div class="fg-header">
         <span class="fg-subtitle">Discover Our</span>
         <h2 class="fg-title">Featured Products</h2>
@@ -1788,7 +985,7 @@
       <div class="vh-container">
         <!-- Row 1 -->
         <div class="vh-row">
-          <div class="vh-media vh-media-wide"><video src="vedio/1.mp4" autoplay muted loop playsinline></video></div>
+          <div class="vh-media vh-media-wide"><video data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
           <div class="vh-info">
             <span class="vh-tag">SKINCARE SECRETS</span>
             <h2 class="vh-title">Master the Art of Layering</h2>
@@ -1799,7 +996,7 @@
 
         <!-- Row 2 -->
         <div class="vh-row vh-reverse">
-          <div class="vh-media vh-media-wide"><video src="vedio/2.mp4" autoplay muted loop playsinline></video></div>
+          <div class="vh-media vh-media-wide"><video data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
           <div class="vh-info">
             <span class="vh-tag">LUXURY CARE</span>
             <h2 class="vh-title">The Perfect Day Routine</h2>
@@ -1810,51 +1007,6 @@
       </div>
     </section>
 
-
-    <!-- ===== SECTION 9: SHADE FINDER (THEME PURITY VER. 2) ===== -->
-    <section class="premium-shade-finder">
-      <div class="ps-header fp-header">
-        <span class="fp-script">Ultimate Glow</span>
-        <h2 class="fp-title">Choose Your Shade</h2>
-      </div>
-
-      <div class="ps-grid-wrap">
-        <div class="ps-tones-grid">
-          <div class="ps-tone-item active" data-val="0">
-            <div class="ps-pill-outer">
-              <div class="ps-pill-inner"><img src="purity_fair_v2_1775877643004.png" alt="Fair"></div>
-            </div>
-            <span class="ps-label">Fair Skin</span>
-          </div>
-          <div class="ps-tone-item" data-val="33">
-            <div class="ps-pill-outer">
-              <div class="ps-pill-inner"><img src="purity_light_v2_1775877671302.png" alt="Light"></div>
-            </div>
-            <span class="ps-label">Light Skin</span>
-          </div>
-          <div class="ps-tone-item" data-val="66">
-            <div class="ps-pill-outer">
-              <div class="ps-pill-inner"><img src="purity_medium_v2_1775877723012.png" alt="Medium"></div>
-            </div>
-            <span class="ps-label">Medium Skin</span>
-          </div>
-          <div class="ps-tone-item" data-val="100">
-            <div class="ps-pill-outer">
-              <div class="ps-pill-inner"><img src="purity_dark_v2_1775877753430.png" alt="Dark"></div>
-            </div>
-            <span class="ps-label">Dark Skin</span>
-          </div>
-        </div>
-
-        <div class="ps-slider-container">
-          <input type="range" min="0" max="100" value="0" class="ps-range" id="ps-range">
-        </div>
-      </div>
-
-      <div class="ps-products-grid" id="ps-products-grid">
-        <!-- Filtered results -->
-      </div>
-    </section>
 
 
 
@@ -2059,8 +1211,8 @@
 
 
 
-  <script src="config.js?v=18"></script>
-  <script src="products.js?v=29"></script>
+  <script src="config.js?v=21"></script>
+  <script src="products.js?v=201"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -2134,149 +1286,39 @@
 
     let productsData = [];
 
-    /* ── SHADE FINDER LOGIC (REFINED) ── */
-    function initShadeFinder() {
-      // Prevent multiple initialization
-      if (window.shadeFinderInitialized) return;
-      
-      const range = document.getElementById('ps-range');
-      const items = document.querySelectorAll('.ps-tone-item');
-      
-      if (!range || !items.length) return;
-
-      function updateShadeUI(val) {
-        let closest = items[0];
-        let minDiff = 1000;
-        
-        items.forEach(item => {
-          const itemVal = parseInt(item.getAttribute('data-val'));
-          const diff = Math.abs(val - itemVal);
-          if (diff < minDiff) {
-            minDiff = diff;
-            closest = item;
-          }
-        });
-
-        items.forEach(i => i.classList.remove('active'));
-        closest.classList.add('active');
-        
-        // Get clean label text
-        const label = closest.querySelector('.ps-label').textContent.trim();
-        renderShadeProducts(label);
-      }
-
-      range.addEventListener('input', (e) => updateShadeUI(e.target.value));
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const val = item.getAttribute('data-val');
-          range.value = val;
-          updateShadeUI(val);
-        });
-      });
-
-      // Default start
-      updateShadeUI(0);
-      window.shadeFinderInitialized = true;
-    }
-
-    function renderShadeProducts(shadeName) {
-      const grid = document.getElementById('ps-products-grid');
-      if (!grid) return;
-
-      // Robust data retrieval
-      const allProducts = (window.productsData && window.productsData.length > 0)
-        ? window.productsData
-        : (typeof productsData !== 'undefined' && productsData.length > 0 ? productsData : []);
-
-      if (!allProducts || allProducts.length === 0) {
-        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">Loading expert recommendations…</p>';
-        return;
-      }
-
-      // Map filters to specific skin tones for a curated feel
-      // Uses EXACT filter values from products.js
-      const toneMap = {
-        'Fair Skin':   ['cleansers', 'sunscreen', 'face-oils'],
-        'Light Skin':  ['serums', 'eye', 'glow', 'moisturizers'],
-        'Medium Skin': ['acids', 'targeted'],
-        'Dark Skin':   ['retinoids', 'body', 'lip']
-      };
-
-      const allMappedFilters = Object.values(toneMap).flat();
-      const shadeIndex = ['Fair Skin', 'Light Skin', 'Medium Skin', 'Dark Skin'].indexOf(shadeName);
-
-      // Filter products: either explicitly mapped, or assigned via hash if their filter is unknown
-      let items = allProducts.filter(p => {
-        const cat = toneMap[shadeName] || [];
-        const f = (p.filter || '').toLowerCase();
-        
-        if (cat.includes(f)) return true;
-        
-        // Distribute unmapped products evenly across the 4 shades
-        if (!allMappedFilters.includes(f)) {
-            const hash = Array.from(p._id || p.id || p.name || '').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-            return (hash % 4) === Math.max(0, shadeIndex);
-        }
-        return false;
-      });
-      
-      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
-      items = items.sort(() => 0.5 - Math.random());
-
-      if (items.length === 0) {
-        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
-        return;
-      }
-
-      grid.innerHTML = `
-        <div class="ps-inner-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
-          ${items.map(p => {
-            const pid = p.id || p._id || '';
-            const rawImg = p.img || (p.images && p.images[0]) || '';
-            
-            // Use the image path directly as it is already formatted by products.js or works natively
-            const formattedImg = rawImg || 'favicon.png';
-
-            const basePrice = Number(p.price || 0);
-            const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            return `
-              <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
-                <div class="ps-prod-img">
-                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'">
-                </div>
-                <div class="ps-prod-info">
-                  <p class="ps-prod-name">${p.name}</p>
-                  <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
-                  <div class="koko-installment">
-                    <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
-                  </div>
-                  <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>`;
-    }
-
     async function fetchProducts() {
-      const checkAndRender = () => {
-        if (window.DB_FETCH_COMPLETED) {
-          productsData = window.productsData || [];
-          if (typeof renderRoundCategories === 'function') {
-            try { renderRoundCategories(); } catch(e) {}
-          }
-          renderFeaturedProducts();
-          initShadeFinder();
-          
-          const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
-          if (activeItem) renderShadeProducts(activeItem.textContent.trim());
-        } else {
-          setTimeout(checkAndRender, 100);
+      const renderAll = () => {
+        productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+        if (typeof renderRoundCategories === 'function') {
+          try { renderRoundCategories(); } catch(e) {}
+        }
+        if (typeof renderHomeAllProducts === 'function') {
+          try { renderHomeAllProducts(); } catch(e) {}
+        }
+        if (typeof renderFeaturedProducts === 'function') {
+          try { renderFeaturedProducts(); } catch(e) {}
+        }
+        if (typeof initShadeFinder === 'function') {
+          try { initShadeFinder(); } catch(e) {}
+        }
+        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+        if (activeItem && typeof renderShadeProducts === 'function') {
+          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
         }
       };
-      checkAndRender();
+
+      // 1. Render INSTANTLY with available products
+      renderAll();
+
+      // 2. Re-render once background DB fetch completes
+      if (!window.DB_FETCH_COMPLETED) {
+        const timer = setInterval(() => {
+          if (window.DB_FETCH_COMPLETED) {
+            clearInterval(timer);
+            renderAll();
+          }
+        }, 100);
+      }
     }
 
     function renderFeaturedProducts() {
@@ -2319,148 +1361,40 @@
       }).join('');
     }
 
-    function initShadeFinder() {
-      // Prevent multiple initialization
-      if (window.shadeFinderInitialized) return;
-      
-      const range = document.getElementById('ps-range');
-      const items = document.querySelectorAll('.ps-tone-item');
-      
-      if (!range || !items.length) return;
-
-      function updateShadeUI(val) {
-        let closest = items[0];
-        let minDiff = 1000;
-        
-        items.forEach(item => {
-          const itemVal = parseInt(item.getAttribute('data-val'));
-          const diff = Math.abs(val - itemVal);
-          if (diff < minDiff) {
-            minDiff = diff;
-            closest = item;
-          }
-        });
-
-        items.forEach(i => i.classList.remove('active'));
-        closest.classList.add('active');
-        
-        // Get clean label text
-        const label = closest.querySelector('.ps-label').textContent.trim();
-        renderShadeProducts(label);
-      }
-
-      range.addEventListener('input', (e) => updateShadeUI(e.target.value));
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const val = item.getAttribute('data-val');
-          range.value = val;
-          updateShadeUI(val);
-        });
-      });
-
-      // Default start
-      updateShadeUI(0);
-      window.shadeFinderInitialized = true;
-    }
-
-    function renderShadeProducts(shadeName) {
-      const grid = document.getElementById('ps-products-grid');
-      if (!grid) return;
-
-      // Robust data retrieval
-      const allProducts = (window.productsData && window.productsData.length > 0)
-        ? window.productsData
-        : (typeof productsData !== 'undefined' && productsData.length > 0 ? productsData : []);
-
-      if (!allProducts || allProducts.length === 0) {
-        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">Loading expert recommendations…</p>';
-        return;
-      }
-
-      // Map filters to specific skin tones for a curated feel
-      // Uses EXACT filter values from products.js
-      const toneMap = {
-        'Fair Skin':   ['cleansers', 'sunscreen', 'face-oils'],
-        'Light Skin':  ['serums', 'eye', 'glow', 'moisturizers'],
-        'Medium Skin': ['acids', 'targeted'],
-        'Dark Skin':   ['retinoids', 'body', 'lip']
-      };
-
-      const allMappedFilters = Object.values(toneMap).flat();
-      const shadeIndex = ['Fair Skin', 'Light Skin', 'Medium Skin', 'Dark Skin'].indexOf(shadeName);
-
-      // Filter products: either explicitly mapped, or assigned via hash if their filter is unknown
-      let items = allProducts.filter(p => {
-        const cat = toneMap[shadeName] || [];
-        const f = (p.filter || '').toLowerCase();
-        
-        if (cat.includes(f)) return true;
-        
-        // Distribute unmapped products evenly across the 4 shades
-        if (!allMappedFilters.includes(f)) {
-            const hash = Array.from(p._id || p.id || p.name || '').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-            return (hash % 4) === Math.max(0, shadeIndex);
-        }
-        return false;
-      });
-      
-      // Shuffle results for variety, but we don't slice to 4 anymore so ALL products are shown
-      items = items.sort(() => 0.5 - Math.random());
-
-      if (items.length === 0) {
-        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">No products found for this shade.</p>';
-        return;
-      }
-
-      grid.innerHTML = `
-        <div class="ps-inner-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
-          ${items.map(p => {
-            const pid = p.id || p._id || '';
-            const rawImg = p.img || (p.images && p.images[0]) || '';
-            
-            // Use the image path directly as it is already formatted by products.js or works natively
-            const formattedImg = rawImg || 'favicon.png';
-
-            const basePrice = Number(p.price || 0);
-            const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            return `
-              <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
-                <div class="ps-prod-img">
-                  <img src="${formattedImg}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'">
-                </div>
-                <div class="ps-prod-info">
-                  <p class="ps-prod-name">${p.name}</p>
-                  <p class="ps-prod-price">Rs. ${p.price.toLocaleString()}</p>
-                  <div class="koko-installment">
-                    <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
-                  </div>
-                  <button class="ps-prod-btn" onclick="event.stopPropagation(); addToCart('${pid}')">Add to Bag</button>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>`;
-    }
 
     async function fetchProducts() {
-      const checkAndRender = () => {
-        if (window.DB_FETCH_COMPLETED) {
-          productsData = window.productsData || [];
-          if (typeof renderRoundCategories === 'function') {
-            try { renderRoundCategories(); } catch(e) {}
-          }
-          renderFeaturedProducts();
-          initShadeFinder();
-          
-          const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
-          if (activeItem) renderShadeProducts(activeItem.textContent.trim());
-        } else {
-          setTimeout(checkAndRender, 100);
+      const renderAll = () => {
+        productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+        if (typeof renderRoundCategories === 'function') {
+          try { renderRoundCategories(); } catch(e) {}
+        }
+        if (typeof renderHomeAllProducts === 'function') {
+          try { renderHomeAllProducts(); } catch(e) {}
+        }
+        if (typeof renderFeaturedProducts === 'function') {
+          try { renderFeaturedProducts(); } catch(e) {}
+        }
+        if (typeof initShadeFinder === 'function') {
+          try { initShadeFinder(); } catch(e) {}
+        }
+        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
+        if (activeItem && typeof renderShadeProducts === 'function') {
+          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
         }
       };
-      checkAndRender();
+
+      // 1. Render INSTANTLY with available products
+      renderAll();
+
+      // 2. Re-render once background DB fetch completes
+      if (!window.DB_FETCH_COMPLETED) {
+        const timer = setInterval(() => {
+          if (window.DB_FETCH_COMPLETED) {
+            clearInterval(timer);
+            renderAll();
+          }
+        }, 100);
+      }
     }
 
     function renderFeaturedProducts() {
@@ -2468,7 +1402,7 @@
       if (!track || !productsData.length) return;
       
       const shuffled = [...productsData].sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 4);
+      const selected = shuffled.slice(0, 8);
       track.innerHTML = selected.map(p => {
         const discount = Number(p.discount || 0);
         const basePrice = Number(p.price || 0);
@@ -2496,7 +1430,7 @@
           <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
              ${discountBadge}
              <div class="fp-img-wrap">
-               <img src="${p.img || p.images[0]}" alt="${p.name}">
+               <img src="${p.img || p.images[0]}" alt="${p.name}" loading="lazy">
              </div>
              <div class="fp-variants">
                 <div class="fp-var-thumb"><img src="${p.img || p.images[0]}" alt=""></div>
@@ -2669,8 +1603,6 @@
 
 
     fetchProducts();
-    // Init shade finder immediately using products.js data (no API wait needed)
-    setTimeout(function() { initShadeFinder(); }, 150);
 
 
     /* ── SCROLL HEADER ── */
@@ -2787,7 +1719,7 @@
     </div>
   </div>
 
-  <script src="account-nav.js?v=3"></script>
+  <script src="account-nav.js?v=4"></script>
   <script>
     // Dynamically load brand list for mobile drawer
     document.addEventListener('DOMContentLoaded', () => {
@@ -2892,7 +1824,8 @@
   </script>
 
   <script>
-    // Preloader logic - wait for full page load including dynamic slider & products
+    // Smart Luxury Preloader Logic - Opens curtain ONLY when all images & products are 100% loaded
+    document.body.classList.add('loading');
     document.addEventListener("DOMContentLoaded", function() {
       let isHidden = false;
       const hidePreloader = () => {
@@ -2911,16 +1844,15 @@
       let windowLoaded = false;
       window.addEventListener('load', () => { windowLoaded = true; });
 
-      // Poll until all dynamic images are loaded
+      // Poll every 50ms for hero readiness only
       const checkReady = setInterval(() => {
          const heroContainer = document.getElementById('hero-slides-container');
-         // We know the dynamic JS finished injecting if it has the 'loaded' class
-         const scriptsDone = heroContainer && heroContainer.classList.contains('loaded');
+         const scriptsDone = !heroContainer || heroContainer.children.length > 0;
          
-         const dynamicImgs = document.querySelectorAll('img');
+         const heroImgs = document.querySelectorAll('#hero-slides-container img');
          let imgsLoaded = true;
-         if (dynamicImgs.length > 0) {
-            for (let img of dynamicImgs) {
+         if (heroImgs.length > 0) {
+            for (let img of heroImgs) {
                if (!img.complete) {
                   imgsLoaded = false;
                   break;
@@ -2928,17 +1860,42 @@
             }
          }
 
-         if (windowLoaded && scriptsDone && imgsLoaded) {
+         if (scriptsDone && imgsLoaded) {
             clearInterval(checkReady);
-            setTimeout(hidePreloader, 600); // Extra smoothness delay
+            setTimeout(hidePreloader, 100);
          }
-      }, 250);
+      }, 50);
 
-      // Fallback max timeout (e.g. 12 seconds) in case of slow networks or errors
+      // Fast max timeout: 1.0s (1000ms) guarantee
       setTimeout(() => {
          clearInterval(checkReady);
          hidePreloader();
-      }, 12000);
+      }, 1000);
+    });
+
+    // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
+    document.addEventListener('DOMContentLoaded', () => {
+      const lazyVideos = document.querySelectorAll('.lazy-video');
+      if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const video = entry.target;
+              if (!video.src && video.dataset.src) {
+                video.src = video.dataset.src;
+              }
+              video.play().catch(() => {});
+              observer.unobserve(video);
+            }
+          });
+        }, { rootMargin: '300px 0px' });
+        lazyVideos.forEach(v => videoObserver.observe(v));
+      } else {
+        lazyVideos.forEach(v => {
+          if (v.dataset.src) v.src = v.dataset.src;
+          v.play().catch(() => {});
+        });
+      }
     });
   </script>
 </body>

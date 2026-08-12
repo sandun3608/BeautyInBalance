@@ -245,14 +245,34 @@ img {
   left: -16px;
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  min-width: 180px;
-  padding: 8px 0;
+  border-radius: 12px;
+  min-width: 200px;
+  padding: 10px 0;
   box-shadow: var(--shadow-lg);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
   transition: all var(--transition);
+  max-height: 310px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Premium micro-scrollbar styling */
+.drop-menu::-webkit-scrollbar {
+  width: 5px;
+}
+.drop-menu::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;
+}
+.drop-menu::-webkit-scrollbar-thumb {
+  background: rgba(198, 151, 90, 0.35);
+  border-radius: 10px;
+  transition: background var(--transition);
+}
+.drop-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
 }
 
 .has-drop:hover .drop-menu {
@@ -263,14 +283,16 @@ img {
 
 .drop-menu li a {
   display: block;
-  padding: 10px 20px;
-  font-size: 14px;
-  transition: background var(--transition);
+  padding: 10px 24px 10px 20px;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all var(--transition);
 }
 
 .drop-menu li a:hover {
   background: var(--cream);
   color: var(--gold);
+  padding-left: 24px;
 }
 
 .nav-icons {
@@ -1697,8 +1719,6 @@ background: #0a0a0a;
   object-fit: cover;
   display: block;
   pointer-events: none;
-  image-rendering: -webkit-optimize-contrast;
-  /* Sharper images */
 }
 
 /* Before layer is always on top but clipped */
@@ -2118,21 +2138,20 @@ background: #0a0a0a;
 }
 
 .fp-img-box {
-  background: #fdf8f5;
-  /* Image Pedestal Tint */
+  background: transparent;
   width: 100%;
   aspect-ratio: 0.95;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 15px 15px;
+  padding: 15px 5px;
   position: relative;
-  border-radius: 20px;
-  /* Separate rounding */
+  border-radius: 0;
   margin-bottom: 12px;
-  /* PHYSICAL GAP seen in screenshot */
-  overflow: hidden;
+  overflow: visible;
+  border: none;
+  box-shadow: none;
 }
 
 .fp-img-wrap {
@@ -2145,14 +2164,16 @@ background: #0a0a0a;
 }
 
 .fp-img-wrap img {
-  max-width: 85%;
+  max-width: 95%;
   max-height: 100%;
   object-fit: contain;
-  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
 }
 
 .fp-item:hover .fp-img-wrap img {
-  transform: scale(1.08);
+  transform: scale(1.06);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
 }
 
 .fp-variants {
@@ -2239,16 +2260,14 @@ background: #0a0a0a;
 
 .fp-details {
   text-align: center;
-  padding: 25px 20px;
-  background: #fdf8f5;
-  /* Matching Top Pedestal Color */
+  padding: 15px 5px;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 24px;
-  /* Separate rounding */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .fp-tag-row {
@@ -5905,7 +5924,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   .round-list-section,
   .exclusive-section,
   .featured-products-section,
-  .ny-offers-section {
+  .ny-offers-section,
+  .featured-gallery {
     display: none !important;
   }
 
@@ -7219,31 +7239,40 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .fg-card {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 20px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
   text-align: center;
   transition: all 0.4s ease;
+  box-shadow: none;
 }
 
 .fg-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  transform: translateY(-6px);
+  box-shadow: none;
 }
 
 .fg-img-wrap {
   position: relative;
-  padding: 40px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent;
 }
 
 .fg-img-wrap img {
-  width: 100%;
+  width: 95%;
   height: auto;
   object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.fg-card:hover .fg-img-wrap img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
 }
 
 .fg-brand-badge {
@@ -7301,9 +7330,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .fg-info {
-  background: #fff;
-  padding: 30px;
-  border-top: 1px solid rgba(0, 0, 0, 0.03);
+  background: transparent;
+  padding: 20px 10px;
+  border-top: none;
   text-align: center;
 }
 
@@ -8184,6 +8213,7 @@ main {
   gap: 25px;
   max-width: 1300px;
   margin: 0 auto 50px;
+  min-height: 400px;
 }
 
 @media (max-width: 1024px) {
@@ -8231,26 +8261,29 @@ main {
 .hap-card-img {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 8px;
-  background: #fdfdfd;
+  border-radius: 0;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
   position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  overflow: visible;
+  border: none;
+  box-shadow: none;
 }
 
 .hap-card-img img {
-  width: 85%;
-  height: 85%;
+  width: 95%;
+  height: 95%;
   object-fit: contain;
-  transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
 }
 
 .hap-card:hover .hap-card-img img {
-  transform: scale(1.06);
+  transform: scale(1.05);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
 }
 
 .hap-card-brand {
@@ -9315,12 +9348,13 @@ body:not(.drawer-open) .floating-ig {
 }
 
 .koko-logo-img {
-  height: 25px !important;
+  height: 20px !important;
   width: auto !important;
   object-fit: contain !important;
-  transform: translateY(0.1px) !important; /* Raise the logo slightly by 0.4px */
+  vertical-align: middle !important;
+  image-rendering: auto !important;
   margin-left: 4px !important;
-  margin-right: 5px !important; /* Bring info icon very close to logo without overlap */
+  margin-right: 4px !important;
   display: inline-block !important;
 }
 
