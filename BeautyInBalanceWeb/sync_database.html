@@ -22,7 +22,7 @@
 <body>
     <div class="sync-card">
         <h1>Database Sync Tool</h1>
-        <p>This tool will <strong>CLEAR</strong> all products from the live database and <strong>RESTORE</strong> them using the local <code>products.js</code> file.</p>
+        <p>This tool will <strong>CLEAR</strong> all products from the live database and <strong>RESTORE</strong> them using the local <code>products.js?v=300</code> file.</p>
         
         <div id="login-check" style="color: red; margin-bottom: 20px; display: none;">
             ⚠️ You must be logged in as an Admin to perform this action.
@@ -34,7 +34,7 @@
     </div>
 
     <script src="config.js?v=18"></script>
-    <script src="products.js?v=1786508403813"></script>
+    <script src="products.js?v=300"></script>
     <script>
         const btn = document.getElementById('sync-btn');
         const statusDiv = document.getElementById('status');
@@ -79,7 +79,7 @@
                 log("✅ Database cleared successfully.", "success");
 
                 // 3. Upload local products
-                log(`📤 Uploading ${defaultProducts.length} products from products.js...`);
+                log(`📤 Uploading ${defaultProducts.length} products from products.js?v=300...`);
                 for (const p of defaultProducts) {
                     log(`✨ Uploading: ${p.name}...`);
                     // Create normalized data structure
