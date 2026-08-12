@@ -1400,40 +1400,7 @@
     }
 
 
-    async function fetchProducts() {
-      const renderAll = () => {
-        productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-        if (typeof renderRoundCategories === 'function') {
-          try { renderRoundCategories(); } catch(e) {}
-        }
-        if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
-        }
-        if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
-        }
-        if (typeof initShadeFinder === 'function') {
-          try { initShadeFinder(); } catch(e) {}
-        }
-        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
-        if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim(), !window.DB_FETCH_COMPLETED); } catch(e) {}
-        }
-      };
 
-      // 1. Render INSTANTLY with available products
-      renderAll();
-
-      // 2. Re-render once background DB fetch completes
-      if (!window.DB_FETCH_COMPLETED) {
-        const timer = setInterval(() => {
-          if (window.DB_FETCH_COMPLETED) {
-            clearInterval(timer);
-            renderAll();
-          }
-        }, 100);
-      }
-    }
 
     function renderFeaturedProducts(isOffline = false) {
       const track = document.getElementById('featured-track');
