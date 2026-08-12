@@ -14,14 +14,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard GÇö Beauty in Balance</title>
+  <title>Admin Dashboard Gï¿½ï¿½ Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <!-- Navigation Logic - Head Placement for Immediate Interactivity -->
   <script>
-    console.log("GÜí BiB Admin: Core Logic Loading...");
+    console.log("Gï¿½ï¿½ BiB Admin: Core Logic Loading...");
     
     window.switchTab = function(tabName, el) {
-      console.log('=ƒöä Tab Switch Requested:', tabName);
+      console.log('=ï¿½ï¿½ï¿½ Tab Switch Requested:', tabName);
       
       const productModal = document.getElementById('product-modal');
       const customerModal = document.getElementById('customer-modal');
@@ -72,7 +72,7 @@
     };
 
     window.handleLogout = function() {
-      console.log("=ƒÜ¬ Logging out...");
+      console.log("=ï¿½Ü¬ Logging out...");
       localStorage.clear();
       window.location.href = 'login.html';
     };
@@ -869,7 +869,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
                         <div style="display: flex; align-items: center; gap: 15px;">
                             <h3 style="margin:0; font-family: var(--font-serif); font-size: 22px;">Revenue Momentum</h3>
-                            <span style="background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">+24.5% Gåæ</span>
+                            <span style="background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">+24.5% Gï¿½ï¿½</span>
                         </div>
                         <div style="display: flex; gap: 8px;">
                             <button class="chart-tab active">30D</button>
@@ -1163,7 +1163,7 @@
     </div>
 
   <script src="config.js?v=16"></script>
-  <script src="products.js?v=11"></script>
+  <script src="products.js?v=1786508403703"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     window.onerror = (m,u,l) => console.error("Error: " + m + " at line " + l);
@@ -1272,7 +1272,7 @@
           `;
           tableBody.appendChild(tr);
         });
-        console.log("G£à Inventory Rendered:", data.length, "items");
+        console.log("Gï¿½ï¿½ Inventory Rendered:", data.length, "items");
       } catch (err) {
         console.error("Critical Error in renderInventory:", err);
       }
@@ -1344,7 +1344,7 @@
 
     // Primary DOM Init
     function initApp() {
-        console.log("=ƒÜÇ BiB Admin: Initializing App Shell");
+        console.log("=ï¿½ï¿½ï¿½ BiB Admin: Initializing App Shell");
         // Navigation is handled via inline HTML onclick to prevent race conditions
         const addProductForm = document.getElementById('add-product-form');
         if (addProductForm) {
@@ -1358,7 +1358,7 @@
                 const mainImg = document.getElementById('p-img') ? document.getElementById('p-img').value : '';
 
                 if (!mainImg || mainImg.trim() === '') {
-                    alert('G¥î Image URL or Upload required!');
+                    alert('Gï¿½ï¿½ Image URL or Upload required!');
                     return;
                 }
 
@@ -1440,7 +1440,7 @@
 
     window.deleteProduct = async (id) => {
         if(!id) { alert("Error: No product ID found."); return; }
-        if(!confirm("GÜán+Å Are you sure you want to delete this product? This action cannot be undone.")) return;
+        if(!confirm("Gï¿½ï¿½n+ï¿½ Are you sure you want to delete this product? This action cannot be undone.")) return;
         
         try {
             const token = localStorage.getItem('userToken');
@@ -1459,17 +1459,17 @@
             });
             
             if(res.ok) {
-                showToast("G£à Product Deleted Successfully");
+                showToast("Gï¿½ï¿½ Product Deleted Successfully");
                 await fetchDatabaseProducts();
                 renderInventory();
             } else {
                 const errData = await res.json();
                 console.error("Delete Failed:", errData);
-                alert("G¥î Failed to delete: " + (errData.message || "Server error (" + res.status + ")"));
+                alert("Gï¿½ï¿½ Failed to delete: " + (errData.message || "Server error (" + res.status + ")"));
             }
         } catch(e) { 
             console.error("Delete Error:", e);
-            alert("G¥î Network Error: Could not connect to server.");
+            alert("Gï¿½ï¿½ Network Error: Could not connect to server.");
         }
     };
 
@@ -1556,7 +1556,7 @@
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
             });
             if(res.ok) {
-                showToast("=ƒùæn+Å Order Deleted Successfully");
+                showToast("=ï¿½ï¿½ï¿½n+ï¿½ Order Deleted Successfully");
                 fetchOrders();
             } else {
                 alert("Failed to delete order. Check logs.");
@@ -1757,7 +1757,7 @@
                     </div>
                     <div class="act-info">
                         <h5>${(p.name || 'Premium Product').substring(0, 18)}...</h5>
-                        <p>${p.cat ? p.cat.toUpperCase() : 'SKINCARE'} GÇó Rs. ${(p.price || 0).toLocaleString()}</p>
+                        <p>${p.cat ? p.cat.toUpperCase() : 'SKINCARE'} Gï¿½ï¿½ Rs. ${(p.price || 0).toLocaleString()}</p>
                     </div>
                 </div>
             `).join('');
@@ -1778,7 +1778,7 @@
                     <div class="act-date" style="background: #f0fdf4; color: #16a34a; font-size: 10px; font-weight: 800;">ORD</div>
                     <div class="act-info">
                         <h5># ${(o._id || '').substring((o._id || '').length-4).toUpperCase()} - ${o.customerInfo?.firstName || 'Client'}</h5>
-                        <p>${o.isDelivered ? 'Delivered' : 'Awaiting'} GÇó Rs. ${(o.totalPrice || 0).toLocaleString()}</p>
+                        <p>${o.isDelivered ? 'Delivered' : 'Awaiting'} Gï¿½ï¿½ Rs. ${(o.totalPrice || 0).toLocaleString()}</p>
                     </div>
                 </div>
             `).join('');
@@ -1862,7 +1862,7 @@
         }
     }
 
-    // G£à SIDEBAR LOGIC
+    // Gï¿½ï¿½ SIDEBAR LOGIC
     function initSidebar() {
         const toggleBtns = document.querySelectorAll('.toggle-btn');
         toggleBtns.forEach(btn => {
@@ -2011,7 +2011,7 @@
       <p>Please enter your 4-digit Master PIN.</p>
       
       <div class="pin-input-group">
-        <input type="password" id="admin-pin-input" class="pin-field" maxlength="4" placeholder="GÇóGÇóGÇóGÇó" autocomplete="off">
+        <input type="password" id="admin-pin-input" class="pin-field" maxlength="4" placeholder="Gï¿½ï¿½Gï¿½ï¿½Gï¿½ï¿½Gï¿½ï¿½" autocomplete="off">
         <button id="btn-unlock-admin" class="btn-unlock">Unlock System</button>
       </div>
       <div id="lock-error-msg" class="lock-error">Invalid PIN. Please try again.</div>
