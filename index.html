@@ -1359,7 +1359,7 @@
       }
     }
 
-    function renderFeaturedProducts(!window.DB_FETCH_COMPLETED) {
+    function renderFeaturedProducts(isOffline = false) {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
@@ -1435,7 +1435,7 @@
       }
     }
 
-    function renderFeaturedProducts(!window.DB_FETCH_COMPLETED) {
+    function renderFeaturedProducts(isOffline = false) {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
