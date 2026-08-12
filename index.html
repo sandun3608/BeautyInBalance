@@ -1250,7 +1250,7 @@
 
 
   <script src="config.js?v=21"></script>
-  <script src="products.js?v=300"></script>
+  <script src="products.js?v=400"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1323,41 +1323,6 @@
     });
 
     let productsData = [];
-
-    async function fetchProducts() {
-      const renderAll = () => {
-        productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-        if (typeof renderRoundCategories === 'function') {
-          try { renderRoundCategories(); } catch(e) {}
-        }
-        if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(); } catch(e) {}
-        }
-        if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(); } catch(e) {}
-        }
-        if (typeof initShadeFinder === 'function') {
-          try { initShadeFinder(); } catch(e) {}
-        }
-        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
-        if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
-        }
-      };
-
-      // 1. Render INSTANTLY with available products
-      renderAll();
-
-      // 2. Re-render once background DB fetch completes
-      if (!window.DB_FETCH_COMPLETED) {
-        const timer = setInterval(() => {
-          if (window.DB_FETCH_COMPLETED) {
-            clearInterval(timer);
-            renderAll();
-          }
-        }, 100);
-      }
-    }
 
     function renderFeaturedProducts() {
       const track = document.getElementById('featured-track');
