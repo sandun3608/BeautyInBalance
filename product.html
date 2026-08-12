@@ -891,10 +891,17 @@
       }});
     }
 
+    let lastRenderedProductJSON = "";
+
     function renderProduct(data) {
       if (!data || !data.length) return;
       const product = data.find(p => p.id === prodId || p.name === prodId);
       if (!product) return;
+
+      // Prevent flicker: if exact same data is already rendered, skip
+      const productJSON = JSON.stringify(product);
+      if (lastRenderedProductJSON === productJSON) return;
+      lastRenderedProductJSON = productJSON;
 
       document.title = product.name + " | Beauty in Balance";
 
@@ -927,13 +934,15 @@
       `;
 
       const frame = document.getElementById('pd-frame');
+      frame.style.transition = 'opacity 0.3s ease';
+      
       const thumbs = (product.images || [product.img]).map((src, i) => `
         <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
           <img src="${src}" alt="Thumb">
         </button>
       `).join('');
 
-      frame.innerHTML = `
+      const newHTML = `
         <div class="product-stage">
           <!-- Gallery -->
           <div class="gallery-wrap">
@@ -1023,8 +1032,19 @@
         </div>
       `;
 
-      // Render Recommended Products section
-      renderRecommendations(product, data);
+      if (frame.innerHTML.trim() !== '') {
+         frame.style.opacity = '0';
+         setTimeout(() => {
+            frame.innerHTML = newHTML;
+            // Render Recommended Products section
+            renderRecommendations(product, data);
+            frame.style.opacity = '1';
+         }, 300);
+      } else {
+         frame.innerHTML = newHTML;
+         // Render Recommended Products section
+         renderRecommendations(product, data);
+      }
     }
     window.renderProduct = renderProduct;
 
