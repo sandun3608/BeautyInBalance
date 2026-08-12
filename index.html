@@ -1331,17 +1331,17 @@
           try { renderRoundCategories(); } catch(e) {}
         }
         if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(); } catch(e) {}
+          try { renderHomeAllProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
         }
         if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(); } catch(e) {}
+          try { renderFeaturedProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
         }
         if (typeof initShadeFinder === 'function') {
           try { initShadeFinder(); } catch(e) {}
         }
         const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
         if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
+          try { renderShadeProducts(activeItem.textContent.trim(), !window.DB_FETCH_COMPLETED); } catch(e) {}
         }
       };
 
@@ -1359,7 +1359,7 @@
       }
     }
 
-    function renderFeaturedProducts() {
+    function renderFeaturedProducts(!window.DB_FETCH_COMPLETED) {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
@@ -1383,7 +1383,7 @@
             <button class="fg-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             </button>
-            <img src="${img}" alt="${p.name}">
+            ${isOffline ? `<div style='width: 100%; padding-top: 100%; position: relative; background: #f9f9f9;'><div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border: 3px solid #f2efe9; border-top: 3px solid #c6975a; border-radius: 50%; animation: spin 1s linear infinite;'></div></div>` : `<img src="${img}" alt="${p.name}">`}
           </div>
           <div class="fg-info">
             <h4 class="fg-name">${p.name}</h4>
@@ -1407,17 +1407,17 @@
           try { renderRoundCategories(); } catch(e) {}
         }
         if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(); } catch(e) {}
+          try { renderHomeAllProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
         }
         if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(); } catch(e) {}
+          try { renderFeaturedProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
         }
         if (typeof initShadeFinder === 'function') {
           try { initShadeFinder(); } catch(e) {}
         }
         const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
         if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
+          try { renderShadeProducts(activeItem.textContent.trim(), !window.DB_FETCH_COMPLETED); } catch(e) {}
         }
       };
 
@@ -1435,7 +1435,7 @@
       }
     }
 
-    function renderFeaturedProducts() {
+    function renderFeaturedProducts(!window.DB_FETCH_COMPLETED) {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       

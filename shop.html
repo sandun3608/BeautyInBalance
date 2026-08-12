@@ -1204,7 +1204,7 @@
     }
 
     // ── RENDER PRODUCTS ──
-    function renderShop() {
+    function renderShop(isOffline = false) {
       const data = window.productsData || [];
 
       // If database fetch is not completed yet, show skeletons
@@ -1268,7 +1268,7 @@
           tab.addEventListener('click', () => {
             currentBrand = tab.dataset.brand;
             syncFilterUI();
-            renderShop();
+            renderShop(!window.DB_FETCH_COMPLETED);
           });
         });
       }
@@ -1311,7 +1311,7 @@
           chip.addEventListener('click', () => {
             currentFilter = chip.dataset.filter;
             syncFilterUI();
-            renderShop();
+            renderShop(!window.DB_FETCH_COMPLETED);
           });
         });
       }
@@ -1430,7 +1430,7 @@
       tab.addEventListener('click', () => {
         currentBrand = tab.dataset.brand;
         syncFilterUI();
-        renderShop();
+        renderShop(!window.DB_FETCH_COMPLETED);
       });
     });
 
@@ -1438,7 +1438,7 @@
       chip.addEventListener('click', () => {
         currentFilter = chip.dataset.filter;
         syncFilterUI();
-        renderShop();
+        renderShop(!window.DB_FETCH_COMPLETED);
       });
     });
 
@@ -1447,14 +1447,14 @@
     const mSearchInp = $('m-search-inp-top');
     function handleSearch(val) {
       currentSearch = val.trim();
-      renderShop();
+      renderShop(!window.DB_FETCH_COMPLETED);
     }
     if (searchInp) searchInp.addEventListener('input', e => handleSearch(e.target.value));
     if (mSearchInp) mSearchInp.addEventListener('input', e => handleSearch(e.target.value));
 
     // ── INITIAL RENDER ──
     syncFilterUI();
-    renderShop();
+    renderShop(!window.DB_FETCH_COMPLETED);
 
     // ── BRAND CARD CLICK HANDLERS ──
     document.querySelectorAll('.shop-brand-card[data-brand]').forEach(card => {
@@ -1464,7 +1464,7 @@
         currentBrand = brand;
         currentFilter = 'all';
         syncFilterUI();
-        renderShop();
+        renderShop(!window.DB_FETCH_COMPLETED);
         // Scroll to toolbar smoothly
         const toolbar = document.getElementById('shop-toolbar');
         if (toolbar) {
@@ -1480,7 +1480,7 @@
       const grid = $('filtered-grid') || $('grid-ordinary');
       if (window.productsData && window.productsData.length > 0) {
         const isEmpty = grid && grid.innerHTML.trim() === '';
-        if (isEmpty) renderShop();
+        if (isEmpty) renderShop(!window.DB_FETCH_COMPLETED);
       }
     }, 1500);
 
