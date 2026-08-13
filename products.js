@@ -1387,7 +1387,7 @@ async function fetchDatabaseProducts() {
         if (!response.ok) throw new Error('API unreachable: ' + response.status);
         const dbProducts = await response.json();
 
-        if (Array.isArray(dbProducts) && dbProducts.length > 0) {
+        if (Array.isArray(dbProducts)) {
             console.log(`✅ Loaded ${dbProducts.length} products from Database.`);
             
             // Re-map the variable names slightly if they differ between DB and Frontend
@@ -1418,25 +1418,23 @@ async function fetchDatabaseProducts() {
                 };
             });
 
-            // MERGE: Keep default products, but override them if DB has updated versions, and add NEW ones from DB
-            const updatedProductsData = [...defaultProducts];
-            mappedDbProducts.forEach(dbProd => {
+            // MERGE: Keep DB products as the source of truth, but borrow missing images from defaultProducts
+            const updatedProductsData = mappedDbProducts.map(dbProd => {
                 // HOTFIX: If the DB returns the old 'cleansers' category for these bodycare items, force them to 'body'
                 if ((dbProd.id === 'cer-hydrating-oil' || dbProd.id === 'cer-psoriasis') && dbProd.filter === 'cleansers') {
                     dbProd.filter = 'body';
                 }
 
-                const index = updatedProductsData.findIndex(p => (p.id && (p.id === dbProd.id)) || p.name === dbProd.name);
+                const index = defaultProducts.findIndex(p => (p.id && (p.id === dbProd.id)) || p.name === dbProd.name);
                 if (index !== -1) {
                     // Preserve working image from defaultProducts if dbProd image is placeholder or empty
-                    if ((!dbProd.img || dbProd.img === 'images/placeholder.png') && updatedProductsData[index].img && updatedProductsData[index].img !== 'images/placeholder.png') {
-                        dbProd.img = updatedProductsData[index].img;
-                        dbProd.images = updatedProductsData[index].images;
+                    if ((!dbProd.img || dbProd.img === 'images/placeholder.png') && defaultProducts[index].img && defaultProducts[index].img !== 'images/placeholder.png') {
+                        dbProd.img = defaultProducts[index].img;
+                        dbProd.images = defaultProducts[index].images;
                     }
-                    updatedProductsData[index] = dbProd; // Override existing
-                } else {
-                    updatedProductsData.unshift(dbProd); // Add as new at the top
                 }
+                return dbProd;
+            return dbProd;
             });
 
             // Sort products by creation date descending (newest first), falling back to default order for items without a date
@@ -1451,7 +1449,7 @@ async function fetchDatabaseProducts() {
 
             window.productsData = updatedProductsData;
         } else {
-            console.log("ℹ️ No new products in database, using defaults.");
+            console.log("ℹ️ Database returned invalid format, using defaults.");
         }
 
         // --- FINAL RENDERING (ALWAYS DO THIS) ---
