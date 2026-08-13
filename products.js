@@ -1360,8 +1360,17 @@ const defaultProducts = [
   }
 ];
 
+// Attempt to load from localStorage first for an even faster, more accurate instant load
+let cachedProducts = null;
+try {
+    const cached = localStorage.getItem('koko_products_cache');
+    if (cached) {
+        cachedProducts = JSON.parse(cached);
+    }
+} catch (e) {}
+
 // Global products data used by the UI - Instant 0ms initial load
-window.productsData = typeof defaultProducts !== 'undefined' ? [...defaultProducts] : [];
+window.productsData = (cachedProducts && cachedProducts.length > 0) ? cachedProducts : (typeof defaultProducts !== 'undefined' ? [...defaultProducts] : []);
 
 // Fetch from Database
 async function fetchDatabaseProducts() {
@@ -1448,6 +1457,7 @@ async function fetchDatabaseProducts() {
             });
 
             window.productsData = updatedProductsData;
+            try { localStorage.setItem('koko_products_cache', JSON.stringify(updatedProductsData)); } catch(e) {}
         } else {
             console.log("ℹ️ Database returned invalid format, using defaults.");
         }
