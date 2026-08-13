@@ -874,12 +874,11 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="shop.html?filter=limited">LIMITED OFFERS</a></li>
             <li><a href="about.html">ABOUT US</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
-            <li><a href="shop.html?filter=festival">🛍️ SHOPPING FESTIVAL</a></li>
+            <li><a href="shop.html?filter=offers">🛍️ SHOPPING FESTIVAL</a></li>
             <li><a href="#">ORDER STATUS</a></li>
-            <li><a href="#">♡ WISHLIST</a></li>
+            <li><a href="cart.html">♡ WISHLIST</a></li>
         </ul>
 
         <!-- CATEGORIES TAB -->
@@ -1145,6 +1144,8 @@
             filterMatch = pFilter === 'acids' || pFilter === 'exfoliants';
           } else if (filter === 'body') {
             filterMatch = pFilter === 'body' || pFilter === 'bodycare';
+          } else if (filter === 'offers') {
+            filterMatch = p.discount && Number(p.discount) > 0;
           } else {
             filterMatch = pFilter === filter;
           }
@@ -1284,6 +1285,7 @@
         $('filtered-badge').textContent = label;
 
         let title = 'All Products';
+        if (currentFilter === 'offers') title = 'Shopping Festival Offers';
         if (currentFilter !== 'all') {
           const chips = document.querySelectorAll('.fc');
           chips.forEach(c => { if (c.dataset.filter === currentFilter) title = c.textContent; });
