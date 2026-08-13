@@ -18,3 +18,30 @@ console.log(`[Config v15] API Endpoint: ${BASE_URL} 🚀`);
 if (GLOBAL_API_URL.includes('onrender')) {
     fetch(GLOBAL_API_URL + '/api/products/sample', { method: 'GET', mode: 'no-cors' }).catch(() => {});
 }
+
+// Mobile Sidebar Tab Logic
+function switchMobileTab(tab) {
+    const menuTab = document.getElementById('m-tab-menu');
+    const catTab = document.getElementById('m-tab-categories');
+    const btnMenu = document.getElementById('m-tab-btn-menu');
+    const btnCat = document.getElementById('m-tab-btn-categories');
+    
+    if (tab === 'menu') {
+        menuTab.style.display = 'block';
+        catTab.style.display = 'none';
+        btnMenu.classList.add('active');
+        btnCat.classList.remove('active');
+    } else {
+        menuTab.style.display = 'none';
+        catTab.style.display = 'block';
+        btnMenu.classList.remove('active');
+        btnCat.classList.add('active');
+    }
+}
+
+function submitMobileSearch() {
+    const q = document.getElementById('m-sidebar-search-input').value;
+    if (q) {
+        window.location.href = 'shop.html?search=' + encodeURIComponent(q);
+    }
+}
