@@ -458,7 +458,22 @@
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
       <div class="hero-slides" id="hero-slides-container">
-        <!-- Slides will be loaded dynamically from the database -->
+                <div class="hero-slide active">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/Wbw6Prqc/Chat-GPT-Image-Jun-6-2026-11-52-15-PM.png" alt="Slide 1"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/63ZnbGxT/Chat-GPT-Image-Jun-6-2026-10-27-41-PM.png" alt="Slide 1"></div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/mDXGkMdj/Chat-GPT-Image-Jun-7-2026-04-49-10-AM.png" alt="Slide 2"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/htLWxNyG/9243dce5a01e19937ae9b8cbdb09680d.jpg" alt="Slide 2"></div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png" alt="Slide 3"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png" alt="Slide 3"></div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/jjw7CJ2C/Chat-GPT-Image-Jun-6-2026-08-05-02-PM.png" alt="Slide 4"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/bwMGXNTn/Chat-GPT-Image-Jun-6-2026-10-11-07-PM.png" alt="Slide 4"></div>
+        </div>
       </div>
 
         <!-- Slider Navigation Arrows -->
@@ -1559,6 +1574,7 @@
       }
     }
 
+    initHeroSlider();
     loadHeroSlidesFromDB();
 
 
