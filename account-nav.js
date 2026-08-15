@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Inject Login/Account into Mobile Drawer
-    const mobileNavs = document.querySelectorAll('.mobile-nav');
+    const mobileNavs = document.querySelectorAll('#m-tab-menu');
     mobileNavs.forEach(nav => {
         // Prevent duplicate injection
         if (nav.querySelector('.injected-auth-link')) return;
@@ -82,18 +82,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.className = 'injected-auth-link';
-        a.style.cssText = 'font-size: 1.2rem; font-weight: 700; color: var(--gold); display:flex; align-items:center; gap:10px; margin-top:10px; padding-top:10px; border-top:1px solid rgba(0,0,0,0.05);';
+        // Add some inline styles to match the mobile sidebar look + icons
+        a.style.cssText = 'display:flex; align-items:center; gap:10px; color: var(--gold, #b39b82); font-weight: 700; margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px;';
         
         if (userInfo) {
             a.href = userInfo.isAdmin ? 'admin.html' : 'account.html';
-            a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Account`;
+            a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> MY ACCOUNT`;
+            li.appendChild(a);
+            nav.appendChild(li);
+
+            // Add Logout for mobile
+            const logoutLi = document.createElement('li');
+            const logoutA = document.createElement('a');
+            logoutA.className = 'injected-auth-link injected-logout-link';
+            logoutA.href = '#';
+            logoutA.style.cssText = 'display:flex; align-items:center; gap:10px; color: #ef4444; font-weight: 700; margin-top: 5px;';
+            logoutA.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> SIGN OUT`;
+            logoutA.onclick = (e) => {
+                e.preventDefault();
+                localStorage.clear();
+                window.location.href = 'login.html';
+            };
+            logoutLi.appendChild(logoutA);
+            nav.appendChild(logoutLi);
         } else {
             a.href = 'login.html';
-            a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Login / Sign Up`;
+            a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> LOGIN / SIGN UP`;
+            li.appendChild(a);
+            nav.appendChild(li);
         }
-        
-        li.appendChild(a);
-        nav.appendChild(li);
     });
 });
 
