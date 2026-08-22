@@ -275,7 +275,7 @@ fr01xf7lBG3bGqNXZkdXb0txnoXSmPya+B4oGqZc+KWNrKTntY3sNKD6k4tdOeoX
             order = await Order.findById(cleanOrderId);
         } else {
             const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
-            order = orders.find(o => o._id.toString().startsWith(cleanOrderId));
+            order = orders.find(o => o._id.toString().endsWith(cleanOrderId));
         }
 
         if (order) {
@@ -324,7 +324,7 @@ router.get('/koko/callback', async (req, res) => {
                 order = await Order.findById(cleanRef);
             } else {
                 const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
-                order = orders.find(o => o._id.toString().startsWith(cleanRef));
+                order = orders.find(o => o._id.toString().endsWith(cleanRef));
             }
 
             if (order && status === 'SUCCESS') {
@@ -360,7 +360,7 @@ router.get('/koko/return', async (req, res) => {
                 order = await Order.findById(cleanOrderId);
             } else {
                 const orders = await Order.find().sort({ createdAt: -1 }).limit(100);
-                order = orders.find(o => o._id.toString().startsWith(cleanOrderId));
+                order = orders.find(o => o._id.toString().endsWith(cleanOrderId));
             }
 
             if (order && (status === 'SUCCESS' || !status)) {
