@@ -3420,8 +3420,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .cart-drawer {
-    width: 85vw !important;
-    max-width: 340px !important;
+    width: 50vw !important;
+    max-width: 50vw !important;
     height: 100vh !important;
     height: 100dvh !important;
     max-height: 100dvh !important;
@@ -9552,5 +9552,6 @@ body.loading-active .floating-email {
 .m-sidebar-list a.blue-text {
     color: #2e71d3 !important;
 }
+
 
 
