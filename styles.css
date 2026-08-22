@@ -3420,13 +3420,13 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .cart-drawer {
-    width: 50vw !important;
-    max-width: 50vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
+    width: 70vw !important;
+    max-width: 70vw !important;
+    height: calc(100vh - 60px) !important;
+    height: calc(100dvh - 60px) !important;
+    max-height: calc(100dvh - 60px) !important;
     position: fixed !important;
-    top: 0 !important;
+    top: 60px !important;
     right: 0 !important;
     left: auto !important;
     bottom: 0 !important;
@@ -9552,6 +9552,7 @@ body.loading-active .floating-email {
 .m-sidebar-list a.blue-text {
     color: #2e71d3 !important;
 }
+
 
 
 
