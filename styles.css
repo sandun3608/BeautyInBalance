@@ -811,7 +811,8 @@ img {
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.12);
 }
 
-.cart-drawer.open {
+.cart-drawer { pointer-events: none; }
+.cart-drawer.open { pointer-events: auto;
   transform: translateX(0);
 }
 
@@ -9551,4 +9552,5 @@ body.loading-active .floating-email {
 .m-sidebar-list a.blue-text {
     color: #2e71d3 !important;
 }
+
 
