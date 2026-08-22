@@ -1443,7 +1443,7 @@
       const mBar = $('mobile-search-bar');
       if (mBar) mBar.classList.add('hide-search');
     });
-    $('ham-close').addEventListener('click', closeAll);
+    $('ham-close')?.addEventListener('click', closeAll);
     
     function closeAll() {
       $('mobile-drawer').classList.remove('open');

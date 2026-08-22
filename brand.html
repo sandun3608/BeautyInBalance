@@ -583,7 +583,7 @@
       if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
     };
 
-    $('ham-close').addEventListener('click', closeAll);
+    $('ham-close')?.addEventListener('click', closeAll);
     $('cart-close').addEventListener('click', closeAll);
     overlay.addEventListener('click', closeAll);
 
