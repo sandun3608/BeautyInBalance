@@ -251,41 +251,10 @@
     <!-- ===== MOBILE TOP PROMO SLIDER (NEW) ===== -->
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
-      <div class="hero-slides">
-        <!-- Slide 1: The Ordinary Focus -->
-        <div class="hero-slide active">
-          <div class="hero-bg desktop-only"><img src="1slide/d (1).jpg" alt="Pure Skin Starts with The Ordinary"></div>
-          <div class="hero-bg mobile-only"><img src="mobile/create the ordinary cosmetic store name is  BEAUTYINBALACE. with one women.jpg" alt="Pure Skin Starts with The Ordinary"></div>
-          <div class="hero-content">
-            <div class="hero-pills"><span class="pill">CLEANSER</span><span class="pill">SERUM</span><span class="pill">MOISTURIZER</span></div>
-            <h1 class="hero-title">Pure Skin Starts<br />with The Ordinary</h1>
-            <p class="hero-desc">Clean, clinically-proven formulas that brighten, hydrate and perfect your skin every day.</p>
-            <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
-          </div>
-        </div>
-
-        <!-- Slide 2: Beauty Routine Focus -->
-        <div class="hero-slide">
-          <div class="hero-bg desktop-only"><img src="1slide/d (2).jpg" alt="Elevate Your Beauty Routine"></div>
-          <div class="hero-bg mobile-only"><img src="mobile/create cosmetic store name is  BEAUTYINBALACE. with one women (2).jpg" alt="Elevate Your Beauty Routine"></div>
-          <div class="hero-content">
-            <div class="hero-pills"><span class="pill">BEST SELLERS</span><span class="pill">PREMIUM</span></div>
-            <h1 class="hero-title">Elevate Your<br />Beauty Routine</h1>
-            <p class="hero-desc">Experience the most sought-after products from CeraVe and The Ordinary.</p>
-            <a href="shop.html" class="btn-dark btn-hero">SHOP COLLECTION</a>
-          </div>
-        </div>
-
-        <!-- Slide 3: Dermatologist Focus -->
-        <div class="hero-slide">
-          <div class="hero-bg desktop-only"><img src="1slide/d (3).jpg" alt="Dermatologist Recommended"></div>
-          <div class="hero-bg mobile-only"><img src="mobile/create cosmetic store with one beautiful women have ordinary product her hand. behind wall should BEAUTYINBALACE (2).jpg" alt="Dermatologist Recommended"></div>
-          <div class="hero-content">
-            <div class="hero-pills"><span class="pill">EXCLUSIVE</span><span class="pill">NEW ARRIVALS</span></div>
-            <h1 class="hero-title">Dermatologist<br />Recommended</h1>
-            <p class="hero-desc">Science-backed skincare for every skin type and concern.</p>
-            <a href="shop.html" class="btn-dark btn-hero">DISCOVER MORE</a>
-          </div>
+      <div class="hero-slides" id="dynamic-hero-slides">
+        <!-- Slides will be loaded dynamically via fetchSlides() -->
+        <div style="width:100%; height:80vh; display:flex; align-items:center; justify-content:center;">
+          <p style="font-family:var(--font-main); font-weight:bold; letter-spacing:2px; color:#555; text-transform:uppercase;">Loading Slides...</p>
         </div>
       </div>
 
@@ -1199,10 +1168,6 @@
       const hNextBtn = document.getElementById('hero-next');
       if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
       if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
-
-      setInterval(() => {
-        showHeroSlide(heroIdx + 1);
-      }, 6000);
     });
 
     /* ── BEFORE & AFTER ── */
@@ -1308,12 +1273,13 @@
             const pid = p.id || p._id || '';
             const rawImg = p.img || (p.images && p.images[0]) || '';
             
-            // Helper to handle spaces and encoding in paths
-            const formattedImg = rawImg.split('/').map(part => {
-              // Replace double-encoded %25 back to % first if it exists, then encode sparingly
-              let cleanPart = decodeURIComponent(part.replace(/%25/g, '%'));
-              return encodeURIComponent(cleanPart);
-            }).join('/');
+            let formattedImg = rawImg;
+            if (rawImg && !rawImg.startsWith('data:') && !rawImg.startsWith('http')) {
+                formattedImg = rawImg.split('/').map(part => {
+                    let cleanPart = decodeURIComponent(part.replace(/%25/g, '%'));
+                    return encodeURIComponent(cleanPart);
+                }).join('/');
+            }
 
             return `
               <div class="ps-product-card" onclick="location.href='product.html?id=${pid}'">
@@ -1402,9 +1368,11 @@
       }
     }
 
-    /* ── HERO SLIDER ── */
+    /*  HERO SLIDER  */
     let heroIdx = 0;
-    const heroSlides = document.querySelectorAll('.hero-slide');
+    let heroSlides = [];
+    let slideInterval;
+    
     function showHeroSlide(index) {
       if (!heroSlides.length) return;
       if (index >= heroSlides.length) heroIdx = 0;
@@ -1412,11 +1380,56 @@
       else heroIdx = index;
       heroSlides.forEach((s, i) => s.classList.toggle('active', i === heroIdx));
     }
+    
     const hPrevBtn = $('hero-prev');
     const hNextBtn = $('hero-next');
-    if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx - 1); });
-    if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); showHeroSlide(heroIdx + 1); });
-    setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
+    if (hPrevBtn) hPrevBtn.addEventListener('click', (e) => { e.preventDefault(); clearInterval(slideInterval); showHeroSlide(heroIdx - 1); slideInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000); });
+    if (hNextBtn) hNextBtn.addEventListener('click', (e) => { e.preventDefault(); clearInterval(slideInterval); showHeroSlide(heroIdx + 1); slideInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000); });
+
+    async function fetchHeroSlides() {
+      try {
+        const res = await fetch(`${BASE_URL}/slides`);
+        const data = await res.json();
+        const container = $('dynamic-hero-slides');
+        if(!container) return;
+        
+        container.innerHTML = '';
+        if(data.length === 0) {
+          container.innerHTML = '<div style="width:100%; height:80vh; display:flex; align-items:center; justify-content:center;"><p style="font-family:var(--font-main); font-weight:bold; letter-spacing:2px; color:#555; text-transform:uppercase;">Welcome to Beauty in Balance</p></div>';
+          return;
+        }
+        
+        data.forEach((slide, index) => {
+          let pillsHtml = '';
+          if(slide.pills && slide.pills.length) {
+            pillsHtml = '<div class="hero-pills">' + slide.pills.map(p => `<span class="pill">${p}</span>`).join('') + '</div>';
+          }
+          
+          const slideHtml = `
+            <div class="hero-slide ${index === 0 ? 'active' : ''}">
+              <div class="hero-bg desktop-only"><img src="${slide.desktopImgUrl}" alt="${slide.title || 'Slide'}"></div>
+              <div class="hero-bg mobile-only"><img src="${slide.mobileImgUrl}" alt="${slide.title || 'Slide'}"></div>
+              <div class="hero-content">
+                ${pillsHtml}
+                <h1 class="hero-title">${(slide.title || '').replace(/\n/g, '<br/>')}</h1>
+                <p class="hero-desc">${slide.desc || ''}</p>
+                <a href="shop.html" class="btn-dark btn-hero">SHOP NOW</a>
+              </div>
+            </div>
+          `;
+          container.insertAdjacentHTML('beforeend', slideHtml);
+        });
+        
+        heroSlides = document.querySelectorAll('.hero-slide');
+        heroIdx = 0;
+        slideInterval = setInterval(() => { showHeroSlide(heroIdx + 1); }, 6000);
+        
+      } catch (err) {
+        console.error('Failed to load slides:', err);
+      }
+    }
+    
+    fetchHeroSlides();
 
 
     fetchProducts();
