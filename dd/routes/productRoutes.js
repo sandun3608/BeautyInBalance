@@ -41,6 +41,9 @@ router.get('/seed-now', async (req, res) => {
 // @route   GET /api/products/:id
 router.get('/:id', async (req, res) => {
     try {
+        if (mongoose.connection.readyState !== 1) {
+            throw new Error("DB not connected");
+        }
         let p;
         if (mongoose.Types.ObjectId.isValid(req.params.id)) p = await Product.findById(req.params.id);
         if (!p) p = await Product.findOne({ id: req.params.id });
@@ -48,7 +51,15 @@ router.get('/:id', async (req, res) => {
         if (p) res.json(p);
         else res.status(404).json({ message: 'Product Not Found in DB!' });
     } catch (e) {
-        res.status(500).json({ message: 'Server Fetch Error.' });
+        console.error("GET Product by ID ERROR:", e.message);
+        try {
+            const local = require('../extracted_products');
+            let fallbackProd = local.find(p => p.id === req.params.id || p.name === req.params.id);
+            if (fallbackProd) res.status(200).json(fallbackProd);
+            else res.status(404).json({ message: 'Product Not Found in fallback!' });
+        } catch (fallbackError) {
+            res.status(500).json({ message: 'Server Fetch Error.' });
+        }
     }
 });
 
