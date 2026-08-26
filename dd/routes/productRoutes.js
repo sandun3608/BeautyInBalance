@@ -48,8 +48,19 @@ router.get('/:id', async (req, res) => {
         if (mongoose.Types.ObjectId.isValid(req.params.id)) p = await Product.findById(req.params.id);
         if (!p) p = await Product.findOne({ id: req.params.id });
 
-        if (p) res.json(p);
-        else res.status(404).json({ message: 'Product Not Found in DB!' });
+        if (p) {
+            res.json(p);
+        } else {
+            // Not found in DB, try fallback
+            const local = require('../extracted_products');
+            let fallbackProd = local.find(prod => prod.id === req.params.id || prod.name === req.params.id);
+            if (fallbackProd) {
+                console.log(`Fallback used for ${req.params.id}`);
+                res.status(200).json(fallbackProd);
+            } else {
+                res.status(404).json({ message: 'Product Not Found in DB or fallback!' });
+            }
+        }
     } catch (e) {
         console.error("GET Product by ID ERROR:", e.message);
         try {
