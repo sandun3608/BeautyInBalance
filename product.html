@@ -1126,7 +1126,8 @@
         })
         .catch(err => {
           console.log('Single product fast fetch fallback:', err.message);
-          if (err.message === 'Not found') {
+          const hasRendered = document.querySelector('.product-stage');
+          if (err.message === 'Not found' && !hasRendered) {
             document.getElementById('pd-frame').innerHTML = `
               <div style="text-align:center; padding: 100px 20px;">
                 <h2 style="font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 20px;">Product Not Found</h2>
