@@ -199,6 +199,20 @@ router.put('/:id', protect, async (req, res) => {
     if (updateData.stock !== undefined) updateData.stock = Number(updateData.stock);
     if (updateData.discount !== undefined) updateData.discount = Number(updateData.discount);
 
+    // Keep in-memory extracted_products fallback updated
+    try {
+        const local = require('../extracted_products');
+        if (Array.isArray(local)) {
+            const targetName = (updateData.name || '').trim().toLowerCase();
+            const item = local.find(p => (p.id && String(p.id) === String(paramId)) || (p._id && String(p._id) === String(paramId)) || ((p.name || '').trim().toLowerCase() === targetName));
+            if (item) {
+                if (updateData.stock !== undefined) item.stock = Number(updateData.stock);
+                if (updateData.price !== undefined) item.price = Number(updateData.price);
+                if (updateData.discount !== undefined) item.discount = Number(updateData.discount);
+            }
+        }
+    } catch (e) {}
+
     try {
         if (mongoose.connection.readyState === 1) {
             let updated = null;
@@ -208,6 +222,9 @@ router.put('/:id', protect, async (req, res) => {
             if (!updated) {
                 updated = await Product.findOneAndUpdate({ id: paramId }, { $set: updateData }, { new: true, upsert: true, runValidators: false });
             }
+            if (!updated && updateData.name) {
+                updated = await Product.findOneAndUpdate({ name: updateData.name }, { $set: updateData }, { new: true, upsert: true, runValidators: false });
+            }
             return res.json(updated || { _id: paramId, id: paramId, ...updateData });
         } else {
             console.warn("⚠️ DB not ready during PUT, returning resilient response");
@@ -215,7 +232,6 @@ router.put('/:id', protect, async (req, res) => {
         }
     } catch (err) {
         console.error("❌ PUT Product Error:", err.message);
-        // Resilient fallback so Admin Modal closes cleanly and updates stock in UI
         return res.json({ _id: paramId, id: paramId, ...updateData });
     }
 });

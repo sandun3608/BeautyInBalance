@@ -95,7 +95,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=79" />
+  <link rel="stylesheet" href="styles.css?v=300" />
   <style>
     /* Admin Premium - Beauty in Balance Branding */
     :root {
@@ -2238,7 +2238,7 @@
     </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=300"></script>
+  <script src="products.js?v=410"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     let editingId = null;
@@ -2566,9 +2566,50 @@
                     body: JSON.stringify(productData)
                   });
                   if (res.ok) { 
-                    // Stamp the update time so frontend immediately loads new images
+                    const savedProd = await res.json();
+                    
+                    // Immediately update window.productsData in memory so stock updates instantly in table
+                    if (window.productsData && Array.isArray(window.productsData)) {
+                        const targetId = editingId || productData.id;
+                        const targetName = (productData.name || '').trim().toLowerCase();
+                        
+                        const idx = window.productsData.findIndex(p => 
+                            (p._id && String(p._id) === String(targetId)) || 
+                            (p.id && String(p.id) === String(targetId)) ||
+                            ((p.name || '').trim().toLowerCase() === targetName)
+                        );
+                        
+                        if (idx !== -1) {
+                            window.productsData[idx] = { 
+                                ...window.productsData[idx], 
+                                ...productData,
+                                ...savedProd,
+                                stock: Number(productData.stock),
+                                discount: Number(productData.discount),
+                                price: Number(productData.price)
+                            };
+                        } else {
+                            window.productsData.unshift({ 
+                                _id: savedProd._id || ('p-' + Date.now()),
+                                id: productData.id || ('p-' + Date.now()),
+                                ...productData,
+                                stock: Number(productData.stock),
+                                discount: Number(productData.discount),
+                                price: Number(productData.price)
+                            });
+                        }
+                        
+                        try { localStorage.setItem('koko_products_cache', JSON.stringify(window.productsData)); } catch(e) {}
+                    }
+                    
                     localStorage.setItem('last_product_update', Date.now());
-                    window.closeModal(); await fetchDatabaseProducts(); renderInventory(); 
+                    window.closeModal(); 
+                    renderInventory();
+                    
+                    // Fetch fresh DB in background to confirm sync
+                    if (typeof fetchDatabaseProducts === 'function') {
+                        fetchDatabaseProducts().then(() => renderInventory());
+                    }
                   } 
                   else { 
                       const eb = await res.json(); 
@@ -3245,7 +3286,7 @@
         // 1. LATEST PRODUCTS (with deep safety)
         const prodList = document.getElementById('latest-products-sidebar');
         if (prodList) {
-            // Priority: Live Data -> defaultProducts (from products.js?v=300) -> Hardcoded Premium Fallback
+            // Priority: Live Data -> defaultProducts (from products.js?v=410) -> Hardcoded Premium Fallback
             const source = (window.productsData && window.productsData.length > 0) ? window.productsData : 
                           (typeof defaultProducts !== 'undefined' ? defaultProducts : [
                 { name: 'CeraVe Hydrating Cleanser', cat: 'cerave', price: 6800, img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
