@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database Sync Tool | Beauty in Balance</title>
-    <link rel="stylesheet" href="styles.css?v=221">
+    <link rel="stylesheet" href="styles.css?v=300">
     <style>
         body { background: #fdfaf7; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
         .sync-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
@@ -22,7 +22,7 @@
 <body>
     <div class="sync-card">
         <h1>Database Sync Tool</h1>
-        <p>This tool will <strong>CLEAR</strong> all products from the live database and <strong>RESTORE</strong> them using the local <code>products.js?v=405</code> file.</p>
+        <p>This tool will <strong>CLEAR</strong> all products from the live database and <strong>RESTORE</strong> them using the local <code>products.js?v=410</code> file.</p>
         
         <div id="login-check" style="color: red; margin-bottom: 20px; display: none;">
             ⚠️ You must be logged in as an Admin to perform this action.
@@ -34,7 +34,7 @@
     </div>
 
     <script src="config.js?v=18"></script>
-    <script src="products.js?v=405"></script>
+    <script src="products.js?v=410"></script>
     <script>
         const btn = document.getElementById('sync-btn');
         const statusDiv = document.getElementById('status');
@@ -79,7 +79,7 @@
                 log("✅ Database cleared successfully.", "success");
 
                 // 3. Upload local products
-                log(`📤 Uploading ${defaultProducts.length} products from products.js?v=405...`);
+                log(`📤 Uploading ${defaultProducts.length} products from products.js?v=410...`);
                 for (const p of defaultProducts) {
                     log(`✨ Uploading: ${p.name}...`);
                     // Create normalized data structure

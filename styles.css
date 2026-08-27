@@ -9608,5 +9608,109 @@ body.loading-active .floating-email {
 }
 
 
+/* ============================================================
+   ULTRA-OPTIMIZED MOBILE PRODUCT GRID (MAX-WIDTH: 768PX)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* 1. Outer section side paddings - minimize space on screen edges */
+  .home-all-products-section,
+  .shop-body,
+  .cat-content,
+  .ps-products-grid,
+  .sale-overview,
+  .discovery-section {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
 
+  /* 2. Product grids - 2 items per row with tiny 5px gap */
+  .hap-grid,
+  .premium-shop-grid,
+  .premium-grid,
+  .ps-inner-grid,
+  .fg-grid,
+  .rec-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 5px !important;
+    padding: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
 
+  /* 3. Product card containers - maximize image space */
+  .hap-card,
+  .lux-card,
+  .premium-card,
+  .ps-product-card,
+  .fg-card,
+  .rec-card {
+    padding: 2px !important;
+    margin-bottom: 8px !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    background: #ffffff !important;
+  }
+
+  /* 4. Product image containers - enlarged proportion */
+  .hap-card-img,
+  .lux-img,
+  .pc-image,
+  .ps-prod-img,
+  .fg-img-wrap,
+  .rec-img-wrap {
+    width: 100% !important;
+    height: 230px !important;
+    max-height: 58vw !important;
+    aspect-ratio: auto !important;
+    padding: 4px !important;
+    margin-bottom: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  /* 5. Product images inside containers - fill available width and height */
+  .hap-card-img img,
+  .lux-img img,
+  .pc-image img,
+  .ps-prod-img img,
+  .fg-img-wrap img,
+  .rec-img-wrap img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 230px !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+  }
+
+  /* 6. Product body & text adjustments for compact layout */
+  .lux-body,
+  .fg-info,
+  .pc-details {
+    padding: 6px 4px 60px !important;
+  }
+
+  .hap-card-title,
+  .lux-name,
+  .fg-name,
+  .pc-details h3 {
+    font-size: 12.5px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .hap-card-price,
+  .lux-price,
+  .fg-price,
+  .pc-price {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+}
