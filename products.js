@@ -2033,9 +2033,13 @@ window.renderHomeAllProducts = function() {
         grid.innerHTML = productsToShow.map(prod => {
             const catLower = (prod.cat || 'others').toLowerCase();
             const brandDisplay = catLower === 'cerave' ? 'CeraVe' : (catLower === 'ordinary' ? 'The Ordinary' : catLower.toUpperCase());
-            
+            const stockNum = (prod.stock !== undefined && prod.stock !== null && prod.stock !== '') ? Number(prod.stock) : (prod.inStock === false ? 0 : 1);
+            const isOutOfStock = stockNum <= 0;
+
             const discount = Number(prod.discount || 0);
             const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
+            const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+            const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
             
             const basePrice = Number(prod.price || 0);
             const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
@@ -2054,7 +2058,7 @@ window.renderHomeAllProducts = function() {
             return `
             <a href="product.html?id=${prod.id}" class="hap-card" style="text-decoration: none;">
                 <div class="hap-card-img">
-                    ${discountBadge}
+                    ${badgesHTML}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
                     <div class="hap-card-actions">
                         <span class="h-icon" onclick="event.preventDefault(); addToCart('${prod.id}')" aria-label="Add to Cart">

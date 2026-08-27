@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=151" />
+  <link rel="stylesheet" href="styles.css?v=221" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -402,86 +402,43 @@
   <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
-  <div class="mobile-drawer" id="mobile-drawer">
-    <div class="drawer-header">
-       <span class="site-logo">Beauty in Balance</span>
-       <button class="drawer-close" id="ham-close" aria-label="Close Menu">
-         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-       </button>
+    <div class="mobile-drawer" id="mobile-drawer">
+    <div class="m-sidebar-header">
+        <div class="m-search-wrap">
+            <input type="text" placeholder="Search for products" id="m-sidebar-search-input">
+            <button aria-label="Search" onclick="submitMobileSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+        </div>
     </div>
     
-    <div class="drawer-content">
-            <ul class="mobile-nav">
-        <li>
-          <a href="index.html">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              Home
-            </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-        </li>
-        <li>
-          <a href="shop.html">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              Shop All
-            </span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-        </li>
-        <li class="drawer-accordion-item">
-          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              Brand
-            </span>
-            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <ul class="drawer-accordion-content" id="brand-accordion-list"></ul>
-        </li>
-        <li class="drawer-accordion-item">
-          <button class="drawer-accordion-btn" onclick="toggleMobileAccordion(this)">
-            <span style="display:flex; align-items:center; gap:12px;">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              Category
-            </span>
-            <svg class="accordion-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <ul class="drawer-accordion-content">
-            <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
-            <li><a href="shop.html?filter=serums">Serums</a></li>
-            <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
-            <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
-            <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
-            <li><a href="shop.html?filter=retinoids">Retinoids</a></li>
-            <li><a href="shop.html?filter=body">Body Care</a></li>
-            <li><a href="shop.html?filter=targeted">Targeted Care</a></li>
-            <li><a href="shop.html?filter=hair">Hair Care</a></li>
-          </ul>
-        </li>
-        
-        <li class="nav-label">Account</li>
-        <li><a href="login.html">Sign In</a></li>
-        <li><a href="register.html">Register</a></li>
-        
-        <li class="nav-label">Pages</li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="about.html">Our Story</a></li>
-        <li><a href="policies.html">Policies</a></li>
-      </ul>
+    <div class="m-sidebar-tabs">
+        <button class="m-tab active" id="m-tab-btn-menu" onclick="switchMobileTab('menu')">MENU</button>
+        <button class="m-tab" id="m-tab-btn-categories" onclick="switchMobileTab('categories')">CATEGORIES</button>
     </div>
 
-    <div class="drawer-footer">
-      <div class="drawer-social">
-        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-14 8.38 8.38 0 0 1 3.8.9L21 3z"/></svg></a>
-      </div>
-      <div class="drawer-contact">
-        <p>support@beautyinbalance.lk</p>
-        <p>+94 71 915 2136</p>
-      </div>
+    <div class="m-sidebar-body">
+        <!-- MENU TAB -->
+        <ul class="m-sidebar-list" id="m-tab-menu">
+            <li><a href="index.html" class="blue-text">HOME</a></li>
+            <li><a href="shop.html" class="blue-text">SHOP</a></li>
+            <li><a href="about.html">ABOUT US</a></li>
+            <li><a href="contact.html">CONTACT US</a></li>
+            <li><a href="shop.html?filter=offers">🛍️ SHOPPING FESTIVAL</a></li>
+            <li><a href="account.html">ORDER STATUS</a></li>
+            <li><a href="cart.html">♡ WISHLIST</a></li>
+        </ul>
+
+        <!-- CATEGORIES TAB -->
+        <ul class="m-sidebar-list" id="m-tab-categories" style="display: none;">
+            <li><a href="shop.html?filter=cleansers">CLEANSERS</a></li>
+            <li><a href="shop.html?filter=serums">SERUMS</a></li>
+            <li><a href="shop.html?filter=moisturizers">MOISTURIZERS</a></li>
+            <li><a href="shop.html?filter=sunscreen">SUNSCREEN</a></li>
+            <li><a href="shop.html?filter=acids">ACIDS & EXFOLIANTS</a></li>
+            <li><a href="shop.html?filter=retinoids">RETINOIDS</a></li>
+            <li><a href="shop.html?filter=body">BODY CARE</a></li>
+            <li><a href="shop.html?filter=targeted">TARGETED CARE</a></li>
+            <li><a href="shop.html?filter=hair">HAIR CARE</a></li>
+        </ul>
     </div>
   </div>
 
@@ -501,7 +458,22 @@
     <!-- ===== SECTION 0: HERO (ENTRY PAGE) ===== -->
     <section class="hero-section" id="hero-slider">
       <div class="hero-slides" id="hero-slides-container">
-        <!-- Slides will be loaded dynamically from the database -->
+                <div class="hero-slide active">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/Wbw6Prqc/Chat-GPT-Image-Jun-6-2026-11-52-15-PM.png" alt="Slide 1"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/63ZnbGxT/Chat-GPT-Image-Jun-6-2026-10-27-41-PM.png" alt="Slide 1"></div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/mDXGkMdj/Chat-GPT-Image-Jun-7-2026-04-49-10-AM.png" alt="Slide 2"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/htLWxNyG/9243dce5a01e19937ae9b8cbdb09680d.jpg" alt="Slide 2"></div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png" alt="Slide 3"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png" alt="Slide 3"></div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-bg desktop-only"><img src="https://i.postimg.cc/jjw7CJ2C/Chat-GPT-Image-Jun-6-2026-08-05-02-PM.png" alt="Slide 4"></div>
+          <div class="hero-bg mobile-only"><img src="https://i.postimg.cc/bwMGXNTn/Chat-GPT-Image-Jun-6-2026-10-11-07-PM.png" alt="Slide 4"></div>
+        </div>
       </div>
 
         <!-- Slider Navigation Arrows -->
@@ -1250,7 +1222,7 @@
 
 
   <script src="config.js?v=21"></script>
-  <script src="products.js?v=300"></script>
+  <script src="products.js?v=405"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1263,7 +1235,7 @@
       const mBar = document.getElementById('mobile-search-bar');
       if(mBar) mBar.classList.add('hide-search');
     });
-    $('ham-close').addEventListener('click', closeAll);
+    $('ham-close')?.addEventListener('click', closeAll);
     overlay.addEventListener('click', closeAll);
     function closeAll() {
       $('mobile-drawer').classList.remove('open');
@@ -1324,42 +1296,7 @@
 
     let productsData = [];
 
-    async function fetchProducts() {
-      const renderAll = () => {
-        productsData = window.productsData || (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-        if (typeof renderRoundCategories === 'function') {
-          try { renderRoundCategories(); } catch(e) {}
-        }
-        if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
-        }
-        if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
-        }
-        if (typeof initShadeFinder === 'function') {
-          try { initShadeFinder(); } catch(e) {}
-        }
-        const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
-        if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim(), !window.DB_FETCH_COMPLETED); } catch(e) {}
-        }
-      };
-
-      // 1. Render INSTANTLY with available products
-      renderAll();
-
-      // 2. Re-render once background DB fetch completes
-      if (!window.DB_FETCH_COMPLETED) {
-        const timer = setInterval(() => {
-          if (window.DB_FETCH_COMPLETED) {
-            clearInterval(timer);
-            renderAll();
-          }
-        }, 100);
-      }
-    }
-
-    function renderFeaturedProducts(isOffline = false) {
+    function renderFeaturedProducts() {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
@@ -1371,7 +1308,7 @@
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         
         const priceHTML = 'Rs. ' + discountedPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         
         const brandClass = p.brand ? p.brand.toLowerCase().replace(' ', '') : '';
         const img = p.img || (p.images && p.images[0]) || '';
@@ -1383,7 +1320,7 @@
             <button class="fg-bag-btn" onclick="event.stopPropagation(); addToCart('${p.id || p._id}')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             </button>
-            ${isOffline ? `<div style='width: 100%; padding-top: 100%; position: relative; background: #f9f9f9;'><div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; border: 3px solid #f2efe9; border-top: 3px solid #c6975a; border-radius: 50%; animation: spin 1s linear infinite;'></div></div>` : `<img src="${img}" alt="${p.name}">`}
+            <img src="${img}" alt="${p.name}">
           </div>
           <div class="fg-info">
             <h4 class="fg-name">${p.name}</h4>
@@ -1407,17 +1344,17 @@
           try { renderRoundCategories(); } catch(e) {}
         }
         if (typeof renderHomeAllProducts === 'function') {
-          try { renderHomeAllProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
+          try { renderHomeAllProducts(); } catch(e) {}
         }
         if (typeof renderFeaturedProducts === 'function') {
-          try { renderFeaturedProducts(!window.DB_FETCH_COMPLETED); } catch(e) {}
+          try { renderFeaturedProducts(); } catch(e) {}
         }
         if (typeof initShadeFinder === 'function') {
           try { initShadeFinder(); } catch(e) {}
         }
         const activeItem = document.querySelector('.ps-tone-item.active .ps-label');
         if (activeItem && typeof renderShadeProducts === 'function') {
-          try { renderShadeProducts(activeItem.textContent.trim(), !window.DB_FETCH_COMPLETED); } catch(e) {}
+          try { renderShadeProducts(activeItem.textContent.trim()); } catch(e) {}
         }
       };
 
@@ -1435,7 +1372,7 @@
       }
     }
 
-    function renderFeaturedProducts(isOffline = false) {
+    function renderFeaturedProducts() {
       const track = document.getElementById('featured-track');
       if (!track || !productsData.length) return;
       
@@ -1454,7 +1391,12 @@
             ? `<div class="fp-discount-bar">-${discount}% OFF APPLIED</div>`
             : ``;
             
+        const stockNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
+        const isOutOfStock = stockNum <= 0;
+
         const discountBadge = discount > 0 ? `<span class="fp-discount-badge">${discount}% OFF</span>` : '';
+        const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+        const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
         const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const kokoInstallmentHTML = `
@@ -1466,7 +1408,7 @@
         return `
         <div class="fp-item">
           <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
-             ${discountBadge}
+             ${badgesHTML}
              <div class="fp-img-wrap">
                <img src="${p.img || p.images[0]}" alt="${p.name}" loading="lazy">
              </div>
@@ -1637,6 +1579,7 @@
       }
     }
 
+    initHeroSlider();
     loadHeroSlidesFromDB();
 
 
@@ -1757,7 +1700,7 @@
     </div>
   </div>
 
-  <script src="account-nav.js?v=4"></script>
+  <script src="account-nav.js?v=5"></script>
   <script>
     // Dynamically load brand list for mobile drawer
     document.addEventListener('DOMContentLoaded', () => {

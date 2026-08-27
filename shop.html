@@ -1065,8 +1065,14 @@
       const brandLabel = pCat === 'cerave' ? 'CeraVe' : (pCat === 'ordinary' ? 'The Ordinary' : pCat.toUpperCase());
       const imgSrc = p.img || 'favicon.png';
       
+      const stockNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
+      const isOutOfStock = stockNum <= 0;
+
       const discount = Number(p.discount || 0);
       const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
+      const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+      const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
+
       const basePrice = Number(p.price || 0);
       const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
       const priceHTML = discount > 0 
@@ -1084,7 +1090,7 @@
       card.className = 'lux-card';
       card.innerHTML = `
         <div class="lux-img" onclick="location.href='product.html?id=${p.id}'" style="position: relative;">
-          ${discountBadge}
+          ${badgesHTML}
           <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
           <button class="lux-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">
             + Add to Bag

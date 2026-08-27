@@ -1308,7 +1308,7 @@
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         
         const priceHTML = 'Rs. ' + discountedPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         
         const brandClass = p.brand ? p.brand.toLowerCase().replace(' ', '') : '';
         const img = p.img || (p.images && p.images[0]) || '';
@@ -1391,7 +1391,12 @@
             ? `<div class="fp-discount-bar">-${discount}% OFF APPLIED</div>`
             : ``;
             
+        const stockNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
+        const isOutOfStock = stockNum <= 0;
+
         const discountBadge = discount > 0 ? `<span class="fp-discount-badge">${discount}% OFF</span>` : '';
+        const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+        const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
         const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const kokoInstallmentHTML = `
@@ -1403,7 +1408,7 @@
         return `
         <div class="fp-item">
           <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
-             ${discountBadge}
+             ${badgesHTML}
              <div class="fp-img-wrap">
                <img src="${p.img || p.images[0]}" alt="${p.name}" loading="lazy">
              </div>

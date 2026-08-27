@@ -878,15 +878,19 @@
       document.title = product.name + " | Beauty in Balance";
 
       const discount = Number(product.discount || 0);
-      const discountBadge = '';
+      const stockLeft = (product.stock !== undefined && product.stock !== null && product.stock !== '') ? Number(product.stock) : ((product.name.length % 12) + 8);
+      const isOutOfStock = stockLeft <= 0;
+
+      const discountBadge = discount > 0 ? `<span class="rec-discount-badge">${discount}% OFF</span>` : '';
+      const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+      const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
+
       const basePrice = Number(product.price || 0);
       const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
       const priceHTML = discount > 0 
           ? `<span class="original-price" style="font-size: 0.6em; margin-right: 10px; color: #999; text-decoration: line-through;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
           : `Rs. ${basePrice.toLocaleString()}`;
 
-      const stockLeft = (product.stock !== undefined && product.stock !== null && product.stock !== '') ? Number(product.stock) : ((product.name.length % 12) + 8);
-      const isOutOfStock = stockLeft <= 0;
       const stockPercent = isOutOfStock ? 0 : Math.min(100, Math.round((stockLeft / 20) * 100));
       const urgencyColor = isOutOfStock ? '#ef4444' : (stockLeft <= 5 ? '#ef4444' : stockLeft <= 10 ? '#f59e0b' : '#0d7a2f');
       const urgencyLabel = isOutOfStock ? 'Out of Stock' : (stockLeft <= 5 ? 'Almost Gone!' : stockLeft <= 10 ? 'Selling Fast' : 'In Stock');
@@ -916,8 +920,8 @@
         <div class="product-stage">
           <!-- Gallery -->
           <div class="gallery-wrap">
-            <div class="main-visual">
-              ${discountBadge}
+            <div class="main-visual" style="position: relative;">
+              ${badgesHTML}
               <img id="main-view" src="${product.img}" alt="${product.name}">
             </div>
             <div class="thumbs-container">${thumbs}</div>
@@ -1044,8 +1048,14 @@
       recGrid.innerHTML = '';
 
       recommended.forEach(p => {
+        const stockNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
+        const isOutOfStock = stockNum <= 0;
+
         const discount = Number(p.discount || 0);
         const discountBadge = discount > 0 ? `<span class="rec-discount-badge">${discount}% OFF</span>` : '';
+        const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+        const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
+
         const basePrice = Number(p.price || 0);
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         
@@ -1063,7 +1073,7 @@
 
         card.innerHTML = `
           <div class="rec-img-wrap">
-            ${discountBadge}
+            ${badgesHTML}
             <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'; this.style.opacity='0.4';">
           </div>
           <div class="rec-body">
