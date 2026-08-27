@@ -9,52 +9,32 @@ app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
 // Database Connection Logic
-let connectionPromise = null;
-
 const connectDB = async () => {
-    if (mongoose.connection.readyState === 1) return true;
-
-    if (mongoose.connection.readyState === 2 && connectionPromise) {
-        try {
-            await connectionPromise;
-            return mongoose.connection.readyState === 1;
-        } catch (e) {
-            return false;
-        }
-    }
-
     const mongoURI = process.env.MONGO_URI;
     if (!mongoURI) {
         console.error("FATAL ERROR: MONGO_URI is missing from environment variables!");
-        return false;
+        return;
     }
     
     // Cleanup the URI format just in case
     const cleanURI = mongoURI.trim().replace(/^"(.*)"$/, '$1');
 
     try {
-        console.log("🔌 Connecting to MongoDB Atlas...");
-        connectionPromise = mongoose.connect(cleanURI, {
+        await mongoose.connect(cleanURI, {
             serverSelectionTimeoutMS: 15000,
             socketTimeoutMS: 45000,
             connectTimeoutMS: 15000
         });
-        await connectionPromise;
         console.log('✅ MongoDB connection successful!');
-        return true;
     } catch (err) {
         console.error('❌ MongoDB connection error:', err.message);
-        connectionPromise = null;
-        return false;
-    } finally {
-        connectionPromise = null;
     }
 };
 connectDB();
 
 mongoose.connection.on('disconnected', () => {
     console.warn('⚠️ MongoDB connection lost. Attempting reconnect...');
-    setTimeout(connectDB, 2000);
+    setTimeout(connectDB, 3000);
 });
 mongoose.connection.on('error', (err) => {
     console.error('❌ MongoDB connection error event:', err.message);
@@ -68,33 +48,6 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
-
-// Ensure DB is connected before processing API requests
-app.use('/api', async (req, res, next) => {
-    if (mongoose.connection.readyState !== 1) {
-        console.log(`⚠️ DB readyState is ${mongoose.connection.readyState}. Waiting for active connection...`);
-        connectDB();
-        
-        let attempts = 0;
-        while (mongoose.connection.readyState !== 1 && attempts < 40) {
-            await new Promise(r => setTimeout(r, 250));
-            attempts++;
-        }
-    }
-
-    if (mongoose.connection.readyState !== 1) {
-        console.error("❌ DB connection offline after wait. State:", mongoose.connection.readyState);
-        // If it's a GET request for products, let it pass to use fallback JSON
-        if (req.method === 'GET' && req.path.startsWith('/products')) {
-            return next();
-        }
-        return res.status(503).json({ 
-            message: 'Database connection connecting. Please click again.' 
-        });
-    }
-
-    next();
-});
 
 // Serve API Routes (from root routes/ folder)
 const productRoutes = require('./routes/productRoutes');
