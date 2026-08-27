@@ -9,8 +9,19 @@ app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
 // Database Connection Logic
+let connectionPromise = null;
+
 const connectDB = async () => {
     if (mongoose.connection.readyState === 1) return true;
+
+    if (mongoose.connection.readyState === 2 && connectionPromise) {
+        try {
+            await connectionPromise;
+            return mongoose.connection.readyState === 1;
+        } catch (e) {
+            return false;
+        }
+    }
 
     const mongoURI = process.env.MONGO_URI;
     if (!mongoURI) {
@@ -22,17 +33,21 @@ const connectDB = async () => {
     const cleanURI = mongoURI.trim().replace(/^"(.*)"$/, '$1');
 
     try {
-        await mongoose.connect(cleanURI, {
-            serverSelectionTimeoutMS: 10000,
-            connectTimeoutMS: 10000,
-            maxPoolSize: 10,
-            socketTimeoutMS: 45000
+        console.log("🔌 Connecting to MongoDB Atlas...");
+        connectionPromise = mongoose.connect(cleanURI, {
+            serverSelectionTimeoutMS: 15000,
+            socketTimeoutMS: 45000,
+            connectTimeoutMS: 15000
         });
+        await connectionPromise;
         console.log('✅ MongoDB connection successful!');
         return true;
     } catch (err) {
         console.error('❌ MongoDB connection error:', err.message);
+        connectionPromise = null;
         return false;
+    } finally {
+        connectionPromise = null;
     }
 };
 connectDB();
@@ -58,19 +73,23 @@ app.use(express.urlencoded({ limit: '20mb', extended: true }));
 app.use('/api', async (req, res, next) => {
     if (mongoose.connection.readyState !== 1) {
         console.log(`⚠️ DB readyState is ${mongoose.connection.readyState}. Waiting for active connection...`);
-        await connectDB();
+        connectDB();
         
         let attempts = 0;
-        while (mongoose.connection.readyState !== 1 && attempts < 25) {
-            await new Promise(r => setTimeout(r, 200));
+        while (mongoose.connection.readyState !== 1 && attempts < 40) {
+            await new Promise(r => setTimeout(r, 250));
             attempts++;
         }
     }
 
     if (mongoose.connection.readyState !== 1) {
-        console.error("❌ DB still offline after wait.");
+        console.error("❌ DB connection offline after wait. State:", mongoose.connection.readyState);
+        // If it's a GET request for products, let it pass to use fallback JSON
+        if (req.method === 'GET' && req.path.startsWith('/products')) {
+            return next();
+        }
         return res.status(503).json({ 
-            message: 'Database temporarily unavailable. Please retry in a moment.' 
+            message: 'Database connection connecting. Please click again.' 
         });
     }
 
