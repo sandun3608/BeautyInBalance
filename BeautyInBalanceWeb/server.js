@@ -9,10 +9,16 @@ app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
 // Database Connection Logic
+let isConnecting = false;
 const connectDB = async () => {
+    if (mongoose.connection.readyState === 1) return;
+    if (isConnecting) return;
+    isConnecting = true;
+
     const mongoURI = process.env.MONGO_URI;
     if (!mongoURI) {
         console.error("FATAL ERROR: MONGO_URI is missing from environment variables!");
+        isConnecting = false;
         return;
     }
     
@@ -22,15 +28,27 @@ const connectDB = async () => {
     try {
         await mongoose.connect(cleanURI, {
             family: 4,
-            serverSelectionTimeoutMS: 15000,
-            connectTimeoutMS: 15000
+            serverSelectionTimeoutMS: 10000,
+            connectTimeoutMS: 10000,
+            maxPoolSize: 10,
+            socketTimeoutMS: 45000
         });
         console.log('✅ MongoDB connection successful!');
     } catch (err) {
         console.error('❌ MongoDB connection error:', err.message);
+    } finally {
+        isConnecting = false;
     }
 };
 connectDB();
+
+mongoose.connection.on('disconnected', () => {
+    console.warn('⚠️ MongoDB connection lost. Attempting reconnect...');
+    setTimeout(connectDB, 2000);
+});
+mongoose.connection.on('error', (err) => {
+    console.error('❌ MongoDB connection error event:', err.message);
+});
 
 // Middlewares
 app.use(cors({
@@ -40,6 +58,18 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
+
+// Ensure DB is connected before processing API requests
+app.use('/api', async (req, res, next) => {
+    if (mongoose.connection.readyState !== 1) {
+        try {
+            await connectDB();
+        } catch (e) {
+            console.error("DB reconnect on API request failed:", e.message);
+        }
+    }
+    next();
+});
 
 // Serve API Routes (from root routes/ folder)
 const productRoutes = require('./routes/productRoutes');
