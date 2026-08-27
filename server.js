@@ -9,17 +9,13 @@ app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
 // Database Connection Logic
-let isConnecting = false;
 const connectDB = async () => {
-    if (mongoose.connection.readyState === 1) return;
-    if (isConnecting) return;
-    isConnecting = true;
+    if (mongoose.connection.readyState === 1) return true;
 
     const mongoURI = process.env.MONGO_URI;
     if (!mongoURI) {
         console.error("FATAL ERROR: MONGO_URI is missing from environment variables!");
-        isConnecting = false;
-        return;
+        return false;
     }
     
     // Cleanup the URI format just in case
@@ -27,17 +23,16 @@ const connectDB = async () => {
 
     try {
         await mongoose.connect(cleanURI, {
-            family: 4,
             serverSelectionTimeoutMS: 10000,
             connectTimeoutMS: 10000,
             maxPoolSize: 10,
             socketTimeoutMS: 45000
         });
         console.log('✅ MongoDB connection successful!');
+        return true;
     } catch (err) {
         console.error('❌ MongoDB connection error:', err.message);
-    } finally {
-        isConnecting = false;
+        return false;
     }
 };
 connectDB();
@@ -62,12 +57,23 @@ app.use(express.urlencoded({ limit: '20mb', extended: true }));
 // Ensure DB is connected before processing API requests
 app.use('/api', async (req, res, next) => {
     if (mongoose.connection.readyState !== 1) {
-        try {
-            await connectDB();
-        } catch (e) {
-            console.error("DB reconnect on API request failed:", e.message);
+        console.log(`⚠️ DB readyState is ${mongoose.connection.readyState}. Waiting for active connection...`);
+        await connectDB();
+        
+        let attempts = 0;
+        while (mongoose.connection.readyState !== 1 && attempts < 25) {
+            await new Promise(r => setTimeout(r, 200));
+            attempts++;
         }
     }
+
+    if (mongoose.connection.readyState !== 1) {
+        console.error("❌ DB still offline after wait.");
+        return res.status(503).json({ 
+            message: 'Database temporarily unavailable. Please retry in a moment.' 
+        });
+    }
+
     next();
 });
 
