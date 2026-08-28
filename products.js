@@ -1572,7 +1572,7 @@ function renderAvuruduBannerUI() {
                     </div>
                     <div style="font-size:12px; font-weight:800; color:#333; margin-bottom:8px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; line-height:1.3; height:32px;">${prod.name}</div>
                     <div style="font-size:14px; font-weight:800; color:#d32f2f; margin-bottom:12px;">Rs. ${prod.price.toLocaleString()}</div>
-                    <button onclick="addToCart('${prod.id}')" style="background:var(--dark); color:#fff; border:none; width:100%; padding:10px; border-radius:12px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; cursor:pointer; transition:0.3s; margin:0;" 
+                    <button onclick="buyItNow('${prod.id}')" style="background:var(--dark); color:#fff; border:none; width:100%; padding:10px; border-radius:12px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; cursor:pointer; transition:0.3s; margin:0;" 
                             onmouseover="this.style.background='var(--gold)', this.style.color='#000'" onmouseout="this.style.background='var(--dark)', this.style.color='#fff'">Buy Now</button>
                   </div>
                 </div>
@@ -1592,7 +1592,7 @@ function saveCart() {
     renderCart();
 }
 
-function addToCart(prodId, qty = 1) {
+function addToCart(prodId, qty = 1, openDrawer = true) {
     const product = window.productsData.find(p => p.id === prodId || p.name === prodId);
     if (!product) {
        console.error("Product not found to add:", prodId);
@@ -1618,20 +1618,28 @@ function addToCart(prodId, qty = 1) {
     
     saveCart();
     
-    // Open the side drawer if on a page that supports it
-    const cartDrawer = document.getElementById('cart-drawer');
-    const overlay = document.getElementById('overlay');
-    
-    if (cartDrawer && overlay) {
-        cartDrawer.classList.add('open'); // Fixed: CSS uses .open
-        overlay.classList.add('show');    // Fixed: CSS uses .show
-    } else {
-        alert(product.name + ' added to your bag!');
+    // Open the side drawer ONLY IF openDrawer is true
+    if (openDrawer) {
+        const cartDrawer = document.getElementById('cart-drawer');
+        const overlay = document.getElementById('overlay');
+        
+        if (cartDrawer && overlay) {
+            cartDrawer.classList.add('open'); // Fixed: CSS uses .open
+            overlay.classList.add('show');    // Fixed: CSS uses .show
+        } else {
+            alert(product.name + ' added to your bag!');
+        }
     }
 }
 
-// Attach generic window access to addToCart for inline HTML onclicks 
+function buyItNow(prodId, qty = 1) {
+    addToCart(prodId, qty, false);
+    window.location.href = 'checkout.html';
+}
+
+// Attach generic window access to addToCart and buyItNow for inline HTML onclicks 
 window.addToCart = addToCart;
+window.buyItNow = buyItNow;
 
 function removeFromCart(prodId) {
     shoppingCart = shoppingCart.filter(item => item.id !== prodId);

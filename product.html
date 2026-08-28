@@ -854,10 +854,8 @@
     }
 
     function buyItNow(prodId, qty = 1) {
-      addToCart(prodId, qty);
-      setTimeout(() => {
-        window.location.href = 'checkout.html';
-      }, 100);
+      addToCart(prodId, qty, false);
+      window.location.href = 'checkout.html';
     }
 
     function changeImg(src, btn) {
