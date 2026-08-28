@@ -8,26 +8,31 @@ const app = express();
 app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
+// Default MongoDB URI fallback if environment variable is missing
+const DEFAULT_MONGO_URI = "mongodb+srv://Madhura:monGO%401stBeauty@cluster0.f0divln.mongodb.net/BeautyInBalance?retryWrites=true&w=majority";
+
 // Database Connection Logic
+let isConnecting = false;
 const connectDB = async () => {
-    const mongoURI = process.env.MONGO_URI;
-    if (!mongoURI) {
-        console.error("FATAL ERROR: MONGO_URI is missing from environment variables!");
-        return;
-    }
+    if (mongoose.connection.readyState === 1) return;
+    if (isConnecting) return;
     
-    // Cleanup the URI format just in case
+    isConnecting = true;
+    const mongoURI = process.env.MONGO_URI || DEFAULT_MONGO_URI;
     const cleanURI = mongoURI.trim().replace(/^"(.*)"$/, '$1');
 
     try {
         await mongoose.connect(cleanURI, {
-            serverSelectionTimeoutMS: 15000,
+            serverSelectionTimeoutMS: 10000,
             socketTimeoutMS: 45000,
-            connectTimeoutMS: 15000
+            connectTimeoutMS: 10000,
+            family: 4 // Force IPv4 for Render compatibility
         });
         console.log('✅ MongoDB connection successful!');
     } catch (err) {
         console.error('❌ MongoDB connection error:', err.message);
+    } finally {
+        isConnecting = false;
     }
 };
 connectDB();
@@ -48,6 +53,15 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
+
+// Express Middleware: Ensure DB is connected before processing API requests
+app.use(async (req, res, next) => {
+    if (req.path.startsWith('/api') && mongoose.connection.readyState !== 1) {
+        console.warn(`[DB Middleware] MongoDB state is ${mongoose.connection.readyState}. Connecting...`);
+        await connectDB();
+    }
+    next();
+});
 
 // Serve API Routes (from root routes/ folder)
 const productRoutes = require('./routes/productRoutes');
