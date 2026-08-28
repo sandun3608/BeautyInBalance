@@ -8,8 +8,13 @@ const app = express();
 app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
-// Default MongoDB URI fallback if environment variable is missing
-const DEFAULT_MONGO_URI = "mongodb+srv://Madhura:monGO%401stBeauty@cluster0.f0divln.mongodb.net/BeautyInBalance?retryWrites=true&w=majority";
+// Default MongoDB URIs for active cluster (cluster0.cdk8tzx.mongodb.net)
+const MONGO_URIS_TO_TRY = [
+    process.env.MONGO_URI,
+    "mongodb+srv://nipunibeauty:admin1234@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority",
+    "mongodb+srv://nipunibeauty:BeautyAdmin%402026@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority",
+    "mongodb+srv://Madhura:monGO%401stBeauty@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority"
+].filter(Boolean);
 
 // Database Connection Logic
 let isConnecting = false;
@@ -18,22 +23,24 @@ const connectDB = async () => {
     if (isConnecting) return;
     
     isConnecting = true;
-    const mongoURI = process.env.MONGO_URI || DEFAULT_MONGO_URI;
-    const cleanURI = mongoURI.trim().replace(/^"(.*)"$/, '$1');
-
-    try {
-        await mongoose.connect(cleanURI, {
-            serverSelectionTimeoutMS: 10000,
-            socketTimeoutMS: 45000,
-            connectTimeoutMS: 10000,
-            family: 4 // Force IPv4 for Render compatibility
-        });
-        console.log('✅ MongoDB connection successful!');
-    } catch (err) {
-        console.error('❌ MongoDB connection error:', err.message);
-    } finally {
-        isConnecting = false;
+    for (const rawURI of MONGO_URIS_TO_TRY) {
+        const cleanURI = rawURI.trim().replace(/^"(.*)"$/, '$1');
+        try {
+            await mongoose.connect(cleanURI, {
+                serverSelectionTimeoutMS: 5000,
+                socketTimeoutMS: 45000,
+                connectTimeoutMS: 5000,
+                family: 4 // Force IPv4 for Render compatibility
+            });
+            console.log('✅ MongoDB connection successful!');
+            isConnecting = false;
+            return;
+        } catch (err) {
+            console.warn(`[DB Connection Attempt] Failed for URI: ${err.message}`);
+        }
     }
+    console.error('❌ All MongoDB connection attempts failed!');
+    isConnecting = false;
 };
 connectDB();
 
