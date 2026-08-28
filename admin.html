@@ -2722,19 +2722,51 @@
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
       if (!ordersTable) return;
-      ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>';
+      ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color: #888;">⏳ Loading live orders...</td></tr>';
       
       const token = localStorage.getItem('userToken');
-      if (!token) { window.location.href = 'login.html'; return; }
+      if (!token || token === 'null' || token === 'undefined') {
+        console.warn("No token found, redirecting to login...");
+        window.location.href = 'login.html'; 
+        return; 
+      }
 
       try {
-        const res = await fetch(BASE_URL + '/orders', {
+        const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+        const res = await fetch(apiBase + '/orders', {
           headers: { 'Authorization': 'Bearer ' + token }
         });
+        
+        if (res.status === 401 || res.status === 403) {
+          console.error("Auth error fetching orders:", res.status);
+          ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color:#ef4444; font-weight:600;">🔒 Session Expired or Unauthorized. Please <a href="login.html" style="color:var(--admin-accent); text-decoration:underline;">Login Again</a>.</td></tr>';
+          return;
+        }
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          console.error("Server error fetching orders:", res.status, errData);
+          ordersTable.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 25px; color:#ef4444;">❌ Server Error (${res.status}): ${errData.message || 'Failed to fetch orders'}. <button onclick="fetchOrders()" style="margin-left:10px; padding:4px 12px; border-radius:6px; cursor:pointer; background:var(--admin-sidebar-bg); color:#fff; border:none;">Retry</button></td></tr>`;
+          return;
+        }
+
         const orders = await res.json();
         
+        if (!Array.isArray(orders)) {
+          console.error("Expected array of orders, got:", orders);
+          ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color:#ef4444;">⚠️ Invalid data structure received from server.</td></tr>';
+          return;
+        }
+
+        if (orders.length === 0) {
+          ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color:#888;">No orders found in database.</td></tr>';
+          const badge = document.getElementById('order-badge');
+          if (badge) badge.style.display = 'none';
+          return;
+        }
+
         // --- ORDER BADGE UPDATE ---
-        const pendingCount = orders.filter(o => !o.isDelivered).length;
+        const pendingCount = orders.filter(o => o && !o.isDelivered).length;
         const badge = document.getElementById('order-badge');
         if (badge) {
           if (pendingCount > 0) {
@@ -2750,7 +2782,12 @@
 
         ordersTable.innerHTML = '';
         orders.forEach(order => {
-          const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
+          if (!order) return;
+          const orderItems = Array.isArray(order.orderItems) ? order.orderItems : [];
+          const itemsSummary = orderItems.map(i => (i.qty || 1) + 'x ' + (i.name || 'Product')).join(', ') || 'No Items';
+          const cust = order.customerInfo || {};
+          const custFirstName = cust.firstName || 'Guest';
+          const custFullName = custFirstName + (cust.lastName ? ' ' + cust.lastName : '');
           const tr = document.createElement('tr');
           
           // Payment method badge colors
@@ -2780,12 +2817,13 @@
           }
           
           // Format order time
-          const orderDate = new Date(order.createdAt);
+          const orderDate = order.createdAt ? new Date(order.createdAt) : new Date();
           const timeStr = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'short', day: 'numeric' }) + '<br><span style="font-size:10px; color:#999;">' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true }) + '</span>';
+          const orderIdDisplay = order._id ? '#' + order._id.substring(order._id.length - 6).toUpperCase() : '#N/A';
           
           tr.innerHTML = `
-            <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
-            <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
+            <td style="font-weight: 700; color: #666; font-size: 12px;">${orderIdDisplay}</td>
+            <td style="font-weight: 600;">${custFirstName}</td>
             <td>
               <div style="width: 120px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #777;" title="${itemsSummary}">
                 ${itemsSummary}
@@ -2805,19 +2843,23 @@
           `;
           ordersTable.appendChild(tr);
         });
-      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="8">Failed to load.</td></tr>'; }
+      } catch (err) { 
+        console.error("fetchOrders error:", err);
+        ordersTable.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 20px; color: #ef4444;">Failed to load orders. (${err.message || 'Unknown Error'}) <button onclick="fetchOrders()" style="margin-left:10px; padding:4px 10px; border-radius:6px; cursor:pointer; background:var(--admin-sidebar-bg); color:#fff; border:none;">Retry</button></td></tr>`; 
+      }
     }
 
     window.viewCustomerDetails = (orderId) => {
-        const order = window.allOrders.find(o => o._id === orderId);
+        if (!window.allOrders) return;
+        const order = window.allOrders.find(o => o && o._id === orderId);
         if(!order) return;
         
-        const ci = order.customerInfo;
-        document.getElementById('view-cust-name').innerText = ci.firstName + ' ' + ci.lastName;
-        document.getElementById('view-cust-email').innerText = ci.email;
-        document.getElementById('view-cust-phone').innerText = ci.phone;
-        document.getElementById('view-cust-district').innerText = ci.district;
-        document.getElementById('view-cust-address').innerText = ci.address + ', ' + ci.city;
+        const ci = order.customerInfo || {};
+        document.getElementById('view-cust-name').innerText = (ci.firstName || 'Guest') + ' ' + (ci.lastName || '');
+        document.getElementById('view-cust-email').innerText = ci.email || 'N/A';
+        document.getElementById('view-cust-phone').innerText = ci.phone || 'N/A';
+        document.getElementById('view-cust-district').innerText = ci.district || 'N/A';
+        document.getElementById('view-cust-address').innerText = (ci.address || 'N/A') + (ci.city ? ', ' + ci.city : '');
         
         // Payment Method
         const pmEl = document.getElementById('view-cust-payment');
@@ -2833,15 +2875,16 @@
         // Order Time
         const timeEl = document.getElementById('view-cust-time');
         if (timeEl) {
-            const orderDate = new Date(order.createdAt);
+            const orderDate = order.createdAt ? new Date(order.createdAt) : new Date();
             timeEl.innerText = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'long', day: 'numeric' }) + ' at ' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
         }
         
         const itemsDiv = document.getElementById('view-cust-items');
-        itemsDiv.innerHTML = order.orderItems.map(item => `
+        const orderItems = Array.isArray(order.orderItems) ? order.orderItems : [];
+        itemsDiv.innerHTML = orderItems.map(item => `
             <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <span>${item.qty}x ${item.name}</span>
-                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 0) ).toLocaleString()}</span>
+                <span>${item.qty || 1}x ${item.name || 'Product'}</span>
+                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 1) ).toLocaleString()}</span>
             </div>
         `).join('');
         
@@ -2850,29 +2893,37 @@
 
     window.markDelivered = async (id) => {
         try {
-            await fetch(`${BASE_URL}/orders/${id}/deliver`, {
+            const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+            const res = await fetch(`${apiBase}/orders/${id}/deliver`, {
                 method: 'PUT',
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
             });
-            fetchOrders();
-        } catch(e) { console.error(e); }
+            if (res.ok) {
+              fetchOrders();
+            } else {
+              const errData = await res.json().catch(() => ({}));
+              alert('Failed to update order: ' + (errData.message || res.status));
+            }
+        } catch(e) { console.error(e); alert('Error marking order as delivered'); }
     };
 
     window.deleteOrder = async (id) => {
-        if(!confirm("Are you sure you want to permanently DELETE this order?")) return;
+        if (!confirm('Are you sure you want to delete this order?')) return;
         try {
-            const res = await fetch(`${BASE_URL}/orders/${id}`, {
+            const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+            const res = await fetch(`${apiBase}/orders/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
             });
-            if(res.ok) {
-                showToast("🗑️ Order Deleted Successfully");
+            if (res.ok) {
                 fetchOrders();
             } else {
-                alert("Failed to delete order. Check logs.");
+                const errData = await res.json().catch(() => ({}));
+                alert('Failed to delete order: ' + (errData.message || res.status));
             }
-        } catch(e) { console.error("Order delete error:", e); }
+        } catch(e) { console.error("Order delete error:", e); alert('Error deleting order'); }
     };
+
 
     window.openSite = () => { window.location.href = 'index.html'; };
 
@@ -2885,23 +2936,42 @@
       if (!token) { window.location.href = 'login.html'; return; }
 
       try {
-        const res = await fetch(BASE_URL + '/inquiries', {
+        const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+        const res = await fetch(apiBase + '/inquiries', {
           headers: { 'Authorization': 'Bearer ' + token }
         });
+        if (!res.ok) {
+          table.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#ef4444;">Failed to load inquiries (${res.status}).</td></tr>`;
+          return;
+        }
         const data = await res.json();
+        if (!Array.isArray(data)) {
+          table.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ef4444;">Invalid inquiries data received.</td></tr>';
+          return;
+        }
         table.innerHTML = '';
+        if (data.length === 0) {
+          table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#888;">No inquiries yet.</td></tr>';
+          return;
+        }
         data.forEach(msg => {
+          if (!msg) return;
           const tr = document.createElement('tr');
+          const dateStr = msg.createdAt ? new Date(msg.createdAt).toLocaleDateString() : 'N/A';
+          const msgText = msg.message ? (msg.message.length > 30 ? msg.message.substring(0, 30) + '...' : msg.message) : '';
           tr.innerHTML = `
-            <td>${new Date(msg.createdAt).toLocaleDateString()}</td>
-            <td>${msg.name}</td>
-            <td>${msg.email}</td>
-            <td>${msg.message.substring(0, 30)}...</td>
+            <td>${dateStr}</td>
+            <td>${msg.name || 'Anonymous'}</td>
+            <td>${msg.email || 'N/A'}</td>
+            <td>${msgText}</td>
             <td><button class="admin-btn" onclick="markRead('${msg._id}')">${msg.isRead ? 'Read' : 'Mark Read'}</button></td>
           `;
           table.appendChild(tr);
         });
-      } catch (err) { table.innerHTML = '<tr><td colspan="5">Failed to load.</td></tr>'; }
+      } catch (err) { 
+        console.error("fetchInquiries error:", err);
+        table.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ef4444;">Failed to load inquiries.</td></tr>'; 
+      }
     }
 
     window.markRead = async (id) => {
