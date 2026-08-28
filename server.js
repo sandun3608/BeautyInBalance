@@ -10,10 +10,10 @@ const PORT = process.env.PORT || 5000;
 
 // Default MongoDB URIs for active cluster (cluster0.cdk8tzx.mongodb.net)
 const MONGO_URIS_TO_TRY = [
+    "mongodb+srv://newbeauty:admin1234@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority",
     process.env.MONGO_URI,
     "mongodb+srv://nipunibeauty:admin1234@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority",
-    "mongodb+srv://nipunibeauty:BeautyAdmin%402026@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority",
-    "mongodb+srv://Madhura:monGO%401stBeauty@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority"
+    "mongodb+srv://nipunibeauty:BeautyAdmin%402026@cluster0.cdk8tzx.mongodb.net/BeautyInBalance?retryWrites=true&w=majority"
 ].filter(Boolean);
 
 // Database Connection Logic
