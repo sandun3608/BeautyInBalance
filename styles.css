@@ -8284,7 +8284,7 @@ main {
 .hap-card-title {
   font-family: var(--font-sans);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 700;
   color: #111;
   margin-bottom: 8px;
   line-height: 1.5;
@@ -9763,3 +9763,16 @@ body.loading-active .floating-email {
     box-shadow: 0 2px 8px rgba(211, 47, 47, 0.4) !important;
   }
 }
+
+/* Global Bold Product Titles for Desktop & Mobile */
+.hap-card-title,
+.lux-name,
+.fg-name,
+.pc-details h3,
+.rec-title,
+.ps-prod-name,
+.p-title,
+.product-title {
+  font-weight: 700 !important;
+}
+

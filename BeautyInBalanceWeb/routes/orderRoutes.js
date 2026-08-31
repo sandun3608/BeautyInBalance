@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
         const createdOrder = await order.save();
 
         // --- EMAIL NOTIFICATIONS (BACKGROUND) ---
-        if (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS)) {
+        if (process.env.RESEND_API_KEY || (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS))) {
             const sendEmail = require('../utils/mailer');
             
             try {
@@ -185,11 +185,11 @@ router.post('/', async (req, res) => {
 // @access  Private (Admins Only)
 router.get('/', protect, async (req, res) => {
     try {
-        const orders = await Order.find({}).sort({ createdAt: -1 }); // Newest first
-        res.json(orders);
+        const orders = await Order.find({}).sort({ createdAt: -1 }).lean(); // Newest first, lean objects
+        res.json(orders || []);
     } catch (error) {
         console.error("Error fetching orders:", error);
-        res.status(500).json({ message: 'Failed to fetch orders' });
+        res.status(500).json({ message: 'Failed to fetch orders: ' + (error.message || 'Unknown database error') });
     }
 });
 
@@ -198,11 +198,11 @@ router.get('/', protect, async (req, res) => {
 // @access  Private
 router.get('/myorders', protect, async (req, res) => {
     try {
-        const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
-        res.json(orders);
+        const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 }).lean();
+        res.json(orders || []);
     } catch (error) {
         console.error("Error fetching my orders:", error);
-        res.status(500).json({ message: 'Failed to fetch your orders' });
+        res.status(500).json({ message: 'Failed to fetch your orders: ' + (error.message || 'Unknown database error') });
     }
 });
 
@@ -222,7 +222,7 @@ router.put('/:id/deliver', protect, async (req, res) => {
             sendCustomerWhatsAppNotification(updatedOrder, 'delivered');
 
             // --- SEND DELIVERY EMAIL TO CUSTOMER (BACKGROUND) ---
-            if (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS)) {
+            if (process.env.RESEND_API_KEY || (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS))) {
                 const sendEmail = require('../utils/mailer');
                 
                 try {

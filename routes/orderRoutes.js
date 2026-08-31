@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
         const createdOrder = await order.save();
 
         // --- EMAIL NOTIFICATIONS (BACKGROUND) ---
-        if (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS)) {
+        if (process.env.RESEND_API_KEY || (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS))) {
             const sendEmail = require('../utils/mailer');
             
             try {
@@ -222,7 +222,7 @@ router.put('/:id/deliver', protect, async (req, res) => {
             sendCustomerWhatsAppNotification(updatedOrder, 'delivered');
 
             // --- SEND DELIVERY EMAIL TO CUSTOMER (BACKGROUND) ---
-            if (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS)) {
+            if (process.env.RESEND_API_KEY || (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS))) {
                 const sendEmail = require('../utils/mailer');
                 
                 try {

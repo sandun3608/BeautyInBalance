@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
         const savedInquiry = await inquiry.save();
 
         // --- EMAIL NOTIFICATION (BACKGROUND) ---
-        if (process.env.EMAIL_USER && (process.env.EMAIL_PASS || process.env.GOOGLE_CLIENT_ID)) {
+        if (process.env.RESEND_API_KEY || (process.env.EMAIL_USER && (process.env.EMAIL_PASS || process.env.GOOGLE_CLIENT_ID))) {
             const sendEmail = require('../utils/mailer');
             sendEmail({
                 email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
