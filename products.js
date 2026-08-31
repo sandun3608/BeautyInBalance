@@ -2206,7 +2206,7 @@ window.renderHomeAllProducts = function() {
                     </div>
                 </div>
                 <div class="hap-card-brand">${brandDisplay}</div>
-                <div class="hap-card-title">${prod.name}</div>
+                <div class="hap-card-title" style="font-weight: 700 !important; color: #111111;">${prod.name}</div>
                 <div class="hap-card-price">${priceHTML}</div>
                 ${kokoInstallmentHTML}
             </a>
