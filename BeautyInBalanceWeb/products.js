@@ -1486,7 +1486,9 @@ const defaultProducts = [
   }
 ];
 
-module.exports = defaultProducts;
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = defaultProducts;
+}
 
 // Attempt to load from localStorage first for an even faster, more accurate instant load
 let cachedProducts = null;
@@ -2531,7 +2533,7 @@ function closeAllSearchDropdowns() {
 }
 
 window.setupGlobalSearch = function() {
-    const isShopPage = window.location.pathname.includes('shop.html');
+    const isShopPage = (window.location && window.location.pathname) ? window.location.pathname.includes('shop.html') : false;
 
     if (isShopPage) {
         // Sync URL search query to the input fields on the shop page on load
