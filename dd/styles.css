@@ -9658,7 +9658,7 @@ body.loading-active .floating-email {
    ULTRA-OPTIMIZED MOBILE PRODUCT GRID (MAX-WIDTH: 768PX)
    ============================================================ */
 @media (max-width: 768px) {
-  /* 1. Outer section side paddings - minimize space on screen edges */
+  /* 1. Outer section side paddings - ZERO space on screen edges for maximum product width */
   .home-all-products-section,
   .shop-body,
   .cat-content,
@@ -9667,11 +9667,14 @@ body.loading-active .floating-email {
   .discovery-section,
   .shop-container,
   .hap-tabs-wrapper {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    width: 100% !important;
   }
 
-  /* 2. Product grids - 2 items per row with tiny 4px gap */
+  /* 2. Product grids - 2 items per row with tiny 2px gap */
   .hap-grid,
   .premium-shop-grid,
   .premium-grid,
@@ -9681,7 +9684,7 @@ body.loading-active .floating-email {
   .lux-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 4px !important;
+    gap: 3px !important;
     padding: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -9694,10 +9697,13 @@ body.loading-active .floating-email {
   .premium-card,
   .ps-product-card,
   .fg-card,
-  .rec-card {
-    padding: 2px !important;
+  .rec-card,
+  .fp-item {
+    padding: 1px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     margin-bottom: 6px !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     box-sizing: border-box !important;
     width: 100% !important;
     background: #ffffff !important;
@@ -9708,12 +9714,14 @@ body.loading-active .floating-email {
   .lux-img,
   .pc-image,
   .ps-prod-img,
-  .fg-img-wrap {
+  .fg-img-wrap,
+  .fp-img-box,
+  .fp-img-wrap {
     width: 100% !important;
-    height: 250px !important;
-    max-height: 66vw !important;
+    height: 270px !important;
+    max-height: 72vw !important;
     aspect-ratio: auto !important;
-    padding: 2px !important;
+    padding: 0 !important;
     margin-bottom: 4px !important;
     display: flex !important;
     align-items: center !important;
@@ -9746,20 +9754,23 @@ body.loading-active .floating-email {
   .pc-image img,
   .ps-prod-img img,
   .fg-img-wrap img,
-  .rec-img-wrap img {
+  .rec-img-wrap img,
+  .fp-img-wrap img,
+  .fp-img-box img {
     width: 100% !important;
     height: 100% !important;
-    max-height: 250px !important;
+    max-height: 270px !important;
     object-fit: contain !important;
     margin: 0 auto !important;
-    transform: scale(1.04) !important;
+    transform: scale(1.12) !important;
   }
 
   /* 6. Product body & text adjustments - BOLD product names */
   .lux-body,
   .fg-info,
-  .pc-details {
-    padding: 6px 4px 60px !important;
+  .pc-details,
+  .fp-details {
+    padding: 6px 4px 50px !important;
   }
 
   .hap-card-title,
@@ -9767,7 +9778,8 @@ body.loading-active .floating-email {
   .fg-name,
   .pc-details h3,
   .rec-title,
-  .ps-prod-name {
+  .ps-prod-name,
+  .fp-name {
     font-size: 13px !important;
     font-weight: 700 !important;
     color: #111111 !important;
@@ -9778,7 +9790,8 @@ body.loading-active .floating-email {
   .hap-card-price,
   .lux-price,
   .fg-price,
-  .pc-price {
+  .pc-price,
+  .fp-price-row {
     font-size: 14.5px !important;
     font-weight: 700 !important;
   }
