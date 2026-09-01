@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=305" />
+  <link rel="stylesheet" href="styles.css?v=306" />
 
   <style>
     @keyframes spin {
@@ -458,67 +458,128 @@
 
     @media (max-width: 768px) {
       .discovery-section {
-        padding: 50px 16px 60px;
-        background: #ffffff;
+        padding: 35px 8px 45px !important;
+        background: #ffffff !important;
+        border-top: 1px solid rgba(45, 27, 18, 0.08) !important;
       }
       .discovery-header {
-        margin-bottom: 30px;
-        text-align: center;
+        margin-bottom: 20px !important;
+        text-align: center !important;
+      }
+      .discovery-eyebrow {
+        font-family: var(--font-sans, sans-serif) !important;
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        color: var(--gold, #C6975A) !important;
+        display: block !important;
+        margin-bottom: 6px !important;
+        background: transparent !important;
+      }
+      .discovery-header h2 {
+        font-family: var(--font-serif, serif) !important;
+        font-size: 24px !important;
+        color: var(--brown, #2D1B12) !important;
+        font-weight: 500 !important;
+        font-style: italic !important;
+        margin: 0 !important;
+        background: transparent !important;
       }
       .rec-grid-container {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 10px 0;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
       }
       .rec-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 16px;
-        text-align: left;
+        background: #ffffff !important;
+        border-radius: 12px !important;
+        padding: 8px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+        text-align: left !important;
+        height: 100% !important;
+        box-sizing: border-box !important;
+        position: relative !important;
       }
       .rec-img-wrap {
-        background: transparent;
-        border-radius: 12px;
-        padding: 8px;
-        width: 110px;
-        height: 110px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: transparent !important;
+        border-radius: 8px !important;
+        padding: 4px !important;
+        width: 100% !important;
+        height: 170px !important;
+        max-height: 50vw !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+      }
+      .rec-img-wrap img {
+        max-height: 100% !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
       }
       .rec-body {
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex: 1;
+        padding: 6px 2px 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        flex: 1 !important;
+        width: 100% !important;
+      }
+      .rec-brand-label {
+        font-size: 8.5px !important;
+        margin-bottom: 3px !important;
+        letter-spacing: 0.1em !important;
       }
       .rec-title {
-        font-size: 13px;
-        min-height: auto;
-        margin-bottom: 6px;
-        line-height: 1.3;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        min-height: 32px !important;
+        margin-bottom: 4px !important;
+        line-height: 1.3 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        color: #2D1B12 !important;
       }
       .rec-price-row {
-        margin-top: 4px;
-        margin-bottom: 4px;
+        margin-top: 2px !important;
+        margin-bottom: 4px !important;
+        gap: 4px !important;
+        flex-wrap: wrap !important;
+        align-items: baseline !important;
       }
       .rec-price {
-        font-size: 15px;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        color: #2D1B12 !important;
+      }
+      .rec-original-price {
+        font-size: 10.5px !important;
       }
       .rec-add-btn {
-        margin-top: 10px;
-        padding: 10px;
-        font-size: 11px;
-        width: 100%;
+        margin-top: 8px !important;
+        padding: 8px 4px !important;
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+        border-radius: 6px !important;
+        width: 100% !important;
+        background: #2D1B12 !important;
+        color: #ffffff !important;
+        border: none !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
       }
     }
 
@@ -844,7 +905,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="config.js?v=21"></script>
-  <script src="products.js?v=410"></script>
+  <script src="products.js?v=412"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
@@ -854,10 +915,8 @@
     }
 
     function buyItNow(prodId, qty = 1) {
-      addToCart(prodId, qty);
-      setTimeout(() => {
-        window.location.href = 'checkout.html';
-      }, 100);
+      addToCart(prodId, qty, false);
+      window.location.href = 'checkout.html';
     }
 
     function changeImg(src, btn) {

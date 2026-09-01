@@ -9708,11 +9708,26 @@ body.loading-active .floating-email {
   .lux-img,
   .pc-image,
   .ps-prod-img,
-  .fg-img-wrap,
-  .rec-img-wrap {
+  .fg-img-wrap {
     width: 100% !important;
     height: 250px !important;
     max-height: 66vw !important;
+    aspect-ratio: auto !important;
+    padding: 2px !important;
+    margin-bottom: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .rec-img-wrap {
+    width: 100% !important;
+    height: 170px !important;
+    max-height: 50vw !important;
     aspect-ratio: auto !important;
     padding: 2px !important;
     margin-bottom: 4px !important;
