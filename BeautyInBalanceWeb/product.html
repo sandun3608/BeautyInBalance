@@ -776,7 +776,6 @@
         <ul class="nav-main desktop-only">
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop All</a></li>
-          <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li class="has-drop">
             <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
@@ -833,6 +832,28 @@
     </div>
   </header>
 
+        <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
+  <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none; position: fixed !important; top: 82px !important; right: 20px !important; z-index: 999999 !important; background: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(14px) !important; -webkit-backdrop-filter: blur(14px) !important; border: 1.5px solid rgba(220, 38, 38, 0.3) !important; border-radius: 16px !important; padding: 8px 14px !important; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) !important; color: #2D1B12 !important; cursor: pointer !important;">
+    <div class="sticky-timer-content" style="display: flex !important; flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 4px !important; width: 100% !important;">
+      <div class="sticky-timer-label" style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 4px !important; font-size: 10px !important; font-weight: 800 !important; color: #DC2626 !important; letter-spacing: 0.1em !important; text-transform: uppercase !important; width: 100% !important; text-align: center !important;">
+        <span class="pulse-dot" style="width: 7px; height: 7px; background: #EF4444; border-radius: 50%; box-shadow: 0 0 10px #EF4444; display: inline-block;"></span>⚡<span class="stk-txt">&nbsp;SALE ENDS IN:</span>
+      </div>
+      <div class="sticky-timer-digits" style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 4px !important; flex-direction: row !important;">
+        <div class="s-unit" style="display: inline-flex !important; align-items: baseline !important; gap: 2px !important; background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important; padding: 4px 9px !important; border-radius: 7px !important; box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;"><span class="s-val" id="stk-days" style="font-size: 14px !important; font-weight: 900 !important; color: #ffffff !important; font-family: monospace, sans-serif !important;">00</span><span class="s-lbl" style="font-size: 9px !important; font-weight: 800 !important; color: #FCA5A5 !important; text-transform: uppercase !important;">d</span></div>
+        <span class="s-sep" style="font-size: 13px !important; font-weight: 900 !important; color: #DC2626 !important;">:</span>
+        <div class="s-unit" style="display: inline-flex !important; align-items: baseline !important; gap: 2px !important; background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important; padding: 4px 9px !important; border-radius: 7px !important; box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;"><span class="s-val" id="stk-hours" style="font-size: 14px !important; font-weight: 900 !important; color: #ffffff !important; font-family: monospace, sans-serif !important;">00</span><span class="s-lbl" style="font-size: 9px !important; font-weight: 800 !important; color: #FCA5A5 !important; text-transform: uppercase !important;">h</span></div>
+        <span class="s-sep" style="font-size: 13px !important; font-weight: 900 !important; color: #DC2626 !important;">:</span>
+        <div class="s-unit" style="display: inline-flex !important; align-items: baseline !important; gap: 2px !important; background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important; padding: 4px 9px !important; border-radius: 7px !important; box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;"><span class="s-val" id="stk-mins" style="font-size: 14px !important; font-weight: 900 !important; color: #ffffff !important; font-family: monospace, sans-serif !important;">00</span><span class="s-lbl" style="font-size: 9px !important; font-weight: 800 !important; color: #FCA5A5 !important; text-transform: uppercase !important;">m</span></div>
+        <span class="s-sep" style="font-size: 13px !important; font-weight: 900 !important; color: #DC2626 !important;">:</span>
+        <div class="s-unit" style="display: inline-flex !important; align-items: baseline !important; gap: 2px !important; background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important; padding: 4px 9px !important; border-radius: 7px !important; box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;"><span class="s-val" id="stk-secs" style="font-size: 14px !important; font-weight: 900 !important; color: #ffffff !important; font-family: monospace, sans-serif !important;">00</span><span class="s-lbl" style="font-size: 9px !important; font-weight: 800 !important; color: #FCA5A5 !important; text-transform: uppercase !important;">s</span></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
 
   <main>
     <div id="pd-frame">
@@ -881,9 +902,9 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="about.html">ABOUT US</a></li>
+            <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
-            <li><a href="shop.html?filter=offers">🛍️ SHOPPING FESTIVAL</a></li>
+            
             <li><a href="account.html">ORDER STATUS</a></li>
             <li><a href="cart.html">♡ WISHLIST</a></li>
         </ul>
@@ -931,12 +952,37 @@
 
     function renderProduct(data) {
       if (!data || !data.length) return;
-      const product = data.find(p => p.id === prodId || p.name === prodId);
-      if (!product) return;
+      const targetId = String(prodId || '').trim();
+      const product = data.find(p => {
+        if (!p) return false;
+        const p1 = String(p._id || '').trim();
+        const p2 = String(p.id || '').trim();
+        const pName = String(p.name || '').trim();
+        return (p1 && p1 === targetId) || (p2 && p2 === targetId) || (pName && pName.toLowerCase() === targetId.toLowerCase());
+      });
+      if (!product) {
+        document.getElementById('pd-frame').innerHTML = `
+          <div style="text-align:center; padding: 100px 20px;">
+            <h2 style="font-family: 'DM Sans', sans-serif; font-size: 26px; font-weight:700; margin-bottom: 16px; color:#222;">Product Not Found</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 25px;">The requested product could not be loaded or may be unavailable.</p>
+            <a href="shop.html" style="display:inline-block; padding: 12px 28px; background: #DC2626; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 13px;">Back to Shop</a>
+          </div>
+        `;
+        return;
+      }
 
       document.title = product.name + " | Beauty in Balance";
 
-      const discount = Number(product.discount || 0);
+      let discount = Number(product.discount || 0);
+      let isFlashSaleOffer = false;
+      if (window.activeFlashSale && window.activeFlashSale.enabled) {
+        const pSet = new Set((window.activeFlashSale.productIds || []).map(id => String(id).trim()));
+        const pIdStr = String(product.id || product._id || '');
+        if (pSet.size === 0 || pSet.has(pIdStr)) {
+          discount = Number(window.activeFlashSale.discountPercent || 20);
+          isFlashSaleOffer = true;
+        }
+      }
       const stockLeft = (product.stock !== undefined && product.stock !== null && product.stock !== '') ? Number(product.stock) : ((product.name.length % 12) + 8);
       const isOutOfStock = stockLeft <= 0;
 
@@ -1163,8 +1209,26 @@
       const initialProducts = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
       renderProduct(initialProducts);
 
-      // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
+      // Fetch Flash Sale settings to check active offers
       const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+      fetch(`${BASE}/settings/flash_sale`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.value && data.value.enabled) {
+            const sale = data.value;
+            const now = new Date();
+            const start = new Date(sale.startDate);
+            const end = new Date(sale.endDate);
+            if (now >= start && now <= end) {
+              window.activeFlashSale = sale; initStickyTimer(sale.endDate);
+              const prods = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+              renderProduct(prods);
+            }
+          }
+        }).catch(e => console.warn('Flash sale fetch in product.html failed:', e));
+
+      // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
+
       const singleProductApiUrl = `${BASE}/products/${prodId}`;
       fetch(singleProductApiUrl)
         .then(res => {
@@ -1209,6 +1273,36 @@
     }
   </script>
   <script>
+    
+      function initStickyTimer(endDateStr) {
+        const widget = document.getElementById('sticky-timer-widget');
+        if (!widget) return;
+        const update = () => {
+          const end = new Date(endDateStr).getTime();
+          const now = new Date().getTime();
+          const diff = end - now;
+          if (isNaN(end) || diff <= 0) {
+            widget.style.display = 'none'; widget.classList.remove('active');
+            return;
+          }
+          widget.style.display = 'flex'; widget.classList.add('active');
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+          const setTxt = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(val).padStart(2, '0');
+          };
+          setTxt('stk-days', days);
+          setTxt('stk-hours', hours);
+          setTxt('stk-mins', mins);
+          setTxt('stk-secs', secs);
+        };
+        update();
+        setInterval(update, 1000);
+      }
+
     // Positioning logic
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
