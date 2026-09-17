@@ -10275,58 +10275,81 @@ body.loading-active .floating-email {
   animation: colonBlink 1s infinite !important;
 }
 
-/* ── MOBILE VIEW: MODERN DARK CAPSULE ── */
+
+/* ── MOBILE VIEW: COMPACT RED PILL (Reference Image Style) ── */
 @media (max-width: 768px) {
   #sticky-timer-widget {
-    top: 60px !important;
+    top: 70px !important;
     right: 12px !important;
-    padding: 6px 14px !important;
-    border-radius: 30px !important;
-    background: linear-gradient(135deg, #18181B 0%, #09090B 100%) !important;
-    border: 1.5px solid rgba(239, 68, 68, 0.5) !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(239, 68, 68, 0.3) !important;
-    animation: floatWidget 4s ease-in-out infinite, pulseGlow 2.5s infinite !important;
+    padding: 8px 14px !important;
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, #EF4444 0%, #C41C1C 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 18px rgba(220, 38, 38, 0.55) !important;
+    animation: none !important;
   }
+
+  /* Hide the column layout — use single row inline */
   #sticky-timer-widget .sticky-timer-content {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
+    gap: 5px !important;
   }
-  #sticky-timer-widget .stk-txt {
-    display: inline-block !important;
-    font-size: 9px !important;
-  }
+
+  /* Hide "SALE ENDS IN:" label text & pulse dot entirely */
   #sticky-timer-widget .sticky-timer-label {
-    gap: 4px !important;
-    font-size: 10px !important;
-    color: #F87171 !important;
-    width: auto !important;
+    display: none !important;
   }
-  #sticky-timer-widget .pulse-dot {
-    display: inline-block !important;
-    width: 6px !important;
-    height: 6px !important;
+
+  /* Hide "d", "h", "m", "s" unit labels */
+  #sticky-timer-widget .s-lbl {
+    display: none !important;
   }
+
+  /* Hide days unit — only show HH:MM */
+  #sticky-timer-widget .s-unit:first-child {
+    display: none !important;
+  }
+
+  /* Each digit box — transparent, no bg */
   #sticky-timer-widget .s-unit {
-    padding: 2px 6px !important;
-    border-radius: 6px !important;
-    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%) !important;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3) !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
   }
+
+  /* Big bold white digits */
   #sticky-timer-widget .s-val {
-    font-size: 11px !important;
+    font-size: 16px !important;
     font-weight: 900 !important;
     color: #FFFFFF !important;
+    font-family: 'DM Sans', monospace, sans-serif !important;
+    letter-spacing: 0.02em !important;
   }
-  #sticky-timer-widget .s-lbl {
-    font-size: 8px !important;
-    color: #FCA5A5 !important;
-  }
+
+  /* Colon separator */
   #sticky-timer-widget .s-sep {
-    font-size: 10px !important;
-    color: #EF4444 !important;
-    opacity: 0.9 !important;
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
     animation: colonBlink 1s infinite !important;
+    padding: 0 1px !important;
+  }
+
+  /* Hide the "days" separator (first colon) */
+  #sticky-timer-widget .s-sep:first-of-type {
+    display: none !important;
+  }
+
+  /* Lightning bolt icon — inject via ::before pseudo element */
+  #sticky-timer-widget .sticky-timer-digits::before {
+    content: '⚡';
+    font-size: 14px !important;
+    margin-right: 2px !important;
   }
 }
+
