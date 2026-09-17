@@ -401,17 +401,17 @@
 
   <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
   <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
-    <!-- Close button (desktop only) -->
     <button class="stk-close-btn" id="stk-close-btn" onclick="event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&times;</button>
     <div class="sticky-timer-content">
+      <div class="sticky-timer-label">⚡ SALE ENDS IN:</div>
       <div class="sticky-timer-digits">
-        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">d</span></div>
+        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">D</span></div>
         <span class="s-sep">:</span>
-        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">h</span></div>
+        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">H</span></div>
         <span class="s-sep">:</span>
-        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">m</span></div>
+        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">M</span></div>
         <span class="s-sep">:</span>
-        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">s</span></div>
+        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">S</span></div>
       </div>
     </div>
   </div>
