@@ -10288,3 +10288,80 @@ body.loading-active .floating-email {
 
 
 
+
+
+/* ==========================================================================
+   STICKY FLOATING LIVE OFFER TIMER (Global Desktop & Short Mobile View)
+   ========================================================================== */
+#sticky-timer-widget {
+  position: fixed !important;
+  top: 80px !important;
+  right: 20px !important;
+  z-index: 999999 !important;
+  background: rgba(17, 24, 39, 0.95) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1.5px solid rgba(220, 38, 38, 0.5) !important;
+  border-radius: 18px !important;
+  padding: 8px 14px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+#sticky-timer-widget .sticky-timer-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 4px !important;
+}
+
+#sticky-timer-widget .sticky-timer-digits {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+
+#sticky-timer-widget .s-unit {
+  display: inline-flex !important;
+  align-items: baseline !important;
+  gap: 2px !important;
+}
+
+/* ── ULTRA-COMPACT SHORT MOBILE VIEW ── */
+@media (max-width: 768px) {
+  #sticky-timer-widget {
+    top: 60px !important;
+    right: 8px !important;
+    padding: 4px 8px !important;
+    border-radius: 24px !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4) !important;
+  }
+  #sticky-timer-widget .sticky-timer-content {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 5px !important;
+  }
+  #sticky-timer-widget .stk-txt {
+    display: none !important; /* Hide 'SALE ENDS IN:' text on mobile to make it super short! */
+  }
+  #sticky-timer-widget .sticky-timer-label {
+    gap: 3px !important;
+    font-size: 11px !important;
+  }
+  #sticky-timer-widget .s-unit {
+    padding: 2px 4px !important;
+    border-radius: 5px !important;
+  }
+  #sticky-timer-widget .s-val {
+    font-size: 11px !important;
+  }
+  #sticky-timer-widget .s-lbl {
+    font-size: 8px !important;
+  }
+  #sticky-timer-widget .s-sep {
+    font-size: 10px !important;
+  }
+}
