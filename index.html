@@ -399,6 +399,24 @@
     </div>
   </header>
 
+  <!-- ===== STICKY FLOATING LIVE OFFER TIMER (STAYS FIXED ON SCROLL) ===== -->
+  <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'">
+    <div class="sticky-timer-content">
+      <div class="sticky-timer-label">
+        <span class="pulse-dot"></span>⚡<span class="stk-txt">&nbsp;SALE ENDS IN:</span>
+      </div>
+      <div class="sticky-timer-digits">
+        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">d</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">h</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">m</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">s</span></div>
+      </div>
+    </div>
+  </div>
+
   <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
@@ -1814,11 +1832,13 @@
         if (isNaN(end) || diff <= 0) {
           if (countdownInterval) clearInterval(countdownInterval);
           if (flashModal) flashModal.classList.remove('active');
+          const widget = document.getElementById('sticky-timer-widget'); if (widget) widget.classList.remove('active');
           // Revert to newsletter modal if applicable
           triggerNewsletterModal();
           return;
         }
 
+        const widget = document.getElementById('sticky-timer-widget'); if (widget) widget.classList.add('active');
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -1828,6 +1848,15 @@
         renderDigits('fs-hours', hours);
         renderDigits('fs-mins', mins);
         renderDigits('fs-secs', secs);
+        // Update floating sticky timer
+        const setTxt = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = String(val).padStart(2, '0');
+        };
+        setTxt('stk-days', days);
+        setTxt('stk-hours', hours);
+        setTxt('stk-mins', mins);
+        setTxt('stk-secs', secs);
       }
 
       function triggerNewsletterModal() {

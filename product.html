@@ -832,6 +832,25 @@
     </div>
   </header>
 
+  <!-- ===== STICKY FLOATING LIVE OFFER TIMER (STAYS FIXED ON SCROLL) ===== -->
+  <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'">
+    <div class="sticky-timer-content">
+      <div class="sticky-timer-label">
+        <span class="pulse-dot"></span>⚡<span class="stk-txt">&nbsp;SALE ENDS IN:</span>
+      </div>
+      <div class="sticky-timer-digits">
+        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">d</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">h</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">m</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">s</span></div>
+      </div>
+    </div>
+  </div>
+
+
 
   <main>
     <div id="pd-frame">
@@ -1182,7 +1201,7 @@
             const start = new Date(sale.startDate);
             const end = new Date(sale.endDate);
             if (now >= start && now <= end) {
-              window.activeFlashSale = sale;
+              window.activeFlashSale = sale; initStickyTimer(sale.endDate);
               const prods = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
               renderProduct(prods);
             }
@@ -1235,6 +1254,36 @@
     }
   </script>
   <script>
+    
+      function initStickyTimer(endDateStr) {
+        const widget = document.getElementById('sticky-timer-widget');
+        if (!widget) return;
+        const update = () => {
+          const end = new Date(endDateStr).getTime();
+          const now = new Date().getTime();
+          const diff = end - now;
+          if (isNaN(end) || diff <= 0) {
+            widget.classList.remove('active');
+            return;
+          }
+          widget.classList.add('active');
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+          const setTxt = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(val).padStart(2, '0');
+          };
+          setTxt('stk-days', days);
+          setTxt('stk-hours', hours);
+          setTxt('stk-mins', mins);
+          setTxt('stk-secs', secs);
+        };
+        update();
+        setInterval(update, 1000);
+      }
+
     // Positioning logic
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
