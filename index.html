@@ -1846,7 +1846,8 @@
 
       // Check Flash Sale status from backend API
       try {
-        const res = await fetch('/api/settings/flash_sale');
+        const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
+        const res = await fetch(`${apiBase}/settings/flash_sale`);
         if (res.ok) {
           const data = await res.json();
           const sale = data.value;

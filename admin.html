@@ -4215,9 +4215,15 @@
       if (modal) modal.style.display = 'flex';
     }
 
+    function getApiBaseUrl() {
+      if (typeof window !== 'undefined' && window.BASE_URL) return window.BASE_URL;
+      if (typeof BASE_URL !== 'undefined') return BASE_URL;
+      return window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api';
+    }
+
     async function loadExistingFlashSaleSettings() {
       try {
-        const res = await fetch('/api/settings/flash_sale');
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
         if (res.ok) {
           const data = await res.json();
           const sale = data.value;
@@ -4316,7 +4322,7 @@
 
       try {
         const token = localStorage.getItem('userToken');
-        const res = await fetch('/api/settings/flash_sale', {
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -4346,7 +4352,7 @@
 
       try {
         const token = localStorage.getItem('userToken');
-        const res = await fetch('/api/settings/flash_sale', {
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
