@@ -401,10 +401,9 @@
 
   <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
   <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
+    <!-- Close button (desktop only) -->
+    <button class="stk-close-btn" id="stk-close-btn" onclick="event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&times;</button>
     <div class="sticky-timer-content">
-      <div class="sticky-timer-label">
-        <span class="pulse-dot"></span>⚡<span class="stk-txt">&nbsp;SALE ENDS IN:</span>
-      </div>
       <div class="sticky-timer-digits">
         <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">d</span></div>
         <span class="s-sep">:</span>
@@ -1840,8 +1839,10 @@
 
         const widget = document.getElementById('sticky-timer-widget');
         // Don't show sticky widget on offers page — it has its own countdown
+        // Don't show if user dismissed it this session
         const isOffersPage = window.location.pathname.includes('offers');
-        if (widget && !isOffersPage) widget.style.display = 'flex';
+        const isDismissed = sessionStorage.getItem('stk_dismissed');
+        if (widget && !isOffersPage && !isDismissed) widget.style.display = 'flex';
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
