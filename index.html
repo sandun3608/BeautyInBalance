@@ -1843,6 +1843,22 @@
         }
       }
 
+      // Close events for Flash Sale Modal (attached immediately so close button (X) always works!)
+      if (flashCloseBtn) {
+        flashCloseBtn.addEventListener('click', () => {
+          if (flashModal) flashModal.classList.remove('active');
+          sessionStorage.setItem('flash_sale_dismissed', 'true');
+        });
+      }
+      if (flashModal) {
+        flashModal.addEventListener('click', (e) => {
+          if (e.target === flashModal) {
+            flashModal.classList.remove('active');
+            sessionStorage.setItem('flash_sale_dismissed', 'true');
+          }
+        });
+      }
+
       // Check Flash Sale status from backend API
       try {
         const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
@@ -1883,22 +1899,6 @@
 
       // Fallback: If no active flash sale, trigger normal newsletter modal
       triggerNewsletterModal();
-
-      // Close events for Flash Sale Modal
-      if (flashCloseBtn) {
-        flashCloseBtn.addEventListener('click', () => {
-          if (flashModal) flashModal.classList.remove('active');
-          sessionStorage.setItem('flash_sale_dismissed', 'true');
-        });
-      }
-      if (flashModal) {
-        flashModal.addEventListener('click', (e) => {
-          if (e.target === flashModal) {
-            flashModal.classList.remove('active');
-            sessionStorage.setItem('flash_sale_dismissed', 'true');
-          }
-        });
-      }
 
       // Close events for Newsletter Modal
       const closeNewsModal = () => {

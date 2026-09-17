@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Sale Offers | Authentic Skincare & Cosmetics — Beauty in Balance</title>
+  <meta name="description" content="Exclusive limited-time flash sale deals on authentic imported skincare products in Sri Lanka. Buy The Ordinary & CeraVe at discounted prices." />
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=308" />
+
+  <style>
+    body {
+      background: #FDFBA7;
+      background: #fdfaf7;
+    }
+
+    /* ── OFFERS HERO BANNER ── */
+    .offers-hero {
+      background-color: #E75328;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 24px 24px;
+      padding: 100px 30px 60px;
+      text-align: center;
+      color: #ffffff;
+      position: relative;
+    }
+
+    .offers-hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #FFD54F;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+    }
+
+    .offers-hero h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(36px, 6vw, 68px);
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+      text-shadow: 0 4px 0 rgba(0,0,0,0.15);
+    }
+
+    .offers-hero-subtitle {
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 800;
+      color: #FFD54F;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* ── OFFERS COUNTDOWN TIMER BOX ── */
+    .offers-timer-card {
+      max-width: 440px;
+      margin: 0 auto 10px;
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px 20px 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      color: #3E2723;
+    }
+
+    .offers-timer-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #3E2723;
+      margin-bottom: 12px;
+    }
+
+    .offers-countdown-digits {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* ── OFFERS BODY & GRID ── */
+    .offers-body {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 60px 30px 120px;
+    }
+
+    .offers-grid-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .offers-grid-header h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--brown, #2D1B12);
+      margin: 0;
+    }
+
+    .offer-product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    @media (max-width: 1024px) {
+      .offer-product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .offer-product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+      .offers-body { padding: 40px 15px 80px; }
+    }
+
+    /* Offer Product Card */
+    .offer-card {
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      border-color: rgba(231, 83, 40, 0.3);
+    }
+
+    .offer-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #E75328;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      z-index: 2;
+      box-shadow: 0 2px 6px rgba(231, 83, 40, 0.3);
+    }
+
+    .offer-card-img {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #FAF7F2;
+      cursor: pointer;
+    }
+
+    .offer-card-img img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+
+    .offer-card:hover .offer-card-img img {
+      transform: scale(1.06);
+    }
+
+    .offer-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .offer-card-brand {
+      font-size: 11px;
+      font-weight: 800;
+      color: #E75328;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .offer-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #222222;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      cursor: pointer;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .offer-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: auto;
+      margin-bottom: 16px;
+    }
+
+    .offer-sale-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: #E75328;
+    }
+
+    .offer-old-price {
+      font-size: 13px;
+      color: #999999;
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+
+    .offer-add-btn {
+      width: 100%;
+      padding: 12px;
+      background: #1B1B1E;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .offer-add-btn:hover {
+      background: #E75328;
+    }
+
+    .no-offers-box {
+      text-align: center;
+      padding: 80px 20px;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.06);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .no-offers-box h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .no-offers-box p {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .no-offers-box a {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #E75328;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER / NAVBAR -->
+  <header class="header" id="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="logo">
+        <span class="logo-text">Beauty in Balance</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop All</a>
+        <a href="offers.html" class="active" style="color: #E75328; font-weight: bold;">⚡ Offers</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="account.html" class="account-btn" aria-label="Account">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <button class="cart-btn" id="cart-btn" aria-label="Shopping Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- OFFERS HERO BANNER -->
+  <section class="offers-hero">
+    <div class="offers-hero-badge">LIMITED TIME DEALS</div>
+    <h1 id="offers-page-title">FLASH SALE OFFERS</h1>
+    <div class="offers-hero-subtitle" id="offers-page-subtitle">UP TO 70% OFF!</div>
+
+    <!-- COUNTDOWN TIMER CARD -->
+    <div class="offers-timer-card">
+      <div class="offers-timer-label">SALE ENDS IN:</div>
+      <div class="offers-countdown-digits">
+        <div class="countdown-unit">
+          <div class="countdown-digit-pair" id="off-days">
+            <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+          </div>
+          <span class="countdown-lbl">DAYS</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <div class="countdown-digit-pair" id="off-hours">
+            <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+          </div>
+          <span class="countdown-lbl">HOURS</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <div class="countdown-digit-pair" id="off-mins">
+            <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+          </div>
+          <span class="countdown-lbl">MINUTES</span>
+        </div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit">
+          <div class="countdown-digit-pair" id="off-secs">
+            <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+          </div>
+          <span class="countdown-lbl">SECONDS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS BODY SECTION -->
+  <main class="offers-body">
+    <div class="offers-grid-header">
+      <h2>Flash Sale Collection (<span id="offers-count">0</span>)</h2>
+    </div>
+
+    <div id="offers-container">
+      <div class="offer-product-grid" id="offers-grid">
+        <!-- JS renders products here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-col">
+        <h4 class="footer-logo">Beauty in Balance</h4>
+        <p>100% Authentic imported skincare & cosmetics in Sri Lanka.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="offers.html">Flash Sale Offers</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Beauty in Balance. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="products.js"></script>
+  <script src="account-nav.js?v=5"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const getApiBaseUrl = () => (window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
+
+      let countdownInterval = null;
+
+      function renderDigits(elementId, value) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const str = String(value).padStart(2, '0');
+        const d1 = str.charAt(0);
+        const d2 = str.charAt(1);
+        el.innerHTML = `<div class="countdown-card-digit">${d1}</div><div class="countdown-card-digit">${d2}</div>`;
+      }
+
+      function updateCountdown(endDateStr) {
+        const end = new Date(endDateStr).getTime();
+        const now = new Date().getTime();
+        const diff = end - now;
+
+        if (isNaN(end) || diff <= 0) {
+          if (countdownInterval) clearInterval(countdownInterval);
+          renderNoActiveSale();
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        renderDigits('off-days', days);
+        renderDigits('off-hours', hours);
+        renderDigits('off-mins', mins);
+        renderDigits('off-secs', secs);
+      }
+
+      function renderNoActiveSale() {
+        const container = document.getElementById('offers-container');
+        if (container) {
+          container.innerHTML = `
+            <div class="no-offers-box">
+              <h3>No Active Flash Sale</h3>
+              <p>There is currently no live flash sale running. Check back soon for exciting exclusive deals!</p>
+              <a href="shop.html">Browse All Products</a>
+            </div>
+          `;
+        }
+        document.getElementById('offers-count').textContent = '0';
+      }
+
+      try {
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
+        if (!res.ok) {
+          renderNoActiveSale();
+          return;
+        }
+
+        const data = await res.json();
+        const sale = data.value;
+        const now = new Date();
+
+        if (!sale || !sale.enabled) {
+          renderNoActiveSale();
+          return;
+        }
+
+        const start = new Date(sale.startDate);
+        const end = new Date(sale.endDate);
+
+        if (now < start || now > end) {
+          renderNoActiveSale();
+          return;
+        }
+
+        // Sale is ACTIVE! Update Page Banner
+        if (sale.title) document.getElementById('offers-page-title').textContent = sale.title;
+        if (sale.subtitle) document.getElementById('offers-page-subtitle').textContent = sale.subtitle;
+
+        updateCountdown(sale.endDate);
+        countdownInterval = setInterval(() => updateCountdown(sale.endDate), 1000);
+
+        // Fetch all products
+        let allProducts = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+        
+        if (allProducts.length === 0) {
+          try {
+            const pRes = await fetch(`${getApiBaseUrl()}/products`);
+            if (pRes.ok) {
+              const pData = await pRes.json();
+              allProducts = Array.isArray(pData) ? pData : (pData.products || []);
+            }
+          } catch (e) {}
+        }
+
+        const offerProductIds = new Set((sale.productIds || []).map(id => String(id)));
+        const discountPercent = sale.discountPercent || 20;
+
+        const offerProducts = allProducts.filter(p => {
+          const pid = String(p._id || p.id || '');
+          return offerProductIds.has(pid);
+        });
+
+        document.getElementById('offers-count').textContent = offerProducts.length;
+
+        const grid = document.getElementById('offers-grid');
+        if (!grid) return;
+
+        if (offerProducts.length === 0) {
+          renderNoActiveSale();
+          return;
+        }
+
+        grid.innerHTML = offerProducts.map(p => {
+          const pid = String(p._id || p.id || '');
+          const origPrice = Number(p.price || 0);
+          const salePrice = Math.round(origPrice * (1 - discountPercent / 100));
+          const imgUrl = p.img || (p.images && p.images.length > 0 ? p.images[0] : (p.image || p.imageUrl || 'favicon.png'));
+          const title = p.name || p.title || 'Untitled Product';
+          const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
+
+          return `
+            <div class="offer-card">
+              <div class="offer-badge">${discountPercent}% OFF</div>
+              <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
+                <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
+              </div>
+              <div class="offer-card-body">
+                <div class="offer-card-brand">${brand}</div>
+                <div class="offer-card-title" onclick="window.location.href='product.html?id=${pid}'">${title}</div>
+                <div class="offer-price-row">
+                  <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
+                  <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
+                </div>
+                <button class="offer-add-btn" onclick="addToCartOffer('${pid}', '${title.replace(/'/g, "\\'")}', ${salePrice}, '${imgUrl}')">Add to Cart</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error(err);
+        renderNoActiveSale();
+      }
+    });
+
+    function addToCartOffer(id, title, price, img) {
+      if (typeof window.addToCart === 'function') {
+        window.addToCart(id, title, price, img);
+      } else {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const existing = cart.find(item => item.id === id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ id, title, price, img, qty: 1 });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${title} added to cart!`);
+      }
+    }
+  </script>
+</body>
+</html>
