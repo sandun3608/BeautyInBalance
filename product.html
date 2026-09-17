@@ -1228,7 +1228,7 @@
         }).catch(e => console.warn('Flash sale fetch in product.html failed:', e));
 
       // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
-      const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+
       const singleProductApiUrl = `${BASE}/products/${prodId}`;
       fetch(singleProductApiUrl)
         .then(res => {
