@@ -82,7 +82,10 @@
       }
       if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
       if (tabName === 'subscribers' && typeof fetchSubscribers === 'function') fetchSubscribers();
-      if (tabName === 'offers' && typeof loadOfferMaintainingTab === 'function') loadOfferMaintainingTab();
+      if (tabName === 'offers') {
+        if (typeof window.loadOfferMaintainingTab === 'function') window.loadOfferMaintainingTab();
+        else if (typeof loadOfferMaintainingTab === 'function') loadOfferMaintainingTab();
+      }
       if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
     };
 
@@ -4083,6 +4086,8 @@
         let prods = [];
         if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
           prods = window.productsData;
+        } else if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts) && defaultProducts.length > 0) {
+          prods = defaultProducts;
         } else {
           try {
             const res = await fetch('/api/products');
@@ -4093,6 +4098,9 @@
           } catch(e) {}
         }
         
+        if ((!prods || prods.length === 0) && typeof defaultProducts !== 'undefined') {
+          prods = defaultProducts;
+        }
         if ((!prods || prods.length === 0) && typeof fallbackProducts !== 'undefined') {
           prods = fallbackProducts;
         }
@@ -4100,10 +4108,8 @@
         renderOfferProductsTable();
       } catch (err) {
         console.error('Error fetching products for offer:', err);
-        if (typeof fallbackProducts !== 'undefined') {
-          allOfferProducts = fallbackProducts;
-          renderOfferProductsTable();
-        }
+        allOfferProducts = (typeof defaultProducts !== 'undefined') ? defaultProducts : (typeof fallbackProducts !== 'undefined' ? fallbackProducts : []);
+        renderOfferProductsTable();
       }
     }
 
@@ -4362,6 +4368,23 @@
         alert('Failed to deactivate sale.');
       }
     }
+
+    window.loadOfferMaintainingTab = loadOfferMaintainingTab;
+    window.renderOfferProductsTable = renderOfferProductsTable;
+    window.fetchOfferProducts = fetchOfferProducts;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (typeof loadOfferMaintainingTab === 'function') {
+          loadOfferMaintainingTab();
+        }
+      }, 500);
+      setTimeout(() => {
+        if (typeof loadOfferMaintainingTab === 'function') {
+          loadOfferMaintainingTab();
+        }
+      }, 2000);
+    });
   </script>
 </body>
 </html>
