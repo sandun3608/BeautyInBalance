@@ -342,7 +342,7 @@
               <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
             </ul>
           </li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li class="has-drop">
             <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
@@ -399,6 +399,24 @@
     </div>
   </header>
 
+  <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
+  <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
+    <div class="sticky-timer-content">
+      <div class="sticky-timer-label">
+        <span class="pulse-dot"></span>⚡<span class="stk-txt">&nbsp;SALE ENDS IN:</span>
+      </div>
+      <div class="sticky-timer-digits">
+        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">d</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">h</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">m</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">s</span></div>
+      </div>
+    </div>
+  </div>
+
   <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
@@ -420,9 +438,9 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="about.html">ABOUT US</a></li>
+            <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
-            <li><a href="shop.html?filter=offers">🛍️ SHOPPING FESTIVAL</a></li>
+            
             <li><a href="account.html">ORDER STATUS</a></li>
             <li><a href="cart.html">♡ WISHLIST</a></li>
         </ul>
@@ -1526,7 +1544,7 @@
           if (!container) return;
           
           // Remove fallback slides
-          container.querySelectorAll('[data-fallback]').forEach(el => el.remove());
+          container.innerHTML = ''; // Clear hardcoded slides so uploaded DB slides display immediately
           
           // Build dynamic slides
           const isMobile = window.innerWidth <= 900;
@@ -1678,6 +1696,67 @@
     </div>
   </div>
 
+  <!-- ===== FLASH SALE POPUP MODAL ===== -->
+  <div class="flash-sale-modal-overlay" id="flash-sale-modal-overlay">
+    <div class="flash-sale-modal-card">
+      <button class="flash-sale-close-btn" id="flash-sale-close-btn" aria-label="Close modal">&times;</button>
+      
+      <div class="flash-sale-header-brand">
+        <span class="flash-sale-brand-name">Beauty in Balance</span>
+      </div>
+
+      <div class="flash-sale-title-container">
+        <div class="flash-sale-title-wrap">
+          <svg class="lightning-svg" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 0L0 20H11L8 36L24 14H13L14 0Z" fill="#FFCA28" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <h2 class="flash-sale-title" id="fs-modal-title">FLASH SALE</h2>
+          <svg class="lightning-svg" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 0L0 20H11L8 36L24 14H13L14 0Z" fill="#FFCA28" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="flash-sale-discount-tag" id="fs-modal-subtitle">UP TO 70% OFF!</div>
+      </div>
+
+      <div class="flash-sale-timer-box">
+        <div class="flash-sale-timer-label">SALE ENDS IN:</div>
+        <div class="flash-sale-countdown-digits">
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-days">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">DAYS</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-hours">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">HOURS</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-mins">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">MINUTES</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-secs">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">SECONDS</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="shop.html?sale=true" class="flash-sale-cta-btn" id="fs-modal-cta">
+        Shop Now Before It's Too Late!
+      </a>
+    </div>
+  </div>
+
   <!-- ===== NEWSLETTER POPUP MODAL ===== -->
   <div class="newsletter-modal-overlay" id="newsletter-modal-overlay">
     <div class="newsletter-modal-card">
@@ -1723,40 +1802,151 @@
   </script>
 
   <script>
-    // --- NEWSLETTER POPUP TRIGGER LOGIC ---
-    document.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById('newsletter-modal-overlay');
-      const closeBtn = document.getElementById('newsletter-close-btn');
-      const noThanksBtn = document.getElementById('newsletter-no-thanks-btn');
-      const form = document.getElementById('newsletter-signup-form');
-      const emailInp = document.getElementById('newsletter-email-inp');
-      const submitBtn = document.getElementById('newsletter-submit-btn');
+    // --- DYNAMIC POPUP CONTROLLER (FLASH SALE vs NEWSLETTER) ---
+    document.addEventListener('DOMContentLoaded', async () => {
+      const flashModal = document.getElementById('flash-sale-modal-overlay');
+      const flashCloseBtn = document.getElementById('flash-sale-close-btn');
+      const newsModal = document.getElementById('newsletter-modal-overlay');
+      const newsCloseBtn = document.getElementById('newsletter-close-btn');
+      const newsNoThanksBtn = document.getElementById('newsletter-no-thanks-btn');
+      const newsForm = document.getElementById('newsletter-signup-form');
+      const newsEmailInp = document.getElementById('newsletter-email-inp');
+      const newsSubmitBtn = document.getElementById('newsletter-submit-btn');
 
-      if (!modal) return;
+      let countdownInterval = null;
 
-      const today = new Date().toDateString();
-      const lastShown = localStorage.getItem('newsletter_last_shown');
-      const isSubscribed = localStorage.getItem('newsletter_subscribed');
-
-      // Show popup after 1.5 seconds if not subscribed and not shown today
-      if (!isSubscribed && lastShown !== today) {
-        const showPopup = () => setTimeout(() => modal.classList.add('active'), 1500);
-        if (window.isPreloaderFinished) showPopup();
-        else window.addEventListener('PreloaderFinished', showPopup);
+      function renderDigits(elementId, value) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const str = String(value).padStart(2, '0');
+        const d1 = str.charAt(0);
+        const d2 = str.charAt(1);
+        el.innerHTML = `<div class="countdown-card-digit">${d1}</div><div class="countdown-card-digit">${d2}</div>`;
       }
 
-      const closeModal = () => {
-        modal.classList.remove('active');
+      function updateCountdown(endDateStr) {
+        const end = new Date(endDateStr).getTime();
+        const now = new Date().getTime();
+        const diff = end - now;
+
+        if (isNaN(end) || diff <= 0) {
+          if (countdownInterval) clearInterval(countdownInterval);
+          if (flashModal) flashModal.classList.remove('active');
+          const widget = document.getElementById('sticky-timer-widget'); if (widget) widget.style.display = 'none'; widget.classList.remove('active');
+          // Revert to newsletter modal if applicable
+          triggerNewsletterModal();
+          return;
+        }
+
+        const widget = document.getElementById('sticky-timer-widget'); if (widget) widget.style.display = 'flex'; widget.classList.add('active');
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        renderDigits('fs-days', days);
+        renderDigits('fs-hours', hours);
+        renderDigits('fs-mins', mins);
+        renderDigits('fs-secs', secs);
+        // Update floating sticky timer
+        const setTxt = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = String(val).padStart(2, '0');
+        };
+        setTxt('stk-days', days);
+        setTxt('stk-hours', hours);
+        setTxt('stk-mins', mins);
+        setTxt('stk-secs', secs);
+      }
+
+      function triggerNewsletterModal() {
+        if (!newsModal) return;
+        const today = new Date().toDateString();
+        const lastShown = localStorage.getItem('newsletter_last_shown');
+        const isSubscribed = localStorage.getItem('newsletter_subscribed');
+
+        if (!isSubscribed && lastShown !== today) {
+          const showPopup = () => setTimeout(() => newsModal.classList.add('active'), 1200);
+          if (window.isPreloaderFinished) showPopup();
+          else window.addEventListener('PreloaderFinished', showPopup);
+        }
+      }
+
+      // Close events for Flash Sale Modal (attached immediately so close button (X) always works!)
+      if (flashCloseBtn) {
+        flashCloseBtn.addEventListener('click', () => {
+          if (flashModal) flashModal.classList.remove('active');
+          sessionStorage.setItem('flash_sale_dismissed', 'true');
+        });
+      }
+      if (flashModal) {
+        flashModal.addEventListener('click', (e) => {
+          if (e.target === flashModal) {
+            flashModal.classList.remove('active');
+            sessionStorage.setItem('flash_sale_dismissed', 'true');
+          }
+        });
+      }
+
+      // Check Flash Sale status from backend API
+      try {
+        const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
+        const res = await fetch(`${apiBase}/settings/flash_sale`);
+        if (res.ok) {
+          const data = await res.json();
+          const sale = data.value;
+          const now = new Date();
+          
+          if (sale && sale.enabled) {
+            const start = new Date(sale.startDate);
+            const end = new Date(sale.endDate);
+
+            if (now >= start && now <= end) {
+              // ACTIVE FLASH SALE! Show Flash Sale Modal
+              if (sale.title) document.getElementById('fs-modal-title').textContent = sale.title;
+              if (sale.subtitle) document.getElementById('fs-modal-subtitle').textContent = sale.subtitle;
+              
+              const ctaEl = document.getElementById('fs-modal-cta');
+              if (ctaEl) {
+                ctaEl.setAttribute('href', 'offers.html');
+                if (sale.ctaText) ctaEl.textContent = sale.ctaText;
+              }
+
+              const isDismissed = sessionStorage.getItem('flash_sale_dismissed');
+              if (!isDismissed) {
+                const showFlashPopup = () => setTimeout(() => {
+                  if (flashModal) flashModal.classList.add('active');
+                }, 1000);
+                if (window.isPreloaderFinished) showFlashPopup();
+                else window.addEventListener('PreloaderFinished', showFlashPopup);
+              }
+
+              updateCountdown(sale.endDate);
+              countdownInterval = setInterval(() => updateCountdown(sale.endDate), 1000);
+              return; // Stop here so newsletter modal is suppressed
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch flash sale settings:', err);
+      }
+
+      // Fallback: If no active flash sale, trigger normal newsletter modal
+      triggerNewsletterModal();
+
+      // Close events for Newsletter Modal
+      const closeNewsModal = () => {
+        if (newsModal) newsModal.classList.remove('active');
         localStorage.setItem('newsletter_last_shown', new Date().toDateString());
       };
 
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (noThanksBtn) noThanksBtn.addEventListener('click', closeModal);
-
-      // Close on clicking outside the card
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
+      if (newsCloseBtn) newsCloseBtn.addEventListener('click', closeNewsModal);
+      if (newsNoThanksBtn) newsNoThanksBtn.addEventListener('click', closeNewsModal);
+      if (newsModal) {
+        newsModal.addEventListener('click', (e) => {
+          if (e.target === newsModal) closeNewsModal();
+        });
+      }
 
       if (form) {
         form.addEventListener('submit', async (e) => {

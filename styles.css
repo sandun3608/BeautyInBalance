@@ -10183,21 +10183,23 @@ body.loading-active .floating-email {
   top: 82px !important;
   right: 20px !important;
   z-index: 999999 !important;
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  border: 1.5px solid rgba(220, 38, 38, 0.35) !important;
+  border: 1.5px solid rgba(239, 68, 68, 0.4) !important;
   border-radius: 16px !important;
-  padding: 8px 14px !important;
-  color: #2D1B12 !important;
+  padding: 10px 16px !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(239, 68, 68, 0.2) !important;
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   cursor: pointer !important;
   animation: floatWidget 4s ease-in-out infinite, pulseGlow 3s infinite !important;
 }
 
 #sticky-timer-widget:hover {
-  transform: translateY(-5px) scale(1.02) !important;
-  border-color: rgba(220, 38, 38, 0.6) !important;
+  transform: translateY(-5px) scale(1.03) !important;
+  border-color: rgba(239, 68, 68, 0.7) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(239, 68, 68, 0.35) !important;
 }
 
 #sticky-timer-widget .sticky-timer-content {
@@ -10205,7 +10207,7 @@ body.loading-active .floating-email {
   flex-direction: column !important;
   align-items: center !important;
   text-align: center !important;
-  gap: 4px !important;
+  gap: 5px !important;
   width: 100% !important;
 }
 
@@ -10213,11 +10215,11 @@ body.loading-active .floating-email {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 4px !important;
-  font-size: 10px !important;
+  gap: 5px !important;
+  font-size: 10.5px !important;
   font-weight: 800 !important;
-  color: #DC2626 !important;
-  letter-spacing: 0.1em !important;
+  color: #F87171 !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   width: 100% !important;
   text-align: center !important;
@@ -10238,17 +10240,17 @@ body.loading-active .floating-email {
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 4px !important;
+  gap: 5px !important;
 }
 
 #sticky-timer-widget .s-unit {
   display: inline-flex !important;
   align-items: baseline !important;
-  gap: 2px !important;
-  background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%) !important;
+  gap: 3px !important;
+  background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%) !important;
   padding: 4px 9px !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4) !important;
   transition: transform 0.2s ease !important;
 }
 
@@ -10256,7 +10258,7 @@ body.loading-active .floating-email {
   font-size: 14px !important;
   font-weight: 900 !important;
   color: #ffffff !important;
-  font-family: monospace, sans-serif !important;
+  font-family: 'DM Sans', monospace, sans-serif !important;
 }
 
 #sticky-timer-widget .s-lbl {
@@ -10269,45 +10271,48 @@ body.loading-active .floating-email {
 #sticky-timer-widget .s-sep {
   font-size: 13px !important;
   font-weight: 900 !important;
-  color: #DC2626 !important;
+  color: #EF4444 !important;
   animation: colonBlink 1s infinite !important;
 }
 
-/* ── MOBILE VIEW: FLOATING ANIMATED RED PILL CAPSULE (MATCHING SCREENSHOT) ── */
+/* ── MOBILE VIEW: MODERN DARK CAPSULE ── */
 @media (max-width: 768px) {
   #sticky-timer-widget {
     top: 60px !important;
-    right: 10px !important;
-    padding: 5px 12px !important;
-    border-radius: 50px !important;
-    background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.35) !important;
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5) !important;
-    animation: pulseGlow 2.5s infinite !important;
+    right: 12px !important;
+    padding: 6px 14px !important;
+    border-radius: 30px !important;
+    background: linear-gradient(135deg, #18181B 0%, #09090B 100%) !important;
+    border: 1.5px solid rgba(239, 68, 68, 0.5) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(239, 68, 68, 0.3) !important;
+    animation: floatWidget 4s ease-in-out infinite, pulseGlow 2.5s infinite !important;
   }
   #sticky-timer-widget .sticky-timer-content {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 4px !important;
+    gap: 6px !important;
   }
   #sticky-timer-widget .stk-txt {
-    display: none !important;
+    display: inline-block !important;
+    font-size: 9px !important;
   }
   #sticky-timer-widget .sticky-timer-label {
-    gap: 3px !important;
-    font-size: 11px !important;
-    color: #FFD1D1 !important;
+    gap: 4px !important;
+    font-size: 10px !important;
+    color: #F87171 !important;
     width: auto !important;
   }
   #sticky-timer-widget .pulse-dot {
-    display: none !important;
+    display: inline-block !important;
+    width: 6px !important;
+    height: 6px !important;
   }
   #sticky-timer-widget .s-unit {
-    padding: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
+    padding: 2px 6px !important;
+    border-radius: 6px !important;
+    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%) !important;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3) !important;
   }
   #sticky-timer-widget .s-val {
     font-size: 11px !important;
@@ -10316,11 +10321,11 @@ body.loading-active .floating-email {
   }
   #sticky-timer-widget .s-lbl {
     font-size: 8px !important;
-    color: #FFD1D1 !important;
+    color: #FCA5A5 !important;
   }
   #sticky-timer-widget .s-sep {
-    font-size: 11px !important;
-    color: #FFFFFF !important;
+    font-size: 10px !important;
+    color: #EF4444 !important;
     opacity: 0.9 !important;
     animation: colonBlink 1s infinite !important;
   }
