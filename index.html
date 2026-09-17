@@ -1876,7 +1876,12 @@
               // ACTIVE FLASH SALE! Show Flash Sale Modal
               if (sale.title) document.getElementById('fs-modal-title').textContent = sale.title;
               if (sale.subtitle) document.getElementById('fs-modal-subtitle').textContent = sale.subtitle;
-              if (sale.ctaText) document.getElementById('fs-modal-cta').textContent = sale.ctaText;
+              
+              const ctaEl = document.getElementById('fs-modal-cta');
+              if (ctaEl) {
+                ctaEl.setAttribute('href', 'offers.html');
+                if (sale.ctaText) ctaEl.textContent = sale.ctaText;
+              }
 
               const isDismissed = sessionStorage.getItem('flash_sale_dismissed');
               if (!isDismissed) {

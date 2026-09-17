@@ -493,13 +493,22 @@
           } catch (e) {}
         }
 
-        const offerProductIds = new Set((sale.productIds || []).map(id => String(id)));
+        const offerProductIds = new Set((sale.productIds || []).map(id => String(id).trim()));
         const discountPercent = sale.discountPercent || 20;
 
-        const offerProducts = allProducts.filter(p => {
-          const pid = String(p._id || p.id || '');
-          return offerProductIds.has(pid);
-        });
+        let offerProducts = [];
+        if (offerProductIds.size > 0) {
+          offerProducts = allProducts.filter(p => {
+            const p1 = String(p._id || '').trim();
+            const p2 = String(p.id || '').trim();
+            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
+          });
+        }
+
+        // Fallback: If specific IDs not found, display products from dataset
+        if (offerProducts.length === 0 && allProducts.length > 0) {
+          offerProducts = allProducts.slice(0, 12);
+        }
 
         document.getElementById('offers-count').textContent = offerProducts.length;
 
