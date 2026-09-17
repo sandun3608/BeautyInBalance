@@ -504,6 +504,128 @@
       border-radius: 12px;
       font-weight: 700;
     }
+
+    /* ── STICKY FLOATING TIMER WIDGET (FIXED ON SCROLL) ── */
+    .sticky-timer-widget {
+      position: fixed;
+      top: 82px;
+      right: 20px;
+      z-index: 99990;
+      background: rgba(17, 24, 39, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(220, 38, 38, 0.5);
+      border-radius: 18px;
+      padding: 10px 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    .sticky-timer-widget.active {
+      display: flex;
+    }
+
+    .sticky-timer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .sticky-timer-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #F87171;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #EF4444;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #EF4444;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.35); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    .sticky-timer-digits {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .s-unit {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+      background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+      padding: 4px 8px;
+      border-radius: 7px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .s-val {
+      font-size: 15px;
+      font-weight: 900;
+      color: #ffffff;
+      font-family: monospace, sans-serif;
+    }
+
+    .s-lbl {
+      font-size: 9px;
+      font-weight: 800;
+      color: #FCA5A5;
+      text-transform: uppercase;
+    }
+
+    .s-sep {
+      font-size: 14px;
+      font-weight: 900;
+      color: #DC2626;
+    }
+
+    /* Mobile Floating Pill View */
+    @media (max-width: 768px) {
+      .sticky-timer-widget {
+        top: 64px;
+        right: 10px;
+        padding: 6px 12px;
+        border-radius: 30px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+      .sticky-timer-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+      }
+      .sticky-timer-label {
+        font-size: 9px;
+      }
+      .s-unit {
+        padding: 2px 6px;
+      }
+      .s-val {
+        font-size: 12px;
+      }
+      .s-lbl {
+        font-size: 8px;
+      }
+      .s-sep {
+        font-size: 11px;
+      }
+    }
   </style>
 </head>
 
@@ -563,6 +685,24 @@
       </div>
     </nav>
   </header>
+
+  <!-- ===== STICKY FLOATING LIVE OFFER TIMER (STAYS FIXED ON SCROLL) ===== -->
+  <div class="sticky-timer-widget" id="sticky-timer-widget">
+    <div class="sticky-timer-content">
+      <div class="sticky-timer-label">
+        <span class="pulse-dot"></span> ⚡ SALE ENDS IN:
+      </div>
+      <div class="sticky-timer-digits">
+        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">d</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">h</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">m</span></div>
+        <span class="s-sep">:</span>
+        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">s</span></div>
+      </div>
+    </div>
+  </div>
 
   <div class="overlay" id="overlay"></div>
 
@@ -758,14 +898,19 @@
         const now = new Date().getTime();
         const diff = end - now;
 
+        const widget = document.getElementById('sticky-timer-widget');
+
         if (isNaN(end) || diff <= 0) {
           if (countdownInterval) clearInterval(countdownInterval);
           renderDigits('off-days', 0);
           renderDigits('off-hours', 0);
           renderDigits('off-mins', 0);
           renderDigits('off-secs', 0);
+          if (widget) widget.classList.remove('active');
           return;
         }
+
+        if (widget) widget.classList.add('active');
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -776,6 +921,16 @@
         renderDigits('off-hours', hours);
         renderDigits('off-mins', mins);
         renderDigits('off-secs', secs);
+
+        // Update floating sticky timer
+        const setTxt = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = String(val).padStart(2, '0');
+        };
+        setTxt('stk-days', days);
+        setTxt('stk-hours', hours);
+        setTxt('stk-mins', mins);
+        setTxt('stk-secs', secs);
       }
 
       // Sourcing products
