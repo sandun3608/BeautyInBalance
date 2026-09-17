@@ -635,16 +635,6 @@
       // API and Products Logic
       const getApiBaseUrl = () => (window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
 
-      // Show loading state
-      const grid = document.getElementById('offers-grid');
-      if (grid) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 20px;">
-          <div style="display:inline-block; width:40px; height:40px; border:3px solid rgba(231,83,40,0.2); border-top-color:#E75328; border-radius:50%; animation:spin 0.8s linear infinite;"></div>
-          <p style="color:#888; margin-top:14px; font-size:14px;">Loading offers...</p>
-          <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
-        </div>`;
-      }
-
       let countdownInterval = null;
 
       function renderDigits(elementId, value) {
@@ -681,7 +671,19 @@
         renderDigits('off-secs', secs);
       }
 
-      // 1. Fetch flash sale settings first
+      // Sourcing products
+      let allProducts = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+      
+      if (allProducts.length === 0) {
+        try {
+          const pRes = await fetch(`${getApiBaseUrl()}/products`);
+          if (pRes.ok) {
+            const pData = await pRes.json();
+            allProducts = Array.isArray(pData) ? pData : (pData.products || []);
+          }
+        } catch (e) {}
+      }
+
       let activeSale = null;
       try {
         const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
@@ -695,48 +697,35 @@
         console.error('Error fetching sale status:', err);
       }
 
-      let discountPercent = activeSale ? (activeSale.discountPercent || 20) : 20;
+      let discountPercent = 20;
+      let displayProducts = [];
 
       if (activeSale) {
         if (activeSale.title) document.getElementById('offers-page-title').textContent = activeSale.title;
         if (activeSale.subtitle) document.getElementById('offers-page-subtitle').textContent = activeSale.subtitle;
+        discountPercent = activeSale.discountPercent || 20;
+
         updateCountdown(activeSale.endDate);
         countdownInterval = setInterval(() => updateCountdown(activeSale.endDate), 1000);
-      }
 
-      // 2. Fetch ALL products from API (always fresh from server)
-      let allProducts = [];
-      try {
-        const pRes = await fetch(`${getApiBaseUrl()}/products?limit=500`);
-        if (pRes.ok) {
-          const pData = await pRes.json();
-          allProducts = Array.isArray(pData) ? pData : (pData.products || []);
+        const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim()));
+        if (offerProductIds.size > 0 && allProducts.length > 0) {
+          displayProducts = allProducts.filter(p => {
+            const p1 = String(p._id || '').trim();
+            const p2 = String(p.id || '').trim();
+            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
+          });
         }
-      } catch (e) {
-        // Fallback to local window data if API fails
-        allProducts = (window.productsData && window.productsData.length > 0)
-          ? window.productsData
-          : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
       }
 
-      // 3. Filter by offer product IDs (if sale active and IDs set)
-      let displayProducts = [];
-      if (activeSale && activeSale.productIds && activeSale.productIds.length > 0) {
-        const offerProductIds = new Set(activeSale.productIds.map(id => String(id).trim()));
-        displayProducts = allProducts.filter(p => {
-          const p1 = String(p._id || '').trim();
-          const p2 = String(p.id || '').trim();
-          return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
-        });
-      }
-
-      // 4. Fallback: show top products if none matched
+      // If specific product IDs match none, or sale disabled, render top collection products
       if (displayProducts.length === 0 && allProducts.length > 0) {
         displayProducts = allProducts.slice(0, 16);
       }
 
       document.getElementById('offers-count').textContent = displayProducts.length;
 
+      const grid = document.getElementById('offers-grid');
       if (grid) {
         if (displayProducts.length === 0) {
           grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;"><h3>No products currently available</h3></div>`;
@@ -750,53 +739,77 @@
             const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
 
             return `
-              <a class="offer-card" href="product.html?id=${pid}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
-                <div class="offer-badge">${discountPercent}% OFF</div>
-                <div class="offer-card-img">
+              <div class="offer-card">
+                <div class="offer-badge">⚡ ${discountPercent}% OFF</div>
+                <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
                   <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
                 </div>
                 <div class="offer-card-body">
                   <div class="offer-card-brand">${brand}</div>
-                  <div class="offer-card-title">${title}</div>
+                  <div class="offer-card-title" onclick="window.location.href='product.html?id=${pid}'">${title}</div>
                   <div class="offer-price-row">
                     <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
                     <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
                   </div>
-                  <button class="offer-add-btn" onclick="event.preventDefault(); event.stopPropagation(); addToCartOffer('${pid}', '${title.replace(/'/g, "\\'")}', ${salePrice}, '${imgUrl}', ${discountPercent})">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:5px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                    Add to Bag
-                  </button>
+                  <div class="offer-actions-row" style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                    <button class="offer-add-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${discountPercent})" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; background: #1B1B1E; color: #ffffff; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s;">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                      Add to Bag
+                    </button>
+                    <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${discountPercent})" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 11px; background: #E75328; color: #ffffff; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s;">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
+                      Buy Now
+                    </button>
+                  </div>
                 </div>
-              </a>
+              </div>
             `;
           }).join('');
         }
       }
     });
 
-    function addToCartOffer(id, title, price, img, discountPct) {
-      // Use bib_cart (same as main cart) and store with discount for checkout
-      let cart = JSON.parse(localStorage.getItem('bib_cart') || '[]');
-      const existing = cart.find(item => item.id === id);
+    function addToCartOffer(id, discount = 20) {
+      let allProds = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+      const product = allProds.find(p => String(p._id || p.id || '') === String(id));
+      if (!product) return;
+
+      const pId = String(product._id || product.id);
+      const imgUrl = product.img || (product.images && product.images[0]) || 'favicon.png';
+
+      let localCart = JSON.parse(localStorage.getItem('bib_cart') || '[]');
+      const existing = localCart.find(item => String(item.id) === pId);
+
       if (existing) {
         existing.qty += 1;
+        existing.discount = discount;
       } else {
-        cart.push({ id, name: title, price, img, qty: 1, discount: discountPct || 0 });
+        localCart.push({
+          id: pId,
+          name: product.name,
+          price: Number(product.price || 0),
+          discount: discount,
+          img: imgUrl,
+          qty: 1
+        });
       }
-      localStorage.setItem('bib_cart', JSON.stringify(cart));
+      localStorage.setItem('bib_cart', JSON.stringify(localCart));
 
-      // Open cart drawer
+      if (typeof window.renderCart === 'function') window.renderCart();
+
       const cartDrawer = document.getElementById('cart-drawer');
       const overlay = document.getElementById('overlay');
-      if (cartDrawer) cartDrawer.classList.add('open');
-      if (overlay) overlay.classList.add('show');
-
-      // Update cart badge
-      const badge = document.getElementById('cart-count') || document.querySelector('.cart-badge');
-      if (badge) {
-        const total = cart.reduce((s, i) => s + i.qty, 0);
-        badge.textContent = total;
+      if (cartDrawer && overlay) {
+        cartDrawer.classList.add('open');
+        overlay.classList.add('show');
+      } else {
+        alert(`${product.name} added to bag!`);
       }
+    }
+
+    function buyNowOffer(id, discount = 20) {
+      addToCartOffer(id, discount);
+      window.location.href = 'checkout.html';
     }
   </script>
 </body>

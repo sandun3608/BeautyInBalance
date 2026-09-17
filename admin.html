@@ -60,6 +60,7 @@
         analytics: 'Analytics', 
         support: 'Inquiries',
         subscribers: 'Newsletter Subscribers',
+        offers: 'Offer Maintaining (Flash Sale)',
         settings: 'Admin Settings' 
       };
       
@@ -69,7 +70,7 @@
       // Handle Back Button Visibility
       var backBtn = document.getElementById('header-back-btn');
       if (backBtn) {
-        backBtn.style.display = (tabName === 'settings' || tabName === 'support' || tabName === 'analytics' || tabName === 'subscribers') ? 'flex' : 'none';
+        backBtn.style.display = (tabName === 'settings' || tabName === 'support' || tabName === 'analytics' || tabName === 'subscribers' || tabName === 'offers') ? 'flex' : 'none';
       }
 
       if (tabName === 'inventory' && typeof renderInventory === 'function') renderInventory();
@@ -81,6 +82,10 @@
       }
       if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
       if (tabName === 'subscribers' && typeof fetchSubscribers === 'function') fetchSubscribers();
+      if (tabName === 'offers') {
+        if (typeof window.loadOfferMaintainingTab === 'function') window.loadOfferMaintainingTab();
+        else if (typeof loadOfferMaintainingTab === 'function') loadOfferMaintainingTab();
+      }
       if (tabName === 'dashboard' && typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
     };
 
@@ -95,7 +100,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=300" />
+  <link rel="stylesheet" href="styles.css?v=306" />
   <style>
     /* Admin Premium - Beauty in Balance Branding */
     :root {
@@ -941,6 +946,7 @@
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-support" class="admin-nav-link" onclick="window.switchTab('support', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Support</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-brands" class="admin-nav-link" onclick="window.switchTab('brands', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20M5 5l14 14M19 5L5 19"/></svg> Brands</div></li>
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-subscribers" class="admin-nav-link" onclick="window.switchTab('subscribers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Subscribers</div></li>
+            <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-offers" class="admin-nav-link" onclick="window.switchTab('offers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Offer Maintaining</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-settings" class="admin-nav-link" onclick="window.switchTab('settings', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03); margin-top: 2px;">
             <div class="admin-nav-link" id="nav-logout" onclick="handleLogout()" style="color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 5px 12px;">
@@ -1217,6 +1223,62 @@
                   </thead>
                   <tbody id="subscribers-table">
                     <!-- JS will render here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- OFFER MAINTAINING TAB -->
+          <div id="tab-offers" class="admin-content">
+            <div class="admin-section">
+              <!-- Banner Card displaying Offer Status -->
+              <div id="offer-status-card" style="background: linear-gradient(135deg, #1B1B1E 0%, #2D1A12 100%); border-radius: 20px; padding: 25px 30px; color: #fff; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); flex-wrap: wrap; gap: 15px;">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <span id="offer-status-badge" style="background: #ef4444; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase;">INACTIVE</span>
+                    <h3 style="margin: 0; font-size: 22px; font-weight: 800; color: #fff;">Flash Sale & Offer Maintaining</h3>
+                  </div>
+                  <p id="offer-status-desc" style="margin: 0; font-size: 13px; opacity: 0.8;">No active sale running. Select products below and click Next to configure an offer.</p>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <button onclick="openOfferDetailsModal()" class="admin-btn" style="background: #CFA56A; color: #fff; padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                    Next: Configure Offer Window
+                  </button>
+                  <button id="offer-deactivate-btn" onclick="deactivateFlashSaleOffer()" style="display: none; background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer;">
+                    Deactivate Sale
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product Selection Header & Search -->
+              <div class="admin-sec-head" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap: wrap; gap: 15px;">
+                <div>
+                  <h3 style="margin:0; font-size: 20px; font-weight: 700;">Step 1: Select Offer Products</h3>
+                  <p style="margin: 4px 0 0 0; font-size: 12px; color: #888;">Tick mark the products you want to include in this sale offer.</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <input type="text" id="offer-product-search" placeholder="Search products..." onkeyup="filterOfferProducts()" style="padding: 10px 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 13px; width: 220px;">
+                  <button onclick="toggleSelectAllOfferProducts(true)" style="background: #f0f0f0; border: 1px solid #ddd; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer;">Select All</button>
+                  <button onclick="toggleSelectAllOfferProducts(false)" style="background: #f0f0f0; border: 1px solid #ddd; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer;">Clear All</button>
+                </div>
+              </div>
+
+              <!-- Products Table with Checkboxes -->
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 40px; text-align: center;"><input type="checkbox" id="offer-select-all-cb" onchange="toggleSelectAllOfferProducts(this.checked)"></th>
+                      <th>Product</th>
+                      <th>Category / Brand</th>
+                      <th>Original Price</th>
+                      <th>Selected Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="offer-products-table-body">
+                    <!-- JS renders product rows here -->
                   </tbody>
                 </table>
               </div>
@@ -2171,69 +2233,6 @@
                 <div id="shipping-fee-msg" style="margin-top: 12px; font-size: 13px; display: none;"></div>
             </div>
 
-            <!-- FLASH SALE MANAGEMENT -->
-            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-top: 30px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;">
-                  <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="width: 40px; height: 40px; background: #fff4ee; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                      <span style="font-size: 20px;">⚡</span>
-                    </div>
-                    <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Flash Sale Management</h3>
-                  </div>
-                  <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                    <span style="font-size: 13px; font-weight: 700; color: #555;">Enable Sale</span>
-                    <div style="position: relative; width: 46px; height: 26px;">
-                      <input type="checkbox" id="fs-enabled" style="opacity: 0; width: 0; height: 0; position: absolute;" onchange="document.getElementById('fs-toggle-bg').style.background = this.checked ? '#E75328' : '#ccc'">
-                      <div id="fs-toggle-bg" style="position: absolute; inset: 0; border-radius: 13px; background: #ccc; transition: 0.3s; cursor: pointer;" onclick="document.getElementById('fs-enabled').click()"></div>
-                      <div id="fs-toggle-knob" style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.3); transition: 0.3s; pointer-events: none;"></div>
-                    </div>
-                  </label>
-                </div>
-                <p style="font-size: 13px; color: #777; margin: 0 0 25px 0;">Configure your Flash Sale — set title, discount %, end date, and pick which products get the offer price. <strong>Koko installment payments are automatically excluded from sale prices.</strong></p>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                  <div>
-                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Sale Title</label>
-                    <input type="text" id="fs-title" placeholder="e.g. FLASH SALE OFFERS" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
-                  </div>
-                  <div>
-                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Subtitle</label>
-                    <input type="text" id="fs-subtitle" placeholder="e.g. UP TO 20% OFF!" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
-                  </div>
-                  <div>
-                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Discount %</label>
-                    <input type="number" id="fs-discount" min="1" max="99" placeholder="20" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
-                  </div>
-                  <div>
-                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Sale End Date &amp; Time</label>
-                    <input type="datetime-local" id="fs-enddate" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
-                  </div>
-                </div>
-
-                <div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                    <label style="font-size: 12px; font-weight: 700; color: #555;">Select Offer Products</label>
-                    <div style="display: flex; gap: 8px;">
-                      <button onclick="fsSelectAll()" style="font-size: 11px; padding: 5px 12px; border: 1px solid #ddd; border-radius: 6px; background: #f5f5f5; cursor: pointer;">Select All</button>
-                      <button onclick="fsClearAll()" style="font-size: 11px; padding: 5px 12px; border: 1px solid #ddd; border-radius: 6px; background: #f5f5f5; cursor: pointer;">Clear All</button>
-                    </div>
-                  </div>
-                  <div id="fs-product-search-wrap" style="margin-bottom: 10px;">
-                    <input type="text" id="fs-product-search" placeholder="🔍 Search products..." oninput="fsFilterProducts(this.value)" style="width: 100%; padding: 10px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
-                  </div>
-                  <div id="fs-product-list" style="max-height: 280px; overflow-y: auto; border: 1px solid #eee; border-radius: 12px; padding: 10px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                    <p style="color: #aaa; font-size: 13px; grid-column: 1/-1; text-align: center; padding: 20px;">Loading products...</p>
-                  </div>
-                </div>
-
-                <div style="display: flex; align-items: center; gap: 15px; margin-top: 25px;">
-                  <button onclick="saveFlashSale(this)" class="admin-btn" style="padding: 15px 28px; font-size: 14px; background: #E75328;">
-                    ⚡ Save Flash Sale
-                  </button>
-                  <div id="fs-msg" style="font-size: 13px; display: none;"></div>
-                </div>
-            </div>
-
             <!-- DANGER ZONE -->
 
             <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #fee2e2;">
@@ -2301,7 +2300,7 @@
     </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=410"></script>
+  <script src="products.js?v=412"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     let editingId = null;
@@ -2785,19 +2784,51 @@
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
       if (!ordersTable) return;
-      ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>';
+      ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color: #888;">⏳ Loading live orders...</td></tr>';
       
       const token = localStorage.getItem('userToken');
-      if (!token) { window.location.href = 'login.html'; return; }
+      if (!token || token === 'null' || token === 'undefined') {
+        console.warn("No token found, redirecting to login...");
+        window.location.href = 'login.html'; 
+        return; 
+      }
 
       try {
-        const res = await fetch(BASE_URL + '/orders', {
+        const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+        const res = await fetch(apiBase + '/orders', {
           headers: { 'Authorization': 'Bearer ' + token }
         });
+        
+        if (res.status === 401 || res.status === 403) {
+          console.error("Auth error fetching orders:", res.status);
+          ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color:#ef4444; font-weight:600;">🔒 Session Expired or Unauthorized. Please <a href="login.html" style="color:var(--admin-accent); text-decoration:underline;">Login Again</a>.</td></tr>';
+          return;
+        }
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          console.error("Server error fetching orders:", res.status, errData);
+          ordersTable.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 25px; color:#ef4444;">❌ Server Error (${res.status}): ${errData.message || 'Failed to fetch orders'}. <button onclick="fetchOrders()" style="margin-left:10px; padding:4px 12px; border-radius:6px; cursor:pointer; background:var(--admin-sidebar-bg); color:#fff; border:none;">Retry</button></td></tr>`;
+          return;
+        }
+
         const orders = await res.json();
         
+        if (!Array.isArray(orders)) {
+          console.error("Expected array of orders, got:", orders);
+          ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color:#ef4444;">⚠️ Invalid data structure received from server.</td></tr>';
+          return;
+        }
+
+        if (orders.length === 0) {
+          ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color:#888;">No orders found in database.</td></tr>';
+          const badge = document.getElementById('order-badge');
+          if (badge) badge.style.display = 'none';
+          return;
+        }
+
         // --- ORDER BADGE UPDATE ---
-        const pendingCount = orders.filter(o => !o.isDelivered).length;
+        const pendingCount = orders.filter(o => o && !o.isDelivered).length;
         const badge = document.getElementById('order-badge');
         if (badge) {
           if (pendingCount > 0) {
@@ -2813,7 +2844,12 @@
 
         ordersTable.innerHTML = '';
         orders.forEach(order => {
-          const itemsSummary = order.orderItems.map(i => i.qty + 'x ' + i.name).join(', ');
+          if (!order) return;
+          const orderItems = Array.isArray(order.orderItems) ? order.orderItems : [];
+          const itemsSummary = orderItems.map(i => (i.qty || 1) + 'x ' + (i.name || 'Product')).join(', ') || 'No Items';
+          const cust = order.customerInfo || {};
+          const custFirstName = cust.firstName || 'Guest';
+          const custFullName = custFirstName + (cust.lastName ? ' ' + cust.lastName : '');
           const tr = document.createElement('tr');
           
           // Payment method badge colors
@@ -2843,12 +2879,13 @@
           }
           
           // Format order time
-          const orderDate = new Date(order.createdAt);
+          const orderDate = order.createdAt ? new Date(order.createdAt) : new Date();
           const timeStr = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'short', day: 'numeric' }) + '<br><span style="font-size:10px; color:#999;">' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true }) + '</span>';
+          const orderIdDisplay = order._id ? '#' + order._id.substring(order._id.length - 6).toUpperCase() : '#N/A';
           
           tr.innerHTML = `
-            <td style="font-weight: 700; color: #666; font-size: 12px;">#${order._id.substring(order._id.length - 6).toUpperCase()}</td>
-            <td style="font-weight: 600;">${order.customerInfo.firstName}</td>
+            <td style="font-weight: 700; color: #666; font-size: 12px;">${orderIdDisplay}</td>
+            <td style="font-weight: 600;">${custFirstName}</td>
             <td>
               <div style="width: 120px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #777;" title="${itemsSummary}">
                 ${itemsSummary}
@@ -2868,19 +2905,23 @@
           `;
           ordersTable.appendChild(tr);
         });
-      } catch (err) { ordersTable.innerHTML = '<tr><td colspan="8">Failed to load.</td></tr>'; }
+      } catch (err) { 
+        console.error("fetchOrders error:", err);
+        ordersTable.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 20px; color: #ef4444;">Failed to load orders. (${err.message || 'Unknown Error'}) <button onclick="fetchOrders()" style="margin-left:10px; padding:4px 10px; border-radius:6px; cursor:pointer; background:var(--admin-sidebar-bg); color:#fff; border:none;">Retry</button></td></tr>`; 
+      }
     }
 
     window.viewCustomerDetails = (orderId) => {
-        const order = window.allOrders.find(o => o._id === orderId);
+        if (!window.allOrders) return;
+        const order = window.allOrders.find(o => o && o._id === orderId);
         if(!order) return;
         
-        const ci = order.customerInfo;
-        document.getElementById('view-cust-name').innerText = ci.firstName + ' ' + ci.lastName;
-        document.getElementById('view-cust-email').innerText = ci.email;
-        document.getElementById('view-cust-phone').innerText = ci.phone;
-        document.getElementById('view-cust-district').innerText = ci.district;
-        document.getElementById('view-cust-address').innerText = ci.address + ', ' + ci.city;
+        const ci = order.customerInfo || {};
+        document.getElementById('view-cust-name').innerText = (ci.firstName || 'Guest') + ' ' + (ci.lastName || '');
+        document.getElementById('view-cust-email').innerText = ci.email || 'N/A';
+        document.getElementById('view-cust-phone').innerText = ci.phone || 'N/A';
+        document.getElementById('view-cust-district').innerText = ci.district || 'N/A';
+        document.getElementById('view-cust-address').innerText = (ci.address || 'N/A') + (ci.city ? ', ' + ci.city : '');
         
         // Payment Method
         const pmEl = document.getElementById('view-cust-payment');
@@ -2896,15 +2937,16 @@
         // Order Time
         const timeEl = document.getElementById('view-cust-time');
         if (timeEl) {
-            const orderDate = new Date(order.createdAt);
+            const orderDate = order.createdAt ? new Date(order.createdAt) : new Date();
             timeEl.innerText = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'long', day: 'numeric' }) + ' at ' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
         }
         
         const itemsDiv = document.getElementById('view-cust-items');
-        itemsDiv.innerHTML = order.orderItems.map(item => `
+        const orderItems = Array.isArray(order.orderItems) ? order.orderItems : [];
+        itemsDiv.innerHTML = orderItems.map(item => `
             <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <span>${item.qty}x ${item.name}</span>
-                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 0) ).toLocaleString()}</span>
+                <span>${item.qty || 1}x ${item.name || 'Product'}</span>
+                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 1) ).toLocaleString()}</span>
             </div>
         `).join('');
         
@@ -2913,29 +2955,37 @@
 
     window.markDelivered = async (id) => {
         try {
-            await fetch(`${BASE_URL}/orders/${id}/deliver`, {
+            const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+            const res = await fetch(`${apiBase}/orders/${id}/deliver`, {
                 method: 'PUT',
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
             });
-            fetchOrders();
-        } catch(e) { console.error(e); }
+            if (res.ok) {
+              fetchOrders();
+            } else {
+              const errData = await res.json().catch(() => ({}));
+              alert('Failed to update order: ' + (errData.message || res.status));
+            }
+        } catch(e) { console.error(e); alert('Error marking order as delivered'); }
     };
 
     window.deleteOrder = async (id) => {
-        if(!confirm("Are you sure you want to permanently DELETE this order?")) return;
+        if (!confirm('Are you sure you want to delete this order?')) return;
         try {
-            const res = await fetch(`${BASE_URL}/orders/${id}`, {
+            const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+            const res = await fetch(`${apiBase}/orders/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
             });
-            if(res.ok) {
-                showToast("🗑️ Order Deleted Successfully");
+            if (res.ok) {
                 fetchOrders();
             } else {
-                alert("Failed to delete order. Check logs.");
+                const errData = await res.json().catch(() => ({}));
+                alert('Failed to delete order: ' + (errData.message || res.status));
             }
-        } catch(e) { console.error("Order delete error:", e); }
+        } catch(e) { console.error("Order delete error:", e); alert('Error deleting order'); }
     };
+
 
     window.openSite = () => { window.location.href = 'index.html'; };
 
@@ -2948,23 +2998,42 @@
       if (!token) { window.location.href = 'login.html'; return; }
 
       try {
-        const res = await fetch(BASE_URL + '/inquiries', {
+        const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+        const res = await fetch(apiBase + '/inquiries', {
           headers: { 'Authorization': 'Bearer ' + token }
         });
+        if (!res.ok) {
+          table.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#ef4444;">Failed to load inquiries (${res.status}).</td></tr>`;
+          return;
+        }
         const data = await res.json();
+        if (!Array.isArray(data)) {
+          table.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ef4444;">Invalid inquiries data received.</td></tr>';
+          return;
+        }
         table.innerHTML = '';
+        if (data.length === 0) {
+          table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#888;">No inquiries yet.</td></tr>';
+          return;
+        }
         data.forEach(msg => {
+          if (!msg) return;
           const tr = document.createElement('tr');
+          const dateStr = msg.createdAt ? new Date(msg.createdAt).toLocaleDateString() : 'N/A';
+          const msgText = msg.message ? (msg.message.length > 30 ? msg.message.substring(0, 30) + '...' : msg.message) : '';
           tr.innerHTML = `
-            <td>${new Date(msg.createdAt).toLocaleDateString()}</td>
-            <td>${msg.name}</td>
-            <td>${msg.email}</td>
-            <td>${msg.message.substring(0, 30)}...</td>
+            <td>${dateStr}</td>
+            <td>${msg.name || 'Anonymous'}</td>
+            <td>${msg.email || 'N/A'}</td>
+            <td>${msgText}</td>
             <td><button class="admin-btn" onclick="markRead('${msg._id}')">${msg.isRead ? 'Read' : 'Mark Read'}</button></td>
           `;
           table.appendChild(tr);
         });
-      } catch (err) { table.innerHTML = '<tr><td colspan="5">Failed to load.</td></tr>'; }
+      } catch (err) { 
+        console.error("fetchInquiries error:", err);
+        table.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ef4444;">Failed to load inquiries.</td></tr>'; 
+      }
     }
 
     window.markRead = async (id) => {
@@ -3349,7 +3418,7 @@
         // 1. LATEST PRODUCTS (with deep safety)
         const prodList = document.getElementById('latest-products-sidebar');
         if (prodList) {
-            // Priority: Live Data -> defaultProducts (from products.js?v=410) -> Hardcoded Premium Fallback
+            // Priority: Live Data -> defaultProducts (from products.js?v=412) -> Hardcoded Premium Fallback
             const source = (window.productsData && window.productsData.length > 0) ? window.productsData : 
                           (typeof defaultProducts !== 'undefined' ? defaultProducts : [
                 { name: 'CeraVe Hydrating Cleanser', cat: 'cerave', price: 6800, img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },
@@ -3848,149 +3917,11 @@
         }
       };
 
-      // ===== FLASH SALE MANAGEMENT =====
-      let _fsAllProducts = [];
-
-      async function loadFlashSale() {
-        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-        try {
-          // Load current sale settings
-          const res = await fetch(`${BASE}/settings/flash_sale?cb=${Date.now()}`);
-          if (res.ok) {
-            const data = await res.json();
-            const sale = data.value || {};
-            const enabledEl = document.getElementById('fs-enabled');
-            const toggleBg = document.getElementById('fs-toggle-bg');
-            const toggleKnob = document.getElementById('fs-toggle-knob');
-            if (enabledEl) {
-              enabledEl.checked = !!sale.enabled;
-              if (toggleBg) toggleBg.style.background = sale.enabled ? '#E75328' : '#ccc';
-              if (toggleKnob) toggleKnob.style.left = sale.enabled ? '23px' : '3px';
-            }
-            if (document.getElementById('fs-title')) document.getElementById('fs-title').value = sale.title || '';
-            if (document.getElementById('fs-subtitle')) document.getElementById('fs-subtitle').value = sale.subtitle || '';
-            if (document.getElementById('fs-discount')) document.getElementById('fs-discount').value = sale.discountPercent || 20;
-            if (sale.endDate && document.getElementById('fs-enddate')) {
-              const d = new Date(sale.endDate);
-              const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-              document.getElementById('fs-enddate').value = local;
-            }
-            window._fsSavedIds = new Set((sale.productIds || []).map(id => String(id)));
-          }
-        } catch(e) { console.error('Flash sale load error:', e); }
-
-        // Load products for picker
-        try {
-          const pRes = await fetch(`${BASE}/products?limit=500`);
-          if (pRes.ok) {
-            const pData = await pRes.json();
-            _fsAllProducts = Array.isArray(pData) ? pData : (pData.products || []);
-            fsRenderProducts(_fsAllProducts);
-          }
-        } catch(e) { console.error('Flash sale products load error:', e); }
-      }
-
-      function fsRenderProducts(products) {
-        const list = document.getElementById('fs-product-list');
-        if (!list) return;
-        if (products.length === 0) {
-          list.innerHTML = '<p style="color:#aaa; font-size:13px; grid-column:1/-1; text-align:center; padding:20px;">No products found</p>';
-          return;
-        }
-        const savedIds = window._fsSavedIds || new Set();
-        list.innerHTML = products.map(p => {
-          const id = String(p._id || p.id || '');
-          const name = p.name || p.title || 'Untitled';
-          const img = p.img || (p.images && p.images[0]) || 'favicon.png';
-          const price = p.price || 0;
-          const checked = savedIds.has(id) ? 'checked' : '';
-          return `<label style="display:flex; align-items:center; gap:10px; background:#fff; padding:10px; border-radius:10px; cursor:pointer; border:1px solid #eee; transition:0.2s;" onmouseover="this.style.borderColor='#E75328'" onmouseout="this.style.borderColor='#eee'">
-            <input type="checkbox" value="${id}" ${checked} class="fs-prod-cb" style="width:16px; height:16px; accent-color:#E75328; cursor:pointer;">
-            <img src="${img}" onerror="this.src='favicon.png'" style="width:38px; height:38px; border-radius:8px; object-fit:contain; background:#f5f5f5;">
-            <div style="flex:1; min-width:0;">
-              <div style="font-size:12px; font-weight:700; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${name}</div>
-              <div style="font-size:11px; color:#888;">Rs. ${Number(price).toLocaleString()}</div>
-            </div>
-          </label>`;
-        }).join('');
-      }
-
-      window.fsFilterProducts = function(query) {
-        const q = query.toLowerCase();
-        const filtered = _fsAllProducts.filter(p => (p.name || p.title || '').toLowerCase().includes(q));
-        fsRenderProducts(filtered);
-      };
-
-      window.fsSelectAll = function() {
-        document.querySelectorAll('.fs-prod-cb').forEach(cb => cb.checked = true);
-      };
-      window.fsClearAll = function() {
-        document.querySelectorAll('.fs-prod-cb').forEach(cb => cb.checked = false);
-      };
-
-      window.saveFlashSale = async function(btn) {
-        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-        const msg = document.getElementById('fs-msg');
-        const enabledEl = document.getElementById('fs-enabled');
-        const titleEl = document.getElementById('fs-title');
-        const subtitleEl = document.getElementById('fs-subtitle');
-        const discountEl = document.getElementById('fs-discount');
-        const endDateEl = document.getElementById('fs-enddate');
-        const selectedIds = [...document.querySelectorAll('.fs-prod-cb:checked')].map(cb => cb.value);
-
-        const saleData = {
-          enabled: enabledEl ? enabledEl.checked : false,
-          title: titleEl ? titleEl.value.trim() : 'FLASH SALE OFFERS',
-          subtitle: subtitleEl ? subtitleEl.value.trim() : '',
-          discountPercent: discountEl ? parseInt(discountEl.value) || 20 : 20,
-          endDate: endDateEl ? new Date(endDateEl.value).toISOString() : null,
-          productIds: selectedIds
-        };
-
-        btn.textContent = 'Saving...';
-        btn.disabled = true;
-
-        try {
-          const token = localStorage.getItem('userToken');
-          const res = await fetch(`${BASE}/settings/flash_sale`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify({ value: saleData })
-          });
-          if (res.ok) {
-            msg.textContent = `✅ Flash Sale saved! ${selectedIds.length} products selected.`;
-            msg.style.color = '#16a34a';
-            window._fsSavedIds = new Set(selectedIds);
-          } else {
-            const err = await res.json().catch(() => ({}));
-            msg.textContent = `❌ Failed: ${err.message || res.status}`;
-            msg.style.color = '#dc2626';
-          }
-          msg.style.display = 'block';
-          setTimeout(() => { msg.style.display = 'none'; }, 4000);
-        } catch(e) {
-          msg.textContent = '❌ Network error. Try again.';
-          msg.style.color = '#dc2626';
-          msg.style.display = 'block';
-        } finally {
-          btn.innerHTML = '⚡ Save Flash Sale';
-          btn.disabled = false;
-        }
-      };
-
-      // Sync toggle knob position on change
-      document.addEventListener('change', function(e) {
-        if (e.target && e.target.id === 'fs-enabled') {
-          const knob = document.getElementById('fs-toggle-knob');
-          if (knob) knob.style.left = e.target.checked ? '23px' : '3px';
-        }
-      });
-
       // Load shipping fee when settings tab is opened
       const origSwitchTab = window.switchTab;
       window.switchTab = function(tabName, el) {
         origSwitchTab(tabName, el);
-        if (tabName === 'settings') { loadShippingFee(); loadFlashSale(); }
+        if (tabName === 'settings') loadShippingFee();
       };
     </script>
 
@@ -4086,6 +4017,379 @@
           }
         });
       });
+    });
+  </script>
+
+  <!-- OFFER DETAILS & TIMING MODAL -->
+  <div id="offer-details-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+    <div style="background: #fff; width: 90%; max-width: 550px; border-radius: 25px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.3);">
+      <div style="padding: 25px 30px; background: #E75328; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h2 style="margin: 0; font-size: 20px; font-weight: 800;">Step 2: Offer Timing & Discounts</h2>
+          <p style="margin: 4px 0 0 0; font-size: 12px; opacity: 0.9;">Set the sale start time, end time, and offer amount.</p>
+        </div>
+        <button onclick="document.getElementById('offer-details-modal').style.display='none'" style="background: rgba(0,0,0,0.2); border: none; color: #fff; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px;">&times;</button>
+      </div>
+
+      <div style="padding: 30px;">
+        <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Offer Start Date & Time</label>
+            <input type="datetime-local" id="offer-start-date" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Offer End Date & Time</label>
+            <input type="datetime-local" id="offer-end-date" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Offer Discount Percentage (%)</label>
+          <input type="number" id="offer-discount-percent" value="20" min="1" max="100" placeholder="e.g. 20" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 14px; box-sizing: border-box; font-weight: bold;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Banner Title</label>
+          <input type="text" id="offer-banner-title" value="FLASH SALE" placeholder="e.g. FLASH SALE" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Banner Subtitle / Tagline</label>
+          <input type="text" id="offer-banner-subtitle" value="UP TO 70% OFF!" placeholder="e.g. UP TO 70% OFF!" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Call-To-Action Text</label>
+          <input type="text" id="offer-cta-text" value="Shop Now Before It's Too Late!" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button onclick="document.getElementById('offer-details-modal').style.display='none'" style="flex: 1; padding: 14px; background: #f0f0f0; color: #333; border: 1px solid #ddd; border-radius: 12px; font-weight: 700; cursor: pointer;">Cancel</button>
+          <button onclick="saveFlashSaleOffer()" id="save-offer-btn" style="flex: 2; padding: 14px; background: #E75328; color: #fff; border: none; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer;">Save & Activate Sale</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- OFFER MAINTAINING LOGIC ---
+    let allOfferProducts = [];
+    let selectedOfferProductIds = new Set();
+
+    async function loadOfferMaintainingTab() {
+      await fetchOfferProducts();
+      await loadExistingFlashSaleSettings();
+    }
+
+    async function fetchOfferProducts() {
+      try {
+        let prods = [];
+        if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
+          prods = window.productsData;
+        } else if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts) && defaultProducts.length > 0) {
+          prods = defaultProducts;
+        } else {
+          try {
+            const res = await fetch('/api/products');
+            if (res.ok) {
+              const data = await res.json();
+              prods = Array.isArray(data) ? data : (data.products || []);
+            }
+          } catch(e) {}
+        }
+        
+        if ((!prods || prods.length === 0) && typeof defaultProducts !== 'undefined') {
+          prods = defaultProducts;
+        }
+        if ((!prods || prods.length === 0) && typeof fallbackProducts !== 'undefined') {
+          prods = fallbackProducts;
+        }
+        allOfferProducts = prods || [];
+        renderOfferProductsTable();
+      } catch (err) {
+        console.error('Error fetching products for offer:', err);
+        allOfferProducts = (typeof defaultProducts !== 'undefined') ? defaultProducts : (typeof fallbackProducts !== 'undefined' ? fallbackProducts : []);
+        renderOfferProductsTable();
+      }
+    }
+
+    function renderOfferProductsTable() {
+      const tbody = document.getElementById('offer-products-table-body');
+      if (!tbody) return;
+      
+      if ((!allOfferProducts || allOfferProducts.length === 0) && window.productsData && window.productsData.length > 0) {
+        allOfferProducts = window.productsData;
+      }
+      
+      const search = (document.getElementById('offer-product-search')?.value || '').toLowerCase().trim();
+      
+      const filtered = (allOfferProducts || []).filter(p => {
+        const title = (p.name || p.title || '').toLowerCase();
+        const brand = (p.cat || p.brand || p.category || '').toLowerCase();
+        const subcat = (p.filter || '').toLowerCase();
+        const id = String(p._id || p.id || '').toLowerCase();
+        if (!search) return true;
+        return title.includes(search) || brand.includes(search) || subcat.includes(search) || id.includes(search);
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#888;">No products found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => {
+        const id = String(p._id || p.id || '');
+        const isChecked = selectedOfferProductIds.has(id);
+        const imgUrl = p.img || (p.images && p.images.length > 0 ? p.images[0] : (p.image || p.imageUrl || 'favicon.png'));
+        const title = p.name || p.title || 'Untitled Product';
+        const brand = p.cat || p.brand || p.category || 'General';
+        const price = p.price ? `Rs. ${Number(p.price).toLocaleString()}` : 'N/A';
+
+        return `
+          <tr style="${isChecked ? 'background: rgba(231, 83, 40, 0.05);' : ''}">
+            <td style="text-align: center;">
+              <input type="checkbox" class="offer-prod-cb" value="${id}" ${isChecked ? 'checked' : ''} onchange="toggleOfferProductSelection('${id}', this.checked)">
+            </td>
+            <td style="display: flex; align-items: center; gap: 12px;">
+              <img src="${imgUrl}" class="prod-thumb" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;" onerror="this.onerror=null; this.src='favicon.png';">
+              <span style="font-weight: 700; color: var(--admin-text);">${title}</span>
+            </td>
+            <td style="color: var(--admin-muted); font-size: 12px; text-transform: capitalize;">${brand}</td>
+            <td style="font-weight: 700;">${price}</td>
+            <td>
+              ${isChecked 
+                ? '<span style="background: #10b981; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px;">SELECTED</span>' 
+                : '<span style="opacity: 0.5; font-size: 11px;">Not Included</span>'}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggleOfferProductSelection(id, isSelected) {
+      if (isSelected) {
+        selectedOfferProductIds.add(id);
+      } else {
+        selectedOfferProductIds.delete(id);
+      }
+      renderOfferProductsTable();
+    }
+
+    function toggleSelectAllOfferProducts(selectAll) {
+      if (selectAll) {
+        allOfferProducts.forEach(p => selectedOfferProductIds.add(p._id || p.id));
+      } else {
+        selectedOfferProductIds.clear();
+      }
+      const mainCb = document.getElementById('offer-select-all-cb');
+      if (mainCb) mainCb.checked = selectAll;
+      renderOfferProductsTable();
+    }
+
+    function filterOfferProducts() {
+      renderOfferProductsTable();
+    }
+
+    function openOfferDetailsModal() {
+      if (selectedOfferProductIds.size === 0) {
+        alert('Please select at least 1 product to include in the sale offer!');
+        return;
+      }
+      
+      const startInput = document.getElementById('offer-start-date');
+      const endInput = document.getElementById('offer-end-date');
+
+      if (startInput && !startInput.value) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        startInput.value = now.toISOString().slice(0, 16);
+      }
+      if (endInput && !endInput.value) {
+        const future = new Date();
+        future.setDate(future.getDate() + 3);
+        future.setMinutes(future.getMinutes() - future.getTimezoneOffset());
+        endInput.value = future.toISOString().slice(0, 16);
+      }
+
+      const modal = document.getElementById('offer-details-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function getApiBaseUrl() {
+      if (typeof window !== 'undefined' && window.BASE_URL) return window.BASE_URL;
+      if (typeof BASE_URL !== 'undefined') return BASE_URL;
+      return window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api';
+    }
+
+    async function loadExistingFlashSaleSettings() {
+      try {
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
+        if (res.ok) {
+          const data = await res.json();
+          const sale = data.value;
+          if (sale) {
+            if (Array.isArray(sale.productIds)) {
+              selectedOfferProductIds = new Set(sale.productIds);
+              renderOfferProductsTable();
+            }
+            if (sale.startDate) {
+              const sDate = new Date(sale.startDate);
+              sDate.setMinutes(sDate.getMinutes() - sDate.getTimezoneOffset());
+              const startInp = document.getElementById('offer-start-date');
+              if (startInp) startInp.value = sDate.toISOString().slice(0, 16);
+            }
+            if (sale.endDate) {
+              const eDate = new Date(sale.endDate);
+              eDate.setMinutes(eDate.getMinutes() - eDate.getTimezoneOffset());
+              const endInp = document.getElementById('offer-end-date');
+              if (endInp) endInp.value = eDate.toISOString().slice(0, 16);
+            }
+            if (sale.discountPercent) {
+              const discInp = document.getElementById('offer-discount-percent');
+              if (discInp) discInp.value = sale.discountPercent;
+            }
+            if (sale.title) {
+              const titleInp = document.getElementById('offer-banner-title');
+              if (titleInp) titleInp.value = sale.title;
+            }
+            if (sale.subtitle) {
+              const subInp = document.getElementById('offer-banner-subtitle');
+              if (subInp) subInp.value = sale.subtitle;
+            }
+            if (sale.ctaText) {
+              const ctaInp = document.getElementById('offer-cta-text');
+              if (ctaInp) ctaInp.value = sale.ctaText;
+            }
+
+            const badge = document.getElementById('offer-status-badge');
+            const desc = document.getElementById('offer-status-desc');
+            const deactivateBtn = document.getElementById('offer-deactivate-btn');
+
+            const now = new Date();
+            const start = sale.startDate ? new Date(sale.startDate) : null;
+            const end = sale.endDate ? new Date(sale.endDate) : null;
+
+            if (sale.enabled && start && end && now >= start && now <= end) {
+              if (badge) {
+                badge.textContent = 'ACTIVE SALE';
+                badge.style.background = '#10b981';
+              }
+              if (desc) desc.textContent = `Flash sale is LIVE! Ends on ${end.toLocaleString()}. Included products: ${selectedOfferProductIds.size}`;
+              if (deactivateBtn) deactivateBtn.style.display = 'inline-block';
+            } else {
+              if (badge) {
+                badge.textContent = 'INACTIVE';
+                badge.style.background = '#ef4444';
+              }
+              if (desc) desc.textContent = 'No active sale currently running.';
+              if (deactivateBtn) deactivateBtn.style.display = 'none';
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error loading flash sale settings:', err);
+      }
+    }
+
+    async function saveFlashSaleOffer() {
+      const startDateVal = document.getElementById('offer-start-date')?.value;
+      const endDateVal = document.getElementById('offer-end-date')?.value;
+      const discountPercentVal = parseFloat(document.getElementById('offer-discount-percent')?.value || '20');
+      const titleVal = document.getElementById('offer-banner-title')?.value || 'FLASH SALE';
+      const subtitleVal = document.getElementById('offer-banner-subtitle')?.value || 'UP TO 70% OFF!';
+      const ctaTextVal = document.getElementById('offer-cta-text')?.value || "Shop Now Before It's Too Late!";
+
+      if (!startDateVal || !endDateVal) {
+        alert('Please choose both Start Date and End Date for the offer!');
+        return;
+      }
+
+      const payload = {
+        value: {
+          enabled: true,
+          startDate: new Date(startDateVal).toISOString(),
+          endDate: new Date(endDateVal).toISOString(),
+          discountPercent: discountPercentVal,
+          title: titleVal,
+          subtitle: subtitleVal,
+          ctaText: ctaTextVal,
+          productIds: Array.from(selectedOfferProductIds)
+        }
+      };
+
+      const btn = document.getElementById('save-offer-btn');
+      if (btn) btn.disabled = true;
+
+      try {
+        const token = localStorage.getItem('userToken');
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('🎉 Flash sale offer saved and activated successfully!');
+          document.getElementById('offer-details-modal').style.display = 'none';
+          await loadExistingFlashSaleSettings();
+        } else {
+          const errData = await res.json();
+          alert('Failed to save offer: ' + (errData.message || 'Unknown error'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error saving flash sale offer!');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function deactivateFlashSaleOffer() {
+      if (!confirm('Are you sure you want to deactivate the current flash sale? The website will revert to the newsletter popup.')) return;
+
+      try {
+        const token = localStorage.getItem('userToken');
+        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            value: {
+              enabled: false
+            }
+          })
+        });
+
+        if (res.ok) {
+          alert('Flash sale deactivated.');
+          await loadExistingFlashSaleSettings();
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Failed to deactivate sale.');
+      }
+    }
+
+    window.loadOfferMaintainingTab = loadOfferMaintainingTab;
+    window.renderOfferProductsTable = renderOfferProductsTable;
+    window.fetchOfferProducts = fetchOfferProducts;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (typeof loadOfferMaintainingTab === 'function') {
+          loadOfferMaintainingTab();
+        }
+      }, 500);
+      setTimeout(() => {
+        if (typeof loadOfferMaintainingTab === 'function') {
+          loadOfferMaintainingTab();
+        }
+      }, 2000);
     });
   </script>
 </body>

@@ -1,3 +1,5 @@
+const dns = require('dns');
+try { dns.setServers(['8.8.8.8', '1.1.1.1']); } catch(e) {}
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -8,27 +10,42 @@ const app = express();
 app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
-// Database Connection Logic
-const connectDB = async () => {
-    const mongoURI = process.env.MONGO_URI;
-    if (!mongoURI) {
-        console.error("FATAL ERROR: MONGO_URI is missing from environment variables!");
-        return;
-    }
-    
-    // Cleanup the URI format just in case
-    const cleanURI = mongoURI.trim().replace(/^"(.*)"$/, '$1');
+// Default MongoDB URIs for active cluster (cluster0.cdk8tzx.mongodb.net / beautydb)
+const MONGO_URIS_TO_TRY = [
+    process.env.MONGO_URI,
+    "mongodb+srv://newbeauty:admin1234@cluster0.cdk8tzx.mongodb.net/beautydb?retryWrites=true&w=majority",
+    "mongodb+srv://nipunibeauty:admin1234@cluster0.cdk8tzx.mongodb.net/beautydb?retryWrites=true&w=majority",
+    "mongodb+srv://nipunibeauty:BeautyAdmin%402026@cluster0.cdk8tzx.mongodb.net/beautydb?retryWrites=true&w=majority"
+].filter(Boolean);
 
-    try {
-        await mongoose.connect(cleanURI, {
-            serverSelectionTimeoutMS: 15000,
-            socketTimeoutMS: 45000,
-            connectTimeoutMS: 15000
-        });
-        console.log('✅ MongoDB connection successful!');
-    } catch (err) {
-        console.error('❌ MongoDB connection error:', err.message);
-    }
+// Database Connection Logic with Promise Lock
+let connectPromise = null;
+const connectDB = async () => {
+    if (mongoose.connection.readyState === 1) return;
+    if (connectPromise) return connectPromise;
+    
+    connectPromise = (async () => {
+        for (const rawURI of MONGO_URIS_TO_TRY) {
+            const cleanURI = rawURI.trim().replace(/^"(.*)"$/, '$1');
+            try {
+                await mongoose.connect(cleanURI, {
+                    serverSelectionTimeoutMS: 8000,
+                    socketTimeoutMS: 45000,
+                    connectTimeoutMS: 8000,
+                    family: 4 // Force IPv4 for Render compatibility
+                });
+                console.log('✅ MongoDB connection successful!');
+                return;
+            } catch (err) {
+                console.warn(`[DB Connection Attempt] Failed for URI: ${err.message}`);
+            }
+        }
+        console.error('❌ All MongoDB connection attempts failed!');
+    })().finally(() => {
+        connectPromise = null;
+    });
+
+    return connectPromise;
 };
 connectDB();
 
@@ -48,6 +65,15 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
+
+// Express Middleware: Ensure DB is connected before processing API requests
+app.use(async (req, res, next) => {
+    if (req.path.startsWith('/api') && mongoose.connection.readyState !== 1) {
+        console.warn(`[DB Middleware] MongoDB state is ${mongoose.connection.readyState}. Connecting...`);
+        await connectDB();
+    }
+    next();
+});
 
 // Serve API Routes (from root routes/ folder)
 const productRoutes = require('./routes/productRoutes');
