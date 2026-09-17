@@ -5,10 +5,10 @@ const repoDir = 'c:\\Users\\etsy dream\\Desktop\\hg (1)\\hg (1)\\hg';
 const files = fs.readdirSync(repoDir).filter(f => f.endsWith('.html') || f.endsWith('.css') || f.endsWith('.js'));
 
 const replacements = [
-    { from: /#E75328/gi, to: '#8B0000' },
-    { from: /#C63D17/gi, to: '#7A0000' },
-    { from: /#B2300B/gi, to: '#590000' },
-    { from: /rgba\(231,\s*83,\s*40,/gi, to: 'rgba(139, 0, 0,' }
+    { from: /#8B0000/gi, to: '#E75328' },
+    { from: /#7A0000/gi, to: '#C63D17' },
+    { from: /#590000/gi, to: '#B2300B' },
+    { from: /rgba\(139,\s*0,\s*0,/gi, to: 'rgba(231, 83, 40,' }
 ];
 
 let totalChanges = 0;
@@ -26,7 +26,7 @@ files.forEach(file => {
 
     if (modified) {
         fs.writeFileSync(filePath, content, 'utf8');
-        console.log(`Updated: ${file}`);
+        console.log(`Restored banner color in: ${file}`);
         totalChanges++;
     }
 });
