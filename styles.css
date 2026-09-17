@@ -10157,24 +10157,47 @@ body.loading-active .floating-email {
 
 
 
+
 /* ==========================================================================
-   STICKY FLOATING LIVE OFFER TIMER (White Mix Desktop & Reference Red Pill Mobile)
+   STICKY FLOATING LIVE OFFER TIMER (Animations & Harmonious Color System)
    ========================================================================== */
+@keyframes floatWidget {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(220, 38, 38, 0.3); }
+  50% { box-shadow: 0 14px 35px rgba(220, 38, 38, 0.22), 0 0 0 1.5px rgba(220, 38, 38, 0.5); }
+  100% { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(220, 38, 38, 0.3); }
+}
+
+@keyframes colonBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
 #sticky-timer-widget {
   position: fixed !important;
   top: 82px !important;
   right: 20px !important;
   z-index: 999999 !important;
   background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1.5px solid rgba(220, 38, 38, 0.3) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1.5px solid rgba(220, 38, 38, 0.35) !important;
   border-radius: 16px !important;
   padding: 8px 14px !important;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
   color: #2D1B12 !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   cursor: pointer !important;
+  animation: floatWidget 4s ease-in-out infinite, pulseGlow 3s infinite !important;
+}
+
+#sticky-timer-widget:hover {
+  transform: translateY(-5px) scale(1.02) !important;
+  border-color: rgba(220, 38, 38, 0.6) !important;
 }
 
 #sticky-timer-widget .sticky-timer-content {
@@ -10200,6 +10223,16 @@ body.loading-active .floating-email {
   text-align: center !important;
 }
 
+#sticky-timer-widget .pulse-dot {
+  width: 7px !important;
+  height: 7px !important;
+  background: #EF4444 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 10px #EF4444 !important;
+  animation: pulseDot 1.5s infinite !important;
+  display: inline-block !important;
+}
+
 #sticky-timer-widget .sticky-timer-digits {
   display: flex !important;
   flex-direction: row !important;
@@ -10212,10 +10245,11 @@ body.loading-active .floating-email {
   display: inline-flex !important;
   align-items: baseline !important;
   gap: 2px !important;
-  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+  background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%) !important;
   padding: 4px 9px !important;
-  border-radius: 7px !important;
-  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
+  transition: transform 0.2s ease !important;
 }
 
 #sticky-timer-widget .s-val {
@@ -10236,18 +10270,20 @@ body.loading-active .floating-email {
   font-size: 13px !important;
   font-weight: 900 !important;
   color: #DC2626 !important;
+  animation: colonBlink 1s infinite !important;
 }
 
-/* ── MOBILE VIEW: MATCH REFERENCE SCREENSHOT (VIBRANT FLOATING RED PILL) ── */
+/* ── MOBILE VIEW: FLOATING ANIMATED RED PILL CAPSULE (MATCHING SCREENSHOT) ── */
 @media (max-width: 768px) {
   #sticky-timer-widget {
     top: 60px !important;
     right: 10px !important;
     padding: 5px 12px !important;
-    border-radius: 50px !important; /* Full Pill Capsule shape like screenshot */
-    background: linear-gradient(135deg, #E52E2E 0%, #B91C1C 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 6px 20px rgba(229, 46, 46, 0.5) !important;
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5) !important;
+    animation: pulseGlow 2.5s infinite !important;
   }
   #sticky-timer-widget .sticky-timer-content {
     flex-direction: row !important;
@@ -10256,7 +10292,7 @@ body.loading-active .floating-email {
     gap: 4px !important;
   }
   #sticky-timer-widget .stk-txt {
-    display: none !important; /* Hide label text on mobile to match screenshot */
+    display: none !important;
   }
   #sticky-timer-widget .sticky-timer-label {
     gap: 3px !important;
@@ -10285,6 +10321,7 @@ body.loading-active .floating-email {
   #sticky-timer-widget .s-sep {
     font-size: 11px !important;
     color: #FFFFFF !important;
-    opacity: 0.8 !important;
+    opacity: 0.9 !important;
+    animation: colonBlink 1s infinite !important;
   }
 }

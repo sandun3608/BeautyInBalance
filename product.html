@@ -952,8 +952,24 @@
 
     function renderProduct(data) {
       if (!data || !data.length) return;
-      const product = data.find(p => p.id === prodId || p.name === prodId);
-      if (!product) return;
+      const targetId = String(prodId || '').trim();
+      const product = data.find(p => {
+        if (!p) return false;
+        const p1 = String(p._id || '').trim();
+        const p2 = String(p.id || '').trim();
+        const pName = String(p.name || '').trim();
+        return (p1 && p1 === targetId) || (p2 && p2 === targetId) || (pName && pName.toLowerCase() === targetId.toLowerCase());
+      });
+      if (!product) {
+        document.getElementById('pd-frame').innerHTML = `
+          <div style="text-align:center; padding: 100px 20px;">
+            <h2 style="font-family: 'DM Sans', sans-serif; font-size: 26px; font-weight:700; margin-bottom: 16px; color:#222;">Product Not Found</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 25px;">The requested product could not be loaded or may be unavailable.</p>
+            <a href="shop.html" style="display:inline-block; padding: 12px 28px; background: #DC2626; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 13px;">Back to Shop</a>
+          </div>
+        `;
+        return;
+      }
 
       document.title = product.name + " | Beauty in Balance";
 
