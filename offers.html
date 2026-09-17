@@ -238,18 +238,18 @@
       .offer-product-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
-      .offer-product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-      .offers-body { padding: 25px 12px 60px; }
+      .offer-product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .offers-body { padding: 20px 10px 60px; }
     }
 
-    /* Offer Product Card */
+    /* Offer Product Card - Modern Red Aesthetic */
     .offer-card {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(45, 27, 18, 0.08);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: flex;
       flex-direction: column;
       position: relative;
@@ -257,22 +257,23 @@
 
     .offer-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-      border-color: rgba(231, 83, 40, 0.4);
+      box-shadow: 0 16px 36px rgba(220, 38, 38, 0.16);
+      border-color: rgba(220, 38, 38, 0.35);
     }
 
     .offer-badge {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: #E75328;
+      background: linear-gradient(135deg, #E52E2E 0%, #B91C1C 100%);
       color: #ffffff;
       font-size: 11px;
       font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 8px;
+      padding: 5px 12px;
+      border-radius: 30px;
       z-index: 2;
-      box-shadow: 0 2px 6px rgba(231, 83, 40, 0.35);
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 12px rgba(229, 46, 46, 0.4);
     }
 
     .offer-card-img {
@@ -281,24 +282,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background: #FAF7F2;
+      padding: 24px;
+      background: linear-gradient(180deg, #FAF7F2 0%, #F5F0E8 100%);
       cursor: pointer;
+      overflow: hidden;
     }
 
     .offer-card-img img {
       max-width: 90%;
       max-height: 90%;
       object-fit: contain;
-      transition: transform 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .offer-card:hover .offer-card-img img {
-      transform: scale(1.06);
+      transform: scale(1.08);
     }
 
     .offer-card-body {
-      padding: 18px;
+      padding: 18px 20px 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -307,62 +309,167 @@
     .offer-card-brand {
       font-size: 11px;
       font-weight: 800;
-      color: #E75328;
+      color: #E52E2E;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       margin-bottom: 6px;
     }
 
     .offer-card-title {
       font-size: 15px;
       font-weight: 700;
-      color: #222222;
-      line-height: 1.35;
+      color: #111827;
+      line-height: 1.4;
       margin-bottom: 12px;
       cursor: pointer;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      min-height: 40px;
+      min-height: 42px;
+      transition: color 0.2s ease;
+    }
+
+    .offer-card-title:hover {
+      color: #E52E2E;
     }
 
     .offer-price-row {
       display: flex;
-      align-items: baseline;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
       margin-top: auto;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .offer-sale-price {
-      font-size: 18px;
-      font-weight: 800;
-      color: #E75328;
+      font-size: 20px;
+      font-weight: 900;
+      color: #E52E2E;
+      letter-spacing: -0.02em;
     }
 
     .offer-old-price {
       font-size: 13px;
-      color: #999999;
+      color: #9CA3AF;
       text-decoration: line-through;
       font-weight: 500;
     }
 
+    .offer-save-badge {
+      font-size: 10px;
+      font-weight: 800;
+      color: #E52E2E;
+      background: #FEF2F2;
+      border: 1px solid rgba(229, 46, 46, 0.2);
+      padding: 2px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .offer-actions-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
     .offer-add-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       width: 100%;
       padding: 12px;
-      background: #1B1B1E;
+      background: #111827;
       color: #ffffff;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      transition: all 0.25s ease;
     }
 
     .offer-add-btn:hover {
-      background: #E75328;
+      background: #1F2937;
+      transform: translateY(-1px);
+    }
+
+    .offer-buy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #E52E2E 0%, #B91C1C 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(229, 46, 46, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .offer-buy-btn:hover {
+      background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(229, 46, 46, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .offer-product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .offers-body {
+        padding: 20px 10px 60px;
+      }
+      .offer-card {
+        border-radius: 16px;
+      }
+      .offer-card-img {
+        padding: 14px;
+        aspect-ratio: 1;
+      }
+      .offer-card-body {
+        padding: 12px;
+      }
+      .offer-card-brand {
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+      .offer-card-title {
+        font-size: 13px;
+        line-height: 1.35;
+        min-height: 35px;
+        margin-bottom: 8px;
+      }
+      .offer-sale-price {
+        font-size: 16px;
+      }
+      .offer-old-price {
+        font-size: 12px;
+      }
+      .offer-badge {
+        top: 8px;
+        left: 8px;
+        font-size: 10px;
+        padding: 4px 9px;
+        border-radius: 20px;
+      }
+      .offer-actions-row {
+        gap: 6px;
+      }
+      .offer-add-btn, .offer-buy-btn {
+        padding: 10px 8px;
+        font-size: 12px;
+        border-radius: 10px;
+      }
     }
 
     .no-offers-box {
@@ -738,6 +845,8 @@
             const title = p.name || p.title || 'Untitled Product';
             const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
 
+            const savings = origPrice - salePrice;
+
             return `
               <div class="offer-card">
                 <div class="offer-badge">⚡ ${discountPercent}% OFF</div>
@@ -750,13 +859,14 @@
                   <div class="offer-price-row">
                     <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
                     <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
+                    ${savings > 0 ? `<span class="offer-save-badge">Save Rs. ${savings.toLocaleString()}</span>` : ''}
                   </div>
-                  <div class="offer-actions-row" style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                    <button class="offer-add-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${discountPercent})" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; background: #1B1B1E; color: #ffffff; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s;">
+                  <div class="offer-actions-row">
+                    <button class="offer-add-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${discountPercent})">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                       Add to Bag
                     </button>
-                    <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${discountPercent})" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 11px; background: #E75328; color: #ffffff; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s;">
+                    <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${discountPercent})">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
                       Buy Now
                     </button>
