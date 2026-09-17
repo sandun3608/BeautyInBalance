@@ -4080,13 +4080,30 @@
 
     async function fetchOfferProducts() {
       try {
-        const res = await fetch('/api/products');
-        if (res.ok) {
-          allOfferProducts = await res.json();
-          renderOfferProductsTable();
+        let prods = [];
+        if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
+          prods = window.productsData;
+        } else {
+          try {
+            const res = await fetch('/api/products');
+            if (res.ok) {
+              const data = await res.json();
+              prods = Array.isArray(data) ? data : (data.products || []);
+            }
+          } catch(e) {}
         }
+        
+        if ((!prods || prods.length === 0) && typeof fallbackProducts !== 'undefined') {
+          prods = fallbackProducts;
+        }
+        allOfferProducts = prods || [];
+        renderOfferProductsTable();
       } catch (err) {
         console.error('Error fetching products for offer:', err);
+        if (typeof fallbackProducts !== 'undefined') {
+          allOfferProducts = fallbackProducts;
+          renderOfferProductsTable();
+        }
       }
     }
 
@@ -4094,12 +4111,20 @@
       const tbody = document.getElementById('offer-products-table-body');
       if (!tbody) return;
       
-      const search = (document.getElementById('offer-product-search')?.value || '').toLowerCase();
+      if ((!allOfferProducts || allOfferProducts.length === 0) && window.productsData && window.productsData.length > 0) {
+        allOfferProducts = window.productsData;
+      }
       
-      const filtered = allOfferProducts.filter(p => 
-        (p.title || p.name || '').toLowerCase().includes(search) ||
-        (p.brand || p.category || '').toLowerCase().includes(search)
-      );
+      const search = (document.getElementById('offer-product-search')?.value || '').toLowerCase().trim();
+      
+      const filtered = (allOfferProducts || []).filter(p => {
+        const title = (p.name || p.title || '').toLowerCase();
+        const brand = (p.cat || p.brand || p.category || '').toLowerCase();
+        const subcat = (p.filter || '').toLowerCase();
+        const id = String(p._id || p.id || '').toLowerCase();
+        if (!search) return true;
+        return title.includes(search) || brand.includes(search) || subcat.includes(search) || id.includes(search);
+      });
 
       if (filtered.length === 0) {
         tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#888;">No products found.</td></tr>`;
@@ -4107,11 +4132,11 @@
       }
 
       tbody.innerHTML = filtered.map(p => {
-        const id = p._id || p.id;
+        const id = String(p._id || p.id || '');
         const isChecked = selectedOfferProductIds.has(id);
-        const imgUrl = p.images?.[0] || p.image || p.imageUrl || 'favicon.png';
-        const title = p.title || p.name || 'Untitled Product';
-        const brand = p.brand || p.category || 'General';
+        const imgUrl = p.img || (p.images && p.images.length > 0 ? p.images[0] : (p.image || p.imageUrl || 'favicon.png'));
+        const title = p.name || p.title || 'Untitled Product';
+        const brand = p.cat || p.brand || p.category || 'General';
         const price = p.price ? `Rs. ${Number(p.price).toLocaleString()}` : 'N/A';
 
         return `
@@ -4120,10 +4145,10 @@
               <input type="checkbox" class="offer-prod-cb" value="${id}" ${isChecked ? 'checked' : ''} onchange="toggleOfferProductSelection('${id}', this.checked)">
             </td>
             <td style="display: flex; align-items: center; gap: 12px;">
-              <img src="${imgUrl}" class="prod-thumb" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+              <img src="${imgUrl}" class="prod-thumb" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;" onerror="this.onerror=null; this.src='favicon.png';">
               <span style="font-weight: 700; color: var(--admin-text);">${title}</span>
             </td>
-            <td style="color: var(--admin-muted); font-size: 12px;">${brand}</td>
+            <td style="color: var(--admin-muted); font-size: 12px; text-transform: capitalize;">${brand}</td>
             <td style="font-weight: 700;">${price}</td>
             <td>
               ${isChecked 
