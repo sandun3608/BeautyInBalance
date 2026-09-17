@@ -807,14 +807,31 @@
       // Sourcing products
       let allProducts = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
       
-      if (allProducts.length === 0) {
+      if (!allProducts || allProducts.length === 0) {
+        try {
+          const cached = localStorage.getItem('koko_products_cache');
+          if (cached) allProducts = JSON.parse(cached);
+        } catch (e) {}
+      }
+
+      if (!allProducts || allProducts.length === 0) {
         try {
           const pRes = await fetch(`${getApiBaseUrl()}/products`);
           if (pRes.ok) {
             const pData = await pRes.json();
-            allProducts = Array.isArray(pData) ? pData : (pData.products || []);
+            if (Array.isArray(pData)) {
+              allProducts = pData;
+            } else if (pData && Array.isArray(pData.products)) {
+              allProducts = pData.products;
+            } else if (pData && Array.isArray(pData.data)) {
+              allProducts = pData.data;
+            }
           }
         } catch (e) {}
+      }
+
+      if ((!allProducts || allProducts.length === 0) && typeof defaultProducts !== 'undefined') {
+        allProducts = defaultProducts;
       }
 
       let activeSale = null;
@@ -838,17 +855,27 @@
         if (activeSale.subtitle) document.getElementById('offers-page-subtitle').textContent = activeSale.subtitle;
         discountPercent = activeSale.discountPercent || 20;
 
-        updateCountdown(activeSale.endDate);
-        countdownInterval = setInterval(() => updateCountdown(activeSale.endDate), 1000);
+        if (activeSale.endDate) {
+          updateCountdown(activeSale.endDate);
+          countdownInterval = setInterval(() => updateCountdown(activeSale.endDate), 1000);
+        }
 
-        const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim()));
+        const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim().toLowerCase()));
         if (offerProductIds.size > 0 && allProducts.length > 0) {
           displayProducts = allProducts.filter(p => {
-            const p1 = String(p._id || '').trim();
-            const p2 = String(p.id || '').trim();
-            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
+            const p1 = String(p._id || '').trim().toLowerCase();
+            const p2 = String(p.id || '').trim().toLowerCase();
+            const p3 = String(p.name || '').trim().toLowerCase();
+            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2)) || (p3 && offerProductIds.has(p3));
           });
         }
+      }
+
+      // Rolling fallback timer if sale endDate is not set or expired
+      if (!activeSale || !activeSale.endDate) {
+        const defaultEnd = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+        updateCountdown(defaultEnd);
+        countdownInterval = setInterval(() => updateCountdown(defaultEnd), 1000);
       }
 
       // If specific product IDs match none, or sale disabled, render top collection products
