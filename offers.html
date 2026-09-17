@@ -739,40 +739,52 @@
             const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
 
             return `
-              <div class="offer-card">
+              <a class="offer-card" href="product.html?id=${pid}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
                 <div class="offer-badge">${discountPercent}% OFF</div>
-                <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
+                <div class="offer-card-img">
                   <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
                 </div>
                 <div class="offer-card-body">
                   <div class="offer-card-brand">${brand}</div>
-                  <div class="offer-card-title" onclick="window.location.href='product.html?id=${pid}'">${title}</div>
+                  <div class="offer-card-title">${title}</div>
                   <div class="offer-price-row">
                     <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
                     <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
                   </div>
-                  <button class="offer-add-btn" onclick="addToCartOffer('${pid}', '${title.replace(/'/g, "\\'")}', ${salePrice}, '${imgUrl}')">Add to Cart</button>
+                  <button class="offer-add-btn" onclick="event.preventDefault(); event.stopPropagation(); addToCartOffer('${pid}', '${title.replace(/'/g, "\\'")}', ${salePrice}, '${imgUrl}', ${discountPercent})">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:5px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    Add to Bag
+                  </button>
                 </div>
-              </div>
+              </a>
             `;
           }).join('');
         }
       }
     });
 
-    function addToCartOffer(id, title, price, img) {
-      if (typeof window.addToCart === 'function') {
-        window.addToCart(id, title, price, img);
+    function addToCartOffer(id, title, price, img, discountPct) {
+      // Use bib_cart (same as main cart) and store with discount for checkout
+      let cart = JSON.parse(localStorage.getItem('bib_cart') || '[]');
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += 1;
       } else {
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        const existing = cart.find(item => item.id === id);
-        if (existing) {
-          existing.qty += 1;
-        } else {
-          cart.push({ id, title, price, img, qty: 1 });
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${title} added to cart!`);
+        cart.push({ id, name: title, price, img, qty: 1, discount: discountPct || 0 });
+      }
+      localStorage.setItem('bib_cart', JSON.stringify(cart));
+
+      // Open cart drawer
+      const cartDrawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('overlay');
+      if (cartDrawer) cartDrawer.classList.add('open');
+      if (overlay) overlay.classList.add('show');
+
+      // Update cart badge
+      const badge = document.getElementById('cart-count') || document.querySelector('.cart-badge');
+      if (badge) {
+        const total = cart.reduce((s, i) => s + i.qty, 0);
+        badge.textContent = total;
       }
     }
   </script>
