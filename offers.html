@@ -635,6 +635,16 @@
       // API and Products Logic
       const getApiBaseUrl = () => (window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
 
+      // Show loading state
+      const grid = document.getElementById('offers-grid');
+      if (grid) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 20px;">
+          <div style="display:inline-block; width:40px; height:40px; border:3px solid rgba(231,83,40,0.2); border-top-color:#E75328; border-radius:50%; animation:spin 0.8s linear infinite;"></div>
+          <p style="color:#888; margin-top:14px; font-size:14px;">Loading offers...</p>
+          <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+        </div>`;
+      }
+
       let countdownInterval = null;
 
       function renderDigits(elementId, value) {
@@ -671,19 +681,7 @@
         renderDigits('off-secs', secs);
       }
 
-      // Sourcing products
-      let allProducts = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-      
-      if (allProducts.length === 0) {
-        try {
-          const pRes = await fetch(`${getApiBaseUrl()}/products`);
-          if (pRes.ok) {
-            const pData = await pRes.json();
-            allProducts = Array.isArray(pData) ? pData : (pData.products || []);
-          }
-        } catch (e) {}
-      }
-
+      // 1. Fetch flash sale settings first
       let activeSale = null;
       try {
         const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
@@ -697,35 +695,48 @@
         console.error('Error fetching sale status:', err);
       }
 
-      let discountPercent = 20;
-      let displayProducts = [];
+      let discountPercent = activeSale ? (activeSale.discountPercent || 20) : 20;
 
       if (activeSale) {
         if (activeSale.title) document.getElementById('offers-page-title').textContent = activeSale.title;
         if (activeSale.subtitle) document.getElementById('offers-page-subtitle').textContent = activeSale.subtitle;
-        discountPercent = activeSale.discountPercent || 20;
-
         updateCountdown(activeSale.endDate);
         countdownInterval = setInterval(() => updateCountdown(activeSale.endDate), 1000);
-
-        const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim()));
-        if (offerProductIds.size > 0 && allProducts.length > 0) {
-          displayProducts = allProducts.filter(p => {
-            const p1 = String(p._id || '').trim();
-            const p2 = String(p.id || '').trim();
-            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
-          });
-        }
       }
 
-      // If specific product IDs match none, or sale disabled, render top collection products
+      // 2. Fetch ALL products from API (always fresh from server)
+      let allProducts = [];
+      try {
+        const pRes = await fetch(`${getApiBaseUrl()}/products?limit=500`);
+        if (pRes.ok) {
+          const pData = await pRes.json();
+          allProducts = Array.isArray(pData) ? pData : (pData.products || []);
+        }
+      } catch (e) {
+        // Fallback to local window data if API fails
+        allProducts = (window.productsData && window.productsData.length > 0)
+          ? window.productsData
+          : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
+      }
+
+      // 3. Filter by offer product IDs (if sale active and IDs set)
+      let displayProducts = [];
+      if (activeSale && activeSale.productIds && activeSale.productIds.length > 0) {
+        const offerProductIds = new Set(activeSale.productIds.map(id => String(id).trim()));
+        displayProducts = allProducts.filter(p => {
+          const p1 = String(p._id || '').trim();
+          const p2 = String(p.id || '').trim();
+          return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
+        });
+      }
+
+      // 4. Fallback: show top products if none matched
       if (displayProducts.length === 0 && allProducts.length > 0) {
         displayProducts = allProducts.slice(0, 16);
       }
 
       document.getElementById('offers-count').textContent = displayProducts.length;
 
-      const grid = document.getElementById('offers-grid');
       if (grid) {
         if (displayProducts.length === 0) {
           grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;"><h3>No products currently available</h3></div>`;

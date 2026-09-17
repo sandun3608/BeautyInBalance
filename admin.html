@@ -2171,6 +2171,69 @@
                 <div id="shipping-fee-msg" style="margin-top: 12px; font-size: 13px; display: none;"></div>
             </div>
 
+            <!-- FLASH SALE MANAGEMENT -->
+            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-md); border: 1px solid #eee; margin-top: 30px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;">
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="width: 40px; height: 40px; background: #fff4ee; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                      <span style="font-size: 20px;">⚡</span>
+                    </div>
+                    <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Flash Sale Management</h3>
+                  </div>
+                  <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <span style="font-size: 13px; font-weight: 700; color: #555;">Enable Sale</span>
+                    <div style="position: relative; width: 46px; height: 26px;">
+                      <input type="checkbox" id="fs-enabled" style="opacity: 0; width: 0; height: 0; position: absolute;" onchange="document.getElementById('fs-toggle-bg').style.background = this.checked ? '#E75328' : '#ccc'">
+                      <div id="fs-toggle-bg" style="position: absolute; inset: 0; border-radius: 13px; background: #ccc; transition: 0.3s; cursor: pointer;" onclick="document.getElementById('fs-enabled').click()"></div>
+                      <div id="fs-toggle-knob" style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.3); transition: 0.3s; pointer-events: none;"></div>
+                    </div>
+                  </label>
+                </div>
+                <p style="font-size: 13px; color: #777; margin: 0 0 25px 0;">Configure your Flash Sale — set title, discount %, end date, and pick which products get the offer price. <strong>Koko installment payments are automatically excluded from sale prices.</strong></p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                  <div>
+                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Sale Title</label>
+                    <input type="text" id="fs-title" placeholder="e.g. FLASH SALE OFFERS" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
+                  </div>
+                  <div>
+                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Subtitle</label>
+                    <input type="text" id="fs-subtitle" placeholder="e.g. UP TO 20% OFF!" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
+                  </div>
+                  <div>
+                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Discount %</label>
+                    <input type="number" id="fs-discount" min="1" max="99" placeholder="20" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
+                  </div>
+                  <div>
+                    <label style="font-size: 12px; font-weight: 700; color: #555; display: block; margin-bottom: 6px;">Sale End Date &amp; Time</label>
+                    <input type="datetime-local" id="fs-enddate" style="width: 100%; padding: 12px 15px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; box-sizing: border-box;">
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <label style="font-size: 12px; font-weight: 700; color: #555;">Select Offer Products</label>
+                    <div style="display: flex; gap: 8px;">
+                      <button onclick="fsSelectAll()" style="font-size: 11px; padding: 5px 12px; border: 1px solid #ddd; border-radius: 6px; background: #f5f5f5; cursor: pointer;">Select All</button>
+                      <button onclick="fsClearAll()" style="font-size: 11px; padding: 5px 12px; border: 1px solid #ddd; border-radius: 6px; background: #f5f5f5; cursor: pointer;">Clear All</button>
+                    </div>
+                  </div>
+                  <div id="fs-product-search-wrap" style="margin-bottom: 10px;">
+                    <input type="text" id="fs-product-search" placeholder="🔍 Search products..." oninput="fsFilterProducts(this.value)" style="width: 100%; padding: 10px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+                  </div>
+                  <div id="fs-product-list" style="max-height: 280px; overflow-y: auto; border: 1px solid #eee; border-radius: 12px; padding: 10px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <p style="color: #aaa; font-size: 13px; grid-column: 1/-1; text-align: center; padding: 20px;">Loading products...</p>
+                  </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 15px; margin-top: 25px;">
+                  <button onclick="saveFlashSale(this)" class="admin-btn" style="padding: 15px 28px; font-size: 14px; background: #E75328;">
+                    ⚡ Save Flash Sale
+                  </button>
+                  <div id="fs-msg" style="font-size: 13px; display: none;"></div>
+                </div>
+            </div>
+
             <!-- DANGER ZONE -->
 
             <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #fee2e2;">
@@ -3785,11 +3848,149 @@
         }
       };
 
+      // ===== FLASH SALE MANAGEMENT =====
+      let _fsAllProducts = [];
+
+      async function loadFlashSale() {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        try {
+          // Load current sale settings
+          const res = await fetch(`${BASE}/settings/flash_sale?cb=${Date.now()}`);
+          if (res.ok) {
+            const data = await res.json();
+            const sale = data.value || {};
+            const enabledEl = document.getElementById('fs-enabled');
+            const toggleBg = document.getElementById('fs-toggle-bg');
+            const toggleKnob = document.getElementById('fs-toggle-knob');
+            if (enabledEl) {
+              enabledEl.checked = !!sale.enabled;
+              if (toggleBg) toggleBg.style.background = sale.enabled ? '#E75328' : '#ccc';
+              if (toggleKnob) toggleKnob.style.left = sale.enabled ? '23px' : '3px';
+            }
+            if (document.getElementById('fs-title')) document.getElementById('fs-title').value = sale.title || '';
+            if (document.getElementById('fs-subtitle')) document.getElementById('fs-subtitle').value = sale.subtitle || '';
+            if (document.getElementById('fs-discount')) document.getElementById('fs-discount').value = sale.discountPercent || 20;
+            if (sale.endDate && document.getElementById('fs-enddate')) {
+              const d = new Date(sale.endDate);
+              const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+              document.getElementById('fs-enddate').value = local;
+            }
+            window._fsSavedIds = new Set((sale.productIds || []).map(id => String(id)));
+          }
+        } catch(e) { console.error('Flash sale load error:', e); }
+
+        // Load products for picker
+        try {
+          const pRes = await fetch(`${BASE}/products?limit=500`);
+          if (pRes.ok) {
+            const pData = await pRes.json();
+            _fsAllProducts = Array.isArray(pData) ? pData : (pData.products || []);
+            fsRenderProducts(_fsAllProducts);
+          }
+        } catch(e) { console.error('Flash sale products load error:', e); }
+      }
+
+      function fsRenderProducts(products) {
+        const list = document.getElementById('fs-product-list');
+        if (!list) return;
+        if (products.length === 0) {
+          list.innerHTML = '<p style="color:#aaa; font-size:13px; grid-column:1/-1; text-align:center; padding:20px;">No products found</p>';
+          return;
+        }
+        const savedIds = window._fsSavedIds || new Set();
+        list.innerHTML = products.map(p => {
+          const id = String(p._id || p.id || '');
+          const name = p.name || p.title || 'Untitled';
+          const img = p.img || (p.images && p.images[0]) || 'favicon.png';
+          const price = p.price || 0;
+          const checked = savedIds.has(id) ? 'checked' : '';
+          return `<label style="display:flex; align-items:center; gap:10px; background:#fff; padding:10px; border-radius:10px; cursor:pointer; border:1px solid #eee; transition:0.2s;" onmouseover="this.style.borderColor='#E75328'" onmouseout="this.style.borderColor='#eee'">
+            <input type="checkbox" value="${id}" ${checked} class="fs-prod-cb" style="width:16px; height:16px; accent-color:#E75328; cursor:pointer;">
+            <img src="${img}" onerror="this.src='favicon.png'" style="width:38px; height:38px; border-radius:8px; object-fit:contain; background:#f5f5f5;">
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:12px; font-weight:700; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${name}</div>
+              <div style="font-size:11px; color:#888;">Rs. ${Number(price).toLocaleString()}</div>
+            </div>
+          </label>`;
+        }).join('');
+      }
+
+      window.fsFilterProducts = function(query) {
+        const q = query.toLowerCase();
+        const filtered = _fsAllProducts.filter(p => (p.name || p.title || '').toLowerCase().includes(q));
+        fsRenderProducts(filtered);
+      };
+
+      window.fsSelectAll = function() {
+        document.querySelectorAll('.fs-prod-cb').forEach(cb => cb.checked = true);
+      };
+      window.fsClearAll = function() {
+        document.querySelectorAll('.fs-prod-cb').forEach(cb => cb.checked = false);
+      };
+
+      window.saveFlashSale = async function(btn) {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        const msg = document.getElementById('fs-msg');
+        const enabledEl = document.getElementById('fs-enabled');
+        const titleEl = document.getElementById('fs-title');
+        const subtitleEl = document.getElementById('fs-subtitle');
+        const discountEl = document.getElementById('fs-discount');
+        const endDateEl = document.getElementById('fs-enddate');
+        const selectedIds = [...document.querySelectorAll('.fs-prod-cb:checked')].map(cb => cb.value);
+
+        const saleData = {
+          enabled: enabledEl ? enabledEl.checked : false,
+          title: titleEl ? titleEl.value.trim() : 'FLASH SALE OFFERS',
+          subtitle: subtitleEl ? subtitleEl.value.trim() : '',
+          discountPercent: discountEl ? parseInt(discountEl.value) || 20 : 20,
+          endDate: endDateEl ? new Date(endDateEl.value).toISOString() : null,
+          productIds: selectedIds
+        };
+
+        btn.textContent = 'Saving...';
+        btn.disabled = true;
+
+        try {
+          const token = localStorage.getItem('userToken');
+          const res = await fetch(`${BASE}/settings/flash_sale`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ value: saleData })
+          });
+          if (res.ok) {
+            msg.textContent = `✅ Flash Sale saved! ${selectedIds.length} products selected.`;
+            msg.style.color = '#16a34a';
+            window._fsSavedIds = new Set(selectedIds);
+          } else {
+            const err = await res.json().catch(() => ({}));
+            msg.textContent = `❌ Failed: ${err.message || res.status}`;
+            msg.style.color = '#dc2626';
+          }
+          msg.style.display = 'block';
+          setTimeout(() => { msg.style.display = 'none'; }, 4000);
+        } catch(e) {
+          msg.textContent = '❌ Network error. Try again.';
+          msg.style.color = '#dc2626';
+          msg.style.display = 'block';
+        } finally {
+          btn.innerHTML = '⚡ Save Flash Sale';
+          btn.disabled = false;
+        }
+      };
+
+      // Sync toggle knob position on change
+      document.addEventListener('change', function(e) {
+        if (e.target && e.target.id === 'fs-enabled') {
+          const knob = document.getElementById('fs-toggle-knob');
+          if (knob) knob.style.left = e.target.checked ? '23px' : '3px';
+        }
+      });
+
       // Load shipping fee when settings tab is opened
       const origSwitchTab = window.switchTab;
       window.switchTab = function(tabName, el) {
         origSwitchTab(tabName, el);
-        if (tabName === 'settings') loadShippingFee();
+        if (tabName === 'settings') { loadShippingFee(); loadFlashSale(); }
       };
     </script>
 
