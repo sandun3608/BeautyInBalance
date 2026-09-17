@@ -1545,7 +1545,7 @@
           if (!container) return;
           
           // Remove fallback slides
-          container.querySelectorAll('[data-fallback]').forEach(el => el.remove());
+          container.innerHTML = ''; // Clear hardcoded slides so uploaded DB slides display immediately
           
           // Build dynamic slides
           const isMobile = window.innerWidth <= 900;
