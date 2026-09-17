@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=308" />
 
   <style>
@@ -18,31 +18,36 @@
       background: #fdfaf7;
     }
 
-    /* ── OFFERS HERO BANNER ── */
+    /* ── OFFERS HERO BANNER (ULTRA-MODERN CENTERED) ── */
     .offers-hero {
-      background-color: #E75328;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(255, 213, 79, 0.15) 0%, transparent 20%),
-        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px;
-      padding: 35px 20px;
-      color: #ffffff;
+      background: linear-gradient(135deg, #C63D17 0%, #E75328 50%, #B2300B 100%);
       position: relative;
+      padding: 45px 20px 35px;
+      text-align: center;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .offers-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 100% 100%, 20px 20px, 20px 20px;
+      pointer-events: none;
     }
 
     .offers-hero-container {
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
-
-    .offers-hero-text {
-      text-align: left;
     }
 
     .offers-hero-badge {
@@ -51,64 +56,69 @@
       gap: 6px;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: #FFD54F;
       background: rgba(0, 0, 0, 0.25);
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255, 213, 79, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 5px 16px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 213, 79, 0.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .offers-hero h1 {
       font-family: 'DM Sans', sans-serif;
-      font-size: clamp(26px, 4vw, 42px);
+      font-size: clamp(28px, 4.5vw, 44px);
       font-weight: 900;
       color: #FFFFFF;
       line-height: 1.1;
       text-transform: uppercase;
-      letter-spacing: 0.01em;
-      margin-bottom: 4px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 0.03em;
+      margin: 0 0 6px 0;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .offers-hero-subtitle {
-      font-size: clamp(16px, 2vw, 22px);
+      font-size: clamp(15px, 2.2vw, 20px);
       font-weight: 800;
       color: #FFD54F;
       text-transform: uppercase;
-      margin-bottom: 0;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
 
-    /* ── OFFERS COUNTDOWN TIMER BOX ── */
+    /* ── CENTERED MODERN COUNTDOWN TIMER ── */
     .offers-timer-card {
-      width: 100%;
-      max-width: 380px;
-      background: #FFFFFF;
-      border-radius: 16px;
-      padding: 14px 18px 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      color: #3E2723;
-      text-align: center;
-      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 12px 24px 10px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.4);
+      color: #2D1B12;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .offers-timer-label {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #3E2723;
-      margin-bottom: 10px;
+      color: #795548;
+      margin-bottom: 8px;
     }
 
     .offers-countdown-digits {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 6px;
     }
 
     .countdown-unit {
@@ -123,7 +133,7 @@
     }
 
     .countdown-card-digit {
-      background: #3E2723;
+      background: #2D1B12;
       color: #FFFFFF;
       font-weight: 900;
       font-size: 20px;
@@ -133,13 +143,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), 0 3px 6px rgba(0,0,0,0.15);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), 0 3px 6px rgba(0,0,0,0.2);
     }
 
     .countdown-lbl {
       font-size: 8px;
       font-weight: 800;
-      color: #795548;
+      color: #8D6E63;
       letter-spacing: 0.05em;
       margin-top: 5px;
     }
@@ -147,25 +157,16 @@
     .countdown-sep {
       font-size: 18px;
       font-weight: 900;
-      color: #3E2723;
+      color: #2D1B12;
       margin-bottom: 14px;
     }
 
-    @media (max-width: 868px) {
+    @media (max-width: 768px) {
       .offers-hero {
-        padding: 25px 15px 25px;
-      }
-      .offers-hero-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 16px;
-      }
-      .offers-hero-text {
-        text-align: center;
+        padding: 35px 15px 25px;
       }
       .offers-timer-card {
-        max-width: 360px;
-        margin: 0 auto;
+        padding: 10px 16px 8px;
       }
     }
 
@@ -456,16 +457,14 @@
     </div>
   </div>
 
-  <!-- OFFERS HERO BANNER -->
+  <!-- OFFERS HERO BANNER (CENTERED MODERN LOOK) -->
   <section class="offers-hero">
     <div class="offers-hero-container">
-      <div class="offers-hero-text">
-        <div class="offers-hero-badge">⚡ LIMITED TIME DEALS</div>
-        <h1 id="offers-page-title">FLASH SALE OFFERS</h1>
-        <div class="offers-hero-subtitle" id="offers-page-subtitle">UP TO 20% OFF!</div>
-      </div>
+      <div class="offers-hero-badge">⚡ LIMITED TIME DEALS</div>
+      <h1 id="offers-page-title">FLASH SALE OFFERS</h1>
+      <div class="offers-hero-subtitle" id="offers-page-subtitle">UP TO 20% OFF!</div>
 
-      <!-- COUNTDOWN TIMER CARD -->
+      <!-- CENTERED COUNTDOWN TIMER CARD -->
       <div class="offers-timer-card">
         <div class="offers-timer-label">SALE ENDS IN:</div>
         <div class="offers-countdown-digits">
