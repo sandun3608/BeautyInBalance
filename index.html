@@ -1838,7 +1838,11 @@
           return;
         }
 
-        const widget = document.getElementById('sticky-timer-widget'); if (widget) widget.style.display = 'flex'; widget.classList.add('active');
+        const widget = document.getElementById('sticky-timer-widget');
+        // Don't show sticky widget on offers page — it has its own countdown
+        const isOffersPage = window.location.pathname.includes('offers');
+        if (widget && !isOffersPage) widget.style.display = 'flex';
+
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
