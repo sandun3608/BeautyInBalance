@@ -10156,22 +10156,23 @@ body.loading-active .floating-email {
 }
 
 
+
 /* ==========================================================================
-   STICKY FLOATING LIVE OFFER TIMER (Global Desktop & Centered White Digits)
+   STICKY FLOATING LIVE OFFER TIMER (White Mix Desktop & Reference Red Pill Mobile)
    ========================================================================== */
 #sticky-timer-widget {
   position: fixed !important;
-  top: 80px !important;
+  top: 82px !important;
   right: 20px !important;
   z-index: 999999 !important;
-  background: rgba(15, 23, 42, 0.96) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  border: 1.5px solid rgba(220, 38, 38, 0.6) !important;
+  border: 1.5px solid rgba(220, 38, 38, 0.3) !important;
   border-radius: 16px !important;
   padding: 8px 14px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-  color: #ffffff !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
+  color: #2D1B12 !important;
   transition: all 0.3s ease !important;
   cursor: pointer !important;
 }
@@ -10192,7 +10193,7 @@ body.loading-active .floating-email {
   gap: 4px !important;
   font-size: 10px !important;
   font-weight: 800 !important;
-  color: #F87171 !important;
+  color: #DC2626 !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   width: 100% !important;
@@ -10204,84 +10205,86 @@ body.loading-active .floating-email {
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 3px !important;
+  gap: 4px !important;
 }
 
 #sticky-timer-widget .s-unit {
   display: inline-flex !important;
   align-items: baseline !important;
   gap: 2px !important;
-  background: #FFFFFF !important;
-  padding: 3px 7px !important;
-  border-radius: 6px !important;
-  border: 1px solid rgba(220, 38, 38, 0.3) !important;
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+  padding: 4px 9px !important;
+  border-radius: 7px !important;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35) !important;
 }
 
 #sticky-timer-widget .s-val {
   font-size: 14px !important;
   font-weight: 900 !important;
-  color: #DC2626 !important;
+  color: #ffffff !important;
   font-family: monospace, sans-serif !important;
 }
 
 #sticky-timer-widget .s-lbl {
   font-size: 9px !important;
   font-weight: 800 !important;
-  color: #6B7280 !important;
+  color: #FCA5A5 !important;
   text-transform: uppercase !important;
 }
 
 #sticky-timer-widget .s-sep {
   font-size: 13px !important;
   font-weight: 900 !important;
-  color: #FFFFFF !important;
+  color: #DC2626 !important;
 }
 
-/* ── GODAK PODI EXTRA-SMALL MOBILE VIEW ── */
+/* ── MOBILE VIEW: MATCH REFERENCE SCREENSHOT (VIBRANT FLOATING RED PILL) ── */
 @media (max-width: 768px) {
   #sticky-timer-widget {
-    top: 54px !important;
-    right: 5px !important;
-    padding: 2px 6px !important;
-    border-radius: 20px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
-    border: 1px solid rgba(220, 38, 38, 0.4) !important;
-    background: rgba(15, 23, 42, 0.94) !important;
+    top: 60px !important;
+    right: 10px !important;
+    padding: 5px 12px !important;
+    border-radius: 50px !important; /* Full Pill Capsule shape like screenshot */
+    background: linear-gradient(135deg, #E52E2E 0%, #B91C1C 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 6px 20px rgba(229, 46, 46, 0.5) !important;
   }
   #sticky-timer-widget .sticky-timer-content {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 3px !important;
+    gap: 4px !important;
   }
   #sticky-timer-widget .stk-txt {
-    display: none !important; /* Hide label text on mobile to make it extra small */
+    display: none !important; /* Hide label text on mobile to match screenshot */
   }
   #sticky-timer-widget .sticky-timer-label {
-    gap: 2px !important;
-    font-size: 9px !important;
+    gap: 3px !important;
+    font-size: 11px !important;
+    color: #FFD1D1 !important;
     width: auto !important;
   }
   #sticky-timer-widget .pulse-dot {
-    width: 4px !important;
-    height: 4px !important;
+    display: none !important;
   }
   #sticky-timer-widget .s-unit {
-    padding: 1px 3px !important;
-    border-radius: 4px !important;
-    background: #FFFFFF !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
   #sticky-timer-widget .s-val {
-    font-size: 10px !important;
+    font-size: 11px !important;
     font-weight: 900 !important;
-    color: #DC2626 !important;
+    color: #FFFFFF !important;
   }
   #sticky-timer-widget .s-lbl {
-    font-size: 7px !important;
-    color: #4B5563 !important;
+    font-size: 8px !important;
+    color: #FFD1D1 !important;
   }
   #sticky-timer-widget .s-sep {
-    font-size: 9px !important;
+    font-size: 11px !important;
     color: #FFFFFF !important;
+    opacity: 0.8 !important;
   }
 }
