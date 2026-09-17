@@ -9851,7 +9851,7 @@ body.loading-active .floating-email {
   position: relative;
   width: 90%;
   max-width: 440px;
-  background-color: #E75328;
+  background-color: #8B0000;
   background-image: 
     linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
@@ -10004,14 +10004,14 @@ body.loading-active .floating-email {
   justify-content: center;
   font-size: 24px;
   font-weight: 900;
-  color: #E75328;
+  color: #8B0000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .countdown-sep {
   font-size: 24px;
   font-weight: 900;
-  color: #E75328;
+  color: #8B0000;
   margin-bottom: 16px;
 }
 
