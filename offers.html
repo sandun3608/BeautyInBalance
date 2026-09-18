@@ -15,7 +15,7 @@
 
   <style>
     body {
-      background: #fdfaf7;
+      background: #ffffff;
     }
 
     /* ── OFFERS HERO BANNER (ULTRA-MODERN CENTERED) ── */
@@ -209,6 +209,7 @@
       max-width: 1300px;
       margin: 0 auto;
       padding: 40px 25px 100px;
+      background: #ffffff;
     }
 
     .offers-grid-header {
@@ -238,8 +239,8 @@
       .offer-product-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
-      .offer-product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .offers-body { padding: 20px 10px 60px; }
+      .offer-product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .offers-body { padding: 20px 12px 60px; }
     }
 
     /* Offer Product Card - Modern Clean Grid without Card Container */
@@ -276,39 +277,64 @@
       box-shadow: 0 4px 10px rgba(229, 46, 46, 0.3);
     }
 
+    /* Product Image Container (No frame border) */
     .offer-card-img {
       position: relative;
       aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       background: #ffffff;
       border-radius: 16px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      border: none;
+      box-shadow: none;
       cursor: pointer;
       overflow: hidden;
       transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .offer-card-img img {
-      max-width: 85%;
-      max-height: 85%;
+      max-width: 90%;
+      max-height: 90%;
       object-fit: contain;
       transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .offer-card:hover .offer-card-img {
-      border-color: rgba(229, 46, 46, 0.3);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
     }
 
     .offer-card:hover .offer-card-img img {
       transform: scale(1.07);
     }
 
+    /* Floating Add to Bag Icon on Image Corner */
+    .offer-quick-bag-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 4;
+    }
+
+    .offer-quick-bag-btn:hover {
+      background: #111827;
+      color: #ffffff;
+      border-color: #111827;
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+    }
+
     .offer-card-body {
-      padding: 14px 4px 0;
+      padding: 14px 2px 0;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -348,7 +374,7 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: auto;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .offer-sale-price {
@@ -380,59 +406,39 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
-    .offer-add-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 11px;
-      background: #111827;
-      color: #ffffff;
-      border: none;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .offer-add-btn:hover {
-      background: #1F2937;
-      transform: translateY(-1px);
-    }
-
+    /* Curved Light-Brown Buy Now Button */
     .offer-buy-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       width: 100%;
-      padding: 11px;
-      background: linear-gradient(135deg, #2D1B12 0%, #4A2E2B 100%);
+      padding: 12px 18px;
+      background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
       color: #ffffff;
       border: none;
-      border-radius: 10px;
+      border-radius: 50px;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(45, 27, 18, 0.25);
+      box-shadow: 0 4px 12px rgba(180, 138, 100, 0.3);
       transition: all 0.25s ease;
+      letter-spacing: 0.02em;
     }
 
     .offer-buy-btn:hover {
-      background: linear-gradient(135deg, #1F120C 0%, #36201D 100%);
+      background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(45, 27, 18, 0.35);
+      box-shadow: 0 6px 16px rgba(180, 138, 100, 0.45);
     }
 
     @media (max-width: 768px) {
       .offer-product-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 16px 12px;
       }
       .offers-body {
         padding: 20px 12px 60px;
@@ -441,9 +447,19 @@
         border-radius: 0;
       }
       .offer-card-img {
-        padding: 12px;
+        padding: 10px;
         aspect-ratio: 1;
-        border-radius: 14px;
+        border-radius: 12px;
+      }
+      .offer-quick-bag-btn {
+        width: 34px;
+        height: 34px;
+        bottom: 8px;
+        right: 8px;
+      }
+      .offer-quick-bag-btn svg {
+        width: 16px;
+        height: 16px;
       }
       .offer-card-body {
         padding: 10px 2px 0;
@@ -465,41 +481,16 @@
         font-size: 12px;
       }
       .offer-badge {
-        top: 8px;
-        left: 8px;
+        top: 6px;
+        left: 6px;
         font-size: 10px;
-        padding: 4px 9px;
+        padding: 3px 8px;
         border-radius: 20px;
       }
-      .offer-actions-row {
-        gap: 6px;
-      }
-      .offer-add-btn, .offer-buy-btn {
-        padding: 10px 8px;
+      .offer-buy-btn {
+        padding: 10px;
         font-size: 12px;
-        border-radius: 10px;
-      }
-    }
-      .offer-sale-price {
-        font-size: 16px;
-      }
-      .offer-old-price {
-        font-size: 12px;
-      }
-      .offer-badge {
-        top: 8px;
-        left: 8px;
-        font-size: 10px;
-        padding: 4px 9px;
-        border-radius: 20px;
-      }
-      .offer-actions-row {
-        gap: 6px;
-      }
-      .offer-add-btn, .offer-buy-btn {
-        padding: 10px 8px;
-        font-size: 12px;
-        border-radius: 10px;
+        border-radius: 50px;
       }
     }
 
@@ -935,6 +926,9 @@
                   <div class="offer-badge">⚡ ${prodDiscount}% OFF</div>
                   <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
                     <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
+                    <button class="offer-quick-bag-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${prodDiscount})" title="Add to Bag" aria-label="Add to Bag">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </button>
                   </div>
                   <div class="offer-card-body">
                     <div class="offer-card-brand">${brand}</div>
@@ -945,10 +939,6 @@
                       ${savings > 0 ? `<span class="offer-save-badge">Save Rs. ${savings.toLocaleString()}</span>` : ''}
                     </div>
                     <div class="offer-actions-row">
-                      <button class="offer-add-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${prodDiscount})">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                        Add to Bag
-                      </button>
                       <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${prodDiscount})">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
                         Buy Now
