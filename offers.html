@@ -811,7 +811,6 @@
         setTxt('stk-secs', secs);
       }
 
-      // INSTANT PRODUCTS SOURCING (0ms delay)
       function getInstantProducts() {
         if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
           return window.productsData;
@@ -832,7 +831,6 @@
       let allProducts = getInstantProducts();
       let activeSale = null;
 
-      // Try reading cached sale settings for 0ms initial render
       try {
         const cachedSale = localStorage.getItem('bib_active_sale');
         if (cachedSale) {
@@ -844,6 +842,7 @@
       function renderOffersUI() {
         let discountPercent = 20;
         let displayProducts = [];
+        let hasSpecificSelectedProducts = false;
 
         if (activeSale) {
           if (activeSale.title) document.getElementById('offers-page-title').textContent = activeSale.title;
@@ -857,13 +856,16 @@
           }
 
           const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim().toLowerCase()));
-          if (offerProductIds.size > 0 && allProducts.length > 0) {
-            displayProducts = allProducts.filter(p => {
-              const p1 = String(p._id || '').trim().toLowerCase();
-              const p2 = String(p.id || '').trim().toLowerCase();
-              const p3 = String(p.name || '').trim().toLowerCase();
-              return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2)) || (p3 && offerProductIds.has(p3));
-            });
+          if (offerProductIds.size > 0) {
+            hasSpecificSelectedProducts = true;
+            if (allProducts.length > 0) {
+              displayProducts = allProducts.filter(p => {
+                const p1 = String(p._id || '').trim().toLowerCase();
+                const p2 = String(p.id || '').trim().toLowerCase();
+                const p3 = String(p.name || '').trim().toLowerCase();
+                return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2)) || (p3 && offerProductIds.has(p3));
+              });
+            }
           }
         }
 
@@ -875,8 +877,8 @@
           countdownInterval = setInterval(() => updateCountdown(defaultEnd), 1000);
         }
 
-        // Fallback: If no products match selected IDs (or 0 matched), render top 16 products from collection
-        if (displayProducts.length === 0 && allProducts.length > 0) {
+        // Fallback to top products ONLY if NO specific product IDs were selected by admin in Flash Sale settings
+        if (!hasSpecificSelectedProducts && displayProducts.length === 0 && allProducts.length > 0) {
           displayProducts = allProducts.slice(0, 16);
         }
 
@@ -886,7 +888,7 @@
         const grid = document.getElementById('offers-grid');
         if (grid) {
           if (displayProducts.length === 0) {
-            grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;"><h3>No products currently available</h3></div>`;
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;"><h3>Loading selected offer products...</h3></div>`;
           } else {
             grid.innerHTML = displayProducts.map(p => {
               const pid = String(p._id || p.id || '');
@@ -929,10 +931,10 @@
         }
       }
 
-      // Render instantly (0ms delay)
+      // Initial render
       renderOffersUI();
 
-      // Async background fetch from API without blocking UI
+      // Async fetch active sale & database products
       (async () => {
         try {
           const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
