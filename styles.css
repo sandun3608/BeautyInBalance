@@ -2361,6 +2361,34 @@ background: #0a0a0a;
   text-align: center;
 }
 
+.fp-buy-it-now-btn {
+  margin-top: 12px;
+  width: 100%;
+  background: var(--brown, #2D1B12);
+  border: 1.5px solid var(--brown, #2D1B12);
+  padding: 10px 16px;
+  font-family: var(--font-sans, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  box-shadow: 0 4px 14px rgba(45, 27, 18, 0.18);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: block;
+}
+
+.fp-buy-it-now-btn:hover {
+  background: var(--gold, #C6975A);
+  border-color: var(--gold, #C6975A);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(198, 151, 90, 0.35);
+}
+
 .fp-nav {
   position: absolute;
   top: 50%;

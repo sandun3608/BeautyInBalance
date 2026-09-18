@@ -1425,10 +1425,6 @@
         const priceHTML = discount > 0 
             ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
             : `Rs. ${basePrice.toLocaleString()}`;
-        
-        const discountBarHTML = discount > 0 
-            ? `<div class="fp-discount-bar">-${discount}% OFF APPLIED</div>`
-            : ``;
             
         const stockNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
         const isOutOfStock = stockNum <= 0;
@@ -1469,8 +1465,8 @@
             </div>
             <span class="fp-name">${p.name}</span>
             <div class="fp-price-row">${priceHTML}</div>
-            ${discountBarHTML}
             ${kokoInstallmentHTML}
+            <button class="fp-buy-it-now-btn" onclick="event.stopPropagation(); buyItNow('${p.id || p._id}')">BUY IT NOW</button>
           </div>
         </div>
         `;
