@@ -945,7 +945,7 @@
       // Async fetch active sale & database products
       (async () => {
         try {
-          const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
+          const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale?t=${Date.now()}`);
           if (res.ok) {
             const data = await res.json();
             if (data && data.value) {
@@ -962,7 +962,7 @@
         } catch (err) {}
 
         try {
-          const pRes = await fetch(`${getApiBaseUrl()}/products`);
+          const pRes = await fetch(`${getApiBaseUrl()}/products?t=${Date.now()}`);
           if (pRes.ok) {
             const pData = await pRes.json();
             const fetched = Array.isArray(pData) ? pData : (pData.products || pData.data || []);
