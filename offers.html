@@ -777,11 +777,11 @@
           renderDigits('off-hours', 0);
           renderDigits('off-mins', 0);
           renderDigits('off-secs', 0);
-          if (widget) widget.style.display = 'none'; widget.classList.remove('active');
+          if (widget) { widget.style.display = 'none'; widget.classList.remove('active'); }
           return;
         }
 
-        if (widget) widget.style.display = 'none'; widget.classList.remove('active');
+        if (widget) { widget.style.display = 'none'; widget.classList.remove('active'); }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -793,7 +793,6 @@
         renderDigits('off-mins', mins);
         renderDigits('off-secs', secs);
 
-        // Update floating sticky timer
         const setTxt = (id, val) => {
           const el = document.getElementById(id);
           if (el) el.textContent = String(val).padStart(2, '0');
@@ -804,135 +803,155 @@
         setTxt('stk-secs', secs);
       }
 
-      // Sourcing products
-      let allProducts = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
-      
-      if (!allProducts || allProducts.length === 0) {
+      // INSTANT PRODUCTS SOURCING (0ms delay)
+      function getInstantProducts() {
+        if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
+          return window.productsData;
+        }
+        if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts) && defaultProducts.length > 0) {
+          return defaultProducts;
+        }
         try {
           const cached = localStorage.getItem('koko_products_cache');
-          if (cached) allProducts = JSON.parse(cached);
-        } catch (e) {}
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          }
+        } catch(e) {}
+        return [];
       }
 
-      if (!allProducts || allProducts.length === 0) {
+      let allProducts = getInstantProducts();
+      let activeSale = null;
+
+      // Try reading cached sale settings for 0ms initial render
+      try {
+        const cachedSale = localStorage.getItem('bib_active_sale');
+        if (cachedSale) {
+          const parsed = JSON.parse(cachedSale);
+          if (parsed && parsed.enabled) activeSale = parsed;
+        }
+      } catch (e) {}
+
+      function renderOffersUI() {
+        let discountPercent = 20;
+        let displayProducts = [];
+
+        if (activeSale) {
+          if (activeSale.title) document.getElementById('offers-page-title').textContent = activeSale.title;
+          if (activeSale.subtitle) document.getElementById('offers-page-subtitle').textContent = activeSale.subtitle;
+          discountPercent = activeSale.discountPercent || 20;
+
+          if (activeSale.endDate) {
+            if (countdownInterval) clearInterval(countdownInterval);
+            updateCountdown(activeSale.endDate);
+            countdownInterval = setInterval(() => updateCountdown(activeSale.endDate), 1000);
+          }
+
+          const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim().toLowerCase()));
+          if (offerProductIds.size > 0 && allProducts.length > 0) {
+            displayProducts = allProducts.filter(p => {
+              const p1 = String(p._id || '').trim().toLowerCase();
+              const p2 = String(p.id || '').trim().toLowerCase();
+              const p3 = String(p.name || '').trim().toLowerCase();
+              return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2)) || (p3 && offerProductIds.has(p3));
+            });
+          }
+        }
+
+        // If no active sale endDate set or timer not started, set default 3-day timer
+        if (!activeSale || !activeSale.endDate) {
+          const defaultEnd = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+          if (countdownInterval) clearInterval(countdownInterval);
+          updateCountdown(defaultEnd);
+          countdownInterval = setInterval(() => updateCountdown(defaultEnd), 1000);
+        }
+
+        // Fallback: If no products match selected IDs (or 0 matched), render top 16 products from collection
+        if (displayProducts.length === 0 && allProducts.length > 0) {
+          displayProducts = allProducts.slice(0, 16);
+        }
+
+        const countEl = document.getElementById('offers-count');
+        if (countEl) countEl.textContent = displayProducts.length;
+
+        const grid = document.getElementById('offers-grid');
+        if (grid) {
+          if (displayProducts.length === 0) {
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;"><h3>No products currently available</h3></div>`;
+          } else {
+            grid.innerHTML = displayProducts.map(p => {
+              const pid = String(p._id || p.id || '');
+              const origPrice = Number(p.price || 0);
+              const salePrice = Math.round(origPrice * (1 - discountPercent / 100));
+              const imgUrl = p.img || (p.images && p.images.length > 0 ? p.images[0] : (p.image || p.imageUrl || 'favicon.png'));
+              const title = p.name || p.title || 'Untitled Product';
+              const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
+              const savings = origPrice - salePrice;
+
+              return `
+                <div class="offer-card">
+                  <div class="offer-badge">⚡ ${discountPercent}% OFF</div>
+                  <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
+                    <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
+                  </div>
+                  <div class="offer-card-body">
+                    <div class="offer-card-brand">${brand}</div>
+                    <div class="offer-card-title" onclick="window.location.href='product.html?id=${pid}'">${title}</div>
+                    <div class="offer-price-row">
+                      <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
+                      <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
+                      ${savings > 0 ? `<span class="offer-save-badge">Save Rs. ${savings.toLocaleString()}</span>` : ''}
+                    </div>
+                    <div class="offer-actions-row">
+                      <button class="offer-add-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${discountPercent})">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        Add to Bag
+                      </button>
+                      <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${discountPercent})">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
+                        Buy Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          }
+        }
+      }
+
+      // Render instantly (0ms delay)
+      renderOffersUI();
+
+      // Async background fetch from API without blocking UI
+      (async () => {
+        try {
+          const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.value && data.value.enabled) {
+              activeSale = data.value;
+              try { localStorage.setItem('bib_active_sale', JSON.stringify(activeSale)); } catch(e) {}
+              renderOffersUI();
+            }
+          }
+        } catch (err) {}
+
         try {
           const pRes = await fetch(`${getApiBaseUrl()}/products`);
           if (pRes.ok) {
             const pData = await pRes.json();
-            if (Array.isArray(pData)) {
-              allProducts = pData;
-            } else if (pData && Array.isArray(pData.products)) {
-              allProducts = pData.products;
-            } else if (pData && Array.isArray(pData.data)) {
-              allProducts = pData.data;
+            const fetched = Array.isArray(pData) ? pData : (pData.products || pData.data || []);
+            if (Array.isArray(fetched) && fetched.length > 0) {
+              allProducts = fetched;
+              renderOffersUI();
             }
           }
         } catch (e) {}
-      }
+      })();
 
-      if ((!allProducts || allProducts.length === 0) && typeof defaultProducts !== 'undefined') {
-        allProducts = defaultProducts;
-      }
-
-      let activeSale = null;
-      try {
-        const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.value && data.value.enabled) {
-            activeSale = data.value;
-          }
-        }
-      } catch (err) {
-        console.error('Error fetching sale status:', err);
-      }
-
-      let discountPercent = 20;
-      let displayProducts = [];
-
-      if (activeSale) {
-        if (activeSale.title) document.getElementById('offers-page-title').textContent = activeSale.title;
-        if (activeSale.subtitle) document.getElementById('offers-page-subtitle').textContent = activeSale.subtitle;
-        discountPercent = activeSale.discountPercent || 20;
-
-        if (activeSale.endDate) {
-          updateCountdown(activeSale.endDate);
-          countdownInterval = setInterval(() => updateCountdown(activeSale.endDate), 1000);
-        }
-
-        const offerProductIds = new Set((activeSale.productIds || []).map(id => String(id).trim().toLowerCase()));
-        if (offerProductIds.size > 0 && allProducts.length > 0) {
-          displayProducts = allProducts.filter(p => {
-            const p1 = String(p._id || '').trim().toLowerCase();
-            const p2 = String(p.id || '').trim().toLowerCase();
-            const p3 = String(p.name || '').trim().toLowerCase();
-            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2)) || (p3 && offerProductIds.has(p3));
-          });
-        }
-      }
-
-      // Rolling fallback timer if sale endDate is not set or expired
-      if (!activeSale || !activeSale.endDate) {
-        const defaultEnd = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
-        updateCountdown(defaultEnd);
-        countdownInterval = setInterval(() => updateCountdown(defaultEnd), 1000);
-      }
-
-      // If specific product IDs match none, or sale disabled, render top collection products
-      if (displayProducts.length === 0 && allProducts.length > 0) {
-        displayProducts = allProducts.slice(0, 16);
-      }
-
-      document.getElementById('offers-count').textContent = displayProducts.length;
-
-      const grid = document.getElementById('offers-grid');
-      if (grid) {
-        if (displayProducts.length === 0) {
-          grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;"><h3>No products currently available</h3></div>`;
-        } else {
-          grid.innerHTML = displayProducts.map(p => {
-            const pid = String(p._id || p.id || '');
-            const origPrice = Number(p.price || 0);
-            const salePrice = Math.round(origPrice * (1 - discountPercent / 100));
-            const imgUrl = p.img || (p.images && p.images.length > 0 ? p.images[0] : (p.image || p.imageUrl || 'favicon.png'));
-            const title = p.name || p.title || 'Untitled Product';
-            const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
-
-            const savings = origPrice - salePrice;
-
-            return `
-              <div class="offer-card">
-                <div class="offer-badge">⚡ ${discountPercent}% OFF</div>
-                <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
-                  <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
-                </div>
-                <div class="offer-card-body">
-                  <div class="offer-card-brand">${brand}</div>
-                  <div class="offer-card-title" onclick="window.location.href='product.html?id=${pid}'">${title}</div>
-                  <div class="offer-price-row">
-                    <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
-                    <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
-                    ${savings > 0 ? `<span class="offer-save-badge">Save Rs. ${savings.toLocaleString()}</span>` : ''}
-                  </div>
-                  <div class="offer-actions-row">
-                    <button class="offer-add-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${discountPercent})">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                      Add to Bag
-                    </button>
-                    <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${discountPercent})">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
-                      Buy Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            `;
-          }).join('');
-        }
-      }
-    });
-
-    function addToCartOffer(id, discount = 20) {
+      function addToCartOffer(id, discount = 20) {
       let allProds = (window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
       const product = allProds.find(p => String(p._id || p.id || '') === String(id));
       if (!product) return;
