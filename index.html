@@ -402,7 +402,7 @@
   <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
     <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
   <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
-    <button class="stk-close-btn" id="stk-close-btn" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" ontouchend="event.preventDefault(); event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
+    <button class="stk-close-btn" id="stk-close-btn" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" ontouchstart="event.preventDefault(); event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
     <div class="stk-header">
       <div class="stk-title">END OF SEASON SALE</div>
     </div>
@@ -1819,7 +1819,25 @@
   </script>
 
   <script>
-    // --- DYNAMIC POPUP CONTROLLER (FLASH SALE vs NEWSLETTER) ---
+          // Add bulletproof close listener for sticky timer widget
+      document.addEventListener('DOMContentLoaded', () => {
+        const stkCloseBtn = document.getElementById('stk-close-btn');
+        if (stkCloseBtn) {
+          const closeTimer = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const widget = document.getElementById('sticky-timer-widget');
+            if (widget) {
+              widget.style.display = 'none';
+              widget.style.visibility = 'hidden';
+            }
+            sessionStorage.setItem('stk_dismissed', '1');
+          };
+          stkCloseBtn.addEventListener('click', closeTimer);
+          stkCloseBtn.addEventListener('touchstart', closeTimer, {passive: false});
+        }
+      });
+      // --- DYNAMIC POPUP CONTROLLER (FLASH SALE vs NEWSLETTER) ---
     document.addEventListener('DOMContentLoaded', async () => {
       const flashModal = document.getElementById('flash-sale-modal-overlay');
       const flashCloseBtn = document.getElementById('flash-sale-close-btn');
@@ -2106,3 +2124,4 @@
   </script>
 </body>
 </html>
+

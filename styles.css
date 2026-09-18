@@ -4916,7 +4916,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .ps-item .fp-price-row {
-    font-size: 14px !important;
+    font-size: 16px !important;
     color: var(--gold) !important;
     font-weight: 700 !important;
     margin-bottom: 10px !important;
@@ -5962,7 +5962,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .la-tag {
-    font-size: 14px !important;
+    font-size: 16px !important;
     padding: 2px 6px !important;
     background: #fff !important;
     color: var(--gold) !important;
@@ -5970,7 +5970,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .la-price {
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 700 !important;
     color: var(--gold) !important;
   }
@@ -6018,7 +6018,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .showcase-subtitle {
-    font-size: 14px !important;
+    font-size: 16px !important;
     margin-top: 10px !important;
   }
 
@@ -6104,7 +6104,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   .edc-info h3 {
     color: #fff !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 500 !important;
     font-family: var(--font-serif) !important;
     letter-spacing: 0.05em !important;
@@ -7972,7 +7972,7 @@ main {
 
   .ic-label {
     display: block !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
@@ -8075,7 +8075,7 @@ main {
     font-weight: 800 !important;
     text-transform: uppercase !important;
     margin-bottom: 5px !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
 
   /* Light white for footer links on mobile */
@@ -9414,7 +9414,7 @@ body:not(.drawer-open) .floating-ig {
   justify-content: center !important;
   width: 100% !important;
   white-space: nowrap !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-weight: 500 !important; /* Not bold, clean medium weight */
   color: #222 !important;
   margin-top: 6px !important;
@@ -10089,9 +10089,9 @@ body.loading-active .floating-email {
   }
 
   .flash-sale-logo-badge {
-    width: 26px !important;
-    height: 26px !important;
-    font-size: 14px !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
   }
 
   .flash-sale-title-container {
@@ -10151,14 +10151,14 @@ body.loading-active .floating-email {
   }
 
   .countdown-lbl {
-    font-size: 14px !important;
+    font-size: 16px !important;
     letter-spacing: 0.02em !important;
     margin-top: 3px !important;
   }
 
   .flash-sale-cta-btn {
     padding: 12px 16px !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     border-radius: 14px !important;
   }
 }
@@ -10175,12 +10175,12 @@ body.loading-active .floating-email {
   .countdown-card-digit {
     width: 24px !important;
     height: 30px !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     border-radius: 5px !important;
   }
 
   .countdown-sep {
-    font-size: 14px !important;
+    font-size: 16px !important;
     margin-bottom: 8px !important;
   }
 
@@ -10334,7 +10334,7 @@ body.loading-active .floating-email {
 
 /* ── LABELS BELOW DIGITS ── */
 #sticky-timer-widget .stk-lbl {
-  font-size: 14px !important;
+  font-size: 16px !important;
   color: #888888 !important;
   font-weight: 600 !important;
   text-transform: lowercase !important;
@@ -10379,11 +10379,11 @@ body.loading-active .floating-email {
     font-size: 7px !important;
   }
   #sticky-timer-widget .stk-close-btn {
-    width: 26px !important;
-    height: 26px !important;
-    font-size: 14px !important;
-    top: -10px !important;
-    right: -10px !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
+    top: -12px !important;
+    right: -12px !important;
   }
 }
 
