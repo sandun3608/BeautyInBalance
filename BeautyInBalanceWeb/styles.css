@@ -2305,9 +2305,9 @@ background: #0a0a0a;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .fp-tag-row {
@@ -2332,11 +2332,17 @@ background: #0a0a0a;
 
 .fp-name {
   font-family: var(--font-serif);
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 500;
   color: #000;
   margin-bottom: 10px;
-  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 48px;
+  line-height: 24px;
 }
 
 .fp-price-row {
@@ -2362,11 +2368,11 @@ background: #0a0a0a;
 }
 
 .fp-buy-it-now-btn {
-  margin-top: 12px;
+  margin-top: auto;
   width: 100%;
-  background: var(--brown, #2D1B12);
-  border: 1.5px solid var(--brown, #2D1B12);
-  padding: 10px 16px;
+  background: var(--gold, #C6975A);
+  border: 1.5px solid var(--gold, #C6975A);
+  padding: 11px 16px;
   font-family: var(--font-sans, 'DM Sans', sans-serif);
   font-size: 11px;
   font-weight: 700;
@@ -2374,7 +2380,7 @@ background: #0a0a0a;
   border-radius: 50px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  box-shadow: 0 4px 14px rgba(45, 27, 18, 0.18);
+  box-shadow: 0 4px 14px rgba(198, 151, 90, 0.25);
   text-align: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -2382,11 +2388,11 @@ background: #0a0a0a;
 }
 
 .fp-buy-it-now-btn:hover {
-  background: var(--gold, #C6975A);
-  border-color: var(--gold, #C6975A);
+  background: var(--brown, #2D1B12);
+  border-color: var(--brown, #2D1B12);
   color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(198, 151, 90, 0.35);
+  box-shadow: 0 6px 18px rgba(45, 27, 18, 0.3);
 }
 
 .fp-nav {
