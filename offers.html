@@ -937,7 +937,6 @@
                     <div class="offer-price-row">
                       <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
                       <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
-                      ${savings > 0 ? `<span class="offer-save-badge">Save Rs. ${savings.toLocaleString()}</span>` : ''}
                     </div>
                     <div class="offer-actions-row">
                       <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${prodDiscount})">
