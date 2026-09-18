@@ -10159,87 +10159,106 @@ body.loading-active .floating-email {
 
 
 /* ==========================================================================
-   STICKY FLOATING LIVE OFFER TIMER — Minimal Tile Flip Design
+   STICKY FLOATING LIVE OFFER TIMER — Modern Luxury Design
    ========================================================================== */
 
-/* Tile flip animation */
+/* Glow & Float animations */
+@keyframes stkGlowPulse {
+  0%, 100% { box-shadow: 0 8px 30px rgba(0,0,0,0.12), 0 0 0 1px rgba(220,38,38,0.15); }
+  50%       { box-shadow: 0 12px 35px rgba(220,38,38,0.25), 0 0 0 3px rgba(220,38,38,0.35); }
+}
 @keyframes stkTileFlip {
   0%   { transform: rotateX(0deg); }
-  50%  { transform: rotateX(-90deg); }
-  100% { transform: rotateX(0deg); }
+  50%  { transform: rotateX(-90deg); opacity: 0.5; }
+  100% { transform: rotateX(0deg); opacity: 1; }
 }
 @keyframes stkFadeIn {
-  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  from { opacity: 0; transform: translateY(-12px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);    }
 }
 
 #sticky-timer-widget {
   position: fixed !important;
   top: 88px !important;
-  right: 20px !important;
+  right: 24px !important;
   z-index: 999999 !important;
-  background: #ffffff !important;
-  border-radius: 18px !important;
-  padding: 14px 16px 12px !important;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-radius: 20px !important;
+  padding: 16px 20px 14px !important;
+  animation: stkFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1), stkGlowPulse 3s ease-in-out infinite !important;
   cursor: pointer !important;
   overflow: visible !important;
-  min-width: 220px !important;
-  animation: stkFadeIn 0.35s ease !important;
-  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
-  border: none !important;
-}
-#sticky-timer-widget:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
-  transform: translateY(-2px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1.5px solid rgba(220,38,38,0.2) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* ── HEADER ROW ── */
-#sticky-timer-widget .stk-header {
-  display: block !important;
-  text-align: center !important;
-  margin-bottom: 10px !important;
-  padding-right: 15px !important;
+#sticky-timer-widget:hover {
+  transform: translateY(-3px) scale(1.02) !important;
 }
+
+/* ── HEADER TITLE (CENTERED ON TOP ROW) ── */
+#sticky-timer-widget .stk-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-bottom: 12px !important;
+}
+
 #sticky-timer-widget .stk-title {
-  font-size: 12px !important;
+  font-size: 11px !important;
   font-weight: 800 !important;
-  color: #111 !important;
-  letter-spacing: 0.04em !important;
+  color: #DC2626 !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   font-family: 'DM Sans', sans-serif !important;
   text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
 }
+
+/* ── CLOSE BUTTON (TOP RIGHT CORNER) ── */
 #sticky-timer-widget .stk-close-btn {
   position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  background: none !important;
-  border: 1.5px solid #ddd !important;
+  top: -8px !important;
+  right: -8px !important;
+  background: #111111 !important;
+  border: 2px solid #ffffff !important;
   border-radius: 50% !important;
-  width: 20px !important;
-  height: 20px !important;
-  color: #888 !important;
+  width: 22px !important;
+  height: 22px !important;
+  color: #ffffff !important;
   font-size: 10px !important;
+  font-weight: 700 !important;
   cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   padding: 0 !important;
-  transition: border-color 0.15s, color 0.15s !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+  transition: background 0.2s ease, transform 0.2s ease !important;
   line-height: 1 !important;
-  z-index: 10 !important;
-}
-#sticky-timer-widget .stk-close-btn:hover {
-  border-color: #111 !important;
-  color: #111 !important;
+  z-index: 20 !important;
 }
 
-/* ── BODY ROW ── */
+#sticky-timer-widget .stk-close-btn:hover {
+  background: #DC2626 !important;
+  transform: scale(1.15) !important;
+}
+
+/* ── BODY DIGITS ROW (SPACED BELOW TITLE) ── */
 #sticky-timer-widget .stk-body {
   display: flex !important;
-  align-items: flex-start !important;
-  gap: 4px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
 }
 
 /* ── GROUP (pair of tiles + label) ── */
@@ -10247,8 +10266,9 @@ body.loading-active .floating-email {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 4px !important;
+  gap: 5px !important;
 }
+
 #sticky-timer-widget .stk-digits-row {
   display: flex !important;
   gap: 3px !important;
@@ -10256,81 +10276,86 @@ body.loading-active .floating-email {
 
 /* ── INDIVIDUAL DIGIT TILE ── */
 #sticky-timer-widget .stk-tile {
-  width: 28px !important;
-  height: 34px !important;
-  background: #f0f0f0 !important;
-  border-radius: 7px !important;
+  width: 30px !important;
+  height: 38px !important;
+  background: #111111 !important;
+  border-radius: 9px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  perspective: 200px !important;
+  perspective: 300px !important;
   overflow: hidden !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
 }
+
 #sticky-timer-widget .stk-tile-inner {
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  color: #111 !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
   font-family: 'DM Sans', monospace, sans-serif !important;
   line-height: 1 !important;
   display: block !important;
   transform-origin: center center !important;
 }
+
 #sticky-timer-widget .stk-tile.flipping .stk-tile-inner {
-  animation: stkTileFlip 0.35s ease !important;
+  animation: stkTileFlip 0.38s ease-in-out !important;
 }
 
-/* ── LABELS ── */
+/* ── LABELS BELOW DIGITS ── */
 #sticky-timer-widget .stk-lbl {
   font-size: 9px !important;
-  color: #999 !important;
-  font-weight: 500 !important;
-  text-transform: lowercase !important;
-  letter-spacing: 0.02em !important;
+  color: #666666 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
   font-family: 'DM Sans', sans-serif !important;
 }
 
 /* ── COLON SEPARATOR ── */
 #sticky-timer-widget .stk-colon {
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  color: #ccc !important;
-  margin-top: 7px !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #DC2626 !important;
+  margin-bottom: 14px !important;
   display: inline-block !important;
   line-height: 1 !important;
 }
 
-/* ── MOBILE ── */
+/* ── MOBILE VIEW ── */
 @media (max-width: 768px) {
   #sticky-timer-widget {
-    top: 70px !important;
+    top: 72px !important;
     right: 12px !important;
-    padding: 11px 12px 10px !important;
-    border-radius: 15px !important;
-    min-width: 190px !important;
+    padding: 12px 14px 10px !important;
+    border-radius: 16px !important;
   }
   #sticky-timer-widget .stk-title {
-    font-size: 11px !important;
+    font-size: 10px !important;
   }
   #sticky-timer-widget .stk-tile {
-    width: 23px !important;
-    height: 28px !important;
-    border-radius: 6px !important;
+    width: 25px !important;
+    height: 32px !important;
+    border-radius: 7px !important;
   }
   #sticky-timer-widget .stk-tile-inner {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
   #sticky-timer-widget .stk-colon {
-    font-size: 15px !important;
-    margin-top: 5px !important;
+    font-size: 16px !important;
+    margin-bottom: 12px !important;
   }
   #sticky-timer-widget .stk-lbl {
     font-size: 8px !important;
   }
   #sticky-timer-widget .stk-close-btn {
-    width: 19px !important;
-    height: 19px !important;
-    font-size: 10px !important;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 9px !important;
+    top: -6px !important;
+    right: -6px !important;
   }
 }
+
 
 
