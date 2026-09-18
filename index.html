@@ -401,17 +401,36 @@
 
   <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
   <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
-    <button class="stk-close-btn" id="stk-close-btn" onclick="event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&times;</button>
-    <div class="sticky-timer-content">
-      <div class="sticky-timer-label">⚡ FLASH SALE ENDS IN:</div>
-      <div class="sticky-timer-digits">
-        <div class="s-unit"><span class="s-val" id="stk-days">00</span><span class="s-lbl">DAYS</span></div>
-        <span class="s-sep">:</span>
-        <div class="s-unit"><span class="s-val" id="stk-hours">00</span><span class="s-lbl">HRS</span></div>
-        <span class="s-sep">:</span>
-        <div class="s-unit"><span class="s-val" id="stk-mins">00</span><span class="s-lbl">MIN</span></div>
-        <span class="s-sep">:</span>
-        <div class="s-unit"><span class="s-val" id="stk-secs">00</span><span class="s-lbl">SEC</span></div>
+    <div class="stk-header">
+      <div class="stk-title">END OF SEASON SALE</div>
+      <button class="stk-close-btn" id="stk-close-btn" onclick="event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="stk-body">
+      <!-- DAYS -->
+      <div class="stk-group">
+        <div class="stk-digits-row">
+          <div class="stk-tile" id="stk-d0"><span class="stk-tile-inner">0</span></div>
+          <div class="stk-tile" id="stk-d1"><span class="stk-tile-inner">0</span></div>
+        </div>
+        <div class="stk-lbl">days</div>
+      </div>
+      <span class="stk-colon">:</span>
+      <!-- HOURS -->
+      <div class="stk-group">
+        <div class="stk-digits-row">
+          <div class="stk-tile" id="stk-h0"><span class="stk-tile-inner">0</span></div>
+          <div class="stk-tile" id="stk-h1"><span class="stk-tile-inner">0</span></div>
+        </div>
+        <div class="stk-lbl">hours</div>
+      </div>
+      <span class="stk-colon">:</span>
+      <!-- MINS -->
+      <div class="stk-group">
+        <div class="stk-digits-row">
+          <div class="stk-tile" id="stk-m0"><span class="stk-tile-inner">0</span></div>
+          <div class="stk-tile" id="stk-m1"><span class="stk-tile-inner">0</span></div>
+        </div>
+        <div class="stk-lbl">minutes</div>
       </div>
     </div>
   </div>
@@ -1854,15 +1873,27 @@
         renderDigits('fs-hours', hours);
         renderDigits('fs-mins', mins);
         renderDigits('fs-secs', secs);
-        // Update floating sticky timer
-        const setTxt = (id, val) => {
+        // Update floating sticky timer tiles with flip animation
+        function setTile(id, digit) {
           const el = document.getElementById(id);
-          if (el) el.textContent = String(val).padStart(2, '0');
-        };
-        setTxt('stk-days', days);
-        setTxt('stk-hours', hours);
-        setTxt('stk-mins', mins);
-        setTxt('stk-secs', secs);
+          if (!el) return;
+          const inner = el.querySelector('.stk-tile-inner');
+          if (!inner) return;
+          const newVal = String(digit);
+          if (inner.textContent !== newVal) {
+            el.classList.remove('flipping');
+            void el.offsetWidth;
+            el.classList.add('flipping');
+            inner.textContent = newVal;
+            setTimeout(() => el.classList.remove('flipping'), 380);
+          }
+        }
+        const ds = String(days).padStart(2,'0');
+        const hs = String(hours).padStart(2,'0');
+        const ms = String(mins).padStart(2,'0');
+        setTile('stk-d0', ds[0]); setTile('stk-d1', ds[1]);
+        setTile('stk-h0', hs[0]); setTile('stk-h1', hs[1]);
+        setTile('stk-m0', ms[0]); setTile('stk-m1', ms[1]);
       }
 
       function triggerNewsletterModal() {

@@ -10159,15 +10159,18 @@ body.loading-active .floating-email {
 
 
 /* ==========================================================================
-   STICKY FLOATING LIVE OFFER TIMER — Modern Redesign
+   STICKY FLOATING LIVE OFFER TIMER — Minimal Tile Flip Design
    ========================================================================== */
-@keyframes stkGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.0), 0 8px 32px rgba(0,0,0,0.15); }
-  50%       { box-shadow: 0 0 0 4px rgba(220,38,38,0.18), 0 8px 32px rgba(0,0,0,0.15); }
+
+/* Tile flip animation */
+@keyframes stkTileFlip {
+  0%   { transform: rotateX(0deg); }
+  50%  { transform: rotateX(-90deg); }
+  100% { transform: rotateX(0deg); }
 }
-@keyframes stkPulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.6; }
+@keyframes stkFadeIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
 #sticky-timer-widget {
@@ -10175,110 +10178,120 @@ body.loading-active .floating-email {
   top: 88px !important;
   right: 20px !important;
   z-index: 999999 !important;
-  background: rgba(255,255,255,0.92) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1.5px solid rgba(220,38,38,0.22) !important;
-  border-radius: 20px !important;
-  padding: 10px 14px 10px !important;
-  animation: stkGlow 2.4s ease-in-out infinite !important;
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  padding: 14px 16px 12px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06) !important;
   cursor: pointer !important;
   overflow: visible !important;
-  min-width: 170px !important;
+  min-width: 220px !important;
+  animation: stkFadeIn 0.35s ease !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+  border: none !important;
 }
-
 #sticky-timer-widget:hover {
-  transform: translateY(-2px) scale(1.02) !important;
-  border-color: rgba(220,38,38,0.5) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
+  transform: translateY(-2px) !important;
 }
 
-/* ── CLOSE BUTTON ── */
-#sticky-timer-widget .stk-close-btn {
-  position: absolute !important;
-  top: -8px !important;
-  right: -8px !important;
-  background: #1a1a2e !important;
-  border: 2px solid #fff !important;
-  border-radius: 50% !important;
-  width: 20px !important;
-  height: 20px !important;
-  color: #fff !important;
+/* ── HEADER ROW ── */
+#sticky-timer-widget .stk-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 10px !important;
+}
+#sticky-timer-widget .stk-title {
   font-size: 12px !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
+  color: #111 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+#sticky-timer-widget .stk-close-btn {
+  background: none !important;
+  border: 1.5px solid #ddd !important;
+  border-radius: 50% !important;
+  width: 22px !important;
+  height: 22px !important;
+  color: #888 !important;
+  font-size: 11px !important;
   cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   padding: 0 !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
-  transition: background 0.15s ease !important;
-  z-index: 10 !important;
+  transition: border-color 0.15s, color 0.15s !important;
+  line-height: 1 !important;
 }
 #sticky-timer-widget .stk-close-btn:hover {
-  background: #DC2626 !important;
+  border-color: #111 !important;
+  color: #111 !important;
 }
 
-/* ── LABEL ── */
-#sticky-timer-widget .sticky-timer-content {
+/* ── BODY ROW ── */
+#sticky-timer-widget .stk-body {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 4px !important;
+}
+
+/* ── GROUP (pair of tiles + label) ── */
+#sticky-timer-widget .stk-group {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 7px !important;
+  gap: 4px !important;
 }
-
-#sticky-timer-widget .sticky-timer-label {
-  font-size: 10px !important;
-  font-weight: 800 !important;
-  color: #DC2626 !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  animation: stkPulse 1.8s ease-in-out infinite !important;
-}
-
-/* ── DIGITS CONTAINER ── */
-#sticky-timer-widget .sticky-timer-digits {
+#sticky-timer-widget .stk-digits-row {
   display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 5px !important;
+  gap: 3px !important;
 }
 
-/* ── EACH UNIT BLOCK ── */
-#sticky-timer-widget .s-unit {
+/* ── INDIVIDUAL DIGIT TILE ── */
+#sticky-timer-widget .stk-tile {
+  width: 28px !important;
+  height: 34px !important;
+  background: #f0f0f0 !important;
+  border-radius: 7px !important;
   display: flex !important;
-  flex-direction: column !important;
   align-items: center !important;
-  gap: 2px !important;
-  background: #1a1a2e !important;
-  padding: 5px 9px 4px !important;
-  border-radius: 10px !important;
-  min-width: 34px !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+  justify-content: center !important;
+  perspective: 200px !important;
+  overflow: hidden !important;
 }
-
-#sticky-timer-widget .s-val {
-  font-size: 16px !important;
-  font-weight: 900 !important;
-  color: #ffffff !important;
+#sticky-timer-widget .stk-tile-inner {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #111 !important;
   font-family: 'DM Sans', monospace, sans-serif !important;
   line-height: 1 !important;
-  letter-spacing: -0.5px !important;
+  display: block !important;
+  transform-origin: center center !important;
+}
+#sticky-timer-widget .stk-tile.flipping .stk-tile-inner {
+  animation: stkTileFlip 0.35s ease !important;
 }
 
-#sticky-timer-widget .s-lbl {
-  font-size: 8px !important;
+/* ── LABELS ── */
+#sticky-timer-widget .stk-lbl {
+  font-size: 9px !important;
+  color: #999 !important;
+  font-weight: 500 !important;
+  text-transform: lowercase !important;
+  letter-spacing: 0.02em !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+/* ── COLON SEPARATOR ── */
+#sticky-timer-widget .stk-colon {
+  font-size: 18px !important;
   font-weight: 700 !important;
-  color: rgba(255,255,255,0.5) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
-}
-
-#sticky-timer-widget .s-sep {
-  font-size: 16px !important;
-  font-weight: 900 !important;
-  color: #DC2626 !important;
-  padding: 0 !important;
-  margin-bottom: 10px !important;
+  color: #ccc !important;
+  margin-top: 7px !important;
+  display: inline-block !important;
+  line-height: 1 !important;
 }
 
 /* ── MOBILE ── */
@@ -10286,33 +10299,33 @@ body.loading-active .floating-email {
   #sticky-timer-widget {
     top: 70px !important;
     right: 12px !important;
-    padding: 8px 11px 8px !important;
-    border-radius: 16px !important;
-    min-width: 150px !important;
+    padding: 11px 12px 10px !important;
+    border-radius: 15px !important;
+    min-width: 190px !important;
+  }
+  #sticky-timer-widget .stk-title {
+    font-size: 11px !important;
+  }
+  #sticky-timer-widget .stk-tile {
+    width: 23px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+  }
+  #sticky-timer-widget .stk-tile-inner {
+    font-size: 15px !important;
+  }
+  #sticky-timer-widget .stk-colon {
+    font-size: 15px !important;
+    margin-top: 5px !important;
+  }
+  #sticky-timer-widget .stk-lbl {
+    font-size: 8px !important;
   }
   #sticky-timer-widget .stk-close-btn {
-    width: 18px !important;
-    height: 18px !important;
-    font-size: 11px !important;
-    top: -7px !important;
-    right: -7px !important;
-  }
-  #sticky-timer-widget .sticky-timer-label {
-    font-size: 9px !important;
-  }
-  #sticky-timer-widget .s-unit {
-    padding: 4px 7px 3px !important;
-    min-width: 28px !important;
-    border-radius: 8px !important;
-  }
-  #sticky-timer-widget .s-val {
-    font-size: 14px !important;
-  }
-  #sticky-timer-widget .s-lbl {
-    font-size: 7px !important;
-  }
-  #sticky-timer-widget .s-sep {
-    font-size: 14px !important;
-    margin-bottom: 9px !important;
+    width: 19px !important;
+    height: 19px !important;
+    font-size: 10px !important;
   }
 }
+
+
