@@ -871,23 +871,15 @@
           countdownInterval = setInterval(() => updateCountdown(defaultEnd), 1000);
         }
 
-        if (allProducts && allProducts.length > 0) {
+        // Only show admin-selected Flash Sale products
+        if (hasFlashSaleSelected && allProducts && allProducts.length > 0) {
           displayProducts = allProducts.filter(p => {
             const p1 = String(p._id || '').trim().toLowerCase();
             const p2 = String(p.id || '').trim().toLowerCase();
-            const p3 = String(p.name || '').trim().toLowerCase();
-            
-            const isSelectedInFlashSale = (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2)) || (p3 && offerProductIds.has(p3));
-            const hasIndividualDiscount = (Number(p.discount || 0) > 0) || Boolean(p.isOffer) || Boolean(p.offer) || Boolean(p.onSale);
-
-            return isSelectedInFlashSale || hasIndividualDiscount;
+            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
           });
         }
 
-        // Fallback: If no flash sale selection and no individual discounted products found, show top products
-        if (!hasFlashSaleSelected && displayProducts.length === 0 && allProducts && allProducts.length > 0) {
-          displayProducts = allProducts.slice(0, 16);
-        }
 
         const countEl = document.getElementById('offers-count');
         if (countEl) countEl.textContent = displayProducts.length;
