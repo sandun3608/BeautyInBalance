@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Sale Offers | Authentic Skincare & Cosmetics — Beauty in Balance</title>
+  <meta name="description" content="Exclusive limited-time flash sale deals on authentic imported skincare products in Sri Lanka. Buy The Ordinary & CeraVe at discounted prices." />
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=308" />
+
+  <style>
+    body {
+      background: #ffffff;
+    }
+
+    /* ── OFFERS HERO BANNER (ULTRA-MODERN CENTERED) ── */
+    .offers-hero {
+      background: linear-gradient(135deg, #C63D17 0%, #E75328 50%, #B2300B 100%);
+      position: relative;
+      padding: 45px 20px 35px;
+      text-align: center;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .offers-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 100% 100%, 20px 20px, 20px 20px;
+      pointer-events: none;
+    }
+
+    .offers-hero-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .offers-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #FFD54F;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 5px 16px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 213, 79, 0.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .offers-hero h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin: 0 0 6px 0;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .offers-hero-subtitle {
+      font-size: clamp(15px, 2.2vw, 20px);
+      font-weight: 800;
+      color: #FFD54F;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* ── CENTERED MODERN COUNTDOWN TIMER ── */
+    .offers-timer-card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 12px 24px 10px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.4);
+      color: #2D1B12;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .offers-timer-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #795548;
+      margin-bottom: 8px;
+    }
+
+    .offers-countdown-digits {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown-digit-pair {
+      display: flex;
+      gap: 3px;
+    }
+
+    .countdown-card-digit {
+      background: #2D1B12;
+      color: #FFFFFF;
+      font-weight: 900;
+      font-size: 20px;
+      width: 28px;
+      height: 38px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.15), 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    .countdown-lbl {
+      font-size: 8px;
+      font-weight: 800;
+      color: #8D6E63;
+      letter-spacing: 0.05em;
+      margin-top: 5px;
+    }
+
+    .countdown-sep {
+      font-size: 18px;
+      font-weight: 900;
+      color: #2D1B12;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .offers-hero {
+        padding: 35px 15px 25px;
+      }
+      .offers-timer-card {
+        padding: 10px 16px 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .offers-hero h1 {
+        font-size: 26px !important;
+      }
+      .offers-hero-subtitle {
+        font-size: 16px !important;
+      }
+      .offers-timer-card {
+        padding: 10px 10px 8px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .offers-countdown-digits {
+        gap: 3px !important;
+      }
+      .countdown-digit-pair {
+        gap: 2px !important;
+      }
+      .countdown-card-digit {
+        width: 22px !important;
+        height: 32px !important;
+        font-size: 15px !important;
+        border-radius: 5px !important;
+      }
+      .countdown-sep {
+        font-size: 15px !important;
+        margin-bottom: 10px !important;
+      }
+      .countdown-lbl {
+        font-size: 7px !important;
+      }
+    }
+
+
+    /* ── OFFERS BODY & GRID ── */
+    .offers-body {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 25px 100px;
+      background: #ffffff;
+    }
+
+    .offers-grid-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid rgba(45, 27, 18, 0.08);
+    }
+
+    .offers-grid-header h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #2D1B12;
+      margin: 0;
+    }
+
+    .offer-product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    @media (max-width: 1024px) {
+      .offer-product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .offer-product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .offers-body { padding: 20px 12px 60px; }
+    }
+
+    /* Offer Product Card - Modern Clean Grid without Card Container */
+    .offer-card {
+      background: transparent;
+      border-radius: 0;
+      overflow: visible;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-4px);
+      box-shadow: none;
+      border-color: transparent;
+    }
+
+    .offer-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: linear-gradient(135deg, #E52E2E 0%, #DC2626 50%, #B91C1C 100%) !important;
+      color: #ffffff !important;
+      font-size: 11px !important;
+      font-weight: 800 !important;
+      padding: 5px 12px !important;
+      border-radius: 30px !important;
+      z-index: 3 !important;
+      letter-spacing: 0.04em !important;
+      box-shadow: 0 4px 14px rgba(229, 46, 46, 0.4) !important;
+      animation: pulse-red-badge 2.5s infinite ease-in-out !important;
+      overflow: hidden !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      border: none !important;
+    }
+
+    .offer-badge::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 70%
+      );
+      transform: rotate(25deg);
+      animation: badge-shimmer 3.2s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse-red-badge {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(229, 46, 46, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(229, 46, 46, 0.65);
+      }
+    }
+
+    @keyframes badge-shimmer {
+      0% {
+        left: -120%;
+      }
+      25%, 100% {
+        left: 120%;
+      }
+    }
+
+    /* Product Image Container (No frame border) */
+    .offer-card-img {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 16px;
+      border: none;
+      box-shadow: none;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .offer-card-img img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .offer-card:hover .offer-card-img img {
+      transform: scale(1.07);
+    }
+
+    /* Floating Add to Bag Icon on Image Corner */
+    .offer-quick-bag-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 4;
+    }
+
+    .offer-quick-bag-btn:hover {
+      background: #111827;
+      color: #ffffff;
+      border-color: #111827;
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+    }
+
+    .offer-card-body {
+      padding: 14px 2px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+    }
+
+    .offer-card-brand {
+      font-size: 11px;
+      font-weight: 800;
+      color: #8C6239;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 5px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .offer-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 38px;
+      text-align: center;
+      width: 100%;
+      transition: color 0.2s ease;
+    }
+
+    .offer-card-title:hover {
+      color: #8C6239;
+    }
+
+    .offer-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      width: 100%;
+      margin-top: auto;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .offer-sale-price {
+      font-size: 19px;
+      font-weight: 900;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .offer-old-price {
+      font-size: 13px;
+      color: #9CA3AF;
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+
+    .offer-save-badge {
+      font-size: 10px;
+      font-weight: 800;
+      color: #7E5936;
+      background: #FDF8F5;
+      border: 1px solid rgba(180, 138, 100, 0.25);
+      padding: 2px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .offer-actions-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    /* Curved Light-Brown Buy Now Button */
+    .offer-buy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 12px 18px;
+      background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(180, 138, 100, 0.3);
+      transition: all 0.25s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .offer-buy-btn:hover {
+      background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(180, 138, 100, 0.45);
+    }
+
+    @media (max-width: 768px) {
+      .offer-product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 12px;
+      }
+      .offers-body {
+        padding: 20px 12px 60px;
+      }
+      .offer-card {
+        border-radius: 0;
+      }
+      .offer-card-img {
+        padding: 10px;
+        aspect-ratio: 1;
+        border-radius: 12px;
+      }
+      .offer-quick-bag-btn {
+        width: 34px;
+        height: 34px;
+        bottom: 8px;
+        right: 8px;
+      }
+      .offer-quick-bag-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+      .offer-card-body {
+        padding: 10px 2px 0;
+      }
+      .offer-card-brand {
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+      .offer-card-title {
+        font-size: 13px;
+        line-height: 1.35;
+        min-height: 35px;
+        margin-bottom: 8px;
+      }
+      .offer-sale-price {
+        font-size: 16px;
+      }
+      .offer-old-price {
+        font-size: 12px;
+      }
+      .offer-badge {
+        top: 6px;
+        left: 6px;
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 20px;
+      }
+      .offer-buy-btn {
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 50px;
+      }
+    }
+
+    .no-offers-box {
+      text-align: center;
+      padding: 80px 20px;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.06);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .no-offers-box h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .no-offers-box p {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .no-offers-box a {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #E75328;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    
+    /* ── FORCE HIDE FLOATING STICKY TIMER WIDGET ON OFFERS PAGE ── */
+    #sticky-timer-widget,
+    .sticky-timer-widget {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  
+  </style>
+</head>
+
+<body class="offers-page">
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="ann-bar">
+    <div class="ann-track">
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-wrap">
+      <!-- Left: Navigation Links -->
+      <div class="nav-left">
+        <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span class="ic-label mobile-only">Menu</span>
+        </button>
+        <ul class="nav-main">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-drop">
+            <a href="shop.html">Shop <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
+            <ul class="drop-menu">
+              <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+              <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+              <li><a href="shop.html?filter=serums">Serums</a></li>
+              <li><a href="shop.html?filter=cleansers">Cleansers</a></li>
+              <li><a href="shop.html?filter=moisturizers">Moisturizers</a></li>
+              <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
+            </ul>
+          </li>
+          <li><a href="offers.html" class="active" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="site-logo">Beauty in Balance</a>
+
+      <!-- Right: Search + Account + Cart -->
+      <div class="nav-icons">
+        <button class="ic-btn mobile-hidden" id="search-open" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+
+        <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-badge" id="cart-count">0</span>
+        </button>
+
+        <a href="account.html" class="ic-btn m-user-icon" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+        <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
+  <!-- Sticky timer hidden on offers page -->
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="m-sidebar-header">
+      <div class="m-search-wrap">
+        <input type="text" placeholder="Search for products" id="m-sidebar-search-input">
+        <button aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+      </div>
+    </div>
+    <div class="m-sidebar-body">
+      <ul class="m-sidebar-list">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="shop.html">SHOP</a></li>
+        <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
+        <li><a href="contact.html">CONTACT US</a></li>
+        <li><a href="account.html">MY ACCOUNT</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+      <h3>Bag</h3>
+      <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cart-body" id="cart-drawer-items" style="padding: 20px;">
+      <p style="text-align: center; color: #888;">Your bag is currently empty.</p>
+    </div>
+  </div>
+
+  <!-- OFFERS HERO BANNER (CENTERED MODERN LOOK) -->
+  <section class="offers-hero">
+    <div class="offers-hero-container">
+      <div class="offers-hero-badge">⚡ LIMITED TIME DEALS</div>
+      <h1 id="offers-page-title">FLASH SALE OFFERS</h1>
+      <div class="offers-hero-subtitle" id="offers-page-subtitle">UP TO 20% OFF!</div>
+
+      <!-- CENTERED COUNTDOWN TIMER CARD -->
+      <div class="offers-timer-card">
+        <div class="offers-timer-label">SALE ENDS IN:</div>
+        <div class="offers-countdown-digits">
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="off-days">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">DAYS</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="off-hours">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">HOURS</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="off-mins">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">MINUTES</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="off-secs">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">SECONDS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS BODY SECTION -->
+  <main class="offers-body">
+    <div class="offers-grid-header">
+      <h2>Exclusive Offer Collection (<span id="offers-count">0</span>)</h2>
+    </div>
+
+    <div id="offers-container">
+      <div class="offer-product-grid" id="offers-grid">
+        <!-- JS renders products here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3>SHOP</h3>
+        <ul>
+          <li><a href="shop.html">Best Sellers</a></li>
+          <li><a href="shop.html">New Arrivals</a></li>
+          <li><a href="offers.html">Special Offers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>SUPPORT</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="refund-policy.html">Refund Policy</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+        <p>Your destination for authentic, high-quality skincare in Sri Lanka.</p>
+        <div class="footer-social">
+          <a href="https://facebook.com/beautyinbalance" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://instagram.com/beautyinbalance_sl" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://wa.me/94766190550" target="_blank" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Beauty in Balance. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING WHATSAPP & INSTAGRAM ICONS ===== -->
+  <a href="https://wa.me/94766190550" target="_blank" rel="noopener noreferrer" class="floating-wa" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/beauty.in.balance_" target="_blank" rel="noopener noreferrer" class="floating-ig" aria-label="Follow on Instagram">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+  </a>
+
+  <script src="config.js"></script>
+  <script src="products.js"></script>
+  <script src="account-nav.js?v=5"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Setup mobile drawer & cart triggers
+      const hamOpen = document.getElementById('ham-open');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const cartOpen = document.getElementById('cart-open');
+      const cartClose = document.getElementById('cart-close');
+      const cartDrawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('overlay');
+
+      const closeAllDrawers = () => {
+        if (mobileDrawer) mobileDrawer.classList.remove('open');
+        if (cartDrawer) cartDrawer.classList.remove('open');
+        if (overlay) overlay.classList.remove('show');
+      };
+
+      if (hamOpen) hamOpen.addEventListener('click', () => {
+        if (mobileDrawer) mobileDrawer.classList.add('open');
+        if (overlay) overlay.classList.add('show');
+      });
+
+      if (cartOpen) cartOpen.addEventListener('click', () => {
+        if (cartDrawer) cartDrawer.classList.add('open');
+        if (overlay) overlay.classList.add('show');
+      });
+
+      if (cartClose) cartClose.addEventListener('click', closeAllDrawers);
+      if (overlay) overlay.addEventListener('click', closeAllDrawers);
+
+      window.addEventListener('scroll', () => {
+        const header = document.getElementById('site-header');
+        if (header) header.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      // API and Products Logic
+      const getApiBaseUrl = () => (window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
+
+      let countdownInterval = null;
+
+      function renderDigits(elementId, value) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const str = String(value).padStart(2, '0');
+        const d1 = str.charAt(0);
+        const d2 = str.charAt(1);
+        el.innerHTML = `<div class="countdown-card-digit">${d1}</div><div class="countdown-card-digit">${d2}</div>`;
+      }
+
+      function updateCountdown(endDateStr) {
+        let end = new Date(endDateStr).getTime();
+        const now = new Date().getTime();
+        let diff = end - now;
+
+        const widget = document.getElementById('sticky-timer-widget');
+
+        if (isNaN(end) || diff <= 0) {
+          end = now + (24 * 60 * 60 * 1000);
+          diff = end - now;
+        }
+
+        if (widget) { widget.style.display = 'none'; widget.classList.remove('active'); }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        renderDigits('off-days', days);
+        renderDigits('off-hours', hours);
+        renderDigits('off-mins', mins);
+        renderDigits('off-secs', secs);
+
+        const setTxt = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = String(val).padStart(2, '0');
+        };
+        setTxt('stk-days', days);
+        setTxt('stk-hours', hours);
+        setTxt('stk-mins', mins);
+        setTxt('stk-secs', secs);
+      }
+
+      function getInstantProducts() {
+        if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
+          return window.productsData;
+        }
+        if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts) && defaultProducts.length > 0) {
+          return defaultProducts;
+        }
+        try {
+          const cached = localStorage.getItem('koko_products_cache');
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          }
+        } catch(e) {}
+        return [];
+      }
+
+      let allProducts = getInstantProducts();
+      let activeSale = null;
+
+      try {
+        const cachedSale = localStorage.getItem('bib_active_sale');
+        if (cachedSale) {
+          const parsed = JSON.parse(cachedSale);
+          if (parsed && parsed.enabled !== false) activeSale = parsed;
+        }
+      } catch (e) {}
+
+      function renderOffersUI() {
+        let defaultDiscount = 20;
+        let displayProducts = [];
+        let offerProductIds = new Set();
+        let hasFlashSaleSelected = false;
+
+        if (activeSale && activeSale.enabled !== false) {
+          if (activeSale.title) {
+            const titleEl = document.getElementById('offers-page-title');
+            if (titleEl) titleEl.textContent = activeSale.title;
+          }
+          if (activeSale.subtitle) {
+            const subEl = document.getElementById('offers-page-subtitle');
+            if (subEl) subEl.textContent = activeSale.subtitle;
+          }
+          defaultDiscount = activeSale.discountPercent || 20;
+
+          let endDate = activeSale.endDate;
+          if (!endDate || new Date(endDate).getTime() <= Date.now()) {
+            endDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+          }
+
+          if (countdownInterval) clearInterval(countdownInterval);
+          updateCountdown(endDate);
+          countdownInterval = setInterval(() => updateCountdown(endDate), 1000);
+
+          (activeSale.productIds || []).forEach(id => {
+            if (id) offerProductIds.add(String(id).trim().toLowerCase());
+          });
+          if (offerProductIds.size > 0) hasFlashSaleSelected = true;
+        } else {
+          const defaultEnd = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+          if (countdownInterval) clearInterval(countdownInterval);
+          updateCountdown(defaultEnd);
+          countdownInterval = setInterval(() => updateCountdown(defaultEnd), 1000);
+        }
+
+        // Only show admin-selected Flash Sale products
+        if (hasFlashSaleSelected && allProducts && allProducts.length > 0) {
+          displayProducts = allProducts.filter(p => {
+            const p1 = String(p._id || '').trim().toLowerCase();
+            const p2 = String(p.id || '').trim().toLowerCase();
+            return (p1 && offerProductIds.has(p1)) || (p2 && offerProductIds.has(p2));
+          });
+        }
+
+
+        const countEl = document.getElementById('offers-count');
+        if (countEl) countEl.textContent = displayProducts.length;
+
+        const grid = document.getElementById('offers-grid');
+        if (grid) {
+          if (displayProducts.length === 0) {
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #888;"><h3>No offer products currently available.</h3></div>`;
+          } else {
+            grid.innerHTML = displayProducts.map(p => {
+              const pid = String(p._id || p.id || '');
+              const prodDiscount = defaultDiscount; // Always use Flash Sale discount for selected offer products
+              const origPrice = Number(p.price || 0);
+              const salePrice = Math.round(origPrice * (1 - prodDiscount / 100));
+              const imgUrl = p.img || (p.images && p.images.length > 0 ? p.images[0] : (p.image || p.imageUrl || 'favicon.png'));
+              const title = p.name || p.title || 'Untitled Product';
+              const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
+              const savings = origPrice - salePrice;
+
+              return `
+                <div class="offer-card">
+                  <div class="offer-badge">⚡ ${prodDiscount}% OFF</div>
+                  <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
+                    <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
+                    <button class="offer-quick-bag-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${prodDiscount})" title="Add to Bag" aria-label="Add to Bag">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </button>
+                  </div>
+                  <div class="offer-card-body">
+                    <div class="offer-card-brand">${brand}</div>
+                    <div class="offer-card-title" onclick="window.location.href='product.html?id=${pid}'">${title}</div>
+                    <div class="offer-price-row">
+                      <span class="offer-sale-price">Rs. ${salePrice.toLocaleString()}</span>
+                      <span class="offer-old-price">Rs. ${origPrice.toLocaleString()}</span>
+                    </div>
+                    <div class="offer-actions-row">
+                      <button class="offer-buy-btn" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${prodDiscount})">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
+                        Buy Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          }
+        }
+      }
+
+      // Initial render
+      renderOffersUI();
+
+      // Async fetch active sale & database products
+      (async () => {
+        try {
+          const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale?t=${Date.now()}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.value) {
+              if (data.value.enabled !== false) {
+                activeSale = data.value;
+                try { localStorage.setItem('bib_active_sale', JSON.stringify(activeSale)); } catch(e) {}
+              } else {
+                activeSale = null;
+                try { localStorage.removeItem('bib_active_sale'); } catch(e) {}
+              }
+              renderOffersUI();
+            }
+          }
+        } catch (err) {}
+
+        try {
+          const pRes = await fetch(`${getApiBaseUrl()}/products?t=${Date.now()}`);
+          if (pRes.ok) {
+            const pData = await pRes.json();
+            const fetched = Array.isArray(pData) ? pData : (pData.products || pData.data || []);
+            if (Array.isArray(fetched) && fetched.length > 0) {
+              allProducts = fetched;
+              renderOffersUI();
+            }
+          }
+        } catch (e) {}
+      })();
+
+      function addToCartOffer(id, discount = 20) {
+        let pool = (allProducts && allProducts.length > 0) ? allProducts : ((window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []));
+        const product = pool.find(p => String(p._id || p.id || '') === String(id));
+        if (!product) return;
+
+        const pId = String(product._id || product.id);
+        const imgUrl = product.img || (product.images && product.images[0]) || 'favicon.png';
+
+        let localCart = JSON.parse(localStorage.getItem('bib_cart') || '[]');
+        const existing = localCart.find(item => String(item.id) === pId);
+
+        if (existing) {
+          existing.qty += 1;
+          existing.discount = discount;
+        } else {
+          localCart.push({
+            id: pId,
+            name: product.name,
+            price: Number(product.price || 0),
+            discount: discount,
+            img: imgUrl,
+            qty: 1
+          });
+        }
+        localStorage.setItem('bib_cart', JSON.stringify(localCart));
+
+        if (typeof window.renderCart === 'function') window.renderCart();
+
+        const cartDrawer = document.getElementById('cart-drawer');
+        const overlay = document.getElementById('overlay');
+        if (cartDrawer && overlay) {
+          cartDrawer.classList.add('open');
+          overlay.classList.add('show');
+        } else {
+          alert(`${product.name} added to bag!`);
+        }
+      }
+
+    function buyNowOffer(id, discount = 20) {
+      addToCartOffer(id, discount);
+      window.location.href = 'checkout.html';
+    }
+  });
+  </script>
+</body>
+</html>
