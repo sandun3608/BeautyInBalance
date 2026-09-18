@@ -242,7 +242,9 @@
     .shop-body {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 60px 60px 120px;
+      padding: 60px 40px 120px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* Section dividers by category */
@@ -288,20 +290,46 @@
     /* Premium Product Grid */
     .premium-shop-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Responsive adjustments for standard desktop & laptop screens */
+    @media (max-width: 1350px) and (min-width: 1101px) {
+      .shop-body {
+        padding: 40px 24px 100px;
+      }
+      .premium-shop-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 1100px) and (min-width: 901px) {
+      .shop-body {
+        padding: 30px 20px 80px;
+      }
+      .premium-shop-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
     }
 
     /* Luxury Product Card */
     .lux-card {
       background: transparent;
       border-radius: 0;
-      overflow: visible;
+      overflow: hidden;
       border: none;
       transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
       cursor: pointer;
       position: relative;
       box-shadow: none;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .lux-card:hover {
