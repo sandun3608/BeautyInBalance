@@ -139,4 +139,26 @@ router.put('/:id/read', protect, async (req, res) => {
     }
 });
 
+// @route   DELETE /api/inquiries/:id
+// @desc    Delete an inquiry
+// @access  Private
+router.delete('/:id', protect, async (req, res) => {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid Inquiry ID format' });
+        }
+
+        const inquiry = await Inquiry.findById(req.params.id);
+        if (inquiry) {
+            await inquiry.deleteOne();
+            res.json({ message: 'Inquiry deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Inquiry not found' });
+        }
+    } catch (error) {
+        console.error("Inquiry delete error:", error);
+        res.status(500).json({ message: 'Server error deleting inquiry' });
+    }
+});
+
 module.exports = router;

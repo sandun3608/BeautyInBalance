@@ -1195,9 +1195,59 @@
               <div class="admin-sec-head" style="margin-bottom: 30px;"><h3 style="margin:0;">Client Inquiries</h3></div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Received</th><th>Client</th><th>Correspondence</th><th>Message</th><th>Respond</th></tr></thead>
+                  <thead><tr><th>Received</th><th>Client</th><th>Correspondence</th><th>Message</th><th style="width: 180px;">Actions</th></tr></thead>
                   <tbody id="inquiries-table"></tbody>
                 </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- INQUIRY READ / DETAILS MODAL -->
+          <div id="inquiry-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px;">
+            <div style="background: #fff; width: 100%; max-width: 600px; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); overflow: hidden; font-family: sans-serif;">
+              <!-- Modal Header -->
+              <div style="background: linear-gradient(135deg, #1B1B1E 0%, #2D1A12 100%); color: #fff; padding: 25px 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="background: rgba(207,165,106,0.2); width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#CFA56A" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </div>
+                  <div>
+                    <h3 style="margin:0; font-size: 18px; font-weight: 800; color: #fff;">Customer Support Mail</h3>
+                    <span id="inquiry-modal-date" style="font-size: 11px; opacity: 0.75;">Received: N/A</span>
+                  </div>
+                </div>
+                <button onclick="closeInquiryModal()" style="background: rgba(255,255,255,0.15); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">✕</button>
+              </div>
+
+              <!-- Modal Content -->
+              <div style="padding: 30px;">
+                <!-- Client Details Row -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #fafafa; border: 1px solid #eee; border-radius: 16px; padding: 18px; margin-bottom: 24px;">
+                  <div>
+                    <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; font-weight: 800; display: block; margin-bottom: 4px;">Client Name</span>
+                    <strong id="inquiry-modal-name" style="font-size: 14px; color: #222;">Anonymous</strong>
+                  </div>
+                  <div>
+                    <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; font-weight: 800; display: block; margin-bottom: 4px;">Email Address</span>
+                    <a id="inquiry-modal-email" href="#" target="_blank" style="font-size: 13px; color: #CFA56A; font-weight: 700; text-decoration: underline; word-break: break-all;">N/A</a>
+                  </div>
+                </div>
+
+                <!-- Message Text Box -->
+                <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: 800; display: block; margin-bottom: 8px;">Message Content</span>
+                <div id="inquiry-modal-message" style="background: #fff8f5; border: 1px solid rgba(207,165,106,0.25); border-radius: 16px; padding: 20px; font-size: 14px; line-height: 1.6; color: #2d1b12; white-space: pre-wrap; word-break: break-word; max-height: 250px; overflow-y: auto;">
+                  No message content provided.
+                </div>
+
+                <!-- Actions Footer -->
+                <div style="display: flex; gap: 12px; margin-top: 25px; justify-content: flex-end; flex-wrap: wrap;">
+                  <button id="inquiry-modal-reply-btn" class="admin-btn" style="background: #CFA56A; color: #fff; border: none; padding: 12px 22px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    ✉️ Reply via Email
+                  </button>
+                  <button onclick="closeInquiryModal()" style="background: #f5f5f5; color: #555; border: 1px solid #ddd; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer;">
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -2992,7 +3042,7 @@
     async function fetchInquiries() {
       const table = document.querySelector('#tab-support tbody');
       if (!table) return;
-      table.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading Inquiries...</td></tr>';
+      table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 25px; color: #888;">⏳ Loading live inquiries...</td></tr>';
 
       const token = localStorage.getItem('userToken');
       if (!token) { window.location.href = 'login.html'; return; }
@@ -3003,41 +3053,124 @@
           headers: { 'Authorization': 'Bearer ' + token }
         });
         if (!res.ok) {
-          table.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#ef4444;">Failed to load inquiries (${res.status}).</td></tr>`;
+          table.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:25px; color:#ef4444;">Failed to load inquiries (${res.status}).</td></tr>`;
           return;
         }
         const data = await res.json();
         if (!Array.isArray(data)) {
-          table.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ef4444;">Invalid inquiries data received.</td></tr>';
+          table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:25px; color:#ef4444;">Invalid inquiries data received.</td></tr>';
           return;
         }
         table.innerHTML = '';
         if (data.length === 0) {
-          table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#888;">No inquiries yet.</td></tr>';
+          table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:25px; color:#888;">No customer inquiries found.</td></tr>';
           return;
         }
+
+        window.allInquiries = data;
+
         data.forEach(msg => {
           if (!msg) return;
           const tr = document.createElement('tr');
-          const dateStr = msg.createdAt ? new Date(msg.createdAt).toLocaleDateString() : 'N/A';
-          const msgText = msg.message ? (msg.message.length > 30 ? msg.message.substring(0, 30) + '...' : msg.message) : '';
+          const dateStr = msg.createdAt ? new Date(msg.createdAt).toLocaleString('en-LK', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A';
+          const msgPreview = msg.message ? (msg.message.length > 40 ? msg.message.substring(0, 40) + '...' : msg.message) : 'No message text';
+          const isUnread = !msg.isRead;
+          
+          tr.style.cursor = 'pointer';
+          if (isUnread) tr.style.background = 'rgba(207, 165, 106, 0.08)';
+
           tr.innerHTML = `
-            <td>${dateStr}</td>
-            <td>${msg.name || 'Anonymous'}</td>
-            <td>${msg.email || 'N/A'}</td>
-            <td>${msgText}</td>
-            <td><button class="admin-btn" onclick="markRead('${msg._id}')">${msg.isRead ? 'Read' : 'Mark Read'}</button></td>
+            <td style="font-size: 12px; white-space: nowrap; color: #666;" onclick="viewInquiryDetails('${msg._id}')">${dateStr}</td>
+            <td style="font-weight: 700;" onclick="viewInquiryDetails('${msg._id}')">${msg.name || 'Anonymous'}${isUnread ? ' <span style="background:#ef4444; color:#fff; font-size:9px; padding:2px 6px; border-radius:10px; font-weight:800; margin-left:4px;">NEW</span>' : ''}</td>
+            <td style="font-size: 12px;"><a href="mailto:${msg.email || ''}" onclick="event.stopPropagation()" style="color: var(--admin-accent, #CFA56A); text-decoration: underline; font-weight: 600;">${msg.email || 'N/A'}</a></td>
+            <td onclick="viewInquiryDetails('${msg._id}')">
+              <div style="width: 220px; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; color: #333;" title="Click to read full message">
+                ${msgPreview}
+              </div>
+            </td>
+            <td>
+              <div style="display:flex; gap:8px;" onclick="event.stopPropagation()">
+                <button class="admin-btn" style="background:#CFA56A; color:#fff; border:none; padding:7px 14px; font-size:11px; font-weight:700; border-radius:8px; display:flex; align-items:center; gap:5px; cursor:pointer;" onclick="viewInquiryDetails('${msg._id}')">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Read Mail
+                </button>
+                <button class="admin-btn" style="background:rgba(239,68,68,0.08); color:#ef4444; border:1px solid rgba(239,68,68,0.2); padding:7px 10px; font-size:11px; border-radius:8px; cursor:pointer;" onclick="deleteInquiry('${msg._id}')" title="Delete Inquiry">🗑️</button>
+              </div>
+            </td>
           `;
           table.appendChild(tr);
         });
       } catch (err) { 
         console.error("fetchInquiries error:", err);
-        table.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#ef4444;">Failed to load inquiries.</td></tr>'; 
+        table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:25px; color:#ef4444;">Failed to load inquiries.</td></tr>'; 
       }
     }
 
+    window.viewInquiryDetails = (id) => {
+      if (!window.allInquiries) return;
+      const msg = window.allInquiries.find(m => m && m._id === id);
+      if (!msg) return;
+
+      const nameEl = document.getElementById('inquiry-modal-name');
+      if (nameEl) nameEl.innerText = msg.name || 'Anonymous';
+      
+      const emailEl = document.getElementById('inquiry-modal-email');
+      if (emailEl) {
+        emailEl.innerText = msg.email || 'N/A';
+        emailEl.href = msg.email ? `mailto:${msg.email}` : '#';
+      }
+
+      const replyBtn = document.getElementById('inquiry-modal-reply-btn');
+      if (replyBtn) {
+        replyBtn.onclick = () => {
+          if (msg.email) {
+            window.open(`mailto:${msg.email}?subject=Re: Beauty in Balance Customer Support&body=Hi ${encodeURIComponent(msg.name || 'Customer')},\n\nThank you for reaching out to Beauty in Balance.\n\n`, '_blank');
+          } else {
+            alert('No email address provided for this inquiry.');
+          }
+        };
+      }
+
+      const dateStr = msg.createdAt ? new Date(msg.createdAt).toLocaleString('en-LK', { dateStyle: 'full', timeStyle: 'short' }) : 'N/A';
+      const dateEl = document.getElementById('inquiry-modal-date');
+      if (dateEl) dateEl.innerText = 'Received: ' + dateStr;
+
+      const msgEl = document.getElementById('inquiry-modal-message');
+      if (msgEl) msgEl.innerText = msg.message || 'No message content provided.';
+
+      const modal = document.getElementById('inquiry-modal');
+      if (modal) modal.style.display = 'flex';
+
+      // Auto mark read
+      if (!msg.isRead) {
+        window.markRead(id);
+      }
+    };
+
+    window.closeInquiryModal = () => {
+      const modal = document.getElementById('inquiry-modal');
+      if (modal) modal.style.display = 'none';
+    };
+
+    window.deleteInquiry = async (id) => {
+      if (!confirm('Are you sure you want to delete this customer inquiry?')) return;
+      try {
+        const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+        const res = await fetch(`${apiBase}/inquiries/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
+        });
+        if (res.ok) {
+          fetchInquiries();
+        } else {
+          alert('Failed to delete inquiry.');
+        }
+      } catch(e) { console.error(e); alert('Error deleting inquiry.'); }
+    };
+
     window.markRead = async (id) => {
-        await fetch(`${BASE_URL}/inquiries/${id}/read`, {
+        const apiBase = window.BASE_URL || (typeof BASE_URL !== 'undefined' ? BASE_URL : '/api');
+        await fetch(`${apiBase}/inquiries/${id}/read`, {
             method: 'PUT',
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('userToken') }
         });
