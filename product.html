@@ -972,11 +972,22 @@
       let discount = Number(product.discount || 0);
       let isFlashSaleOffer = false;
       if (window.activeFlashSale && window.activeFlashSale.enabled) {
-        const pSet = new Set((window.activeFlashSale.productIds || []).map(id => String(id).trim()));
-        const pIdStr = String(product.id || product._id || '');
-        if (pSet.size === 0 || pSet.has(pIdStr)) {
-          discount = Number(window.activeFlashSale.discountPercent || 20);
-          isFlashSaleOffer = true;
+        const sale = window.activeFlashSale;
+        const now = new Date();
+        const saleEnd   = sale.endDate   ? new Date(sale.endDate)   : null;
+        const saleStart = sale.startDate ? new Date(sale.startDate) : null;
+        const isSaleActive = (!saleStart || now >= saleStart) && (!saleEnd || now <= saleEnd);
+        if (isSaleActive) {
+          // Check both MongoDB _id and custom id field (case-insensitive)
+          const pIdMongo  = String(product._id || '').trim().toLowerCase();
+          const pIdCustom = String(product.id  || '').trim().toLowerCase();
+          const pSet = new Set((sale.productIds || []).map(id => String(id).trim().toLowerCase()));
+          const isInSale = pSet.size === 0 || pSet.has(pIdMongo) || pSet.has(pIdCustom);
+          if (isInSale) {
+            // Flash Sale discount ALWAYS overrides the product's own discount
+            discount = Number(sale.discountPercent || 20);
+            isFlashSaleOffer = true;
+          }
         }
       }
       const stockLeft = (product.stock !== undefined && product.stock !== null && product.stock !== '') ? Number(product.stock) : ((product.name.length % 12) + 8);
