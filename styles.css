@@ -10196,10 +10196,10 @@ body.loading-active .floating-email {
 
 /* ── HEADER ROW ── */
 #sticky-timer-widget .stk-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
+  display: block !important;
+  text-align: center !important;
   margin-bottom: 10px !important;
+  padding-right: 15px !important;
 }
 #sticky-timer-widget .stk-title {
   font-size: 12px !important;
@@ -10208,15 +10208,19 @@ body.loading-active .floating-email {
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
   font-family: 'DM Sans', sans-serif !important;
+  text-align: center !important;
 }
 #sticky-timer-widget .stk-close-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
   background: none !important;
   border: 1.5px solid #ddd !important;
   border-radius: 50% !important;
-  width: 22px !important;
-  height: 22px !important;
+  width: 20px !important;
+  height: 20px !important;
   color: #888 !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
   cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
@@ -10224,6 +10228,7 @@ body.loading-active .floating-email {
   padding: 0 !important;
   transition: border-color 0.15s, color 0.15s !important;
   line-height: 1 !important;
+  z-index: 10 !important;
 }
 #sticky-timer-widget .stk-close-btn:hover {
   border-color: #111 !important;
