@@ -3210,7 +3210,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     right: -6px !important;
     width: 14px !important;
     height: 14px !important;
-    font-size: 9px !important;
+    font-size: 12px !important;
   }
 
   .mbn-item {
@@ -4864,7 +4864,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .ps-prod-btn {
-    font-size: 9px !important;
+    font-size: 12px !important;
     padding: 7px 0 !important;
   }
 
@@ -5962,7 +5962,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .la-tag {
-    font-size: 8px !important;
+    font-size: 14px !important;
     padding: 2px 6px !important;
     background: #fff !important;
     color: var(--gold) !important;
@@ -7959,8 +7959,8 @@ main {
 
   .ic-btn svg {
     color: var(--brown) !important;
-    width: 18px !important;
-    height: 18px !important;
+    width: 24px !important;
+    height: 24px !important;
     stroke-width: 1.5 !important;
   }
 
@@ -7972,7 +7972,7 @@ main {
 
   .ic-label {
     display: block !important;
-    font-size: 8px !important;
+    font-size: 14px !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
@@ -10091,7 +10091,7 @@ body.loading-active .floating-email {
   .flash-sale-logo-badge {
     width: 26px !important;
     height: 26px !important;
-    font-size: 8px !important;
+    font-size: 14px !important;
   }
 
   .flash-sale-title-container {
@@ -10103,7 +10103,7 @@ body.loading-active .floating-email {
   }
 
   .lightning-svg {
-    width: 18px !important;
+    width: 24px !important;
     height: 27px !important;
   }
 
@@ -10151,7 +10151,7 @@ body.loading-active .floating-email {
   }
 
   .countdown-lbl {
-    font-size: 8px !important;
+    font-size: 14px !important;
     letter-spacing: 0.02em !important;
     margin-top: 3px !important;
   }
@@ -10173,7 +10173,7 @@ body.loading-active .floating-email {
   }
 
   .countdown-card-digit {
-    width: 18px !important;
+    width: 24px !important;
     height: 30px !important;
     font-size: 14px !important;
     border-radius: 5px !important;
@@ -10261,10 +10261,10 @@ body.loading-active .floating-email {
   background: #ffffff !important;
   border: 1.5px solid #e0e0e0 !important;
   border-radius: 50% !important;
-  width: 18px !important;
-  height: 18px !important;
+  width: 24px !important;
+  height: 24px !important;
   color: #666666 !important;
-  font-size: 9px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
   cursor: pointer !important;
   display: flex !important;
@@ -10334,7 +10334,7 @@ body.loading-active .floating-email {
 
 /* ── LABELS BELOW DIGITS ── */
 #sticky-timer-widget .stk-lbl {
-  font-size: 8px !important;
+  font-size: 14px !important;
   color: #888888 !important;
   font-weight: 600 !important;
   text-transform: lowercase !important;
@@ -10361,7 +10361,7 @@ body.loading-active .floating-email {
     border-radius: 14px !important;
   }
   #sticky-timer-widget .stk-title {
-    font-size: 9px !important;
+    font-size: 12px !important;
   }
   #sticky-timer-widget .stk-tile {
     width: 20px !important;
@@ -10379,11 +10379,11 @@ body.loading-active .floating-email {
     font-size: 7px !important;
   }
   #sticky-timer-widget .stk-close-btn {
-    width: 16px !important;
-    height: 16px !important;
-    font-size: 8px !important;
-    top: -5px !important;
-    right: -5px !important;
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 14px !important;
+    top: -10px !important;
+    right: -10px !important;
   }
 }
 
