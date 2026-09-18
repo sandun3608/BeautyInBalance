@@ -2368,7 +2368,7 @@ background: #0a0a0a;
 }
 
 .fp-buy-it-now-btn {
-  margin-top: auto;
+  margin-top: 16px;
   width: 100%;
   background: var(--gold, #C6975A);
   border: 1.5px solid var(--gold, #C6975A);
