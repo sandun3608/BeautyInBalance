@@ -6312,9 +6312,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   /* Before & After Slider Mobile Adjustments */
   .ba-slider-section {
-    padding: 40px 0 !important;
-    width: 100% !important;
-    margin: 0 !important;
+    display: none !important;
   }
 
   .ba-container {
@@ -9820,4 +9818,5 @@ body.loading-active .floating-email {
 .product-title {
   font-weight: 700 !important;
 }
+
 
