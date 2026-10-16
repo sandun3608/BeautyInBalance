@@ -4399,16 +4399,16 @@
             const deactivateBtn = document.getElementById('offer-deactivate-btn');
 
             const now = new Date();
-            const start = sale.startDate ? new Date(sale.startDate) : null;
             const end = sale.endDate ? new Date(sale.endDate) : null;
 
-            if (sale.enabled && start && end && now >= start && now <= end) {
+            if (sale.enabled && end && now <= end) {
               if (badge) {
                 badge.textContent = 'ACTIVE SALE';
                 badge.style.background = '#10b981';
               }
               if (desc) desc.textContent = `Flash sale is LIVE! Ends on ${end.toLocaleString()}. Included products: ${selectedOfferProductIds.size}`;
               if (deactivateBtn) deactivateBtn.style.display = 'inline-block';
+              try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
             } else {
               if (badge) {
                 badge.textContent = 'INACTIVE';
@@ -4416,6 +4416,7 @@
               }
               if (desc) desc.textContent = 'No active sale currently running.';
               if (deactivateBtn) deactivateBtn.style.display = 'none';
+              try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
             }
           }
         }
@@ -4465,6 +4466,11 @@
         });
 
         if (res.ok) {
+          try {
+            localStorage.setItem('bib_active_sale', JSON.stringify(payload.value));
+            sessionStorage.removeItem('stk_dismissed');
+            sessionStorage.removeItem('flash_sale_dismissed');
+          } catch (e) {}
           alert('🎉 Flash sale offer saved and activated successfully!');
           document.getElementById('offer-details-modal').style.display = 'none';
           await loadExistingFlashSaleSettings();
@@ -4499,6 +4505,7 @@
         });
 
         if (res.ok) {
+          try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
           alert('Flash sale deactivated.');
           await loadExistingFlashSaleSettings();
         }

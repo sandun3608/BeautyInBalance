@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=306" />
+  <link rel="stylesheet" href="styles.css?v=309" />
 
   <style>
     @keyframes spin {
@@ -833,11 +833,10 @@
   </header>
 
   <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
-    <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
   <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
     <div class="stk-header">
-      <div class="stk-title">END OF SEASON SALE</div>
-      <button class="stk-close-btn" id="stk-close-btn" onclick="event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
+      <div class="stk-title" id="stk-title-text">END OF SEASON SALE</div>
+      <button class="stk-close-btn" id="stk-close-btn" onclick="event.stopPropagation(); const w=document.getElementById('sticky-timer-widget'); if(w){w.classList.remove('active'); w.style.display='none';} sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
     </div>
     <div class="stk-body">
       <!-- DAYS -->
@@ -867,7 +866,6 @@
         <div class="stk-lbl">minutes</div>
       </div>
     </div>
-  </div>
   </div>
 
 
@@ -1239,20 +1237,38 @@
 
       // Fetch Flash Sale settings to check active offers
       const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
-      fetch(`${BASE}/settings/flash_sale`)
+      try {
+        const cachedSaleStr = localStorage.getItem('bib_active_sale');
+        if (cachedSaleStr) {
+          const cachedSale = JSON.parse(cachedSaleStr);
+          if (cachedSale && cachedSale.enabled !== false && new Date(cachedSale.endDate) >= new Date()) {
+            window.activeFlashSale = cachedSale;
+            initStickyTimer(cachedSale.endDate, cachedSale.title);
+            renderProduct(initialProducts);
+          }
+        }
+      } catch (e) {}
+
+      fetch(`${BASE}/settings/flash_sale?t=${Date.now()}`)
         .then(res => res.ok ? res.json() : null)
         .then(data => {
-          if (data && data.value && data.value.enabled) {
+          if (data && data.value && data.value.enabled !== false) {
             const sale = data.value;
             const now = new Date();
-            const start = new Date(sale.startDate);
             const end = new Date(sale.endDate);
-            if (now >= start && now <= end) {
-              window.activeFlashSale = sale; initStickyTimer(sale.endDate);
+            if (!isNaN(end.getTime()) && now <= end) {
+              window.activeFlashSale = sale;
+              try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
+              initStickyTimer(sale.endDate, sale.title);
               const prods = (window.productsData && window.productsData.length) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []);
               renderProduct(prods);
+              return;
             }
           }
+          window.activeFlashSale = null;
+          try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
+          const widget = document.getElementById('sticky-timer-widget');
+          if (widget) { widget.classList.remove('active'); widget.style.display = 'none'; }
         }).catch(e => console.warn('Flash sale fetch in product.html failed:', e));
 
       // 2. BACKGROUND FETCH FOR LATEST DB UPDATES
@@ -1302,18 +1318,26 @@
   </script>
   <script>
     
-      function initStickyTimer(endDateStr) {
+      let stkInterval = null;
+      function initStickyTimer(endDateStr, saleTitle) {
         const widget = document.getElementById('sticky-timer-widget');
         if (!widget) return;
+        if (saleTitle) {
+          const titleEl = document.getElementById('stk-title-text') || widget.querySelector('.stk-title');
+          if (titleEl) titleEl.textContent = saleTitle;
+        }
         const update = () => {
           const end = new Date(endDateStr).getTime();
           const now = new Date().getTime();
           const diff = end - now;
           if (isNaN(end) || diff <= 0) {
             widget.style.display = 'none'; widget.classList.remove('active');
+            if (stkInterval) clearInterval(stkInterval);
             return;
           }
-          widget.style.display = 'flex'; widget.classList.add('active');
+          if (!sessionStorage.getItem('stk_dismissed')) {
+            widget.style.display = 'flex'; widget.classList.add('active');
+          }
           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -1340,8 +1364,9 @@
           setTile('stk-h0', hs[0]); setTile('stk-h1', hs[1]);
           setTile('stk-m0', ms[0]); setTile('stk-m1', ms[1]);
         };
+        if (stkInterval) clearInterval(stkInterval);
         update();
-        setInterval(update, 1000);
+        stkInterval = setInterval(update, 1000);
       }
 
     // Positioning logic

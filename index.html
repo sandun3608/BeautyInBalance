@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=306" />
+  <link rel="stylesheet" href="styles.css?v=309" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -400,11 +400,10 @@
   </header>
 
   <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
-    <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
   <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
-    <button class="stk-close-btn" id="stk-close-btn" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" ontouchstart="event.preventDefault(); event.stopPropagation(); document.getElementById('sticky-timer-widget').style.display='none'; sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
+    <button class="stk-close-btn" id="stk-close-btn" onclick="event.preventDefault(); event.stopPropagation(); const w=document.getElementById('sticky-timer-widget'); if(w){w.classList.remove('active'); w.style.display='none';} sessionStorage.setItem('stk_dismissed','1');" ontouchstart="event.preventDefault(); event.stopPropagation(); const w=document.getElementById('sticky-timer-widget'); if(w){w.classList.remove('active'); w.style.display='none';} sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
     <div class="stk-header">
-      <div class="stk-title">END OF SEASON SALE</div>
+      <div class="stk-title" id="stk-title-text">END OF SEASON SALE</div>
     </div>
     <div class="stk-body">
       <!-- DAYS -->
@@ -434,7 +433,6 @@
         <div class="stk-lbl">minutes</div>
       </div>
     </div>
-  </div>
   </div>
 
 
@@ -1828,6 +1826,7 @@
             e.stopPropagation();
             const widget = document.getElementById('sticky-timer-widget');
             if (widget) {
+              widget.classList.remove('active');
               widget.style.display = 'none';
               widget.style.visibility = 'hidden';
             }
@@ -1867,7 +1866,11 @@
         if (isNaN(end) || diff <= 0) {
           if (countdownInterval) clearInterval(countdownInterval);
           if (flashModal) flashModal.classList.remove('active');
-          const widget = document.getElementById('sticky-timer-widget'); if (widget) widget.style.display = 'none'; widget.classList.remove('active');
+          const widget = document.getElementById('sticky-timer-widget');
+          if (widget) {
+            widget.classList.remove('active');
+            widget.style.display = 'none';
+          }
           // Revert to newsletter modal if applicable
           triggerNewsletterModal();
           return;
@@ -1878,7 +1881,10 @@
         // Don't show if user dismissed it this session
         const isOffersPage = window.location.pathname.includes('offers');
         const isDismissed = sessionStorage.getItem('stk_dismissed');
-        if (widget && !isOffersPage && !isDismissed) widget.style.display = 'flex';
+        if (widget && !isOffersPage && !isDismissed) {
+          widget.style.display = 'flex';
+          widget.classList.add('active');
+        }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -1912,6 +1918,46 @@
         setTile('stk-m0', ms[0]); setTile('stk-m1', ms[1]);
       }
 
+      function applySaleToUI(sale, showPopupIfAllowed) {
+        if (!sale || sale.enabled === false) return false;
+        const now = new Date();
+        const end = new Date(sale.endDate);
+        if (isNaN(end.getTime()) || now > end) return false;
+
+        if (sale.title) {
+          const fsTitle = document.getElementById('fs-modal-title');
+          if (fsTitle) fsTitle.textContent = sale.title;
+          const stkTitle = document.getElementById('stk-title-text') || document.querySelector('#sticky-timer-widget .stk-title');
+          if (stkTitle) stkTitle.textContent = sale.title;
+        }
+        if (sale.subtitle) {
+          const fsSub = document.getElementById('fs-modal-subtitle');
+          if (fsSub) fsSub.textContent = sale.subtitle;
+        }
+
+        const ctaEl = document.getElementById('fs-modal-cta');
+        if (ctaEl) {
+          ctaEl.setAttribute('href', 'offers.html');
+          if (sale.ctaText) ctaEl.textContent = sale.ctaText;
+        }
+
+        if (showPopupIfAllowed) {
+          const isDismissed = sessionStorage.getItem('flash_sale_dismissed');
+          if (!isDismissed) {
+            const showFlashPopup = () => setTimeout(() => {
+              if (flashModal) flashModal.classList.add('active');
+            }, 1000);
+            if (window.isPreloaderFinished) showFlashPopup();
+            else window.addEventListener('PreloaderFinished', showFlashPopup);
+          }
+        }
+
+        if (countdownInterval) clearInterval(countdownInterval);
+        updateCountdown(sale.endDate);
+        countdownInterval = setInterval(() => updateCountdown(sale.endDate), 1000);
+        return true;
+      }
+
       function triggerNewsletterModal() {
         if (!newsModal) return;
         const today = new Date().toDateString();
@@ -1941,52 +1987,6 @@
         });
       }
 
-      // Check Flash Sale status from backend API
-      try {
-        const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
-        const res = await fetch(`${apiBase}/settings/flash_sale`);
-        if (res.ok) {
-          const data = await res.json();
-          const sale = data.value;
-          const now = new Date();
-          
-          if (sale && sale.enabled) {
-            const start = new Date(sale.startDate);
-            const end = new Date(sale.endDate);
-
-            if (now >= start && now <= end) {
-              // ACTIVE FLASH SALE! Show Flash Sale Modal
-              if (sale.title) document.getElementById('fs-modal-title').textContent = sale.title;
-              if (sale.subtitle) document.getElementById('fs-modal-subtitle').textContent = sale.subtitle;
-              
-              const ctaEl = document.getElementById('fs-modal-cta');
-              if (ctaEl) {
-                ctaEl.setAttribute('href', 'offers.html');
-                if (sale.ctaText) ctaEl.textContent = sale.ctaText;
-              }
-
-              const isDismissed = sessionStorage.getItem('flash_sale_dismissed');
-              if (!isDismissed) {
-                const showFlashPopup = () => setTimeout(() => {
-                  if (flashModal) flashModal.classList.add('active');
-                }, 1000);
-                if (window.isPreloaderFinished) showFlashPopup();
-                else window.addEventListener('PreloaderFinished', showFlashPopup);
-              }
-
-              updateCountdown(sale.endDate);
-              countdownInterval = setInterval(() => updateCountdown(sale.endDate), 1000);
-              return; // Stop here so newsletter modal is suppressed
-            }
-          }
-        }
-      } catch (err) {
-        console.warn('Could not fetch flash sale settings:', err);
-      }
-
-      // Fallback: If no active flash sale, trigger normal newsletter modal
-      triggerNewsletterModal();
-
       // Close events for Newsletter Modal
       const closeNewsModal = () => {
         if (newsModal) newsModal.classList.remove('active');
@@ -2001,14 +2001,16 @@
         });
       }
 
-      if (form) {
-        form.addEventListener('submit', async (e) => {
+      if (newsForm) {
+        newsForm.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const email = emailInp ? emailInp.value.trim() : '';
+          const email = newsEmailInp ? newsEmailInp.value.trim() : '';
           if (!email) return;
 
-          submitBtn.textContent = 'SIGNING UP...';
-          submitBtn.disabled = true;
+          if (newsSubmitBtn) {
+            newsSubmitBtn.textContent = 'SIGNING UP...';
+            newsSubmitBtn.disabled = true;
+          }
 
           try {
             const apiBase = window.BASE_URL || '/api';
@@ -2021,9 +2023,8 @@
             const data = await response.json();
 
             if (response.ok) {
-              // Save to localStorage and close immediately — no thank you message
               localStorage.setItem('newsletter_subscribed', 'true');
-              closeModal();
+              closeNewsModal();
             } else {
               if (typeof showToast === 'function') {
                 showToast(data.message || 'Failed to sign up.', 'error');
@@ -2039,11 +2040,49 @@
               alert('Connection error. Please try again.');
             }
           } finally {
-            submitBtn.textContent = 'SIGN UP';
-            submitBtn.disabled = false;
+            if (newsSubmitBtn) {
+              newsSubmitBtn.textContent = 'SIGN UP';
+              newsSubmitBtn.disabled = false;
+            }
           }
         });
       }
+
+      // 1. Instant 0ms render from cached sale if available
+      try {
+        const cachedSaleStr = localStorage.getItem('bib_active_sale');
+        if (cachedSaleStr) {
+          const cachedSale = JSON.parse(cachedSaleStr);
+          applySaleToUI(cachedSale, false);
+        }
+      } catch (e) {}
+
+      // 2. Check Flash Sale status from backend API
+      try {
+        const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
+        const res = await fetch(`${apiBase}/settings/flash_sale?t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          const sale = data.value;
+          if (applySaleToUI(sale, true)) {
+            try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
+            return; // Stop here so newsletter modal is suppressed
+          } else {
+            try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
+            if (countdownInterval) clearInterval(countdownInterval);
+            const widget = document.getElementById('sticky-timer-widget');
+            if (widget) {
+              widget.classList.remove('active');
+              widget.style.display = 'none';
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch flash sale settings:', err);
+      }
+
+      // Fallback: If no active flash sale, trigger normal newsletter modal
+      triggerNewsletterModal();
     });
   </script>
 

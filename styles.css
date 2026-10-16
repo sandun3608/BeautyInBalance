@@ -10216,12 +10216,16 @@ body.loading-active .floating-email {
   animation: stkFadeIn 0.35s ease, stkGlowPulse 3s ease-in-out infinite !important;
   cursor: pointer !important;
   overflow: visible !important;
-  display: flex !important;
+  display: none !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   border: 1px solid rgba(0,0,0,0.08) !important;
   transition: transform 0.2s ease !important;
+}
+
+#sticky-timer-widget.active {
+  display: flex !important;
 }
 
 #sticky-timer-widget:hover {
