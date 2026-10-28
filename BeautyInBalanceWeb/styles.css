@@ -6524,9 +6524,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .brand-item img {
-  height: 180px;
+  height: 44px;
   width: auto;
-  opacity: 1;
+  opacity: 0.95;
   filter: none;
   transition: all 0.4s ease;
   object-fit: contain;

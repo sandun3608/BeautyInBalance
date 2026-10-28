@@ -123,10 +123,10 @@
       .hero-indicators {
         display: none !important;
       }
-      /* Mobile: Brands marquee show without border lines */
+      /* Mobile: Brands marquee clean view without lines */
       .brands-section {
         display: block !important;
-        padding: 8px 0 !important;
+        padding: 12px 0 !important;
         margin: 0 !important;
         background: #ffffff !important;
         border: none !important;
@@ -140,18 +140,27 @@
         border-bottom: none !important;
         box-shadow: none !important;
         padding: 4px 0 !important;
+        height: auto !important;
+      }
+      .brands-track {
+        gap: 30px !important;
+        align-items: center !important;
       }
       .brand-item {
         border: none !important;
         outline: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
       }
       .brand-item img {
-        height: 38px !important;
+        height: 34px !important;
         width: auto !important;
-        max-width: 85px !important;
+        max-width: none !important;
         object-fit: contain !important;
-        opacity: 0.85 !important;
+        opacity: 0.9 !important;
         filter: none !important;
+        border: none !important;
+        box-shadow: none !important;
       }
     }
     
@@ -189,35 +198,37 @@
     
 
 
-    /* Style for slide dots indicator bar (Desktop default) */
-    .hero-indicators {
-      position: relative !important;
-      display: flex !important;
-      gap: 10px !important;
-      align-items: center !important;
-      justify-content: center !important;
-      z-index: 9999 !important;
-      padding: 15px 0 !important;
-      margin: 10px auto !important;
-      background: transparent !important;
-      pointer-events: auto !important;
-    }
-    .hero-dot {
-      display: inline-block !important;
-      width: 10px !important;
-      height: 10px !important;
-      border-radius: 50% !important;
-      background: #c1b4ad !important;
-      cursor: pointer !important;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    }
-    .hero-dot:hover {
-      background: #8e7f77 !important;
-    }
-    .hero-dot.active {
-      background: #2d1b12 !important;
-      width: 26px !important;
-      border-radius: 5px !important;
+    /* Style for slide dots indicator bar (Desktop only) */
+    @media (min-width: 901px) {
+      .hero-indicators {
+        position: relative !important;
+        display: flex !important;
+        gap: 10px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 9999 !important;
+        padding: 15px 0 !important;
+        margin: 10px auto !important;
+        background: transparent !important;
+        pointer-events: auto !important;
+      }
+      .hero-dot {
+        display: inline-block !important;
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+        background: #c1b4ad !important;
+        cursor: pointer !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      .hero-dot:hover {
+        background: #8e7f77 !important;
+      }
+      .hero-dot.active {
+        background: #2d1b12 !important;
+        width: 26px !important;
+        border-radius: 5px !important;
+      }
     }
   </style>
   <style>
