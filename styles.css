@@ -7126,13 +7126,16 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   /* Brands Marquee Mobile Adjustment */
   .brands-section {
     display: block !important;
+    overflow: hidden !important;
+    padding: 12px 0 !important;
   }
   .brands-track {
-    gap: 40px;
+    gap: 30px;
   }
 
   .brand-item img {
-    height: 100px;
+    height: 50px !important;
+    width: auto !important;
   }
 
   /* Exclusive Section Grid Stacking */
