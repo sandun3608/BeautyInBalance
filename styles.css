@@ -7124,6 +7124,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   /* Brands Marquee Mobile Adjustment */
+  .brands-section {
+    display: none !important;
+  }
   .brands-track {
     gap: 40px;
   }

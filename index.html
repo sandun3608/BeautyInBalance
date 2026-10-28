@@ -119,19 +119,12 @@
         transform: translateY(-50%) scale(0.9) !important;
       }
 
-      /* Mobile adjustment for indicators container under slider */
+      /* Mobile: Hide brands marquee and slide dots to keep clean layout */
       .hero-indicators {
-        order: 2 !important;
-        padding: 8px 0 !important;
-        margin: 5px auto !important;
-        gap: 8px !important;
+        display: none !important;
       }
-      .hero-dot {
-        width: 8px !important;
-        height: 8px !important;
-      }
-      .hero-dot.active {
-        width: 20px !important;
+      .brands-section {
+        display: none !important;
       }
     }
     
