@@ -6479,8 +6479,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   overflow: hidden;
   position: relative;
   padding: 15px 0;
-  border-top: 1px solid var(--luxury-border);
-  border-bottom: 1px solid var(--luxury-border);
+  border: none !important;
 }
 
 .brands-track {
@@ -7091,7 +7090,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   /* Brands Marquee Mobile Adjustment */
   .brands-section {
-    display: none !important;
+    display: block !important;
   }
   .brands-track {
     gap: 40px;

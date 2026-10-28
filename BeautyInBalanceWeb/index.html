@@ -119,12 +119,39 @@
         transform: translateY(-50%) scale(0.9) !important;
       }
 
-      /* Mobile: Hide brands marquee and slide dots to keep clean layout */
+      /* Mobile: Hide slide dots */
       .hero-indicators {
         display: none !important;
       }
+      /* Mobile: Brands marquee show without border lines */
       .brands-section {
-        display: none !important;
+        display: block !important;
+        padding: 8px 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        border: none !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        overflow: hidden !important;
+      }
+      .brands-marquee {
+        border: none !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+        padding: 4px 0 !important;
+      }
+      .brand-item {
+        border: none !important;
+        outline: none !important;
+      }
+      .brand-item img {
+        height: 38px !important;
+        width: auto !important;
+        max-width: 85px !important;
+        object-fit: contain !important;
+        opacity: 0.85 !important;
+        filter: none !important;
       }
     }
     
