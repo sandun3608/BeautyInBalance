@@ -2831,9 +2831,11 @@ background: #0a0a0a;
 .cart-page-body .floating-email,
 .cart-page-body .floating-wa,
 .cart-page-body .floating-ig,
+.floating-fb,
 body:has(.cart-drawer.open) .floating-email,
 body:has(.cart-drawer.open) .floating-wa,
 body:has(.cart-drawer.open) .floating-ig,
+.floating-fb,
 body:has(.cart-drawer.open) .mobile-search-bar {
   display: none !important;
 }
@@ -3261,7 +3263,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     font-weight: 700;
   }
 
-  .floating-ig {
+  .floating-ig,
+.floating-fb {
     bottom: 25px !important;
   }
 
@@ -7829,7 +7832,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 /* ===== FLOATING EMAIL, WHATSAPP & INSTAGRAM ICONS ===== */
 .floating-email,
 .floating-wa,
-.floating-ig {
+.floating-ig,
+.floating-fb {
   position: fixed;
   right: 25px;
   z-index: 8000;
@@ -7843,7 +7847,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.floating-ig { bottom: 30px; width: 50px; height: 50px; }
+.floating-ig,
+.floating-fb { bottom: 30px; width: 50px; height: 50px; }
 .floating-wa { bottom: 95px; width: 50px; height: 50px; }
 .floating-email { bottom: 160px; width: 50px; height: 50px; }
 
@@ -7851,7 +7856,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 .floating-email svg,
 .floating-wa svg,
-.floating-ig svg {
+.floating-ig svg,
+.floating-fb svg {
   width: 26px;
   height: 26px;
   color: #fff;
@@ -7859,7 +7865,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 .floating-email,
 .floating-wa,
-.floating-ig {
+.floating-ig,
+.floating-fb {
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
   visibility: visible;
   opacity: 1;
@@ -7870,7 +7877,8 @@ main {
 }
 
 @media (max-width: 900px) {
-  .floating-ig {
+  .floating-ig,
+.floating-fb {
     bottom: 15px;
   }
 
@@ -7885,7 +7893,8 @@ main {
 
 .floating-email:hover,
 .floating-wa:hover,
-.floating-ig:hover {
+.floating-ig:hover,
+.floating-fb:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
@@ -8555,7 +8564,8 @@ main {
 
 body.drawer-open .floating-email,
 body.drawer-open .floating-wa,
-body.drawer-open .floating-ig {
+body.drawer-open .floating-ig,
+.floating-fb {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -8575,7 +8585,8 @@ body:not(.drawer-open) #site-header {
 
 body:not(.drawer-open) .floating-email,
 body:not(.drawer-open) .floating-wa,
-body:not(.drawer-open) .floating-ig {
+body:not(.drawer-open) .floating-ig,
+.floating-fb {
   opacity: 1 !important;
   visibility: visible !important;
   z-index: 999999 !important;
@@ -9585,9 +9596,11 @@ body:not(.drawer-open) .floating-ig {
 /* Hide floating social buttons when the page is loading */
 body.loading .floating-wa,
 body.loading .floating-ig,
+.floating-fb,
 body.loading .floating-email,
 body.loading-active .floating-wa,
 body.loading-active .floating-ig,
+.floating-fb,
 body.loading-active .floating-email {
   opacity: 0 !important;
   visibility: hidden !important;
