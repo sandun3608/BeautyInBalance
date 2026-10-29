@@ -457,7 +457,7 @@ img {
   margin: 0 auto;
   background: #f5f5f7;
   border: 2px solid transparent;
-  border-radius: 50px;
+  border-radius: 8px;
   padding: 10px 24px;
   display: flex;
   align-items: center;
@@ -2370,16 +2370,16 @@ background: #0a0a0a;
 .fp-buy-it-now-btn {
   margin-top: 16px;
   width: 100%;
-  background: var(--gold, #C6975A);
-  border: 1.5px solid var(--gold, #C6975A);
+  background: #c5965a;
+  border: none;                              
   padding: 11px 16px;
   font-family: var(--font-sans, 'DM Sans', sans-serif);
   font-size: 11px;
   font-weight: 700;
   color: #ffffff;
-  border-radius: 50px;
+  border-radius: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.12em; 
   box-shadow: 0 4px 14px rgba(198, 151, 90, 0.25);
   text-align: center;
   cursor: pointer;
@@ -2388,8 +2388,8 @@ background: #0a0a0a;
 }
 
 .fp-buy-it-now-btn:hover {
-  background: var(--brown, #2D1B12);
-  border-color: var(--brown, #2D1B12);
+  background: #a87c48;
+  border-color: transparent;              
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(45, 27, 18, 0.3);
