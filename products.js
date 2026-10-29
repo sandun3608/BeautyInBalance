@@ -2201,7 +2201,7 @@ window.renderHomeAllProducts = function() {
             <a href="product.html?id=${prod.id}" class="hap-card" style="text-decoration: none;">
                 <div class="hap-card-img">
                     ${badgesHTML}
-                    <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}" style="${isOutOfStock ? 'filter: blur(3px); opacity: 0.75; transition: filter 0.3s;' : 'filter: none; opacity: 1;'}">
+                    <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}" style="${isOutOfStock ? 'filter: blur(1.5px); opacity: 0.85; transition: filter 0.3s;' : 'filter: none; opacity: 1;'}">
                     <div class="hap-card-actions">
                         <span class="h-icon" onclick="event.preventDefault(); addToCart('${prod.id}')" aria-label="Add to Cart">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
