@@ -885,7 +885,7 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
+  background: #c5965a;
   color: var(--white);
   border: none;
   font-family: var(--font-sans);
@@ -1038,11 +1038,11 @@ img {
 }
 
 .btn-dark:hover {
-  background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
+  background: #a87c48;
   border-color: transparent;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(150, 111, 74, 0.35);
+  box-shadow: 0 8px 20px rgba(197, 150, 90, 0.35);
 }
 
 /* â”€â”€ ROUND COLLECTION LIST â”€â”€ */
@@ -6698,7 +6698,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 .look-bundle-btn {
   width: 100%;
-  background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
+  background: #c5965a;
   color: #fff;
   border: none;
   padding: 16px 22px;
@@ -6712,9 +6712,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .look-bundle-btn:hover {
-  background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
+  background: #a87c48;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(150, 111, 74, 0.35);
+  box-shadow: 0 8px 20px rgba(197, 150, 90, 0.35);
 }
 
 .look-guide-link {
@@ -8404,7 +8404,7 @@ main {
 
 /* Buy It Now Box Button (Matching Reference & Offer Page Design) */
 .hap-card .btn-buy-animated {
-  background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%) !important;
+  background: #c5965a !important;
   color: #fff !important;
   border: none !important;
   display: flex !important;
@@ -8447,7 +8447,7 @@ main {
 }
 
 .hap-card .btn-buy-animated:hover {
-  background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%) !important;
+  background: #a87c48 !important;
   color: #fff !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 14px rgba(180, 138, 100, 0.4);
