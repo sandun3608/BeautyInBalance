@@ -6698,22 +6698,23 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 .look-bundle-btn {
   width: 100%;
-  background: var(--gold);
+  background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
   color: #fff;
   border: none;
-  padding: 22px;
-  border-radius: 50px;
+  padding: 16px 22px;
+  border-radius: 8px;
   font-weight: 800;
   font-size: 15px;
   margin-bottom: 20px;
   cursor: pointer;
   transition: all 0.3s;
+  letter-spacing: 0.5px;
 }
 
 .look-bundle-btn:hover {
-  background: var(--brown);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(150, 111, 74, 0.35);
 }
 
 .look-guide-link {
