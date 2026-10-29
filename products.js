@@ -2176,7 +2176,7 @@ window.renderHomeAllProducts = function() {
 
             const discount = Number(prod.discount || 0);
             const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
-            const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+            const soldOutBadge = ''; // hidden — shown only via SOLD OUT button below
             const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
             
             const basePrice = Number(prod.price || 0);
