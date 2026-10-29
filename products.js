@@ -2194,7 +2194,7 @@ window.renderHomeAllProducts = function() {
             `;
 
             const buyButtonHTML = isOutOfStock
-                ? `<button class="btn-buy-animated" disabled style="opacity: 0.7; cursor: not-allowed; background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%) !important; box-shadow: none !important;">SOLD OUT</button>`
+                ? `<button class="btn-buy-animated" disabled style="opacity: 0.6; cursor: not-allowed; background: #888 !important; box-shadow: none !important;">SOLD OUT</button>`
                 : `<button class="btn-buy-animated" onclick="event.preventDefault(); event.stopPropagation(); buyItNow('${prod.id}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px;"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>Buy It Now</button>`;
 
             return `

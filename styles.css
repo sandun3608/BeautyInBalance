@@ -885,9 +885,9 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--gold);
+  background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
   color: var(--white);
-  border: 1.5px solid var(--gold);
+  border: none;
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
@@ -1038,11 +1038,11 @@ img {
 }
 
 .btn-dark:hover {
-  background: var(--brown);
-  border-color: var(--brown);
+  background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
+  border-color: transparent;
   color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(150, 111, 74, 0.35);
 }
 
 /* â”€â”€ ROUND COLLECTION LIST â”€â”€ */
