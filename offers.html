@@ -949,9 +949,8 @@
                       <span class="offer-sale-price">Rs.${salePrice.toLocaleString()}</span>
                       <span class="offer-old-price">Rs.${origPrice.toLocaleString()}</span>
                     </div>
-                    <div class="offer-koko-box">
-                      <span class="koko-logo-tag">KOKO</span>
-                      <span class="koko-installment-text">3 × Rs.${(salePrice / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    <div class="koko-installment" style="font-size: 11px !important; margin: 4px 0 10px 0; justify-content: flex-start !important;">
+                      <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${(salePrice / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img" style="height: 18px !important; margin-left: 3px; margin-right: 3px;"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512" style="width: 13px !important; height: 13px !important;"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
                     </div>
                     <button class="offer-add-cart-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${prodDiscount})">
                       Add to cart
