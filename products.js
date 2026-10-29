@@ -2193,6 +2193,10 @@ window.renderHomeAllProducts = function() {
                 </div>
             `;
 
+            const buyButtonHTML = isOutOfStock
+                ? `<button class="btn-buy-animated" disabled style="opacity: 0.6; cursor: not-allowed; background: #888 !important; box-shadow: none !important;">SOLD OUT</button>`
+                : `<button class="btn-buy-animated" onclick="event.preventDefault(); event.stopPropagation(); buyItNow('${prod.id}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px;"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>Buy It Now</button>`;
+
             return `
             <a href="product.html?id=${prod.id}" class="hap-card" style="text-decoration: none;">
                 <div class="hap-card-img">
@@ -2211,6 +2215,7 @@ window.renderHomeAllProducts = function() {
                 <div class="hap-card-title" style="font-weight: 700 !important; color: #111111;">${prod.name}</div>
                 <div class="hap-card-price">${priceHTML}</div>
                 ${kokoInstallmentHTML}
+                ${buyButtonHTML}
             </a>
             `;
         }).join('');

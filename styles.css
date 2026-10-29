@@ -8403,27 +8403,30 @@ main {
 
 /* Buy It Now Button Animation & Styling */
 .hap-card .btn-buy-animated {
-  background: var(--gold) !important;
+  background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%) !important;
   color: #fff !important;
   border: none !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
   border-radius: 50px !important;
-  padding: 12px 15px !important;
+  padding: 11px 18px !important;
   font-family: var(--font-sans) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 1.5px !important;
-  text-transform: uppercase !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   z-index: 1;
-  width: 90%;
-  margin: auto auto 0 auto;
-  transition: all 0.4s ease;
+  width: 92% !important;
+  max-width: 220px !important;
+  margin: 12px auto 4px auto !important;
+  transition: all 0.3s ease;
   opacity: 1 !important;
   visibility: visible !important;
-  box-shadow: 0 4px 12px rgba(198, 151, 90, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(180, 138, 100, 0.28) !important;
 }
 
 .hap-card .btn-buy-animated::before {
