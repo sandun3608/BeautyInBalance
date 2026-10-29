@@ -8401,7 +8401,7 @@ main {
   stroke-width: 1.5;
 }
 
-/* Buy It Now Button Animation & Styling */
+/* Buy It Now Box Button (Matching Reference & Offer Page Design) */
 .hap-card .btn-buy-animated {
   background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%) !important;
   color: #fff !important;
@@ -8409,24 +8409,24 @@ main {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 5px !important;
-  border-radius: 50px !important;
-  padding: 11px 18px !important;
+  gap: 6px !important;
+  border-radius: 8px !important;
+  padding: 11px 16px !important;
   font-family: var(--font-sans) !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.03em !important;
+  letter-spacing: 0.02em !important;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   z-index: 1;
-  width: 92% !important;
-  max-width: 220px !important;
-  margin: 12px auto 4px auto !important;
-  transition: all 0.3s ease;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 12px 0 4px 0 !important;
+  transition: all 0.25s ease;
   opacity: 1 !important;
   visibility: visible !important;
-  box-shadow: 0 4px 12px rgba(180, 138, 100, 0.28) !important;
+  box-shadow: 0 3px 10px rgba(180, 138, 100, 0.28) !important;
 }
 
 .hap-card .btn-buy-animated::before {
@@ -8436,7 +8436,7 @@ main {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
   transition: all 0.6s ease;
   z-index: -1;
 }
@@ -8446,10 +8446,20 @@ main {
 }
 
 .hap-card .btn-buy-animated:hover {
-  background: var(--brown) !important;
+  background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%) !important;
   color: #fff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(45, 27, 18, 0.25);
+  box-shadow: 0 5px 14px rgba(180, 138, 100, 0.4);
+}
+
+@media (max-width: 768px) {
+  .hap-card .btn-buy-animated {
+    width: 100% !important;
+    padding: 9px 10px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    margin: 8px 0 2px 0 !important;
+  }
 }
 
 /* ——— SHARE MODAL ——— */
