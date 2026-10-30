@@ -297,13 +297,30 @@
     /* Sidebar - BiB Brown Premium */
     .admin-sidebar {
       background: var(--admin-sidebar-bg);
-      padding: 5px 12px;
+      padding: 5px 12px 15px 12px;
       display: flex;
       flex-direction: column;
       color: #fff;
       border-right: 1px solid rgba(255,255,255,0.05);
       width: 240px;
+      height: 100vh;
+      box-sizing: border-box;
       flex-shrink: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+    }
+    .admin-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .admin-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+    }
+    .admin-nav {
+      flex: 1;
+      overflow-y: visible;
     }
 
     .admin-logo {
