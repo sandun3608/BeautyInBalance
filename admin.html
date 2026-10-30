@@ -5680,7 +5680,7 @@
           btn.textContent = 'Saving...';
           try {
               const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-              const token = localStorage.getItem('token') || localStorage.getItem('adminToken');
+              const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
               const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
               const [r1, r2] = await Promise.all([
                   fetch(`${BASE}/settings/buttonColor`, { method: 'PUT', headers, body: JSON.stringify({ value: buttonColor }) }),
@@ -5788,7 +5788,7 @@
       const origSwitchTab = window.switchTab;
       window.switchTab = function(tabName, el) {
         origSwitchTab(tabName, el);
-        if (tabName === 'settings') loadShippingFee();
+        if (tabName === 'settings') { loadShippingFee(); if (window.loadThemeColors) window.loadThemeColors(); }
         if (tabName === 'brands' && typeof window.fetchAdminBrands === 'function') window.fetchAdminBrands();
       };
     </script>
