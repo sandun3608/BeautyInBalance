@@ -78,6 +78,7 @@
       if (tabName === 'analytics') {
           if (typeof fetchDashboardSummary === 'function') fetchDashboardSummary();
           if (typeof renderAnalyticsDashboard === 'function') renderAnalyticsDashboard();
+          if (typeof renderInsightsDashboard === 'function') renderInsightsDashboard();
           if (typeof renderTeamChart === 'function') renderTeamChart();
       }
       if (tabName === 'support' && typeof fetchInquiries === 'function') fetchInquiries();
@@ -1838,151 +1839,443 @@
             </div>
           </div>
 
-          <!-- ANALYTICS TAB -->
+          <!-- ANALYTICS TAB - Redesigned to match modern dashboard UI -->
           <div id="tab-analytics" class="admin-content">
-            <!-- Analytics Hero Header -->
-            <div style="background: var(--admin-sidebar-bg); border-radius: var(--radius-md); padding: 40px; color: #fff; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <h3 style="font-family: var(--font-serif); font-size: 28px; margin: 0 0 10px 0;">Executive Analytics</h3>
-                    <p style="opacity: 0.6; font-size: 14px; margin: 0;">Real-time intelligence and market performance metrics.</p>
+
+            <!-- ═══ ROW 1: Sales Rings + Orders Bar Chart ═══ -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 22px;">
+
+              <!-- Sales Ring Meters -->
+              <div class="admin-section" style="padding: 28px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C38A5" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <h4 style="margin:0; font-size:16px; font-weight:800; color:#1E1B29;">Sales Overview</h4>
+                  </div>
+                  <div style="display:flex; gap:8px;">
+                    <button onclick="insightSalesTab('rings')" id="ins-tab-rings" style="padding:5px 14px; border-radius:20px; border:none; font-size:12px; font-weight:700; background:#2B163B; color:#fff; cursor:pointer;">Rings</button>
+                    <button onclick="insightSalesTab('area')" id="ins-tab-area" style="padding:5px 14px; border-radius:20px; border:1px solid #ddd; font-size:12px; font-weight:700; background:#fff; color:#666; cursor:pointer;">Area</button>
+                  </div>
                 </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 5px;">Platform Health</div>
-                    <div style="font-size: 18px; font-weight: 700; color: #34d399;">99.9% Robust</div>
+
+                <!-- Ring View -->
+                <div id="ins-rings-view" style="display:flex; justify-content:space-around; align-items:center; padding: 10px 0 18px;">
+                  <div style="text-align:center;">
+                    <div style="position:relative; width:110px; height:110px; margin:0 auto 10px;">
+                      <svg width="110" height="110" viewBox="0 0 100 100" style="transform:rotate(-90deg);">
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F0EBF9" stroke-width="10"/>
+                        <circle id="ring-cod" cx="50" cy="50" r="40" fill="transparent" stroke="#6C38A5" stroke-width="10" stroke-dasharray="0 251.2" stroke-linecap="round"/>
+                      </svg>
+                      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                        <div id="ring-cod-pct" style="font-size:18px;font-weight:800;color:#1E1B29;">0%</div>
+                      </div>
+                    </div>
+                    <div style="font-size:12px;font-weight:700;color:#7E7890;">Cash on Delivery</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="position:relative; width:110px; height:110px; margin:0 auto 10px;">
+                      <svg width="110" height="110" viewBox="0 0 100 100" style="transform:rotate(-90deg);">
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F0EBF9" stroke-width="10"/>
+                        <circle id="ring-koko" cx="50" cy="50" r="40" fill="transparent" stroke="#10B981" stroke-width="10" stroke-dasharray="0 251.2" stroke-linecap="round"/>
+                      </svg>
+                      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                        <div id="ring-koko-pct" style="font-size:18px;font-weight:800;color:#1E1B29;">0%</div>
+                      </div>
+                    </div>
+                    <div style="font-size:12px;font-weight:700;color:#7E7890;">Koko Pay</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="position:relative; width:110px; height:110px; margin:0 auto 10px;">
+                      <svg width="110" height="110" viewBox="0 0 100 100" style="transform:rotate(-90deg);">
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F0EBF9" stroke-width="10"/>
+                        <circle id="ring-bank" cx="50" cy="50" r="40" fill="transparent" stroke="#EC4899" stroke-width="10" stroke-dasharray="0 251.2" stroke-linecap="round"/>
+                      </svg>
+                      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                        <div id="ring-bank-pct" style="font-size:18px;font-weight:800;color:#1E1B29;">0%</div>
+                      </div>
+                    </div>
+                    <div style="font-size:12px;font-weight:700;color:#7E7890;">Bank Transfer</div>
+                  </div>
                 </div>
+
+                <!-- Area View (hidden by default) -->
+                <div id="ins-area-view" style="display:none; height:180px; position:relative;">
+                  <canvas id="ins-area-chart"></canvas>
+                </div>
+              </div>
+
+              <!-- Orders Bar Chart -->
+              <div class="admin-section" style="padding: 28px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C38A5" stroke-width="2.5"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg>
+                    <h4 style="margin:0; font-size:16px; font-weight:800; color:#1E1B29;">Daily Orders Chart</h4>
+                  </div>
+                  <div style="display:flex; gap:8px;">
+                    <button onclick="insightOrdersRange(7)" id="ins-ord-7" style="padding:5px 14px; border-radius:20px; border:none; font-size:12px; font-weight:700; background:#2B163B; color:#fff; cursor:pointer;">7D</button>
+                    <button onclick="insightOrdersRange(14)" id="ins-ord-14" style="padding:5px 14px; border-radius:20px; border:1px solid #ddd; font-size:12px; font-weight:700; background:#fff; color:#666; cursor:pointer;">14D</button>
+                    <button onclick="insightOrdersRange(30)" id="ins-ord-30" style="padding:5px 14px; border-radius:20px; border:1px solid #ddd; font-size:12px; font-weight:700; background:#fff; color:#666; cursor:pointer;">30D</button>
+                  </div>
+                </div>
+                <div style="height:188px; position:relative;">
+                  <canvas id="ins-orders-bar-chart"></canvas>
+                </div>
+              </div>
             </div>
 
-            <div class="db-grid">
-                <!-- Row 1: Traffic & Success -->
-                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 30px;">
-                    <div class="admin-section" style="padding: 25px;">
-                        <div class="act-head"><h4>Traffic Momentum</h4></div>
-                        <div id="traffic-graph-container" style="height: 250px; position: relative; margin-top: 20px; padding: 10px 10px 30px 60px;">
-                            <!-- Y-Axis Labels -->
-                            <div style="position: absolute; left: 0; top: 10px; bottom: 30px; width: 50px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; color: #A0A0A0; font-size: 11px; font-weight: 700; padding-right: 10px; pointer-events: none;">
-                                <span>2.5k</span>
-                                <span>1.5k</span>
-                                <span>500</span>
-                                <span>0</span>
-                            </div>
-                            
-                            <svg id="traffic-svg" width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none" style="display: block; overflow: visible;">
-                                <defs>
-                                    <linearGradient id="trafficGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stop-color="rgba(37, 99, 235, 0.2)"></stop>
-                                        <stop offset="100%" stop-color="rgba(37, 99, 235, 0)"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <path id="traffic-path-bg" fill="url(#trafficGradient)" d="M0,250 L800,250"></path>
-                                <path id="traffic-path" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" d="M0,250 L800,250"></path>
-                            </svg>
+            <!-- ═══ ROW 2: Recent Activity Area + Best Sellers ═══ -->
+            <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; margin-bottom: 22px;">
 
-                            <!-- X-Axis Labels -->
-                            <div style="position: absolute; left: 60px; right: 10px; bottom: 0; height: 30px; display: flex; justify-content: space-between; align-items: center; color: #A0A0A0; font-size: 11px; font-weight: 700; pointer-events: none;">
-                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="admin-section" style="padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                        <div class="act-head" style="width: 100%;"><h4>Order Fulfillment</h4></div>
-                        <div style="position: relative; width: 180px; height: 180px; margin: 20px 0;">
-                            <svg width="180" height="180" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
-                                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f0f0f0" stroke-width="12"></circle>
-                                <circle id="success-circle" cx="50" cy="50" r="40" fill="transparent" stroke="#CFA56A" stroke-width="12" stroke-dasharray="0 251.2"></circle>
-                                <circle id="return-circle" cx="50" cy="50" r="40" fill="transparent" stroke="#1B1B1E" stroke-width="12" stroke-dasharray="0 251.2"></circle>
-                            </svg>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                                <div style="font-size: 24px; font-weight: 800; color: var(--admin-text);">85%</div>
-                                <div style="font-size: 9px; text-transform: uppercase; color: var(--admin-muted);">Success</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 20px; font-size: 11px; font-weight: 700; color: var(--admin-muted);">
-                            <span><i style="display:inline-block; width:8px; height:8px; background:#CFA56A; border-radius:2px; margin-right:5px;"></i> Success</span>
-                            <span><i style="display:inline-block; width:8px; height:8px; background:#1B1B1E; border-radius:2px; margin-right:5px;"></i> Returns</span>
-                        </div>
-                    </div>
+              <!-- Recent Activity Area Chart -->
+              <div class="admin-section" style="padding: 28px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C38A5" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <h4 style="margin:0; font-size:16px; font-weight:800; color:#1E1B29;">Recent Activity</h4>
+                  </div>
+                  <div style="display:flex; gap:8px;">
+                    <button onclick="insightActivityRange('daily')" id="ins-act-daily" style="padding:5px 14px; border-radius:20px; border:none; font-size:12px; font-weight:700; background:#2B163B; color:#fff; cursor:pointer;">Daily</button>
+                    <button onclick="insightActivityRange('weekly')" id="ins-act-weekly" style="padding:5px 14px; border-radius:20px; border:1px solid #ddd; font-size:12px; font-weight:700; background:#fff; color:#666; cursor:pointer;">Weekly</button>
+                    <button onclick="insightActivityRange('monthly')" id="ins-act-monthly" style="padding:5px 14px; border-radius:20px; border:1px solid #ddd; font-size:12px; font-weight:700; background:#fff; color:#666; cursor:pointer;">Monthly</button>
+                  </div>
                 </div>
-
-                <!-- Row 2: Map & Social Sources -->
-                <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; margin-bottom: 30px;">
-                    <div class="admin-section" style="padding: 25px;">
-                        <div class="act-head"><h4>Master Brand Inventory</h4></div>
-                        <div style="height: 380px; display: flex; flex-direction: column; gap: 30px; padding-top: 20px;">
-                            <!-- The Ordinary Stock -->
-                            <div style="background: #fafafa; border-radius: 20px; padding: 25px; border: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
-                                <div style="display: flex; align-items: center; gap: 20px;">
-                                    <div style="width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 5px solid #16a34a; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #16a34a; font-size: 18px; flex-shrink: 0;">100%</div>
-                                    <div>
-                                        <h5 style="margin: 0; font-size: 16px; font-weight: 700;">The Ordinary</h5>
-                                        <p style="margin: 5px 0 0 0; font-size: 12px; color: var(--admin-muted);">Maximum Capacity Reached</p>
-                                    </div>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span style="background: #f0fdf4; color: #16a34a; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">FULL STOCK</span>
-                                </div>
-                            </div>
-
-                            <!-- CeraVe Stock -->
-                            <div style="background: #fafafa; border-radius: 20px; padding: 25px; border: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
-                                <div style="display: flex; align-items: center; gap: 20px;">
-                                    <div style="width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 5px solid #16a34a; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #16a34a; font-size: 18px; flex-shrink: 0;">100%</div>
-                                    <div>
-                                        <h5 style="margin: 0; font-size: 16px; font-weight: 700;">CeraVe</h5>
-                                        <p style="margin: 5px 0 0 0; font-size: 12px; color: var(--admin-muted);">Maximum Capacity Reached</p>
-                                    </div>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span style="background: #f0fdf4; color: #16a34a; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">FULL STOCK</span>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    
-                    <div class="admin-section" style="padding: 25px;">
-                        <div class="act-head" style="margin-bottom: 30px;"><h4>Traffic Origin</h4></div>
-                        <div style="display: flex; flex-direction: column; gap: 20px;">
-                            <!-- Web Search -->
-                            <div class="prog-item">
-                                <div class="prog-head"><span>Web Search (Organic)</span><span>942 Clicks</span></div>
-                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 100%; background: #34a853;"></div></div>
-                            </div>
-                            <!-- FB -->
-                            <div class="prog-item">
-                                <div class="prog-head"><span>Facebook Ecosystem</span><span>0%</span></div>
-                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 0%; background: #3b5998;"></div></div>
-                            </div>
-                            <!-- TikTok -->
-                            <div class="prog-item">
-                                <div class="prog-head"><span>TikTok Trends</span><span>0%</span></div>
-                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 0%; background: #000000;"></div></div>
-                            </div>
-                            <!-- Instagram -->
-                            <div class="prog-item">
-                                <div class="prog-head"><span>Instagram Aesthetics</span><span>18%</span></div>
-                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 18%; background: #e1306c;"></div></div>
-                            </div>
-                            <!-- Direct -->
-                            <div class="prog-item">
-                                <div class="prog-head"><span>Direct / Organic</span><span>12%</span></div>
-                                <div class="prog-bar-bg"><div class="prog-bar" style="width: 12%; background: var(--admin-accent);"></div></div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 40px; padding-top: 25px; border-top: 1px solid var(--admin-border); display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div class="admin-stat-card" style="padding: 15px;">
-                                <h6 style="font-size: 10px; text-transform: uppercase;">Social ROAS</h6>
-                                <div style="font-size: 18px; font-weight: 800;">4.8x</div>
-                            </div>
-                            <div class="admin-stat-card" style="padding: 15px;">
-                                <h6 style="font-size: 10px; text-transform: uppercase;">CPC Average</h6>
-                                <div style="font-size: 18px; font-weight: 800;">Rs. 24</div>
-                            </div>
-                        </div>
-                    </div>
+                <div style="height:220px; position:relative;">
+                  <canvas id="ins-activity-chart"></canvas>
                 </div>
+                <!-- Peak indicator -->
+                <div id="ins-peak-label" style="margin-top:14px; display:inline-flex; align-items:center; gap:8px; background:#2B163B; color:#fff; padding:7px 16px; border-radius:20px; font-size:12px; font-weight:700;">
+                  <span>📈</span> <span id="ins-peak-text">Peak Day: —</span>
+                </div>
+              </div>
+
+              <!-- Best Sellers -->
+              <div class="admin-section" style="padding: 28px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C38A5" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <h4 style="margin:0; font-size:16px; font-weight:800; color:#1E1B29;">Best Sellers</h4>
+                  </div>
+                  <div style="display:flex; gap:8px;">
+                    <button onclick="insightBSRange('weekly')" id="ins-bs-weekly" style="padding:5px 14px; border-radius:20px; border:none; font-size:12px; font-weight:700; background:#2B163B; color:#fff; cursor:pointer;">Weekly</button>
+                    <button onclick="insightBSRange('monthly')" id="ins-bs-monthly" style="padding:5px 14px; border-radius:20px; border:1px solid #ddd; font-size:12px; font-weight:700; background:#fff; color:#666; cursor:pointer;">Monthly</button>
+                  </div>
+                </div>
+                <div id="ins-bestsellers-list" style="display:flex; flex-direction:column; gap:14px; max-height:260px; overflow-y:auto;">
+                  <div style="color:#aaa; font-size:13px; text-align:center; padding:30px 0;">Loading best sellers...</div>
+                </div>
+              </div>
             </div>
+
+            <!-- ═══ ROW 3: Recent Transactions ═══ -->
+            <div class="admin-section" style="padding: 28px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C38A5" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <h4 style="margin:0; font-size:16px; font-weight:800; color:#1E1B29;">Recent Transactions</h4>
+                </div>
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <label style="font-size:12px; font-weight:700; color:#7E7890;">From</label>
+                  <input type="date" id="ins-txn-from" onchange="renderInsightTransactions()" style="padding:7px 12px; border:1px solid rgba(43,22,59,0.15); border-radius:10px; font-size:12px; font-weight:600;">
+                  <label style="font-size:12px; font-weight:700; color:#7E7890;">To</label>
+                  <input type="date" id="ins-txn-to" onchange="renderInsightTransactions()" style="padding:7px 12px; border:1px solid rgba(43,22,59,0.15); border-radius:10px; font-size:12px; font-weight:600;">
+                </div>
+              </div>
+              <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom: 2px solid #F0EBF9;">
+                    <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:#7E7890; text-transform:uppercase; letter-spacing:0.05em;">Customer</th>
+                    <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:#7E7890; text-transform:uppercase; letter-spacing:0.05em;">Payment</th>
+                    <th style="text-align:right; padding:10px 14px; font-size:11px; font-weight:700; color:#7E7890; text-transform:uppercase; letter-spacing:0.05em;">Amount</th>
+                    <th style="text-align:right; padding:10px 14px; font-size:11px; font-weight:700; color:#7E7890; text-transform:uppercase; letter-spacing:0.05em;">Date</th>
+                    <th style="text-align:center; padding:10px 14px; font-size:11px; font-weight:700; color:#7E7890; text-transform:uppercase; letter-spacing:0.05em;">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="ins-txn-tbody">
+                  <tr><td colspan="5" style="text-align:center; padding:30px; color:#aaa; font-size:13px;">Loading transactions...</td></tr>
+                </tbody>
+              </table>
+            </div>
+
           </div>
+
+          <!-- ═══ INSIGHTS JS ═══ -->
+          <script>
+          (function() {
+            // ── helpers ──────────────────────────────────────────────────────
+            const PLUM   = '#6C38A5';
+            const DARK   = '#2B163B';
+            const EMERALD= '#10B981';
+            const ROSE   = '#EC4899';
+            const SOFT   = 'rgba(108,56,165,0.08)';
+
+            function activeBtn(btns, active) {
+              btns.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (id === active) {
+                  el.style.background = DARK; el.style.color = '#fff'; el.style.border = 'none';
+                } else {
+                  el.style.background = '#fff'; el.style.color = '#666'; el.style.border = '1px solid #ddd';
+                }
+              });
+            }
+
+            function getOrders() { return window.allOrders || []; }
+
+            // ── SVG Ring ─────────────────────────────────────────────────────
+            function setRing(id, pct) {
+              const circ = 251.2;
+              const el = document.getElementById(id);
+              if (!el) return;
+              const dash = (pct / 100) * circ;
+              el.setAttribute('stroke-dasharray', dash + ' ' + (circ - dash));
+              const pctEl = document.getElementById(id + '-pct');
+              if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+            }
+
+            function renderRings() {
+              const orders = getOrders();
+              const total = orders.length || 1;
+              const cod  = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('cod') || (o.paymentMethod||'').toLowerCase().includes('cash')).length;
+              const koko = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('koko')).length;
+              const bank = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('bank') || (o.paymentMethod||'').toLowerCase().includes('transfer')).length;
+              setRing('ring-cod',  (cod  / total) * 100);
+              setRing('ring-koko', (koko / total) * 100);
+              setRing('ring-bank', (bank / total) * 100);
+            }
+
+            // ── Tab toggle Sales ─────────────────────────────────────────────
+            window.insightSalesTab = function(tab) {
+              activeBtn(['ins-tab-rings','ins-tab-area'], 'ins-tab-' + tab);
+              document.getElementById('ins-rings-view').style.display = tab === 'rings' ? 'flex' : 'none';
+              document.getElementById('ins-area-view').style.display  = tab === 'area'  ? 'block' : 'none';
+              if (tab === 'area') renderAreaChart();
+            };
+
+            let areaChartInst = null;
+            function renderAreaChart() {
+              const orders = getOrders();
+              const days = 14;
+              const labels = [], data = [];
+              for (let i = days - 1; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const ds = d.toISOString().slice(0,10);
+                labels.push(ds.slice(5));
+                data.push(orders.filter(o => (o.createdAt||'').slice(0,10) === ds).length);
+              }
+              const ctx = document.getElementById('ins-area-chart');
+              if (!ctx) return;
+              if (areaChartInst) areaChartInst.destroy();
+              areaChartInst = new Chart(ctx, {
+                type: 'line',
+                data: { labels, datasets: [{ data, fill: true, tension: 0.4,
+                  backgroundColor: 'rgba(108,56,165,0.12)', borderColor: PLUM, borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: PLUM }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                  scales: { x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#aaa' } },
+                            y: { grid: { color: '#f3f3f3' }, ticks: { font: { size: 10 }, color: '#aaa' } } } }
+              });
+            }
+
+            // ── Orders Bar ───────────────────────────────────────────────────
+            let ordBarInst = null;
+            window.insightOrdersRange = function(days) {
+              activeBtn(['ins-ord-7','ins-ord-14','ins-ord-30'], 'ins-ord-' + days);
+              const orders = getOrders();
+              const labels = [], data = [];
+              for (let i = days - 1; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const ds = d.toISOString().slice(0,10);
+                labels.push(ds.slice(5));
+                data.push(orders.filter(o => (o.createdAt||'').slice(0,10) === ds).length);
+              }
+              const ctx = document.getElementById('ins-orders-bar-chart');
+              if (!ctx) return;
+              if (ordBarInst) ordBarInst.destroy();
+              ordBarInst = new Chart(ctx, {
+                type: 'bar',
+                data: { labels, datasets: [{ data, backgroundColor: data.map((v,i) => i === data.indexOf(Math.max(...data)) ? DARK : 'rgba(108,56,165,0.25)'),
+                  borderRadius: 6, borderSkipped: false }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+                  tooltip: { callbacks: { label: ctx => ctx.raw + ' orders' } } },
+                  scales: { x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#aaa', maxRotation: 45 } },
+                            y: { grid: { color: '#f3f3f3' }, ticks: { font: { size: 10 }, color: '#aaa', stepSize: 1 } } } }
+              });
+            };
+
+            // ── Activity ─────────────────────────────────────────────────────
+            let actInst = null;
+            window.insightActivityRange = function(range) {
+              activeBtn(['ins-act-daily','ins-act-weekly','ins-act-monthly'], 'ins-act-' + range);
+              const orders = getOrders();
+              let labels = [], data = [];
+
+              if (range === 'daily') {
+                for (let i = 6; i >= 0; i--) {
+                  const d = new Date(); d.setDate(d.getDate() - i);
+                  const ds = d.toISOString().slice(0,10);
+                  labels.push(['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]);
+                  data.push(orders.filter(o => (o.createdAt||'').slice(0,10) === ds).length);
+                }
+              } else if (range === 'weekly') {
+                for (let w = 7; w >= 0; w--) {
+                  const start = new Date(); start.setDate(start.getDate() - w * 7 - 6);
+                  const end   = new Date(); end.setDate(end.getDate() - w * 7);
+                  const sl = start.toISOString().slice(0,10), el = end.toISOString().slice(0,10);
+                  labels.push('W' + (8 - w));
+                  data.push(orders.filter(o => { const d = (o.createdAt||'').slice(0,10); return d >= sl && d <= el; }).length);
+                }
+              } else {
+                for (let m = 5; m >= 0; m--) {
+                  const d = new Date(); d.setMonth(d.getMonth() - m);
+                  const key = d.toISOString().slice(0,7);
+                  labels.push(key.slice(5) + '/' + key.slice(2,4));
+                  data.push(orders.filter(o => (o.createdAt||'').startsWith(key)).length);
+                }
+              }
+
+              const maxVal = Math.max(...data, 1);
+              const peakIdx = data.indexOf(maxVal);
+              const peakEl = document.getElementById('ins-peak-text');
+              if (peakEl) peakEl.textContent = 'Peak: ' + labels[peakIdx] + ' (' + maxVal + ' orders)';
+
+              const ctx = document.getElementById('ins-activity-chart');
+              if (!ctx) return;
+              if (actInst) actInst.destroy();
+              actInst = new Chart(ctx, {
+                type: 'line',
+                data: { labels, datasets: [{ data, fill: true, tension: 0.45,
+                  backgroundColor: 'rgba(108,56,165,0.10)', borderColor: PLUM, borderWidth: 3,
+                  pointRadius: data.map((v,i) => i === peakIdx ? 7 : 3),
+                  pointBackgroundColor: data.map((v,i) => i === peakIdx ? DARK : PLUM) }] },
+                options: { responsive: true, maintainAspectRatio: false,
+                  plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.raw + ' orders' } } },
+                  scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#aaa' } },
+                            y: { grid: { color: '#f3f3f3' }, ticks: { font: { size: 11 }, color: '#aaa', stepSize: 1 } } } }
+              });
+            };
+
+            // ── Best Sellers ─────────────────────────────────────────────────
+            window.insightBSRange = function(range) {
+              activeBtn(['ins-bs-weekly','ins-bs-monthly'], 'ins-bs-' + range);
+              const orders = getOrders();
+              const now = new Date();
+              const cutoff = new Date(now);
+              if (range === 'weekly') cutoff.setDate(cutoff.getDate() - 7);
+              else cutoff.setMonth(cutoff.getMonth() - 1);
+
+              const sales = {};
+              orders.filter(o => new Date(o.createdAt) >= cutoff).forEach(o => {
+                (o.items || o.orderItems || []).forEach(it => {
+                  const name = it.productName || it.name || 'Unknown';
+                  const img  = it.image || it.productImage || '';
+                  if (!sales[name]) sales[name] = { name, img, qty: 0, lastDate: null };
+                  sales[name].qty += (it.quantity || 1);
+                  const d = new Date(o.createdAt);
+                  if (!sales[name].lastDate || d > sales[name].lastDate) sales[name].lastDate = d;
+                });
+              });
+
+              const top5 = Object.values(sales).sort((a,b) => b.qty - a.qty).slice(0,5);
+              const container = document.getElementById('ins-bestsellers-list');
+              if (!container) return;
+
+              if (!top5.length) {
+                container.innerHTML = '<div style="color:#aaa;font-size:13px;text-align:center;padding:30px 0;">No data for this period</div>';
+                return;
+              }
+
+              const timeAgo = d => {
+                if (!d) return '—';
+                const mins = Math.floor((Date.now() - d) / 60000);
+                if (mins < 60) return mins + ' mins ago';
+                if (mins < 1440) return Math.floor(mins/60) + ' hrs ago';
+                return Math.floor(mins/1440) + ' days ago';
+              };
+
+              container.innerHTML = top5.map((p, i) => `
+                <div style="display:flex; align-items:center; gap:14px; padding:10px 14px; border-radius:14px; background:${i===0?'#F4F1F9':'#FAFAFA'}; transition:0.2s;" onmouseover="this.style.background='#F4F1F9'" onmouseout="this.style.background='${i===0?'#F4F1F9':'#FAFAFA'}'">
+                  <div style="width:52px;height:52px;border-radius:12px;overflow:hidden;background:#eee;flex-shrink:0;">
+                    ${p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:18px;">🧴</div>`}
+                  </div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:13px;font-weight:700;color:#1E1B29;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+                    <div style="font-size:11px;color:#7E7890;margin-top:3px;">Last sold: <span style="color:#6C38A5;font-weight:700;">${timeAgo(p.lastDate)}</span></div>
+                  </div>
+                  <div style="text-align:right;flex-shrink:0;">
+                    <div style="font-size:16px;font-weight:800;color:#1E1B29;">${p.qty}</div>
+                    <div style="font-size:10px;color:#7E7890;">units</div>
+                  </div>
+                </div>
+              `).join('');
+            };
+
+            // ── Transactions ─────────────────────────────────────────────────
+            window.renderInsightTransactions = function() {
+              const orders = getOrders();
+              const fromVal = document.getElementById('ins-txn-from')?.value;
+              const toVal   = document.getElementById('ins-txn-to')?.value;
+
+              let filtered = orders;
+              if (fromVal) filtered = filtered.filter(o => (o.createdAt||'').slice(0,10) >= fromVal);
+              if (toVal)   filtered = filtered.filter(o => (o.createdAt||'').slice(0,10) <= toVal);
+              filtered = filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,20);
+
+              const tbody = document.getElementById('ins-txn-tbody');
+              if (!tbody) return;
+              if (!filtered.length) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:30px;color:#aaa;font-size:13px;">No transactions found</td></tr>';
+                return;
+              }
+
+              const statusColor = s => {
+                s = (s||'').toLowerCase();
+                if (s.includes('deliver') || s.includes('complete')) return { bg:'rgba(16,185,129,0.12)', c:'#10B981' };
+                if (s.includes('cancel')) return { bg:'rgba(236,72,153,0.12)', c:'#EC4899' };
+                return { bg:'rgba(108,56,165,0.12)', c:'#6C38A5' };
+              };
+              const payIcon = m => {
+                m = (m||'').toLowerCase();
+                if (m.includes('koko')) return '💳';
+                if (m.includes('bank') || m.includes('transfer')) return '🏦';
+                return '💵';
+              };
+
+              tbody.innerHTML = filtered.map(o => {
+                const sc = statusColor(o.status || o.orderStatus);
+                const total = o.total || o.totalAmount || 0;
+                const name  = o.customerName || o.name || '—';
+                const pay   = o.paymentMethod || '—';
+                const date  = (o.createdAt||'').slice(0,10);
+                const status = o.status || o.orderStatus || '—';
+                return `<tr style="border-bottom:1px solid #F4F1F9;">
+                  <td style="padding:13px 14px;font-size:13px;font-weight:600;color:#1E1B29;">${name}</td>
+                  <td style="padding:13px 14px;font-size:13px;color:#7E7890;">${payIcon(pay)} ${pay}</td>
+                  <td style="padding:13px 14px;font-size:13px;font-weight:700;color:#1E1B29;text-align:right;">Rs. ${Number(total).toLocaleString()}</td>
+                  <td style="padding:13px 14px;font-size:12px;color:#7E7890;text-align:right;">${date}</td>
+                  <td style="padding:13px 14px;text-align:center;"><span style="background:${sc.bg};color:${sc.c};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;">${status}</span></td>
+                </tr>`;
+              }).join('');
+            };
+
+            // ── Master Init ──────────────────────────────────────────────────
+            window.renderInsightsDashboard = function() {
+              // Set default date range (last 30 days)
+              const today = new Date().toISOString().slice(0,10);
+              const month = new Date(); month.setDate(month.getDate()-30);
+              const monthStr = month.toISOString().slice(0,10);
+              const fromEl = document.getElementById('ins-txn-from');
+              const toEl   = document.getElementById('ins-txn-to');
+              if (fromEl && !fromEl.value) fromEl.value = monthStr;
+              if (toEl   && !toEl.value)   toEl.value   = today;
+
+              renderRings();
+              insightOrdersRange(7);
+              insightActivityRange('daily');
+              insightBSRange('weekly');
+              renderInsightTransactions();
+            };
+          })();
+          </script>
 
         <!-- SETTINGS TAB -->
     
