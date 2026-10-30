@@ -1182,7 +1182,9 @@
         const stockNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
         const isOutOfStock = stockNum <= 0;
 
-        const discount = Number(p.discount || 0);
+        const discount = (typeof getEffectiveProductDiscount === 'function')
+          ? getEffectiveProductDiscount(p)
+          : Number(p.discount || 0);
         const discountBadge = discount > 0 ? `<span class="rec-discount-badge">${discount}% OFF</span>` : '';
         const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
         const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';

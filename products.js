@@ -1502,6 +1502,101 @@ try {
 // Global products data used by the UI - Instant 0ms initial load
 window.productsData = (cachedProducts && cachedProducts.length > 0) ? cachedProducts : (typeof defaultProducts !== 'undefined' ? [...defaultProducts] : []);
 
+// Helper to get effective discount (Flash Sale offer completely overrides inventory discount)
+function isProductInActiveSale(productId, sale) {
+    if (!sale || sale.enabled === false) return false;
+    if (sale.endDate) {
+        const now = new Date();
+        const end = new Date(sale.endDate);
+        if (isNaN(end.getTime()) || now > end) return false;
+    }
+    const pid = String(productId || '').trim().toLowerCase();
+    if (!pid) return false;
+    const saleIds = Array.isArray(sale.productIds) ? sale.productIds : [];
+    return saleIds.some(id => String(id || '').trim().toLowerCase() === pid);
+}
+
+function getEffectiveProductDiscount(product) {
+    if (!product) return 0;
+    try {
+        let sale = window.activeFlashSale;
+        if (!sale) {
+            const saleStr = localStorage.getItem('bib_active_sale');
+            if (saleStr) {
+                sale = JSON.parse(saleStr);
+                window.activeFlashSale = sale;
+            }
+        }
+        if (sale && sale.enabled !== false) {
+            const pidMongo = String(product._id || '').trim().toLowerCase();
+            const pidCustom = String(product.id || '').trim().toLowerCase();
+            if (isProductInActiveSale(pidMongo, sale) || isProductInActiveSale(pidCustom, sale)) {
+                return Number(sale.discountPercent || 0);
+            }
+        }
+    } catch (e) {}
+    return Number(product.discount || 0);
+}
+window.isProductInActiveSale = isProductInActiveSale;
+window.getEffectiveProductDiscount = getEffectiveProductDiscount;
+
+// Synchronize existing cart items with active flash sale offers
+function syncCartWithActiveSale() {
+    try {
+        const cartStr = localStorage.getItem('bib_cart');
+        if (!cartStr) return;
+        const cart = JSON.parse(cartStr);
+        if (!Array.isArray(cart) || cart.length === 0) return;
+        let changed = false;
+        cart.forEach(item => {
+            const effDiscount = getEffectiveProductDiscount(item);
+            if (Number(item.discount || 0) !== effDiscount) {
+                item.discount = effDiscount;
+                changed = true;
+            }
+        });
+        if (changed) {
+            localStorage.setItem('bib_cart', JSON.stringify(cart));
+            if (typeof shoppingCart !== 'undefined' && Array.isArray(shoppingCart)) {
+                shoppingCart = cart;
+            }
+            if (typeof renderCart === 'function') renderCart();
+        }
+    } catch(e) {}
+}
+window.syncCartWithActiveSale = syncCartWithActiveSale;
+
+// Background fetch for flash sale settings to always stay synchronized
+async function fetchActiveFlashSale() {
+    try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+        const res = await fetch(`${BASE}/settings/flash_sale?t=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && data.value && data.value.enabled !== false) {
+                const sale = data.value;
+                const now = new Date();
+                const end = new Date(sale.endDate);
+                if (!isNaN(end.getTime()) && now <= end) {
+                    window.activeFlashSale = sale;
+                    try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
+                    syncCartWithActiveSale();
+                    return sale;
+                }
+            }
+        }
+        // Sale is inactive or expired
+        window.activeFlashSale = null;
+        try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
+        syncCartWithActiveSale();
+        return null;
+    } catch (e) {
+        return null;
+    }
+}
+window.fetchActiveFlashSale = fetchActiveFlashSale;
+fetchActiveFlashSale();
+
 // Fetch from Database
 async function fetchDatabaseProducts() {
     window.fetchDatabaseProducts = fetchDatabaseProducts;
@@ -1732,15 +1827,16 @@ function addToCart(prodId, qty = 1, openDrawer = true) {
     const qtyInt = parseInt(qty);
     const existing = shoppingCart.find(item => item.id === product.id);
     
+    const effectiveDiscount = getEffectiveProductDiscount(product);
     if (existing) {
         existing.qty += qtyInt;
-        existing.discount = product.discount || 0;
+        existing.discount = effectiveDiscount;
     } else {
         shoppingCart.push({
             id: product.id,
             name: product.name,
             price: product.price,
-            discount: product.discount || 0,
+            discount: effectiveDiscount,
             img: product.img,
             qty: qtyInt
         });
@@ -1797,6 +1893,12 @@ function getCartTotal() {
 window.getCartTotal = getCartTotal;
 
 function renderCart() {
+    try {
+        // Refresh items with current effective discount (in case sale changed or item was added elsewhere)
+        shoppingCart.forEach(item => {
+            item.discount = getEffectiveProductDiscount(item);
+        });
+    } catch(e) {}
     // Update all cart badges across the nav bar
     const badges = document.querySelectorAll('.cart-badge');
     const totalItems = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
@@ -2174,7 +2276,7 @@ window.renderHomeAllProducts = function() {
             const stockNum = (prod.stock !== undefined && prod.stock !== null && prod.stock !== '') ? Number(prod.stock) : (prod.inStock === false ? 0 : 1);
             const isOutOfStock = stockNum <= 0;
 
-            const discount = Number(prod.discount || 0);
+            const discount = getEffectiveProductDiscount(prod);
             const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
             const soldOutBadge = ''; // hidden — shown only via SOLD OUT button below
             const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';

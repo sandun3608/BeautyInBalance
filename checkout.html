@@ -1039,8 +1039,49 @@
     handlePaymentChange('Card Payment');
     handleBillingChange('same');
 
+    // Helper to evaluate live flash sale offer discount in checkout
+    function getCheckoutEffectiveDiscount(item) {
+      if (!item) return 0;
+      try {
+        let sale = window.activeFlashSale;
+        if (!sale) {
+          const saleStr = localStorage.getItem('bib_active_sale');
+          if (saleStr) sale = JSON.parse(saleStr);
+        }
+        if (sale && sale.enabled !== false) {
+          const now = new Date();
+          const end = sale.endDate ? new Date(sale.endDate) : null;
+          if (!end || now <= end) {
+            const pIdMongo = String(item._id || '').trim().toLowerCase();
+            const pIdCustom = String(item.id || '').trim().toLowerCase();
+            const saleIds = Array.isArray(sale.productIds) ? sale.productIds : [];
+            const isMatch = saleIds.some(id => {
+              const s = String(id || '').trim().toLowerCase();
+              return (pIdMongo && s === pIdMongo) || (pIdCustom && s === pIdCustom);
+            });
+            if (isMatch) {
+              return Number(sale.discountPercent || 0);
+            }
+          }
+        }
+      } catch(e) {}
+      return Number(item.discount || 0);
+    }
+
     window.renderOrderSummary = function() {
-      const localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+      let localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+      // Refresh items with current live offer discount so the active offer price is locked in
+      let cartChanged = false;
+      localCart.forEach(item => {
+        const eff = getCheckoutEffectiveDiscount(item);
+        if (Number(item.discount || 0) !== eff) {
+          item.discount = eff;
+          cartChanged = true;
+        }
+      });
+      if (cartChanged) {
+        localStorage.setItem('bib_cart', JSON.stringify(localCart));
+      }
       const root = $('checkout-root');
       const itemsContainer = $('summ-items');
       if (!itemsContainer) return;
@@ -1279,7 +1320,10 @@
             user: userInfo ? userInfo._id : null,
             customerInfo: fields,
             orderItems: currentCart.map(i => {
-              const discount = (paymentMethod === 'Koko') ? 0 : Number(i.discount || 0);
+              const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
+                ? getCheckoutEffectiveDiscount(i) 
+                : Number(i.discount || 0);
+              const discount = (paymentMethod === 'Koko') ? 0 : effDisc;
               const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
               return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
             }),

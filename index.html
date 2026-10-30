@@ -1371,7 +1371,9 @@
       const shuffled = [...productsData].sort(() => 0.5 - Math.random());
       const selected = shuffled.slice(0, 8);
       track.innerHTML = selected.map(p => {
-        const discount = Number(p.discount || 0);
+        const discount = (typeof getEffectiveProductDiscount === 'function')
+          ? getEffectiveProductDiscount(p)
+          : Number(p.discount || 0);
         const basePrice = Number(p.price || 0);
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         
