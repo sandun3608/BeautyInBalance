@@ -3181,6 +3181,72 @@
                 <div id="shipping-fee-msg" style="margin-top: 12px; font-size: 13px; display: none;"></div>
             </div>
 
+            <!-- THEME COLORS -->
+            <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #e9e0f5; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg,#6C38A5,#9B59B6); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🎨</div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 800;">Theme Colors</h3>
+                        <p style="margin: 4px 0 0; color: #888; font-size: 13px;">Change button &amp; discount badge colors across the entire website</p>
+                    </div>
+                </div>
+
+                <!-- Button Color -->
+                <div style="margin-bottom: 28px;">
+                    <label style="display: block; font-weight: 700; font-size: 14px; color: #444; margin-bottom: 10px;">🛒 Buy It Now Button Color</label>
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <div style="position: relative; width: 60px; height: 60px; border-radius: 14px; overflow: hidden; border: 2px solid #e0e0e0; cursor: pointer;">
+                            <input type="color" id="btn-color-picker" value="#c5965a"
+                                style="position: absolute; top: -10px; left: -10px; width: 80px; height: 80px; border: none; cursor: pointer; padding: 0;"
+                                oninput="updateBtnPreview(this.value)">
+                        </div>
+                        <div style="flex:1; min-width: 200px;">
+                            <div id="btn-color-preview" style="padding: 13px 24px; border-radius: 12px; background: #c5965a; color: #fff; font-weight: 700; font-size: 14px; text-align: center; display: inline-block; min-width: 160px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">⚡ Buy It Now</div>
+                        </div>
+                        <input type="text" id="btn-color-hex" value="#c5965a" maxlength="7" placeholder="#c5965a"
+                            style="width: 110px; padding: 13px; border: 1px solid #eee; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center;"
+                            oninput="syncColorPicker('btn-color-picker','btn-color-hex'); updateBtnPreview(this.value)">
+                    </div>
+                </div>
+
+                <!-- Badge Color -->
+                <div style="margin-bottom: 28px;">
+                    <label style="display: block; font-weight: 700; font-size: 14px; color: #444; margin-bottom: 10px;">🏷️ Discount Badge Color</label>
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <div style="position: relative; width: 60px; height: 60px; border-radius: 14px; overflow: hidden; border: 2px solid #e0e0e0; cursor: pointer;">
+                            <input type="color" id="badge-color-picker" value="#0d7a2f"
+                                style="position: absolute; top: -10px; left: -10px; width: 80px; height: 80px; border: none; cursor: pointer; padding: 0;"
+                                oninput="updateBadgePreview(this.value)">
+                        </div>
+                        <div style="flex:1; min-width: 200px;">
+                            <div id="badge-color-preview" style="padding: 6px 14px; border-radius: 20px; background: #0d7a2f; color: #fff; font-weight: 800; font-size: 13px; text-align: center; display: inline-block; min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">10% OFF</div>
+                        </div>
+                        <input type="text" id="badge-color-hex" value="#0d7a2f" maxlength="7" placeholder="#0d7a2f"
+                            style="width: 110px; padding: 13px; border: 1px solid #eee; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center;"
+                            oninput="syncColorPicker('badge-color-picker','badge-color-hex'); updateBadgePreview(this.value)">
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-weight: 600; font-size: 13px; color: #888; margin-bottom: 10px;">Quick Presets for Button:</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <div onclick="applyPreset('#c5965a')" title="Gold" style="width:36px;height:36px;border-radius:50%;background:#c5965a;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                        <div onclick="applyPreset('#6C38A5')" title="Purple" style="width:36px;height:36px;border-radius:50%;background:#6C38A5;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                        <div onclick="applyPreset('#e91e63')" title="Pink" style="width:36px;height:36px;border-radius:50%;background:#e91e63;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                        <div onclick="applyPreset('#1565c0')" title="Blue" style="width:36px;height:36px;border-radius:50%;background:#1565c0;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                        <div onclick="applyPreset('#2e7d32')" title="Green" style="width:36px;height:36px;border-radius:50%;background:#2e7d32;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                        <div onclick="applyPreset('#bf360c')" title="Red-Orange" style="width:36px;height:36px;border-radius:50%;background:#bf360c;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                        <div onclick="applyPreset('#212121')" title="Black" style="width:36px;height:36px;border-radius:50%;background:#212121;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);"></div>
+                    </div>
+                </div>
+
+                <button onclick="saveThemeColors(this)" class="admin-btn" style="padding: 15px 36px; font-size: 15px;">
+                    💾 Save Theme Colors
+                </button>
+                <div id="theme-color-msg" style="margin-top: 12px; font-size: 13px; display: none;"></div>
+            </div>
+
             <!-- DANGER ZONE -->
 
             <div style="background: #fff; padding: 40px; border-radius: 25px; box-shadow: var(--shadow-sm); border: 1px solid #fee2e2;">
@@ -5577,6 +5643,93 @@
           console.error('Could not load shipping fee:', e); 
         }
       }
+
+      
+      // ===== THEME COLOR SETTINGS =====
+      window.updateBtnPreview = function(color) {
+          const preview = document.getElementById('btn-color-preview');
+          const hex = document.getElementById('btn-color-hex');
+          if (preview) preview.style.background = color;
+          if (hex && hex !== document.activeElement) hex.value = color;
+      };
+      window.updateBadgePreview = function(color) {
+          const preview = document.getElementById('badge-color-preview');
+          const hex = document.getElementById('badge-color-hex');
+          if (preview) preview.style.background = color;
+          if (hex && hex !== document.activeElement) hex.value = color;
+      };
+      window.syncColorPicker = function(pickerId, hexId) {
+          const hex = document.getElementById(hexId).value;
+          if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+              document.getElementById(pickerId).value = hex;
+          }
+      };
+      window.applyPreset = function(color) {
+          const p = document.getElementById('btn-color-picker');
+          const h = document.getElementById('btn-color-hex');
+          if (p) p.value = color;
+          if (h) h.value = color;
+          window.updateBtnPreview(color);
+      };
+      window.saveThemeColors = async function(btn) {
+          const buttonColor = document.getElementById('btn-color-picker').value;
+          const badgeColor = document.getElementById('badge-color-picker').value;
+          const msg = document.getElementById('theme-color-msg');
+          const origText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Saving...';
+          try {
+              const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+              const token = localStorage.getItem('token') || localStorage.getItem('adminToken');
+              const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+              const [r1, r2] = await Promise.all([
+                  fetch(`${BASE}/settings/buttonColor`, { method: 'PUT', headers, body: JSON.stringify({ value: buttonColor }) }),
+                  fetch(`${BASE}/settings/badgeColor`,  { method: 'PUT', headers, body: JSON.stringify({ value: badgeColor }) })
+              ]);
+              if (!r1.ok || !r2.ok) throw new Error('Save failed');
+              msg.style.display = 'block';
+              msg.style.color = '#2e7d32';
+              msg.innerHTML = '✅ Theme colors saved successfully! Live website will reflect changes.';
+              setTimeout(() => { msg.style.display = 'none'; }, 4000);
+          } catch (e) {
+              msg.style.display = 'block';
+              msg.style.color = '#c62828';
+              msg.innerHTML = '❌ Error saving colors. Please make sure you are logged in.';
+          }
+          btn.disabled = false;
+          btn.textContent = origText;
+      };
+      window.loadThemeColors = async function() {
+          try {
+              const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+              const [r1, r2] = await Promise.all([
+                  fetch(`${BASE}/settings/buttonColor?cb=${Date.now()}`),
+                  fetch(`${BASE}/settings/badgeColor?cb=${Date.now()}`)
+              ]);
+              const d1 = await r1.json();
+              const d2 = await r2.json();
+              if (d1 && d1.value) {
+                  const p = document.getElementById('btn-color-picker');
+                  const h = document.getElementById('btn-color-hex');
+                  if (p) p.value = d1.value;
+                  if (h) h.value = d1.value;
+                  window.updateBtnPreview(d1.value);
+              }
+              if (d2 && d2.value) {
+                  const p = document.getElementById('badge-color-picker');
+                  const h = document.getElementById('badge-color-hex');
+                  if (p) p.value = d2.value;
+                  if (h) h.value = d2.value;
+                  window.updateBadgePreview(d2.value);
+              }
+          } catch(e) { console.log('Could not load theme colors', e); }
+      };
+
+      // Auto load theme colors when admin settings is rendered
+      setTimeout(function() {
+          window.loadThemeColors();
+      }, 1000);
+
 
       window.saveShippingFee = async function(btn) {
         const input = document.getElementById('admin-shipping-fee');
