@@ -3414,6 +3414,71 @@
         }
     };
 
+
+    // ═══════════════════════════════════════════════════════════════
+    // 💎 PRODUCT VARIATION BUILDER (ml, tablets, colours, gm, size)
+    // ═══════════════════════════════════════════════════════════════
+    window.addVariantRow = function(name = '', type = 'ml', price = '', stock = '') {
+        const container = document.getElementById('p-variants-container');
+        if (!container) return;
+        const rowId = 'var-row-' + Date.now() + '-' + Math.floor(Math.random()*1000);
+        const row = document.createElement('div');
+        row.id = rowId;
+        row.className = 'variant-row-item';
+        row.style.cssText = 'display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 40px; gap: 8px; align-items: center; background: #fff; padding: 10px 12px; border-radius: 10px; border: 1px solid #E5E1EE;';
+
+        row.innerHTML = `
+            <div>
+                <input type="text" class="v-name" value="${name}" placeholder="e.g. 30ml / 60 Tablets" style="width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; font-weight: 600;">
+            </div>
+            <div>
+                <select class="v-type" style="width: 100%; padding: 8px 6px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; font-weight: 600;">
+                    <option value="ml" ${type === 'ml' ? 'selected' : ''}>ml</option>
+                    <option value="tablets" ${type === 'tablets' ? 'selected' : ''}>Tablets</option>
+                    <option value="gm" ${type === 'gm' ? 'selected' : ''}>gm (Grams)</option>
+                    <option value="size" ${type === 'size' ? 'selected' : ''}>Size (S,M,L)</option>
+                    <option value="colours" ${type === 'colours' ? 'selected' : ''}>Colours / Shades</option>
+                </select>
+            </div>
+            <div>
+                <input type="number" class="v-price" value="${price}" placeholder="Price (LKR)" style="width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; font-weight: 700; color: #1E1B29;">
+            </div>
+            <div>
+                <input type="number" class="v-stock" value="${stock}" placeholder="Stock" style="width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px;">
+            </div>
+            <div style="text-align: center;">
+                <button type="button" onclick="document.getElementById('${rowId}').remove()" style="background: rgba(239,68,68,0.1); color: #ef4444; border: none; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 14px;">✕</button>
+            </div>
+        `;
+        container.appendChild(row);
+    };
+
+    window.collectVariants = function() {
+        const rows = document.querySelectorAll('#p-variants-container .variant-row-item');
+        const list = [];
+        rows.forEach(r => {
+            const name = r.querySelector('.v-name')?.value?.trim();
+            const type = r.querySelector('.v-type')?.value?.trim() || 'ml';
+            const price = Number(r.querySelector('.v-price')?.value) || 0;
+            const stock = Number(r.querySelector('.v-stock')?.value) || 0;
+            if (name) {
+                list.push({ name, type, price, stock });
+            }
+        });
+        return list;
+    };
+
+    window.populateVariants = function(variants) {
+        const container = document.getElementById('p-variants-container');
+        if (!container) return;
+        container.innerHTML = '';
+        if (Array.isArray(variants) && variants.length > 0) {
+            variants.forEach(v => {
+                window.addVariantRow(v.name || '', v.type || 'ml', v.price || '', v.stock || '');
+            });
+        }
+    };
+
     window.openModal = (prodId = null) => {
       const pModal = document.getElementById('product-modal');
       const addProductForm = document.getElementById('add-product-form');
