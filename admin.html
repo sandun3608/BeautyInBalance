@@ -1167,6 +1167,130 @@
       margin: 0 auto;
     }
 
+
+    /* ═══════════════════════════════════════════════════════════════
+       💎 COMPLETE GENRUBS DEEP PLUM & VIOLET THEME FOR ALL SECTIONS
+       ═══════════════════════════════════════════════════════════════ */
+    .admin-section {
+        background: #ffffff !important;
+        border-radius: 24px !important;
+        padding: 30px !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        box-shadow: 0 4px 25px rgba(43, 22, 59, 0.04) !important;
+        margin-bottom: 25px !important;
+    }
+
+    .admin-sec-head h3 {
+        color: #1E1B29 !important;
+        font-family: var(--font-main) !important;
+        font-size: 22px !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    /* Buttons matching Genrubs palette */
+    .admin-btn {
+        background: #2B163B !important;
+        color: #ffffff !important;
+        border-radius: 14px !important;
+        font-weight: 700 !important;
+        padding: 11px 22px !important;
+        border: none !important;
+        transition: all 0.25s ease !important;
+        box-shadow: 0 4px 15px rgba(43, 22, 59, 0.15) !important;
+    }
+    .admin-btn:hover {
+        background: #6C38A5 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(108, 56, 165, 0.25) !important;
+    }
+
+    /* Primary Accent / Active States */
+    .admin-nav-link.active {
+        background: linear-gradient(135deg, #6C38A5 0%, #8B5CF6 100%) !important;
+        color: #fff !important;
+        box-shadow: 0 4px 20px rgba(108, 56, 165, 0.35) !important;
+    }
+
+    /* Modern Table Refinement */
+    .admin-table {
+        border-collapse: separate !important;
+        border-spacing: 0 8px !important;
+    }
+    .admin-table th {
+        color: #7E7890 !important;
+        font-weight: 700 !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        padding: 12px 14px !important;
+        border: none !important;
+    }
+    .admin-table tbody tr {
+        background: #ffffff !important;
+        border-radius: 14px !important;
+        box-shadow: 0 2px 8px rgba(43, 22, 59, 0.03) !important;
+        transition: 0.2s !important;
+    }
+    .admin-table tbody tr:hover {
+        background: #F4F1F9 !important;
+        transform: translateY(-1px) !important;
+    }
+    .admin-table td {
+        padding: 14px !important;
+        border: none !important;
+        color: #1E1B29 !important;
+        font-weight: 500 !important;
+    }
+    .admin-table td:first-child {
+        border-radius: 14px 0 0 14px !important;
+    }
+    .admin-table td:last-child {
+        border-radius: 0 14px 14px 0 !important;
+    }
+
+    /* Modal Styling */
+    .modal-box {
+        background: #ffffff !important;
+        border-radius: 28px !important;
+        border: 1px solid rgba(43, 22, 59, 0.08) !important;
+        box-shadow: 0 25px 60px rgba(43, 22, 59, 0.25) !important;
+    }
+    .modal-box h3 {
+        color: #1E1B29 !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    /* Form Fields */
+    input[type="text"], input[type="number"], input[type="email"], input[type="password"], textarea, select {
+        border: 1px solid rgba(43, 22, 59, 0.12) !important;
+        border-radius: 12px !important;
+        background: #FDFBFD !important;
+        color: #1E1B29 !important;
+        transition: all 0.2s !important;
+    }
+    input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+        border-color: #6C38A5 !important;
+        box-shadow: 0 0 0 3px rgba(108, 56, 165, 0.12) !important;
+        outline: none !important;
+        background: #ffffff !important;
+    }
+
+    /* Status Badges */
+    .badge-delivered, .badge-paid {
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: #10B981 !important;
+        font-weight: 700 !important;
+        border-radius: 20px !important;
+    }
+    .badge-pending {
+        background: rgba(236, 72, 153, 0.15) !important;
+        color: #EC4899 !important;
+        font-weight: 700 !important;
+        border-radius: 20px !important;
+    }
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -1290,7 +1414,19 @@
                 <div class="genrubs-hero-main">
                     <!-- 3 Elevated White Stat Cards with Pill Indicators & Progress Bars -->
                     <div class="genrubs-stat-triplet">
-                        <!-- Stat 1: Total Revenue -->
+                        <!-- Stat 1: Total Orders (Now placed FIRST as requested!) -->
+                        <div class="genrubs-mini-card" style="border: 2px solid rgba(16, 185, 129, 0.2);">
+                            <div class="card-title">Store Orders</div>
+                            <div class="card-val">
+                                <span id="stat-orders" style="font-size: 22px; color: #10B981;">0</span>
+                                <span class="genrubs-badge badge-emerald" id="stat-orders-badge">+8.2%</span>
+                            </div>
+                            <div class="genrubs-progress-bar">
+                                <div class="genrubs-progress-fill" style="width: 65%; background: #10B981;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Stat 2: Total Revenue -->
                         <div class="genrubs-mini-card">
                             <div class="card-title">Total Revenue</div>
                             <div class="card-val">
@@ -1299,18 +1435,6 @@
                             </div>
                             <div class="genrubs-progress-bar">
                                 <div class="genrubs-progress-fill" style="width: 78%; background: #2D143D;"></div>
-                            </div>
-                        </div>
-
-                        <!-- Stat 2: Total Orders -->
-                        <div class="genrubs-mini-card">
-                            <div class="card-title">Store Orders</div>
-                            <div class="card-val">
-                                <span id="stat-orders" style="font-size: 22px;">0</span>
-                                <span class="genrubs-badge badge-emerald" id="stat-orders-badge">+8.2%</span>
-                            </div>
-                            <div class="genrubs-progress-bar">
-                                <div class="genrubs-progress-fill" style="width: 65%; background: #10B981;"></div>
                             </div>
                         </div>
 
