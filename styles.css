@@ -123,7 +123,8 @@ main {
 body {
   font-family: var(--font-sans);
   color: var(--text);
-  background: var(--white);
+  background: #ffffff !important;
+  background-color: #ffffff !important;
   font-size: 15px;
   line-height: 1.6;
 }
