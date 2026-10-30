@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=501" />
+  <link rel="stylesheet" href="styles.css?v=502" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -314,22 +314,50 @@
     }
   </style>
 
-  <!-- PURE WHITE THEME OVERRIDE -->
+  <!-- PURE BRIGHT WHITE & ZERO SHADOW OVERRIDE -->
   <style>
     html, 
     body, 
     main,
+    section,
     .home-all-products-section,
     .hap-tabs-wrapper,
     .hap-tabs,
     .hap-card,
+    .hap-card-img,
+    .hap-grid,
     .brands-section,
     .brands-marquee,
     .featured-gallery,
     .discovery-section,
-    .round-list-section {
+    .round-list-section,
+    .round-list-track,
+    .round-item {
       background-color: #ffffff !important;
       background: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    /* Completely eliminate dark/dim drop shadows around product images */
+    .hap-card-img img,
+    .hap-card:hover .hap-card-img img,
+    .round-img img,
+    .round-item:hover .round-img img,
+    .brand-item img,
+    .fg-img-wrap img,
+    .product-card img,
+    .la-card img {
+      filter: none !important;
+      -webkit-filter: none !important;
+      box-shadow: none !important;
+      mix-blend-mode: normal !important;
+    }
+
+    /* Keep tabs clean and bright */
+    .hap-tabs {
+      background: #ffffff !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+      border: 1px solid #f0f0f0 !important;
     }
   </style>
 </head>

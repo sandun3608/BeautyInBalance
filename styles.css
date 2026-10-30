@@ -1115,7 +1115,7 @@ img {
   height: 100%;
   object-fit: contain;
   transition: transform 0.5s ease;
-  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.05));
+  filter: none !important;
 }
 
 .round-item:hover .round-img {
@@ -2208,13 +2208,13 @@ background: #0a0a0a;
   max-width: 95%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  filter: none !important;
   transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
 }
 
 .fp-item:hover .fp-img-wrap img {
   transform: scale(1.06);
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
+  filter: none !important;
 }
 
 .fp-variants {
@@ -3605,7 +3605,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .showcase-image-wrap img {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.12));
+  filter: none !important;
 }
 
 /* Floating Pills Layout */
@@ -4212,7 +4212,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   width: 100%;
   max-width: 500px;
   height: auto;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+  filter: none !important;
 }
 
 .highlight-content {
@@ -6848,7 +6848,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   width: 90%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.05));
+  filter: none !important;
 }
 
 .dch-marquee {
@@ -7304,13 +7304,13 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   width: 95%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  filter: none !important;
   transition: transform 0.5s ease, filter 0.3s ease;
 }
 
 .fg-card:hover .fg-img-wrap img {
   transform: scale(1.05);
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
+  filter: none !important;
 }
 
 .fg-brand-badge {
@@ -8317,13 +8317,13 @@ main {
   width: 95%;
   height: 95%;
   object-fit: contain;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
+  filter: none !important;
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
 }
 
 .hap-card:hover .hap-card-img img {
   transform: scale(1.05);
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.14));
+  filter: none !important;
 }
 
 .hap-card-brand {
