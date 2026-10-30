@@ -17,6 +17,8 @@
 }
 
 :root {
+  --btn-theme-color: #c5965a;
+  --badge-theme-color: #0d7a2f;
   --brown: #2D1B12;
   --brown-dark: #1C100A;
   --brown-mid: #3E2619;
@@ -8405,7 +8407,7 @@ main {
 
 /* Buy It Now Box Button (Matching Reference & Offer Page Design) */
 .hap-card .btn-buy-animated {
-  background: #c5965a !important;
+  background: var(--btn-theme-color, #c5965a) !important;
   color: #fff !important;
   border: none !important;
   display: flex !important;
@@ -9119,7 +9121,7 @@ body:not(.drawer-open) .floating-fb {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: linear-gradient(135deg, #0d7a2f, #15803d);
+  background: var(--badge-theme-color, #0d7a2f) !important;
   color: #ffffff;
   font-size: 10.5px;
   font-weight: 800;
@@ -9139,7 +9141,7 @@ body:not(.drawer-open) .floating-fb {
     left: 6px !important;
     font-size: 8.5px !important;
     padding: 3px 8px !important;
-    background: linear-gradient(135deg, rgba(13, 122, 47, 0.75), rgba(21, 128, 61, 0.75)) !important;
+    background: var(--badge-theme-color, #0d7a2f) !important;
     backdrop-filter: blur(2px);
     box-shadow: 0 2px 8px rgba(13, 122, 47, 0.2) !important;
     letter-spacing: 0.4px !important;

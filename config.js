@@ -50,6 +50,13 @@ function submitMobileSearch() {
 (function() {
     function applyBibThemeColors(colors) {
         if (!colors) return;
+        if (colors.buttonColor) {
+            document.documentElement.style.setProperty('--btn-theme-color', colors.buttonColor);
+        }
+        if (colors.badgeColor) {
+            document.documentElement.style.setProperty('--badge-theme-color', colors.badgeColor);
+        }
+
         let style = document.getElementById('bib-dynamic-theme-style');
         if (!style) {
             style = document.createElement('style');
@@ -58,11 +65,55 @@ function submitMobileSearch() {
         }
         let css = '';
         if (colors.buttonColor) {
-            css += ' .hap-card .btn-buy-animated, .btn-buy-animated, .look-bundle-btn, .product-add-to-cart, #add-to-cart-btn, .buy-now-btn { background: ' + colors.buttonColor + ' !important; border-color: ' + colors.buttonColor + ' !important; }';
-            css += ' .hap-card .btn-buy-animated:hover, .btn-buy-animated:hover { opacity: 0.9; }';
+            css += `
+                :root { --btn-theme-color: ${colors.buttonColor} !important; --gold: ${colors.buttonColor} !important; }
+                .hap-card .btn-buy-animated,
+                .btn-buy-animated,
+                .look-bundle-btn,
+                .product-add-to-cart,
+                #add-to-cart-btn,
+                .buy-now-btn,
+                .lux-add-btn,
+                .rec-add-btn,
+                .hi-buy-btn,
+                .fp-buy-it-now-btn,
+                .btn-hero-light,
+                .btn-place-order,
+                .btn-pay-now,
+                #btn-master-submit,
+                .btn-checkout {
+                    background: ${colors.buttonColor} !important;
+                    border-color: ${colors.buttonColor} !important;
+                    color: #fff !important;
+                }
+                .hap-card .btn-buy-animated:hover,
+                .btn-buy-animated:hover,
+                .lux-add-btn:hover,
+                .rec-add-btn:hover,
+                .look-bundle-btn:hover,
+                .btn-place-order:hover,
+                .btn-pay-now:hover,
+                #btn-master-submit:hover {
+                    opacity: 0.88 !important;
+                    filter: brightness(0.92) !important;
+                }
+            `;
         }
         if (colors.badgeColor) {
-            css += ' .hap-discount-badge, .fp-discount-badge, .rec-discount-badge, .discount-badge { background: ' + colors.badgeColor + ' !important; }';
+            css += `
+                :root { --badge-theme-color: ${colors.badgeColor} !important; }
+                .hap-discount-badge,
+                .fp-discount-badge,
+                .rec-discount-badge,
+                .discount-badge,
+                .product-badges .hap-discount-badge,
+                .product-badges .fp-discount-badge,
+                .product-badges .rec-discount-badge {
+                    background: ${colors.badgeColor} !important;
+                    background-image: none !important;
+                    color: #ffffff !important;
+                }
+            `;
         }
         style.innerHTML = css;
     }
