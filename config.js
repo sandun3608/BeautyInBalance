@@ -75,6 +75,9 @@ function submitMobileSearch() {
                 }
                 .hap-card .btn-buy-animated,
                 .btn-buy-animated,
+                .btn-dark,
+                .btn-hero,
+                .hap-footer .btn-dark,
                 .look-bundle-btn,
                 .product-add-to-cart,
                 #add-to-cart-btn,
@@ -102,6 +105,11 @@ function submitMobileSearch() {
                 :root { --btn-theme-hover: ${hoverColor} !important; }
                 .hap-card .btn-buy-animated:hover,
                 .btn-buy-animated:hover,
+                .btn-dark:hover,
+                .btn-hero:hover,
+                .hap-footer .btn-dark:hover,
+                .btn-dark:active,
+                .btn-hero:active,
                 .lux-add-btn:hover,
                 .rec-add-btn:hover,
                 .look-bundle-btn:hover,
