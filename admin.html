@@ -990,6 +990,13 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
+      align-items: stretch;
+    }
+    .genrubs-mini-card {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     @media (max-width: 800px) {
       .genrubs-stat-triplet {
@@ -1044,10 +1051,16 @@
     }
 
     .genrubs-spark-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      color: #1E1B29;
+      border: 1px solid rgba(0, 0, 0, 0.04);
       border-radius: 20px;
-      padding: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     /* Bottom Grid for Charts & Calendar */
@@ -1415,8 +1428,8 @@
                 <div class="genrubs-hero-main">
                     <!-- 3 Elevated White Stat Cards with Pill Indicators & Progress Bars -->
                     <div class="genrubs-stat-triplet">
-                        <!-- Stat 1: Total Orders (Now placed FIRST as requested!) -->
-                        <div class="genrubs-mini-card" style="border: 2px solid rgba(16, 185, 129, 0.2);">
+                        <!-- Stat 1: Total Orders (Now placed FIRST and aligned!) -->
+                        <div class="genrubs-mini-card">
                             <div class="card-title">Store Orders</div>
                             <div class="card-val">
                                 <span id="stat-orders" style="font-size: 22px; color: #10B981;">0</span>
@@ -1452,16 +1465,16 @@
                         </div>
                     </div>
 
-                    <!-- Right mini spark: Activity / Orders Velocity -->
+                    <!-- Right mini spark: Activity / Orders Velocity (White Card) -->
                     <div class="genrubs-spark-box">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <span style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; text-transform: uppercase;">Activity (7 Days)</span>
-                            <span style="font-size: 10px; color: #10B981; font-weight: 700;">● Active</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 11px; color: #7E7890; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Activity (7 Days)</span>
+                            <span class="genrubs-badge badge-emerald" style="font-size: 10px;">● Active</span>
                         </div>
                         <div style="height: 65px; width: 100%;">
                             <canvas id="miniSparkCanvas" height="65"></canvas>
                         </div>
-                        <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 9px; color: rgba(255,255,255,0.45);">
+                        <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 10px; font-weight: 600; color: #A09BAE;">
                             <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
                         </div>
                     </div>
@@ -4739,7 +4752,8 @@
                 labels: ['M','T','W','T','F','S','S'],
                 datasets: [{
                     data: dayCounts,
-                    backgroundColor: 'rgba(255, 255, 255, 0.45)',
+                    backgroundColor: 'rgba(108, 56, 165, 0.2)',
+                    hoverBackgroundColor: '#6C38A5',
                     hoverBackgroundColor: '#EC4899',
                     borderRadius: 4,
                     barThickness: 14
