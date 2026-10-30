@@ -3337,10 +3337,23 @@
 
           tr.innerHTML = `
             <td data-label="Showcase"><img src="${imagePath}" class="prod-thumb" onerror="this.onerror=null; this.src='images/placeholder.png';"></td>
-            <td data-label="Identity" style="font-weight: 500;">${prod.name || 'Unnamed Product'}</td>
+            <td data-label="Identity" style="font-weight: 500;">
+              <div>${prod.name || 'Unnamed Product'}</div>
+              ${Array.isArray(prod.variants) && prod.variants.length > 0 ? 
+                `<div style="margin-top: 5px; display: flex; flex-wrap: wrap; gap: 4px;">
+                  <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; background: #F3E8FF; color: #6C38A5; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(108,56,165,0.25);">
+                    ✨ ${prod.variants.length} Variants (${prod.variants.map(v => v.name).join(', ')})
+                  </span>
+                </div>` : ''}
+            </td>
             <td data-label="Brand" style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
             <td data-label="Sub Category" style="text-transform: capitalize; color: var(--admin-text); font-weight: 500;">${prod.filter || 'None'}</td>
-            <td data-label="Value" style="font-weight: 600;">Rs. ${(prod.price || 0).toLocaleString()}</td>
+            <td data-label="Value" style="font-weight: 600;">
+              ${(Array.isArray(prod.variants) && prod.variants.length > 0 && (!prod.price || prod.price === 0)) ?
+                `Rs. ${Number(prod.variants[0].price || 0).toLocaleString()} <span style="font-size: 10px; color: #888; font-weight: 400; display: block;">(from variant)</span>` :
+                `Rs. ${(prod.price || 0).toLocaleString()}`
+              }
+            </td>
             <td data-label="Disc." style="text-align: center;">${prod.discount || 0}%</td>
             <td data-label="Stock" style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
             <td data-label="Manage">
@@ -3598,15 +3611,32 @@
                   name: document.getElementById('p-name').value,
                   cat: document.getElementById('p-cat').value,
                   filter: document.getElementById('p-filter').value || 'serums',
-                  price: Number(document.getElementById('p-price').value),
                   id: document.getElementById('p-id-field').value,
                   discount: Number(document.getElementById('p-discount').value),
                   img: imagesArray[0] || img1,
                   images: imagesArray,
                   desc: document.getElementById('p-desc').value,
                   howToUse: document.getElementById('p-how-to-use').value || '',
-                  stock: Number(document.getElementById('p-stock').value),
-                  variants: window.collectVariants()
+                  variants: (function() {
+                      const v = window.collectVariants();
+                      console.log('📦 Submitting variants:', v);
+                      return v;
+                  })(),
+                  price: (function() {
+                      const p = Number(document.getElementById('p-price').value) || 0;
+                      const vars = window.collectVariants();
+                      if (p === 0 && vars && vars.length > 0 && vars[0].price) return Number(vars[0].price);
+                      return p;
+                  })(),
+                  stock: (function() {
+                      const s = Number(document.getElementById('p-stock').value) || 0;
+                      const vars = window.collectVariants();
+                      if (s === 0 && vars && vars.length > 0) {
+                          const totalVarStock = vars.reduce((acc, v) => acc + (Number(v.stock) || 0), 0);
+                          if (totalVarStock > 0) return totalVarStock;
+                      }
+                      return s;
+                  })()
                 };
 
                 try {
