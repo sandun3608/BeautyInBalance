@@ -1610,12 +1610,15 @@
             }
         }
 
-        async function fetchAdminBrands() {
+        window.fetchAdminBrands = async function fetchAdminBrands() {
             try {
                 const token = localStorage.getItem('userToken');
-                const res = await fetch((window.BASE_URL || '') + '/brands/all', {
+                let res = await fetch((window.BASE_URL || '') + '/brands/all', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
+                if (!res.ok) {
+                    res = await fetch((window.BASE_URL || '') + '/brands');
+                }
                 if (!res.ok) throw new Error('Failed to fetch brands');
                 const brands = await res.json();
                 
@@ -2377,6 +2380,7 @@
         'orders': 'Live Orders', 
         'analytics': 'Business Intelligence', 
         'support': 'Customer Support',
+        'brands': 'Brand Logos',
         'settings': 'Admin Settings'
       };
       if (document.getElementById('view-title')) {
@@ -2418,6 +2422,7 @@
       if (tabId === 'inventory') renderInventory();
       if (tabId === 'support') fetchInquiries();
       if (tabId === 'subscribers') fetchSubscribers();
+      if (tabId === 'brands' && typeof window.fetchAdminBrands === 'function') window.fetchAdminBrands();
       if (tabId === 'settings' && typeof fetchAdminSlides === 'function') fetchAdminSlides();
     };
 
@@ -4055,6 +4060,7 @@
       window.switchTab = function(tabName, el) {
         origSwitchTab(tabName, el);
         if (tabName === 'settings') loadShippingFee();
+        if (tabName === 'brands' && typeof window.fetchAdminBrands === 'function') window.fetchAdminBrands();
       };
     </script>
 
@@ -4523,6 +4529,9 @@
       setTimeout(() => {
         if (typeof loadOfferMaintainingTab === 'function') {
           loadOfferMaintainingTab();
+        }
+        if (typeof window.fetchAdminBrands === 'function') {
+          window.fetchAdminBrands();
         }
       }, 500);
       setTimeout(() => {
