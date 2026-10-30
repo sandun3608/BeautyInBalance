@@ -966,6 +966,77 @@
       }});
     }
 
+
+    // ═══════════════════════════════════════════════════════════════
+    // 💎 INTERACTIVE VARIATION SELECTION (LIVE PRICE & KOKO UPDATE)
+    // ═══════════════════════════════════════════════════════════════
+    window.currentProductObj = null;
+    window.selectedVariantObj = null;
+
+    window.selectProductVariant = function(index) {
+      if (!window.currentProductObj || !window.currentProductObj.variants) return;
+      const v = window.currentProductObj.variants[index];
+      if (!v) return;
+      window.selectedVariantObj = v;
+
+      // Update active styling on pills
+      document.querySelectorAll('.var-pill-btn').forEach((btn, idx) => {
+        if (idx === index) {
+          btn.style.background = '#2D1B12';
+          btn.style.color = '#ffffff';
+          btn.style.borderColor = '#2D1B12';
+        } else {
+          btn.style.background = '#ffffff';
+          btn.style.color = '#2D1B12';
+          btn.style.borderColor = '#e2e2e5';
+        }
+      });
+
+      // Update variant label
+      const label = document.getElementById('selected-variant-label');
+      if (label) label.textContent = v.name;
+
+      // Calculate price with product discount
+      const prod = window.currentProductObj;
+      const effectiveDiscount = (typeof getEffectiveProductDiscount === 'function')
+        ? getEffectiveProductDiscount(prod)
+        : Number(prod.discount || 0);
+
+      const basePrice = Number(v.price || prod.price || 0);
+      const discountedPrice = effectiveDiscount > 0 ? Math.round(basePrice * (1 - effectiveDiscount / 100)) : basePrice;
+
+      // Update live price display
+      const curPriceEl = document.getElementById('p-current-price');
+      const origPriceEl = document.getElementById('p-orig-price');
+      const saveBadgeEl = document.getElementById('p-save-badge');
+      if (curPriceEl) curPriceEl.textContent = 'Rs. ' + discountedPrice.toLocaleString();
+      if (origPriceEl) {
+        origPriceEl.textContent = 'Rs. ' + basePrice.toLocaleString();
+        origPriceEl.style.display = effectiveDiscount > 0 ? 'inline' : 'none';
+      }
+      if (saveBadgeEl) {
+        saveBadgeEl.style.display = effectiveDiscount > 0 ? 'inline' : 'none';
+      }
+
+      // Update Koko 3x installment
+      const kokoAmtEl = document.getElementById('koko-installment-amt');
+      if (kokoAmtEl) {
+        kokoAmtEl.textContent = (basePrice / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    };
+
+    window.executeAddToCart = function() {
+      if (!window.currentProductObj) return;
+      const qty = parseInt(document.getElementById('p-qty')?.value || 1);
+      addToCart(window.currentProductObj.id, qty, true, window.selectedVariantObj);
+    };
+
+    window.executeBuyItNow = function() {
+      if (!window.currentProductObj) return;
+      const qty = parseInt(document.getElementById('p-qty')?.value || 1);
+      buyItNow(window.currentProductObj.id, qty, window.selectedVariantObj);
+    };
+
     function renderProduct(data) {
       if (!data || !data.length) return;
       const targetId = String(prodId || '').trim();
@@ -988,6 +1059,8 @@
       }
 
       document.title = product.name + " | Beauty in Balance";
+      window.currentProductObj = product;
+      window.selectedVariantObj = (product.variants && product.variants.length > 0) ? product.variants[0] : null;
 
       let discount = Number(product.discount || 0);
       let isFlashSaleOffer = false;
@@ -1064,24 +1137,46 @@
               <span class="brand-tag" style="display:block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #88888b; font-weight: 600; margin-bottom: 8px;">${product.cat.replace(/-/g, ' ')}</span>
               <h1 class="p-name" style="font-family: var(--font-sans); font-size: 28px; color: #2D1B12; line-height: 1.25; font-weight: 700; margin: 0 0 12px 0;">${product.name}</h1>
               
-              <!-- Price Tag Row -->
-              <div style="display: flex; align-items: baseline; gap: 10px; font-family: var(--font-sans); margin-top: 12px; flex-wrap: wrap;">
-                <span style="font-size: 24px; font-weight: 700; color: #2D1B12;">Rs. ${discountedPrice.toLocaleString()}</span>
-                ${discount > 0 ? `
-                  <span style="font-size: 15px; color: #88888b; text-decoration: line-through; font-weight: 400;">Rs. ${basePrice.toLocaleString()}</span>
-                  <span style="background: rgba(13, 122, 47, 0.08); color: #0d7a2f; border: 1px solid rgba(13, 122, 47, 0.18); font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;">Save ${discount}%</span>
-                ` : ''}
+              <!-- Dynamic Price Tag Row -->
+              <div id="p-price-row" style="display: flex; align-items: baseline; gap: 10px; font-family: var(--font-sans); margin-top: 12px; flex-wrap: wrap;">
+                <span id="p-current-price" style="font-size: 24px; font-weight: 700; color: #2D1B12;">Rs. ${discountedPrice.toLocaleString()}</span>
+                <span id="p-orig-price" style="${discount > 0 ? '' : 'display:none;'} font-size: 15px; color: #88888b; text-decoration: line-through; font-weight: 400;">Rs. ${basePrice.toLocaleString()}</span>
+                <span id="p-save-badge" style="${discount > 0 ? '' : 'display:none;'} background: rgba(13, 122, 47, 0.08); color: #0d7a2f; border: 1px solid rgba(13, 122, 47, 0.18); font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;">Save ${discount}%</span>
               </div>
 
-              <!-- Koko installment block -->
+              <!-- Koko installment block with dynamic calculation -->
               <div class="koko-installment">
                 <span class="koko-or">or</span>
-                <span class="koko-pay-text">pay in 3 x Rs. <strong>${(basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong> with</span>
+                <span class="koko-pay-text">pay in 3 x Rs. <strong id="koko-installment-amt">${(basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong> with</span>
                 <span class="koko-logo-wrapper">
                   <img src="koko-logo.png" alt="Koko" class="koko-logo-img">
                   <svg onclick="window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                 </span>
               </div>
+
+              <!-- PRODUCT VARIATION SELECTION (Sizes / ml / Tablets / Colours / gm) -->
+              ${(product.variants && Array.isArray(product.variants) && product.variants.length > 0) ? `
+              <div class="variant-selection-container" style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #f0f0f0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span style="font-size: 13px; font-weight: 700; color: #2D1B12; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Select ${product.variants[0].type ? product.variants[0].type.toUpperCase() : 'OPTION'}:
+                  </span>
+                  <span id="selected-variant-label" style="font-size: 12px; font-weight: 700; color: #6C38A5;">${product.variants[0].name}</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                  ${product.variants.map((v, idx) => `
+                    <button type="button" 
+                      class="var-pill-btn ${idx === 0 ? 'active' : ''}" 
+                      data-idx="${idx}"
+                      onclick="window.selectProductVariant(${idx})"
+                      style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid ${idx === 0 ? '#2D1B12' : '#e2e2e5'}; background: ${idx === 0 ? '#2D1B12' : '#ffffff'}; color: ${idx === 0 ? '#ffffff' : '#2D1B12'};">
+                      ${v.name}
+                      ${(v.price && v.price !== product.price) ? `<span style="font-size: 11px; opacity: 0.85; margin-left: 4px;">- Rs. ${Number(v.price).toLocaleString()}</span>` : ''}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+              ` : ''}
             </div>
 
             <!-- Description Block -->
@@ -1122,11 +1217,11 @@
 
               <!-- Sleek Rounded Buttons vertically stacked -->
               <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-                 <button ${isOutOfStock ? 'disabled' : `onclick="buyItNow('${product.id}', document.getElementById('p-qty').value)" onmouseover="this.style.background='#2D1B12'" onmouseout="this.style.background='#C6975A'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: ${isOutOfStock ? '#e0e0e0' : '#C6975A'}; border: none; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#fff'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
+                 <button ${isOutOfStock ? 'disabled' : `onclick="window.executeBuyItNow()" onmouseover="this.style.background='#2D1B12'" onmouseout="this.style.background='#C6975A'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: ${isOutOfStock ? '#e0e0e0' : '#C6975A'}; border: none; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#fff'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
                    Buy It Now
                  </button>
-                 <button ${isOutOfStock ? 'disabled' : `onclick="addToCart('${product.id}', document.getElementById('p-qty').value)" onmouseover="this.style.background='rgba(45,27,18,0.03)'" onmouseout="this.style.background='#fff'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: #fff; border: 1.5px solid ${isOutOfStock ? '#e0e0e0' : '#2D1B12'}; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#2D1B12'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
+                 <button ${isOutOfStock ? 'disabled' : `onclick="window.executeAddToCart()" onmouseover="this.style.background='rgba(45,27,18,0.03)'" onmouseout="this.style.background='#fff'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: #fff; border: 1.5px solid ${isOutOfStock ? '#e0e0e0' : '#2D1B12'}; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#2D1B12'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                    Add to Bag
                  </button>

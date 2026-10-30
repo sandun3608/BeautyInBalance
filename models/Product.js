@@ -13,7 +13,13 @@ const productSchema = new mongoose.Schema({
     howToUse: { type: String, required: false },
     authenticity: { type: String, required: false },
     id: { type: String, required: false, unique: true },
-    discount: { type: Number, default: 0 } // Percentage discount
+    discount: { type: Number, default: 0 }, // Percentage discount
+    variants: [{
+        name: { type: String, required: false },
+        type: { type: String, default: 'ml' }, // ml, tablets, size, colours, gm, shade
+        price: { type: Number, default: 0 },
+        stock: { type: Number, default: 0 }
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

@@ -161,6 +161,13 @@ router.post('/', protect, async (req, res) => {
         const exists = await Product.findOne({ id: customId });
         if (exists) customId += '-' + Math.floor(Math.random() * 1000);
 
+        const variantsData = Array.isArray(req.body.variants) ? req.body.variants.map(v => ({
+            name: String(v.name || '').trim(),
+            type: String(v.type || 'ml').trim(),
+            price: Number(v.price) || 0,
+            stock: Number(v.stock) || 0
+        })).filter(v => v.name) : [];
+
         const newP = new Product({
             name: req.body.name,
             cat: req.body.cat || 'others',
@@ -174,7 +181,8 @@ router.post('/', protect, async (req, res) => {
             howToUse: req.body.howToUse || '',
             authenticity: req.body.authenticity || 'Genuine Import',
             id: customId,
-            discount: Number(req.body.discount) || 0
+            discount: Number(req.body.discount) || 0,
+            variants: variantsData
         });
 
         const saved = await newP.save();
@@ -198,6 +206,14 @@ router.put('/:id', protect, async (req, res) => {
     if (updateData.price !== undefined) updateData.price = Number(updateData.price);
     if (updateData.stock !== undefined) updateData.stock = Number(updateData.stock);
     if (updateData.discount !== undefined) updateData.discount = Number(updateData.discount);
+    if (updateData.variants !== undefined && Array.isArray(updateData.variants)) {
+        updateData.variants = updateData.variants.map(v => ({
+            name: String(v.name || '').trim(),
+            type: String(v.type || 'ml').trim(),
+            price: Number(v.price) || 0,
+            stock: Number(v.stock) || 0
+        })).filter(v => v.name);
+    }
 
     // Keep in-memory extracted_products fallback updated
     try {

@@ -1817,7 +1817,7 @@ function saveCart() {
     renderCart();
 }
 
-function addToCart(prodId, qty = 1, openDrawer = true) {
+function addToCart(prodId, qty = 1, openDrawer = true, selectedVariant = null) {
     const product = window.productsData.find(p => p.id === prodId || p.name === prodId);
     if (!product) {
        console.error("Product not found to add:", prodId);
@@ -1825,17 +1825,27 @@ function addToCart(prodId, qty = 1, openDrawer = true) {
     }
     
     const qtyInt = parseInt(qty);
-    const existing = shoppingCart.find(item => item.id === product.id);
-    
+    // If variant is selected, create composite cart id so different variants are separate items
+    const cartItemId = selectedVariant ? `${product.id}__var__${selectedVariant.name.replace(/\s+/g, '_')}` : product.id;
+    const itemPrice = (selectedVariant && selectedVariant.price) ? Number(selectedVariant.price) : Number(product.price);
+    const itemName = selectedVariant ? `${product.name} (${selectedVariant.name})` : product.name;
+
+    const existing = shoppingCart.find(item => item.id === cartItemId);
     const effectiveDiscount = getEffectiveProductDiscount(product);
+
     if (existing) {
         existing.qty += qtyInt;
         existing.discount = effectiveDiscount;
+        existing.price = itemPrice;
+        if (selectedVariant) existing.variant = selectedVariant;
     } else {
         shoppingCart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
+            id: cartItemId,
+            productId: product.id,
+            name: itemName,
+            baseName: product.name,
+            variant: selectedVariant || null,
+            price: itemPrice,
             discount: effectiveDiscount,
             img: product.img,
             qty: qtyInt
@@ -1858,8 +1868,8 @@ function addToCart(prodId, qty = 1, openDrawer = true) {
     }
 }
 
-function buyItNow(prodId, qty = 1) {
-    addToCart(prodId, qty, false);
+function buyItNow(prodId, qty = 1, selectedVariant = null) {
+    addToCart(prodId, qty, false, selectedVariant);
     window.location.href = 'checkout.html';
 }
 
@@ -1896,7 +1906,8 @@ function renderCart() {
     try {
         // Refresh items with current effective discount (in case sale changed or item was added elsewhere)
         shoppingCart.forEach(item => {
-            item.discount = getEffectiveProductDiscount(item);
+            const prod = window.productsData ? window.productsData.find(p => p.id === (item.productId || item.id) || p.name === (item.baseName || item.name)) : null;
+            item.discount = prod ? getEffectiveProductDiscount(prod) : getEffectiveProductDiscount(item);
         });
     } catch(e) {}
     // Update all cart badges across the nav bar

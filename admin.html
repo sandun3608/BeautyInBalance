@@ -3422,6 +3422,7 @@
 
       editingId = prodId;
       if (addProductForm) addProductForm.reset();
+      window.populateVariants([]);
       
       // Reset all 4 previews
       [1,2,3,4].forEach(n => {
@@ -3473,6 +3474,8 @@
             const el = document.getElementById(fid);
             if (el) el.value = fields[fid] || (fid.includes('price') || fid.includes('stock') ? 0 : '');
           }
+          // Populate product variants if present
+          window.populateVariants(prod.variants || []);
 
           // Previews
           [1,2,3,4].forEach(n => {
@@ -3535,7 +3538,8 @@
                   images: imagesArray,
                   desc: document.getElementById('p-desc').value,
                   howToUse: document.getElementById('p-how-to-use').value || '',
-                  stock: Number(document.getElementById('p-stock').value)
+                  stock: Number(document.getElementById('p-stock').value),
+                  variants: window.collectVariants()
                 };
 
                 try {
@@ -5277,6 +5281,25 @@
                             </div>
                         </div>
                     </div>
+                    <!-- PRODUCT VARIATIONS (Size, ML, Tablets, Colours, GM) -->
+                    <div class="form-group" style="grid-column: span 2; background: #F8F7FB; border: 1.5px dashed #6C38A5; border-radius: 14px; padding: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <div>
+                                <label style="font-size: 13px; font-weight: 800; color: #1E1B29; display: flex; align-items: center; gap: 6px;">
+                                    <span>✨ Product Variations</span>
+                                    <span style="font-size: 10px; font-weight: 600; color: #6C38A5; background: #ede7f6; padding: 2px 8px; border-radius: 12px;">Optional (30ml, 60ml, 30 Tablets, etc.)</span>
+                                </label>
+                                <p style="font-size: 11px; color: #7E7890; margin: 3px 0 0 0;">Add sizes, tablet counts, colors, ml, or grams with individual prices & stocks.</p>
+                            </div>
+                            <button type="button" onclick="window.addVariantRow()" class="admin-btn" style="padding: 6px 14px; font-size: 11px; background: #6C38A5 !important;">+ Add Variation</button>
+                        </div>
+
+                        <!-- Variant rows container -->
+                        <div id="p-variants-container" style="display: flex; flex-direction: column; gap: 10px;">
+                            <!-- Dynamic rows injected by JS -->
+                        </div>
+                    </div>
+
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Unique ID</label><input type="text" id="p-id-field" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Philosophy / Description</label><textarea id="p-desc" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
                     <div class="form-group" style="grid-column: span 2;"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">How to Use (Step-by-step)</label><textarea id="p-how-to-use" style="width:100%;height:100px;padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></textarea></div>
