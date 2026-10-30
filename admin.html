@@ -3733,6 +3733,9 @@
         if (typeof renderGenrubsDashboardComponents === 'function') {
             try { renderGenrubsDashboardComponents(); } catch(e) {}
         }
+        if (typeof window._onOrdersLoaded === 'function') {
+            try { window._onOrdersLoaded(); } catch(e) {}
+        }
 
         ordersTable.innerHTML = '';
         orders.forEach(order => {
