@@ -20,9 +20,9 @@
   --brown: #2D1B12;
   --brown-dark: #1C100A;
   --brown-mid: #3E2619;
-  --beige: #F5EEE4;
-  --beige-light: #FAF6F0;
-  --cream: #F9F4ED;
+  --beige: #FFFFFF;
+  --beige-light: #FFFFFF;
+  --cream: #FFFFFF;
   --white: #FFFFFF;
   --text: #1A1311;
   --muted: #7A6459;
@@ -526,7 +526,7 @@ img {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #fdfaf7;
+  background: #FFFFFF;
 }
 
 .hero-media {
@@ -1051,7 +1051,7 @@ img {
   z-index: 60;
   border-bottom: 1px solid var(--border);
   padding: 0 !important;
-  background: #F9F4ED;
+  background: #FFFFFF;
   /* Warm beige matching the reference */
 }
 
@@ -1098,7 +1098,7 @@ img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: #EFE6D9;
+  background: #F4F4F6;
   /* Matching the circle color in reference */
   overflow: hidden;
   flex-shrink: 0;
@@ -1733,7 +1733,7 @@ background: #0a0a0a;
   max-width: 1400px;
   margin: 0 auto;
   overflow: hidden;
-  background: #fdfaf7;
+  background: #FFFFFF;
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
@@ -4339,7 +4339,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: #fdfaf7;
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5132,7 +5132,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .sc-prod-card {
   position: relative;
   overflow: hidden;
-  background: #FAF6F0;
+  background: #FFFFFF;
   border: 1px solid #E5E0DA;
   border-radius: 16px;
   padding: 25px 20px;
@@ -5508,7 +5508,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 .fb-card {
-  background: #fdfaf7;
+  background: #FFFFFF;
   /* Matching site beige/tan vibe */
   border-radius: 30px;
   padding: 40px;
@@ -6821,7 +6821,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 /* ===== DYNAMIC CENTER HIGHLIGHT (SCREENSHOT REPLICATE) ===== */
 .dynamic-center-highlight {
-  background: #fdfaf7;
+  background: #FFFFFF;
   padding: 120px 0;
   overflow: hidden;
 }
@@ -9021,7 +9021,7 @@ body:not(.drawer-open) .floating-fb {
 .ls-img-wrap {
   width: 100%;
   aspect-ratio: 1;
-  background: #fdfaf7;
+  background: #FFFFFF;
   padding: 20px;
   position: relative;
 }
