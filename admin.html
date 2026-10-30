@@ -1381,8 +1381,8 @@
                 </div>
             </div>
 
-            <!-- 📅 ROW 2: INTERACTIVE CALENDAR & DATE-SPECIFIC SALES DRILL-DOWN + STOCK STATS -->
-            <div class="genrubs-bottom-grid">
+            <!-- 📅 ROW 2: INTERACTIVE CALENDAR & DATE-SPECIFIC SALES DRILL-DOWN -->
+            <div class="genrubs-bottom-grid" style="grid-template-columns: 1fr; margin-bottom: 25px;">
                 <!-- Interactive Calendar Date Filter & Selected Day Performance -->
                 <div class="genrubs-card">
                     <div class="genrubs-card-head">
@@ -1395,12 +1395,12 @@
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
                         <!-- Interactive Calendar Month View -->
                         <div class="genrubs-calendar">
                             <div class="cal-header">
                                 <button class="cal-btn" onclick="changeCalendarMonth(-1)">&lt;</button>
-                                <span id="cal-month-title" style="font-size: 13px; font-weight: 800; color: #1E1B29;">October 2026</span>
+                                <span id="cal-month-title" style="font-size: 14px; font-weight: 800; color: #1E1B29;">October 2026</span>
                                 <button class="cal-btn" onclick="changeCalendarMonth(1)">&gt;</button>
                             </div>
                             <div class="cal-grid" id="cal-grid">
@@ -1409,59 +1409,67 @@
                         </div>
 
                         <!-- Selected Date Stats Box -->
-                        <div style="background: #F4F1F9; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="background: #F4F1F9; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between;">
                             <div>
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                                     <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #7E7890;">Selected Date</span>
                                     <span id="selected-date-badge" class="genrubs-badge badge-purple">Today</span>
                                 </div>
-                                <h4 id="selected-date-title" style="font-size: 16px; font-weight: 800; color: #1E1B29; margin: 0 0 15px 0;">30 Oct 2026</h4>
+                                <h4 id="selected-date-title" style="font-size: 18px; font-weight: 800; color: #1E1B29; margin: 0 0 15px 0;">30 Oct 2026</h4>
 
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
-                                    <div style="background: #fff; border-radius: 14px; padding: 12px;">
-                                        <div style="font-size: 10px; color: #7E7890; font-weight: 600;">Day Revenue</div>
-                                        <div id="cal-day-revenue" style="font-size: 17px; font-weight: 800; color: #2D143D; margin-top: 4px;">Rs. 0</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 15px;">
+                                    <div style="background: #fff; border-radius: 14px; padding: 14px;">
+                                        <div style="font-size: 11px; color: #7E7890; font-weight: 600;">Day Revenue</div>
+                                        <div id="cal-day-revenue" style="font-size: 18px; font-weight: 800; color: #2D143D; margin-top: 4px;">Rs. 0</div>
                                     </div>
-                                    <div style="background: #fff; border-radius: 14px; padding: 12px;">
-                                        <div style="font-size: 10px; color: #7E7890; font-weight: 600;">Day Orders</div>
-                                        <div id="cal-day-orders" style="font-size: 17px; font-weight: 800; color: #10B981; margin-top: 4px;">0</div>
+                                    <div style="background: #fff; border-radius: 14px; padding: 14px;">
+                                        <div style="font-size: 11px; color: #7E7890; font-weight: 600;">Day Orders</div>
+                                        <div id="cal-day-orders" style="font-size: 18px; font-weight: 800; color: #10B981; margin-top: 4px;">0</div>
                                     </div>
                                 </div>
 
                                 <div style="font-size: 11px; font-weight: 700; color: #1E1B29; margin-bottom: 8px;">Orders on this date:</div>
-                                <div id="cal-day-orders-list" style="max-height: 120px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
+                                <div id="cal-day-orders-list" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
                                     <div style="font-size: 11px; color: #7E7890; text-align: center; padding: 15px 0;">Select a date to view orders</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Brand / Category Stock Distribution -->
+            <!-- 🇱🇰 ROW 3: SRI LANKA DISTRICT ORDERS & BRAND/CATEGORY STOCK DISTRIBUTION -->
+            <div class="genrubs-bottom-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 25px;">
+                <!-- Sri Lanka District Sales Breakdown -->
                 <div class="genrubs-card">
                     <div class="genrubs-card-head">
                         <div>
-                            <h3 class="genrubs-card-title">Brand Distribution</h3>
-                            <div style="font-size: 12px; color: var(--admin-muted); margin-top: 2px;">Inventory share in store</div>
+                            <h3 class="genrubs-card-title">Sri Lanka District Orders</h3>
+                            <div style="font-size: 12px; color: var(--admin-muted); margin-top: 2px;">Orders volume & demand distribution across Sri Lanka</div>
                         </div>
-                        <div id="donut-center-text" style="font-size: 13px; font-weight: 800; color: #2D143D;">100%</div>
+                        <div id="total-district-orders" style="font-size: 12px; font-weight: 800; color: #6C38A5; background: rgba(108,56,165,0.1); padding: 4px 10px; border-radius: 12px;">Live Data</div>
                     </div>
-                    <div style="position: relative; height: 180px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <!-- Scrollable list of Sri Lanka districts with fill progress bars -->
+                    <div id="district-orders-container" style="max-height: 380px; overflow-y: auto; padding-right: 8px; display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Injected dynamically with live DB orders -->
+                    </div>
+                </div>
+
+                <!-- Complete Brand & Category Inventory Distribution -->
+                <div class="genrubs-card">
+                    <div class="genrubs-card-head">
+                        <div>
+                            <h3 class="genrubs-card-title">Brand & Category Distribution</h3>
+                            <div style="font-size: 12px; color: var(--admin-muted); margin-top: 2px;">Complete stock share of all brands & categories</div>
+                        </div>
+                        <div id="donut-center-text" style="font-size: 13px; font-weight: 800; color: #2D143D;">All Categories</div>
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                         <canvas id="brandDoughnutCanvas"></canvas>
                     </div>
-                    <div class="progress-list" style="margin-top: 15px; gap: 10px;">
-                        <div class="prog-item" style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                            <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2D143D;"></span> The Ordinary</span>
-                            <span id="ord-perc">0%</span>
-                        </div>
-                        <div class="prog-item" style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                            <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #6C38A5;"></span> CeraVe</span>
-                            <span id="cer-perc">0%</span>
-                        </div>
-                        <div class="prog-item" style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                            <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #10B981;"></span> Other Brands</span>
-                            <span id="oth-perc">0%</span>
-                        </div>
+                    <!-- Complete Brand & Category Progress List -->
+                    <div id="all-brands-distribution-list" class="progress-list" style="max-height: 180px; overflow-y: auto; padding-right: 6px; gap: 10px;">
+                        <!-- Filled dynamically with ALL product brands and categories -->
                     </div>
                 </div>
             </div>
@@ -4260,30 +4268,122 @@
         });
     }
 
-    // ── 4. BRAND DOUGHNUT CHART ──
+    // ── 4. SRI LANKA DISTRICT ORDERS DISTRIBUTION ──
+    function renderSriLankaDistrictOrders() {
+        const container = document.getElementById('district-orders-container');
+        if (!container) return;
+
+        const allDistricts = [
+            'Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya',
+            'Galle', 'Matara', 'Hambantota', 'Jaffna', 'Kilinochchi', 'Mannar',
+            'Vavuniya', 'Mullaitivu', 'Batticaloa', 'Ampara', 'Trincomalee',
+            'Kurunegala', 'Puttalam', 'Anuradhapura', 'Polonnaruwa', 'Badulla',
+            'Monaragala', 'Ratnapura', 'Kegalle'
+        ];
+
+        const orders = Array.isArray(window.allOrders) ? window.allOrders : [];
+        const districtCounts = {};
+        allDistricts.forEach(d => { districtCounts[d] = 0; });
+
+        let totalOrderCount = 0;
+
+        orders.forEach(order => {
+            if (!order) return;
+            const ci = order.customerInfo || {};
+            let dName = (ci.district || '').trim();
+            let address = (ci.address || '') + ' ' + (ci.city || '');
+
+            // Match district from customerInfo.district or address text
+            let matched = allDistricts.find(d => d.toLowerCase() === dName.toLowerCase());
+            if (!matched && address) {
+                matched = allDistricts.find(d => address.toLowerCase().includes(d.toLowerCase()));
+            }
+
+            if (matched) {
+                districtCounts[matched] = (districtCounts[matched] || 0) + 1;
+                totalOrderCount++;
+            }
+        });
+
+        const totalBadge = document.getElementById('total-district-orders');
+        if (totalBadge) totalBadge.innerText = `${totalOrderCount} Orders Analyzed`;
+
+        // Sort districts: highest order count first
+        const sortedDistricts = allDistricts.map(d => ({
+            name: d,
+            count: districtCounts[d] || 0
+        })).sort((a, b) => b.count - a.count);
+
+        // Highest count for percentage bar scaling
+        const maxOrders = Math.max(...sortedDistricts.map(d => d.count), 1);
+
+        container.innerHTML = sortedDistricts.map((item, idx) => {
+            const fillPct = Math.round((item.count / maxOrders) * 100);
+            const sharePct = totalOrderCount > 0 ? Math.round((item.count / totalOrderCount) * 100) : 0;
+            
+            // Modern distinct color palette for high volume districts
+            let barGradient = 'linear-gradient(90deg, #6C38A5 0%, #8B5CF6 100%)';
+            if (idx === 0) barGradient = 'linear-gradient(90deg, #2B163B 0%, #4B1A66 100%)';
+            else if (idx === 1) barGradient = 'linear-gradient(90deg, #EC4899 0%, #F472B6 100%)';
+            else if (idx === 2) barGradient = 'linear-gradient(90deg, #10B981 0%, #34D399 100%)';
+
+            return `
+                <div style="background: #ffffff; border: 1px solid rgba(0,0,0,0.05); border-radius: 14px; padding: 12px 14px; transition: 0.2s;" onmouseover="this.style.background='#F4F1F9'" onmouseout="this.style.background='#ffffff'">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 13px; font-weight: 700; color: #1E1B29; display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 6px; height: 6px; border-radius: 50%; background: ${idx < 3 ? '#2B163B' : '#7E7890'};"></span>
+                            ${item.name}
+                        </span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 11px; font-weight: 800; color: #2B163B;">${item.count} orders</span>
+                            <span style="font-size: 10px; font-weight: 700; color: #7E7890; background: #F1EFF5; padding: 2px 6px; border-radius: 8px;">${sharePct}%</span>
+                        </div>
+                    </div>
+                    <div style="height: 7px; background: #EAEBF2; border-radius: 10px; overflow: hidden; width: 100%;">
+                        <div style="height: 100%; width: ${Math.max(fillPct, item.count > 0 ? 6 : 0)}%; background: ${barGradient}; border-radius: 10px; transition: width 0.8s ease-out;"></div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ── 5. COMPLETE BRAND & CATEGORY DISTRIBUTION CHART ──
     function renderBrandDoughnut() {
         const canvas = document.getElementById('brandDoughnutCanvas');
         if (!canvas || typeof Chart === 'undefined') return;
 
         const prods = window.productsData || [];
-        let ordCount = 0, cerCount = 0, othCount = 0;
+        const brandCounts = {};
+        let totalItems = 0;
 
         prods.forEach(p => {
-            const c = (p.cat || '').toLowerCase();
-            if (c.includes('ordinary')) ordCount++;
-            else if (c.includes('cerave')) cerCount++;
-            else othCount++;
+            let cat = (p.cat || 'others').trim();
+            if (cat.toLowerCase() === 'ordinary') cat = 'The Ordinary';
+            else if (cat.toLowerCase() === 'cerave') cat = 'CeraVe';
+            else cat = cat.charAt(0).toUpperCase() + cat.slice(1);
+
+            brandCounts[cat] = (brandCounts[cat] || 0) + 1;
+            totalItems++;
         });
 
-        const total = ordCount + cerCount + othCount || 1;
-        const ordPct = Math.round((ordCount / total) * 100);
-        const cerPct = Math.round((cerCount / total) * 100);
-        const othPct = 100 - ordPct - cerPct;
+        // Sort all brands descending
+        const sortedBrands = Object.keys(brandCounts).map(name => ({
+            name: name,
+            count: brandCounts[name],
+            pct: totalItems > 0 ? Math.round((brandCounts[name] / totalItems) * 100) : 0
+        })).sort((a, b) => b.count - a.count);
 
-        if (document.getElementById('ord-perc')) document.getElementById('ord-perc').innerText = ordPct + '%';
-        if (document.getElementById('cer-perc')) document.getElementById('cer-perc').innerText = cerPct + '%';
-        if (document.getElementById('oth-perc')) document.getElementById('oth-perc').innerText = othPct + '%';
-        if (document.getElementById('donut-center-text')) document.getElementById('donut-center-text').innerText = total + ' Items';
+        const centerText = document.getElementById('donut-center-text');
+        if (centerText) centerText.innerText = `${totalItems} Total Products`;
+
+        // Modern Luxury Palette for All Categories
+        const palette = [
+            '#2B163B', '#6C38A5', '#8B5CF6', '#10B981', '#EC4899',
+            '#F59E0B', '#3B82F6', '#14B8A6', '#6366F1', '#D97706',
+            '#059669', '#E11D48', '#7C3AED', '#2563EB', '#4B5563'
+        ];
+
+        const chartColors = sortedBrands.map((b, i) => palette[i % palette.length]);
 
         if (brandDoughnutChartInstance) {
             brandDoughnutChartInstance.destroy();
@@ -4292,12 +4392,13 @@
         brandDoughnutChartInstance = new Chart(canvas, {
             type: 'doughnut',
             data: {
-                labels: ['The Ordinary', 'CeraVe', 'Other Brands'],
+                labels: sortedBrands.map(b => b.name),
                 datasets: [{
-                    data: [ordCount || 7, cerCount || 3, othCount || 2],
-                    backgroundColor: ['#2D143D', '#6C38A5', '#10B981'],
+                    data: sortedBrands.map(b => b.count),
+                    backgroundColor: chartColors,
                     borderWidth: 2,
-                    borderColor: '#ffffff'
+                    borderColor: '#ffffff',
+                    hoverOffset: 6
                 }]
             },
             options: {
@@ -4308,12 +4409,38 @@
                     legend: { display: false },
                     tooltip: {
                         backgroundColor: '#1B1528',
-                        padding: 8,
-                        cornerRadius: 6
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(ctx) {
+                                const brand = sortedBrands[ctx.dataIndex];
+                                return `${brand.name}: ${brand.count} items (${brand.pct}%)`;
+                            }
+                        }
                     }
                 }
             }
         });
+
+        // Render Complete Scrollable Brand List with % and item count
+        const listEl = document.getElementById('all-brands-distribution-list');
+        if (listEl) {
+            listEl.innerHTML = sortedBrands.map((b, idx) => {
+                const color = chartColors[idx];
+                return `
+                    <div class="prog-item" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 4px; border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 12px; font-weight: 600;">
+                        <span style="display: flex; align-items: center; gap: 8px; color: #1E1B29;">
+                            <span style="width: 8px; height: 8px; border-radius: 50%; background: ${color}; flex-shrink: 0;"></span>
+                            ${b.name}
+                        </span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #7E7890; font-size: 11px;">(${b.count})</span>
+                            <span style="font-weight: 700; color: #2B163B; min-width: 32px; text-align: right;">${b.pct}%</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
     }
 
     // ── 5. INTERACTIVE CALENDAR WITH SALES & ORDER DRILL-DOWN ──
@@ -4424,6 +4551,7 @@
         try { renderProductSalesTrendChart(); } catch(e) { console.error('Product sales trend error:', e); }
         try { renderPaymentMethodsChart(); } catch(e) { console.error('Payment methods error:', e); }
         try { renderMiniSparkChart(); } catch(e) { console.error('Mini spark error:', e); }
+        try { renderSriLankaDistrictOrders(); } catch(e) { console.error('District orders error:', e); }
         try { renderBrandDoughnut(); } catch(e) { console.error('Brand doughnut error:', e); }
         try { renderInteractiveCalendar(); } catch(e) { console.error('Interactive calendar error:', e); }
     }
