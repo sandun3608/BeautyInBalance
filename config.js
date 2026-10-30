@@ -53,6 +53,9 @@ function submitMobileSearch() {
         if (colors.buttonColor) {
             document.documentElement.style.setProperty('--btn-theme-color', colors.buttonColor);
         }
+        if (colors.buttonHoverColor) {
+            document.documentElement.style.setProperty('--btn-theme-hover', colors.buttonHoverColor);
+        }
         if (colors.badgeColor) {
             document.documentElement.style.setProperty('--badge-theme-color', colors.badgeColor);
         }
@@ -66,7 +69,10 @@ function submitMobileSearch() {
         let css = '';
         if (colors.buttonColor) {
             css += `
-                :root { --btn-theme-color: ${colors.buttonColor} !important; --gold: ${colors.buttonColor} !important; }
+                :root { 
+                    --btn-theme-color: ${colors.buttonColor} !important; 
+                    --gold: ${colors.buttonColor} !important; 
+                }
                 .hap-card .btn-buy-animated,
                 .btn-buy-animated,
                 .look-bundle-btn,
@@ -86,6 +92,14 @@ function submitMobileSearch() {
                     border-color: ${colors.buttonColor} !important;
                     color: #fff !important;
                 }
+            `;
+        }
+        
+        // Hover and Active (Click) states
+        const hoverColor = colors.buttonHoverColor || (colors.buttonColor ? colors.buttonColor : null);
+        if (hoverColor) {
+            css += `
+                :root { --btn-theme-hover: ${hoverColor} !important; }
                 .hap-card .btn-buy-animated:hover,
                 .btn-buy-animated:hover,
                 .lux-add-btn:hover,
@@ -93,12 +107,29 @@ function submitMobileSearch() {
                 .look-bundle-btn:hover,
                 .btn-place-order:hover,
                 .btn-pay-now:hover,
-                #btn-master-submit:hover {
-                    opacity: 0.88 !important;
-                    filter: brightness(0.92) !important;
+                #btn-master-submit:hover,
+                .product-add-to-cart:hover,
+                .buy-now-btn:hover,
+                .hi-buy-btn:hover,
+                .fp-buy-it-now-btn:hover,
+                .btn-checkout:hover,
+                .btn-hero-light:hover,
+                .hap-card .btn-buy-animated:active,
+                .btn-buy-animated:active,
+                .lux-add-btn:active,
+                .rec-add-btn:active,
+                .look-bundle-btn:active,
+                .btn-place-order:active,
+                .btn-pay-now:active,
+                #btn-master-submit:active {
+                    background: ${hoverColor} !important;
+                    border-color: ${hoverColor} !important;
+                    color: #fff !important;
+                    opacity: 1 !important;
                 }
             `;
         }
+
         if (colors.badgeColor) {
             css += `
                 :root { --badge-theme-color: ${colors.badgeColor} !important; }
@@ -129,13 +160,15 @@ function submitMobileSearch() {
 
     Promise.all([
         fetch(BASE + '/settings/buttonColor?cb=' + Date.now()).then(r => r.json()).catch(() => null),
+        fetch(BASE + '/settings/buttonHoverColor?cb=' + Date.now()).then(r => r.json()).catch(() => null),
         fetch(BASE + '/settings/badgeColor?cb=' + Date.now()).then(r => r.json()).catch(() => null)
-    ]).then(([d1, d2]) => {
+    ]).then(([d1, d2, d3]) => {
         const colors = {
             buttonColor: (d1 && d1.value) ? d1.value : null,
-            badgeColor: (d2 && d2.value) ? d2.value : null
+            buttonHoverColor: (d2 && d2.value) ? d2.value : null,
+            badgeColor: (d3 && d3.value) ? d3.value : null
         };
-        if (colors.buttonColor || colors.badgeColor) {
+        if (colors.buttonColor || colors.buttonHoverColor || colors.badgeColor) {
             try { localStorage.setItem('bib_theme_colors', JSON.stringify(colors)); } catch(e) {}
             applyBibThemeColors(colors);
         }

@@ -3209,6 +3209,24 @@
                     </div>
                 </div>
 
+                <!-- Button Hover / Click Color -->
+                <div style="margin-bottom: 28px;">
+                    <label style="display: block; font-weight: 700; font-size: 14px; color: #444; margin-bottom: 10px;">✨ Button Hover &amp; Click Color (Mouse Pointer Hover)</label>
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <div style="position: relative; width: 60px; height: 60px; border-radius: 14px; overflow: hidden; border: 2px solid #e0e0e0; cursor: pointer;">
+                            <input type="color" id="btn-hover-color-picker" value="#a87c48"
+                                style="position: absolute; top: -10px; left: -10px; width: 80px; height: 80px; border: none; cursor: pointer; padding: 0;"
+                                oninput="updateBtnHoverPreview(this.value)">
+                        </div>
+                        <div style="flex:1; min-width: 200px;">
+                            <div id="btn-hover-preview" style="padding: 13px 24px; border-radius: 12px; background: #a87c48; color: #fff; font-weight: 700; font-size: 14px; text-align: center; display: inline-block; min-width: 160px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🖱️ Hover State</div>
+                        </div>
+                        <input type="text" id="btn-hover-hex" value="#a87c48" maxlength="7" placeholder="#a87c48"
+                            style="width: 110px; padding: 13px; border: 1px solid #eee; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center;"
+                            oninput="syncColorPicker('btn-hover-color-picker','btn-hover-hex'); updateBtnHoverPreview(this.value)">
+                    </div>
+                </div>
+
                 <!-- Badge Color -->
                 <div style="margin-bottom: 28px;">
                     <label style="display: block; font-weight: 700; font-size: 14px; color: #444; margin-bottom: 10px;">🏷️ Discount Badge Color</label>
@@ -5646,6 +5664,12 @@
 
       
       // ===== THEME COLOR SETTINGS =====
+            window.updateBtnHoverPreview = function(color) {
+          const preview = document.getElementById('btn-hover-preview');
+          const hex = document.getElementById('btn-hover-hex');
+          if (preview) preview.style.background = color;
+          if (hex && hex !== document.activeElement) hex.value = color;
+      };
       window.updateBtnPreview = function(color) {
           const preview = document.getElementById('btn-color-preview');
           const hex = document.getElementById('btn-color-hex');
@@ -5673,6 +5697,7 @@
       };
       window.saveThemeColors = async function(btn) {
           const buttonColor = document.getElementById('btn-color-picker').value;
+          const buttonHoverColor = document.getElementById('btn-hover-color-picker').value;
           const badgeColor = document.getElementById('badge-color-picker').value;
           const msg = document.getElementById('theme-color-msg');
           const origText = btn.textContent;
@@ -5682,11 +5707,12 @@
               const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
               const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
               const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
-              const [r1, r2] = await Promise.all([
+              const [r1, r2, r3] = await Promise.all([
                   fetch(`${BASE}/settings/buttonColor`, { method: 'PUT', headers, body: JSON.stringify({ value: buttonColor }) }),
+                  fetch(`${BASE}/settings/buttonHoverColor`, { method: 'PUT', headers, body: JSON.stringify({ value: buttonHoverColor }) }),
                   fetch(`${BASE}/settings/badgeColor`,  { method: 'PUT', headers, body: JSON.stringify({ value: badgeColor }) })
               ]);
-              if (!r1.ok || !r2.ok) throw new Error('Save failed');
+              if (!r1.ok || !r2.ok || !r3.ok) throw new Error('Save failed');
               msg.style.display = 'block';
               msg.style.color = '#2e7d32';
               msg.innerHTML = '✅ Theme colors saved successfully! Live website will reflect changes.';
@@ -5702,12 +5728,14 @@
       window.loadThemeColors = async function() {
           try {
               const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
-              const [r1, r2] = await Promise.all([
+              const [r1, r2, r3] = await Promise.all([
                   fetch(`${BASE}/settings/buttonColor?cb=${Date.now()}`),
+                  fetch(`${BASE}/settings/buttonHoverColor?cb=${Date.now()}`),
                   fetch(`${BASE}/settings/badgeColor?cb=${Date.now()}`)
               ]);
               const d1 = await r1.json();
               const d2 = await r2.json();
+              const d3 = await r3.json();
               if (d1 && d1.value) {
                   const p = document.getElementById('btn-color-picker');
                   const h = document.getElementById('btn-color-hex');
@@ -5716,11 +5744,18 @@
                   window.updateBtnPreview(d1.value);
               }
               if (d2 && d2.value) {
-                  const p = document.getElementById('badge-color-picker');
-                  const h = document.getElementById('badge-color-hex');
+                  const p = document.getElementById('btn-hover-color-picker');
+                  const h = document.getElementById('btn-hover-hex');
                   if (p) p.value = d2.value;
                   if (h) h.value = d2.value;
-                  window.updateBadgePreview(d2.value);
+                  window.updateBtnHoverPreview(d2.value);
+              }
+              if (d3 && d3.value) {
+                  const p = document.getElementById('badge-color-picker');
+                  const h = document.getElementById('badge-color-hex');
+                  if (p) p.value = d3.value;
+                  if (h) h.value = d3.value;
+                  window.updateBadgePreview(d3.value);
               }
           } catch(e) { console.log('Could not load theme colors', e); }
       };
