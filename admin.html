@@ -2006,7 +2006,6 @@
             const DARK   = '#2B163B';
             const EMERALD= '#10B981';
             const ROSE   = '#EC4899';
-            const SOFT   = 'rgba(108,56,165,0.08)';
 
             function activeBtn(btns, active) {
               btns.forEach(id => {
@@ -2020,7 +2019,28 @@
               });
             }
 
-            function getOrders() { return window.allOrders || []; }
+            // Real data helper — uses actual order fields from API
+            // Fields: order.customerInfo.firstName/lastName, order.orderItems[].name/.qty/.image
+            //         order.totalPrice, order.paymentMethod, order.isDelivered, order.createdAt
+            function getOrders() {
+              const orders = window.allOrders || [];
+              return orders.filter(o => o && o.createdAt); // skip null/bad entries
+            }
+
+            // Fetch orders if not yet loaded, then run callback
+            function withOrders(cb) {
+              if (window.allOrders && window.allOrders.length > 0) {
+                cb(getOrders());
+              } else {
+                // Try fetching via existing fetchOrders, then wait
+                if (typeof fetchOrders === 'function') {
+                  fetchOrders().then ? fetchOrders().then(() => cb(getOrders())).catch(() => cb([]))
+                                     : setTimeout(() => cb(getOrders()), 2000);
+                } else {
+                  setTimeout(() => cb(getOrders()), 2000);
+                }
+              }
+            }
 
             // ── SVG Ring ─────────────────────────────────────────────────────
             function setRing(id, pct) {
@@ -2034,14 +2054,16 @@
             }
 
             function renderRings() {
-              const orders = getOrders();
-              const total = orders.length || 1;
-              const cod  = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('cod') || (o.paymentMethod||'').toLowerCase().includes('cash')).length;
-              const koko = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('koko')).length;
-              const bank = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('bank') || (o.paymentMethod||'').toLowerCase().includes('transfer')).length;
-              setRing('ring-cod',  (cod  / total) * 100);
-              setRing('ring-koko', (koko / total) * 100);
-              setRing('ring-bank', (bank / total) * 100);
+              withOrders(orders => {
+                const total = orders.length || 1;
+                // Real API uses: "Cash on Delivery", "Koko", "Bank Transfer / Cash Deposit"
+                const cod  = orders.filter(o => { const pm = (o.paymentMethod||'').toLowerCase(); return pm.includes('cod') || pm.includes('cash'); }).length;
+                const koko = orders.filter(o => (o.paymentMethod||'').toLowerCase().includes('koko')).length;
+                const bank = orders.filter(o => { const pm = (o.paymentMethod||'').toLowerCase(); return pm.includes('bank') || pm.includes('transfer') || pm.includes('deposit'); }).length;
+                setRing('ring-cod',  (cod  / total) * 100);
+                setRing('ring-koko', (koko / total) * 100);
+                setRing('ring-bank', (bank / total) * 100);
+              });
             }
 
             // ── Tab toggle Sales ─────────────────────────────────────────────
@@ -2157,104 +2179,108 @@
             // ── Best Sellers ─────────────────────────────────────────────────
             window.insightBSRange = function(range) {
               activeBtn(['ins-bs-weekly','ins-bs-monthly'], 'ins-bs-' + range);
-              const orders = getOrders();
-              const now = new Date();
-              const cutoff = new Date(now);
-              if (range === 'weekly') cutoff.setDate(cutoff.getDate() - 7);
-              else cutoff.setMonth(cutoff.getMonth() - 1);
+              withOrders(orders => {
+                const now = new Date();
+                const cutoff = new Date(now);
+                if (range === 'weekly') cutoff.setDate(cutoff.getDate() - 7);
+                else cutoff.setMonth(cutoff.getMonth() - 1);
 
-              const sales = {};
-              orders.filter(o => new Date(o.createdAt) >= cutoff).forEach(o => {
-                (o.items || o.orderItems || []).forEach(it => {
-                  const name = it.productName || it.name || 'Unknown';
-                  const img  = it.image || it.productImage || '';
-                  if (!sales[name]) sales[name] = { name, img, qty: 0, lastDate: null };
-                  sales[name].qty += (it.quantity || 1);
-                  const d = new Date(o.createdAt);
-                  if (!sales[name].lastDate || d > sales[name].lastDate) sales[name].lastDate = d;
+                const sales = {};
+                orders.filter(o => new Date(o.createdAt) >= cutoff).forEach(o => {
+                  // Real field: o.orderItems[].name, o.orderItems[].qty, o.orderItems[].image
+                  const items = Array.isArray(o.orderItems) ? o.orderItems : [];
+                  items.forEach(it => {
+                    const name = it.name || it.productName || 'Unknown';
+                    const img  = it.image || it.productImage || '';
+                    if (!sales[name]) sales[name] = { name, img, qty: 0, lastDate: null };
+                    sales[name].qty += (it.qty || it.quantity || 1);
+                    const d = new Date(o.createdAt);
+                    if (!sales[name].lastDate || d > sales[name].lastDate) sales[name].lastDate = d;
+                  });
                 });
-              });
 
-              const top5 = Object.values(sales).sort((a,b) => b.qty - a.qty).slice(0,5);
-              const container = document.getElementById('ins-bestsellers-list');
-              if (!container) return;
+                const top5 = Object.values(sales).sort((a,b) => b.qty - a.qty).slice(0,5);
+                const container = document.getElementById('ins-bestsellers-list');
+                if (!container) return;
 
-              if (!top5.length) {
-                container.innerHTML = '<div style="color:#aaa;font-size:13px;text-align:center;padding:30px 0;">No data for this period</div>';
-                return;
-              }
+                if (!top5.length) {
+                  container.innerHTML = '<div style="color:#aaa;font-size:13px;text-align:center;padding:30px 0;">No sales data for this period</div>';
+                  return;
+                }
 
-              const timeAgo = d => {
-                if (!d) return '—';
-                const mins = Math.floor((Date.now() - d) / 60000);
-                if (mins < 60) return mins + ' mins ago';
-                if (mins < 1440) return Math.floor(mins/60) + ' hrs ago';
-                return Math.floor(mins/1440) + ' days ago';
-              };
+                const timeAgo = d => {
+                  if (!d) return '—';
+                  const mins = Math.floor((Date.now() - d) / 60000);
+                  if (mins < 60) return mins + ' mins ago';
+                  if (mins < 1440) return Math.floor(mins/60) + ' hrs ago';
+                  return Math.floor(mins/1440) + ' days ago';
+                };
 
-              container.innerHTML = top5.map((p, i) => `
-                <div style="display:flex; align-items:center; gap:14px; padding:10px 14px; border-radius:14px; background:${i===0?'#F4F1F9':'#FAFAFA'}; transition:0.2s;" onmouseover="this.style.background='#F4F1F9'" onmouseout="this.style.background='${i===0?'#F4F1F9':'#FAFAFA'}'">
-                  <div style="width:52px;height:52px;border-radius:12px;overflow:hidden;background:#eee;flex-shrink:0;">
-                    ${p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:18px;">🧴</div>`}
+                container.innerHTML = top5.map((p, i) => `
+                  <div style="display:flex; align-items:center; gap:14px; padding:10px 14px; border-radius:14px; background:${i===0?'#F4F1F9':'#FAFAFA'}; transition:0.2s;" onmouseover="this.style.background='#F4F1F9'" onmouseout="this.style.background='${i===0?'#F4F1F9':'#FAFAFA'}'">
+                    <div style="width:52px;height:52px;border-radius:12px;overflow:hidden;background:#eee;flex-shrink:0;">
+                      ${p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:18px;">🧴</div>`}
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-size:13px;font-weight:700;color:#1E1B29;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
+                      <div style="font-size:11px;color:#7E7890;margin-top:3px;">Last sold: <span style="color:#6C38A5;font-weight:700;">${timeAgo(p.lastDate)}</span></div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                      <div style="font-size:16px;font-weight:800;color:#1E1B29;">${p.qty}</div>
+                      <div style="font-size:10px;color:#7E7890;">units</div>
+                    </div>
                   </div>
-                  <div style="flex:1;min-width:0;">
-                    <div style="font-size:13px;font-weight:700;color:#1E1B29;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</div>
-                    <div style="font-size:11px;color:#7E7890;margin-top:3px;">Last sold: <span style="color:#6C38A5;font-weight:700;">${timeAgo(p.lastDate)}</span></div>
-                  </div>
-                  <div style="text-align:right;flex-shrink:0;">
-                    <div style="font-size:16px;font-weight:800;color:#1E1B29;">${p.qty}</div>
-                    <div style="font-size:10px;color:#7E7890;">units</div>
-                  </div>
-                </div>
-              `).join('');
+                `).join('');
+              }); // end withOrders
             };
 
             // ── Transactions ─────────────────────────────────────────────────
             window.renderInsightTransactions = function() {
-              const orders = getOrders();
-              const fromVal = document.getElementById('ins-txn-from')?.value;
-              const toVal   = document.getElementById('ins-txn-to')?.value;
+              withOrders(orders => {
+                const fromVal = document.getElementById('ins-txn-from') ? document.getElementById('ins-txn-from').value : '';
+                const toVal   = document.getElementById('ins-txn-to')   ? document.getElementById('ins-txn-to').value   : '';
 
-              let filtered = orders;
-              if (fromVal) filtered = filtered.filter(o => (o.createdAt||'').slice(0,10) >= fromVal);
-              if (toVal)   filtered = filtered.filter(o => (o.createdAt||'').slice(0,10) <= toVal);
-              filtered = filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,20);
+                let filtered = orders;
+                if (fromVal) filtered = filtered.filter(o => (o.createdAt||'').slice(0,10) >= fromVal);
+                if (toVal)   filtered = filtered.filter(o => (o.createdAt||'').slice(0,10) <= toVal);
+                filtered = filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,25);
 
-              const tbody = document.getElementById('ins-txn-tbody');
-              if (!tbody) return;
-              if (!filtered.length) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:30px;color:#aaa;font-size:13px;">No transactions found</td></tr>';
-                return;
-              }
+                const tbody = document.getElementById('ins-txn-tbody');
+                if (!tbody) return;
+                if (!filtered.length) {
+                  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:30px;color:#aaa;font-size:13px;">No transactions found for this period</td></tr>';
+                  return;
+                }
 
-              const statusColor = s => {
-                s = (s||'').toLowerCase();
-                if (s.includes('deliver') || s.includes('complete')) return { bg:'rgba(16,185,129,0.12)', c:'#10B981' };
-                if (s.includes('cancel')) return { bg:'rgba(236,72,153,0.12)', c:'#EC4899' };
-                return { bg:'rgba(108,56,165,0.12)', c:'#6C38A5' };
-              };
-              const payIcon = m => {
-                m = (m||'').toLowerCase();
-                if (m.includes('koko')) return '💳';
-                if (m.includes('bank') || m.includes('transfer')) return '🏦';
-                return '💵';
-              };
+                const payIcon = m => {
+                  m = (m||'').toLowerCase();
+                  if (m.includes('koko')) return '🔄';
+                  if (m.includes('bank') || m.includes('transfer') || m.includes('deposit')) return '🏦';
+                  return '💵';
+                };
 
-              tbody.innerHTML = filtered.map(o => {
-                const sc = statusColor(o.status || o.orderStatus);
-                const total = o.total || o.totalAmount || 0;
-                const name  = o.customerName || o.name || '—';
-                const pay   = o.paymentMethod || '—';
-                const date  = (o.createdAt||'').slice(0,10);
-                const status = o.status || o.orderStatus || '—';
-                return `<tr style="border-bottom:1px solid #F4F1F9;">
-                  <td style="padding:13px 14px;font-size:13px;font-weight:600;color:#1E1B29;">${name}</td>
-                  <td style="padding:13px 14px;font-size:13px;color:#7E7890;">${payIcon(pay)} ${pay}</td>
-                  <td style="padding:13px 14px;font-size:13px;font-weight:700;color:#1E1B29;text-align:right;">Rs. ${Number(total).toLocaleString()}</td>
-                  <td style="padding:13px 14px;font-size:12px;color:#7E7890;text-align:right;">${date}</td>
-                  <td style="padding:13px 14px;text-align:center;"><span style="background:${sc.bg};color:${sc.c};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;">${status}</span></td>
-                </tr>`;
-              }).join('');
+                tbody.innerHTML = filtered.map(o => {
+                  // Real field names from API
+                  const cust  = o.customerInfo || {};
+                  const name  = (cust.firstName || '') + (cust.lastName ? ' ' + cust.lastName : '') || '—';
+                  const pay   = o.paymentMethod || '—';
+                  const total = o.totalPrice || 0;
+                  const date  = (o.createdAt||'').slice(0,10);
+                  // Status: isDelivered boolean
+                  const isDelivered = o.isDelivered;
+                  const statusLabel = isDelivered ? 'Delivered' : 'Processing';
+                  const sc = isDelivered
+                    ? { bg:'rgba(16,185,129,0.12)', c:'#10B981' }
+                    : { bg:'rgba(251,191,36,0.15)',  c:'#D97706' };
+                  return `<tr style="border-bottom:1px solid #F4F1F9;">
+                    <td style="padding:13px 14px;font-size:13px;font-weight:600;color:#1E1B29;">${name.trim() || '—'}</td>
+                    <td style="padding:13px 14px;font-size:13px;color:#7E7890;">${payIcon(pay)} ${pay}</td>
+                    <td style="padding:13px 14px;font-size:13px;font-weight:700;color:#1E1B29;text-align:right;">Rs. ${Number(total).toLocaleString()}</td>
+                    <td style="padding:13px 14px;font-size:12px;color:#7E7890;text-align:right;">${date}</td>
+                    <td style="padding:13px 14px;text-align:center;"><span style="background:${sc.bg};color:${sc.c};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;">${statusLabel}</span></td>
+                  </tr>`;
+                }).join('');
+              }); // end withOrders
             };
 
             // ── Master Init ──────────────────────────────────────────────────
@@ -2268,11 +2294,54 @@
               if (fromEl && !fromEl.value) fromEl.value = monthStr;
               if (toEl   && !toEl.value)   toEl.value   = today;
 
+              // If orders not loaded yet, fetch first then render
+              if (!window.allOrders || window.allOrders.length === 0) {
+                if (typeof fetchOrders === 'function') {
+                  // fetchOrders is async — wait then render insights
+                  const origFetch = fetchOrders;
+                  const origComplete = window._insightsLoaded;
+                  if (!origComplete) {
+                    window._insightsLoaded = true;
+                    fetchOrders().then ? 
+                      fetchOrders().then(() => {
+                        renderRings();
+                        insightOrdersRange(7);
+                        insightActivityRange('daily');
+                        insightBSRange('weekly');
+                        renderInsightTransactions();
+                      }).catch(() => {}) 
+                    : setTimeout(() => {
+                        renderRings();
+                        insightOrdersRange(7);
+                        insightActivityRange('daily');
+                        insightBSRange('weekly');
+                        renderInsightTransactions();
+                      }, 2500);
+                    return;
+                  }
+                }
+              }
+
+              window._insightsLoaded = false;
               renderRings();
               insightOrdersRange(7);
               insightActivityRange('daily');
               insightBSRange('weekly');
               renderInsightTransactions();
+            };
+
+            // Also re-render insights whenever allOrders is refreshed by fetchOrders
+            const _origFetchOrdersCb = window._onOrdersLoaded;
+            window._onOrdersLoaded = function() {
+              if (_origFetchOrdersCb) _origFetchOrdersCb();
+              const tab = document.getElementById('tab-analytics');
+              if (tab && tab.style.display !== 'none') {
+                renderRings();
+                insightOrdersRange(7);
+                insightActivityRange('daily');
+                insightBSRange('weekly');
+                renderInsightTransactions();
+              }
             };
           })();
           </script>
