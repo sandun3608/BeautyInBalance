@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=512" />
+  <link rel="stylesheet" href="styles.css?v=513" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -963,10 +963,10 @@
     <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
     <section class="video-highlights-section" id="video-highlights-section">
       <div class="vh-container" id="vh-carousel-container">
-        <!-- Row 1 -->
-        <div class="vh-row is-active-card" id="vh-row-1" data-index="0" onclick="window.handleVhCardClick(1, event)">
+        <!-- Row 1 (Starts Center) -->
+        <div class="vh-row pos-center" id="vh-row-1" data-index="0" onclick="window.handleVhCardClick(0, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-1" data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video>
+            <video id="vh-video-1" data-src="vedio/1.mp4" preload="metadata" muted loop playsinline class="lazy-video"></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-1" onclick="window.toggleVhPlay(1, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -980,10 +980,10 @@
           </div>
         </div>
 
-        <!-- Row 2 -->
-        <div class="vh-row vh-reverse" id="vh-row-2" data-index="1" onclick="window.handleVhCardClick(2, event)">
+        <!-- Row 2 (Starts Right Blurred) -->
+        <div class="vh-row vh-reverse pos-right" id="vh-row-2" data-index="1" onclick="window.handleVhCardClick(1, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-2" data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video>
+            <video id="vh-video-2" data-src="vedio/2.mp4" preload="metadata" muted loop playsinline class="lazy-video"></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-2" onclick="window.toggleVhPlay(2, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -997,10 +997,10 @@
           </div>
         </div>
 
-        <!-- Row 3 -->
-        <div class="vh-row" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(3, event)">
+        <!-- Row 3 (Starts Left Blurred) -->
+        <div class="vh-row pos-left" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(2, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-3" data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video>
+            <video id="vh-video-3" data-src="vedio/1.mp4" preload="metadata" muted loop playsinline class="lazy-video"></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-3" onclick="window.toggleVhPlay(3, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -1017,9 +1017,9 @@
 
       <!-- Mobile Dots Navigation -->
       <div class="vh-dots-wrap mobile-only" id="vh-dots-wrap">
-        <span class="vh-dot active" onclick="window.scrollVhCard(0)"></span>
-        <span class="vh-dot" onclick="window.scrollVhCard(1)"></span>
-        <span class="vh-dot" onclick="window.scrollVhCard(2)"></span>
+        <span class="vh-dot active" onclick="window.setVhActiveIndex(0)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(1)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(2)"></span>
       </div>
     </section>
 
@@ -2123,7 +2123,7 @@
             if (vid.src && vid.src !== v.src) {
               vid.src = v.src;
               vid.load();
-              vid.play().catch(() => {});
+              if (window.innerWidth > 900) vid.play().catch(() => {});
             }
           }
           if (v.tag) {
@@ -2171,14 +2171,70 @@
         })
         .catch(() => {});
 
-      // 3. Mobile Video Carousel & Play/Pause Controller
+      // 3. Mobile 3D Blurred Stack Carousel & Play/Pause Controller
+      let currentVhIndex = 0;
+
+      function pauseAllVhVideos(exceptNum) {
+        [1, 2, 3].forEach(n => {
+          if (n !== exceptNum) {
+            const v = document.getElementById('vh-video-' + n);
+            const b = document.getElementById('vh-play-btn-' + n);
+            if (v && !v.paused) v.pause();
+            if (b) {
+              b.classList.remove('is-playing');
+              const pi = b.querySelector('.vh-icon-play');
+              const pau = b.querySelector('.vh-icon-pause');
+              if (pi) pi.style.display = 'block';
+              if (pau) pau.style.display = 'none';
+            }
+          }
+        });
+      }
+
+      window.setVhActiveIndex = function(newIdx) {
+        currentVhIndex = ((newIdx % 3) + 3) % 3;
+        const leftIdx = (currentVhIndex + 2) % 3;
+        const rightIdx = (currentVhIndex + 1) % 3;
+
+        const rows = [
+          document.getElementById('vh-row-1'),
+          document.getElementById('vh-row-2'),
+          document.getElementById('vh-row-3')
+        ];
+        const dots = document.querySelectorAll('#vh-dots-wrap .vh-dot');
+
+        rows.forEach((row, i) => {
+          if (!row) return;
+          row.classList.remove('pos-center', 'pos-left', 'pos-right');
+          if (i === currentVhIndex) row.classList.add('pos-center');
+          else if (i === leftIdx) row.classList.add('pos-left');
+          else if (i === rightIdx) row.classList.add('pos-right');
+        });
+
+        dots.forEach((dot, i) => {
+          if (i === currentVhIndex) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+
+        // Pause background videos when rotating
+        if (window.innerWidth <= 900) {
+          pauseAllVhVideos(null);
+        }
+      };
+
       window.toggleVhPlay = function(num, event) {
         if (event) { event.stopPropagation(); event.preventDefault(); }
+        const targetIdx = num - 1;
+        // If user tapped play on a side card, rotate it to center first
+        if (window.innerWidth <= 900 && targetIdx !== currentVhIndex) {
+          window.setVhActiveIndex(targetIdx);
+          return;
+        }
+
         const vid = document.getElementById('vh-video-' + num);
         const btn = document.getElementById('vh-play-btn-' + num);
         if (!vid) return;
 
-        // Ensure source is loaded
         if (!vid.src && vid.dataset.src) {
           vid.src = vid.dataset.src;
           vid.load();
@@ -2188,22 +2244,7 @@
         const pauseIcon = btn ? btn.querySelector('.vh-icon-pause') : null;
 
         if (vid.paused) {
-          // Pause all other videos
-          [1, 2, 3].forEach(n => {
-            if (n !== num) {
-              const oVid = document.getElementById('vh-video-' + n);
-              const oBtn = document.getElementById('vh-play-btn-' + n);
-              if (oVid && !oVid.paused) oVid.pause();
-              if (oBtn) {
-                oBtn.classList.remove('is-playing');
-                const pi = oBtn.querySelector('.vh-icon-play');
-                const pau = oBtn.querySelector('.vh-icon-pause');
-                if (pi) pi.style.display = 'block';
-                if (pau) pau.style.display = 'none';
-              }
-            }
-          });
-
+          pauseAllVhVideos(num);
           vid.play().then(() => {
             if (btn) btn.classList.add('is-playing');
             if (playIcon) playIcon.style.display = 'none';
@@ -2217,79 +2258,62 @@
         }
       };
 
-      // Tap card on mobile to center it if side peeking
-      window.handleVhCardClick = function(num, event) {
-        if (window.innerWidth > 900) return; // Desktop untouched
-        const row = document.getElementById('vh-row-' + num);
-        if (row && !row.classList.contains('is-active-card')) {
-          row.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      // Tap side blurred video to rotate it into center; tap center video to play/pause
+      window.handleVhCardClick = function(idx, event) {
+        if (window.innerWidth > 900) return;
+        if (event.target.closest('.vh-info a')) return; // Allow link clicks
+        if (idx !== currentVhIndex) {
+          if (event) { event.stopPropagation(); event.preventDefault(); }
+          window.setVhActiveIndex(idx);
+        } else {
+          window.toggleVhPlay(idx + 1, event);
         }
       };
 
-      // Click Dot to Scroll
-      window.scrollVhCard = function(idx) {
-        const row = document.getElementById('vh-row-' + (idx + 1));
-        if (row) {
-          row.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        }
-      };
-
-      // Active Card Scale & Snap Tracking Observer for Mobile
+      // Touch Swipe Gestures & Preload First Frames for all 3 videos
       document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('vh-carousel-container');
-        const rows = [
-          document.getElementById('vh-row-1'),
-          document.getElementById('vh-row-2'),
-          document.getElementById('vh-row-3')
-        ].filter(Boolean);
-        const dots = document.querySelectorAll('.vh-dot');
+        if (!container) return;
 
-        if (!container || !rows.length) return;
+        let touchStartX = 0;
+        let touchStartY = 0;
 
-        let scrollTimer = null;
-        function updateActiveCard() {
-          if (window.innerWidth > 900) return; // Desktop untouched
-          const containerCenter = container.getBoundingClientRect().left + container.offsetWidth / 2;
-          let closestIdx = 0;
-          let minDistance = Infinity;
-
-          rows.forEach((row, i) => {
-            const rect = row.getBoundingClientRect();
-            const cardCenter = rect.left + rect.width / 2;
-            const distance = Math.abs(containerCenter - cardCenter);
-            if (distance < minDistance) {
-              minDistance = distance;
-              closestIdx = i;
-            }
-          });
-
-          rows.forEach((row, i) => {
-            if (i === closestIdx) {
-              row.classList.add('is-active-card');
-              // Auto-play active video if in viewport
-              const vid = document.getElementById('vh-video-' + (i + 1));
-              if (vid && !vid.src && vid.dataset.src) {
-                vid.src = vid.dataset.src;
-                vid.load();
-              }
-            } else {
-              row.classList.remove('is-active-card');
-            }
-          });
-
-          dots.forEach((dot, i) => {
-            if (i === closestIdx) dot.classList.add('active');
-            else dot.classList.remove('active');
-          });
-        }
-
-        container.addEventListener('scroll', () => {
-          if (scrollTimer) clearTimeout(scrollTimer);
-          scrollTimer = setTimeout(updateActiveCard, 60);
+        container.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length > 0) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+          }
         }, { passive: true });
 
-        // Initial set
-        setTimeout(updateActiveCard, 400);
+        container.addEventListener('touchend', (e) => {
+          if (window.innerWidth > 900) return;
+          if (!e.changedTouches || e.changedTouches.length === 0) return;
+          const dx = e.changedTouches[0].clientX - touchStartX;
+          const dy = e.changedTouches[0].clientY - touchStartY;
+
+          // Horizontal swipe threshold
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) {
+              // Swiped left -> bring right card to center
+              window.setVhActiveIndex(currentVhIndex + 1);
+            } else {
+              // Swiped right -> bring left card to center
+              window.setVhActiveIndex(currentVhIndex - 1);
+            }
+          }
+        }, { passive: true });
+
+        // Ensure all 3 videos load their visual frame so side blurred cards look rich
+        [1, 2, 3].forEach(n => {
+          const v = document.getElementById('vh-video-' + n);
+          if (v) {
+            v.addEventListener('loadeddata', () => {
+              if (v.paused && v.currentTime === 0) {
+                try { v.currentTime = 0.15; } catch(e) {}
+              }
+            }, { once: true });
+          }
+        });
       });
     })();
 
@@ -2304,7 +2328,10 @@
               if (!video.src && video.dataset.src) {
                 video.src = video.dataset.src;
               }
-              video.play().catch(() => {});
+              const isVhVideo = video.id && video.id.startsWith('vh-video-');
+              if (!isVhVideo || window.innerWidth > 900) {
+                video.play().catch(() => {});
+              }
               observer.unobserve(video);
             }
           });

@@ -4412,12 +4412,15 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 /* â”€â”€ VIDEO HIGHLIGHTS â”€â”€ */
-/* Video Play Button (Desktop hidden, enabled on mobile carousel) */
-.vh-play-btn {
-  display: none;
-}
+/* Video Play Button & 3rd Row (Desktop hidden so desktop view stays 100% original) */
+.vh-play-btn,
 .vh-dots-wrap {
   display: none;
+}
+@media (min-width: 901px) {
+  #vh-row-3 {
+    display: none !important;
+  }
 }
 
 .video-highlights-section {
@@ -4545,88 +4548,125 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   transform: translateX(4px);
 }
 
-/* ===== MOBILE VIEW: SCALE & SNAP CAROUSEL (Air India Style) ===== */
+/* ===== MOBILE VIEW: FRAMELESS 3D BLURRED STACK CAROUSEL ===== */
 @media (max-width: 900px) {
-  .video-highlights-section {
-    padding: 40px 0 50px 0 !important;
+  #video-highlights-section.video-highlights-section {
+    padding: 36px 0 44px 0 !important;
     overflow: hidden !important;
-    background: #faf8f5 !important;
+    background: #ffffff !important;
+    position: relative !important;
   }
 
-  .vh-container {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: stretch !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    scroll-behavior: smooth !important;
-    -webkit-overflow-scrolling: touch !important;
-    gap: 16px !important;
-    padding: 15px 12vw 25px 12vw !important; /* Leaves ~12vw peek on left & right cards */
-    scrollbar-width: none !important;
+  #video-highlights-section .vh-container {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    height: 525px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    touch-action: pan-y !important;
   }
 
-  .vh-container::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  .vh-row,
-  .vh-row.vh-reverse {
-    flex: 0 0 76vw !important; /* ~76vw width so adjacent cards peek out */
-    max-width: 330px !important;
-    scroll-snap-align: center !important;
-    scroll-snap-stop: always !important;
+  #video-highlights-section .vh-row,
+  #video-highlights-section .vh-row.vh-reverse {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    text-align: center !important;
-    background: #ffffff !important;
-    border-radius: 24px !important;
-    padding: 12px 12px 22px 12px !important;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07) !important;
-    border: 1.5px solid rgba(0, 0, 0, 0.05) !important;
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease !important;
-    gap: 14px !important;
-    transform: scale(0.94) !important;
-    opacity: 0.85 !important;
-    cursor: pointer !important;
-  }
-
-  /* Centered Active Snapped Card */
-  .vh-row.is-active-card {
-    transform: scale(1.02) !important;
+    justify-content: flex-start !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    pointer-events: none !important;
+    transform: none !important;
     opacity: 1 !important;
-    box-shadow: 0 18px 40px rgba(45, 27, 18, 0.14) !important;
-    border-color: rgba(197, 150, 90, 0.45) !important;
   }
 
-  .vh-media,
-  .vh-media-wide,
-  .vh-media-tall {
-    width: 100% !important;
-    height: 380px !important;
-    position: relative !important;
-    border-radius: 18px !important;
+  /* Video Card Media Box (Frameless, clean rounded corners) */
+  #video-highlights-section .vh-media,
+  #video-highlights-section .vh-media-wide,
+  #video-highlights-section .vh-media-tall {
+    width: 64vw !important;
+    max-width: 260px !important;
+    height: 360px !important;
+    border-radius: 24px !important;
     overflow: hidden !important;
-    background: #000000 !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1) !important;
+    position: relative !important;
+    background: #111111 !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), filter 0.55s ease, opacity 0.55s ease, box-shadow 0.55s ease !important;
+    will-change: transform, filter, opacity !important;
   }
 
-  .vh-media video {
+  #video-highlights-section .vh-media video {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     display: block !important;
+    border-radius: 24px !important;
   }
 
-  /* Center Play/Pause Button on Video Card */
-  .vh-play-btn {
+  /* 1. CENTER ACTIVE VIDEO (Sharp, Front, Full Size) */
+  #video-highlights-section .vh-row.pos-center {
+    z-index: 10 !important;
+  }
+
+  #video-highlights-section .vh-row.pos-center .vh-media {
+    transform: translate3d(0, 0, 0) scale(1) !important;
+    filter: blur(0px) brightness(1) !important;
+    -webkit-filter: blur(0px) brightness(1) !important;
+    opacity: 1 !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  /* 2. LEFT BACKGROUND VIDEO (Blurred, Scaled Down, Peeking Left) */
+  #video-highlights-section .vh-row.pos-left {
+    z-index: 4 !important;
+  }
+
+  #video-highlights-section .vh-row.pos-left .vh-media {
+    transform: translate3d(-32%, 0, 0) scale(0.82) !important;
+    filter: blur(3.5px) brightness(0.9) !important;
+    -webkit-filter: blur(3.5px) brightness(0.9) !important;
+    opacity: 0.82 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* 3. RIGHT BACKGROUND VIDEO (Blurred, Scaled Down, Peeking Right) */
+  #video-highlights-section .vh-row.pos-right {
+    z-index: 4 !important;
+  }
+
+  #video-highlights-section .vh-row.pos-right .vh-media {
+    transform: translate3d(32%, 0, 0) scale(0.82) !important;
+    filter: blur(3.5px) brightness(0.9) !important;
+    -webkit-filter: blur(3.5px) brightness(0.9) !important;
+    opacity: 0.82 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* Center Play/Pause Button (Only visible on Center Video) */
+  #video-highlights-section .vh-play-btn {
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 58px !important;
-    height: 58px !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    width: 56px !important;
+    height: 56px !important;
     background: rgba(255, 255, 255, 0.88) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
@@ -4634,57 +4674,79 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.65) !important;
     color: #2D1B12 !important;
     cursor: pointer !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
-    z-index: 10 !important;
-    transition: all 0.25s ease !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
+    z-index: 12 !important;
+    transition: all 0.3s ease !important;
     pointer-events: auto !important;
   }
 
-  .vh-play-btn svg {
+  #video-highlights-section .vh-row.pos-left .vh-play-btn,
+  #video-highlights-section .vh-row.pos-right .vh-play-btn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translate(-50%, -50%) scale(0.5) !important;
+  }
+
+  #video-highlights-section .vh-play-btn svg {
     width: 22px !important;
     height: 22px !important;
     fill: #2D1B12 !important;
     color: #2D1B12 !important;
   }
 
-  .vh-play-btn .vh-icon-play {
-    margin-left: 3px !important; /* Optical center for triangle */
+  #video-highlights-section .vh-play-btn .vh-icon-play {
+    margin-left: 3px !important;
   }
 
-  .vh-play-btn.is-playing {
-    opacity: 0.15 !important;
+  #video-highlights-section .vh-row.pos-center .vh-play-btn.is-playing {
+    opacity: 0 !important;
   }
 
-  .vh-media:hover .vh-play-btn,
-  .vh-media:active .vh-play-btn {
+  #video-highlights-section .vh-row.pos-center .vh-media:hover .vh-play-btn,
+  #video-highlights-section .vh-row.pos-center .vh-media:active .vh-play-btn {
     opacity: 1 !important;
   }
 
-  /* Content Details below Video */
-  .vh-info {
+  /* Details Below Center Video (Frameless, clean typography) */
+  #video-highlights-section .vh-info {
     width: 100% !important;
-    padding: 0 8px !important;
+    max-width: 320px !important;
+    padding: 20px 16px 0 16px !important;
+    margin: 0 auto !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    text-align: center !important;
     gap: 6px !important;
-    max-width: 100% !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(12px) !important;
+    pointer-events: none !important;
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s !important;
   }
 
-  .vh-tag {
+  #video-highlights-section .vh-row.pos-center .vh-info {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s !important;
+  }
+
+  #video-highlights-section .vh-tag {
     font-size: 10.5px !important;
     font-weight: 800 !important;
-    letter-spacing: 0.14em !important;
+    letter-spacing: 0.15em !important;
     color: #c5965a !important;
     text-transform: uppercase !important;
   }
 
-  .vh-title {
+  #video-highlights-section .vh-title {
     font-family: var(--font-serif, 'Playfair Display', serif) !important;
-    font-size: 19px !important;
+    font-size: 21px !important;
     font-weight: 700 !important;
     color: #2D1B12 !important;
     line-height: 1.25 !important;
@@ -4692,8 +4754,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     text-align: center !important;
   }
 
-  .vh-info p {
-    font-size: 12px !important;
+  #video-highlights-section .vh-info p {
+    font-size: 12.5px !important;
     color: #666 !important;
     line-height: 1.45 !important;
     margin: 0 !important;
@@ -4704,7 +4766,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     overflow: hidden !important;
   }
 
-  .vh-link {
+  #video-highlights-section .vh-link {
     margin-top: 6px !important;
     font-size: 11.5px !important;
     font-weight: 800 !important;
@@ -4717,24 +4779,24 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   /* Mobile Dots Navigation */
-  .vh-dots-wrap {
+  #video-highlights-section .vh-dots-wrap {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 8px !important;
-    margin-top: 10px !important;
+    margin-top: 6px !important;
   }
 
-  .vh-dot {
+  #video-highlights-section .vh-dot {
     width: 8px !important;
     height: 8px !important;
     border-radius: 50% !important;
-    background: rgba(45, 27, 18, 0.22) !important;
+    background: rgba(45, 27, 18, 0.2) !important;
     cursor: pointer !important;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
   }
 
-  .vh-dot.active {
+  #video-highlights-section .vh-dot.active {
     width: 24px !important;
     border-radius: 12px !important;
     background: #c5965a !important;
