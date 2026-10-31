@@ -931,7 +931,7 @@
             grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #888;"><h3>No offer products currently available.</h3></div>`;
           } else {
             grid.innerHTML = displayProducts.map(p => {
-              const pid = String(p._id || p.id || '');
+              const pid = String(p.id || p._id || '');
               const prodDiscount = defaultDiscount; // Always use Flash Sale discount for selected offer products
               const origPrice = Number(p.price || 0);
               const salePrice = Math.round(origPrice * (1 - prodDiscount / 100));
@@ -939,9 +939,10 @@
               const title = p.name || p.title || 'Untitled Product';
               const brand = p.cat || p.brand || p.category || 'Beauty in Balance';
               const savings = origPrice - salePrice;
+              const sNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1);
 
-                            return `
-                ${(() => { const sNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1); return `<div class="offer-card ${sNum <= 0 ? 'is-sold-out' : ''}">`; })()}
+              return `
+                <div class="offer-card ${sNum <= 0 ? 'is-sold-out' : ''}">
                   <div class="offer-badge">-${prodDiscount}%</div>
                   <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
                     <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">
@@ -968,11 +969,19 @@
         }
       }
 
+      // Hook into products.js completion so offers grid updates immediately when DB products finish loading
+      window.renderProducts = function(prods) {
+        if (Array.isArray(prods) && prods.length > 0) {
+          allProducts = prods;
+          renderOffersUI();
+        }
+      };
+
       // Initial render
       renderOffersUI();
 
-      // Async fetch active sale & database products
-      (async () => {
+      // Async fetch active sale & database products in parallel
+      const fetchSalePromise = (async () => {
         try {
           const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale?t=${Date.now()}`);
           if (res.ok) {
@@ -988,8 +997,12 @@
               renderOffersUI();
             }
           }
-        } catch (err) {}
+        } catch (err) {
+          console.warn('Error fetching flash_sale:', err);
+        }
+      })();
 
+      const fetchProdsPromise = (async () => {
         try {
           const pRes = await fetch(`${getApiBaseUrl()}/products?t=${Date.now()}`);
           if (pRes.ok) {
@@ -997,18 +1010,24 @@
             const fetched = Array.isArray(pData) ? pData : (pData.products || pData.data || []);
             if (Array.isArray(fetched) && fetched.length > 0) {
               allProducts = fetched;
+              window.productsData = fetched;
+              try { localStorage.setItem('koko_products_cache', JSON.stringify(fetched)); } catch(e) {}
               renderOffersUI();
             }
           }
-        } catch (e) {}
+        } catch (e) {
+          console.warn('Error fetching products:', e);
+        }
       })();
+
+      Promise.allSettled([fetchSalePromise, fetchProdsPromise]);
 
       function addToCartOffer(id, discount = 20, openDrawer = true) {
         let pool = (allProducts && allProducts.length > 0) ? allProducts : ((window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []));
-        const product = pool.find(p => String(p._id || p.id || '') === String(id));
+        const product = pool.find(p => String(p.id || '') === String(id) || String(p._id || '') === String(id));
         if (!product) return;
 
-        const pId = String(product._id || product.id);
+        const pId = String(product.id || product._id);
         const imgUrl = product.img || (product.images && product.images[0]) || 'favicon.png';
 
         let localCart = JSON.parse(localStorage.getItem('bib_cart') || '[]');
