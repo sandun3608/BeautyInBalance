@@ -43,15 +43,15 @@
     }
 
     body {
-      background-color: #FAF9F6;
+      background-color: #FFFFFF !important;
       color: var(--text-dark);
       font-family: var(--font-sans);
     }
 
     /* ── COMPACT LUXURY HEADER ── */
     .shop-header-banner {
-      background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 100%);
-      border-bottom: 1px solid var(--border-color);
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #f0f0f0;
       padding: 130px 24px 28px;
       text-align: center;
     }
@@ -550,47 +550,55 @@
 
     /* ── MODERN PRODUCT CARD (BEAUTY IN BALANCE LUXURY STYLE) ── */
     .shop-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 14px;
+      background: #FFFFFF !important;
+      border: none !important;
+      outline: none !important;
+      border-radius: 16px;
+      padding: 12px 12px 16px;
       display: flex;
       flex-direction: column;
       position: relative;
       transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
     }
 
     .shop-card:hover {
-      border-color: var(--gold);
+      border: none !important;
+      outline: none !important;
       transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(45, 27, 18, 0.09);
+      box-shadow: 0 14px 32px rgba(45, 27, 18, 0.09);
     }
 
-    /* Card Image Area */
+    /* Card Image Area — Pure White, High Resolution Display */
     .shop-card-img-box {
-      background: #FAFAF8;
-      border-radius: 10px;
-      height: 185px;
+      background: #FFFFFF !important;
+      border: none !important;
+      border-radius: 12px;
+      height: 220px;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       cursor: pointer;
+      padding: 6px;
     }
 
     .shop-card-img-box img {
-      width: 86%;
-      height: 86%;
-      object-fit: contain;
-      transition: transform 0.4s ease;
-      image-rendering: -webkit-optimize-contrast;
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 210px !important;
+      object-fit: contain !important;
+      image-rendering: -webkit-optimize-contrast !important;
+      image-rendering: crisp-edges !important;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .shop-card:hover .shop-card-img-box img {
       transform: scale(1.06);
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.09));
     }
 
     /* Badges */
@@ -702,19 +710,25 @@
       text-decoration: line-through;
     }
 
-    /* Koko Installment row */
+    /* Koko Installment row — Perfectly sized */
     .shop-card-koko {
       font-size: 11px;
       color: #666;
       margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      line-height: 1;
     }
 
-    .shop-card-koko img {
-      height: 13px;
-      vertical-align: middle;
+    .shop-card-koko .koko-logo-img {
+      height: 14px !important;
+      width: auto !important;
+      max-width: 44px !important;
+      display: inline-block !important;
+      object-fit: contain !important;
+      vertical-align: middle !important;
+      margin: 0 !important;
     }
 
     /* Bottom Full-Width "Add to Bag" Button */
@@ -874,7 +888,7 @@
       }
 
       .shop-card-img-box {
-        height: 150px;
+        height: 175px;
         margin-bottom: 8px;
       }
 
@@ -1338,20 +1352,25 @@
           ? `<span class="shop-discount-pill">${discount}% OFF</span>` 
           : '';
 
-        const basePrice = Number(p.price || 0);
+        let basePrice = Number(p.price || 0);
+        if (!basePrice && Array.isArray(p.variants) && p.variants.length > 0) {
+          const vPrice = p.variants.find(v => Number(v.price) > 0);
+          if (vPrice) basePrice = Number(vPrice.price);
+        }
+
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
 
         const priceHTML = discount > 0 
           ? `<span class="shop-card-price-curr">Rs. ${discountedPrice.toLocaleString()}</span><span class="shop-card-price-old">Rs. ${basePrice.toLocaleString()}</span>`
-          : `<span class="shop-card-price-curr">Rs. ${basePrice.toLocaleString()}</span>`;
+          : (basePrice > 0 ? `<span class="shop-card-price-curr">Rs. ${basePrice.toLocaleString()}</span>` : `<span class="shop-card-price-curr" style="color:#888; font-size:13px;">Price on selection</span>`);
 
         const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        const kokoHTML = `
-          <div class="shop-card-koko">
-            <span>or 3 x Rs. ${kokoAmount} with</span>
-            <img src="koko-logo.png" alt="Koko" onerror="this.style.display='none'">
-          </div>
-        `;
+        const kokoHTML = (basePrice > 0)
+          ? `<div class="shop-card-koko">
+              <span>or 3 x Rs. ${kokoAmount} with</span>
+              <img src="koko-logo.png" alt="Koko" class="koko-logo-img" onerror="this.style.display='none'">
+            </div>`
+          : '';
 
         const btnHTML = isOutOfStock
           ? `<button class="shop-card-btn is-sold-out-btn" disabled>SOLD OUT</button>`
