@@ -7967,11 +7967,15 @@ main {
 
   .ic-btn {
     display: flex !important;
-    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     color: var(--brown) !important;
-    gap: 1px !important;
+    width: 40px !important;
+    height: 40px !important;
+    position: relative !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
   }
 
   .ic-btn svg {
@@ -7979,6 +7983,7 @@ main {
     width: 24px !important;
     height: 24px !important;
     stroke-width: 1.5 !important;
+    display: block !important;
   }
 
   .ic-btn.m-social-icon,
@@ -7987,14 +7992,29 @@ main {
     display: none !important;
   }
 
-  .ic-label {
-    display: block !important;
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
-    color: var(--brown) !important;
-    opacity: 1 !important;
+  .ic-label,
+  .mobile-only.ic-label,
+  .ham-btn .ic-label,
+  .cart-ic .ic-label {
+    display: none !important;
+  }
+
+  .cart-ic .cart-badge {
+    position: absolute !important;
+    top: 3px !important;
+    right: 2px !important;
+    background: var(--brown) !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    width: 17px !important;
+    height: 17px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 2px solid #ffffff !important;
+    z-index: 2 !important;
   }
 
   .m-search-hidden {
