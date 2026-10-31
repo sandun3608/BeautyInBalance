@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=510" />
+  <link rel="stylesheet" href="styles.css?v=511" />
 
   <style>
     body {
@@ -408,33 +408,37 @@
     }
 
     /* Add to Cart Button (Brand Colors + Exact Reference Shape) */
-    .offer-add-cart-btn {
+    /* Buy It Now Button (Brand Color Matching Rest of Site) */
+    .offer-add-cart-btn,
+    .offer-buy-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       width: 100%;
       padding: 11px 16px;
-      background: linear-gradient(135deg, #B48A64 0%, #966F4A 100%);
-      color: #ffffff;
-      border: none;
+      background: var(--btn-theme-color, #2D1B12) !important;
+      color: #ffffff !important;
+      border: none !important;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 13.5px;
+      font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 3px 10px rgba(180, 138, 100, 0.28);
+      box-shadow: 0 4px 14px rgba(45, 27, 18, 0.25) !important;
       transition: all 0.25s ease;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
       margin-top: auto;
     }
 
-    .offer-add-cart-btn:hover {
-      background: linear-gradient(135deg, #966F4A 0%, #7E5936 100%);
+    .offer-add-cart-btn:hover,
+    .offer-buy-btn:hover {
+      background: var(--btn-theme-hover, #1C100A) !important;
       transform: translateY(-2px);
-      box-shadow: 0 5px 14px rgba(180, 138, 100, 0.4);
+      box-shadow: 0 6px 18px rgba(45, 27, 18, 0.35) !important;
     }
 
-    .offer-add-cart-btn:active {
+    .offer-add-cart-btn:active,
+    .offer-buy-btn:active {
       transform: translateY(0);
     }
 
@@ -745,7 +749,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.52-.14-2.75-.14-2.8 0-4.75 1.7-4.75 4.86V9.5H7v4h3.25V22h3.75v-8.5z"/></svg>
   </a>
 
-  <script src="config.js"></script>
+  <script src="config.js?v=17"></script>
   <script src="products.js"></script>
   <script src="account-nav.js?v=5"></script>
 
@@ -952,9 +956,10 @@
                     <div class="koko-installment" style="font-size: 11px !important; margin: 4px 0 10px 0; justify-content: flex-start !important;">
                       <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${(salePrice / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img" style="height: 18px !important; margin-left: 3px; margin-right: 3px;"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512" style="width: 13px !important; height: 13px !important;"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
                     </div>
-                    <button class="offer-add-cart-btn" onclick="event.stopPropagation(); addToCartOffer('${pid}', ${prodDiscount})">
-                      Add to cart
-                    </button>
+                    ${sNum <= 0
+                      ? `<button class="offer-add-cart-btn btn-buy-animated is-sold-out-btn" disabled style="opacity: 0.6; cursor: not-allowed; background: #888 !important; box-shadow: none !important;">SOLD OUT</button>`
+                      : `<button class="offer-add-cart-btn btn-buy-animated" onclick="event.stopPropagation(); buyNowOffer('${pid}', ${prodDiscount})"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>Buy It Now</button>`
+                    }
                   </div>
                 </div>
               `;
@@ -998,7 +1003,7 @@
         } catch (e) {}
       })();
 
-      function addToCartOffer(id, discount = 20) {
+      function addToCartOffer(id, discount = 20, openDrawer = true) {
         let pool = (allProducts && allProducts.length > 0) ? allProducts : ((window.productsData && window.productsData.length > 0) ? window.productsData : (typeof defaultProducts !== 'undefined' ? defaultProducts : []));
         const product = pool.find(p => String(p._id || p.id || '') === String(id));
         if (!product) return;
@@ -1022,7 +1027,7 @@
             qty: 1
           });
         }
-                localStorage.setItem('bib_cart', JSON.stringify(localCart));
+        localStorage.setItem('bib_cart', JSON.stringify(localCart));
 
         const countEl = document.getElementById('cart-count');
         if (countEl) {
@@ -1032,20 +1037,24 @@
 
         if (typeof window.renderCart === 'function') window.renderCart();
 
-        const cartDrawer = document.getElementById('cart-drawer');
-        const overlay = document.getElementById('overlay');
-        if (cartDrawer && overlay) {
-          cartDrawer.classList.add('open');
-          overlay.classList.add('show');
-        } else {
-          alert(`${product.name} added to bag!`);
+        if (openDrawer) {
+          const cartDrawer = document.getElementById('cart-drawer');
+          const overlay = document.getElementById('overlay');
+          if (cartDrawer && overlay) {
+            cartDrawer.classList.add('open');
+            overlay.classList.add('show');
+          } else {
+            alert(`${product.name} added to bag!`);
+          }
         }
       }
+      window.addToCartOffer = addToCartOffer;
 
-    function buyNowOffer(id, discount = 20) {
-      addToCartOffer(id, discount);
-      window.location.href = 'checkout.html';
-    }
+      function buyNowOffer(id, discount = 20) {
+        addToCartOffer(id, discount, false);
+        window.location.href = 'checkout.html';
+      }
+      window.buyNowOffer = buyNowOffer;
   });
   </script>
 </body>

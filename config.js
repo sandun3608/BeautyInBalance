@@ -91,7 +91,10 @@ function submitMobileSearch() {
                 .btn-place-order,
                 .btn-pay-now,
                 #btn-master-submit,
-                .btn-checkout {
+                .btn-checkout,
+                .shop-card-btn,
+                .offer-add-cart-btn,
+                .offer-buy-btn {
                     background: ${colors.buttonColor} !important;
                     border-color: ${colors.buttonColor} !important;
                     color: #fff !important;
@@ -132,7 +135,13 @@ function submitMobileSearch() {
                 .look-bundle-btn:active,
                 .btn-place-order:active,
                 .btn-pay-now:active,
-                #btn-master-submit:active {
+                #btn-master-submit:active,
+                .shop-card-btn:hover,
+                .shop-card-btn:active,
+                .offer-add-cart-btn:hover,
+                .offer-buy-btn:hover,
+                .offer-add-cart-btn:active,
+                .offer-buy-btn:active {
                     background: ${hoverColor} !important;
                     border-color: ${hoverColor} !important;
                     color: #fff !important;
