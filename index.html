@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=518" />
+  <link rel="stylesheet" href="styles.css?v=519" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -1153,6 +1153,44 @@
 
 
 
+
+    <!-- ===== SECTION: TODAY'S DEALS / CLEARANCE SLIDER (ABOVE GOOGLE REVIEWS) ===== -->
+    <section class="today-deals-section" id="today-deals-section">
+      <div class="td-inner">
+        <!-- Left Intro Block -->
+        <div class="td-left">
+          <span class="td-kicker" id="td-kicker">TODAY'S DEALS</span>
+          <h2 class="td-heading">
+            <span id="td-title-main">Special Clearance</span>
+            <span class="td-accent" id="td-title-accent">Packed With Value</span>
+          </h2>
+          <p class="td-desc" id="td-desc">
+            Grab 100% authentic skincare essentials with minor outer-box wear or daily clearance markdowns — the exact same pure formula inside at unbeatable special prices.
+          </p>
+          <div class="td-cta-row">
+            <a href="offers.html" class="td-cta-btn" id="td-cta-btn">
+              <span id="td-cta-text">VIEW ALL DEALS</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <div class="td-nav-btns">
+              <button type="button" class="td-nav-btn" id="td-prev-btn" aria-label="Previous Deals">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button type="button" class="td-nav-btn" id="td-next-btn" aria-label="Next Deals">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Horizontal Product Slider -->
+        <div class="td-right">
+          <div class="td-track" id="td-cards-track">
+            <!-- Populated dynamically by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ===== SECTION 10: GOOGLE REVIEWS (DYNAMIC ADMIN MANAGED) ===== -->
     <section class="google-reviews-section" id="google-reviews-section">
@@ -2863,6 +2901,200 @@
           if (d && d.value) {
             try { localStorage.setItem('bib_google_reviews', JSON.stringify(d.value)); } catch (e) {}
             applyGoogleReviews(d.value);
+          }
+        })
+        .catch(() => {});
+
+      /* ── TODAY'S DEALS / CLEARANCE SLIDER LOADER ── */
+      let currentDealsConfig = null;
+      let autoSlideTimer = null;
+      let isPaused = false;
+
+      function getCatalogProducts() {
+        if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
+          return window.productsData;
+        }
+        if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts) && defaultProducts.length > 0) {
+          return defaultProducts;
+        }
+        return [];
+      }
+
+      function renderTodayDeals(cfg) {
+        const sec = document.getElementById('today-deals-section');
+        const track = document.getElementById('td-cards-track');
+        if (!sec || !track) return;
+
+        if (cfg && typeof cfg === 'object') {
+          currentDealsConfig = cfg;
+        }
+        const data = currentDealsConfig || {};
+
+        if (data.enabled === false) {
+          sec.style.display = 'none';
+          return;
+        }
+        sec.style.display = '';
+
+        const kickerEl = document.getElementById('td-kicker');
+        const mainTitleEl = document.getElementById('td-title-main');
+        const accentTitleEl = document.getElementById('td-title-accent');
+        const descEl = document.getElementById('td-desc');
+        const ctaBtn = document.getElementById('td-cta-btn');
+        const ctaText = document.getElementById('td-cta-text');
+
+        if (kickerEl && data.kicker) kickerEl.textContent = data.kicker;
+        if (mainTitleEl && data.titleMain) mainTitleEl.textContent = data.titleMain;
+        if (accentTitleEl && data.titleAccent !== undefined) accentTitleEl.textContent = data.titleAccent;
+        if (descEl && data.description) descEl.textContent = data.description;
+        if (ctaText && data.ctaText) ctaText.textContent = data.ctaText;
+        if (ctaBtn && data.ctaLink) ctaBtn.href = data.ctaLink;
+
+        const allProds = getCatalogProducts();
+        if (!allProds.length) return;
+
+        let chosenProds = [];
+        const savedIds = Array.isArray(data.productIds) ? data.productIds.map(String) : null;
+
+        if (savedIds && savedIds.length > 0) {
+          const idSet = new Set(savedIds);
+          chosenProds = allProds.filter(p => {
+            const id1 = String(p.id || '');
+            const id2 = String(p._id || '');
+            return (id1 && idSet.has(id1)) || (id2 && idSet.has(id2));
+          });
+        }
+
+        if (!chosenProds.length) {
+          const discounted = allProds.filter(p => Number(p.discount || 0) > 0);
+          chosenProds = (discounted.length >= 4 ? discounted : allProds).slice(0, 8);
+        }
+
+        const overrides = (data.dealOverrides && typeof data.dealOverrides === 'object') ? data.dealOverrides : {};
+        const globalBadge = data.defaultBadge || "TODAY'S DEAL";
+
+        track.innerHTML = chosenProds.map(p => {
+          const pid = String(p.id || p._id || '');
+          const ov = overrides[pid] || overrides[String(p._id || '')] || overrides[String(p.id || '')] || {};
+          const img = p.img || (Array.isArray(p.images) && p.images[0]) || 'favicon.png';
+          const brand = (p.cat || 'Skincare').toUpperCase();
+          const name = p.name || 'Skincare Essential';
+
+          let origPrice = Number(p.price || 0);
+          if (!origPrice && Array.isArray(p.variants) && p.variants.length > 0) {
+            const vp = p.variants.find(v => Number(v.price) > 0);
+            if (vp) origPrice = Number(vp.price);
+          }
+
+          const customDealPrice = ov.dealPrice ? Number(ov.dealPrice) : 0;
+          const prodDisc = (typeof getEffectiveProductDiscount === 'function')
+            ? getEffectiveProductDiscount(p)
+            : Number(p.discount || 0);
+
+          let finalPrice = origPrice;
+          let badgeText = ov.dealTag || globalBadge;
+
+          if (customDealPrice > 0 && customDealPrice < origPrice) {
+            finalPrice = customDealPrice;
+            const savedPct = Math.round(((origPrice - customDealPrice) / origPrice) * 100);
+            if (!ov.dealTag && savedPct > 0) badgeText = `-${savedPct}% DEAL`;
+          } else if (prodDisc > 0) {
+            finalPrice = Math.round(origPrice * (1 - prodDisc / 100));
+            if (!ov.dealTag) badgeText = `-${prodDisc}% OFF`;
+          }
+
+          const noteHtml = ov.dealNote
+            ? `<span class="td-card-note">${escHtml(ov.dealNote)}</span>`
+            : '';
+
+          const priceHtml = (finalPrice < origPrice && origPrice > 0)
+            ? `<span class="td-price-curr">Rs. ${finalPrice.toLocaleString()}</span><span class="td-price-old">Rs. ${origPrice.toLocaleString()}</span>`
+            : `<span class="td-price-curr">Rs. ${finalPrice.toLocaleString()}</span>`;
+
+          return `
+            <a href="product.html?id=${encodeURIComponent(pid)}" class="td-card">
+              <div class="td-card-img-box">
+                <span class="td-deal-badge">${escHtml(badgeText)}</span>
+                <img src="${img}" alt="${escHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='favicon.png';" />
+              </div>
+              <div class="td-card-body">
+                <span class="td-card-brand">${escHtml(brand)}</span>
+                <h4 class="td-card-title" title="${escHtml(name)}">${escHtml(name)}</h4>
+                ${noteHtml}
+                <div class="td-card-footer">
+                  <div class="td-price-wrap">${priceHtml}</div>
+                  <span class="td-circle-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+
+      function setupSliderControls() {
+        const track = document.getElementById('td-cards-track');
+        const prevBtn = document.getElementById('td-prev-btn');
+        const nextBtn = document.getElementById('td-next-btn');
+        if (!track) return;
+
+        function slideStep(dir) {
+          const card = track.querySelector('.td-card');
+          const step = card ? (card.offsetWidth + 20) : 260;
+          const maxScroll = track.scrollWidth - track.clientWidth;
+          if (dir > 0) {
+            if (track.scrollLeft >= maxScroll - 10) {
+              track.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              track.scrollBy({ left: step, behavior: 'smooth' });
+            }
+          } else {
+            if (track.scrollLeft <= 10) {
+              track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+            } else {
+              track.scrollBy({ left: -step, behavior: 'smooth' });
+            }
+          }
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => slideStep(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => slideStep(1));
+
+        track.addEventListener('mouseenter', () => { isPaused = true; });
+        track.addEventListener('mouseleave', () => { isPaused = false; });
+        track.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+        track.addEventListener('touchend', () => {
+          setTimeout(() => { isPaused = false; }, 2500);
+        }, { passive: true });
+
+        if (autoSlideTimer) clearInterval(autoSlideTimer);
+        autoSlideTimer = setInterval(() => {
+          if (!isPaused && document.visibilityState !== 'hidden') {
+            slideStep(1);
+          }
+        }, 3800);
+      }
+
+      try {
+        const cachedDeals = localStorage.getItem('bib_today_deals');
+        if (cachedDeals) {
+          currentDealsConfig = JSON.parse(cachedDeals);
+        }
+      } catch (e) {}
+
+      renderTodayDeals(currentDealsConfig);
+      setupSliderControls();
+
+      setTimeout(() => renderTodayDeals(currentDealsConfig), 900);
+      setTimeout(() => renderTodayDeals(currentDealsConfig), 2400);
+
+      fetch(`${apiBase}/settings/home_today_deals?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_today_deals', JSON.stringify(d.value)); } catch (e) {}
+            renderTodayDeals(d.value);
           }
         })
         .catch(() => {});

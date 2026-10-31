@@ -1364,6 +1364,7 @@
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-subscribers" class="admin-nav-link" onclick="window.switchTab('subscribers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Subscribers</div></li>
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-offers" class="admin-nav-link" onclick="window.switchTab('offers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Offer Maintaining</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-all" class="admin-nav-link" onclick="window.switchTab('home-all', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home 'ALL' Products</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-today-deals" class="admin-nav-link" onclick="window.switchTab('today-deals', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Today's Deals</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-videos" class="admin-nav-link" onclick="window.switchTab('home-videos', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Home Videos</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-banner" class="admin-nav-link" onclick="window.switchTab('home-banner', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" ry="3"/><circle cx="8.5" cy="10.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Home Banner</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-google-reviews" class="admin-nav-link" onclick="window.switchTab('google-reviews', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Google Reviews</div></li>
@@ -2954,6 +2955,363 @@
   };
 
   window.loadHomeAllTab = loadHomeAllTab;
+})();
+</script>
+
+<!-- ===== TAB: HOME PAGE TODAY'S DEALS / CLEARANCE SLIDER ===== -->
+<div id="tab-today-deals" class="admin-content" style="padding-bottom: 120px; display:none;">
+  <div style="margin-bottom: 26px;">
+    <h2 style="margin:0 0 6px 0; font-size:26px; font-weight:800; color:var(--admin-text);">🔥 Home Page — Today's Deals &amp; Clearance Slider</h2>
+    <p style="margin:0; color:#888; font-size:13px;">Select products (using tick marks) to display in the horizontal sliding "Today's Deals" section right above Google Reviews on the Home Page. Great for special clearance or minor box-damaged items!</p>
+  </div>
+
+  <!-- Status & Save Bar -->
+  <div style="background: linear-gradient(135deg,#2a1810,#18181b); border-radius:18px; padding:22px 28px; color:#fff; margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></div>
+      <div>
+        <div style="font-size:18px;font-weight:800;">Today's Deals Horizontal Slider</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;">Tick products below, optionally set a special Deal Price or Note (e.g. "Minor Box Damage"), and click Save.</div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+      <label style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;">
+        <input type="checkbox" id="td-admin-enabled" checked style="width:16px;height:16px;accent-color:#10b981;">
+        Show Section on Home Page
+      </label>
+      <span id="td-admin-count-pill" style="background:rgba(245,158,11,0.2);color:#fbbf24;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:800;">0 Selected</span>
+      <button id="td-admin-save-btn" onclick="window.saveTodayDealsProducts(this)" style="background:linear-gradient(135deg,#c5965a,#a87c48);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 6px 18px rgba(197,150,90,0.35);">
+        💾 Save Today's Deals
+      </button>
+    </div>
+  </div>
+
+  <div id="td-admin-save-msg" style="margin-bottom:20px;font-size:14px;font-weight:700;display:none;padding:14px 20px;border-radius:12px;"></div>
+
+  <!-- Section Heading & Text Customizer -->
+  <div style="background:#fff;border:1px solid #eee;border-radius:16px;padding:22px 24px;margin-bottom:24px;box-shadow:0 4px 14px rgba(0,0,0,0.03);">
+    <h3 style="margin:0 0 14px 0;font-size:16px;font-weight:800;color:var(--admin-text);">1. Section Title &amp; Description (Left Side Text)</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+      <div>
+        <label style="display:block;font-size:11px;font-weight:800;color:#666;margin-bottom:6px;text-transform:uppercase;">Top Small Label (Kicker)</label>
+        <input type="text" id="td-admin-kicker" value="TODAY'S DEALS" placeholder="TODAY'S DEALS" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;font-size:13px;font-weight:700;">
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:800;color:#666;margin-bottom:6px;text-transform:uppercase;">Main Heading (Line 1)</label>
+        <input type="text" id="td-admin-title-main" value="Special Clearance" placeholder="Special Clearance" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;font-size:13px;font-weight:700;">
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:800;color:#666;margin-bottom:6px;text-transform:uppercase;">Gold Highlight Heading (Line 2)</label>
+        <input type="text" id="td-admin-title-accent" value="Packed With Value" placeholder="Packed With Value" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;font-size:13px;font-weight:700;">
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:800;color:#666;margin-bottom:6px;text-transform:uppercase;">Button Text</label>
+        <input type="text" id="td-admin-cta-text" value="VIEW ALL DEALS" placeholder="VIEW ALL DEALS" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;font-size:13px;font-weight:700;">
+      </div>
+    </div>
+    <div style="margin-top:14px;">
+      <label style="display:block;font-size:11px;font-weight:800;color:#666;margin-bottom:6px;text-transform:uppercase;">Description Paragraph</label>
+      <textarea id="td-admin-desc" rows="2" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;font-size:13px;font-family:inherit;">Grab 100% authentic skincare essentials, unboxed items, and minor packaging-damaged products at unbeatable clearance prices — same genuine quality inside.</textarea>
+    </div>
+  </div>
+
+  <!-- Product Selection Controls -->
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+    <div>
+      <h3 style="margin:0;font-size:17px;font-weight:800;color:var(--admin-text);">2. Tick Products for Today's Deals Slider</h3>
+      <p style="margin:4px 0 0 0;font-size:12px;color:#888;">Put a tick mark (✓) on the products you want in Today's Deals. You can also enter an optional Deal Price or Note (e.g., "Box Slightly Damaged").</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <input type="text" id="td-admin-search" placeholder="Search products..." oninput="window.filterTodayDealsTable()" style="padding:10px 16px;border:1px solid #ddd;border-radius:10px;font-size:13px;width:220px;">
+      <button onclick="window.toggleAllTodayDeals(true)" style="background:#f0f0f0;border:1px solid #ddd;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">Select All</button>
+      <button onclick="window.toggleAllTodayDeals(false)" style="background:#f0f0f0;border:1px solid #ddd;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th style="width:44px;text-align:center;"><input type="checkbox" id="td-admin-select-all-cb" onchange="window.toggleAllTodayDeals(this.checked)"></th>
+          <th>Product</th>
+          <th>Regular Price</th>
+          <th>Special Deal Price (Optional)</th>
+          <th>Badge / Note (e.g. Box Damaged)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="td-admin-table-body">
+        <tr><td colspan="6" style="text-align:center;padding:40px;color:#888;">Loading products...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function() {
+  let allTdProducts = [];
+  let selectedTdProductIds = new Set();
+  let tdProductMeta = {}; // { [id]: { dealPrice, dealTag, dealNote } }
+  const TD_SETTING_KEY = 'home_today_deals';
+
+  function getApiBase() {
+    return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+  }
+
+  function applySettingsToInputs(cfg) {
+    if (!cfg || typeof cfg !== 'object') return;
+    const enabledEl = document.getElementById('td-admin-enabled');
+    if (enabledEl) enabledEl.checked = cfg.enabled !== false;
+    if (cfg.kicker && document.getElementById('td-admin-kicker')) document.getElementById('td-admin-kicker').value = cfg.kicker;
+    if (cfg.titleMain && document.getElementById('td-admin-title-main')) document.getElementById('td-admin-title-main').value = cfg.titleMain;
+    if (cfg.titleAccent && document.getElementById('td-admin-title-accent')) document.getElementById('td-admin-title-accent').value = cfg.titleAccent;
+    if (cfg.ctaText && document.getElementById('td-admin-cta-text')) document.getElementById('td-admin-cta-text').value = cfg.ctaText;
+    if (cfg.description && document.getElementById('td-admin-desc')) document.getElementById('td-admin-desc').value = cfg.description;
+    if (Array.isArray(cfg.productIds)) {
+      selectedTdProductIds = new Set(cfg.productIds.map(String));
+    }
+    if (cfg.productMeta && typeof cfg.productMeta === 'object') {
+      tdProductMeta = Object.assign({}, cfg.productMeta);
+    }
+  }
+
+  async function loadTodayDealsTab() {
+    const tbody = document.getElementById('td-admin-table-body');
+    if (tbody && (!allTdProducts || !allTdProducts.length)) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#888;">Loading products...</td></tr>';
+    }
+
+    if (window.productsData && window.productsData.length > 0) {
+      allTdProducts = window.productsData;
+    } else if (typeof window.fetchDatabaseProducts === 'function') {
+      try {
+        await window.fetchDatabaseProducts();
+        allTdProducts = window.productsData || [];
+      } catch(e) {}
+    }
+
+    if (!allTdProducts.length && typeof defaultProducts !== 'undefined') {
+      allTdProducts = defaultProducts;
+    }
+
+    // Load cached local setting first
+    try {
+      const localRaw = localStorage.getItem('bib_today_deals');
+      if (localRaw) {
+        applySettingsToInputs(JSON.parse(localRaw));
+      }
+    } catch(e) {}
+
+    // Load saved setting from server
+    try {
+      const res = await fetch(getApiBase() + '/settings/' + TD_SETTING_KEY + '?t=' + Date.now());
+      if (res.ok) {
+        const d = await res.json();
+        if (d && d.value && typeof d.value === 'object') {
+          applySettingsToInputs(d.value);
+        } else if (d && d.value === null && selectedTdProductIds.size === 0) {
+          // Pre-select first 6 products by default so slider looks populated initially
+          allTdProducts.slice(0, 6).forEach(p => {
+            const id = String(p.id || p._id || '');
+            if (id) selectedTdProductIds.add(id);
+          });
+        }
+      }
+    } catch(e) {
+      console.warn('Could not load home_today_deals setting:', e);
+    }
+
+    renderTodayDealsTable();
+  }
+
+  function isTdProductChecked(p) {
+    const id1 = String(p.id || '');
+    const id2 = String(p._id || '');
+    return (id1 && selectedTdProductIds.has(id1)) || (id2 && selectedTdProductIds.has(id2));
+  }
+
+  function renderTodayDealsTable() {
+    const tbody = document.getElementById('td-admin-table-body');
+    if (!tbody) return;
+
+    if (!allTdProducts.length && window.productsData && window.productsData.length) {
+      allTdProducts = window.productsData;
+    }
+
+    const searchInput = document.getElementById('td-admin-search');
+    const q = (searchInput && searchInput.value) ? searchInput.value.toLowerCase().trim() : '';
+
+    // Sort ticked products to the top when not searching so admin sees active deals immediately
+    const sorted = allTdProducts.slice().sort((a, b) => {
+      const ca = isTdProductChecked(a) ? 1 : 0;
+      const cb = isTdProductChecked(b) ? 1 : 0;
+      return cb - ca;
+    });
+
+    const filtered = sorted.filter(p => {
+      if (!q) return true;
+      const name = (p.name || '').toLowerCase();
+      const cat = (p.cat || '').toLowerCase();
+      const id = String(p.id || p._id || '').toLowerCase();
+      return name.includes(q) || cat.includes(q) || id.includes(q);
+    });
+
+    const countEl = document.getElementById('td-admin-count-pill');
+    if (countEl) countEl.textContent = selectedTdProductIds.size + ' Selected';
+
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:30px;color:#888;">No products found.</td></tr>';
+      return;
+    }
+
+    let rowsHtml = '';
+    for (let i = 0; i < filtered.length; i++) {
+      const p = filtered[i];
+      const id = String(p.id || p._id || '');
+      const checked = isTdProductChecked(p);
+      const img = p.img || (p.images && p.images[0]) || 'favicon.png';
+      const name = p.name || 'Untitled';
+      const brand = (p.cat || 'General').toUpperCase();
+      const price = p.price ? 'Rs. ' + Number(p.price).toLocaleString() : 'N/A';
+      const meta = tdProductMeta[id] || {};
+      const dealPriceVal = meta.dealPrice !== undefined && meta.dealPrice !== '' ? meta.dealPrice : '';
+      const dealNoteVal = (meta.dealNote || meta.dealTag || '').replace(/"/g, '&quot;');
+
+      rowsHtml += '<tr style="' + (checked ? 'background:rgba(245,158,11,0.07);' : '') + '">' +
+        '<td style="text-align:center;">' +
+          '<input type="checkbox" data-pid="' + id + '" ' + (checked ? 'checked' : '') + ' class="td-admin-row-cb" style="width:18px;height:18px;cursor:pointer;accent-color:#c5965a;">' +
+        '</td>' +
+        '<td style="display:flex;align-items:center;gap:12px;">' +
+          '<img src="' + img + '" style="width:42px;height:42px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid #eee;" onerror="this.onerror=null;this.src=\'favicon.png\';">' +
+          '<div>' +
+            '<div style="font-weight:700;color:var(--admin-text);font-size:13px;">' + name + '</div>' +
+            '<span style="font-size:10px;font-weight:700;background:#f0f0f0;padding:2px 8px;border-radius:20px;color:#666;">' + brand + '</span>' +
+          '</div>' +
+        '</td>' +
+        '<td style="font-weight:700;color:var(--admin-text);">' + price + '</td>' +
+        '<td>' +
+          '<input type="number" data-meta-price="' + id + '" value="' + dealPriceVal + '" placeholder="e.g. ' + (p.price ? Math.round(Number(p.price) * 0.85) : '3500') + '" style="width:130px;padding:7px 10px;border:1px solid #ddd;border-radius:8px;font-size:12px;font-weight:700;">' +
+        '</td>' +
+        '<td>' +
+          '<input type="text" data-meta-note="' + id + '" value="' + dealNoteVal + '" placeholder="e.g. Box Slightly Damaged" style="width:190px;padding:7px 10px;border:1px solid #ddd;border-radius:8px;font-size:12px;">' +
+        '</td>' +
+        '<td><span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;background:' + (checked ? 'rgba(16,185,129,0.14)' : '#f5f5f5') + ';color:' + (checked ? '#10b981' : '#999') + ';">' + (checked ? '✓ In Today\'s Deals' : 'Not Selected') + '</span></td>' +
+        '</tr>';
+    }
+    tbody.innerHTML = rowsHtml;
+
+    const checkboxes = tbody.querySelectorAll('.td-admin-row-cb');
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', function() {
+        const pid = this.getAttribute('data-pid');
+        if (this.checked) {
+          selectedTdProductIds.add(pid);
+        } else {
+          selectedTdProductIds.delete(pid);
+          const prod = allTdProducts.find(x => String(x.id || x._id || '') === pid);
+          if (prod) {
+            if (prod.id) selectedTdProductIds.delete(String(prod.id));
+            if (prod._id) selectedTdProductIds.delete(String(prod._id));
+          }
+        }
+        renderTodayDealsTable();
+      });
+    });
+
+    tbody.querySelectorAll('input[data-meta-price]').forEach(inp => {
+      inp.addEventListener('input', function() {
+        const pid = this.getAttribute('data-meta-price');
+        if (!tdProductMeta[pid]) tdProductMeta[pid] = {};
+        tdProductMeta[pid].dealPrice = this.value ? Number(this.value) : '';
+      });
+    });
+
+    tbody.querySelectorAll('input[data-meta-note]').forEach(inp => {
+      inp.addEventListener('input', function() {
+        const pid = this.getAttribute('data-meta-note');
+        if (!tdProductMeta[pid]) tdProductMeta[pid] = {};
+        tdProductMeta[pid].dealNote = this.value.trim();
+        tdProductMeta[pid].dealTag = this.value.trim() || "TODAY'S DEAL";
+      });
+    });
+  }
+
+  window.toggleAllTodayDeals = function(selectAll) {
+    if (selectAll) {
+      allTdProducts.forEach(p => {
+        const id = String(p.id || p._id || '');
+        if (id) selectedTdProductIds.add(id);
+      });
+    } else {
+      selectedTdProductIds.clear();
+    }
+    const selectAllCb = document.getElementById('td-admin-select-all-cb');
+    if (selectAllCb) selectAllCb.checked = selectAll;
+    renderTodayDealsTable();
+  };
+
+  window.filterTodayDealsTable = function() {
+    renderTodayDealsTable();
+  };
+
+  window.saveTodayDealsProducts = async function(btn) {
+    const origText = btn ? btn.textContent : '💾 Save Today\'s Deals';
+    if (btn) { btn.textContent = '⏳ Saving...'; btn.disabled = true; }
+    const msg = document.getElementById('td-admin-save-msg');
+
+    const payload = {
+      enabled: document.getElementById('td-admin-enabled') ? document.getElementById('td-admin-enabled').checked : true,
+      kicker: (document.getElementById('td-admin-kicker')?.value || "TODAY'S DEALS").trim(),
+      titleMain: (document.getElementById('td-admin-title-main')?.value || 'Special Clearance').trim(),
+      titleAccent: (document.getElementById('td-admin-title-accent')?.value || 'Packed With Value').trim(),
+      ctaText: (document.getElementById('td-admin-cta-text')?.value || 'VIEW ALL DEALS').trim(),
+      ctaLink: 'offers.html',
+      description: (document.getElementById('td-admin-desc')?.value || '').trim(),
+      productIds: Array.from(selectedTdProductIds),
+      productMeta: tdProductMeta
+    };
+
+    try {
+      localStorage.setItem('bib_today_deals', JSON.stringify(payload));
+    } catch(e) {}
+
+    try {
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
+      const res = await fetch(getApiBase() + '/settings/' + TD_SETTING_KEY, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ value: payload })
+      });
+      if (res.ok) {
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(16,185,129,0.12)';
+          msg.style.color = '#10b981';
+          msg.textContent = '✅ Saved! ' + payload.productIds.length + ' products are now active in the Today\'s Deals slider on the Home Page.';
+        }
+      } else {
+        const errJson = await res.json().catch(() => ({}));
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(245,158,11,0.15)';
+          msg.style.color = '#d97706';
+          msg.textContent = '⚠️ Saved locally on this browser. Server status: ' + (errJson.message || res.status);
+        }
+      }
+    } catch(e) {
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(245,158,11,0.15)';
+        msg.style.color = '#d97706';
+        msg.textContent = '⚠️ Saved locally (' + e.message + ').';
+      }
+    } finally {
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+    }
+  };
+
+  window.loadTodayDealsTab = loadTodayDealsTab;
 })();
 </script>
 
@@ -5007,6 +5365,7 @@
         'support': 'Customer Support',
         'brands': 'Brand Logos',
         'home-all': "Home 'ALL' Products Customizer",
+        'today-deals': "Today's Deals & Clearance Slider",
         'home-videos': "Homepage Video Highlights",
         'home-banner': "Homepage Collection Banner",
         'google-reviews': "Google Reviews Manager",
@@ -5054,6 +5413,7 @@
       if (tabId === 'brands' && typeof window.fetchAdminBrands === 'function') window.fetchAdminBrands();
       if (tabId === 'settings' && typeof fetchAdminSlides === 'function') fetchAdminSlides();
       if (tabId === 'home-all' && typeof window.loadHomeAllTab === 'function') window.loadHomeAllTab();
+      if (tabId === 'today-deals' && typeof window.loadTodayDealsTab === 'function') window.loadTodayDealsTab();
     };
 
     const fallbackProducts = [

@@ -11514,4 +11514,348 @@ body.loading-active .floating-email {
   }
 }
 
+/* ==========================================================================
+   TODAY'S DEALS / CLEARANCE SLIDER SECTION (ABOVE GOOGLE REVIEWS)
+   ========================================================================== */
+.today-deals-section {
+  padding: 64px 0 54px !important;
+  background: #ffffff !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+.td-inner {
+  max-width: 1380px !important;
+  margin: 0 auto !important;
+  padding: 0 0 0 48px !important;
+  display: grid !important;
+  grid-template-columns: 350px minmax(0, 1fr) !important;
+  gap: 42px !important;
+  align-items: center !important;
+}
+
+.td-left {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding-right: 8px !important;
+}
+
+.td-kicker {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: #D9381E !important;
+  margin-bottom: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.td-heading {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: clamp(28px, 3vw, 38px) !important;
+  font-weight: 800 !important;
+  line-height: 1.16 !important;
+  color: #1A1817 !important;
+  margin: 0 0 16px 0 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.td-heading .td-accent {
+  color: #C58F46 !important;
+  display: inline !important;
+}
+
+.td-desc {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  color: #5C5652 !important;
+  margin: 0 0 24px 0 !important;
+  max-width: 335px !important;
+}
+
+.td-cta-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+.td-cta-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  background: #2D1B12 !important;
+  color: #ffffff !important;
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  padding: 14px 26px !important;
+  border-radius: 50px !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 6px 16px rgba(45, 27, 18, 0.16) !important;
+}
+
+.td-cta-btn:hover {
+  background: #C58F46 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+.td-nav-btns {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.td-nav-btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(45, 27, 18, 0.15) !important;
+  background: #FAF8F5 !important;
+  color: #2D1B12 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.td-nav-btn:hover {
+  background: #2D1B12 !important;
+  color: #ffffff !important;
+  border-color: #2D1B12 !important;
+}
+
+.td-right {
+  position: relative !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.td-track {
+  display: flex !important;
+  gap: 20px !important;
+  overflow-x: auto !important;
+  scroll-behavior: smooth !important;
+  scroll-snap-type: x mandatory !important;
+  padding: 6px 40px 14px 4px !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.td-track::-webkit-scrollbar {
+  display: none !important;
+}
+
+.td-card {
+  flex: 0 0 242px !important;
+  scroll-snap-align: start !important;
+  background: #F7F5F0 !important;
+  border-radius: 18px !important;
+  padding: 10px 10px 16px !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  cursor: pointer !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  position: relative !important;
+}
+
+.td-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.07) !important;
+}
+
+.td-card-img-box {
+  width: 100% !important;
+  aspect-ratio: 1 / 1.06 !important;
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 14px !important;
+  padding: 12px !important;
+}
+
+.td-card-img-box img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  transition: transform 0.35s ease !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.td-card:hover .td-card-img-box img {
+  transform: scale(1.05) !important;
+}
+
+.td-deal-badge {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  background: #D9381E !important;
+  color: #ffffff !important;
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+  z-index: 2 !important;
+  box-shadow: 0 2px 8px rgba(217, 56, 30, 0.25) !important;
+}
+
+.td-card-body {
+  padding: 0 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+.td-card-brand {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #8C7A6B !important;
+  margin-bottom: 3px !important;
+}
+
+.td-card-title {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  color: #1A1817 !important;
+  text-transform: uppercase !important;
+  line-height: 1.3 !important;
+  margin: 0 0 8px 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  min-height: 35px !important;
+}
+
+.td-card-note {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  color: #D9381E !important;
+  background: rgba(217, 56, 30, 0.09) !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+  display: inline-block !important;
+  align-self: flex-start !important;
+  margin-bottom: 8px !important;
+}
+
+.td-card-footer {
+  margin-top: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  padding-top: 4px !important;
+}
+
+.td-price-wrap {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+}
+
+.td-price-curr {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #1A1817 !important;
+}
+
+.td-price-old {
+  font-family: var(--font-sans, sans-serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #999999 !important;
+  text-decoration: line-through !important;
+}
+
+.td-circle-arrow {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  background: #C58F46 !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  transition: all 0.25s ease !important;
+}
+
+.td-card:hover .td-circle-arrow {
+  background: #2D1B12 !important;
+  transform: translateX(2px) !important;
+}
+
+@media (max-width: 990px) {
+  .today-deals-section {
+    padding: 40px 0 36px !important;
+  }
+
+  .td-inner {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 0 18px !important;
+  }
+
+  .td-left {
+    padding-right: 0 !important;
+  }
+
+  .td-heading {
+    font-size: 26px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .td-desc {
+    font-size: 13.5px !important;
+    max-width: 100% !important;
+    margin-bottom: 18px !important;
+  }
+
+  .td-track {
+    padding: 4px 16px 12px 2px !important;
+    gap: 14px !important;
+  }
+
+  .td-card {
+    flex: 0 0 205px !important;
+    padding: 8px 8px 14px !important;
+    border-radius: 16px !important;
+  }
+}
+
+
 
