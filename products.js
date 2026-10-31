@@ -2229,6 +2229,27 @@ async function fetchHomeAllProductsSetting() {
 }
 try { fetchHomeAllProductsSetting(); } catch(e) {}
 
+// Global Image Swapper for Mini Card Thumbnails
+window.swapCardImg = function(btn) {
+    if (!btn) return;
+    const thumbImg = btn.querySelector('img');
+    if (!thumbImg || !thumbImg.src) return;
+    
+    const card = btn.closest('.hap-card, .shop-card');
+    if (!card) return;
+    
+    const mainImg = card.querySelector('.hap-card-img img, .shop-card-img-box img');
+    if (mainImg) {
+        mainImg.src = thumbImg.src;
+    }
+    
+    const gallery = btn.closest('.card-thumb-gallery');
+    if (gallery) {
+        gallery.querySelectorAll('.card-thumb-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+};
+
 window.renderHomeAllProducts = function() {
     const grid = document.getElementById('hap-grid');
     if (!grid) return;
@@ -2357,8 +2378,32 @@ window.renderHomeAllProducts = function() {
                 ? `<button class="btn-buy-animated" disabled style="opacity: 0.6; cursor: not-allowed; background: #888 !important; box-shadow: none !important;">SOLD OUT</button>`
                 : `<button class="btn-buy-animated" onclick="event.preventDefault(); event.stopPropagation(); buyItNow('${prod.id}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px;"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>Buy It Now</button>`;
 
+            // Mini Thumbnail Gallery (Under main product image, above brand name)
+            let allImages = (Array.isArray(prod.images) && prod.images.length > 0)
+                ? prod.images.filter(src => typeof src === 'string' && src.trim().length > 0)
+                : (prod.img ? [prod.img] : []);
+
+            if (prod.img && !allImages.includes(prod.img)) {
+                allImages.unshift(prod.img);
+            }
+
+            const thumbnailsHTML = allImages.length > 1 ? `
+                <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">
+                    ${allImages.slice(0, 5).map((thumbSrc, idx) => `
+                        <button type="button" 
+                                class="card-thumb-btn ${idx === 0 ? 'active' : ''}" 
+                                onclick="event.preventDefault(); event.stopPropagation(); swapCardImg(this);" 
+                                onmouseenter="swapCardImg(this);" 
+                                aria-label="View product image ${idx + 1}" 
+                                title="View image ${idx + 1}">
+                            <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy">
+                        </button>
+                    `).join('')}
+                </div>
+            ` : '';
+
             return `
-            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''}" style="text-decoration: none;">
+            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''} ${allImages.length > 1 ? 'has-thumbs' : ''}" style="text-decoration: none;">
                 <div class="hap-card-img">
                     ${badgesHTML}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
@@ -2371,6 +2416,7 @@ window.renderHomeAllProducts = function() {
                         </span>
                     </div>
                 </div>
+                ${thumbnailsHTML}
                 <div class="hap-card-brand">${brandDisplay}</div>
                 <div class="hap-card-title" style="font-weight: 700 !important; color: #111111;">${prod.name}</div>
                 <div class="hap-card-price">${priceHTML}</div>

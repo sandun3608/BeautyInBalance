@@ -654,6 +654,71 @@
       transform: scale(1.1);
     }
 
+    /* ── MINI THUMBNAIL GALLERY (UNDER MAIN IMAGE, ABOVE BRAND) ── */
+    .card-thumb-gallery {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+      margin: 2px auto 10px !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      position: relative !important;
+      z-index: 6 !important;
+    }
+
+    .card-thumb-gallery::-webkit-scrollbar {
+      display: none !important;
+    }
+
+    .card-thumb-btn {
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 6px !important;
+      border: 1.5px solid #ECE7DE !important;
+      background: #FFFFFF !important;
+      padding: 2px !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+      flex-shrink: 0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+      box-sizing: border-box !important;
+    }
+
+    .card-thumb-btn:hover {
+      border-color: #C6975A !important;
+      transform: translateY(-1px) scale(1.06) !important;
+    }
+
+    .card-thumb-btn.active {
+      border-color: #2D1B12 !important;
+      box-shadow: 0 0 0 1px #2D1B12 !important;
+    }
+
+    .card-thumb-btn img {
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      border-radius: 4px !important;
+      filter: none !important;
+      -webkit-filter: none !important;
+      display: block !important;
+      background: #FFFFFF !important;
+      pointer-events: none !important;
+    }
+
+    .shop-card.has-thumbs .shop-card-img-box {
+      margin-bottom: 6px !important;
+    }
+
     /* Card Info Area */
     .shop-card-info {
       flex: 1;
@@ -1290,6 +1355,23 @@
   <script src="config.js?v=28"></script>
   <script src="products.js?v=421"></script>
   <script>
+    window.swapCardImg = window.swapCardImg || function(btn) {
+      if (!btn) return;
+      const thumbImg = btn.querySelector('img');
+      if (!thumbImg || !thumbImg.src) return;
+      const card = btn.closest('.hap-card, .shop-card');
+      if (!card) return;
+      const mainImg = card.querySelector('.hap-card-img img, .shop-card-img-box img');
+      if (mainImg) {
+        mainImg.src = thumbImg.src;
+      }
+      const gallery = btn.closest('.card-thumb-gallery');
+      if (gallery) {
+        gallery.querySelectorAll('.card-thumb-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+    };
+
     (function() {
       const $ = id => document.getElementById(id);
 
@@ -1398,8 +1480,32 @@
               Add to Bag
             </button>`;
 
+        // Mini Thumbnail Gallery (Under main product image, above brand name)
+        let allImages = (Array.isArray(p.images) && p.images.length > 0)
+          ? p.images.filter(src => typeof src === 'string' && src.trim().length > 0)
+          : (p.img ? [p.img] : []);
+
+        if (p.img && !allImages.includes(p.img)) {
+          allImages.unshift(p.img);
+        }
+
+        const thumbnailsHTML = allImages.length > 1 ? `
+          <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">
+            ${allImages.slice(0, 5).map((thumbSrc, idx) => `
+              <button type="button" 
+                      class="card-thumb-btn ${idx === 0 ? 'active' : ''}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); swapCardImg(this);" 
+                      onmouseenter="swapCardImg(this);" 
+                      aria-label="View product image ${idx + 1}" 
+                      title="View image ${idx + 1}">
+                <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy">
+              </button>
+            `).join('')}
+          </div>
+        ` : '';
+
         const card = document.createElement('div');
-        card.className = `shop-card ${isOutOfStock ? 'is-sold-out' : ''}`;
+        card.className = `shop-card ${isOutOfStock ? 'is-sold-out' : ''} ${allImages.length > 1 ? 'has-thumbs' : ''}`;
         card.innerHTML = `
           <div class="shop-card-img-box" onclick="location.href='product.html?id=${p.id || p._id}'">
             ${discountBadge}
@@ -1408,6 +1514,7 @@
             </button>
             <img src="${p.img || 'favicon.png'}" alt="${p.name}" loading="lazy" onerror="this.src='favicon.png'; this.style.opacity='0.4'">
           </div>
+          ${thumbnailsHTML}
           <div class="shop-card-info" onclick="location.href='product.html?id=${p.id || p._id}'">
             <span class="shop-card-brand ${brandClass}">${brandDisplay}</span>
             <h4 class="shop-card-title" title="${p.name}">${p.name}</h4>

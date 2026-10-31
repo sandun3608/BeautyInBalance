@@ -10454,3 +10454,85 @@ body.loading-active .floating-email {
   filter: blur(1.4px) !important;
   opacity: 0.86 !important;
 }
+
+/* ── PRODUCT CARD MINI THUMBNAIL GALLERY (UNDER MAIN IMAGE, ABOVE BRAND) ── */
+.card-thumb-gallery {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  margin: 2px auto 10px !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  position: relative !important;
+  z-index: 6 !important;
+}
+
+.card-thumb-gallery::-webkit-scrollbar {
+  display: none !important;
+}
+
+.card-thumb-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+  border: 1.5px solid #ECE7DE !important;
+  background: #FFFFFF !important;
+  padding: 2px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  flex-shrink: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+}
+
+.card-thumb-btn:hover {
+  border-color: #C6975A !important;
+  transform: translateY(-1px) scale(1.06) !important;
+}
+
+.card-thumb-btn.active {
+  border-color: #2D1B12 !important;
+  box-shadow: 0 0 0 1px #2D1B12 !important;
+}
+
+.card-thumb-btn img {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 4px !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  display: block !important;
+  background: #FFFFFF !important;
+  pointer-events: none !important;
+}
+
+.hap-card.has-thumbs .hap-card-img {
+  margin-bottom: 6px !important;
+}
+
+.shop-card.has-thumbs .shop-card-img-box {
+  margin-bottom: 6px !important;
+}
+
+@media (max-width: 768px) {
+  .card-thumb-gallery {
+    gap: 4px !important;
+    margin: 2px auto 6px !important;
+  }
+  .card-thumb-btn {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 5px !important;
+    padding: 1.5px !important;
+  }
+}
