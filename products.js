@@ -2410,31 +2410,44 @@ window.renderHomeAllProducts = function() {
                 prod.img
             ];
             const seenCand = new Set();
-            const allImages = [];
+            const uniqueImages = [];
             for (const s of rawCand) {
                 if (typeof s === 'string' && s.trim().length > 5 && !seenCand.has(s.trim())) {
                     seenCand.add(s.trim());
-                    allImages.push(s.trim());
+                    uniqueImages.push(s.trim());
                 }
             }
 
-            const thumbnailsHTML = allImages.length > 1 ? `
+            // If product has real multiple images (>1), show them.
+            // If only 1 image exists, create 2 copies from the original as requested!
+            let displayImages = [];
+            if (uniqueImages.length > 1) {
+                displayImages = uniqueImages;
+            } else if (uniqueImages.length === 1) {
+                const orig = uniqueImages[0];
+                displayImages = [orig, orig, orig];
+            }
+
+            const thumbnailsHTML = displayImages.length > 0 ? `
                 <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">
-                    ${allImages.slice(0, 5).map((thumbSrc, idx) => `
+                    ${displayImages.slice(0, 5).map((thumbSrc, idx) => `
                         <button type="button" 
                                 class="card-thumb-btn ${idx === 0 ? 'active' : ''}" 
+                                style="display:none;"
                                 onclick="event.preventDefault(); event.stopPropagation(); swapCardImg(this);" 
                                 onmouseenter="swapCardImg(this);" 
                                 aria-label="View product image ${idx + 1}" 
                                 title="View image ${idx + 1}">
-                            <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy" onerror="handleThumbError(this)">
+                            <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy" 
+                                 onload="const b=this.closest('.card-thumb-btn');if(b)b.style.display='inline-flex';" 
+                                 onerror="handleThumbError(this)">
                         </button>
                     `).join('')}
                 </div>
             ` : '';
 
             return `
-            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''} ${allImages.length > 1 ? 'has-thumbs' : ''}" style="text-decoration: none;">
+            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''} has-thumbs" style="text-decoration: none;">
                 <div class="hap-card-img">
                     ${badgesHTML}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
@@ -2456,6 +2469,18 @@ window.renderHomeAllProducts = function() {
             </a>
             `;
         }).join('');
+
+        // Ensure loaded/cached thumbnails display immediately and remove broken ones
+        grid.querySelectorAll('.card-thumb-btn img').forEach(img => {
+            if (img.complete) {
+                const b = img.closest('.card-thumb-btn');
+                if (img.naturalWidth > 0) {
+                    if (b) b.style.display = 'inline-flex';
+                } else {
+                    if (b) b.remove();
+                }
+            }
+        });
     };
 
     // Initial render
