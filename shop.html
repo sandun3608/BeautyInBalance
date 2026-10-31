@@ -112,6 +112,7 @@
       max-width: 1440px;
       margin: 0 auto;
       padding: 32px 24px 80px;
+      background: #FFFFFF !important;
     }
 
     .shop-main-layout {
@@ -119,6 +120,7 @@
       grid-template-columns: 270px 1fr;
       gap: 32px;
       align-items: start;
+      background: #FFFFFF !important;
     }
 
     /* ── SIDEBAR FILTER (LEFT COLUMN) ── */
@@ -418,7 +420,7 @@
       border-radius: 14px;
       padding: 14px 20px;
       margin-bottom: 22px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      box-shadow: none !important;
     }
 
     .topbar-left {
@@ -482,7 +484,7 @@
     }
 
     .shop-sort-select {
-      background: #FAF9F6;
+      background: #FFFFFF;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 8px 12px;
@@ -546,6 +548,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
+      background: #FFFFFF !important;
     }
 
     /* ── MODERN PRODUCT CARD (BEAUTY IN BALANCE LUXURY STYLE) ── */
@@ -553,26 +556,28 @@
       background: #FFFFFF !important;
       border: none !important;
       outline: none !important;
-      border-radius: 16px;
-      padding: 12px 12px 16px;
+      box-shadow: none !important;
+      border-radius: 14px;
+      padding: 10px 10px 16px;
       display: flex;
       flex-direction: column;
       position: relative;
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s ease;
     }
 
     .shop-card:hover {
       border: none !important;
       outline: none !important;
-      transform: translateY(-4px);
-      box-shadow: 0 14px 32px rgba(45, 27, 18, 0.09);
+      box-shadow: none !important;
+      transform: translateY(-3px);
     }
 
-    /* Card Image Area — Pure White, High Resolution Display */
+    /* Card Image Area — Pure White, Crystal Clear Display */
     .shop-card-img-box {
       background: #FFFFFF !important;
       border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
       border-radius: 12px;
       height: 220px;
       position: relative;
@@ -582,23 +587,27 @@
       overflow: hidden;
       margin-bottom: 14px;
       cursor: pointer;
-      padding: 6px;
+      padding: 0;
     }
 
     .shop-card-img-box img {
       width: 100% !important;
       height: 100% !important;
-      max-height: 210px !important;
+      max-height: 215px !important;
       object-fit: contain !important;
-      image-rendering: -webkit-optimize-contrast !important;
-      image-rendering: crisp-edges !important;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
-      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      filter: none !important;
+      -webkit-filter: none !important;
+      image-rendering: auto !important;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      transition: transform 0.35s ease;
     }
 
     .shop-card:hover .shop-card-img-box img {
-      transform: scale(1.06);
-      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.09));
+      transform: scale(1.04);
+      filter: none !important;
+      -webkit-filter: none !important;
     }
 
     /* Badges */
