@@ -2892,9 +2892,9 @@
   <div style="margin-bottom: 30px;">
     <h2 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--admin-text); display: flex; align-items: center; gap: 10px;">
       <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" style="color: #c5965a;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-      Homepage Video Highlights Management (3 Videos)
+      Homepage Video Highlights Management (5 Videos)
     </h2>
-    <p style="margin: 0; color: #888; font-size: 13px;">Manage, replace, or upload the 3 videos featured in Section 8 on the homepage. On mobile, they display as an interactive Scale & Snap Carousel with center Play button. Updates reflect live immediately on the website.</p>
+    <p style="margin: 0; color: #888; font-size: 13px;">Manage, replace, or upload up to 5 videos featured in Section 8 on the homepage. On mobile, they display as a frameless 3D Blurred Stack Carousel with center Play button. Videos lazy-load only when scrolled into view.</p>
   </div>
 
   <!-- Status & Quick Action Bar -->
@@ -2902,8 +2902,8 @@
     <div style="display: flex; align-items: center; gap: 14px;">
       <div style="width: 12px; height: 12px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981;"></div>
       <div>
-        <div style="font-size: 17px; font-weight: 800; letter-spacing: 0.02em;">Homepage Section 8 Video Sync (3 Videos)</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px;">3 Video blocks active. Upload MP4 files or enter direct video URLs.</div>
+        <div style="font-size: 17px; font-weight: 800; letter-spacing: 0.02em;">Homepage Section 8 Video Sync (5 Videos)</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px;">5 Video slots active. Upload MP4 files or enter direct video URLs.</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -2914,14 +2914,14 @@
         👁️ View On Site
       </button>
       <button id="btn-save-home-videos-top" onclick="window.saveAdminHomeVideos(this)" style="background: linear-gradient(135deg, #c5965a, #a87c48); color: #fff; border: none; padding: 11px 24px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 6px 18px rgba(197,150,90,0.35); display: flex; align-items: center; gap: 8px; transition: 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
-        💾 Save All 3 Videos
+        💾 Save All 5 Videos
       </button>
     </div>
   </div>
 
-  <!-- Video Cards Grid (3 Cards) -->
+  <!-- Video Cards Grid (5 Cards) -->
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; margin-bottom: 30px;">
-    
+
     <!-- CARD 1: Video 1 -->
     <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;">
@@ -2929,7 +2929,7 @@
           <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">1</span>
           <div>
             <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 1 (Card 1)</h3>
-            <span style="font-size: 11px; color: #888;">Desktop: Row 1 (Media Left)</span>
+            <span style="font-size: 11px; color: #888;">Desktop: Row 1 (Media Left) • Mobile Card 1</span>
           </div>
         </div>
         <button type="button" onclick="window.resetHomeVideoToDefault(1)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
@@ -2939,7 +2939,7 @@
 
       <!-- Live Video Preview Player -->
       <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-        <video id="admin-v1-player" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <video id="admin-v1-player" preload="metadata" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
         <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
       </div>
 
@@ -2992,7 +2992,7 @@
           <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">2</span>
           <div>
             <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 2 (Card 2)</h3>
-            <span style="font-size: 11px; color: #888;">Desktop: Row 2 (Media Right)</span>
+            <span style="font-size: 11px; color: #888;">Desktop: Row 2 (Media Right) • Mobile Card 2</span>
           </div>
         </div>
         <button type="button" onclick="window.resetHomeVideoToDefault(2)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
@@ -3002,7 +3002,7 @@
 
       <!-- Live Video Preview Player -->
       <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-        <video id="admin-v2-player" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <video id="admin-v2-player" preload="metadata" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
         <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
       </div>
 
@@ -3055,7 +3055,7 @@
           <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">3</span>
           <div>
             <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 3 (Card 3)</h3>
-            <span style="font-size: 11px; color: #888;">Desktop: Row 3 (Media Left)</span>
+            <span style="font-size: 11px; color: #888;">Mobile 3D Carousel Card 3</span>
           </div>
         </div>
         <button type="button" onclick="window.resetHomeVideoToDefault(3)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
@@ -3065,7 +3065,7 @@
 
       <!-- Live Video Preview Player -->
       <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-        <video id="admin-v3-player" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <video id="admin-v3-player" preload="metadata" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
         <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
       </div>
 
@@ -3111,20 +3111,145 @@
       </div>
     </div>
 
+    <!-- CARD 4: Video 4 -->
+    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">4</span>
+          <div>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 4 (Card 4)</h3>
+            <span style="font-size: 11px; color: #888;">Mobile 3D Carousel Card 4</span>
+          </div>
+        </div>
+        <button type="button" onclick="window.resetHomeVideoToDefault(4)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
+          ↺ Reset Default
+        </button>
+      </div>
+
+      <!-- Live Video Preview Player -->
+      <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <video id="admin-v4-player" preload="metadata" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
+      </div>
+
+      <!-- Video Upload / Source -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <input type="file" id="admin-v4-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="window.handleVideoFileSelect(4, this)">
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v4-file-input').click()" style="padding: 9px 16px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+            📁 Upload Video File
+          </button>
+          <span id="admin-v4-file-status" style="font-size: 11px; color: #777; font-weight: 600;">Current: vedio/2.mp4</span>
+        </div>
+        <div>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Video URL</label>
+          <input type="text" id="admin-v4-url-input" placeholder="vedio/2.mp4 or https://..." oninput="window.previewVideoFromInput(4)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff;">
+        </div>
+      </div>
+
+      <!-- Text Content Fields -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Tag</label>
+          <input type="text" id="admin-v4-tag" placeholder="DEEP HYDRATION" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; background: #fafafa;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Title</label>
+          <input type="text" id="admin-v4-title" placeholder="Unlock Your Natural Glow" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 13.5px; font-weight: 700; background: #fafafa;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Description</label>
+          <textarea id="admin-v4-desc" rows="2" placeholder="Description..." style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; line-height: 1.4; background: #fafafa;"></textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Button Text</label>
+            <input type="text" id="admin-v4-link-text" placeholder="SHOP SERUMS" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+          </div>
+          <div class="form-group">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Link URL</label>
+            <input type="text" id="admin-v4-link-url" placeholder="shop.html" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Video 5 -->
+    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">5</span>
+          <div>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 5 (Card 5)</h3>
+            <span style="font-size: 11px; color: #888;">Mobile 3D Carousel Card 5</span>
+          </div>
+        </div>
+        <button type="button" onclick="window.resetHomeVideoToDefault(5)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
+          ↺ Reset Default
+        </button>
+      </div>
+
+      <!-- Live Video Preview Player -->
+      <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <video id="admin-v5-player" preload="metadata" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
+      </div>
+
+      <!-- Video Upload / Source -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <input type="file" id="admin-v5-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="window.handleVideoFileSelect(5, this)">
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v5-file-input').click()" style="padding: 9px 16px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+            📁 Upload Video File
+          </button>
+          <span id="admin-v5-file-status" style="font-size: 11px; color: #777; font-weight: 600;">Current: vedio/1.mp4</span>
+        </div>
+        <div>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Video URL</label>
+          <input type="text" id="admin-v5-url-input" placeholder="vedio/1.mp4 or https://..." oninput="window.previewVideoFromInput(5)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff;">
+        </div>
+      </div>
+
+      <!-- Text Content Fields -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Tag</label>
+          <input type="text" id="admin-v5-tag" placeholder="PURE RADIANCE" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; background: #fafafa;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Title</label>
+          <input type="text" id="admin-v5-title" placeholder="Targeted Blemish Control" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 13.5px; font-weight: 700; background: #fafafa;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Description</label>
+          <textarea id="admin-v5-desc" rows="2" placeholder="Description..." style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; line-height: 1.4; background: #fafafa;"></textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Button Text</label>
+            <input type="text" id="admin-v5-link-text" placeholder="VIEW COLLECTION" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+          </div>
+          <div class="form-group">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Link URL</label>
+            <input type="text" id="admin-v5-link-url" placeholder="shop.html" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bottom Save Action Bar -->
   <div style="background: #fff; border-radius: 16px; padding: 20px 28px; border: 1px solid #eee; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
     <div style="font-size: 13px; color: #666;">
-      💡 <strong>Pro-Tip:</strong> Upload MP4/WebM files directly or use external CDN URLs. Hit <strong>Save All 3 Videos</strong> to push updates live to the website.
+      💡 <strong>Pro-Tip:</strong> Upload MP4/WebM files directly or use external CDN URLs. Hit <strong>Save All 5 Videos</strong> to push updates live to the website.
     </div>
     <button id="btn-save-home-videos-bottom" onclick="window.saveAdminHomeVideos(this)" style="background: linear-gradient(135deg, #c5965a, #a87c48); color: #fff; border: none; padding: 14px 32px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 8px 20px rgba(197,150,90,0.35); display: flex; align-items: center; gap: 8px;">
-      💾 Save All 3 Videos to Website
+      💾 Save All 5 Videos to Website
     </button>
   </div>
 </div>
 
-<!-- SCRIPT: HOMEPAGE VIDEO HIGHLIGHTS MANAGEMENT (3 VIDEOS) -->
+<!-- SCRIPT: HOMEPAGE VIDEO HIGHLIGHTS MANAGEMENT (5 VIDEOS) -->
 <script>
 (function() {
   const DEFAULT_VIDEOS = {
@@ -3151,12 +3276,32 @@
       desc: 'Wake up with radiant, deeply replenished skin with our curated nighttime treatment.',
       linkText: 'EXPLORE NIGHT CARE',
       linkUrl: 'shop.html'
+    },
+    video4: {
+      src: 'vedio/2.mp4',
+      tag: 'DEEP HYDRATION',
+      title: 'Unlock Your Natural Glow',
+      desc: 'Nourish and strengthen your skin barrier with science-backed active ingredients.',
+      linkText: 'SHOP SERUMS',
+      linkUrl: 'shop.html'
+    },
+    video5: {
+      src: 'vedio/1.mp4',
+      tag: 'PURE RADIANCE',
+      title: 'Targeted Blemish Control',
+      desc: 'Gentle yet powerful formulations designed for clear, balanced, and healthy skin.',
+      linkText: 'VIEW COLLECTION',
+      linkUrl: 'shop.html'
     }
   };
 
-  let activeVideo1Src = 'vedio/1.mp4';
-  let activeVideo2Src = 'vedio/2.mp4';
-  let activeVideo3Src = 'vedio/1.mp4';
+  const activeVideoSrcs = {
+    1: 'vedio/1.mp4',
+    2: 'vedio/2.mp4',
+    3: 'vedio/1.mp4',
+    4: 'vedio/2.mp4',
+    5: 'vedio/1.mp4'
+  };
 
   function getBaseApi() {
     return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
@@ -3172,15 +3317,11 @@
         data = json.value;
       }
 
-      const v1 = (data && data.video1) ? data.video1 : DEFAULT_VIDEOS.video1;
-      const v2 = (data && data.video2) ? data.video2 : DEFAULT_VIDEOS.video2;
-      const v3 = (data && data.video3) ? data.video3 : DEFAULT_VIDEOS.video3;
-
-      function populateCard(num, v, defSrc) {
-        const src = v.src || defSrc;
-        if (num === 1) activeVideo1Src = src;
-        else if (num === 2) activeVideo2Src = src;
-        else activeVideo3Src = src;
+      function populateCard(num) {
+        const defObj = DEFAULT_VIDEOS['video' + num];
+        const v = (data && data['video' + num]) ? data['video' + num] : defObj;
+        const src = v.src || defObj.src;
+        activeVideoSrcs[num] = src;
 
         const p = document.getElementById('admin-v' + num + '-player');
         if (p) { p.src = src; p.load(); }
@@ -3195,10 +3336,9 @@
         if (document.getElementById('admin-v' + num + '-link-url')) document.getElementById('admin-v' + num + '-link-url').value = v.linkUrl || '';
       }
 
-      populateCard(1, v1, 'vedio/1.mp4');
-      populateCard(2, v2, 'vedio/2.mp4');
-      populateCard(3, v3, 'vedio/1.mp4');
-
+      for (let num = 1; num <= 5; num++) {
+        populateCard(num);
+      }
     } catch (e) {
       console.warn('Failed loading home videos settings:', e);
     }
@@ -3222,9 +3362,7 @@
     const reader = new FileReader();
     reader.onload = function(e) {
       const dataUrl = e.target.result;
-      if (num === 1) activeVideo1Src = dataUrl;
-      else if (num === 2) activeVideo2Src = dataUrl;
-      else activeVideo3Src = dataUrl;
+      activeVideoSrcs[num] = dataUrl;
 
       const player = document.getElementById('admin-v' + num + '-player');
       if (player) {
@@ -3248,9 +3386,7 @@
     const url = urlInput ? urlInput.value.trim() : '';
     if (!url || url.startsWith('(Uploaded')) return;
 
-    if (num === 1) activeVideo1Src = url;
-    else if (num === 2) activeVideo2Src = url;
-    else activeVideo3Src = url;
+    activeVideoSrcs[num] = url;
 
     const player = document.getElementById('admin-v' + num + '-player');
     if (player) {
@@ -3265,10 +3401,9 @@
 
   // Reset Video to Default
   window.resetHomeVideoToDefault = function(num) {
-    const defaultSrc = num === 2 ? 'vedio/2.mp4' : 'vedio/1.mp4';
-    if (num === 1) activeVideo1Src = defaultSrc;
-    else if (num === 2) activeVideo2Src = defaultSrc;
-    else activeVideo3Src = defaultSrc;
+    const defObj = DEFAULT_VIDEOS['video' + num];
+    const defaultSrc = defObj.src;
+    activeVideoSrcs[num] = defaultSrc;
 
     const player = document.getElementById('admin-v' + num + '-player');
     if (player) { player.src = defaultSrc; player.load(); }
@@ -3285,37 +3420,23 @@
     if (typeof showToast === 'function') showToast('Reset Video ' + num + ' to default');
   };
 
-  // Save All 3 Videos to Backend Settings
+  // Save All 5 Videos to Backend Settings
   window.saveAdminHomeVideos = async function(btn) {
     const origText = btn ? btn.innerHTML : '💾 Save';
     if (btn) { btn.innerHTML = '⏳ Saving...'; btn.disabled = true; }
 
-    const payload = {
-      video1: {
-        src: activeVideo1Src || 'vedio/1.mp4',
-        tag: (document.getElementById('admin-v1-tag')?.value || 'SKINCARE SECRETS').trim(),
-        title: (document.getElementById('admin-v1-title')?.value || 'Master the Art of Layering').trim(),
-        desc: (document.getElementById('admin-v1-desc')?.value || '').trim(),
-        linkText: (document.getElementById('admin-v1-link-text')?.value || 'WATCH FULL GUIDE').trim(),
-        linkUrl: (document.getElementById('admin-v1-link-url')?.value || 'shop.html').trim()
-      },
-      video2: {
-        src: activeVideo2Src || 'vedio/2.mp4',
-        tag: (document.getElementById('admin-v2-tag')?.value || 'LUXURY CARE').trim(),
-        title: (document.getElementById('admin-v2-title')?.value || 'The Perfect Day Routine').trim(),
-        desc: (document.getElementById('admin-v2-desc')?.value || '').trim(),
-        linkText: (document.getElementById('admin-v2-link-text')?.value || 'DISCOVER MORE').trim(),
-        linkUrl: (document.getElementById('admin-v2-link-url')?.value || 'shop.html').trim()
-      },
-      video3: {
-        src: activeVideo3Src || 'vedio/1.mp4',
-        tag: (document.getElementById('admin-v3-tag')?.value || 'EVENING RITUAL').trim(),
-        title: (document.getElementById('admin-v3-title')?.value || 'Overnight Skin Recovery').trim(),
-        desc: (document.getElementById('admin-v3-desc')?.value || '').trim(),
-        linkText: (document.getElementById('admin-v3-link-text')?.value || 'EXPLORE NIGHT CARE').trim(),
-        linkUrl: (document.getElementById('admin-v3-link-url')?.value || 'shop.html').trim()
-      }
-    };
+    const payload = {};
+    for (let num = 1; num <= 5; num++) {
+      const defObj = DEFAULT_VIDEOS['video' + num];
+      payload['video' + num] = {
+        src: activeVideoSrcs[num] || defObj.src,
+        tag: (document.getElementById('admin-v' + num + '-tag')?.value || defObj.tag).trim(),
+        title: (document.getElementById('admin-v' + num + '-title')?.value || defObj.title).trim(),
+        desc: (document.getElementById('admin-v' + num + '-desc')?.value || defObj.desc).trim(),
+        linkText: (document.getElementById('admin-v' + num + '-link-text')?.value || defObj.linkText).trim(),
+        linkUrl: (document.getElementById('admin-v' + num + '-link-url')?.value || defObj.linkUrl).trim()
+      };
+    }
 
     try {
       const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
@@ -3335,9 +3456,9 @@
 
       try { localStorage.setItem('bib_home_videos', JSON.stringify(payload)); } catch(e) {}
       if (typeof showToast === 'function') {
-        showToast('✅ All 3 Homepage videos saved & published live!');
+        showToast('✅ All 5 Homepage videos saved & published live!');
       } else {
-        alert('✅ All 3 Homepage videos saved successfully!');
+        alert('✅ All 5 Homepage videos saved successfully!');
       }
     } catch(err) {
       console.error('Save videos error:', err);

@@ -966,7 +966,7 @@
         <!-- Row 1 (Starts Center) -->
         <div class="vh-row pos-center" id="vh-row-1" data-index="0" onclick="window.handleVhCardClick(0, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-1" data-src="vedio/1.mp4" preload="metadata" muted loop playsinline class="lazy-video"></video>
+            <video id="vh-video-1" data-src="vedio/1.mp4" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-1" onclick="window.toggleVhPlay(1, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -983,7 +983,7 @@
         <!-- Row 2 (Starts Right Blurred) -->
         <div class="vh-row vh-reverse pos-right" id="vh-row-2" data-index="1" onclick="window.handleVhCardClick(1, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-2" data-src="vedio/2.mp4" preload="metadata" muted loop playsinline class="lazy-video"></video>
+            <video id="vh-video-2" data-src="vedio/2.mp4" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-2" onclick="window.toggleVhPlay(2, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -997,10 +997,10 @@
           </div>
         </div>
 
-        <!-- Row 3 (Starts Left Blurred) -->
-        <div class="vh-row pos-left" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(2, event)">
+        <!-- Row 3 (Starts Hidden Right) -->
+        <div class="vh-row pos-hidden-right" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(2, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-3" data-src="vedio/1.mp4" preload="metadata" muted loop playsinline class="lazy-video"></video>
+            <video id="vh-video-3" data-src="vedio/1.mp4" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-3" onclick="window.toggleVhPlay(3, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -1013,13 +1013,49 @@
             <a href="shop.html" class="vh-link" id="vh-link-3">EXPLORE NIGHT CARE</a>
           </div>
         </div>
+
+        <!-- Row 4 (Starts Hidden Left) -->
+        <div class="vh-row vh-reverse pos-hidden-left" id="vh-row-4" data-index="3" onclick="window.handleVhCardClick(3, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-4" data-src="vedio/2.mp4" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-4" onclick="window.toggleVhPlay(4, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="vh-info">
+            <span class="vh-tag" id="vh-tag-4">DEEP HYDRATION</span>
+            <h2 class="vh-title" id="vh-title-4">Unlock Your Natural Glow</h2>
+            <p id="vh-desc-4">Nourish and strengthen your skin barrier with science-backed active ingredients.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-4">SHOP SERUMS</a>
+          </div>
+        </div>
+
+        <!-- Row 5 (Starts Left Blurred) -->
+        <div class="vh-row pos-left" id="vh-row-5" data-index="4" onclick="window.handleVhCardClick(4, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-5" data-src="vedio/1.mp4" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-5" onclick="window.toggleVhPlay(5, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="vh-info">
+            <span class="vh-tag" id="vh-tag-5">PURE RADIANCE</span>
+            <h2 class="vh-title" id="vh-title-5">Targeted Blemish Control</h2>
+            <p id="vh-desc-5">Gentle yet powerful formulations designed for clear, balanced, and healthy skin.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-5">VIEW COLLECTION</a>
+          </div>
+        </div>
       </div>
 
-      <!-- Mobile Dots Navigation -->
+      <!-- Mobile Dots Navigation (5 Dots) -->
       <div class="vh-dots-wrap mobile-only" id="vh-dots-wrap">
         <span class="vh-dot active" onclick="window.setVhActiveIndex(0)"></span>
         <span class="vh-dot" onclick="window.setVhActiveIndex(1)"></span>
         <span class="vh-dot" onclick="window.setVhActiveIndex(2)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(3)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(4)"></span>
       </div>
     </section>
 
@@ -2107,24 +2143,78 @@
       }, 1000);
     });
 
-    // Dynamic Home Video Highlights from Admin Settings (Supports 3 Videos & Mobile Carousel)
+    // Dynamic Home Video Highlights from Admin Settings (Supports 5 Videos & Strict Scroll-Triggered Lazy Loading)
     (function() {
+      const TOTAL_VH = 5;
+      let currentVhIndex = 0;
+      let isVhSectionVisible = false;
+      let hasFetchedRemoteVideos = false;
+
+      // Helper: Append #t=0.1 to video URL so mobile browsers render the starting frame ("mula hariya") immediately when metadata loads
+      function withStartFrame(url) {
+        if (!url) return '';
+        if (url.startsWith('data:') || url.includes('#t=')) return url;
+        return url + '#t=0.1';
+      }
+
+      // Prime a single video element's first frame ONLY after the user has scrolled near the video section
+      function primeVideoFirstFrame(num) {
+        if (!isVhSectionVisible) return;
+        const vid = document.getElementById('vh-video-' + num);
+        if (!vid) return;
+        const rawSrc = vid.dataset.src;
+        if (!rawSrc) return;
+
+        const targetSrc = withStartFrame(rawSrc);
+        if (!vid.getAttribute('src') || vid.dataset.loadedRawSrc !== rawSrc) {
+          vid.preload = 'metadata';
+          vid.src = targetSrc;
+          vid.dataset.loadedRawSrc = rawSrc;
+          vid.addEventListener('loadedmetadata', function onMeta() {
+            if (vid.paused && vid.currentTime === 0) {
+              try { vid.currentTime = 0.1; } catch(e) {}
+            }
+          }, { once: true });
+          vid.load();
+        }
+      }
+
+      // Load only the videos that are currently visible in the viewport
+      function loadCurrentlyVisibleVideos() {
+        if (!isVhSectionVisible) return;
+        if (window.innerWidth > 900) {
+          // Desktop only shows Video 1 and Video 2; auto-play them when scrolled into view
+          [1, 2].forEach(n => {
+            const vid = document.getElementById('vh-video-' + n);
+            if (vid && vid.dataset.src) {
+              if (!vid.getAttribute('src') || vid.dataset.loadedRawSrc !== vid.dataset.src) {
+                vid.preload = 'metadata';
+                vid.src = vid.dataset.src;
+                vid.dataset.loadedRawSrc = vid.dataset.src;
+                vid.load();
+              }
+              vid.play().catch(() => {});
+            }
+          });
+        } else {
+          // Mobile 3D Stack: Prime the center, left, and right cards so their starting frame is visible
+          const leftIdx = (currentVhIndex - 1 + TOTAL_VH) % TOTAL_VH;
+          const rightIdx = (currentVhIndex + 1) % TOTAL_VH;
+          [currentVhIndex + 1, leftIdx + 1, rightIdx + 1].forEach(num => {
+            primeVideoFirstFrame(num);
+          });
+        }
+      }
+
       function applyHomeVideos(vData) {
         if (!vData) return;
-        const v1 = vData.video1 || (Array.isArray(vData) ? vData[0] : null);
-        const v2 = vData.video2 || (Array.isArray(vData) ? vData[1] : null);
-        const v3 = vData.video3 || (Array.isArray(vData) ? vData[2] : null);
+        for (let num = 1; num <= TOTAL_VH; num++) {
+          const v = vData['video' + num] || (Array.isArray(vData) ? vData[num - 1] : null);
+          if (!v) continue;
 
-        function setRow(num, v) {
-          if (!v) return;
           const vid = document.getElementById('vh-video-' + num);
           if (vid && v.src) {
             vid.dataset.src = v.src;
-            if (vid.src && vid.src !== v.src) {
-              vid.src = v.src;
-              vid.load();
-              if (window.innerWidth > 900) vid.play().catch(() => {});
-            }
           }
           if (v.tag) {
             const el = document.getElementById('vh-tag-' + num);
@@ -2148,34 +2238,42 @@
           }
         }
 
-        setRow(1, v1);
-        setRow(2, v2);
-        setRow(3, v3);
+        // Only load actual video media if the user has already scrolled near the section
+        if (isVhSectionVisible) {
+          loadCurrentlyVisibleVideos();
+        }
       }
 
-      // 1. Instant local render if cached
+      // 1. Update text/data-src from localStorage cache (0 network requests, 0 video loading)
       try {
         const cached = localStorage.getItem('bib_home_videos');
         if (cached) applyHomeVideos(JSON.parse(cached));
       } catch(e) {}
 
-      // 2. Fetch latest live from backend API
-      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
-      fetch(`${apiBase}/settings/home_videos?cb=${Date.now()}`)
-        .then(r => r.json())
-        .then(d => {
-          if (d && d.value) {
-            try { localStorage.setItem('bib_home_videos', JSON.stringify(d.value)); } catch(e) {}
-            applyHomeVideos(d.value);
-          }
-        })
-        .catch(() => {});
+      // 2. Fetch remote video settings & load video frames ONLY when user scrolls near #video-highlights-section
+      function triggerVhSectionLoad() {
+        if (isVhSectionVisible) return;
+        isVhSectionVisible = true;
+        loadCurrentlyVisibleVideos();
 
-      // 3. Mobile 3D Blurred Stack Carousel & Play/Pause Controller
-      let currentVhIndex = 0;
+        if (!hasFetchedRemoteVideos) {
+          hasFetchedRemoteVideos = true;
+          const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+          fetch(`${apiBase}/settings/home_videos?cb=${Date.now()}`)
+            .then(r => r.json())
+            .then(d => {
+              if (d && d.value) {
+                try { localStorage.setItem('bib_home_videos', JSON.stringify(d.value)); } catch(e) {}
+                applyHomeVideos(d.value);
+              }
+            })
+            .catch(() => {});
+        }
+      }
 
+      // 3. Mobile 3D Blurred Stack Carousel (5 Videos) & Play/Pause Controller
       function pauseAllVhVideos(exceptNum) {
-        [1, 2, 3].forEach(n => {
+        for (let n = 1; n <= TOTAL_VH; n++) {
           if (n !== exceptNum) {
             const v = document.getElementById('vh-video-' + n);
             const b = document.getElementById('vh-play-btn-' + n);
@@ -2188,55 +2286,56 @@
               if (pau) pau.style.display = 'none';
             }
           }
-        });
+        }
       }
 
       window.setVhActiveIndex = function(newIdx) {
-        currentVhIndex = ((newIdx % 3) + 3) % 3;
-        const leftIdx = (currentVhIndex + 2) % 3;
-        const rightIdx = (currentVhIndex + 1) % 3;
+        currentVhIndex = ((newIdx % TOTAL_VH) + TOTAL_VH) % TOTAL_VH;
+        const leftIdx = (currentVhIndex - 1 + TOTAL_VH) % TOTAL_VH;
+        const rightIdx = (currentVhIndex + 1) % TOTAL_VH;
+        const hiddenRightIdx = (currentVhIndex + 2) % TOTAL_VH;
+        const hiddenLeftIdx = (currentVhIndex + 3) % TOTAL_VH;
 
-        const rows = [
-          document.getElementById('vh-row-1'),
-          document.getElementById('vh-row-2'),
-          document.getElementById('vh-row-3')
-        ];
-        const dots = document.querySelectorAll('#vh-dots-wrap .vh-dot');
-
-        rows.forEach((row, i) => {
-          if (!row) return;
-          row.classList.remove('pos-center', 'pos-left', 'pos-right');
+        for (let i = 0; i < TOTAL_VH; i++) {
+          const row = document.getElementById('vh-row-' + (i + 1));
+          if (!row) continue;
+          row.classList.remove('pos-center', 'pos-left', 'pos-right', 'pos-hidden-left', 'pos-hidden-right');
           if (i === currentVhIndex) row.classList.add('pos-center');
           else if (i === leftIdx) row.classList.add('pos-left');
           else if (i === rightIdx) row.classList.add('pos-right');
-        });
+          else if (i === hiddenRightIdx) row.classList.add('pos-hidden-right');
+          else if (i === hiddenLeftIdx) row.classList.add('pos-hidden-left');
+        }
 
+        const dots = document.querySelectorAll('#vh-dots-wrap .vh-dot');
         dots.forEach((dot, i) => {
           if (i === currentVhIndex) dot.classList.add('active');
           else dot.classList.remove('active');
         });
 
-        // Pause background videos when rotating
         if (window.innerWidth <= 900) {
           pauseAllVhVideos(null);
+          loadCurrentlyVisibleVideos();
         }
       };
 
       window.toggleVhPlay = function(num, event) {
         if (event) { event.stopPropagation(); event.preventDefault(); }
         const targetIdx = num - 1;
-        // If user tapped play on a side card, rotate it to center first
         if (window.innerWidth <= 900 && targetIdx !== currentVhIndex) {
           window.setVhActiveIndex(targetIdx);
           return;
         }
 
+        isVhSectionVisible = true;
         const vid = document.getElementById('vh-video-' + num);
         const btn = document.getElementById('vh-play-btn-' + num);
         if (!vid) return;
 
-        if (!vid.src && vid.dataset.src) {
+        if (!vid.getAttribute('src') && vid.dataset.src) {
+          vid.preload = 'auto';
           vid.src = vid.dataset.src;
+          vid.dataset.loadedRawSrc = vid.dataset.src;
           vid.load();
         }
 
@@ -2258,10 +2357,9 @@
         }
       };
 
-      // Tap side blurred video to rotate it into center; tap center video to play/pause
       window.handleVhCardClick = function(idx, event) {
         if (window.innerWidth > 900) return;
-        if (event.target.closest('.vh-info a')) return; // Allow link clicks
+        if (event.target.closest('.vh-info a')) return;
         if (idx !== currentVhIndex) {
           if (event) { event.stopPropagation(); event.preventDefault(); }
           window.setVhActiveIndex(idx);
@@ -2270,8 +2368,26 @@
         }
       };
 
-      // Touch Swipe Gestures & Preload First Frames for all 3 videos
       document.addEventListener('DOMContentLoaded', () => {
+        // Observe #video-highlights-section so videos ONLY load when the user scrolls near this section
+        const vhSection = document.getElementById('video-highlights-section');
+        if (vhSection && 'IntersectionObserver' in window) {
+          const vhObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                triggerVhSectionLoad();
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: '160px 0px' });
+          vhObserver.observe(vhSection);
+        } else {
+          window.addEventListener('scroll', function onFirstScroll() {
+            triggerVhSectionLoad();
+            window.removeEventListener('scroll', onFirstScroll);
+          }, { passive: true });
+        }
+
         const container = document.getElementById('vh-carousel-container');
         if (!container) return;
 
@@ -2291,29 +2407,14 @@
           const dx = e.changedTouches[0].clientX - touchStartX;
           const dy = e.changedTouches[0].clientY - touchStartY;
 
-          // Horizontal swipe threshold
           if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
             if (dx < 0) {
-              // Swiped left -> bring right card to center
               window.setVhActiveIndex(currentVhIndex + 1);
             } else {
-              // Swiped right -> bring left card to center
               window.setVhActiveIndex(currentVhIndex - 1);
             }
           }
         }, { passive: true });
-
-        // Ensure all 3 videos load their visual frame so side blurred cards look rich
-        [1, 2, 3].forEach(n => {
-          const v = document.getElementById('vh-video-' + n);
-          if (v) {
-            v.addEventListener('loadeddata', () => {
-              if (v.paused && v.currentTime === 0) {
-                try { v.currentTime = 0.15; } catch(e) {}
-              }
-            }, { once: true });
-          }
-        });
       });
     })();
 

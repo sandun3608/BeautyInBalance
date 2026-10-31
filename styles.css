@@ -4412,13 +4412,15 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 }
 
 /* â”€â”€ VIDEO HIGHLIGHTS â”€â”€ */
-/* Video Play Button & 3rd Row (Desktop hidden so desktop view stays 100% original) */
+/* Video Play Button & Rows 3-5 (Desktop hidden so desktop view stays 100% original) */
 .vh-play-btn,
 .vh-dots-wrap {
   display: none;
 }
 @media (min-width: 901px) {
-  #vh-row-3 {
+  #vh-row-3,
+  #vh-row-4,
+  #vh-row-5 {
     display: none !important;
   }
 }
@@ -4561,7 +4563,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     position: relative !important;
     width: 100% !important;
     max-width: 440px !important;
-    height: 525px !important;
+    height: 555px !important;
     margin: 0 auto !important;
     padding: 0 !important;
     display: block !important;
@@ -4592,17 +4594,17 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     opacity: 1 !important;
   }
 
-  /* Video Card Media Box (Frameless, clean rounded corners) */
+  /* Video Card Media Box (Slightly larger center card, frameless rounded corners) */
   #video-highlights-section .vh-media,
   #video-highlights-section .vh-media-wide,
   #video-highlights-section .vh-media-tall {
-    width: 64vw !important;
-    max-width: 260px !important;
-    height: 360px !important;
+    width: 68vw !important;
+    max-width: 282px !important;
+    height: 386px !important;
     border-radius: 24px !important;
     overflow: hidden !important;
     position: relative !important;
-    background: #111111 !important;
+    background: #1a1512 !important;
     border: none !important;
     padding: 0 !important;
     margin: 0 auto !important;
@@ -4616,21 +4618,22 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    object-position: center 15% !important;
     display: block !important;
     border-radius: 24px !important;
   }
 
-  /* 1. CENTER ACTIVE VIDEO (Sharp, Front, Full Size) */
+  /* 1. CENTER ACTIVE VIDEO (Sharp, Front, Slightly Enlarged) */
   #video-highlights-section .vh-row.pos-center {
     z-index: 10 !important;
   }
 
   #video-highlights-section .vh-row.pos-center .vh-media {
-    transform: translate3d(0, 0, 0) scale(1) !important;
+    transform: translate3d(0, 0, 0) scale(1.03) !important;
     filter: blur(0px) brightness(1) !important;
     -webkit-filter: blur(0px) brightness(1) !important;
     opacity: 1 !important;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22) !important;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.24) !important;
   }
 
   /* 2. LEFT BACKGROUND VIDEO (Blurred, Scaled Down, Peeking Left) */
@@ -4639,10 +4642,10 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   #video-highlights-section .vh-row.pos-left .vh-media {
-    transform: translate3d(-32%, 0, 0) scale(0.82) !important;
+    transform: translate3d(-35%, 0, 0) scale(0.82) !important;
     filter: blur(3.5px) brightness(0.9) !important;
     -webkit-filter: blur(3.5px) brightness(0.9) !important;
-    opacity: 0.82 !important;
+    opacity: 0.85 !important;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
   }
 
@@ -4652,11 +4655,33 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   #video-highlights-section .vh-row.pos-right .vh-media {
-    transform: translate3d(32%, 0, 0) scale(0.82) !important;
+    transform: translate3d(35%, 0, 0) scale(0.82) !important;
     filter: blur(3.5px) brightness(0.9) !important;
     -webkit-filter: blur(3.5px) brightness(0.9) !important;
-    opacity: 0.82 !important;
+    opacity: 0.85 !important;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* 4 & 5. HIDDEN BACK VIDEOS (Smoothly tucked behind left/right cards) */
+  #video-highlights-section .vh-row.pos-hidden-left,
+  #video-highlights-section .vh-row.pos-hidden-right {
+    z-index: 1 !important;
+  }
+
+  #video-highlights-section .vh-row.pos-hidden-left .vh-media {
+    transform: translate3d(-48%, 0, 0) scale(0.68) !important;
+    filter: blur(6px) brightness(0.8) !important;
+    -webkit-filter: blur(6px) brightness(0.8) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #video-highlights-section .vh-row.pos-hidden-right .vh-media {
+    transform: translate3d(48%, 0, 0) scale(0.68) !important;
+    filter: blur(6px) brightness(0.8) !important;
+    -webkit-filter: blur(6px) brightness(0.8) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   /* Center Play/Pause Button (Only visible on Center Video) */
@@ -4684,7 +4709,9 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   #video-highlights-section .vh-row.pos-left .vh-play-btn,
-  #video-highlights-section .vh-row.pos-right .vh-play-btn {
+  #video-highlights-section .vh-row.pos-right .vh-play-btn,
+  #video-highlights-section .vh-row.pos-hidden-left .vh-play-btn,
+  #video-highlights-section .vh-row.pos-hidden-right .vh-play-btn {
     opacity: 0 !important;
     pointer-events: none !important;
     transform: translate(-50%, -50%) scale(0.5) !important;
@@ -4713,8 +4740,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   /* Details Below Center Video (Frameless, clean typography) */
   #video-highlights-section .vh-info {
     width: 100% !important;
-    max-width: 320px !important;
-    padding: 20px 16px 0 16px !important;
+    max-width: 325px !important;
+    padding: 24px 16px 0 16px !important;
     margin: 0 auto !important;
     display: flex !important;
     flex-direction: column !important;
