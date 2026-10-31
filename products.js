@@ -2418,12 +2418,10 @@ window.renderHomeAllProducts = function() {
                 }
             }
 
-            // Show only the actual images that exist (no copies)
-            const displayImages = uniqueImages;
-
-            const thumbnailsHTML = displayImages.length > 0 ? `
+            // Only show thumbnail switcher if there are 2 or more images! (image ekak witarak tiyena ewata one naha)
+            const thumbnailsHTML = uniqueImages.length >= 2 ? `
                 <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">
-                    ${displayImages.slice(0, 5).map((thumbSrc, idx) => `
+                    ${uniqueImages.slice(0, 5).map((thumbSrc, idx) => `
                         <button type="button" 
                                 class="card-thumb-btn ${idx === 0 ? 'active' : ''}" 
                                 style="display:none;"
@@ -2440,7 +2438,7 @@ window.renderHomeAllProducts = function() {
             ` : '';
 
             return `
-            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''} has-thumbs" style="text-decoration: none;">
+            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''} ${uniqueImages.length >= 2 ? 'has-thumbs' : ''}" style="text-decoration: none;">
                 <div class="hap-card-img">
                     ${badgesHTML}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">

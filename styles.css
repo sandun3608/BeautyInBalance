@@ -10479,7 +10479,7 @@ body.loading-active .floating-email {
   width: 32px !important;
   height: 32px !important;
   border-radius: 6px !important;
-  border: 1.5px solid #ECE7DE !important;
+  border: 1.5px solid #FFFFFF !important;
   background: #FFFFFF !important;
   padding: 2px !important;
   cursor: pointer !important;
@@ -10489,18 +10489,19 @@ body.loading-active .floating-email {
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   flex-shrink: 0 !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
   box-sizing: border-box !important;
 }
 
 .card-thumb-btn:hover {
-  border-color: #C6975A !important;
+  border: 1.5px solid #FFFFFF !important;
   transform: translateY(-1px) scale(1.06) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
 }
 
 .card-thumb-btn.active {
-  border-color: #2D1B12 !important;
-  box-shadow: 0 0 0 1px #2D1B12 !important;
+  border: 1.5px solid #FFFFFF !important;
+  box-shadow: 0 0 0 1.5px rgba(200, 200, 200, 0.4), 0 2px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 .card-thumb-btn img {
