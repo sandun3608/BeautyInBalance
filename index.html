@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=519" />
+  <link rel="stylesheet" href="styles.css?v=520" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -2970,8 +2970,9 @@
           chosenProds = (discounted.length >= 4 ? discounted : allProds).slice(0, 8);
         }
 
-        const overrides = (data.dealOverrides && typeof data.dealOverrides === 'object') ? data.dealOverrides : {};
-        const globalBadge = data.defaultBadge || "TODAY'S DEAL";
+        const overrides = (data.productMeta && typeof data.productMeta === 'object')
+          ? data.productMeta
+          : ((data.dealOverrides && typeof data.dealOverrides === 'object') ? data.dealOverrides : {});
 
         track.innerHTML = chosenProds.map(p => {
           const pid = String(p.id || p._id || '');
@@ -2992,15 +2993,11 @@
             : Number(p.discount || 0);
 
           let finalPrice = origPrice;
-          let badgeText = ov.dealTag || globalBadge;
 
           if (customDealPrice > 0 && customDealPrice < origPrice) {
             finalPrice = customDealPrice;
-            const savedPct = Math.round(((origPrice - customDealPrice) / origPrice) * 100);
-            if (!ov.dealTag && savedPct > 0) badgeText = `-${savedPct}% DEAL`;
           } else if (prodDisc > 0) {
             finalPrice = Math.round(origPrice * (1 - prodDisc / 100));
-            if (!ov.dealTag) badgeText = `-${prodDisc}% OFF`;
           }
 
           const noteHtml = ov.dealNote
@@ -3014,7 +3011,7 @@
           return `
             <a href="product.html?id=${encodeURIComponent(pid)}" class="td-card">
               <div class="td-card-img-box">
-                <span class="td-deal-badge">${escHtml(badgeText)}</span>
+                <div class="td-deal-triangle"><span>DEALS</span></div>
                 <img src="${img}" alt="${escHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='favicon.png';" />
               </div>
               <div class="td-card-body">

@@ -11662,14 +11662,15 @@ body.loading-active .floating-email {
 .td-card {
   flex: 0 0 242px !important;
   scroll-snap-align: start !important;
-  background: #F7F5F0 !important;
-  border-radius: 18px !important;
-  padding: 10px 10px 16px !important;
-  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  padding: 0 0 12px 0 !important;
+  border: none !important;
+  box-shadow: none !important;
   display: flex !important;
   flex-direction: column !important;
   cursor: pointer !important;
-  transition: transform 0.28s ease, box-shadow 0.28s ease !important;
+  transition: transform 0.28s ease !important;
   text-decoration: none !important;
   color: inherit !important;
   position: relative !important;
@@ -11677,7 +11678,7 @@ body.loading-active .floating-email {
 
 .td-card:hover {
   transform: translateY(-4px) !important;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.07) !important;
+  box-shadow: none !important;
 }
 
 .td-card-img-box {
@@ -11685,13 +11686,15 @@ body.loading-active .floating-email {
   aspect-ratio: 1 / 1.06 !important;
   background: #ffffff !important;
   border-radius: 14px !important;
+  border: none !important;
+  box-shadow: none !important;
   overflow: hidden !important;
   position: relative !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin-bottom: 14px !important;
-  padding: 12px !important;
+  margin-bottom: 12px !important;
+  padding: 10px !important;
 }
 
 .td-card-img-box img {
@@ -11707,25 +11710,49 @@ body.loading-active .floating-email {
   transform: scale(1.05) !important;
 }
 
-.td-deal-badge {
+.td-deal-triangle {
   position: absolute !important;
-  top: 10px !important;
-  left: 10px !important;
-  background: #D9381E !important;
-  color: #ffffff !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 68px !important;
+  height: 68px !important;
+  overflow: hidden !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+}
+
+.td-deal-triangle::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(135deg, #E12D1B 0%, #B91C1C 100%) !important;
+  clip-path: polygon(0 0, 100% 0, 0 100%) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12)) !important;
+}
+
+.td-deal-triangle span {
+  position: absolute !important;
+  top: 15px !important;
+  left: -15px !important;
+  width: 72px !important;
+  text-align: center !important;
+  transform: rotate(-45deg) !important;
+  transform-origin: center center !important;
   font-family: var(--font-sans, sans-serif) !important;
-  font-size: 10px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.06em !important;
+  font-size: 9.5px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.1em !important;
+  color: #ffffff !important;
   text-transform: uppercase !important;
-  padding: 4px 10px !important;
-  border-radius: 20px !important;
-  z-index: 2 !important;
-  box-shadow: 0 2px 8px rgba(217, 56, 30, 0.25) !important;
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
 }
 
 .td-card-body {
-  padding: 0 8px !important;
+  padding: 0 4px !important;
   display: flex !important;
   flex-direction: column !important;
   flex: 1 !important;
@@ -11852,8 +11879,8 @@ body.loading-active .floating-email {
 
   .td-card {
     flex: 0 0 205px !important;
-    padding: 8px 8px 14px !important;
-    border-radius: 16px !important;
+    padding: 0 0 10px 0 !important;
+    border-radius: 12px !important;
   }
 }
 
