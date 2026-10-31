@@ -193,6 +193,9 @@
     .sidebar-search-box {
       position: relative;
       margin-bottom: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      flex-shrink: 0;
     }
 
     .sidebar-search-box svg {
@@ -201,18 +204,23 @@
       top: 50%;
       transform: translateY(-50%);
       color: #999;
+      pointer-events: none;
+      z-index: 2;
     }
 
     .sidebar-search-box input {
-      width: 100%;
-      padding: 9px 32px 9px 34px;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      height: 42px !important;
+      padding: 8px 34px 8px 36px !important;
       background: #FAF9F6;
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-dark);
       outline: none;
       transition: border-color 0.2s;
+      display: block;
     }
 
     .sidebar-search-box input:focus {
@@ -406,6 +414,127 @@
     /* ── RIGHT PRODUCTS CONTENT COLUMN ── */
     .shop-content-col {
       min-width: 0;
+    }
+
+    /* ── DEDICATED BRAND SELECTOR BAR ABOVE PRODUCTS ── */
+    .shop-brand-bar-wrap {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .shop-brand-bar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .shop-brand-bar-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8c5d23;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .shop-brand-scroll-btns {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sbb-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: #FAF8F5;
+      color: var(--brown);
+      font-size: 16px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .sbb-arrow:hover {
+      background: var(--brown);
+      color: #FFFFFF;
+      border-color: var(--brown);
+    }
+
+    .shop-brand-pills-track {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 2px 2px 4px;
+    }
+
+    .shop-brand-pills-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shop-brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 15px;
+      border-radius: 50px;
+      border: 1px solid #E6DFD3;
+      background: #FAF8F5;
+      color: var(--brown);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .shop-brand-pill:hover {
+      border-color: #C6975A;
+      background: #FFFDF9;
+      transform: translateY(-1px);
+    }
+
+    .shop-brand-pill.active {
+      background: #2D1B12;
+      color: #FFFFFF;
+      border-color: #2D1B12;
+      box-shadow: 0 4px 12px rgba(45, 27, 18, 0.16);
+    }
+
+    .shop-brand-pill .sbp-count {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: rgba(45, 27, 18, 0.08);
+      color: #665A52;
+      line-height: 1.1;
+    }
+
+    .shop-brand-pill.active .sbp-count {
+      background: #C6975A;
+      color: #FFFFFF;
     }
 
     /* Top bar above grid */
@@ -897,7 +1026,7 @@
       inset: 0;
       background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(3px);
-      z-index: 99;
+      z-index: 100005 !important;
     }
 
     .filter-backdrop.open {
@@ -925,22 +1054,26 @@
         display: none;
       }
 
-      /* Sidebar turns into off-canvas drawer */
+      /* Sidebar turns into off-canvas drawer above fixed header */
       .shop-sidebar {
-        position: fixed;
-        top: 0;
-        left: -320px;
-        width: 300px;
-        height: 100vh;
-        max-height: 100vh;
-        border-radius: 0;
-        z-index: 100;
-        transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: min(86vw, 310px) !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        padding: 20px 16px !important;
+        box-sizing: border-box !important;
+        border-radius: 0 18px 18px 0 !important;
+        z-index: 100010 !important;
+        transform: translateX(-105%) !important;
+        transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18) !important;
+        overflow: hidden !important;
       }
 
       .shop-sidebar.drawer-open {
-        transform: translateX(320px);
+        transform: translateX(0) !important;
       }
 
       .mobile-close-drawer-btn {
@@ -952,17 +1085,36 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .shop-container {
+        padding: 16px 12px 60px !important;
+        box-sizing: border-box !important;
+      }
+    }
+
     @media (max-width: 680px) {
       .shop-header-banner {
-        padding: 110px 16px 20px;
+        padding: 118px 16px 18px;
       }
 
       .shop-main-heading {
-        font-size: 26px;
+        font-size: 25px;
       }
 
       .shop-container {
-        padding: 16px 12px 60px;
+        padding: 14px 12px 60px !important;
+        box-sizing: border-box !important;
+      }
+
+      .shop-brand-bar-wrap {
+        padding: 12px 12px;
+        margin-bottom: 14px;
+        border-radius: 14px;
+      }
+
+      .shop-brand-pill {
+        padding: 7px 13px;
+        font-size: 12px;
       }
 
       .shop-4col-grid {
@@ -1268,6 +1420,26 @@
 
         <!-- ===== RIGHT CONTENT (TOPBAR + 4-COLUMN GRID) ===== -->
         <div class="shop-content-col">
+          <!-- Dedicated Brand Selector Bar Above Products -->
+          <div class="shop-brand-bar-wrap" id="shop-brand-bar-wrap">
+            <div class="shop-brand-bar-head">
+              <span class="shop-brand-bar-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Shop by Brand
+              </span>
+              <div class="shop-brand-scroll-btns">
+                <button type="button" class="sbb-arrow" onclick="window.scrollBrandBar(-1)" aria-label="Scroll brands left">&lsaquo;</button>
+                <button type="button" class="sbb-arrow" onclick="window.scrollBrandBar(1)" aria-label="Scroll brands right">&rsaquo;</button>
+              </div>
+            </div>
+            <div class="shop-brand-pills-track" id="shop-top-brand-pills">
+              <button type="button" class="shop-brand-pill active" data-brand="all" onclick="window.selectBrand('all')">
+                <span class="sbp-name">All Brands</span>
+                <span class="sbp-count">0</span>
+              </button>
+            </div>
+          </div>
+
           <!-- Top Bar -->
           <div class="shop-grid-topbar">
             <div class="topbar-left">
@@ -1476,15 +1648,31 @@
         'acne care': 'Acne Care'
       };
 
+      function normalizeBrandKey(b) {
+        if (!b) return 'others';
+        const lower = String(b).toLowerCase().trim();
+        if (lower === 'ordinary' || lower === 'the ordinary') return 'ordinary';
+        if (lower === 'dr. rashel' || lower === 'dr rashel') return 'dr. rashel';
+        if (lower === 'cool-vita' || lower === 'cool vita') return 'cool-vita';
+        if (lower === 'nutrogena' || lower === 'neutrogena') return 'neutrogena';
+        return lower;
+      }
+
+      if (currentBrand !== 'all') currentBrand = normalizeBrandKey(currentBrand);
+
       function formatBrandName(b) {
         if (!b) return 'Others';
-        const lower = b.toLowerCase().trim();
-        if (lower === 'ordinary' || lower === 'the ordinary') return 'The Ordinary';
+        const lower = normalizeBrandKey(b);
+        if (lower === 'ordinary') return 'The Ordinary';
         if (lower === 'cerave') return 'CeraVe';
-        if (lower === 'dr. rashel' || lower === 'dr rashel') return 'Dr. Rashel';
+        if (lower === 'cetaphil') return 'Cetaphil';
+        if (lower === 'dr. rashel') return 'Dr. Rashel';
         if (lower === 'cool-vita') return 'Cool-Vita';
         if (lower === 'la roche-posay') return 'La Roche-Posay';
-        return lower.charAt(0).toUpperCase() + lower.slice(1);
+        if (lower === 'cosrx') return 'COSRX';
+        if (lower === 'neutrogena') return 'Neutrogena';
+        if (lower === 'centellian24') return 'Centellian24';
+        return lower.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
       }
 
       function formatCategoryName(c) {
@@ -1611,16 +1799,15 @@
       // Filter and sort products
       function filterAndSortProducts(data) {
         let list = data.filter(p => {
-          let pCat = (p.cat || 'others').toLowerCase().trim();
-          if (pCat === 'the ordinary') pCat = 'ordinary';
+          const pCat = normalizeBrandKey(p.cat || 'others');
           const pFilter = (p.filter || '').toLowerCase().trim();
           const pName = (p.name || '').toLowerCase();
           const pDesc = (p.desc || p.description || '').toLowerCase();
 
           // Brand filter
           if (currentBrand !== 'all') {
-            if (currentBrand === 'the ordinary') currentBrand = 'ordinary';
-            if (pCat !== currentBrand) return false;
+            const normTarget = normalizeBrandKey(currentBrand);
+            if (pCat !== normTarget) return false;
           }
 
           // Category filter
@@ -1698,8 +1885,7 @@
         let offersTotal = 0;
 
         allData.forEach(p => {
-          let b = (p.cat || 'others').toLowerCase().trim();
-          if (b === 'the ordinary') b = 'ordinary';
+          const b = normalizeBrandKey(p.cat || 'others');
           brandCounts[b] = (brandCounts[b] || 0) + 1;
 
           let t = (p.filter || 'other').toLowerCase().trim();
@@ -1718,19 +1904,19 @@
         if ($('count-instock')) $('count-instock').textContent = inStockTotal;
         if ($('count-offers')) $('count-offers').textContent = offersTotal;
 
-        // Render Brands List
+        const priority = ['ordinary', 'cerave', 'cetaphil', 'vaseline', 'vatika', 'vitabiotics', 'manee', 'dr. rashel', 'cosrx', 'celimax', 'centellian24', 'cool-vita', 'perfectil', 'la roche-posay', 'neutrogena'];
+        const sortedBrands = Object.keys(brandCounts).sort((a, b) => {
+          const iA = priority.indexOf(a);
+          const iB = priority.indexOf(b);
+          if (iA !== -1 && iB !== -1) return iA - iB;
+          if (iA !== -1) return -1;
+          if (iB !== -1) return 1;
+          return (brandCounts[b] || 0) - (brandCounts[a] || 0);
+        });
+
+        // Render Sidebar Brands List
         const brandsContainer = $('sidebar-brands-list');
         if (brandsContainer) {
-          const priority = ['ordinary', 'cerave', 'vaseline', 'manee', 'dr. rashel', 'cosrx', 'celimax', 'centellian24', 'cool-vita', 'perfectil', 'la roche-posay'];
-          const sortedBrands = Object.keys(brandCounts).sort((a, b) => {
-            const iA = priority.indexOf(a);
-            const iB = priority.indexOf(b);
-            if (iA !== -1 && iB !== -1) return iA - iB;
-            if (iA !== -1) return -1;
-            if (iB !== -1) return 1;
-            return b.localeCompare(a);
-          });
-
           let bHTML = `
             <button class="filter-item-btn ${currentBrand === 'all' ? 'active' : ''}" data-brand="all" onclick="window.selectBrand('all')">
               <span class="item-label">All Brands</span>
@@ -1742,14 +1928,40 @@
             const name = formatBrandName(b);
             const count = brandCounts[b] || 0;
             const active = currentBrand === b ? 'active' : '';
+            const safeB = b.replace(/'/g, "\\'");
             bHTML += `
-              <button class="filter-item-btn ${active}" data-brand="${b}" onclick="window.selectBrand('${b}')">
+              <button class="filter-item-btn ${active}" data-brand="${b}" onclick="window.selectBrand('${safeB}')">
                 <span class="item-label">${name}</span>
                 <span class="item-count">${count}</span>
               </button>
             `;
           });
           brandsContainer.innerHTML = bHTML;
+        }
+
+        // Render Top Brand Pills Bar Above Products
+        const topBrandTrack = $('shop-top-brand-pills');
+        if (topBrandTrack) {
+          let topHTML = `
+            <button type="button" class="shop-brand-pill ${currentBrand === 'all' ? 'active' : ''}" data-brand="all" onclick="window.selectBrand('all')">
+              <span class="sbp-name">All Brands</span>
+              <span class="sbp-count">${allData.length}</span>
+            </button>
+          `;
+
+          sortedBrands.forEach(b => {
+            const name = formatBrandName(b);
+            const count = brandCounts[b] || 0;
+            const active = currentBrand === b ? 'active' : '';
+            const safeB = b.replace(/'/g, "\\'");
+            topHTML += `
+              <button type="button" class="shop-brand-pill ${active}" data-brand="${b}" onclick="window.selectBrand('${safeB}')">
+                <span class="sbp-name">${name}</span>
+                <span class="sbp-count">${count}</span>
+              </button>
+            `;
+          });
+          topBrandTrack.innerHTML = topHTML;
         }
 
         // Render Category Types List
@@ -1873,8 +2085,14 @@
 
       // Window Action Handlers
       window.selectBrand = function(brand) {
-        currentBrand = brand;
+        currentBrand = brand === 'all' ? 'all' : normalizeBrandKey(brand);
         renderShop();
+      };
+
+      window.scrollBrandBar = function(dir) {
+        const track = $('shop-top-brand-pills');
+        if (!track) return;
+        track.scrollBy({ left: dir * 240, behavior: 'smooth' });
       };
 
       window.selectFilter = function(filter) {
@@ -1990,12 +2208,16 @@
           if (sidebar) sidebar.classList.add('drawer-open');
           if (backdrop) backdrop.classList.add('open');
           document.body.style.overflow = 'hidden';
+          const mBar = $('mobile-search-bar');
+          if (mBar) mBar.classList.add('hide-search');
         }
 
         function closeDrawer() {
           if (sidebar) sidebar.classList.remove('drawer-open');
           if (backdrop) backdrop.classList.remove('open');
           document.body.style.overflow = '';
+          const mBar = $('mobile-search-bar');
+          if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
         }
 
         if (openDrawerBtn) openDrawerBtn.addEventListener('click', openDrawer);
