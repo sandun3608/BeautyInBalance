@@ -2230,6 +2230,32 @@ async function fetchHomeAllProductsSetting() {
 try { fetchHomeAllProductsSetting(); } catch(e) {}
 
 // Global Image Swapper for Mini Card Thumbnails
+window.handleThumbError = function(imgEl) {
+    if (!imgEl) return;
+    const btn = imgEl.closest('.t-btn, .card-thumb-btn');
+    if (!btn) return;
+    const container = btn.closest('.thumbs-container, .card-thumb-gallery');
+    const wasActive = btn.classList.contains('active');
+    btn.remove();
+    if (container) {
+        const remaining = container.querySelectorAll('.t-btn, .card-thumb-btn');
+        if (remaining.length <= 1) {
+            container.style.display = 'none';
+            if (container.classList.contains('card-thumb-gallery')) container.remove();
+        } else if (wasActive && remaining.length > 0) {
+            remaining[0].classList.add('active');
+            const firstImg = remaining[0].querySelector('img');
+            if (firstImg && firstImg.src) {
+                const card = container.closest('.hap-card, .shop-card');
+                if (card) {
+                    const mainImg = card.querySelector('.hap-card-img img, .shop-card-img-box img');
+                    if (mainImg) mainImg.src = firstImg.src;
+                }
+            }
+        }
+    }
+};
+
 window.swapCardImg = function(btn) {
     if (!btn) return;
     const thumbImg = btn.querySelector('img');
@@ -2379,12 +2405,17 @@ window.renderHomeAllProducts = function() {
                 : `<button class="btn-buy-animated" onclick="event.preventDefault(); event.stopPropagation(); buyItNow('${prod.id}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px;"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>Buy It Now</button>`;
 
             // Mini Thumbnail Gallery (Under main product image, above brand name)
-            let allImages = (Array.isArray(prod.images) && prod.images.length > 0)
-                ? prod.images.filter(src => typeof src === 'string' && src.trim().length > 0)
-                : (prod.img ? [prod.img] : []);
-
-            if (prod.img && !allImages.includes(prod.img)) {
-                allImages.unshift(prod.img);
+            const rawCand = [
+                ...(Array.isArray(prod.images) ? prod.images : []),
+                prod.img
+            ];
+            const seenCand = new Set();
+            const allImages = [];
+            for (const s of rawCand) {
+                if (typeof s === 'string' && s.trim().length > 5 && !seenCand.has(s.trim())) {
+                    seenCand.add(s.trim());
+                    allImages.push(s.trim());
+                }
             }
 
             const thumbnailsHTML = allImages.length > 1 ? `
@@ -2396,7 +2427,7 @@ window.renderHomeAllProducts = function() {
                                 onmouseenter="swapCardImg(this);" 
                                 aria-label="View product image ${idx + 1}" 
                                 title="View image ${idx + 1}">
-                            <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy">
+                            <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy" onerror="handleThumbError(this)">
                         </button>
                     `).join('')}
                 </div>

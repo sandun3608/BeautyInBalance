@@ -1355,6 +1355,32 @@
   <script src="config.js?v=28"></script>
   <script src="products.js?v=421"></script>
   <script>
+    window.handleThumbError = window.handleThumbError || function(imgEl) {
+      if (!imgEl) return;
+      const btn = imgEl.closest('.t-btn, .card-thumb-btn');
+      if (!btn) return;
+      const container = btn.closest('.thumbs-container, .card-thumb-gallery');
+      const wasActive = btn.classList.contains('active');
+      btn.remove();
+      if (container) {
+        const remaining = container.querySelectorAll('.t-btn, .card-thumb-btn');
+        if (remaining.length <= 1) {
+          container.style.display = 'none';
+          if (container.classList.contains('card-thumb-gallery')) container.remove();
+        } else if (wasActive && remaining.length > 0) {
+          remaining[0].classList.add('active');
+          const firstImg = remaining[0].querySelector('img');
+          if (firstImg && firstImg.src) {
+            const card = container.closest('.hap-card, .shop-card');
+            if (card) {
+              const mainImg = card.querySelector('.hap-card-img img, .shop-card-img-box img');
+              if (mainImg) mainImg.src = firstImg.src;
+            }
+          }
+        }
+      }
+    };
+
     window.swapCardImg = window.swapCardImg || function(btn) {
       if (!btn) return;
       const thumbImg = btn.querySelector('img');
@@ -1481,12 +1507,17 @@
             </button>`;
 
         // Mini Thumbnail Gallery (Under main product image, above brand name)
-        let allImages = (Array.isArray(p.images) && p.images.length > 0)
-          ? p.images.filter(src => typeof src === 'string' && src.trim().length > 0)
-          : (p.img ? [p.img] : []);
-
-        if (p.img && !allImages.includes(p.img)) {
-          allImages.unshift(p.img);
+        const rawCand = [
+          ...(Array.isArray(p.images) ? p.images : []),
+          p.img
+        ];
+        const seenCand = new Set();
+        const allImages = [];
+        for (const s of rawCand) {
+          if (typeof s === 'string' && s.trim().length > 5 && !seenCand.has(s.trim())) {
+            seenCand.add(s.trim());
+            allImages.push(s.trim());
+          }
         }
 
         const thumbnailsHTML = allImages.length > 1 ? `
@@ -1498,7 +1529,7 @@
                       onmouseenter="swapCardImg(this);" 
                       aria-label="View product image ${idx + 1}" 
                       title="View image ${idx + 1}">
-                <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy">
+                <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy" onerror="handleThumbError(this)">
               </button>
             `).join('')}
           </div>

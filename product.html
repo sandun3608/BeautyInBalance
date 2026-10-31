@@ -966,6 +966,29 @@
       }});
     }
 
+    // Auto-remove broken/empty thumbnail buttons (prevents blank/white empty boxes)
+    window.handleThumbError = function(imgEl) {
+      if (!imgEl) return;
+      const btn = imgEl.closest('.t-btn, .card-thumb-btn');
+      if (!btn) return;
+      const container = btn.closest('.thumbs-container, .card-thumb-gallery');
+      const wasActive = btn.classList.contains('active');
+      btn.remove();
+      if (container) {
+        const remaining = container.querySelectorAll('.t-btn, .card-thumb-btn');
+        if (remaining.length <= 1) {
+          container.style.display = 'none';
+        } else if (wasActive && remaining.length > 0) {
+          remaining[0].classList.add('active');
+          const firstImg = remaining[0].querySelector('img');
+          if (firstImg && firstImg.src) {
+            const main = document.getElementById('main-view');
+            if (main) main.src = firstImg.src;
+          }
+        }
+      }
+    };
+
 
     // ═══════════════════════════════════════════════════════════════
     // 💎 INTERACTIVE VARIATION SELECTION (LIVE PRICE & KOKO UPDATE)
@@ -1114,11 +1137,27 @@
       `;
 
       const frame = document.getElementById('pd-frame');
-      const thumbs = (product.images || [product.img]).map((src, i) => `
-        <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)">
-          <img src="${src}" alt="Thumb">
+      
+      // Clean, validate and deduplicate thumbnails
+      const rawList = (Array.isArray(product.images) && product.images.length > 0)
+        ? product.images
+        : [product.img];
+      
+      const seenUrls = new Set();
+      const validImages = [];
+      for (const s of rawList) {
+        if (typeof s === 'string' && s.trim().length > 5 && !seenUrls.has(s.trim())) {
+          seenUrls.add(s.trim());
+          validImages.push(s.trim());
+        }
+      }
+      if (validImages.length === 0 && product.img) validImages.push(product.img);
+
+      const thumbs = (validImages.length > 1) ? validImages.map((src, i) => `
+        <button class="t-btn ${i===0?'active':''}" onclick="changeImg('${src}', this)" title="Image ${i+1}">
+          <img src="${src}" alt="Thumb" onerror="handleThumbError(this)">
         </button>
-      `).join('');
+      `).join('') : '';
 
       frame.innerHTML = `
         <div class="product-stage">
@@ -1128,7 +1167,7 @@
               ${badgesHTML}
               <img id="main-view" src="${product.img}" alt="${product.name}">
             </div>
-            <div class="thumbs-container">${thumbs}</div>
+            <div class="thumbs-container" style="${thumbs ? '' : 'display:none;'}">${thumbs}</div>
           </div>
 
           <!-- Content -->
