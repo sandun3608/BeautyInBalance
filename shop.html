@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=505" />
+  <link rel="stylesheet" href="styles.css?v=506" />
 
   <style>
 
@@ -1353,7 +1353,7 @@
 
   
   <script src="config.js?v=28"></script>
-  <script src="products.js?v=425"></script>
+  <script src="products.js?v=426"></script>
   <script>
     window.handleThumbError = window.handleThumbError || function(imgEl) {
       if (!imgEl) return;
@@ -1520,15 +1520,8 @@
           }
         }
 
-        // If product has real multiple images (>1), show them.
-        // If only 1 image exists, create 2 copies from the original as requested!
-        let displayImages = [];
-        if (uniqueImages.length > 1) {
-          displayImages = uniqueImages;
-        } else if (uniqueImages.length === 1) {
-          const orig = uniqueImages[0];
-          displayImages = [orig, orig, orig];
-        }
+        // Show only the actual images that exist (no copies)
+        const displayImages = uniqueImages;
 
         const thumbnailsHTML = displayImages.length > 0 ? `
           <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">

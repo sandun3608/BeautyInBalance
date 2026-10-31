@@ -2418,15 +2418,8 @@ window.renderHomeAllProducts = function() {
                 }
             }
 
-            // If product has real multiple images (>1), show them.
-            // If only 1 image exists, create 2 copies from the original as requested!
-            let displayImages = [];
-            if (uniqueImages.length > 1) {
-                displayImages = uniqueImages;
-            } else if (uniqueImages.length === 1) {
-                const orig = uniqueImages[0];
-                displayImages = [orig, orig, orig];
-            }
+            // Show only the actual images that exist (no copies)
+            const displayImages = uniqueImages;
 
             const thumbnailsHTML = displayImages.length > 0 ? `
                 <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">
