@@ -2886,15 +2886,15 @@
 })();
 </script>
 
-<!-- ===== TAB: HOMEPAGE VIDEO HIGHLIGHTS ===== -->
+<!-- ===== TAB: HOMEPAGE VIDEO HIGHLIGHTS (3 VIDEOS) ===== -->
 <div id="tab-home-videos" class="admin-content" style="padding-bottom: 120px; display: none;">
   <!-- Header Bar -->
   <div style="margin-bottom: 30px;">
     <h2 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--admin-text); display: flex; align-items: center; gap: 10px;">
       <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" style="color: #c5965a;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-      Homepage Video Highlights Management
+      Homepage Video Highlights Management (3 Videos)
     </h2>
-    <p style="margin: 0; color: #888; font-size: 13px;">Manage, replace, or upload the 2 videos featured in Section 8 on the homepage. Edit titles, descriptions, and buttons. Updates reflect live immediately on the website.</p>
+    <p style="margin: 0; color: #888; font-size: 13px;">Manage, replace, or upload the 3 videos featured in Section 8 on the homepage. On mobile, they display as an interactive Scale & Snap Carousel with center Play button. Updates reflect live immediately on the website.</p>
   </div>
 
   <!-- Status & Quick Action Bar -->
@@ -2902,8 +2902,8 @@
     <div style="display: flex; align-items: center; gap: 14px;">
       <div style="width: 12px; height: 12px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981;"></div>
       <div>
-        <div style="font-size: 17px; font-weight: 800; letter-spacing: 0.02em;">Homepage Section 8 Video Sync</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px;">2 Video blocks active on homepage. Upload MP4 files or enter video URLs.</div>
+        <div style="font-size: 17px; font-weight: 800; letter-spacing: 0.02em;">Homepage Section 8 Video Sync (3 Videos)</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px;">3 Video blocks active. Upload MP4 files or enter direct video URLs.</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -2914,165 +2914,217 @@
         👁️ View On Site
       </button>
       <button id="btn-save-home-videos-top" onclick="window.saveAdminHomeVideos(this)" style="background: linear-gradient(135deg, #c5965a, #a87c48); color: #fff; border: none; padding: 11px 24px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 6px 18px rgba(197,150,90,0.35); display: flex; align-items: center; gap: 8px; transition: 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
-        💾 Save All Videos
+        💾 Save All 3 Videos
       </button>
     </div>
   </div>
 
-  <!-- Video Cards Grid -->
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 25px; margin-bottom: 30px;">
+  <!-- Video Cards Grid (3 Cards) -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; margin-bottom: 30px;">
     
-    <!-- CARD 1: Video 1 (Row 1) -->
-    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 20px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px;">
+    <!-- CARD 1: Video 1 -->
+    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">1</span>
           <div>
-            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 1 — Top Section</h3>
-            <span style="font-size: 11px; color: #888;">Position: Left Video, Right Content</span>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 1 (Card 1)</h3>
+            <span style="font-size: 11px; color: #888;">Desktop: Row 1 (Media Left)</span>
           </div>
         </div>
-        <button type="button" onclick="window.resetHomeVideoToDefault(1)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;" title="Reset back to vedio/1.mp4">
+        <button type="button" onclick="window.resetHomeVideoToDefault(1)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
           ↺ Reset Default
         </button>
       </div>
 
-      <!-- Live Video Player Preview -->
-      <div style="position: relative; width: 100%; height: 240px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+      <!-- Live Video Preview Player -->
+      <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
         <video id="admin-v1-player" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-        <span id="admin-v1-badge" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
+        <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
       </div>
 
-      <!-- Video Upload / Source Controls -->
-      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 18px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+      <!-- Video Upload / Source -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <input type="file" id="admin-v1-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="window.handleVideoFileSelect(1, this)">
-          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v1-file-input').click()" style="padding: 10px 18px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Upload New Video File
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v1-file-input').click()" style="padding: 9px 16px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+            📁 Upload Video File
           </button>
-          <span id="admin-v1-file-status" style="font-size: 11.5px; color: #777; font-weight: 600;">Current: vedio/1.mp4</span>
+          <span id="admin-v1-file-status" style="font-size: 11px; color: #777; font-weight: 600;">Current: vedio/1.mp4</span>
         </div>
-
         <div>
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 6px; letter-spacing: 0.05em;">OR Direct Video URL / Link</label>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="admin-v1-url-input" placeholder="e.g. vedio/1.mp4 or https://cdn.example.com/video.mp4" oninput="window.previewVideoFromInput(1)" style="flex: 1; padding: 11px 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 13px; outline: none; background: #fff;">
-            <button type="button" onclick="window.previewVideoFromInput(1)" style="padding: 10px 14px; background: #2D1B12; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer;">Preview</button>
-          </div>
-          <span style="font-size: 10.5px; color: #999; margin-top: 4px; display: block;">Supports local path (vedio/1.mp4) or direct external MP4/WebM video URLs.</span>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Video URL</label>
+          <input type="text" id="admin-v1-url-input" placeholder="vedio/1.mp4 or https://..." oninput="window.previewVideoFromInput(1)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff;">
         </div>
       </div>
 
       <!-- Text Content Fields -->
-      <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
         <div class="form-group">
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Category / Tag</label>
-          <input type="text" id="admin-v1-tag" placeholder="e.g. SKINCARE SECRETS" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; background: #fafafa;">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Tag</label>
+          <input type="text" id="admin-v1-tag" placeholder="SKINCARE SECRETS" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; background: #fafafa;">
         </div>
         <div class="form-group">
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Heading Title</label>
-          <input type="text" id="admin-v1-title" placeholder="e.g. Master the Art of Layering" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; font-weight: 700; background: #fafafa;">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Title</label>
+          <input type="text" id="admin-v1-title" placeholder="Master the Art of Layering" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 13.5px; font-weight: 700; background: #fafafa;">
         </div>
         <div class="form-group">
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Description</label>
-          <textarea id="admin-v1-desc" rows="3" placeholder="Explain what the viewer will learn from this video..." style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; line-height: 1.4; background: #fafafa;"></textarea>
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Description</label>
+          <textarea id="admin-v1-desc" rows="2" placeholder="Description..." style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; line-height: 1.4; background: #fafafa;"></textarea>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-group">
-            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Button Text</label>
-            <input type="text" id="admin-v1-link-text" placeholder="e.g. WATCH FULL GUIDE" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Button Text</label>
+            <input type="text" id="admin-v1-link-text" placeholder="WATCH FULL GUIDE" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
           </div>
           <div class="form-group">
-            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Button Link URL</label>
-            <input type="text" id="admin-v1-link-url" placeholder="e.g. shop.html or #guide" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Link URL</label>
+            <input type="text" id="admin-v1-link-url" placeholder="shop.html" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CARD 2: Video 2 (Row 2) -->
-    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 20px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px;">
+    <!-- CARD 2: Video 2 -->
+    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">2</span>
           <div>
-            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 2 — Bottom Section</h3>
-            <span style="font-size: 11px; color: #888;">Position: Right Video, Left Content</span>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 2 (Card 2)</h3>
+            <span style="font-size: 11px; color: #888;">Desktop: Row 2 (Media Right)</span>
           </div>
         </div>
-        <button type="button" onclick="window.resetHomeVideoToDefault(2)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;" title="Reset back to vedio/2.mp4">
+        <button type="button" onclick="window.resetHomeVideoToDefault(2)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
           ↺ Reset Default
         </button>
       </div>
 
-      <!-- Live Video Player Preview -->
-      <div style="position: relative; width: 100%; height: 240px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+      <!-- Live Video Preview Player -->
+      <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
         <video id="admin-v2-player" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
-        <span id="admin-v2-badge" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
+        <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
       </div>
 
-      <!-- Video Upload / Source Controls -->
-      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 18px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+      <!-- Video Upload / Source -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <input type="file" id="admin-v2-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="window.handleVideoFileSelect(2, this)">
-          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v2-file-input').click()" style="padding: 10px 18px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Upload New Video File
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v2-file-input').click()" style="padding: 9px 16px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+            📁 Upload Video File
           </button>
-          <span id="admin-v2-file-status" style="font-size: 11.5px; color: #777; font-weight: 600;">Current: vedio/2.mp4</span>
+          <span id="admin-v2-file-status" style="font-size: 11px; color: #777; font-weight: 600;">Current: vedio/2.mp4</span>
         </div>
-
         <div>
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 6px; letter-spacing: 0.05em;">OR Direct Video URL / Link</label>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="admin-v2-url-input" placeholder="e.g. vedio/2.mp4 or https://cdn.example.com/video.mp4" oninput="window.previewVideoFromInput(2)" style="flex: 1; padding: 11px 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 13px; outline: none; background: #fff;">
-            <button type="button" onclick="window.previewVideoFromInput(2)" style="padding: 10px 14px; background: #2D1B12; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer;">Preview</button>
-          </div>
-          <span style="font-size: 10.5px; color: #999; margin-top: 4px; display: block;">Supports local path (vedio/2.mp4) or direct external MP4/WebM video URLs.</span>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Video URL</label>
+          <input type="text" id="admin-v2-url-input" placeholder="vedio/2.mp4 or https://..." oninput="window.previewVideoFromInput(2)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff;">
         </div>
       </div>
 
       <!-- Text Content Fields -->
-      <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
         <div class="form-group">
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Category / Tag</label>
-          <input type="text" id="admin-v2-tag" placeholder="e.g. LUXURY CARE" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; background: #fafafa;">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Tag</label>
+          <input type="text" id="admin-v2-tag" placeholder="LUXURY CARE" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; background: #fafafa;">
         </div>
         <div class="form-group">
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Heading Title</label>
-          <input type="text" id="admin-v2-title" placeholder="e.g. The Perfect Day Routine" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 14px; font-weight: 700; background: #fafafa;">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Title</label>
+          <input type="text" id="admin-v2-title" placeholder="The Perfect Day Routine" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 13.5px; font-weight: 700; background: #fafafa;">
         </div>
         <div class="form-group">
-          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Description</label>
-          <textarea id="admin-v2-desc" rows="3" placeholder="Explain what the viewer will learn from this video..." style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 13px; line-height: 1.4; background: #fafafa;"></textarea>
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Description</label>
+          <textarea id="admin-v2-desc" rows="2" placeholder="Description..." style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; line-height: 1.4; background: #fafafa;"></textarea>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-group">
-            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Button Text</label>
-            <input type="text" id="admin-v2-link-text" placeholder="e.g. DISCOVER MORE" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Button Text</label>
+            <input type="text" id="admin-v2-link-text" placeholder="DISCOVER MORE" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
           </div>
           <div class="form-group">
-            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 5px;">Button Link URL</label>
-            <input type="text" id="admin-v2-link-url" placeholder="e.g. shop.html or #routine" style="width: 100%; padding: 11px 14px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Link URL</label>
+            <input type="text" id="admin-v2-link-url" placeholder="shop.html" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
           </div>
         </div>
       </div>
     </div>
+
+    <!-- CARD 3: Video 3 -->
+    <div style="background: #fff; border-radius: 20px; border: 1px solid #eee; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="background: #2D1B12; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">3</span>
+          <div>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #2D1B12;">Video 3 (Card 3)</h3>
+            <span style="font-size: 11px; color: #888;">Desktop: Row 3 (Media Left)</span>
+          </div>
+        </div>
+        <button type="button" onclick="window.resetHomeVideoToDefault(3)" style="background: #f7f7f7; border: 1px solid #ddd; padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
+          ↺ Reset Default
+        </button>
+      </div>
+
+      <!-- Live Video Preview Player -->
+      <div style="position: relative; width: 100%; height: 220px; background: #0f0f11; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <video id="admin-v3-player" controls muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Live Preview</span>
+      </div>
+
+      <!-- Video Upload / Source -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <input type="file" id="admin-v3-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="window.handleVideoFileSelect(3, this)">
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-v3-file-input').click()" style="padding: 9px 16px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+            📁 Upload Video File
+          </button>
+          <span id="admin-v3-file-status" style="font-size: 11px; color: #777; font-weight: 600;">Current: vedio/1.mp4</span>
+        </div>
+        <div>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Video URL</label>
+          <input type="text" id="admin-v3-url-input" placeholder="vedio/1.mp4 or https://..." oninput="window.previewVideoFromInput(3)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff;">
+        </div>
+      </div>
+
+      <!-- Text Content Fields -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Tag</label>
+          <input type="text" id="admin-v3-tag" placeholder="EVENING RITUAL" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; background: #fafafa;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Title</label>
+          <input type="text" id="admin-v3-title" placeholder="Overnight Skin Recovery" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 13.5px; font-weight: 700; background: #fafafa;">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Description</label>
+          <textarea id="admin-v3-desc" rows="2" placeholder="Description..." style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12.5px; line-height: 1.4; background: #fafafa;"></textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Button Text</label>
+            <input type="text" id="admin-v3-link-text" placeholder="EXPLORE NIGHT CARE" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+          </div>
+          <div class="form-group">
+            <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 4px;">Link URL</label>
+            <input type="text" id="admin-v3-link-url" placeholder="shop.html" style="width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; font-size: 12px; background: #fafafa;">
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Bottom Save Action Bar -->
   <div style="background: #fff; border-radius: 16px; padding: 20px 28px; border: 1px solid #eee; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
     <div style="font-size: 13px; color: #666;">
-      💡 <strong>Pro-Tip:</strong> You can upload MP4/WebM files directly or use external CDN/Cloudinary URLs. Hit <strong>Save All Videos</strong> to push updates to the live site.
+      💡 <strong>Pro-Tip:</strong> Upload MP4/WebM files directly or use external CDN URLs. Hit <strong>Save All 3 Videos</strong> to push updates live to the website.
     </div>
     <button id="btn-save-home-videos-bottom" onclick="window.saveAdminHomeVideos(this)" style="background: linear-gradient(135deg, #c5965a, #a87c48); color: #fff; border: none; padding: 14px 32px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 8px 20px rgba(197,150,90,0.35); display: flex; align-items: center; gap: 8px;">
-      💾 Save All Videos to Website
+      💾 Save All 3 Videos to Website
     </button>
   </div>
 </div>
 
-<!-- SCRIPT: HOMEPAGE VIDEO HIGHLIGHTS MANAGEMENT -->
+<!-- SCRIPT: HOMEPAGE VIDEO HIGHLIGHTS MANAGEMENT (3 VIDEOS) -->
 <script>
 (function() {
   const DEFAULT_VIDEOS = {
@@ -3082,7 +3134,7 @@
       title: 'Master the Art of Layering',
       desc: 'Learn how to apply your products for maximum absorption and effectiveness.',
       linkText: 'WATCH FULL GUIDE',
-      linkUrl: '#'
+      linkUrl: 'shop.html'
     },
     video2: {
       src: 'vedio/2.mp4',
@@ -3090,12 +3142,21 @@
       title: 'The Perfect Day Routine',
       desc: 'A step-by-step guide to protecting and hydrating your skin throughout the day.',
       linkText: 'DISCOVER MORE',
-      linkUrl: '#'
+      linkUrl: 'shop.html'
+    },
+    video3: {
+      src: 'vedio/1.mp4',
+      tag: 'EVENING RITUAL',
+      title: 'Overnight Skin Recovery',
+      desc: 'Wake up with radiant, deeply replenished skin with our curated nighttime treatment.',
+      linkText: 'EXPLORE NIGHT CARE',
+      linkUrl: 'shop.html'
     }
   };
 
   let activeVideo1Src = 'vedio/1.mp4';
   let activeVideo2Src = 'vedio/2.mp4';
+  let activeVideo3Src = 'vedio/1.mp4';
 
   function getBaseApi() {
     return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
@@ -3113,34 +3174,30 @@
 
       const v1 = (data && data.video1) ? data.video1 : DEFAULT_VIDEOS.video1;
       const v2 = (data && data.video2) ? data.video2 : DEFAULT_VIDEOS.video2;
+      const v3 = (data && data.video3) ? data.video3 : DEFAULT_VIDEOS.video3;
 
-      // Populate Video 1
-      activeVideo1Src = v1.src || 'vedio/1.mp4';
-      const p1 = document.getElementById('admin-v1-player');
-      if (p1) { p1.src = activeVideo1Src; p1.load(); }
-      const u1 = document.getElementById('admin-v1-url-input');
-      if (u1) u1.value = activeVideo1Src.startsWith('data:') ? '(Uploaded Video File)' : activeVideo1Src;
-      const s1 = document.getElementById('admin-v1-file-status');
-      if (s1) s1.textContent = activeVideo1Src.startsWith('data:') ? 'Custom Video Uploaded' : 'Current: ' + activeVideo1Src;
-      if (document.getElementById('admin-v1-tag')) document.getElementById('admin-v1-tag').value = v1.tag || '';
-      if (document.getElementById('admin-v1-title')) document.getElementById('admin-v1-title').value = v1.title || '';
-      if (document.getElementById('admin-v1-desc')) document.getElementById('admin-v1-desc').value = v1.desc || '';
-      if (document.getElementById('admin-v1-link-text')) document.getElementById('admin-v1-link-text').value = v1.linkText || '';
-      if (document.getElementById('admin-v1-link-url')) document.getElementById('admin-v1-link-url').value = v1.linkUrl || '';
+      function populateCard(num, v, defSrc) {
+        const src = v.src || defSrc;
+        if (num === 1) activeVideo1Src = src;
+        else if (num === 2) activeVideo2Src = src;
+        else activeVideo3Src = src;
 
-      // Populate Video 2
-      activeVideo2Src = v2.src || 'vedio/2.mp4';
-      const p2 = document.getElementById('admin-v2-player');
-      if (p2) { p2.src = activeVideo2Src; p2.load(); }
-      const u2 = document.getElementById('admin-v2-url-input');
-      if (u2) u2.value = activeVideo2Src.startsWith('data:') ? '(Uploaded Video File)' : activeVideo2Src;
-      const s2 = document.getElementById('admin-v2-file-status');
-      if (s2) s2.textContent = activeVideo2Src.startsWith('data:') ? 'Custom Video Uploaded' : 'Current: ' + activeVideo2Src;
-      if (document.getElementById('admin-v2-tag')) document.getElementById('admin-v2-tag').value = v2.tag || '';
-      if (document.getElementById('admin-v2-title')) document.getElementById('admin-v2-title').value = v2.title || '';
-      if (document.getElementById('admin-v2-desc')) document.getElementById('admin-v2-desc').value = v2.desc || '';
-      if (document.getElementById('admin-v2-link-text')) document.getElementById('admin-v2-link-text').value = v2.linkText || '';
-      if (document.getElementById('admin-v2-link-url')) document.getElementById('admin-v2-link-url').value = v2.linkUrl || '';
+        const p = document.getElementById('admin-v' + num + '-player');
+        if (p) { p.src = src; p.load(); }
+        const u = document.getElementById('admin-v' + num + '-url-input');
+        if (u) u.value = src.startsWith('data:') ? '(Uploaded Video File)' : src;
+        const s = document.getElementById('admin-v' + num + '-file-status');
+        if (s) s.textContent = src.startsWith('data:') ? 'Custom Video Uploaded' : 'Current: ' + src;
+        if (document.getElementById('admin-v' + num + '-tag')) document.getElementById('admin-v' + num + '-tag').value = v.tag || '';
+        if (document.getElementById('admin-v' + num + '-title')) document.getElementById('admin-v' + num + '-title').value = v.title || '';
+        if (document.getElementById('admin-v' + num + '-desc')) document.getElementById('admin-v' + num + '-desc').value = v.desc || '';
+        if (document.getElementById('admin-v' + num + '-link-text')) document.getElementById('admin-v' + num + '-link-text').value = v.linkText || '';
+        if (document.getElementById('admin-v' + num + '-link-url')) document.getElementById('admin-v' + num + '-link-url').value = v.linkUrl || '';
+      }
+
+      populateCard(1, v1, 'vedio/1.mp4');
+      populateCard(2, v2, 'vedio/2.mp4');
+      populateCard(3, v3, 'vedio/1.mp4');
 
     } catch (e) {
       console.warn('Failed loading home videos settings:', e);
@@ -3166,7 +3223,8 @@
     reader.onload = function(e) {
       const dataUrl = e.target.result;
       if (num === 1) activeVideo1Src = dataUrl;
-      else activeVideo2Src = dataUrl;
+      else if (num === 2) activeVideo2Src = dataUrl;
+      else activeVideo3Src = dataUrl;
 
       const player = document.getElementById('admin-v' + num + '-player');
       if (player) {
@@ -3191,7 +3249,8 @@
     if (!url || url.startsWith('(Uploaded')) return;
 
     if (num === 1) activeVideo1Src = url;
-    else activeVideo2Src = url;
+    else if (num === 2) activeVideo2Src = url;
+    else activeVideo3Src = url;
 
     const player = document.getElementById('admin-v' + num + '-player');
     if (player) {
@@ -3206,9 +3265,10 @@
 
   // Reset Video to Default
   window.resetHomeVideoToDefault = function(num) {
-    const defaultSrc = 'vedio/' + num + '.mp4';
+    const defaultSrc = num === 2 ? 'vedio/2.mp4' : 'vedio/1.mp4';
     if (num === 1) activeVideo1Src = defaultSrc;
-    else activeVideo2Src = defaultSrc;
+    else if (num === 2) activeVideo2Src = defaultSrc;
+    else activeVideo3Src = defaultSrc;
 
     const player = document.getElementById('admin-v' + num + '-player');
     if (player) { player.src = defaultSrc; player.load(); }
@@ -3225,7 +3285,7 @@
     if (typeof showToast === 'function') showToast('Reset Video ' + num + ' to default');
   };
 
-  // Save All Videos to Backend Settings
+  // Save All 3 Videos to Backend Settings
   window.saveAdminHomeVideos = async function(btn) {
     const origText = btn ? btn.innerHTML : '💾 Save';
     if (btn) { btn.innerHTML = '⏳ Saving...'; btn.disabled = true; }
@@ -3237,7 +3297,7 @@
         title: (document.getElementById('admin-v1-title')?.value || 'Master the Art of Layering').trim(),
         desc: (document.getElementById('admin-v1-desc')?.value || '').trim(),
         linkText: (document.getElementById('admin-v1-link-text')?.value || 'WATCH FULL GUIDE').trim(),
-        linkUrl: (document.getElementById('admin-v1-link-url')?.value || '#').trim()
+        linkUrl: (document.getElementById('admin-v1-link-url')?.value || 'shop.html').trim()
       },
       video2: {
         src: activeVideo2Src || 'vedio/2.mp4',
@@ -3245,7 +3305,15 @@
         title: (document.getElementById('admin-v2-title')?.value || 'The Perfect Day Routine').trim(),
         desc: (document.getElementById('admin-v2-desc')?.value || '').trim(),
         linkText: (document.getElementById('admin-v2-link-text')?.value || 'DISCOVER MORE').trim(),
-        linkUrl: (document.getElementById('admin-v2-link-url')?.value || '#').trim()
+        linkUrl: (document.getElementById('admin-v2-link-url')?.value || 'shop.html').trim()
+      },
+      video3: {
+        src: activeVideo3Src || 'vedio/1.mp4',
+        tag: (document.getElementById('admin-v3-tag')?.value || 'EVENING RITUAL').trim(),
+        title: (document.getElementById('admin-v3-title')?.value || 'Overnight Skin Recovery').trim(),
+        desc: (document.getElementById('admin-v3-desc')?.value || '').trim(),
+        linkText: (document.getElementById('admin-v3-link-text')?.value || 'EXPLORE NIGHT CARE').trim(),
+        linkUrl: (document.getElementById('admin-v3-link-url')?.value || 'shop.html').trim()
       }
     };
 
@@ -3267,9 +3335,9 @@
 
       try { localStorage.setItem('bib_home_videos', JSON.stringify(payload)); } catch(e) {}
       if (typeof showToast === 'function') {
-        showToast('✅ Homepage videos saved & published live!');
+        showToast('✅ All 3 Homepage videos saved & published live!');
       } else {
-        alert('✅ Homepage videos saved successfully!');
+        alert('✅ All 3 Homepage videos saved successfully!');
       }
     } catch(err) {
       console.error('Save videos error:', err);

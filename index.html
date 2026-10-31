@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=510" />
+  <link rel="stylesheet" href="styles.css?v=512" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -962,28 +962,64 @@
 
     <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
     <section class="video-highlights-section" id="video-highlights-section">
-      <div class="vh-container">
+      <div class="vh-container" id="vh-carousel-container">
         <!-- Row 1 -->
-        <div class="vh-row" id="vh-row-1">
-          <div class="vh-media vh-media-wide"><video id="vh-video-1" data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
+        <div class="vh-row is-active-card" id="vh-row-1" data-index="0" onclick="window.handleVhCardClick(1, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-1" data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-1" onclick="window.toggleVhPlay(1, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
           <div class="vh-info">
             <span class="vh-tag" id="vh-tag-1">SKINCARE SECRETS</span>
             <h2 class="vh-title" id="vh-title-1">Master the Art of Layering</h2>
             <p id="vh-desc-1">Learn how to apply your products for maximum absorption and effectiveness.</p>
-            <a href="#" class="vh-link" id="vh-link-1">WATCH FULL GUIDE</a>
+            <a href="shop.html" class="vh-link" id="vh-link-1">WATCH FULL GUIDE</a>
           </div>
         </div>
 
         <!-- Row 2 -->
-        <div class="vh-row vh-reverse" id="vh-row-2">
-          <div class="vh-media vh-media-wide"><video id="vh-video-2" data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
+        <div class="vh-row vh-reverse" id="vh-row-2" data-index="1" onclick="window.handleVhCardClick(2, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-2" data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-2" onclick="window.toggleVhPlay(2, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
           <div class="vh-info">
             <span class="vh-tag" id="vh-tag-2">LUXURY CARE</span>
             <h2 class="vh-title" id="vh-title-2">The Perfect Day Routine</h2>
             <p id="vh-desc-2">A step-by-step guide to protecting and hydrating your skin throughout the day.</p>
-            <a href="#" class="vh-link" id="vh-link-2">DISCOVER MORE</a>
+            <a href="shop.html" class="vh-link" id="vh-link-2">DISCOVER MORE</a>
           </div>
         </div>
+
+        <!-- Row 3 -->
+        <div class="vh-row" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(3, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-3" data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-3" onclick="window.toggleVhPlay(3, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="vh-info">
+            <span class="vh-tag" id="vh-tag-3">EVENING RITUAL</span>
+            <h2 class="vh-title" id="vh-title-3">Overnight Skin Recovery</h2>
+            <p id="vh-desc-3">Wake up with radiant, deeply replenished skin with our curated nighttime treatment.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-3">EXPLORE NIGHT CARE</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Dots Navigation -->
+      <div class="vh-dots-wrap mobile-only" id="vh-dots-wrap">
+        <span class="vh-dot active" onclick="window.scrollVhCard(0)"></span>
+        <span class="vh-dot" onclick="window.scrollVhCard(1)"></span>
+        <span class="vh-dot" onclick="window.scrollVhCard(2)"></span>
       </div>
     </section>
 
@@ -2071,76 +2107,50 @@
       }, 1000);
     });
 
-    // Dynamic Home Video Highlights from Admin Settings
+    // Dynamic Home Video Highlights from Admin Settings (Supports 3 Videos & Mobile Carousel)
     (function() {
       function applyHomeVideos(vData) {
         if (!vData) return;
         const v1 = vData.video1 || (Array.isArray(vData) ? vData[0] : null);
         const v2 = vData.video2 || (Array.isArray(vData) ? vData[1] : null);
+        const v3 = vData.video3 || (Array.isArray(vData) ? vData[2] : null);
 
-        if (v1) {
-          const vid1 = document.getElementById('vh-video-1');
-          if (vid1 && v1.src) {
-            vid1.dataset.src = v1.src;
-            if (vid1.src && vid1.src !== v1.src) {
-              vid1.src = v1.src;
-              vid1.load();
-              vid1.play().catch(() => {});
+        function setRow(num, v) {
+          if (!v) return;
+          const vid = document.getElementById('vh-video-' + num);
+          if (vid && v.src) {
+            vid.dataset.src = v.src;
+            if (vid.src && vid.src !== v.src) {
+              vid.src = v.src;
+              vid.load();
+              vid.play().catch(() => {});
             }
           }
-          if (v1.tag) {
-            const el = document.getElementById('vh-tag-1');
-            if (el) el.textContent = v1.tag;
+          if (v.tag) {
+            const el = document.getElementById('vh-tag-' + num);
+            if (el) el.textContent = v.tag;
           }
-          if (v1.title) {
-            const el = document.getElementById('vh-title-1');
-            if (el) el.textContent = v1.title;
+          if (v.title) {
+            const el = document.getElementById('vh-title-' + num);
+            if (el) el.textContent = v.title;
           }
-          if (v1.desc) {
-            const el = document.getElementById('vh-desc-1');
-            if (el) el.textContent = v1.desc;
+          if (v.desc) {
+            const el = document.getElementById('vh-desc-' + num);
+            if (el) el.textContent = v.desc;
           }
-          if (v1.linkText) {
-            const el = document.getElementById('vh-link-1');
-            if (el) el.textContent = v1.linkText;
+          if (v.linkText) {
+            const el = document.getElementById('vh-link-' + num);
+            if (el) el.textContent = v.linkText;
           }
-          if (v1.linkUrl) {
-            const el = document.getElementById('vh-link-1');
-            if (el) el.href = v1.linkUrl;
+          if (v.linkUrl) {
+            const el = document.getElementById('vh-link-' + num);
+            if (el) el.href = v.linkUrl;
           }
         }
 
-        if (v2) {
-          const vid2 = document.getElementById('vh-video-2');
-          if (vid2 && v2.src) {
-            vid2.dataset.src = v2.src;
-            if (vid2.src && vid2.src !== v2.src) {
-              vid2.src = v2.src;
-              vid2.load();
-              vid2.play().catch(() => {});
-            }
-          }
-          if (v2.tag) {
-            const el = document.getElementById('vh-tag-2');
-            if (el) el.textContent = v2.tag;
-          }
-          if (v2.title) {
-            const el = document.getElementById('vh-title-2');
-            if (el) el.textContent = v2.title;
-          }
-          if (v2.desc) {
-            const el = document.getElementById('vh-desc-2');
-            if (el) el.textContent = v2.desc;
-          }
-          if (v2.linkText) {
-            const el = document.getElementById('vh-link-2');
-            if (el) el.textContent = v2.linkText;
-          }
-          if (v2.linkUrl) {
-            const el = document.getElementById('vh-link-2');
-            if (el) el.href = v2.linkUrl;
-          }
-        }
+        setRow(1, v1);
+        setRow(2, v2);
+        setRow(3, v3);
       }
 
       // 1. Instant local render if cached
@@ -2160,6 +2170,127 @@
           }
         })
         .catch(() => {});
+
+      // 3. Mobile Video Carousel & Play/Pause Controller
+      window.toggleVhPlay = function(num, event) {
+        if (event) { event.stopPropagation(); event.preventDefault(); }
+        const vid = document.getElementById('vh-video-' + num);
+        const btn = document.getElementById('vh-play-btn-' + num);
+        if (!vid) return;
+
+        // Ensure source is loaded
+        if (!vid.src && vid.dataset.src) {
+          vid.src = vid.dataset.src;
+          vid.load();
+        }
+
+        const playIcon = btn ? btn.querySelector('.vh-icon-play') : null;
+        const pauseIcon = btn ? btn.querySelector('.vh-icon-pause') : null;
+
+        if (vid.paused) {
+          // Pause all other videos
+          [1, 2, 3].forEach(n => {
+            if (n !== num) {
+              const oVid = document.getElementById('vh-video-' + n);
+              const oBtn = document.getElementById('vh-play-btn-' + n);
+              if (oVid && !oVid.paused) oVid.pause();
+              if (oBtn) {
+                oBtn.classList.remove('is-playing');
+                const pi = oBtn.querySelector('.vh-icon-play');
+                const pau = oBtn.querySelector('.vh-icon-pause');
+                if (pi) pi.style.display = 'block';
+                if (pau) pau.style.display = 'none';
+              }
+            }
+          });
+
+          vid.play().then(() => {
+            if (btn) btn.classList.add('is-playing');
+            if (playIcon) playIcon.style.display = 'none';
+            if (pauseIcon) pauseIcon.style.display = 'block';
+          }).catch(() => {});
+        } else {
+          vid.pause();
+          if (btn) btn.classList.remove('is-playing');
+          if (playIcon) playIcon.style.display = 'block';
+          if (pauseIcon) pauseIcon.style.display = 'none';
+        }
+      };
+
+      // Tap card on mobile to center it if side peeking
+      window.handleVhCardClick = function(num, event) {
+        if (window.innerWidth > 900) return; // Desktop untouched
+        const row = document.getElementById('vh-row-' + num);
+        if (row && !row.classList.contains('is-active-card')) {
+          row.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      };
+
+      // Click Dot to Scroll
+      window.scrollVhCard = function(idx) {
+        const row = document.getElementById('vh-row-' + (idx + 1));
+        if (row) {
+          row.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      };
+
+      // Active Card Scale & Snap Tracking Observer for Mobile
+      document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('vh-carousel-container');
+        const rows = [
+          document.getElementById('vh-row-1'),
+          document.getElementById('vh-row-2'),
+          document.getElementById('vh-row-3')
+        ].filter(Boolean);
+        const dots = document.querySelectorAll('.vh-dot');
+
+        if (!container || !rows.length) return;
+
+        let scrollTimer = null;
+        function updateActiveCard() {
+          if (window.innerWidth > 900) return; // Desktop untouched
+          const containerCenter = container.getBoundingClientRect().left + container.offsetWidth / 2;
+          let closestIdx = 0;
+          let minDistance = Infinity;
+
+          rows.forEach((row, i) => {
+            const rect = row.getBoundingClientRect();
+            const cardCenter = rect.left + rect.width / 2;
+            const distance = Math.abs(containerCenter - cardCenter);
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestIdx = i;
+            }
+          });
+
+          rows.forEach((row, i) => {
+            if (i === closestIdx) {
+              row.classList.add('is-active-card');
+              // Auto-play active video if in viewport
+              const vid = document.getElementById('vh-video-' + (i + 1));
+              if (vid && !vid.src && vid.dataset.src) {
+                vid.src = vid.dataset.src;
+                vid.load();
+              }
+            } else {
+              row.classList.remove('is-active-card');
+            }
+          });
+
+          dots.forEach((dot, i) => {
+            if (i === closestIdx) dot.classList.add('active');
+            else dot.classList.remove('active');
+          });
+        }
+
+        container.addEventListener('scroll', () => {
+          if (scrollTimer) clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(updateActiveCard, 60);
+        }, { passive: true });
+
+        // Initial set
+        setTimeout(updateActiveCard, 400);
+      });
     })();
 
     // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
