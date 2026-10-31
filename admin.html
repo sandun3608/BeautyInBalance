@@ -61,6 +61,7 @@
         support: 'Inquiries',
         subscribers: 'Newsletter Subscribers',
         offers: 'Offer Maintaining (Flash Sale)',
+        'home-all': 'Home Page - ALL Products Customizer',
         settings: 'Admin Settings' 
       };
       
@@ -1362,6 +1363,7 @@
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-brands" class="admin-nav-link" onclick="window.switchTab('brands', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20M5 5l14 14M19 5L5 19"/></svg> Brands</div></li>
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-subscribers" class="admin-nav-link" onclick="window.switchTab('subscribers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Subscribers</div></li>
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-offers" class="admin-nav-link" onclick="window.switchTab('offers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Offer Maintaining</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-all" class="admin-nav-link" onclick="window.switchTab('home-all', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home 'ALL' Products</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-settings" class="admin-nav-link" onclick="window.switchTab('settings', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03); margin-top: 2px;">
             <div class="admin-nav-link" id="nav-logout" onclick="handleLogout()" style="color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 5px 12px;">
@@ -2628,6 +2630,261 @@
     </script>
     
 
+
+
+<div id="tab-home-all" class="admin-content" style="padding-bottom: 120px; display:none;">
+  <div style="margin-bottom: 30px;">
+    <h2 style="margin:0 0 6px 0; font-size:26px; font-weight:800; color:var(--admin-text);">🏠 Home Page — "ALL" Tab Products</h2>
+    <p style="margin:0; color:#888; font-size:13px;">Select which products appear in the "ALL" tab on the Home Page grid. Tick products and Save.</p>
+  </div>
+
+  <!-- Status Bar -->
+  <div style="background: linear-gradient(135deg,#18181b,#1e2a1a); border-radius:18px; padding:22px 28px; color:#fff; margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;"></div>
+      <div>
+        <div style="font-size:18px;font-weight:800;">Home ALL Tab Products</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">These products will appear when a visitor clicks "ALL" on the home page.</div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span id="home-all-count-pill" style="background:rgba(16,185,129,0.2);color:#10b981;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:800;">0 Selected</span>
+      <button id="home-all-save-btn" onclick="window.saveHomeAllProducts(this)" style="background:linear-gradient(135deg,#c5965a,#a87c48);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 6px 18px rgba(197,150,90,0.35);">
+        💾 Save to Website
+      </button>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+    <div>
+      <h3 style="margin:0;font-size:17px;font-weight:700;color:var(--admin-text);">Select Products for Home ALL Tab</h3>
+      <p style="margin:4px 0 0 0;font-size:12px;color:#888;">Check the products you want to show. Uncheck to hide. Changes apply after saving.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <input type="text" id="home-all-search" placeholder="Search products..." oninput="window.filterHomeAllTable()" style="padding:10px 16px;border:1px solid #ddd;border-radius:10px;font-size:13px;width:220px;">
+      <button onclick="window.toggleAllHomeProducts(true)" style="background:#f0f0f0;border:1px solid #ddd;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">Select All</button>
+      <button onclick="window.toggleAllHomeProducts(false)" style="background:#f0f0f0;border:1px solid #ddd;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th style="width:40px;text-align:center;"><input type="checkbox" id="home-all-select-all-cb" onchange="window.toggleAllHomeProducts(this.checked)"></th>
+          <th>Product</th>
+          <th>Brand / Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="home-all-table-body">
+        <tr><td colspan="6" style="text-align:center;padding:40px;color:#888;">Loading products...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="home-all-save-msg" style="margin-top:16px;font-size:14px;font-weight:700;display:none;padding:14px 20px;border-radius:12px;"></div>
+</div>
+
+<script>
+(function() {
+  let allHomeProducts = [];
+  let selectedHomeProductIds = new Set();
+  const SETTING_KEY = 'home_all_products';
+
+  function getApiBase() {
+    return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+  }
+
+  async function loadHomeAllTab() {
+    const tbody = document.getElementById('home-all-table-body');
+    if (tbody && (!allHomeProducts || !allHomeProducts.length)) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#888;">Loading products...</td></tr>';
+    }
+
+    if (window.productsData && window.productsData.length > 0) {
+      allHomeProducts = window.productsData;
+    } else if (typeof window.fetchDatabaseProducts === 'function') {
+      try {
+        await window.fetchDatabaseProducts();
+        allHomeProducts = window.productsData || [];
+      } catch(e) {}
+    }
+
+    if (!allHomeProducts.length && typeof defaultProducts !== 'undefined') {
+      allHomeProducts = defaultProducts;
+    }
+
+    // Load saved selection from server
+    try {
+      const res = await fetch(getApiBase() + '/settings/' + SETTING_KEY + '?t=' + Date.now());
+      if (res.ok) {
+        const d = await res.json();
+        if (d && Array.isArray(d.value)) {
+          selectedHomeProductIds = new Set(d.value.map(String));
+        } else if (d && d.value === null) {
+          // No selection saved yet — select all by default
+          selectedHomeProductIds = new Set();
+          allHomeProducts.forEach(p => {
+            const id = String(p.id || p._id || '');
+            if (id) selectedHomeProductIds.add(id);
+          });
+        }
+      }
+    } catch(e) {
+      console.warn('Could not load home_all_products setting:', e);
+    }
+
+    renderHomeAllTable();
+  }
+
+  function isProductChecked(p) {
+    const id1 = String(p.id || '');
+    const id2 = String(p._id || '');
+    return (id1 && selectedHomeProductIds.has(id1)) || (id2 && selectedHomeProductIds.has(id2));
+  }
+
+  function renderHomeAllTable() {
+    const tbody = document.getElementById('home-all-table-body');
+    if (!tbody) return;
+
+    if (!allHomeProducts.length && window.productsData && window.productsData.length) {
+      allHomeProducts = window.productsData;
+    }
+
+    const searchInput = document.getElementById('home-all-search');
+    const q = (searchInput && searchInput.value) ? searchInput.value.toLowerCase().trim() : '';
+
+    const filtered = allHomeProducts.filter(p => {
+      if (!q) return true;
+      const name = (p.name || '').toLowerCase();
+      const cat = (p.cat || '').toLowerCase();
+      const id = String(p.id || p._id || '').toLowerCase();
+      return name.includes(q) || cat.includes(q) || id.includes(q);
+    });
+
+    const countEl = document.getElementById('home-all-count-pill');
+    if (countEl) countEl.textContent = selectedHomeProductIds.size + ' Selected';
+
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:30px;color:#888;">No products found.</td></tr>';
+      return;
+    }
+
+    let rowsHtml = '';
+    for (let i = 0; i < filtered.length; i++) {
+      const p = filtered[i];
+      const id = String(p.id || p._id || '');
+      const checked = isProductChecked(p);
+      const img = p.img || (p.images && p.images[0]) || 'favicon.png';
+      const name = p.name || 'Untitled';
+      const brand = (p.cat || 'General').toUpperCase();
+      const price = p.price ? 'Rs. ' + Number(p.price).toLocaleString() : 'N/A';
+      const stock = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : 1;
+      const oos = stock <= 0;
+
+      rowsHtml += '<tr style="' + (checked ? 'background:rgba(16,185,129,0.05);' : '') + '">' +
+        '<td style="text-align:center;">' +
+          '<input type="checkbox" data-pid="' + id + '" ' + (checked ? 'checked' : '') + ' class="home-all-row-cb">' +
+        '</td>' +
+        '<td style="display:flex;align-items:center;gap:12px;">' +
+          '<img src="' + img + '" style="width:40px;height:40px;border-radius:8px;object-fit:cover;" onerror="this.onerror=null;this.src=\'favicon.png\';">' +
+          '<span style="font-weight:700;color:var(--admin-text);">' + name + '</span>' +
+        '</td>' +
+        '<td><span style="font-size:11px;font-weight:700;background:#f0f0f0;padding:3px 10px;border-radius:20px;">' + brand + '</span></td>' +
+        '<td style="font-weight:700;color:var(--admin-text);">' + price + '</td>' +
+        '<td><span style="font-weight:700;color:' + (oos ? '#ef4444' : '#10b981') + ';">' + (oos ? 'Out of Stock' : stock + ' left') + '</span></td>' +
+        '<td><span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;background:' + (checked ? 'rgba(16,185,129,0.12)' : '#f5f5f5') + ';color:' + (checked ? '#10b981' : '#999') + ';">' + (checked ? '✓ Included' : 'Excluded') + '</span></td>' +
+        '</tr>';
+    }
+    tbody.innerHTML = rowsHtml;
+
+    const checkboxes = tbody.querySelectorAll('.home-all-row-cb');
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', function() {
+        const pid = this.getAttribute('data-pid');
+        if (this.checked) {
+          selectedHomeProductIds.add(pid);
+        } else {
+          selectedHomeProductIds.delete(pid);
+          const prod = allHomeProducts.find(x => String(x.id || x._id || '') === pid);
+          if (prod) {
+            if (prod.id) selectedHomeProductIds.delete(String(prod.id));
+            if (prod._id) selectedHomeProductIds.delete(String(prod._id));
+          }
+        }
+        renderHomeAllTable();
+      });
+    });
+  }
+
+  window.toggleAllHomeProducts = function(selectAll) {
+    if (selectAll) {
+      allHomeProducts.forEach(p => {
+        const id = String(p.id || p._id || '');
+        if (id) selectedHomeProductIds.add(id);
+      });
+    } else {
+      selectedHomeProductIds.clear();
+    }
+    const selectAllCb = document.getElementById('home-all-select-all-cb');
+    if (selectAllCb) selectAllCb.checked = selectAll;
+    renderHomeAllTable();
+  };
+
+  window.filterHomeAllTable = function() {
+    renderHomeAllTable();
+  };
+
+  window.saveHomeAllProducts = async function(btn) {
+    const origText = btn ? btn.textContent : 'Save';
+    if (btn) { btn.textContent = 'Saving...'; btn.disabled = true; }
+    const msg = document.getElementById('home-all-save-msg');
+    try {
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
+      const ids = Array.from(selectedHomeProductIds);
+      const res = await fetch(getApiBase() + '/settings/' + SETTING_KEY, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ value: ids })
+      });
+      if (res.ok) {
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(16,185,129,0.12)';
+          msg.style.color = '#10b981';
+          msg.textContent = '✅ Saved! ' + ids.length + ' products will now appear in the Home "ALL" tab.';
+        }
+        try { localStorage.setItem('bib_home_all_ids', JSON.stringify(ids)); } catch(e) {}
+      } else {
+        const errJson = await res.json().catch(() => ({}));
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(239,68,68,0.12)';
+          msg.style.color = '#ef4444';
+          msg.textContent = '❌ Save failed: ' + (errJson.message || res.status);
+        }
+      }
+    } catch(e) {
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(239,68,68,0.12)';
+        msg.style.color = '#ef4444';
+        msg.textContent = '❌ Error: ' + e.message;
+      }
+    } finally {
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+    }
+  };
+
+  window.loadHomeAllTab = loadHomeAllTab;
+})();
+</script>
+
 <div id="tab-settings" class="admin-content" style="padding-bottom: 120px;">
 
         <!-- TOP HEADER -->
@@ -3301,7 +3558,7 @@
     </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=412"></script>
+  <script src="products.js?v=420"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     let editingId = null;
@@ -3329,6 +3586,7 @@
         'analytics': 'Business Intelligence', 
         'support': 'Customer Support',
         'brands': 'Brand Logos',
+        'home-all': "Home 'ALL' Products Customizer",
         'settings': 'Admin Settings'
       };
       if (document.getElementById('view-title')) {
@@ -3372,6 +3630,7 @@
       if (tabId === 'subscribers') fetchSubscribers();
       if (tabId === 'brands' && typeof window.fetchAdminBrands === 'function') window.fetchAdminBrands();
       if (tabId === 'settings' && typeof fetchAdminSlides === 'function') fetchAdminSlides();
+      if (tabId === 'home-all' && typeof window.loadHomeAllTab === 'function') window.loadHomeAllTab();
     };
 
     const fallbackProducts = [
@@ -4615,7 +4874,7 @@
         // 1. LATEST PRODUCTS (with deep safety)
         const prodList = document.getElementById('latest-products-sidebar');
         if (prodList) {
-            // Priority: Live Data -> defaultProducts (from products.js?v=412) -> Hardcoded Premium Fallback
+            // Priority: Live Data -> defaultProducts (from products.js?v=420) -> Hardcoded Premium Fallback
             const source = (window.productsData && window.productsData.length > 0) ? window.productsData : 
                           (typeof defaultProducts !== 'undefined' ? defaultProducts : [
                 { name: 'CeraVe Hydrating Cleanser', cat: 'cerave', price: 6800, img: 'cerave prodcut/Hydrating Cleanser (236ml)  Rs.6800.png' },

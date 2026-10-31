@@ -2195,6 +2195,40 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- HOME ALL PRODUCTS GRID ---
+let _homeAllSelectedIds = (() => {
+    try {
+        const cached = localStorage.getItem('bib_home_all_ids');
+        if (cached) {
+            const arr = JSON.parse(cached);
+            if (Array.isArray(arr) && arr.length > 0) return new Set(arr.map(String));
+        }
+    } catch(e) {}
+    return null;
+})();
+
+async function fetchHomeAllProductsSetting() {
+    try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+        const res = await fetch(`${BASE}/settings/home_all_products?cb=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data.value) && data.value.length > 0) {
+                _homeAllSelectedIds = new Set(data.value.map(String));
+                try { localStorage.setItem('bib_home_all_ids', JSON.stringify(data.value)); } catch(e) {}
+                if (typeof window.renderHomeAllProducts === 'function') {
+                    window.renderHomeAllProducts();
+                }
+            } else if (data && (data.value === null || (Array.isArray(data.value) && data.value.length === 0))) {
+                _homeAllSelectedIds = null;
+                try { localStorage.removeItem('bib_home_all_ids'); } catch(e) {}
+            }
+        }
+    } catch(e) {
+        console.warn('Could not fetch home_all_products setting:', e);
+    }
+}
+try { fetchHomeAllProductsSetting(); } catch(e) {}
+
 window.renderHomeAllProducts = function() {
     const grid = document.getElementById('hap-grid');
     if (!grid) return;
@@ -2245,31 +2279,44 @@ window.renderHomeAllProducts = function() {
     // Get up to 12 or 28 products
     const displayProducts = (category) => {
         let filtered = [];
+        let isCustomAll = false;
+
         if (!category || category === 'all') {
-            // Group products by category and interleave (round-robin) so products come from every category
-            const catGroups = {};
-            const order = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
-            
-            (window.productsData || []).forEach(p => {
-                const c = (p.cat || 'others').toLowerCase();
-                if (!catGroups[c]) catGroups[c] = [];
-                catGroups[c].push(p);
-            });
+            if (_homeAllSelectedIds && _homeAllSelectedIds.size > 0) {
+                // Admin selected custom products for Home 'ALL'
+                const allList = window.productsData || [];
+                filtered = allList.filter(p => {
+                    const id1 = String(p.id || '');
+                    const id2 = String(p._id || '');
+                    return (id1 && _homeAllSelectedIds.has(id1)) || (id2 && _homeAllSelectedIds.has(id2));
+                });
+                isCustomAll = true;
+            } else {
+                // Group products by category and interleave (round-robin) so products come from every category
+                const catGroups = {};
+                const order = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
+                
+                (window.productsData || []).forEach(p => {
+                    const c = (p.cat || 'others').toLowerCase();
+                    if (!catGroups[c]) catGroups[c] = [];
+                    catGroups[c].push(p);
+                });
 
-            const catKeys = Object.keys(catGroups).sort((a, b) => {
-                const indexA = order.indexOf(a);
-                const indexB = order.indexOf(b);
-                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                if (indexA !== -1) return -1;
-                if (indexB !== -1) return 1;
-                return a.localeCompare(b);
-            });
+                const catKeys = Object.keys(catGroups).sort((a, b) => {
+                    const indexA = order.indexOf(a);
+                    const indexB = order.indexOf(b);
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+                    return a.localeCompare(b);
+                });
 
-            const maxItems = Math.max(...catKeys.map(k => catGroups[k].length), 0);
-            for (let i = 0; i < maxItems; i++) {
-                for (const k of catKeys) {
-                    if (catGroups[k][i]) {
-                        filtered.push(catGroups[k][i]);
+                const maxItems = Math.max(...catKeys.map(k => catGroups[k].length), 0);
+                for (let i = 0; i < maxItems; i++) {
+                    for (const k of catKeys) {
+                        if (catGroups[k][i]) {
+                            filtered.push(catGroups[k][i]);
+                        }
                     }
                 }
             }
@@ -2277,8 +2324,8 @@ window.renderHomeAllProducts = function() {
             filtered = (window.productsData || []).filter(p => (p.cat || 'others').toLowerCase() === category);
         }
         
-        // Take up to 12 items for 'all', or up to 28 items for specific categories
-        const limit = (!category || category === 'all') ? 12 : 28;
+        // Take all items if custom 'all', up to 12 items for default 'all', or up to 28 items for specific categories
+        const limit = (!category || category === 'all') ? (isCustomAll ? filtered.length : 12) : 28;
         const productsToShow = filtered.slice(0, limit);
         
         grid.innerHTML = productsToShow.map(prod => {
