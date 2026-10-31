@@ -10893,3 +10893,370 @@ body.loading-active .floating-email {
     padding: 1.5px !important;
   }
 }
+
+/* ==========================================================================
+   AUTHENTIC GOOGLE REVIEWS SECTION (DESKTOP GRID & MOBILE SNAP CAROUSEL)
+   ========================================================================== */
+.google-reviews-section {
+  padding: 56px 24px 72px !important;
+  background: #ffffff !important;
+  position: relative;
+}
+
+.gr-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Google Summary Header Bar */
+.gr-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #f8f9fa !important;
+  border: 1px solid #e8eaed !important;
+  border-radius: 18px !important;
+  padding: 20px 28px !important;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 18px rgba(60, 64, 67, 0.05) !important;
+}
+
+.gr-summary-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gr-google-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gr-main-g-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.gr-wordmark {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.gr-wordmark-sub {
+  color: #202124;
+  font-weight: 600;
+  margin-left: 6px;
+  font-size: 20px;
+}
+
+.gr-rating-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gr-score-num {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #202124;
+  line-height: 1;
+}
+
+.gr-summary-stars {
+  color: #fbbc04;
+  font-size: 20px;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.gr-count-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+.gr-write-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1a73e8 !important;
+  color: #ffffff !important;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.25) !important;
+  white-space: nowrap;
+}
+
+.gr-write-btn:hover {
+  background: #1557b0 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.35) !important;
+  color: #ffffff !important;
+}
+
+/* Desktop Grid */
+.gr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Individual Google Review Card */
+.gr-card {
+  background: #ffffff !important;
+  border: 1px solid #e8eaed !important;
+  border-radius: 16px !important;
+  padding: 22px !important;
+  box-shadow: 0 4px 16px rgba(60, 64, 67, 0.06) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+}
+
+.gr-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(60, 64, 67, 0.1) !important;
+  border-color: #dadce0 !important;
+}
+
+.gr-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gr-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #ffffff !important;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  overflow: hidden;
+  user-select: none;
+}
+
+.gr-avatar.gr-avatar-img {
+  background: #f1f3f4 !important;
+}
+
+.gr-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gr-author-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.gr-author-name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.gr-author-name-row h4 {
+  margin: 0;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #202124;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gr-verified-icon {
+  flex-shrink: 0;
+}
+
+.gr-time {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: #70757a;
+  margin-top: 2px;
+}
+
+.gr-g-badge {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.gr-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gr-stars {
+  color: #fbbc04;
+  font-size: 17px;
+  letter-spacing: 1.5px;
+  line-height: 1;
+}
+
+.gr-new-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #1a73e8;
+  background: #e8f0fe !important;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.4px;
+}
+
+.gr-text {
+  margin: 0;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.62;
+  color: #3c4043;
+  font-style: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile Carousel Dots (hidden on Desktop) */
+.gr-dots-wrap {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.gr-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #dadce0 !important;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.gr-dot.active {
+  width: 22px;
+  background: #1a73e8 !important;
+}
+
+@media (max-width: 992px) {
+  .gr-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .google-reviews-section {
+    padding: 36px 14px 48px !important;
+  }
+
+  .gr-summary-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 18px !important;
+    gap: 14px;
+    margin-bottom: 18px;
+    border-radius: 16px !important;
+  }
+
+  .gr-summary-left {
+    width: 100%;
+  }
+
+  .gr-wordmark {
+    font-size: 19px;
+  }
+
+  .gr-wordmark-sub {
+    font-size: 18px;
+  }
+
+  .gr-score-num {
+    font-size: 19px;
+  }
+
+  .gr-summary-stars {
+    font-size: 17px;
+  }
+
+  .gr-count-text {
+    font-size: 12.5px;
+  }
+
+  .gr-write-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+
+  /* Horizontal Snap Carousel on Mobile */
+  .gr-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch;
+    gap: 14px !important;
+    padding: 4px 6px 12px !important;
+    margin: 0 -6px;
+    scrollbar-width: none;
+  }
+
+  .gr-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gr-card {
+    flex: 0 0 84% !important;
+    max-width: 310px !important;
+    scroll-snap-align: center !important;
+    padding: 18px !important;
+    border-radius: 15px !important;
+  }
+
+  .gr-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+    -webkit-line-clamp: 5;
+  }
+
+  .gr-dots-wrap {
+    display: flex !important;
+  }
+}
+

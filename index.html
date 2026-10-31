@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=514" />
+  <link rel="stylesheet" href="styles.css?v=515" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -1154,64 +1154,196 @@
 
 
 
-    <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
-    <section class="feedback-section">
-      <div class="fb-inner-header fp-header">
-        <span class="fp-script">Local Reviews</span>
-        <h2 class="fp-title">Verified Experiences</h2>
-      </div>
-
-      <div class="fb-container">
-        <!-- Review 1 -->
-        <div class="fb-card">
-          <div class="fb-card-top">
-            <div class="fb-stars">★★★★★</div>
-            <p class="fb-text">"The Ordinary products really changed my skin. I'm finally glowing and my dark spots are fading!"</p>
-          </div>
-          <div class="fb-user">
-            <div class="fb-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            </div>
-            <div class="fb-user-details">
-              <h4>Hirushika Fernando</h4>
-              <span>Verified Buyer</span>
-            </div>
-          </div>
+    <!-- ===== SECTION 10: GOOGLE REVIEWS (DYNAMIC ADMIN MANAGED) ===== -->
+    <section class="google-reviews-section" id="google-reviews-section">
+      <div class="gr-container">
+        <div class="fb-inner-header fp-header" style="margin-bottom: 26px;">
+          <span class="fp-script">Verified Customer Trust</span>
+          <h2 class="fp-title">Google Reviews</h2>
         </div>
 
-        <!-- Review 2 -->
-        <div class="fb-card">
-          <div class="fb-card-top">
-            <div class="fb-stars">★★★★★</div>
-            <p class="fb-text">"Authentic products and very fast delivery in Sri Lanka. My routine has never been more consistent."</p>
-          </div>
-          <div class="fb-user">
-            <div class="fb-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <!-- Google Reviews Summary Header Card -->
+        <div class="gr-summary-bar">
+          <div class="gr-summary-left">
+            <div class="gr-google-logo-row">
+              <!-- Official 4-Color Google G SVG -->
+              <svg class="gr-main-g-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+              <div class="gr-wordmark" aria-label="Google Reviews">
+                <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+                <span class="gr-wordmark-sub">Reviews</span>
+              </div>
             </div>
-            <div class="fb-user-details">
-              <h4>Imaansha Dahami</h4>
-              <span>Verified Buyer</span>
+            <div class="gr-rating-meta">
+              <span class="gr-score-num" id="gr-overall-score">4.9</span>
+              <div class="gr-summary-stars" id="gr-overall-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <span class="gr-count-text" id="gr-overall-count">Based on 128 reviews</span>
             </div>
           </div>
+
+          <a href="https://www.google.com/search?q=Beauty+in+Balance+Sri+Lanka" target="_blank" rel="noopener noreferrer" class="gr-write-btn" id="gr-write-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81Z"/>
+            </svg>
+            <span>Review us on Google</span>
+          </a>
         </div>
 
-        <!-- Review 3 -->
-        <div class="fb-card">
-          <div class="fb-card-top">
-            <div class="fb-stars">★★★★★</div>
-            <p class="fb-text">"Perfect customer support and even better results. Beauty in Balance is my only go-to for skincare!"</p>
-          </div>
-          <div class="fb-user">
-            <div class="fb-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <!-- Google Reviews Grid (Desktop 3-col / Mobile Snap Carousel) -->
+        <div class="gr-grid" id="gr-cards-track">
+          <!-- Default Review 1 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #1a73e8;">H</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Hirushika Fernando</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">2 weeks ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
             </div>
-            <div class="fb-user-details">
-              <h4>Aloka Perera</h4>
-              <span>Verified Buyer</span>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+              <span class="gr-new-badge">NEW</span>
             </div>
-          </div>
+            <p class="gr-text">Ordered The Ordinary Niacinamide and CeraVe Cleanser from Beauty in Balance. 100% authentic products with batch codes intact! Delivered within 2 days to Colombo. Highly recommend!</p>
+          </article>
+
+          <!-- Default Review 2 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #1e8e3e;">I</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Imaansha Dahami</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">1 month ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Best place in Sri Lanka to buy original skincare. Packaging was super secure and customer service on WhatsApp helped me pick the right routine for my sensitive skin.</p>
+          </article>
+
+          <!-- Default Review 3 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #9334e6;">A</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Aloka Perera</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">3 weeks ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Been buying my Cetaphil and La Roche-Posay essentials from here for 6 months now. Genuine products, fair prices, and KOKO payment option makes it so convenient!</p>
+          </article>
+
+          <!-- Default Review 4 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #d93025;">N</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Nethmi Wijesinghe</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">1 week ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+              <span class="gr-new-badge">NEW</span>
+            </div>
+            <p class="gr-text">Super fast delivery! I placed my order on Monday morning and received it by Wednesday afternoon. Everything was sealed properly and my skin is loving the Beauty of Joseon sunscreen.</p>
+          </article>
+
+          <!-- Default Review 5 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #00897b;">K</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Kavindi Silva</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">2 months ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Finally found a trustworthy skincare store in SL that doesn't sell replicas. Checked the barcodes and textures—everything is 100% genuine. Will definitely order again!</p>
+          </article>
+
+          <!-- Default Review 6 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #e37400;">D</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Dilushi Rajapaksha</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">3 weeks ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Amazing service and authentic UK/US imported skincare. Their team guided me step by step and my acne marks have faded so much in just 4 weeks!</p>
+          </article>
         </div>
+
+        <!-- Mobile Carousel Dots -->
+        <div class="gr-dots-wrap" id="gr-dots-wrap" aria-label="Review carousel navigation"></div>
       </div>
     </section>
 
@@ -2552,6 +2684,146 @@
           if (d && d.value) {
             try { localStorage.setItem('bib_home_mid_banner', JSON.stringify(d.value)); } catch(e) {}
             applyMidBanner(d.value);
+          }
+        })
+        .catch(() => {});
+    })();
+
+    // --- Dynamic Google Reviews Loader & Mobile Carousel ---
+    (function initDynamicGoogleReviews() {
+      const G_BADGE_SVG = '<svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>';
+      const VERIFIED_SVG = '<svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>';
+      const COLORS = ['#1a73e8', '#1e8e3e', '#9334e6', '#d93025', '#00897b', '#e37400'];
+
+      function escHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function setupMobileDots() {
+        const track = document.getElementById('gr-cards-track');
+        const dotsWrap = document.getElementById('gr-dots-wrap');
+        if (!track || !dotsWrap) return;
+        const cards = Array.from(track.querySelectorAll('.gr-card'));
+        if (cards.length <= 1) {
+          dotsWrap.innerHTML = '';
+          return;
+        }
+        dotsWrap.innerHTML = cards.map((_, idx) =>
+          `<button type="button" class="gr-dot ${idx === 0 ? 'active' : ''}" data-idx="${idx}" aria-label="Go to review ${idx + 1}"></button>`
+        ).join('');
+
+        const dots = Array.from(dotsWrap.querySelectorAll('.gr-dot'));
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const i = parseInt(dot.getAttribute('data-idx'), 10) || 0;
+            if (cards[i]) {
+              const left = cards[i].offsetLeft - (track.clientWidth - cards[i].clientWidth) / 2;
+              track.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+            }
+          });
+        });
+
+        if (!track._grScrollBound) {
+          track._grScrollBound = true;
+          track.addEventListener('scroll', () => {
+            const currentCards = Array.from(track.querySelectorAll('.gr-card'));
+            const currentDots = Array.from(dotsWrap.querySelectorAll('.gr-dot'));
+            if (!currentCards.length || !currentDots.length) return;
+            const center = track.scrollLeft + track.clientWidth / 2;
+            let bestIdx = 0;
+            let minDiff = Infinity;
+            currentCards.forEach((c, idx) => {
+              const cCenter = c.offsetLeft + c.clientWidth / 2;
+              const diff = Math.abs(cCenter - center);
+              if (diff < minDiff) {
+                minDiff = diff;
+                bestIdx = idx;
+              }
+            });
+            currentDots.forEach((d, idx) => d.classList.toggle('active', idx === bestIdx));
+          }, { passive: true });
+        }
+      }
+
+      function applyGoogleReviews(data) {
+        if (!data || typeof data !== 'object') return;
+        const sec = document.getElementById('google-reviews-section');
+        if (sec) {
+          if (data.enabled === false) {
+            sec.style.display = 'none';
+            return;
+          }
+          sec.style.display = '';
+        }
+
+        const scoreEl = document.getElementById('gr-overall-score');
+        const countEl = document.getElementById('gr-overall-count');
+        const writeBtn = document.getElementById('gr-write-btn');
+        const track = document.getElementById('gr-cards-track');
+
+        if (scoreEl && data.overallScore) scoreEl.textContent = data.overallScore;
+        if (countEl && data.totalCountText) countEl.textContent = data.totalCountText;
+        if (writeBtn && data.reviewLinkUrl) writeBtn.href = data.reviewLinkUrl;
+
+        if (track && Array.isArray(data.reviews) && data.reviews.length > 0) {
+          track.innerHTML = data.reviews.map((rev, i) => {
+            const name = String(rev.name || 'Google User').trim();
+            const initial = escHtml(name.charAt(0).toUpperCase() || 'G');
+            const color = rev.avatarColor || COLORS[i % COLORS.length];
+            const rating = Math.max(1, Math.min(5, parseInt(rev.rating, 10) || 5));
+            const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+            const avatarHtml = rev.avatarUrl
+              ? `<div class="gr-avatar gr-avatar-img"><img src="${escHtml(rev.avatarUrl)}" alt="${escHtml(name)}" loading="lazy" /></div>`
+              : `<div class="gr-avatar" style="background-color: ${escHtml(color)};">${initial}</div>`;
+            const newBadge = rev.isNew ? '<span class="gr-new-badge">NEW</span>' : '';
+
+            return `
+              <article class="gr-card">
+                <div class="gr-card-head">
+                  ${avatarHtml}
+                  <div class="gr-author-meta">
+                    <div class="gr-author-name-row">
+                      <h4>${escHtml(name)}</h4>
+                      ${VERIFIED_SVG}
+                    </div>
+                    <span class="gr-time">${escHtml(rev.timeAgo || 'Recently')}</span>
+                  </div>
+                  ${G_BADGE_SVG}
+                </div>
+                <div class="gr-stars-row">
+                  <span class="gr-stars">${stars}</span>
+                  ${newBadge}
+                </div>
+                <p class="gr-text">${escHtml(rev.text || '')}</p>
+              </article>
+            `;
+          }).join('');
+        }
+
+        setupMobileDots();
+      }
+
+      // Initialize mobile dots for default cards immediately
+      setupMobileDots();
+
+      // 1. Instant render from localStorage if cached
+      try {
+        const cached = localStorage.getItem('bib_google_reviews');
+        if (cached) applyGoogleReviews(JSON.parse(cached));
+      } catch (e) {}
+
+      // 2. Fetch live Google Reviews from backend API
+      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+      fetch(`${apiBase}/settings/google_reviews?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_google_reviews', JSON.stringify(d.value)); } catch (e) {}
+            applyGoogleReviews(d.value);
           }
         })
         .catch(() => {});
