@@ -941,7 +941,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="config.js?v=28"></script>
+  <script src="config.js?v=29"></script>
   <script src="products.js?v=412"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -1217,7 +1217,7 @@
 
               <!-- Sleek Rounded Buttons vertically stacked -->
               <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-                 <button ${isOutOfStock ? 'disabled' : `onclick="window.executeBuyItNow()" onmouseover="this.style.background='#2D1B12'" onmouseout="this.style.background='#C6975A'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: ${isOutOfStock ? '#e0e0e0' : '#C6975A'}; border: none; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#fff'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
+                 <button class="product-page-buy-btn" ${isOutOfStock ? \'disabled\' : `onclick="window.executeBuyItNow()"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: ${isOutOfStock ? \'#e0e0e0\' : \'var(--btn-theme-color, #C6975A)\'}; transition: all 0.25s; border: none; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#fff'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
                    Buy It Now
                  </button>
