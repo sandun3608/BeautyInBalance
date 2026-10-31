@@ -3526,23 +3526,23 @@
   <!-- 2 Columns: Desktop Banner Resolution & Mobile Banner Resolution -->
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px; margin-bottom: 26px;">
     
-    <!-- CARD 1: DESKTOP BANNER (10:4 Ratio -> Height is 4/10 of Width) -->
+    <!-- CARD 1: DESKTOP BANNER (10:3 Ratio -> Sleek Desktop Height) -->
     <div style="background: #fff; border-radius: 22px; border: 1px solid #eee; padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px;">
         <div>
           <span style="background: #2D1B12; color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;">Desktop View</span>
           <h3 style="margin: 8px 0 2px 0; font-size: 18px; font-weight: 800; color: #2D1B12;">Desktop Banner Image</h3>
-          <span style="font-size: 12px; color: #c5965a; font-weight: 700;">Recommended Resolution: 1300 × 520 px (10 : 4 Ratio — Height is 4/10 of Width)</span>
+          <span style="font-size: 12px; color: #c5965a; font-weight: 700;">Recommended Resolution: 1300 × 390 px (10 : 3 Ratio — Sleek Desktop Height)</span>
         </div>
         <button type="button" onclick="window.resetHomeBannerImage('desktop')" style="background: #f7f7f7; border: 1px solid #ddd; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
           ↺ Reset Default
         </button>
       </div>
 
-      <!-- Live Curved 10:4 Preview -->
-      <div style="width: 100%; aspect-ratio: 10 / 4; border-radius: 22px; overflow: hidden; background: #f4f1ea; position: relative; box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #eee;">
+      <!-- Live Curved 10:3 Preview -->
+      <div style="width: 100%; aspect-ratio: 10 / 3; border-radius: 22px; overflow: hidden; background: #f4f1ea; position: relative; box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #eee;">
         <img id="admin-hb-desktop-preview" src="https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png" alt="Desktop Preview" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Desktop 10:4 Curved Preview</span>
+        <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Desktop 10:3 Curved Preview</span>
       </div>
 
       <!-- Upload & URL Controls -->
@@ -3561,23 +3561,23 @@
       </div>
     </div>
 
-    <!-- CARD 2: MOBILE BANNER (10:4 Ratio -> Height is 4/10 of Width) -->
+    <!-- CARD 2: MOBILE BANNER (10:5.4 Ratio -> Taller Mobile Height) -->
     <div style="background: #fff; border-radius: 22px; border: 1px solid #eee; padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px;">
         <div>
           <span style="background: #c5965a; color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;">Mobile View</span>
           <h3 style="margin: 8px 0 2px 0; font-size: 18px; font-weight: 800; color: #2D1B12;">Mobile Banner Image</h3>
-          <span style="font-size: 12px; color: #c5965a; font-weight: 700;">Recommended Resolution: 900 × 360 px (10 : 4 Ratio — Height is 4/10 of Width)</span>
+          <span style="font-size: 12px; color: #c5965a; font-weight: 700;">Recommended Resolution: 900 × 486 px (10 : 5.4 Ratio — Taller Mobile Height)</span>
         </div>
         <button type="button" onclick="window.resetHomeBannerImage('mobile')" style="background: #f7f7f7; border: 1px solid #ddd; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
           ↺ Reset Default
         </button>
       </div>
 
-      <!-- Live Curved 10:4 Preview -->
-      <div style="width: 100%; aspect-ratio: 10 / 4; border-radius: 18px; overflow: hidden; background: #f4f1ea; position: relative; box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #eee;">
+      <!-- Live Curved 10:5.4 Preview -->
+      <div style="width: 100%; aspect-ratio: 10 / 5.4; border-radius: 18px; overflow: hidden; background: #f4f1ea; position: relative; box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #eee;">
         <img id="admin-hb-mobile-preview" src="https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png" alt="Mobile Preview" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Mobile 10:4 Curved Preview</span>
+        <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Mobile 10:5.4 Curved Preview</span>
       </div>
 
       <!-- Upload & URL Controls -->

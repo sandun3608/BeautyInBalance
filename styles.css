@@ -8631,9 +8631,24 @@ main {
   margin-top: 20px;
 }
 
+@media (max-width: 768px) {
+  .hap-footer {
+    margin-top: 12px !important;
+  }
+
+  .hap-footer .btn-dark,
+  .hap-footer .btn-hero {
+    width: auto !important;
+    padding: 9px 20px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+    border-radius: 7px !important;
+  }
+}
+
 /* ============================================================
    MID-PAGE COLLECTION BANNER (BELOW ENTIRE COLLECTION)
-   Aspect Ratio: 10 / 4 (Height is 4/10 of Width) + Curved Corners
+   Desktop: Shorter sleek height (10 / 3) | Mobile: Taller height (10 / 5.4)
    ============================================================ */
 .home-collection-banner-section {
   width: 100%;
@@ -8652,7 +8667,7 @@ main {
   display: block;
   position: relative;
   width: 100%;
-  aspect-ratio: 10 / 4;
+  aspect-ratio: 10 / 3;
   border-radius: 28px;
   overflow: hidden;
   background: #f6f2ed;
@@ -8689,7 +8704,7 @@ main {
   }
 
   .hcb-card {
-    aspect-ratio: 10 / 4 !important;
+    aspect-ratio: 10 / 5.4 !important;
     border-radius: 20px !important;
     box-shadow: 0 10px 28px rgba(45, 27, 18, 0.08) !important;
   }
