@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=308" />
+  <link rel="stylesheet" href="styles.css?v=504" />
 
   <style>
     body {
@@ -937,7 +937,7 @@
               const savings = origPrice - salePrice;
 
                             return `
-                <div class="offer-card">
+                ${(() => { const sNum = (p.stock !== undefined && p.stock !== null && p.stock !== '') ? Number(p.stock) : (p.inStock === false ? 0 : 1); return `<div class="offer-card ${sNum <= 0 ? 'is-sold-out' : ''}">`; })()}
                   <div class="offer-badge">-${prodDiscount}%</div>
                   <div class="offer-card-img" onclick="window.location.href='product.html?id=${pid}'">
                     <img src="${imgUrl}" alt="${title}" onerror="this.onerror=null; this.src='favicon.png';">

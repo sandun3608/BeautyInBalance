@@ -10429,3 +10429,28 @@ body.loading-active .floating-email {
 
 
 
+
+
+/* ===== SOLD OUT 14% BLUR STYLING ===== */
+.is-sold-out img,
+.is-sold-out .lux-img img,
+.is-sold-out .hap-card-img img,
+.is-sold-out .rec-img-wrap img,
+.is-sold-out .fp-img-wrap img,
+.is-sold-out .pc-image img,
+.is-sold-out .offer-card-img img {
+  filter: blur(1.4px) !important;
+  opacity: 0.86 !important;
+  transition: filter 0.3s ease, opacity 0.3s ease !important;
+}
+
+.is-sold-out:hover img,
+.is-sold-out:hover .lux-img img,
+.is-sold-out:hover .hap-card-img img,
+.is-sold-out:hover .rec-img-wrap img,
+.is-sold-out:hover .fp-img-wrap img,
+.is-sold-out:hover .pc-image img,
+.is-sold-out:hover .offer-card-img img {
+  filter: blur(1.4px) !important;
+  opacity: 0.86 !important;
+}
