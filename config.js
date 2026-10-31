@@ -1,4 +1,4 @@
-﻿const getApiUrl = () => {
+const getApiUrl = () => {
   const host = window.location.hostname;
   if (host === 'localhost' || host === '127.0.0.1') {
     return 'http://localhost:5000';
@@ -12,7 +12,7 @@ const BASE_URL = GLOBAL_API_URL + '/api';
 window.GLOBAL_API_URL = GLOBAL_API_URL;
 window.BASE_URL = BASE_URL;
 
-console.log(`[Config v15] API Endpoint: ${BASE_URL} ðŸš€`);
+console.log(`[Config v18] API Endpoint: ${BASE_URL}`);
 
 // Wake up the free-tier Render backend early in the background
 if (GLOBAL_API_URL.includes('onrender')) {
@@ -157,12 +157,17 @@ function submitMobileSearch() {
                 .fp-discount-badge,
                 .rec-discount-badge,
                 .discount-badge,
+                .offer-badge,
+                .shop-discount-pill,
+                .p-price-tag .discount-pill,
+                .td-deal-triangle,
                 .product-badges .hap-discount-badge,
                 .product-badges .fp-discount-badge,
                 .product-badges .rec-discount-badge {
                     background: ${colors.badgeColor} !important;
                     background-image: none !important;
                     color: #ffffff !important;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
                 }
             `;
         }
