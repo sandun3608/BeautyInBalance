@@ -961,27 +961,27 @@
 
 
     <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
-    <section class="video-highlights-section">
+    <section class="video-highlights-section" id="video-highlights-section">
       <div class="vh-container">
         <!-- Row 1 -->
-        <div class="vh-row">
-          <div class="vh-media vh-media-wide"><video data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
+        <div class="vh-row" id="vh-row-1">
+          <div class="vh-media vh-media-wide"><video id="vh-video-1" data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
           <div class="vh-info">
-            <span class="vh-tag">SKINCARE SECRETS</span>
-            <h2 class="vh-title">Master the Art of Layering</h2>
-            <p>Learn how to apply your products for maximum absorption and effectiveness.</p>
-            <a href="#" class="vh-link">WATCH FULL GUIDE</a>
+            <span class="vh-tag" id="vh-tag-1">SKINCARE SECRETS</span>
+            <h2 class="vh-title" id="vh-title-1">Master the Art of Layering</h2>
+            <p id="vh-desc-1">Learn how to apply your products for maximum absorption and effectiveness.</p>
+            <a href="#" class="vh-link" id="vh-link-1">WATCH FULL GUIDE</a>
           </div>
         </div>
 
         <!-- Row 2 -->
-        <div class="vh-row vh-reverse">
-          <div class="vh-media vh-media-wide"><video data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
+        <div class="vh-row vh-reverse" id="vh-row-2">
+          <div class="vh-media vh-media-wide"><video id="vh-video-2" data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
           <div class="vh-info">
-            <span class="vh-tag">LUXURY CARE</span>
-            <h2 class="vh-title">The Perfect Day Routine</h2>
-            <p>A step-by-step guide to protecting and hydrating your skin throughout the day.</p>
-            <a href="#" class="vh-link">DISCOVER MORE</a>
+            <span class="vh-tag" id="vh-tag-2">LUXURY CARE</span>
+            <h2 class="vh-title" id="vh-title-2">The Perfect Day Routine</h2>
+            <p id="vh-desc-2">A step-by-step guide to protecting and hydrating your skin throughout the day.</p>
+            <a href="#" class="vh-link" id="vh-link-2">DISCOVER MORE</a>
           </div>
         </div>
       </div>
@@ -2070,6 +2070,97 @@
          hidePreloader();
       }, 1000);
     });
+
+    // Dynamic Home Video Highlights from Admin Settings
+    (function() {
+      function applyHomeVideos(vData) {
+        if (!vData) return;
+        const v1 = vData.video1 || (Array.isArray(vData) ? vData[0] : null);
+        const v2 = vData.video2 || (Array.isArray(vData) ? vData[1] : null);
+
+        if (v1) {
+          const vid1 = document.getElementById('vh-video-1');
+          if (vid1 && v1.src) {
+            vid1.dataset.src = v1.src;
+            if (vid1.src && vid1.src !== v1.src) {
+              vid1.src = v1.src;
+              vid1.load();
+              vid1.play().catch(() => {});
+            }
+          }
+          if (v1.tag) {
+            const el = document.getElementById('vh-tag-1');
+            if (el) el.textContent = v1.tag;
+          }
+          if (v1.title) {
+            const el = document.getElementById('vh-title-1');
+            if (el) el.textContent = v1.title;
+          }
+          if (v1.desc) {
+            const el = document.getElementById('vh-desc-1');
+            if (el) el.textContent = v1.desc;
+          }
+          if (v1.linkText) {
+            const el = document.getElementById('vh-link-1');
+            if (el) el.textContent = v1.linkText;
+          }
+          if (v1.linkUrl) {
+            const el = document.getElementById('vh-link-1');
+            if (el) el.href = v1.linkUrl;
+          }
+        }
+
+        if (v2) {
+          const vid2 = document.getElementById('vh-video-2');
+          if (vid2 && v2.src) {
+            vid2.dataset.src = v2.src;
+            if (vid2.src && vid2.src !== v2.src) {
+              vid2.src = v2.src;
+              vid2.load();
+              vid2.play().catch(() => {});
+            }
+          }
+          if (v2.tag) {
+            const el = document.getElementById('vh-tag-2');
+            if (el) el.textContent = v2.tag;
+          }
+          if (v2.title) {
+            const el = document.getElementById('vh-title-2');
+            if (el) el.textContent = v2.title;
+          }
+          if (v2.desc) {
+            const el = document.getElementById('vh-desc-2');
+            if (el) el.textContent = v2.desc;
+          }
+          if (v2.linkText) {
+            const el = document.getElementById('vh-link-2');
+            if (el) el.textContent = v2.linkText;
+          }
+          if (v2.linkUrl) {
+            const el = document.getElementById('vh-link-2');
+            if (el) el.href = v2.linkUrl;
+          }
+        }
+      }
+
+      // 1. Instant local render if cached
+      try {
+        const cached = localStorage.getItem('bib_home_videos');
+        if (cached) applyHomeVideos(JSON.parse(cached));
+      } catch(e) {}
+
+      // 2. Fetch latest live from backend API
+      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+      fetch(`${apiBase}/settings/home_videos?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_home_videos', JSON.stringify(d.value)); } catch(e) {}
+            applyHomeVideos(d.value);
+          }
+        })
+        .catch(() => {});
+    })();
 
     // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
     document.addEventListener('DOMContentLoaded', () => {
