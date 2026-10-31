@@ -3456,6 +3456,18 @@
       }
 
       try { localStorage.setItem('bib_home_videos', JSON.stringify(payload)); } catch(e) {}
+      try {
+        const req = indexedDB.open('bib_media_cache_db', 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('settings')) db.createObjectStore('settings');
+        };
+        req.onsuccess = (e) => {
+          const db = e.target.result;
+          const tx = db.transaction('settings', 'readwrite');
+          tx.objectStore('settings').put(payload, 'home_videos');
+        };
+      } catch(e) {}
       if (typeof showToast === 'function') {
         showToast('✅ All 5 Homepage videos saved & published live!');
       } else {

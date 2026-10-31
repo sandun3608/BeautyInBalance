@@ -976,7 +976,7 @@
         <!-- Row 1 (Starts Center) -->
         <div class="vh-row pos-center" id="vh-row-1" data-index="0" onclick="window.handleVhCardClick(0, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-1" data-src="vedio/1.mp4" preload="none" muted loop playsinline></video>
+            <video id="vh-video-1" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-1" onclick="window.toggleVhPlay(1, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -993,7 +993,7 @@
         <!-- Row 2 (Starts Right Blurred) -->
         <div class="vh-row vh-reverse pos-right" id="vh-row-2" data-index="1" onclick="window.handleVhCardClick(1, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-2" data-src="vedio/2.mp4" preload="none" muted loop playsinline></video>
+            <video id="vh-video-2" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-2" onclick="window.toggleVhPlay(2, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -1010,7 +1010,7 @@
         <!-- Row 3 (Starts Hidden Right) -->
         <div class="vh-row pos-hidden-right" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(2, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-3" data-src="vedio/1.mp4" preload="none" muted loop playsinline></video>
+            <video id="vh-video-3" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-3" onclick="window.toggleVhPlay(3, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -1027,7 +1027,7 @@
         <!-- Row 4 (Starts Hidden Left) -->
         <div class="vh-row vh-reverse pos-hidden-left" id="vh-row-4" data-index="3" onclick="window.handleVhCardClick(3, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-4" data-src="vedio/2.mp4" preload="none" muted loop playsinline></video>
+            <video id="vh-video-4" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-4" onclick="window.toggleVhPlay(4, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -1044,7 +1044,7 @@
         <!-- Row 5 (Starts Left Blurred) -->
         <div class="vh-row pos-left" id="vh-row-5" data-index="4" onclick="window.handleVhCardClick(4, event)">
           <div class="vh-media vh-media-wide">
-            <video id="vh-video-5" data-src="vedio/1.mp4" preload="none" muted loop playsinline></video>
+            <video id="vh-video-5" preload="none" muted loop playsinline></video>
             <button type="button" class="vh-play-btn" id="vh-play-btn-5" onclick="window.toggleVhPlay(5, event)" aria-label="Play/Pause Video">
               <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -2153,12 +2153,59 @@
       }, 1000);
     });
 
-    // Dynamic Home Video Highlights from Admin Settings (Supports 5 Videos & Strict Scroll-Triggered Lazy Loading)
+    // Dynamic Home Video Highlights from Admin Settings (IndexedDB Cache + Zero Old-Video Flash)
     (function() {
       const TOTAL_VH = 5;
       let currentVhIndex = 0;
       let isVhSectionVisible = false;
       let hasFetchedRemoteVideos = false;
+      let hasAppliedAnyVideoData = false;
+
+      const FALLBACK_VIDEOS = {
+        video1: { src: 'vedio/1.mp4', tag: 'SKINCARE SECRETS', title: 'Master the Art of Layering', desc: 'Learn how to apply your products for maximum absorption and effectiveness.', linkText: 'WATCH FULL GUIDE', linkUrl: 'shop.html' },
+        video2: { src: 'vedio/2.mp4', tag: 'LUXURY CARE', title: 'The Perfect Day Routine', desc: 'A step-by-step guide to protecting and hydrating your skin throughout the day.', linkText: 'DISCOVER MORE', linkUrl: 'shop.html' },
+        video3: { src: 'vedio/1.mp4', tag: 'EVENING RITUAL', title: 'Overnight Skin Recovery', desc: 'Wake up with radiant, deeply replenished skin with our curated nighttime treatment.', linkText: 'EXPLORE NIGHT CARE', linkUrl: 'shop.html' },
+        video4: { src: 'vedio/2.mp4', tag: 'DEEP HYDRATION', title: 'Unlock Your Natural Glow', desc: 'Nourish and strengthen your skin barrier with science-backed active ingredients.', linkText: 'SHOP SERUMS', linkUrl: 'shop.html' },
+        video5: { src: 'vedio/1.mp4', tag: 'PURE RADIANCE', title: 'Targeted Blemish Control', desc: 'Gentle yet powerful formulations designed for clear, balanced, and healthy skin.', linkText: 'VIEW COLLECTION', linkUrl: 'shop.html' }
+      };
+
+      // IndexedDB helper for caching large uploaded MP4 videos (bypasses localStorage 5MB limit)
+      function openVhDb() {
+        return new Promise((resolve, reject) => {
+          if (!('indexedDB' in window)) return reject(new Error('No IDB'));
+          const req = indexedDB.open('bib_media_cache_db', 1);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('settings')) {
+              db.createObjectStore('settings');
+            }
+          };
+          req.onsuccess = (e) => resolve(e.target.result);
+          req.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      function getCachedHomeVideos() {
+        return openVhDb().then(db => new Promise((resolve) => {
+          const tx = db.transaction('settings', 'readonly');
+          const req = tx.objectStore('settings').get('home_videos');
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => resolve(null);
+        })).catch(() => {
+          try {
+            const s = localStorage.getItem('bib_home_videos');
+            return s ? JSON.parse(s) : null;
+          } catch(e) { return null; }
+        });
+      }
+
+      function setCachedHomeVideos(val) {
+        try { localStorage.setItem('bib_home_videos', JSON.stringify(val)); } catch(e) {}
+        openVhDb().then(db => {
+          const tx = db.transaction('settings', 'readwrite');
+          tx.objectStore('settings').put(val, 'home_videos');
+        }).catch(() => {});
+      }
 
       // Helper: Append #t=0.1 to video URL so mobile browsers render the starting frame ("mula hariya") immediately when metadata loads
       function withStartFrame(url) {
@@ -2169,7 +2216,7 @@
 
       // Prime a single video element's first frame ONLY after the user has scrolled near the video section
       function primeVideoFirstFrame(num) {
-        if (!isVhSectionVisible) return;
+        if (!isVhSectionVisible || !hasAppliedAnyVideoData) return;
         const vid = document.getElementById('vh-video-' + num);
         if (!vid) return;
         const rawSrc = vid.dataset.src;
@@ -2189,9 +2236,9 @@
         }
       }
 
-      // Load only the videos that are currently visible in the viewport
+      // Load only the videos that are currently visible in the viewport (and ONLY after Admin/Cached video data is ready)
       function loadCurrentlyVisibleVideos() {
-        if (!isVhSectionVisible) return;
+        if (!isVhSectionVisible || !hasAppliedAnyVideoData) return;
         if (window.innerWidth > 900) {
           // Desktop only shows Video 1 and Video 2; auto-play them when scrolled into view
           [1, 2].forEach(n => {
@@ -2218,6 +2265,7 @@
 
       function applyHomeVideos(vData) {
         if (!vData) return;
+        hasAppliedAnyVideoData = true;
         for (let num = 1; num <= TOTAL_VH; num++) {
           const v = vData['video' + num] || (Array.isArray(vData) ? vData[num - 1] : null);
           if (!v) continue;
@@ -2254,17 +2302,22 @@
         }
       }
 
-      // 1. Update text/data-src from localStorage cache (0 network requests, 0 video loading)
-      try {
-        const cached = localStorage.getItem('bib_home_videos');
-        if (cached) applyHomeVideos(JSON.parse(cached));
-      } catch(e) {}
+      // 1. Read cached Admin videos from IndexedDB / localStorage (0 network requests, sets text & data-src without loading video bytes yet)
+      getCachedHomeVideos().then(cached => {
+        if (cached && !hasFetchedRemoteVideos) {
+          applyHomeVideos(cached);
+        }
+      });
 
       // 2. Fetch remote video settings & load video frames ONLY when user scrolls near #video-highlights-section
       function triggerVhSectionLoad() {
         if (isVhSectionVisible) return;
         isVhSectionVisible = true;
-        loadCurrentlyVisibleVideos();
+
+        // If IndexedDB cache already populated data-src, show immediately
+        if (hasAppliedAnyVideoData) {
+          loadCurrentlyVisibleVideos();
+        }
 
         if (!hasFetchedRemoteVideos) {
           hasFetchedRemoteVideos = true;
@@ -2273,11 +2326,17 @@
             .then(r => r.json())
             .then(d => {
               if (d && d.value) {
-                try { localStorage.setItem('bib_home_videos', JSON.stringify(d.value)); } catch(e) {}
+                setCachedHomeVideos(d.value);
                 applyHomeVideos(d.value);
+              } else if (!hasAppliedAnyVideoData) {
+                applyHomeVideos(FALLBACK_VIDEOS);
               }
             })
-            .catch(() => {});
+            .catch(() => {
+              if (!hasAppliedAnyVideoData) {
+                applyHomeVideos(FALLBACK_VIDEOS);
+              }
+            });
         }
       }
 
