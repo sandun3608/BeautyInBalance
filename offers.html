@@ -645,9 +645,9 @@
   </div>
 
   <!-- OFFERS HERO BANNER (PHOTOREALISTIC CHRISTMAS LUXURY LOOK) -->
-  <section class="offers-hero">
+  <section class="offers-hero" id="offers-hero-section">
     <div class="offers-hero-container">
-      <div class="offers-hero-badge">🎄 CHRISTMAS SPECIAL OFFERS 🎅</div>
+      <div class="offers-hero-badge" id="offers-page-badge">🎄 CHRISTMAS SPECIAL OFFERS 🎅</div>
       <h1 id="offers-page-title">CHRISTMAS FLASH SALE</h1>
       <div class="offers-hero-subtitle" id="offers-page-subtitle">✨ EXCLUSIVE HOLIDAY OFFERS — UP TO 40% OFF! 🎁</div>
 
@@ -864,31 +864,46 @@
         }
       } catch (e) {}
 
+      let rawSaleConfig = activeSale;
+
+      function applyOfferHeroBanner(saleObj) {
+        const srcObj = saleObj || rawSaleConfig || activeSale;
+        const heroEl = document.getElementById('offers-hero-section') || document.querySelector('.offers-hero');
+        if (!heroEl) return;
+        const isMobile = window.innerWidth <= 768;
+        const deskBanner = (srcObj && srcObj.bgBanner) ? srcObj.bgBanner : '';
+        const mobBanner = (srcObj && srcObj.mobileBgBanner) ? srcObj.mobileBgBanner : '';
+        const chosenBanner = isMobile ? (mobBanner || deskBanner || 'xmas-banner.jpg') : (deskBanner || 'xmas-banner.jpg');
+        heroEl.style.backgroundImage = `url("${chosenBanner}")`;
+        heroEl.style.backgroundSize = 'cover';
+        heroEl.style.backgroundPosition = 'center center';
+      }
+
+      window.addEventListener('resize', () => applyOfferHeroBanner(activeSale || rawSaleConfig));
+
       function renderOffersUI() {
         let defaultDiscount = 20;
         let displayProducts = [];
         let offerProductIds = new Set();
         let hasFlashSaleSelected = false;
 
+        applyOfferHeroBanner(activeSale || rawSaleConfig);
+
         if (activeSale && activeSale.enabled !== false) {
+          if (activeSale.badgeText) {
+            const badgeEl = document.getElementById('offers-page-badge');
+            if (badgeEl) badgeEl.textContent = activeSale.badgeText;
+          }
           if (activeSale.title) {
             const titleEl = document.getElementById('offers-page-title');
             if (titleEl) {
-              let t = activeSale.title;
-              if (t.toUpperCase() === 'FLASH SALE' || t.toUpperCase() === 'FLASH SALE OFFERS') {
-                t = 'CHRISTMAS FLASH SALE';
-              }
-              titleEl.textContent = t;
+              titleEl.textContent = activeSale.title;
             }
           }
           if (activeSale.subtitle) {
             const subEl = document.getElementById('offers-page-subtitle');
             if (subEl) {
-              let s = activeSale.subtitle;
-              if (!s.includes('🎁') && !s.includes('🎄')) {
-                s = `🎁 ${s} 🎄`;
-              }
-              subEl.textContent = s;
+              subEl.textContent = activeSale.subtitle;
             }
           }
           defaultDiscount = activeSale.discountPercent || 20;
@@ -988,6 +1003,7 @@
           if (res.ok) {
             const data = await res.json();
             if (data && data.value) {
+              rawSaleConfig = data.value;
               if (data.value.enabled !== false) {
                 activeSale = data.value;
                 try { localStorage.setItem('bib_active_sale', JSON.stringify(activeSale)); } catch(e) {}

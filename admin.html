@@ -2,7 +2,7 @@
 <html lang="en">
 <script>
   // VIP SECURITY CHECK
-  const token = localStorage.getItem('userToken');
+  const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
   if (!token || token === 'null' || token === 'undefined') {
     localStorage.removeItem('userToken');
     window.location.href = 'login.html';
@@ -1817,6 +1817,75 @@
                 </div>
               </div>
 
+              <!-- OFFER PAGE COUNTDOWN BACKGROUND BANNER CUSTOMIZER -->
+              <div id="offer-countdown-banner-panel" style="background: #ffffff; border-radius: 20px; padding: 26px 30px; margin-bottom: 28px; box-shadow: var(--shadow-sm); border: 1px solid var(--admin-border);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 16px;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="background: #c5965a; color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;">Offers Page Hero</span>
+                      <h3 style="margin: 0; font-size: 19px; font-weight: 800; color: var(--admin-text);">Sale Countdown Background Banner (Countdown එක පිටුපස බැනරය)</h3>
+                    </div>
+                    <p style="margin: 6px 0 0 0; font-size: 13px; color: #777;">Upload or paste a custom banner image to display behind the Sale Countdown Timer on the Offers page (<code>offers.html</code>).</p>
+                  </div>
+                  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <button type="button" onclick="resetOfferCountdownBanners()" style="background: #f5f5f5; color: #444; border: 1px solid #ddd; padding: 10px 16px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer;">
+                      ↺ Reset Default Banner
+                    </button>
+                    <button type="button" id="btn-save-offer-bg-banner" onclick="saveOfferCountdownBannerOnly(this)" style="background: linear-gradient(135deg, #c5965a 0%, #a87c48 100%); color: #fff; border: none; padding: 11px 22px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 16px rgba(197, 150, 90, 0.3);">
+                      💾 Save Countdown Banner
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Live Hero Countdown Banner Preview -->
+                <div id="offer-bg-live-preview" style="background: #3B0509 url('xmas-banner.jpg') no-repeat center center; background-size: cover; border-radius: 16px; padding: 28px 20px; text-align: center; color: #fff; position: relative; overflow: hidden; margin-bottom: 22px; border: 2px solid #D4AF37; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+                  <div style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(35, 2, 5, 0.35) 0%, rgba(20, 1, 3, 0.68) 100%); pointer-events: none;"></div>
+                  <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); color: #fff; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 8px; z-index: 2;">Live Countdown Banner Preview</span>
+                  <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <div id="offer-bg-prev-title" style="font-size: 22px; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; text-shadow: 0 3px 12px rgba(0,0,0,0.8);">FLASH SALE</div>
+                    <div id="offer-bg-prev-sub" style="font-size: 13px; font-weight: 800; color: #FFD54F; text-transform: uppercase; letter-spacing: 0.06em; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">UP TO 40% OFF!</div>
+                    <div style="background: rgba(255,255,255,0.95); color: #2D1B12; padding: 8px 18px; border-radius: 12px; font-weight: 900; font-size: 14px; letter-spacing: 2px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); margin-top: 4px;">
+                      SALE ENDS IN: 02 : 14 : 38 : 19
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Upload / URL Controls (Desktop + Optional Mobile) -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
+                  <!-- Main / Desktop Banner -->
+                  <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                      <div>
+                        <span style="font-size: 12px; font-weight: 800; color: #2D1B12; display: block;">1. Main / Desktop Countdown Banner</span>
+                        <span style="font-size: 11px; color: #888;">Recommended: 1600 × 450 px (Wide Hero Banner)</span>
+                      </div>
+                      <input type="file" id="offer-bg-desktop-file" accept="image/*" style="display: none;" onchange="handleOfferBgBannerFile('desktop', this)">
+                      <button type="button" class="admin-btn" onclick="document.getElementById('offer-bg-desktop-file').click()" style="padding: 8px 14px; font-size: 12px; font-weight: 700;">
+                        📁 Upload Banner Image
+                      </button>
+                    </div>
+                    <input type="text" id="offer-bg-desktop-url" placeholder="Or paste Banner Image URL (https://... or xmas-banner.jpg)" oninput="previewOfferBgBannerUrl('desktop', this.value)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff; box-sizing: border-box;">
+                    <div id="offer-bg-desktop-status" style="font-size: 11px; color: #666; font-weight: 600; margin-top: 6px;">Current: Default Banner (xmas-banner.jpg)</div>
+                  </div>
+
+                  <!-- Optional Mobile Banner -->
+                  <div style="background: #faf8f5; border: 1.5px dashed #ddd; border-radius: 14px; padding: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                      <div>
+                        <span style="font-size: 12px; font-weight: 800; color: #2D1B12; display: block;">2. Mobile Countdown Banner (Optional)</span>
+                        <span style="font-size: 11px; color: #888;">Leave empty to use Main Banner on all devices</span>
+                      </div>
+                      <input type="file" id="offer-bg-mobile-file" accept="image/*" style="display: none;" onchange="handleOfferBgBannerFile('mobile', this)">
+                      <button type="button" class="admin-btn" onclick="document.getElementById('offer-bg-mobile-file').click()" style="padding: 8px 14px; font-size: 12px; font-weight: 700; background: #444;">
+                        📱 Upload Mobile Image
+                      </button>
+                    </div>
+                    <input type="text" id="offer-bg-mobile-url" placeholder="Optional Mobile Banner Image URL (https://...)" oninput="previewOfferBgBannerUrl('mobile', this.value)" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff; box-sizing: border-box;">
+                    <div id="offer-bg-mobile-status" style="font-size: 11px; color: #666; font-weight: 600; margin-top: 6px;">Using Main Banner on Mobile</div>
+                  </div>
+                </div>
+              </div>
+
               <!-- ACTIVE OFFER PRODUCTS SHOWCASE SECTION -->
               <div id="active-offer-products-panel" style="background: #ffffff; border-radius: 20px; padding: 26px 30px; margin-bottom: 30px; box-shadow: var(--shadow-sm); border: 1px solid var(--admin-border);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
@@ -2490,7 +2559,7 @@
             ];
             
             try {
-                const token = localStorage.getItem('userToken');
+                const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                 const baseUrl = (window.BASE_URL || '');
                 
                 for (const b of defaults) {
@@ -2512,7 +2581,7 @@
 
         window.fetchAdminBrands = async function fetchAdminBrands() {
             try {
-                const token = localStorage.getItem('userToken');
+                const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                 let res = await fetch((window.BASE_URL || '') + '/brands/all', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
@@ -2559,7 +2628,7 @@
             btn.innerText = 'Saving...';
 
             try {
-                const token = localStorage.getItem('userToken');
+                const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                 const url = (window.BASE_URL || '') + (id ? '/brands/' + id : '/brands');
                 const method = id ? 'PUT' : 'POST';
                 
@@ -2590,7 +2659,7 @@
 
         async function editBrand(id) {
             try {
-                const token = localStorage.getItem('userToken');
+                const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                 const res = await fetch((window.BASE_URL || '') + '/brands/all', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
@@ -2614,7 +2683,7 @@
         async function deleteBrand(id) {
             if (!confirm('Are you sure you want to delete this brand?')) return;
             try {
-                const token = localStorage.getItem('userToken');
+                const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                 const res = await fetch((window.BASE_URL || '') + '/brands/' + id, {
                     method: 'DELETE',
                     headers: { 'Authorization': 'Bearer ' + token }
@@ -3507,6 +3576,15 @@
         </div>
       </label>
 
+      <!-- Toggle to Turn ON/OFF Before & After Section on Homepage -->
+      <label for="admin-ba-enable-cb" style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(197,150,90,0.45); padding: 12px 18px; border-radius: 14px; cursor: pointer; user-select: none; transition: 0.2s;">
+        <input type="checkbox" id="admin-ba-enable-cb" onchange="window.onToggleBeforeAfterSection(this)" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
+        <div>
+          <div style="font-size: 14px; font-weight: 800; color: #ffffff;">Show Before & After Section (අවශ්‍ය විට On කිරීමට Tick කරන්න)</div>
+          <div style="font-size: 11px; color: rgba(255,255,255,0.68); margin-top: 2px;">Currently OFF by default — tick to display Before/After slider on Homepage</div>
+        </div>
+      </label>
+
       <!-- Live Status Pill -->
       <div id="admin-hb-status-pill" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px;">
         <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
@@ -3641,7 +3719,10 @@
 
   window.onToggleHomeBannerDisable = function(cb) {
     updateBannerStatusUI(cb.checked);
-    // Also auto-save when the admin ticks/unticks the Turn-Off checkbox
+    window.saveAdminHomeBanner(document.getElementById('btn-save-home-banner-top'));
+  };
+
+  window.onToggleBeforeAfterSection = function(cb) {
     window.saveAdminHomeBanner(document.getElementById('btn-save-home-banner-top'));
   };
 
@@ -3658,6 +3739,9 @@
       const cb = document.getElementById('admin-hb-disable-cb');
       if (cb) cb.checked = isDisabled;
       updateBannerStatusUI(isDisabled);
+
+      const baCb = document.getElementById('admin-ba-enable-cb');
+      if (baCb) baCb.checked = (b && b.showBeforeAfter === true);
 
       currentDesktopBanner = (b && b.desktopImage) ? b.desktopImage : DEFAULT_DESKTOP_BANNER;
       currentMobileBanner = (b && b.mobileImage) ? b.mobileImage : DEFAULT_MOBILE_BANNER;
@@ -3765,11 +3849,13 @@
     if (btn) { btn.innerHTML = '⏳ Saving...'; btn.disabled = true; }
 
     const isDisabled = document.getElementById('admin-hb-disable-cb')?.checked === true;
+    const showBeforeAfter = document.getElementById('admin-ba-enable-cb')?.checked === true;
     const linkUrl = (document.getElementById('admin-hb-link-url')?.value || 'shop.html').trim();
 
     const payload = {
       disabled: isDisabled,
       enabled: !isDisabled,
+      showBeforeAfter: showBeforeAfter,
       desktopImage: currentDesktopBanner || DEFAULT_DESKTOP_BANNER,
       mobileImage: currentMobileBanner || DEFAULT_MOBILE_BANNER,
       linkUrl: linkUrl
@@ -4423,7 +4509,7 @@
                 // Fetch all slides for admin
                 window.fetchAdminSlides = async function() {
                     try {
-                        const token = localStorage.getItem('userToken');
+                        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                         const res = await fetch((window.BASE_URL || '') + '/slides/all', {
                             headers: { 'Authorization': 'Bearer ' + token }
                         });
@@ -4673,7 +4759,7 @@
                     btn.disabled = true;
 
                     try {
-                        const token = localStorage.getItem('userToken');
+                        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                         const url = isEdit 
                             ? (window.BASE_URL || '') + '/slides/' + editId 
                             : (window.BASE_URL || '') + '/slides';
@@ -4716,7 +4802,7 @@
                 window.deleteSlide = async function(id) {
                     if (!confirm('Are you sure you want to delete this slide? This will immediately remove it from the website.')) return;
                     try {
-                        const token = localStorage.getItem('userToken');
+                        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                         const res = await fetch((window.BASE_URL || '') + '/slides/' + id, {
                             method: 'DELETE',
                             headers: { 'Authorization': 'Bearer ' + token }
@@ -5085,7 +5171,7 @@
         
         if (confirm(`Are you absolutely sure you want to delete the brand "${catName}" and ALL its products? This cannot be undone.`)) {
             try {
-                const token = localStorage.getItem('userToken');
+                const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
                 const res = await fetch(`${BASE_URL}/products/category/${encodeURIComponent(catName)}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
@@ -5452,7 +5538,7 @@
         if(!confirm("⚠️ Are you sure you want to delete this product? This action cannot be undone.")) return;
         
         try {
-            const token = localStorage.getItem('userToken');
+            const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
             if (!token) {
                 alert("Session expired. Please log in again.");
                 window.location.href = 'login.html';
@@ -5487,7 +5573,7 @@
       if (!ordersTable) return;
       ordersTable.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 25px; color: #888;">⏳ Loading live orders...</td></tr>';
       
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
       if (!token || token === 'null' || token === 'undefined') {
         console.warn("No token found, redirecting to login...");
         window.location.href = 'login.html'; 
@@ -5701,7 +5787,7 @@
       if (!table) return;
       table.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 25px; color: #888;">⏳ Loading live inquiries...</td></tr>';
 
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
       if (!token) { window.location.href = 'login.html'; return; }
 
       try {
@@ -5839,7 +5925,7 @@
       if (!table) return;
       table.innerHTML = '<tr><td colspan="3" style="text-align:center;">Loading Subscribers...</td></tr>';
 
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
       if (!token) { window.location.href = 'login.html'; return; }
 
       try {
@@ -5874,7 +5960,7 @@
 
     async function deleteSubscriber(id) {
       if (!confirm('Are you sure you want to delete this subscriber?')) return;
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
       try {
         const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
         const res = await fetch(`${BASE}/subscribers/${id}`, {
@@ -5896,7 +5982,7 @@
     window.deleteSubscriber = deleteSubscriber;
 
     async function exportSubscribers() {
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
       try {
         const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
         const res = await fetch(BASE + '/subscribers', {
@@ -5956,7 +6042,7 @@
     }
 
     async function fetchDashboardSummary() {
-       const token = localStorage.getItem('userToken');
+       const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
        if (!token) { window.location.href = 'login.html'; return; }
 
        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
@@ -7195,7 +7281,7 @@
 
         try {
           const BASE = window.BASE_URL || 'http://localhost:5000/api';
-          const token = localStorage.getItem('userToken');
+          const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
           const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
@@ -7379,7 +7465,7 @@
         btn.disabled = true;
 
         try {
-          const token = localStorage.getItem('userToken');
+          const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
           const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
           
           console.log('Saving shipping fee to:', `${BASE}/settings/shippingFee`, { value: fee });
@@ -7560,9 +7646,19 @@
           <input type="text" id="offer-banner-subtitle" value="UP TO 70% OFF!" placeholder="e.g. UP TO 70% OFF!" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
         </div>
 
-        <div style="margin-bottom: 25px;">
+        <div style="margin-bottom: 18px;">
           <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Call-To-Action Text</label>
           <input type="text" id="offer-cta-text" value="Shop Now Before It's Too Late!" style="width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; font-size: 13px; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 22px; background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label style="font-size: 12.5px; font-weight: 800; color: #2D1B12;">Offers Page Countdown Background Banner</label>
+            <button type="button" onclick="document.getElementById('offer-bg-desktop-file').click()" style="background: #2D1B12; color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11.5px; font-weight: 700; cursor: pointer;">
+              📁 Upload Banner
+            </button>
+          </div>
+          <input type="text" id="offer-modal-bg-url" placeholder="Paste Banner Image URL or Upload above" oninput="previewOfferBgBannerUrl('desktop', this.value)" style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 12.5px; box-sizing: border-box; background: #fff;">
         </div>
 
         <div style="display: flex; gap: 12px;">
@@ -7577,6 +7673,130 @@
     // --- OFFER MAINTAINING LOGIC ---
     let allOfferProducts = [];
     let selectedOfferProductIds = new Set();
+    window.currentOfferBgDesktop = 'xmas-banner.jpg';
+    window.currentOfferBgMobile = '';
+
+    function updateOfferBgAdminPreview() {
+      const prevBox = document.getElementById('offer-bg-live-preview');
+      const bannerUrl = window.currentOfferBgDesktop || 'xmas-banner.jpg';
+      if (prevBox) {
+        prevBox.style.backgroundImage = `url("${bannerUrl}")`;
+      }
+      const dUrlInp = document.getElementById('offer-bg-desktop-url');
+      if (dUrlInp) dUrlInp.value = bannerUrl.startsWith('data:') ? '(Uploaded Custom Countdown Banner)' : bannerUrl;
+      const modalUrlInp = document.getElementById('offer-modal-bg-url');
+      if (modalUrlInp) modalUrlInp.value = bannerUrl.startsWith('data:') ? '(Uploaded Custom Countdown Banner)' : bannerUrl;
+      const dStat = document.getElementById('offer-bg-desktop-status');
+      if (dStat) dStat.textContent = bannerUrl.startsWith('data:') ? '✅ Custom Uploaded Countdown Banner Active' : 'Current: ' + bannerUrl;
+
+      const mUrlInp = document.getElementById('offer-bg-mobile-url');
+      if (mUrlInp) mUrlInp.value = (window.currentOfferBgMobile || '').startsWith('data:') ? '(Uploaded Custom Mobile Banner)' : (window.currentOfferBgMobile || '');
+      const mStat = document.getElementById('offer-bg-mobile-status');
+      if (mStat) {
+        mStat.textContent = window.currentOfferBgMobile
+          ? (window.currentOfferBgMobile.startsWith('data:') ? '✅ Custom Mobile Banner Uploaded' : 'Mobile URL: ' + window.currentOfferBgMobile)
+          : 'Using Main Banner on Mobile';
+      }
+    }
+
+    window.handleOfferBgBannerFile = function(type, input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const statEl = document.getElementById('offer-bg-' + type + '-status');
+      if (statEl) statEl.textContent = '⏳ Optimizing ' + file.name + '...';
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxW = type === 'desktop' ? 1600 : 1000;
+          let w = img.width;
+          let h = img.height;
+          if (w > maxW) {
+            h = Math.round((h * maxW) / w);
+            w = maxW;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.86);
+
+          if (type === 'desktop') {
+            window.currentOfferBgDesktop = dataUrl;
+          } else {
+            window.currentOfferBgMobile = dataUrl;
+          }
+          updateOfferBgAdminPreview();
+          if (statEl) statEl.textContent = '✅ Ready to Save: ' + file.name;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.previewOfferBgBannerUrl = function(type, val) {
+      const clean = (val || '').trim();
+      if (clean.startsWith('(Uploaded')) return;
+      if (type === 'desktop') {
+        window.currentOfferBgDesktop = clean || 'xmas-banner.jpg';
+      } else {
+        window.currentOfferBgMobile = clean;
+      }
+      updateOfferBgAdminPreview();
+    };
+
+    window.resetOfferCountdownBanners = function() {
+      window.currentOfferBgDesktop = 'xmas-banner.jpg';
+      window.currentOfferBgMobile = '';
+      updateOfferBgAdminPreview();
+    };
+
+    window.saveOfferCountdownBannerOnly = async function(btn) {
+      const origHtml = btn ? btn.innerHTML : '💾 Save Countdown Banner';
+      if (btn) { btn.innerHTML = '⏳ Saving...'; btn.disabled = true; }
+      try {
+        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
+        const getRes = await fetch(`${getApiBaseUrl()}/settings/flash_sale?t=${Date.now()}`);
+        let curSale = {};
+        if (getRes.ok) {
+          const d = await getRes.json();
+          curSale = (d && d.value) ? d.value : {};
+        }
+        curSale.bgBanner = window.currentOfferBgDesktop || 'xmas-banner.jpg';
+        curSale.mobileBgBanner = window.currentOfferBgMobile || '';
+        if (!Array.isArray(curSale.productIds)) {
+          curSale.productIds = Array.from(selectedOfferProductIds);
+        }
+
+        const putRes = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ value: curSale })
+        });
+
+        if (!putRes.ok) {
+          const err = await putRes.json().catch(() => ({}));
+          throw new Error(err.message || 'Status ' + putRes.status);
+        }
+
+        try { localStorage.setItem('bib_active_sale', JSON.stringify(curSale)); } catch(e) {}
+        if (typeof showToast === 'function') {
+          showToast('✅ Offers Page Countdown Banner saved successfully!');
+        } else {
+          alert('✅ Offers Page Countdown Banner saved successfully!');
+        }
+      } catch (e) {
+        console.error('Error saving offer countdown banner:', e);
+        alert('❌ Failed to save countdown banner: ' + e.message);
+      } finally {
+        if (btn) { btn.innerHTML = origHtml; btn.disabled = false; }
+      }
+    };
 
     async function loadOfferMaintainingTab() {
       await fetchOfferProducts();
@@ -7762,6 +7982,13 @@
               const ctaInp = document.getElementById('offer-cta-text');
               if (ctaInp) ctaInp.value = sale.ctaText;
             }
+            window.currentOfferBgDesktop = sale.bgBanner || 'xmas-banner.jpg';
+            window.currentOfferBgMobile = sale.mobileBgBanner || '';
+            updateOfferBgAdminPreview();
+            const prevTitle = document.getElementById('offer-bg-prev-title');
+            if (prevTitle && sale.title) prevTitle.textContent = sale.title;
+            const prevSub = document.getElementById('offer-bg-prev-sub');
+            if (prevSub && sale.subtitle) prevSub.textContent = sale.subtitle;
 
             const badge = document.getElementById('offer-status-badge');
             const desc = document.getElementById('offer-status-desc');
@@ -7882,7 +8109,7 @@
       
       // Save updated list to server
       try {
-        const token = localStorage.getItem('userToken');
+        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
         const getRes = await fetch(`${getApiBaseUrl()}/settings/flash_sale`);
         if (getRes.ok) {
           const data = await getRes.json();
@@ -7929,6 +8156,8 @@
           title: titleVal,
           subtitle: subtitleVal,
           ctaText: ctaTextVal,
+          bgBanner: window.currentOfferBgDesktop || 'xmas-banner.jpg',
+          mobileBgBanner: window.currentOfferBgMobile || '',
           productIds: Array.from(selectedOfferProductIds)
         }
       };
@@ -7937,7 +8166,7 @@
       if (btn) btn.disabled = true;
 
       try {
-        const token = localStorage.getItem('userToken');
+        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
         const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
           method: 'PUT',
           headers: {
@@ -7972,7 +8201,7 @@
       if (!confirm('Are you sure you want to deactivate the current flash sale? The website will revert to the newsletter popup.')) return;
 
       try {
-        const token = localStorage.getItem('userToken');
+        const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
         const res = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
           method: 'PUT',
           headers: {
