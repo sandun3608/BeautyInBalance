@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=510" />
+  <link rel="stylesheet" href="styles.css?v=516" />
 
   <style>
 
@@ -1137,12 +1137,10 @@
   <!-- ===== CART DRAWER ===== -->
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-head" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
-      <h3>Bag (0)</h3>
+      <h3>Cart (0)</h3>
       <button class="ic-btn" id="cart-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="cart-empty" style="padding: 50px 20px; text-align: center;">
-      <p>Your bag is currently empty.</p>
-    </div>
+    <div id="cart-items-container"></div>
   </div>
 
   
@@ -1315,25 +1313,8 @@
 
   <footer class="site-footer">
     <div class="footer-top">
-      <div class="footer-col">
-        <h3>SHOP</h3>
-        <ul>
-          <li><a href="shop.html">Best Sellers</a></li>
-          <li><a href="shop.html">New Arrivals</a></li>
-          <li><a href="shop.html">Special Offers</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>SUPPORT</h3>
-        <ul>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="refund-policy.html">Refund Policy</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <a href="index.html" class="footer-logo">Beauty in Balance</a>
+      <div class="footer-col footer-brand-col">
+        <a href="index.html" class="footer-logo">BEAUTY IN BALANCE</a>
         <p>Your destination for authentic, high-quality skincare in Sri Lanka.</p>
         <div class="footer-social">
           <a href="https://www.facebook.com/profile.php?id=61562806591629" target="_blank" aria-label="Facebook">
@@ -1347,9 +1328,27 @@
           </a>
         </div>
       </div>
+      <div class="footer-col">
+        <h3>SHOP</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop All</a></li>
+          <li><a href="offers.html">Special Offers</a></li>
+          <li><a href="account.html">Order Status</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>SUPPORT</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="refund-policy.html">Refund Policy</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Beauty in Balance. All Rights Reserved.</p>
+      <p>&copy; 2026 BEAUTY IN BALANCE. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -1980,6 +1979,28 @@
           mSort.addEventListener('change', e => window.handleSortChange(e.target.value));
         }
 
+        // Mobile Top Search Bar & Desktop Header Search live filter
+        const mTopSearch = $('m-search-inp-top');
+        if (mTopSearch) {
+          mTopSearch.value = currentSearch;
+          mTopSearch.addEventListener('input', e => {
+            currentSearch = e.target.value.trim();
+            if (sSearch) sSearch.value = currentSearch;
+            if (sClear) sClear.style.display = currentSearch ? 'block' : 'none';
+            renderShop();
+          });
+        }
+        const hSearch = $('search-inp');
+        if (hSearch) {
+          hSearch.value = currentSearch;
+          hSearch.addEventListener('input', e => {
+            currentSearch = e.target.value.trim();
+            if (sSearch) sSearch.value = currentSearch;
+            if (sClear) sClear.style.display = currentSearch ? 'block' : 'none';
+            renderShop();
+          });
+        }
+
         renderShop();
       });
 
@@ -1987,6 +2008,88 @@
       renderShop();
     })();
   </script>
+
+  <script>
+    (function() {
+      const $ = id => document.getElementById(id);
+      const overlay = $('overlay');
+
+      window.addEventListener('scroll', () => {
+        $('site-header')?.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      const hamOpen = $('ham-open');
+      if (hamOpen) {
+        hamOpen.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          $('mobile-drawer')?.classList.add('open');
+          document.body.classList.add('drawer-open');
+          overlay?.classList.add('show');
+          const mBar = $('mobile-search-bar');
+          if (mBar) mBar.classList.add('hide-search');
+        });
+      }
+
+      const cartOpen = $('cart-open');
+      const mbnCart = $('mbn-cart-trigger');
+      const openCart = (e) => {
+        if (e) { e.preventDefault(); e.stopPropagation(); }
+        if (typeof renderCart === 'function') renderCart();
+        $('cart-drawer')?.classList.add('open');
+        overlay?.classList.add('show');
+      };
+
+      if (cartOpen) cartOpen.addEventListener('click', openCart);
+      if (mbnCart) mbnCart.addEventListener('click', openCart);
+
+      const searchOpen = $('search-open');
+      const searchClose = $('search-close');
+      const searchDrop = $('search-drop');
+      const searchInp = $('search-inp');
+      const mbnSearch = $('mbn-search-trigger');
+      const openSearch = () => {
+        if (searchDrop) searchDrop.classList.add('open');
+        if (searchInp) searchInp.focus();
+      };
+
+      if (searchOpen) searchOpen.addEventListener('click', openSearch);
+      if (mbnSearch) mbnSearch.addEventListener('click', openSearch);
+      if (searchClose) searchClose.addEventListener('click', () => searchDrop?.classList.remove('open'));
+
+      function closeAll() {
+        $('mobile-drawer')?.classList.remove('open');
+        document.body.classList.remove('drawer-open');
+        $('cart-drawer')?.classList.remove('open');
+        $('search-drop')?.classList.remove('open');
+        overlay?.classList.remove('show');
+        const mBar = $('mobile-search-bar');
+        if (mBar && window.scrollY <= 100) mBar.classList.remove('hide-search');
+      }
+
+      $('ham-close')?.addEventListener('click', closeAll);
+      $('cart-close')?.addEventListener('click', closeAll);
+      overlay?.addEventListener('click', closeAll);
+
+      // Mobile Search Bar Scroll Effect
+      let lastScrollTop = 0;
+      const mSearchBar = $('mobile-search-bar');
+      window.addEventListener('scroll', function() {
+        let st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > 100) {
+          if (st > lastScrollTop) {
+            if (mSearchBar) mSearchBar.classList.add('hide-search');
+          } else {
+            if (mSearchBar) mSearchBar.classList.remove('hide-search');
+          }
+        } else {
+          if (mSearchBar) mSearchBar.classList.remove('hide-search');
+        }
+        lastScrollTop = st;
+      });
+    })();
+  </script>
+  <script src="account-nav.js?v=5"></script>
 
 </body>
 </html>
