@@ -674,6 +674,16 @@
       </div>
     </section>
 
+    <!-- ===== SECTION: MID-PAGE PROMO BANNER (BELOW ENTIRE COLLECTION) ===== -->
+    <section class="home-collection-banner-section" id="home-collection-banner-section">
+      <div class="hcb-container">
+        <a href="shop.html" class="hcb-card" id="hcb-banner-link">
+          <img id="hcb-img-desktop" class="hcb-img hcb-desktop-img" src="https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png" alt="Collection Banner" loading="lazy" decoding="async" />
+          <img id="hcb-img-mobile" class="hcb-img hcb-mobile-img" src="https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png" alt="Collection Banner" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    </section>
+
 
 
 
@@ -2445,6 +2455,48 @@
         });
       }
     });
+
+    // Dynamic Mid-Page Collection Banner from Admin Settings (Desktop + Mobile Resolutions & Turn-Off Tick)
+    (function() {
+      function applyMidBanner(bData) {
+        if (!bData) return;
+        const sec = document.getElementById('home-collection-banner-section');
+        if (!sec) return;
+
+        const isOff = bData.disabled === true || bData.enabled === false;
+        if (isOff) {
+          sec.style.display = 'none';
+          return;
+        }
+        sec.style.display = 'block';
+
+        const dImg = document.getElementById('hcb-img-desktop');
+        const mImg = document.getElementById('hcb-img-mobile');
+        const link = document.getElementById('hcb-banner-link');
+
+        if (dImg && bData.desktopImage) dImg.src = bData.desktopImage;
+        if (mImg && (bData.mobileImage || bData.desktopImage)) mImg.src = bData.mobileImage || bData.desktopImage;
+        if (link && bData.linkUrl) link.href = bData.linkUrl;
+      }
+
+      // 1. Instant render from localStorage if cached
+      try {
+        const cached = localStorage.getItem('bib_home_mid_banner');
+        if (cached) applyMidBanner(JSON.parse(cached));
+      } catch(e) {}
+
+      // 2. Fetch live settings from backend API
+      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+      fetch(`${apiBase}/settings/home_mid_banner?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_home_mid_banner', JSON.stringify(d.value)); } catch(e) {}
+            applyMidBanner(d.value);
+          }
+        })
+        .catch(() => {});
+    })();
   </script>
 </body>
 </html>

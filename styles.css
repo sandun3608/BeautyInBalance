@@ -8631,6 +8631,78 @@ main {
   margin-top: 20px;
 }
 
+/* ============================================================
+   MID-PAGE COLLECTION BANNER (BELOW ENTIRE COLLECTION)
+   Aspect Ratio: 10 / 4 (Height is 4/10 of Width) + Curved Corners
+   ============================================================ */
+.home-collection-banner-section {
+  width: 100%;
+  background: #ffffff;
+  padding: 10px 24px 64px 24px;
+  box-sizing: border-box;
+}
+
+.hcb-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.hcb-card {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 10 / 4;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #f6f2ed;
+  box-shadow: 0 16px 40px rgba(45, 27, 18, 0.09);
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.hcb-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(45, 27, 18, 0.14);
+}
+
+.hcb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: inherit;
+}
+
+.hcb-desktop-img {
+  display: block !important;
+}
+
+.hcb-mobile-img {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .home-collection-banner-section {
+    padding: 4px 16px 42px 16px !important;
+  }
+
+  .hcb-card {
+    aspect-ratio: 10 / 4 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 28px rgba(45, 27, 18, 0.08) !important;
+  }
+
+  .hcb-desktop-img {
+    display: none !important;
+  }
+
+  .hcb-mobile-img {
+    display: block !important;
+  }
+}
+
 /* Minimalist Card Actions */
 .hap-card-actions {
   position: absolute;

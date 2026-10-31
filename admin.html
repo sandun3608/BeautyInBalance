@@ -1365,6 +1365,7 @@
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-offers" class="admin-nav-link" onclick="window.switchTab('offers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Offer Maintaining</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-all" class="admin-nav-link" onclick="window.switchTab('home-all', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home 'ALL' Products</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-videos" class="admin-nav-link" onclick="window.switchTab('home-videos', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Home Videos</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-banner" class="admin-nav-link" onclick="window.switchTab('home-banner', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" ry="3"/><circle cx="8.5" cy="10.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Home Banner</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-settings" class="admin-nav-link" onclick="window.switchTab('settings', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03); margin-top: 2px;">
             <div class="admin-nav-link" id="nav-logout" onclick="handleLogout()" style="color: #ef4444; background: rgba(239, 68, 68, 0.05); padding: 5px 12px;">
@@ -3470,6 +3471,329 @@
 })();
 </script>
 
+<!-- ===== TAB: HOMEPAGE COLLECTION BANNER (BELOW ENTIRE COLLECTION) ===== -->
+<div id="tab-home-banner" class="admin-content" style="padding-bottom: 120px; display: none;">
+  <!-- Header Bar -->
+  <div style="margin-bottom: 26px;">
+    <h2 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--admin-text); display: flex; align-items: center; gap: 10px;">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" style="color: #c5965a;"><rect x="3" y="5" width="18" height="14" rx="3" ry="3"/><circle cx="8.5" cy="10.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Homepage Mid-Collection Banner Management
+    </h2>
+    <p style="margin: 0; color: #888; font-size: 13px;">Manage the curved responsive banner displayed right below the "View Entire Collection" section on the homepage. Supports separate Desktop (10:4) and Mobile (10:4) resolutions and an instant Turn-Off checkbox.</p>
+  </div>
+
+  <!-- Top Control Bar: Turn-Off Checkbox (Tick Mark) + Save Button -->
+  <div style="background: linear-gradient(135deg, #18181b, #231d19); border-radius: 20px; padding: 24px 28px; color: #fff; margin-bottom: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; box-shadow: 0 12px 28px rgba(0,0,0,0.16); border: 1px solid rgba(197,150,90,0.25);">
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+      <!-- Prominent Tick Mark (Checkbox) to Turn Off Banner -->
+      <label for="admin-hb-disable-cb" style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.22); padding: 12px 18px; border-radius: 14px; cursor: pointer; user-select: none; transition: 0.2s;">
+        <input type="checkbox" id="admin-hb-disable-cb" onchange="window.onToggleHomeBannerDisable(this)" style="width: 20px; height: 20px; accent-color: #ef4444; cursor: pointer;">
+        <div>
+          <div style="font-size: 14px; font-weight: 800; color: #ffffff;">Turn Off Banner (බැනරය Off කිරීමට Tick කරන්න)</div>
+          <div style="font-size: 11px; color: rgba(255,255,255,0.68); margin-top: 2px;">Tick this box to hide the banner section on the homepage</div>
+        </div>
+      </label>
+
+      <!-- Live Status Pill -->
+      <div id="admin-hb-status-pill" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+        BANNER ACTIVE ON SITE
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <button type="button" onclick="window.open('index.html#home-collection-banner-section', '_blank')" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.18); padding: 11px 18px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer;">
+        👁️ View On Site
+      </button>
+      <button type="button" id="btn-save-home-banner-top" onclick="window.saveAdminHomeBanner(this)" style="background: linear-gradient(135deg, #c5965a, #a87c48); color: #fff; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 6px 18px rgba(197,150,90,0.35);">
+        💾 Save Banner Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- 2 Columns: Desktop Banner Resolution & Mobile Banner Resolution -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px; margin-bottom: 26px;">
+    
+    <!-- CARD 1: DESKTOP BANNER (10:4 Ratio -> Height is 4/10 of Width) -->
+    <div style="background: #fff; border-radius: 22px; border: 1px solid #eee; padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px;">
+        <div>
+          <span style="background: #2D1B12; color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;">Desktop View</span>
+          <h3 style="margin: 8px 0 2px 0; font-size: 18px; font-weight: 800; color: #2D1B12;">Desktop Banner Image</h3>
+          <span style="font-size: 12px; color: #c5965a; font-weight: 700;">Recommended Resolution: 1300 × 520 px (10 : 4 Ratio — Height is 4/10 of Width)</span>
+        </div>
+        <button type="button" onclick="window.resetHomeBannerImage('desktop')" style="background: #f7f7f7; border: 1px solid #ddd; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
+          ↺ Reset Default
+        </button>
+      </div>
+
+      <!-- Live Curved 10:4 Preview -->
+      <div style="width: 100%; aspect-ratio: 10 / 4; border-radius: 22px; overflow: hidden; background: #f4f1ea; position: relative; box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #eee;">
+        <img id="admin-hb-desktop-preview" src="https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png" alt="Desktop Preview" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Desktop 10:4 Curved Preview</span>
+      </div>
+
+      <!-- Upload & URL Controls -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+          <input type="file" id="admin-hb-desktop-file" accept="image/*" style="display: none;" onchange="window.handleHomeBannerFile('desktop', this)">
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-hb-desktop-file').click()" style="padding: 10px 18px; font-size: 12.5px; font-weight: 700;">
+            📁 Upload Desktop Image
+          </button>
+          <span id="admin-hb-desktop-status" style="font-size: 11.5px; color: #666; font-weight: 600;">Default Desktop Image</span>
+        </div>
+        <div>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Desktop Image URL</label>
+          <input type="text" id="admin-hb-desktop-url" placeholder="https://..." oninput="window.previewHomeBannerUrl('desktop')" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff; box-sizing: border-box;">
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: MOBILE BANNER (10:4 Ratio -> Height is 4/10 of Width) -->
+    <div style="background: #fff; border-radius: 22px; border: 1px solid #eee; padding: 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px;">
+        <div>
+          <span style="background: #c5965a; color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;">Mobile View</span>
+          <h3 style="margin: 8px 0 2px 0; font-size: 18px; font-weight: 800; color: #2D1B12;">Mobile Banner Image</h3>
+          <span style="font-size: 12px; color: #c5965a; font-weight: 700;">Recommended Resolution: 900 × 360 px (10 : 4 Ratio — Height is 4/10 of Width)</span>
+        </div>
+        <button type="button" onclick="window.resetHomeBannerImage('mobile')" style="background: #f7f7f7; border: 1px solid #ddd; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #666; cursor: pointer;">
+          ↺ Reset Default
+        </button>
+      </div>
+
+      <!-- Live Curved 10:4 Preview -->
+      <div style="width: 100%; aspect-ratio: 10 / 4; border-radius: 18px; overflow: hidden; background: #f4f1ea; position: relative; box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #eee;">
+        <img id="admin-hb-mobile-preview" src="https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png" alt="Mobile Preview" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <span style="position: absolute; top: 10px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">Mobile 10:4 Curved Preview</span>
+      </div>
+
+      <!-- Upload & URL Controls -->
+      <div style="background: #faf8f5; border: 1.5px dashed #CFA56A; border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+          <input type="file" id="admin-hb-mobile-file" accept="image/*" style="display: none;" onchange="window.handleHomeBannerFile('mobile', this)">
+          <button type="button" class="admin-btn" onclick="document.getElementById('admin-hb-mobile-file').click()" style="padding: 10px 18px; font-size: 12.5px; font-weight: 700;">
+            📁 Upload Mobile Image
+          </button>
+          <span id="admin-hb-mobile-status" style="font-size: 11.5px; color: #666; font-weight: 600;">Default Mobile Image</span>
+        </div>
+        <div>
+          <label style="font-size: 10.5px; text-transform: uppercase; font-weight: 800; color: #888; display: block; margin-bottom: 5px;">OR Direct Mobile Image URL</label>
+          <input type="text" id="admin-hb-mobile-url" placeholder="https://..." oninput="window.previewHomeBannerUrl('mobile')" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 12.5px; background: #fff; box-sizing: border-box;">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Click Link & Bottom Save Bar -->
+  <div style="background: #fff; border-radius: 20px; padding: 22px 26px; border: 1px solid #eee; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px;">
+    <div style="flex: 1; min-width: 260px;">
+      <label style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #777; display: block; margin-bottom: 6px;">Banner Click Destination Link (Optional)</label>
+      <input type="text" id="admin-hb-link-url" placeholder="shop.html or offers.html" value="shop.html" style="width: 100%; max-width: 420px; padding: 11px 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 13px; background: #fafafa; box-sizing: border-box;">
+    </div>
+    <button type="button" id="btn-save-home-banner-bottom" onclick="window.saveAdminHomeBanner(this)" style="background: linear-gradient(135deg, #c5965a, #a87c48); color: #fff; border: none; padding: 14px 32px; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 0 8px 20px rgba(197,150,90,0.35);">
+      💾 Save Banner to Website
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const DEFAULT_DESKTOP_BANNER = 'https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png';
+  const DEFAULT_MOBILE_BANNER = 'https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png';
+
+  let currentDesktopBanner = DEFAULT_DESKTOP_BANNER;
+  let currentMobileBanner = DEFAULT_MOBILE_BANNER;
+
+  function getBaseApi() {
+    return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+  }
+
+  function updateBannerStatusUI(isDisabled) {
+    const pill = document.getElementById('admin-hb-status-pill');
+    if (!pill) return;
+    if (isDisabled) {
+      pill.style.background = 'rgba(239, 68, 68, 0.2)';
+      pill.style.borderColor = 'rgba(239, 68, 68, 0.45)';
+      pill.style.color = '#fca5a5';
+      pill.innerHTML = '<span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; display: inline-block;"></span> BANNER TURNED OFF (HIDDEN)';
+    } else {
+      pill.style.background = 'rgba(16, 185, 129, 0.2)';
+      pill.style.borderColor = 'rgba(16, 185, 129, 0.45)';
+      pill.style.color = '#34d399';
+      pill.innerHTML = '<span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span> BANNER ACTIVE ON SITE';
+    }
+  }
+
+  window.onToggleHomeBannerDisable = function(cb) {
+    updateBannerStatusUI(cb.checked);
+    // Also auto-save when the admin ticks/unticks the Turn-Off checkbox
+    window.saveAdminHomeBanner(document.getElementById('btn-save-home-banner-top'));
+  };
+
+  window.loadAdminHomeBanner = async function() {
+    try {
+      const res = await fetch(getBaseApi() + '/settings/home_mid_banner?cb=' + Date.now());
+      let b = null;
+      if (res.ok) {
+        const json = await res.json();
+        b = json.value;
+      }
+
+      const isDisabled = b ? (b.disabled === true || b.enabled === false) : false;
+      const cb = document.getElementById('admin-hb-disable-cb');
+      if (cb) cb.checked = isDisabled;
+      updateBannerStatusUI(isDisabled);
+
+      currentDesktopBanner = (b && b.desktopImage) ? b.desktopImage : DEFAULT_DESKTOP_BANNER;
+      currentMobileBanner = (b && b.mobileImage) ? b.mobileImage : DEFAULT_MOBILE_BANNER;
+
+      const dPrev = document.getElementById('admin-hb-desktop-preview');
+      if (dPrev) dPrev.src = currentDesktopBanner;
+      const dUrl = document.getElementById('admin-hb-desktop-url');
+      if (dUrl) dUrl.value = currentDesktopBanner.startsWith('data:') ? '(Uploaded Custom Desktop Banner)' : currentDesktopBanner;
+      const dStat = document.getElementById('admin-hb-desktop-status');
+      if (dStat) dStat.textContent = currentDesktopBanner.startsWith('data:') ? 'Custom Desktop Image Uploaded' : 'Active Desktop Image';
+
+      const mPrev = document.getElementById('admin-hb-mobile-preview');
+      if (mPrev) mPrev.src = currentMobileBanner;
+      const mUrl = document.getElementById('admin-hb-mobile-url');
+      if (mUrl) mUrl.value = currentMobileBanner.startsWith('data:') ? '(Uploaded Custom Mobile Banner)' : currentMobileBanner;
+      const mStat = document.getElementById('admin-hb-mobile-status');
+      if (mStat) mStat.textContent = currentMobileBanner.startsWith('data:') ? 'Custom Mobile Image Uploaded' : 'Active Mobile Image';
+
+      const linkInp = document.getElementById('admin-hb-link-url');
+      if (linkInp) linkInp.value = (b && b.linkUrl) ? b.linkUrl : 'shop.html';
+    } catch (e) {
+      console.warn('Could not load home_mid_banner settings:', e);
+    }
+  };
+
+  // Compress and resize uploaded banner image so homepage loads super fast
+  window.handleHomeBannerFile = function(type, input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+
+    const statusEl = document.getElementById('admin-hb-' + type + '-status');
+    if (statusEl) statusEl.textContent = '⏳ Optimizing ' + file.name + '...';
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const maxW = type === 'desktop' ? 1500 : 1000;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxW) {
+          h = Math.round((h * maxW) / w);
+          w = maxW;
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+
+        if (type === 'desktop') {
+          currentDesktopBanner = dataUrl;
+        } else {
+          currentMobileBanner = dataUrl;
+        }
+
+        const prev = document.getElementById('admin-hb-' + type + '-preview');
+        if (prev) prev.src = dataUrl;
+        const urlInp = document.getElementById('admin-hb-' + type + '-url');
+        if (urlInp) urlInp.value = '(Uploaded: ' + file.name + ')';
+        if (statusEl) statusEl.textContent = '✅ Ready: ' + file.name;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  window.previewHomeBannerUrl = function(type) {
+    const urlInp = document.getElementById('admin-hb-' + type + '-url');
+    const val = urlInp ? urlInp.value.trim() : '';
+    if (!val || val.startsWith('(Uploaded')) return;
+
+    if (type === 'desktop') currentDesktopBanner = val;
+    else currentMobileBanner = val;
+
+    const prev = document.getElementById('admin-hb-' + type + '-preview');
+    if (prev) prev.src = val;
+    const statusEl = document.getElementById('admin-hb-' + type + '-status');
+    if (statusEl) statusEl.textContent = 'URL Set';
+  };
+
+  window.resetHomeBannerImage = function(type) {
+    if (type === 'desktop') {
+      currentDesktopBanner = DEFAULT_DESKTOP_BANNER;
+      const prev = document.getElementById('admin-hb-desktop-preview');
+      if (prev) prev.src = DEFAULT_DESKTOP_BANNER;
+      const urlInp = document.getElementById('admin-hb-desktop-url');
+      if (urlInp) urlInp.value = DEFAULT_DESKTOP_BANNER;
+      const stat = document.getElementById('admin-hb-desktop-status');
+      if (stat) stat.textContent = 'Reset to Default Desktop Image';
+    } else {
+      currentMobileBanner = DEFAULT_MOBILE_BANNER;
+      const prev = document.getElementById('admin-hb-mobile-preview');
+      if (prev) prev.src = DEFAULT_MOBILE_BANNER;
+      const urlInp = document.getElementById('admin-hb-mobile-url');
+      if (urlInp) urlInp.value = DEFAULT_MOBILE_BANNER;
+      const stat = document.getElementById('admin-hb-mobile-status');
+      if (stat) stat.textContent = 'Reset to Default Mobile Image';
+    }
+  };
+
+  window.saveAdminHomeBanner = async function(btn) {
+    const origText = btn ? btn.innerHTML : '💾 Save Banner Settings';
+    if (btn) { btn.innerHTML = '⏳ Saving...'; btn.disabled = true; }
+
+    const isDisabled = document.getElementById('admin-hb-disable-cb')?.checked === true;
+    const linkUrl = (document.getElementById('admin-hb-link-url')?.value || 'shop.html').trim();
+
+    const payload = {
+      disabled: isDisabled,
+      enabled: !isDisabled,
+      desktopImage: currentDesktopBanner || DEFAULT_DESKTOP_BANNER,
+      mobileImage: currentMobileBanner || DEFAULT_MOBILE_BANNER,
+      linkUrl: linkUrl
+    };
+
+    try {
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
+      const res = await fetch(getBaseApi() + '/settings/home_mid_banner', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ value: payload })
+      });
+
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.message || 'Server error ' + res.status);
+      }
+
+      try { localStorage.setItem('bib_home_mid_banner', JSON.stringify(payload)); } catch(e) {}
+      if (typeof showToast === 'function') {
+        showToast(isDisabled ? '🔴 Homepage Banner turned OFF!' : '✅ Homepage Banner saved & active live!');
+      } else {
+        alert(isDisabled ? '🔴 Homepage Banner turned OFF!' : '✅ Homepage Banner saved & active live!');
+      }
+    } catch (err) {
+      console.error('Save banner error:', err);
+      alert('❌ Error saving banner: ' + err.message);
+    } finally {
+      if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+    }
+  };
+})();
+</script>
+
 <div id="tab-settings" class="admin-content" style="padding-bottom: 120px;">
 
         <!-- TOP HEADER -->
@@ -4173,6 +4497,7 @@
         'brands': 'Brand Logos',
         'home-all': "Home 'ALL' Products Customizer",
         'home-videos': "Homepage Video Highlights",
+        'home-banner': "Homepage Collection Banner",
         'settings': 'Admin Settings'
       };
       if (document.getElementById('view-title')) {
@@ -6671,6 +6996,7 @@
         if (tabName === 'settings') { loadShippingFee(); if (window.loadThemeColors) window.loadThemeColors(); }
         if (tabName === 'brands' && typeof window.fetchAdminBrands === 'function') window.fetchAdminBrands();
         if (tabName === 'home-videos' && typeof window.loadAdminHomeVideos === 'function') window.loadAdminHomeVideos();
+        if (tabName === 'home-banner' && typeof window.loadAdminHomeBanner === 'function') window.loadAdminHomeBanner();
       };
     </script>
 
