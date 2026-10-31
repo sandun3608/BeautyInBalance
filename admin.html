@@ -3876,6 +3876,13 @@
     </div>
 
     <div id="admin-gr-list" style="display: flex; flex-direction: column; gap: 16px;"></div>
+
+    <div style="margin-top: 24px; background: #fff; border: 1px solid #e8eaed; border-radius: 18px; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: 0 4px 16px rgba(60,64,67,0.05);">
+      <span style="font-size: 13px; color: #5f6368; font-weight: 600;">Click Save to publish your Google Reviews changes live to the homepage.</span>
+      <button type="button" onclick="window.saveAdminGoogleReviews(this)" style="background: #1a73e8; color: #fff; border: none; padding: 12px 26px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(26,115,232,0.3);">
+        💾 Save Google Reviews
+      </button>
+    </div>
   </div>
 </div>
 
@@ -4125,6 +4132,10 @@
     renderAdminReviewsList();
   };
 
+  function getBaseApi() {
+    return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+  }
+
   window.loadAdminGoogleReviews = async function() {
     try {
       const cached = localStorage.getItem('bib_google_reviews');
@@ -4137,8 +4148,7 @@
     renderAdminReviewsList();
 
     try {
-      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
-      const res = await fetch(`${apiBase}/settings/google_reviews?cb=${Date.now()}`);
+      const res = await fetch(`${getBaseApi()}/settings/google_reviews?cb=${Date.now()}`);
       if (res.ok) {
         const data = await res.json();
         if (data && data.value && Array.isArray(data.value.reviews)) {
@@ -4153,8 +4163,8 @@
     }
   };
 
-  window.saveAdminGoogleReviews = async function() {
-    const btn = document.getElementById('btn-save-google-reviews');
+  window.saveAdminGoogleReviews = async function(clickedBtn) {
+    const btn = clickedBtn || document.getElementById('btn-save-google-reviews');
     const origText = btn ? btn.innerHTML : '💾 Save Google Reviews';
     if (btn) {
       btn.innerHTML = '⏳ Saving...';
@@ -4176,9 +4186,8 @@
         localStorage.setItem('bib_google_reviews', JSON.stringify(grState));
       } catch (e) {}
 
-      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
-      const token = (typeof getToken === 'function' ? getToken() : localStorage.getItem('bib_token')) || '';
-      const res = await fetch(`${apiBase}/settings/google_reviews`, {
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken') || localStorage.getItem('bib_token') || '';
+      const res = await fetch(`${getBaseApi()}/settings/google_reviews`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -4187,7 +4196,10 @@
         body: JSON.stringify({ value: grState })
       });
 
-      if (!res.ok) throw new Error('Server returned status ' + res.status);
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.message || 'Server returned status ' + res.status);
+      }
 
       if (typeof showToast === 'function') {
         showToast('✅ Google Reviews saved & published live!');
