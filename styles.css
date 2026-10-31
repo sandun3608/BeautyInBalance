@@ -11457,10 +11457,14 @@ body.loading-active .floating-email {
 }
 
 @media (max-width: 900px) {
+  .site-footer .footer-top .footer-col.footer-col-desktop-only {
+    display: none !important;
+  }
+
   .site-footer .footer-top {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 30px 18px !important;
-    padding: 36px 18px 28px !important;
+    gap: 26px 18px !important;
+    padding: 34px 18px 26px !important;
   }
 
   .site-footer .footer-top .footer-brand-col,
