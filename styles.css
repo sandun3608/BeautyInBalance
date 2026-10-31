@@ -11282,18 +11282,18 @@ body.loading-active .floating-email {
 
 .site-footer {
   background: linear-gradient(180deg, #2D1B12 0%, #1C100A 100%) !important;
-  border-top: 1px solid rgba(198, 151, 90, 0.25) !important;
+  border-top: 1px solid rgba(212, 168, 106, 0.28) !important;
   color: #ffffff !important;
   width: 100% !important;
 }
 
 .site-footer .footer-top {
-  max-width: 1060px !important;
+  max-width: 1220px !important;
   margin: 0 auto !important;
   display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 36px 48px !important;
-  padding: 48px 32px 36px !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 36px 28px !important;
+  padding: 50px 36px 40px !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   align-items: start !important;
 }
@@ -11308,14 +11308,14 @@ body.loading-active .floating-email {
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  padding-bottom: 28px !important;
-  margin-bottom: 4px !important;
+  padding-bottom: 30px !important;
+  margin-bottom: 6px !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .site-footer .footer-logo {
   font-family: var(--font-serif, 'Playfair Display', serif) !important;
-  font-size: clamp(22px, 3vw, 30px) !important;
+  font-size: clamp(24px, 3vw, 32px) !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.22em !important;
@@ -11330,24 +11330,24 @@ body.loading-active .floating-email {
 .site-footer .footer-logo::after {
   content: "";
   display: block;
-  width: 48px;
+  width: 54px;
   height: 2px;
-  background: var(--gold, #C6975A);
-  margin: 10px auto 0;
+  background: #D4A86A !important;
+  margin: 12px auto 0;
   border-radius: 2px;
 }
 
 .site-footer .footer-logo:hover {
-  color: var(--gold, #C6975A) !important;
+  color: #D4A86A !important;
 }
 
 .site-footer .footer-brand-col p,
 .site-footer .footer-col:has(.footer-logo) p {
   font-family: var(--font-sans, sans-serif) !important;
   font-size: 13.5px !important;
-  color: rgba(255, 255, 255, 0.78) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   line-height: 1.65 !important;
-  max-width: 460px !important;
+  max-width: 480px !important;
   margin: 4px auto 18px !important;
   text-align: center !important;
 }
@@ -11364,7 +11364,7 @@ body.loading-active .floating-email {
   width: 38px !important;
   height: 38px !important;
   border-radius: 50% !important;
-  border: 1px solid rgba(198, 151, 90, 0.38) !important;
+  border: 1px solid rgba(212, 168, 106, 0.45) !important;
   background: rgba(255, 255, 255, 0.04) !important;
   color: #ffffff !important;
   display: flex !important;
@@ -11374,13 +11374,13 @@ body.loading-active .floating-email {
 }
 
 .site-footer .footer-social a:hover {
-  background: var(--gold, #C6975A) !important;
-  border-color: var(--gold, #C6975A) !important;
-  color: #ffffff !important;
+  background: #D4A86A !important;
+  border-color: #D4A86A !important;
+  color: #1C100A !important;
   transform: translateY(-2px);
 }
 
-/* Navigation Path Columns (SHOP, SUPPORT, etc.) */
+/* Navigation Path Columns (CATEGORIES, TOP BRANDS, SHOP, SUPPORT) */
 .site-footer .footer-top .footer-col:not(.footer-brand-col):not(:has(.footer-logo)) {
   display: flex !important;
   flex-direction: column !important;
@@ -11389,14 +11389,17 @@ body.loading-active .floating-email {
 }
 
 .site-footer .footer-col h3,
+.site-footer .footer-col h4,
 .site-footer .footer-col h5 {
   font-family: var(--font-sans, sans-serif) !important;
   font-size: 12.5px !important;
   font-weight: 800 !important;
-  letter-spacing: 0.2em !important;
+  letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
-  color: var(--gold, #C6975A) !important;
+  color: #D4A86A !important;
   margin-bottom: 16px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid rgba(212, 168, 106, 0.25) !important;
   text-align: center !important;
   position: relative;
 }
@@ -11421,22 +11424,25 @@ body.loading-active .floating-email {
   font-weight: 500 !important;
   color: rgba(255, 255, 255, 0.85) !important;
   text-decoration: none !important;
-  letter-spacing: 0.03em !important;
+  letter-spacing: 0.02em !important;
   transition: color 0.2s ease, transform 0.2s ease !important;
   display: inline-block !important;
 }
 
 .site-footer .footer-col ul li a:hover {
-  color: var(--gold, #C6975A) !important;
+  color: #D4A86A !important;
+  transform: translateY(-1px);
 }
 
 .site-footer .footer-bottom {
-  max-width: 1060px !important;
+  max-width: 1220px !important;
   margin: 0 auto !important;
-  padding: 18px 24px !important;
+  padding: 20px 24px !important;
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 6px !important;
   text-align: center !important;
 }
 
@@ -11445,22 +11451,22 @@ body.loading-active .floating-email {
   font-size: 11.5px !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
   margin: 0 !important;
   text-align: center !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .site-footer .footer-top {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 26px 16px !important;
-    padding: 34px 18px 24px !important;
+    gap: 30px 18px !important;
+    padding: 36px 18px 28px !important;
   }
 
   .site-footer .footer-top .footer-brand-col,
   .site-footer .footer-top .footer-col:has(.footer-logo) {
     padding-bottom: 22px !important;
-    margin-bottom: 2px !important;
+    margin-bottom: 4px !important;
   }
 
   .site-footer .footer-logo {
@@ -11476,11 +11482,13 @@ body.loading-active .floating-email {
   }
 
   .site-footer .footer-col h3,
+  .site-footer .footer-col h4,
   .site-footer .footer-col h5 {
-    font-size: 12px !important;
-    letter-spacing: 0.16em !important;
+    font-size: 11.5px !important;
+    letter-spacing: 0.15em !important;
     margin-bottom: 12px !important;
-    color: var(--gold, #C6975A) !important;
+    padding-bottom: 6px !important;
+    color: #D4A86A !important;
   }
 
   .site-footer .footer-col ul {
@@ -11488,12 +11496,12 @@ body.loading-active .floating-email {
   }
 
   .site-footer .footer-col ul li a {
-    font-size: 13px !important;
+    font-size: 12.5px !important;
     color: rgba(255, 255, 255, 0.85) !important;
   }
 
   .site-footer .footer-bottom {
-    padding: 14px 16px 18px !important;
+    padding: 16px 16px 20px !important;
     margin-top: 0 !important;
   }
 
