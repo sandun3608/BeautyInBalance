@@ -13,742 +13,575 @@
   <link rel="stylesheet" href="styles.css?v=463479" />
   <script src="config.js?v=18"></script>
   <style>
-    :root {
-      --bg-page: #f8fafc;
-      --card-white: #ffffff;
-      --dark-primary: #18181b;
-      --dark-secondary: #27272a;
-      --brand-brown: #2D1B12;
-      --brand-gold: #C6975A;
-      --green-accent: #10b981;
-      --green-dark: #059669;
-      --green-subtle: #ecfdf5;
-      --koko-purple: #7e22ce;
-      --border-soft: #e2e8f0;
-      --border-card: rgba(226, 232, 240, 0.9);
-      --shadow-luxury: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
-      --shadow-hover: 0 25px 55px -12px rgba(15, 23, 42, 0.12);
-    }
-
     body {
-      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color: #0f172a;
-      margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
+      background-color: #faf9f7;
     }
-
-    /* Container */
-    .chk-container-two-col {
+    .checkout-wrap {
       max-width: 1200px;
-      margin: 125px auto 60px;
-      padding: 0 24px;
-    }
-
-    @media (max-width: 900px) {
-      .chk-container-two-col {
-        margin: 95px auto 40px;
-        padding: 0 14px;
-      }
-    }
-
-    /* Top Breadcrumbs / Trust Bar */
-    .chk-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      padding: 0 4px;
-    }
-    .chk-brand-wrap {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-    .chk-brand-title {
-      font-family: var(--font-serif), Georgia, serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: #1e1b18;
-      letter-spacing: 0.5px;
-    }
-    .chk-brand-divider {
-      color: #cbd5e1;
-      font-size: 16px;
-    }
-    .chk-brand-sub {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #64748b;
-    }
-    .chk-trust-badges {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .trust-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #475569;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 5px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      backdrop-filter: blur(8px);
-    }
-
-    @media (max-width: 768px) {
-      .chk-top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-      .chk-trust-badges {
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-    }
-
-    /* Two Distinct Cards Grid */
-    .chk-two-col-grid {
+      margin: 160px auto 100px;
+      padding: 0 40px;
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 32px;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
       align-items: start;
     }
-
-    @media (max-width: 960px) {
-      .chk-two-col-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
+    @media (max-width: 900px) {
+      .checkout-wrap { grid-template-columns: 1fr; gap: 40px; margin-top: 140px; }
     }
 
-    /* Luxury Glass Cards with Multi-layer Shadow */
-    .chk-glass-card {
-      background: var(--card-white);
-      border-radius: 24px;
-      box-shadow: var(--shadow-luxury);
-      border: 1px solid var(--border-card);
-      padding: 36px 34px;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    @media (max-width: 600px) {
-      .chk-glass-card {
-        padding: 22px 18px;
-        border-radius: 20px;
-      }
-    }
-
-    .chk-summary-card {
-      position: sticky;
-      top: 100px;
-    }
-
-    /* Card Section Headers */
-    .card-header-clean {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-    .step-num-pill {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #18181b;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .card-main-title {
-      font-size: 18.5px;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 0 0 3px 0;
-      letter-spacing: -0.3px;
-    }
-    .card-main-subtitle {
-      font-size: 13px;
-      color: #64748b;
-      margin: 0;
-      line-height: 1.4;
-    }
-    .summary-count-badge {
-      font-size: 12px;
-      font-weight: 600;
-      color: #475569;
-      background: #f1f5f9;
-      padding: 4px 12px;
-      border-radius: 20px;
-    }
-
-    /* Form Fields */
-    .form-fields-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .field-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    @media (max-width: 520px) {
-      .field-grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .field-item {
-      display: flex;
-      flex-direction: column;
-    }
-    .field-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #475569;
-      margin-bottom: 6px;
-    }
-
-    .input-container-modern {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .input-icon-svg {
-      position: absolute;
-      left: 14px;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      color: #94a3b8;
-    }
-    .input-modern {
-      width: 100%;
-      padding: 13.5px 16px 13.5px 44px;
-      background: #fafbfc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 14px;
-      font-size: 14px;
-      color: #0f172a;
-      font-family: inherit;
-      outline: none;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-sizing: border-box;
-    }
-    .input-modern.no-icon {
-      padding-left: 16px !important;
-    }
-    .input-modern:focus {
-      background: #ffffff;
-      border-color: #18181b;
-      box-shadow: 0 0 0 4px rgba(24, 24, 27, 0.06);
-    }
-    .input-modern::placeholder {
-      color: #94a3b8;
-    }
-    .select-modern {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 14px;
-      cursor: pointer;
-      padding-right: 38px !important;
-    }
-
-    /* Payment Tiles */
-    .payment-cards-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .pay-tile {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 13px 16px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 16px;
-      background: #ffffff;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      user-select: none;
-    }
-    .pay-tile:hover {
-      border-color: #cbd5e1;
-      background: #fafbfc;
-      transform: translateY(-1px);
-    }
-    .pay-tile.active-tile {
-      border-color: #18181b;
-      background: #ffffff;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    }
-    .pay-tile.active-tile#tile-cod {
-      border-color: #10b981;
-      background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
-    }
-    .pay-tile.active-tile#tile-bank {
-      border-color: #2563eb;
-      background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
-    }
-    .pay-tile.active-tile#tile-koko {
-      border-color: #7e22ce;
-      background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
-      box-shadow: 0 4px 16px rgba(126, 34, 206, 0.14);
-    }
-
-    .tile-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-      flex-grow: 1;
-    }
-    .tile-radio-circle {
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      border: 2px solid #cbd5e1;
+    /* Left Side: Forms */
+    .chk-left {
       background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-    .active-tile .tile-radio-circle {
-      border-color: #18181b;
-      background: #18181b;
-    }
-    .active-tile#tile-cod .tile-radio-circle {
-      border-color: #10b981;
-      background: #10b981;
-    }
-    .active-tile#tile-bank .tile-radio-circle {
-      border-color: #2563eb;
-      background: #2563eb;
-    }
-    .active-tile#tile-koko .tile-radio-circle {
-      border-color: #7e22ce;
-      background: #7e22ce;
-    }
-    .active-tile .tile-radio-circle::after {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #ffffff;
-    }
-
-    .tile-icon-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 3px 6px;
-      height: 22px;
-      flex-shrink: 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-    .cod-badge { border: 1px solid #bbf7d0; font-size: 13px; }
-    .bank-badge { border: 1px solid #bfdbfe; font-size: 13px; }
-    .koko-badge { border: 1px solid #e9d5ff; padding: 2px 6px; }
-    .koko-badge img {
-      height: 12px;
-      width: auto;
-      max-width: 36px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .tile-title {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-    .tile-desc {
-      font-size: 11px;
-      color: #64748b;
-      margin-top: 1px;
-    }
-    .active-tile#tile-cod .tile-desc { color: #166534; font-weight: 500; }
-    .active-tile#tile-bank .tile-desc { color: #1e40af; font-weight: 500; }
-    .active-tile#tile-koko .tile-desc { color: #6b21a8; font-weight: 500; }
-
-    .tile-price {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: #0f172a;
-      white-space: nowrap;
-      text-align: right;
-      flex-shrink: 0;
-      padding-left: 10px;
-    }
-    .active-tile#tile-cod .tile-price { color: #10b981; }
-    .active-tile#tile-bank .tile-price { color: #2563eb; }
-    .active-tile#tile-koko .tile-price { color: #7e22ce; }
-
-    .tile-expanded-box {
-      margin-top: 10px;
-      animation: fadeIn 0.2s ease-out;
-    }
-    .cod-expanded .reassurance-row {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      background: #f0fdf4;
-      border: 1.5px solid #86efac;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 12.5px;
-      color: #166534;
-      line-height: 1.45;
-    }
-    .reassurance-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .bank-info-card {
-      background: #eff6ff;
-      border: 1.5px solid #bfdbfe;
-      border-radius: 14px;
-      padding: 14px 16px;
-      font-size: 13px;
-      color: #1e40af;
-      line-height: 1.55;
-    }
-    .bank-info-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .badge-account {
-      font-size: 11px;
-      font-weight: 700;
-      background: #dbeafe;
-      color: #1e40af;
-      padding: 2px 8px;
-      border-radius: 10px;
-    }
-    .bank-details-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .btn-whatsapp-slip-glow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: #25D366;
-      color: #ffffff !important;
-      padding: 8px 16px;
+      padding: 50px;
       border-radius: 20px;
-      font-size: 12.5px;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 12px;
-      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.28);
-      transition: all 0.2s;
-    }
-    .btn-whatsapp-slip-glow:hover {
-      background: #20bd5a;
-      transform: translateY(-1px);
+      box-shadow: 0 5px 30px rgba(0,0,0,0.03);
     }
 
-    /* RIGHT: Order Summary Card Styles */
-    .cart-items-luxury-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .chk-header {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      color: var(--brown);
+      margin-bottom: 30px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+
+    .chk-section {
+      margin-bottom: 40px;
+    }
+    .chk-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark);
       margin-bottom: 20px;
     }
-    .luxury-item-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px;
-      border: 1.5px solid #f1f5f9;
-      border-radius: 16px;
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-      transition: all 0.2s ease;
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
-    .luxury-item-card:hover {
-      border-color: #e2e8f0;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    .form-group-full {
+      grid-column: span 2;
     }
 
-    .lux-img-box {
-      width: 76px;
-      height: 76px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border: 1px solid #edf2f7;
+    .input-grp input, .input-grp select {
+      width: 100%;
+      padding: 15px;
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+    .input-grp input:focus, .input-grp select:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: #fff;
+    }
+
+    /* Right Side: Order Summary */
+    .chk-right {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 120px;
+      z-index: 10;
+      align-self: start;
+    }
+
+    @media (min-width: 901px) {
+      html, body {
+        overflow: visible !important;
+      }
+    }
+
+    .summary-box {
+      background: #ffffff;
+      color: #1a1a1e;
+      padding: 40px 35px;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+    .summary-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brown) 0%, var(--gold) 50%, var(--brown) 100%);
+    }
+
+    .summ-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: #000000;
+      font-weight: 600;
+      border-bottom: 1px solid #f0f0f2;
+      padding-bottom: 15px;
+      position: relative;
+    }
+    .summ-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .summ-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .summ-items::-webkit-scrollbar {
+      width: 6px;
+    }
+    .summ-items::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .summ-items::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .summ-items::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .summ-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+    .summ-item:hover {
+      transform: translateX(4px);
+    }
+    .img-wrap {
+      width: 64px;
+      height: 64px;
+      background: #ffffff;
+      border: 1px solid #eef0f2;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      padding: 4px;
-      box-sizing: border-box;
       position: relative;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: border-color 0.2s ease;
     }
-    .lux-img-box img {
-      max-width: 90%;
-      max-height: 90%;
+    .summ-item:hover .img-wrap {
+      border-color: var(--gold);
+    }
+    .img-wrap img {
+      width: 80%;
+      height: 80%;
       object-fit: contain;
-      display: block;
+    }
+    .qty-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--brown);
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    .lux-item-details {
+    .summ-details {
       flex-grow: 1;
-      min-width: 0;
     }
-    .lux-item-title {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #0f172a;
-      margin: 0 0 6px 0;
-      line-height: 1.35;
-      word-break: break-word;
+    .summ-details h4 {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1e;
+      margin-bottom: 5px;
+      line-height: 1.4;
+      font-family: var(--font-sans);
+      transition: color 0.2s ease;
+    }
+    .summ-item:hover .summ-details h4 {
+      color: #000000;
+    }
+    .summ-price {
+      font-weight: bold;
+      color: var(--brown);
     }
 
-    .lux-stepper-wrap {
+    /* Qty controls styled classes */
+    .qty-adjust {
       display: flex;
       align-items: center;
       gap: 8px;
+      background: #f5f5f7;
+      border: 1px solid #e2e2e5;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: border-color 0.2s ease;
     }
-    .lux-qty-lbl {
-      font-size: 12px;
-      color: #64748b;
-      font-weight: 500;
+    .qty-adjust:hover {
+      border-color: rgba(198, 151, 90, 0.4);
     }
-    .lux-stepper-pill {
-      display: inline-flex;
-      align-items: center;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 20px;
-      padding: 1px 7px;
-      background: #ffffff;
-      gap: 4px;
-    }
-    .lux-stepper-btn {
-      width: 22px;
-      height: 22px;
+    .qty-btn {
       border: none;
       background: transparent;
-      font-size: 14px;
-      font-weight: 700;
-      color: #475569;
+      color: #555558;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      padding: 0;
-      line-height: 1;
-      transition: all 0.15s;
-    }
-    .lux-stepper-btn:hover {
-      background: #f1f5f9;
-      color: #0f172a;
-    }
-    .lux-stepper-val {
-      font-size: 12.5px;
       font-weight: 700;
-      color: #0f172a;
-      min-width: 16px;
+      font-size: 12px;
+      padding: 0 4px;
+      transition: color 0.2s ease, transform 0.1s ease;
+    }
+    .qty-btn:hover {
+      color: var(--gold);
+      transform: scale(1.2);
+    }
+    .qty-val {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      color: #000000;
+      min-width: 14px;
       text-align: center;
     }
 
-    .lux-item-price {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: #0f172a;
-      white-space: nowrap;
-      text-align: right;
-      flex-shrink: 0;
-      padding-left: 8px;
-    }
-
-    /* Promo Code Container */
-    .promo-code-container {
-      margin-bottom: 20px;
-    }
-    .promo-input-wrap {
-      display: flex;
-      align-items: center;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 14px;
-      background: #fafbfc;
-      padding: 4px 6px 4px 14px;
-      transition: all 0.2s ease;
-    }
-    .promo-input-wrap:focus-within {
-      background: #ffffff;
-      border-color: #18181b;
-      box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.06);
-    }
-    .promo-icon {
-      font-size: 14px;
-      font-weight: 700;
-      color: #94a3b8;
-      margin-right: 10px;
-      user-select: none;
-    }
-    .promo-input {
-      flex-grow: 1;
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: 13.5px;
-      font-family: inherit;
-      color: #0f172a;
-    }
-    .promo-input::placeholder {
-      color: #94a3b8;
-    }
-    .promo-btn-apply {
-      border: none;
-      background: transparent;
-      color: var(--green-primary);
-      font-weight: 700;
-      font-size: 13.5px;
-      cursor: pointer;
-      padding: 8px 14px;
-      transition: opacity 0.2s;
-    }
-    .promo-btn-apply:hover {
-      opacity: 0.8;
-    }
-
-    /* Financial Breakdown */
-    .financial-breakdown {
+    .summ-totals {
+      border-top: 1px solid #f0f0f2;
+      padding-top: 25px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding-top: 14px;
-      border-top: 1px solid #f1f5f9;
-      margin-bottom: 22px;
+      gap: 12px;
     }
-    .breakdown-row {
+
+    .summ-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 13.5px;
+      font-size: 14px;
+      color: #555558;
+      font-family: var(--font-sans);
     }
-    .b-label {
-      color: #64748b;
+    .summ-row span:last-child {
+      color: #000000;
       font-weight: 500;
-    }
-    .b-value {
-      color: #0f172a;
-      font-weight: 600;
-    }
-    .discount-row-green .b-label {
-      color: #10b981;
-      font-weight: 600;
-    }
-    .discount-row-green .b-value {
-      color: #10b981;
-      font-weight: 700;
-    }
-    .breakdown-divider-line {
-      height: 1px;
-      background: #e2e8f0;
-      margin: 4px 0;
     }
 
-    .total-row-grand {
-      padding-top: 6px;
-    }
-    .grand-total-label {
-      font-size: 16px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-    .grand-total-sub {
-      font-size: 11.5px;
-      color: #64748b;
-      font-weight: 500;
-      margin-top: 1px;
-    }
-    .grand-total-amount {
+    .summ-row.total {
       font-size: 22px;
+      color: #000000;
+      font-weight: 700;
+      margin-top: 15px;
+      padding-top: 20px;
+      border-top: 1px dashed #e2e2e5;
+      font-family: var(--font-serif);
+    }
+    .summ-row.total span:last-child {
+      color: var(--brown);
+      font-size: 24px;
       font-weight: 800;
-      color: #0f172a;
+      font-family: var(--font-sans);
     }
 
-    /* Big Glowing Submit Button */
-    .btn-master-submit-glow {
+    .btn-place-order {
       width: 100%;
-      padding: 17px 24px;
-      background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
-      color: #ffffff;
+      padding: 18px;
+      background: var(--gold);
+      color: #fff;
       border: none;
-      border-radius: 16px;
+      border-radius: 12px;
+      font-family: var(--font-sans);
       font-size: 16px;
       font-weight: 700;
-      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 30px;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 25px rgba(24, 24, 27, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      display: block;
-      text-align: center;
-      box-sizing: border-box;
-    }
-    .btn-master-submit-glow:hover {
-      background: linear-gradient(135deg, #27272a 0%, #18181b 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(24, 24, 27, 0.35);
-    }
-    .btn-master-submit-glow.koko-btn {
-      background: linear-gradient(135deg, #7e22ce 0%, #581c87 100%);
-      box-shadow: 0 10px 25px rgba(126, 34, 206, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    .btn-master-submit-glow.koko-btn:hover {
-      background: linear-gradient(135deg, #6b21a8 0%, #4c1d95 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(126, 34, 206, 0.42);
+      transition: 0.3s;
     }
 
-    .security-guarantee-note {
+    .btn-place-order:hover {
+      background: #b58646;
+      transform: translateY(-2px);
+    }
+
+    /* Shopify-style Payment and Billing Boxes */
+    .payment-section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+      text-align: left;
+    }
+    .payment-section-subtitle {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .payment-gateway-box, .billing-address-box {
+      border: 1px solid #d9d9d9;
+      border-radius: 5px;
+      background: #fff;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .payment-gateway-row-container, .billing-row-container {
+      border-bottom: 1px solid #d9d9d9;
+      transition: background-color 0.2s ease, border-left-color 0.2s ease;
+      background-color: #fff;
+      border-left: 3px solid transparent;
+    }
+    .payment-gateway-row-container:last-child, .billing-row-container:last-child {
+      border-bottom: none;
+    }
+    .payment-gateway-row, .billing-row {
+      display: flex;
+      align-items: center;
+      padding: 16px 15px;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
+      user-select: none;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      gap: 12px;
+      transform: none !important;
+      box-shadow: none !important;
+      transition: none !important;
+    }
+    .payment-gateway-row-container.active-row, .billing-row-container.active-row {
+      background-color: #fafafa;
+      border-left-color: var(--brown);
+    }
+    
+    /* Custom Radio Buttons */
+    .pg-radio-col {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      font-size: 11.5px;
-      color: #64748b;
-      margin-top: 14px;
+      position: relative;
+    }
+    .pg-radio-col input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      z-index: 2;
+    }
+    .custom-radio {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #d9d9d9;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      box-sizing: border-box;
+      background-color: #fff;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .pg-radio-col input[type="radio"]:checked + .custom-radio {
+      border-color: var(--brown);
+      background-color: var(--brown);
+    }
+    .pg-radio-col input[type="radio"]:checked + .custom-radio::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .pg-text-col {
+      flex-grow: 1;
+      text-align: left;
+    }
+    .pg-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    .pg-icons-col {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .pg-icons-col svg {
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      flex-shrink: 0;
+    }
+    .pg-expanded-content {
+      border-top: 1px solid #d9d9d9;
+      background-color: #f9f9f9;
+      padding: 24px 16px;
+      display: none;
+    }
+    .billing-expanded-content {
+      border-top: 1px solid #d9d9d9;
+      background-color: #f9f9f9;
+      padding: 20px 16px;
+      display: none;
+    }
+    .pg-redirect-msg {
+      font-size: 14px;
+      color: #555;
       text-align: center;
+      line-height: 1.5;
+    }
+    
+    /* Pay now button */
+    .btn-pay-now {
+      width: 100%;
+      padding: 18px;
+      background: #000000;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .btn-pay-now:hover {
+      background: var(--brown);
+      box-shadow: 0 8px 25px rgba(45, 27, 18, 0.25);
+      transform: translateY(-2px);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width: 480px) {
+      .pg-title {
+        font-size: 13px;
+      }
+      .payment-gateway-row, .billing-row {
+        padding: 14px 10px;
+        gap: 8px;
+      }
+      .pg-icons-col svg {
+        width: 28px;
+        height: 18.6px;
+      }
     }
-    </style>
+
+    .empty-cart-msg {
+      text-align: center;
+      padding: 100px;
+      font-size: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .checkout-wrap {
+        padding: 0 15px !important;
+        margin-top: 100px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .chk-left, .summary-box {
+        padding: 25px 20px !important;
+        border-radius: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .chk-header {
+        font-size: 28px !important;
+      }
+      .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+      }
+      .form-group-full {
+        grid-column: span 1 !important;
+      }
+      body {
+        overflow-x: hidden !important;
+      }
+    }
+
+    /* Premium Credit Card Inputs Styling */
+    .card-form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 5px;
+      background: #fcfcfc;
+      border: 1px solid #e5e5e5;
+      padding: 16px;
+      border-radius: 6px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.01);
+    }
+    .card-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .card-input-wrapper input {
+      width: 100%;
+      padding: 12px 12px 12px 38px;
+      background: #ffffff;
+      border: 1px solid #d9d9d9;
+      border-radius: 5px;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      box-sizing: border-box;
+      color: #333;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card-input-wrapper input::placeholder {
+      color: #999;
+    }
+    .card-input-wrapper input:focus {
+      outline: none;
+      border-color: #1b1b1e;
+      box-shadow: 0 0 0 1px #1b1b1e;
+    }
+    .card-input-svg {
+      position: absolute;
+      left: 12px;
+      color: #999;
+      pointer-events: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-input-wrapper input:focus + .card-input-svg {
+      color: #1b1b1e;
+    }
+  </style>
 </head>
 <body>
 
@@ -837,304 +670,305 @@
   </div>
 
   <div id="checkout-root">
-    <div class="chk-container-two-col">
-      
-      <!-- Top Breadcrumb & Trust Bar -->
-      <div class="chk-top-bar">
-        <div class="chk-brand-wrap">
-          <span class="chk-brand-title">Beauty in Balance</span>
-          <span class="chk-brand-divider">/</span>
-          <span class="chk-brand-sub">Secure Checkout</span>
-        </div>
-        <div class="chk-trust-badges">
-          <span class="trust-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            100% Authentic Quality
-          </span>
-          <span class="trust-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-            Island-wide Delivery
-          </span>
-        </div>
+    <div class="checkout-wrap">
+      <div class="chk-left">
+        <h1 class="chk-header">Secure Checkout</h1>
+        <form id="checkout-form">
+          <div class="chk-section">
+            <h3 class="chk-section-title">Contact Information</h3>
+            <div class="input-grp form-group-full">
+              <input type="email" id="c-email" placeholder="Email Address" required />
+            </div>
+          </div>
+          <div class="chk-section">
+            <h3 class="chk-section-title">Shipping Address</h3>
+            <div class="form-grid">
+              <div class="input-grp">
+                <input type="text" id="c-fname" placeholder="First Name" required />
+              </div>
+              <div class="input-grp">
+                <input type="text" id="c-lname" placeholder="Last Name" required />
+              </div>
+              <div class="input-grp form-group-full">
+                <input type="text" id="c-address" placeholder="Street Address" required />
+              </div>
+              <div class="input-grp">
+                <input type="text" id="c-city" placeholder="City" required />
+              </div>
+              <div class="input-grp">
+                <select id="c-district" required>
+                  <option value="" disabled selected>Select District</option>
+                  <option value="Ampara">Ampara</option>
+                  <option value="Anuradhapura">Anuradhapura</option>
+                  <option value="Badulla">Badulla</option>
+                  <option value="Batticaloa">Batticaloa</option>
+                  <option value="Colombo">Colombo</option>
+                  <option value="Galle">Galle</option>
+                  <option value="Gampaha">Gampaha</option>
+                  <option value="Hambantota">Hambantota</option>
+                  <option value="Jaffna">Jaffna</option>
+                  <option value="Kalutara">Kalutara</option>
+                  <option value="Kandy">Kandy</option>
+                  <option value="Kegalle">Kegalle</option>
+                  <option value="Kilinochchi">Kilinochchi</option>
+                  <option value="Kurunegala">Kurunegala</option>
+                  <option value="Mannar">Mannar</option>
+                  <option value="Matale">Matale</option>
+                  <option value="Matara">Matara</option>
+                  <option value="Monaragala">Monaragala</option>
+                  <option value="Mullaitivu">Mullaitivu</option>
+                  <option value="Nuwara Eliya">Nuwara Eliya</option>
+                  <option value="Polonnaruwa">Polonnaruwa</option>
+                  <option value="Puttalam">Puttalam</option>
+                  <option value="Ratnapura">Ratnapura</option>
+                  <option value="Trincomalee">Trincomalee</option>
+                  <option value="Vavuniya">Vavuniya</option>
+                </select>
+              </div>
+              <div class="input-grp form-group-full">
+                <input type="tel" id="c-phone" placeholder="Mobile Phone" required />
+              </div>
+            </div>
+          </div>
+          <!-- Payment Section -->
+          <div class="chk-section" style="margin-top: 30px;">
+            <h3 class="payment-section-title">Payment</h3>
+            <p class="payment-section-subtitle">All transactions are secure and encrypted.</p>
+            
+            <div class="payment-gateway-box">
+              
+              <!-- Option 1: Credit / Debit Card Payments (onepay) -->
+              <div class="payment-gateway-row-container active-row" id="row-container-card">
+                <label class="payment-gateway-row">
+                  <div class="pg-radio-col">
+                    <input type="radio" name="payment_method" value="Card Payment" checked onchange="handlePaymentChange('Card Payment');" />
+                    <span class="custom-radio"></span>
+                  </div>
+                  <div class="pg-text-col">
+                    <span class="pg-title">Credit / Debit Card Payments (onepay)</span>
+                  </div>
+                  <div class="pg-icons-col">
+                    <!-- Visa Icon -->
+                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block; vertical-align: middle;">
+                      <rect width="120" height="80" rx="4" fill="white"/>
+                      <g transform="translate(15, 26) scale(0.69)">
+                        <path d="M32.4128 41.0541H21.1928L12.7791 8.95549C12.3798 7.47895 11.5319 6.17361 10.2846 5.55839C7.17185 4.01231 3.74183 2.78186 0 2.16129V0.925493H18.0746C20.5691 0.925493 22.4401 2.78186 22.7519 4.93782L27.1174 28.0916L38.3319 0.925493H49.2401L32.4128 41.0541ZM55.4767 41.0541H44.8803L53.6058 0.925493H64.2022L55.4767 41.0541ZM77.9109 12.0423C78.2227 9.88101 80.0936 8.64522 82.2763 8.64522C85.7063 8.33493 89.4427 8.9555 92.5609 10.4962L94.4318 1.85637C91.3136 0.620572 87.8836 0 84.7709 0C74.4863 0 67.0026 5.5584 67.0026 13.2728C67.0026 19.1415 72.3036 22.2229 76.0454 24.0793C80.0936 25.9303 81.6527 27.1661 81.3409 29.0171C81.3409 31.7936 78.2227 33.0294 75.11 33.0294C71.3681 33.0294 67.6263 32.1039 64.2017 30.5578L62.3308 39.2031C66.0727 40.7438 70.1208 41.3644 73.8627 41.3644C85.3945 41.6693 92.5609 36.1163 92.5609 27.7813C92.5609 17.2851 77.9109 16.6699 77.9109 12.0423V12.0423ZM129.646 41.0541L121.232 0.925493H112.195C110.324 0.925493 108.453 2.16129 107.83 4.01231L92.2495 41.0541H103.158L105.335 35.1907H118.738L119.985 41.0541H129.646ZM113.754 11.732L116.867 26.8558H108.141L113.754 11.732Z" fill="#1A1F71"/>
+                      </g>
+                    </svg>
+                    <!-- Mastercard Icon -->
+                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block;">
+                      <rect width="120" height="80" rx="4" fill="white"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M97.5288 54.6562V53.7384H97.289L97.0137 54.3698L96.7378 53.7384H96.498V54.6562H96.6675V53.9637L96.9257 54.5609H97.1011L97.36 53.9624V54.6562H97.5288ZM96.0111 54.6562V53.8947H96.318V53.7397H95.5361V53.8947H95.843V54.6562H96.0111Z" fill="#F79E1B"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M49.6521 58.595H70.3479V21.4044H49.6521V58.595Z" fill="#FF5F00"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M98.2675 40.0003C98.2675 53.063 87.6791 63.652 74.6171 63.652C69.0996 63.652 64.0229 61.7624 60 58.5956C65.5011 54.2646 69.0339 47.5448 69.0339 40.0003C69.0339 32.4552 65.5011 25.7354 60 21.4044C64.0229 18.2376 69.0996 16.348 74.6171 16.348C87.6791 16.348 98.2675 26.937 98.2675 40.0003Z" fill="#F79E1B"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M50.966 40.0003C50.966 32.4552 54.4988 25.7354 59.9999 21.4044C55.977 18.2376 50.9003 16.348 45.3828 16.348C32.3208 16.348 21.7324 26.937 21.7324 40.0003C21.7324 53.063 32.3208 63.652 45.3828 63.652C50.9003 63.652 55.977 61.7624 59.9999 58.5956C54.4988 54.2646 50.966 47.5448 50.966 40.0003Z" fill="#EB001B"/>
+                    </svg>
+                    <!-- Amex Icon -->
+                    <svg width="34" height="22.6" viewBox="0 0 120 80" version="1.1" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block;">
+                      <rect width="120" height="80" rx="4" fill="#fff" />
+                      <path d="m120 76v-8.6763h-9.651l-4.969-5.4944-4.994 5.4944h-31.822v-25.607h-10.27l12.74-28.831h12.286l4.3857 9.877v-9.877h15.208l2.64 7.4429 2.658-7.4429h11.789v-8.8854c0-2.2091-1.7909-4-4-4h-112c-2.2091 4.4409e-16 -4 1.7909-4 4v72c4.4409e-16 2.2091 1.7909 4 4 4h112c2.2091 0 4-1.7909 4-4zm-8.026-11.882h8.026l-10.616-11.258 10.616-11.13h-7.898l-6.556 7.1645-6.4935-7.1645h-8.0275l10.554 11.194-10.554 11.194h7.8041l6.5889-7.2283 6.556 7.2283zm1.878-11.249 6.148 6.5406v-13.027l-6.148 6.4861zm-35.78 6.0675v-3.4864h12.633v-5.0534h-12.633v-3.4859h12.953l5e-4 -5.1815h-19.062v22.388h19.062l-5e-4 -5.1813h-12.953zm35.883-20.456h6.045v-22.388h-9.403l-5.022 13.944-4.989-13.944h-9.5631v22.388h6.0446v-15.672l5.7575 15.672h5.373l5.757-15.704v15.704zm-29.809 0h6.8765l-9.8824-22.388h-7.8682l-9.8833 22.388h6.7166l1.8554-4.4776h10.298l1.887 4.4776zm-3.9976-9.4992h-6.0773l3.0387-7.3242 3.0386 7.3242z" fill="#0690FF"/>
+                    </svg>
+                    <!-- Discover Icon -->
+                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block;">
+                      <rect width="120" height="80" rx="4" fill="white"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M29 80H116.002C118.21 80 120 78.211 120 75.9957V48C120 48 87.8616 70.1063 29 80Z" fill="#E7792B"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M113.088 33.8624C113.088 30.7125 110.888 28.8951 107.053 28.8951H102.12V45.7197H105.443V38.9609H105.877L110.481 45.7197H114.571L109.202 38.6314C111.708 38.129 113.088 36.4383 113.088 33.8624ZM106.414 36.6411H105.443V31.5451H106.467C108.538 31.5451 109.665 32.4018 109.665 34.0385C109.665 35.7305 108.538 36.6411 106.414 36.6411Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M90.4839 45.7197H99.9176V42.8713H93.8077V38.3298H99.6923V35.4802H93.8077V31.746H99.9176V28.8951H90.4839V45.7197Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M80.7677 40.1959L76.2205 28.8951H72.5864L79.8236 46.1512H81.613L88.9799 28.8951H85.3742L80.7677 40.1959Z" fill="#1A1918"/>
+                      <path d="M64.6178 46.7197C69.7118 46.7197 73.8414 42.6454 73.8414 37.6197C73.8414 32.5939 69.7118 28.5197 64.6178 28.5197C59.5238 28.5197 55.3943 32.5939 55.3943 37.6197C55.3943 42.6454 59.5238 46.7197 64.6178 46.7197Z" fill="url(#paint0_radial_823_341)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M41.2231 37.3191C41.2231 42.2643 45.159 46.0986 50.224 46.0986C51.6556 46.0986 52.8817 45.8211 54.3943 45.1184V41.2555C53.0642 42.5685 51.8869 43.0982 50.3788 43.0982C47.0287 43.0982 44.651 40.7017 44.651 37.2944C44.651 34.0645 47.1038 31.5165 50.224 31.5165C51.8104 31.5165 53.0115 32.0749 54.3943 33.4093V29.5483C52.9344 28.8177 51.7334 28.5148 50.3024 28.5148C45.2631 28.5148 41.2231 32.4272 41.2231 37.3191Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M35.2687 35.3515C33.2725 34.6229 32.6868 34.1419 32.6868 33.2332C32.6868 32.173 33.731 31.3683 35.1646 31.3683C36.1614 31.3683 36.9803 31.772 37.8467 32.7307L39.5873 30.4824C38.157 29.248 36.446 28.6169 34.5763 28.6169C31.5589 28.6169 29.2576 30.6839 29.2576 33.4379C29.2576 35.7558 30.3295 36.9421 33.453 38.0516C34.7555 38.5047 35.4182 38.8063 35.7529 39.0097C36.417 39.4381 36.7497 40.0439 36.7497 40.7504C36.7497 42.1135 35.6515 43.1236 34.1671 43.1236C32.5807 43.1236 31.3032 42.341 30.537 40.8798L28.3879 42.9214C29.9204 45.1405 31.7611 46.124 34.2923 46.124C37.7485 46.124 40.1736 43.8568 40.1736 40.5996C40.1736 37.9268 39.0523 36.7165 35.2687 35.3515Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M23.8091 28.8951H27.1355V45.7197H23.8091V28.8951Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1242 28.8951H8.2417V45.7197H13.0985C15.6811 45.7197 17.5456 45.1184 19.1828 43.7775C21.1283 42.1889 22.2786 39.7949 22.2786 37.319C22.2786 32.3537 18.5187 28.8951 13.1242 28.8951ZM17.01 41.5336C15.9644 42.4651 14.6073 42.8713 12.4582 42.8713H11.5655V31.746H12.4582C14.6073 31.746 15.9111 32.1249 17.01 33.1064C18.1603 34.1171 18.8521 35.683 18.8521 37.2943C18.8521 38.9096 18.1603 40.5235 17.01 41.5336Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M115.21 29.5275C115.21 29.233 115.005 29.0712 114.643 29.0712H114.162V30.5499H114.52V29.9766L114.939 30.5499H115.376L114.883 29.9402C115.094 29.8843 115.21 29.7329 115.21 29.5275ZM114.58 29.7296H114.52V29.3429H114.584C114.761 29.3429 114.853 29.4059 114.853 29.5327C114.853 29.664 114.76 29.7296 114.58 29.7296Z" fill="#1A1918"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M114.715 28.5187C113.987 28.5187 113.41 29.092 113.41 29.8077C113.41 30.5233 113.994 31.0973 114.715 31.0973C115.424 31.0973 116.005 30.5175 116.005 29.8077C116.005 29.1018 115.424 28.5187 114.715 28.5187ZM114.71 30.8672C114.138 30.8672 113.669 30.3966 113.669 29.8096C113.669 29.2207 114.132 28.7508 114.71 28.7508C115.28 28.7508 115.745 29.2318 115.745 29.8096C115.745 30.3914 115.28 30.8672 114.71 30.8672Z" fill="#1A1918"/>
+                      <defs>
+                        <radialGradient id="paint0_radial_823_341" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(71.5 44) rotate(-142.431) scale(16.4012 16.1816)">
+                          <stop stop-color="#F59900"/>
+                          <stop offset="0.210082" stop-color="#F39501"/>
+                          <stop offset="0.908163" stop-color="#CE3C0B"/>
+                          <stop offset="1" stop-color="#A4420A"/>
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                </label>
+                <div class="pg-expanded-content" id="expanded-card" style="display: block;">
+                  <div class="card-form-container">
+                    <div class="card-form-row">
+                      <div class="card-input-wrapper">
+                        <input type="text" id="card-number" placeholder="Card number" maxlength="19" required />
+                        <svg class="card-input-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                      </div>
+                    </div>
+                    <div class="card-form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                      <div class="card-input-wrapper">
+                        <input type="text" id="card-expiry" placeholder="Expiry date (MM/YY)" maxlength="5" required />
+                        <svg class="card-input-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      </div>
+                      <div class="card-input-wrapper">
+                        <input type="text" id="card-cvv" placeholder="Security code (CVV)" maxlength="4" required />
+                        <svg class="card-input-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                      </div>
+                    </div>
+                    <div class="card-form-row" style="margin-top: 12px;">
+                      <div class="card-input-wrapper">
+                        <input type="text" id="card-name" placeholder="Name on card" required />
+                        <svg class="card-input-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option 2: Koko: Buy Now Pay Later -->
+              <div class="payment-gateway-row-container" id="row-container-koko">
+                <label class="payment-gateway-row">
+                  <div class="pg-radio-col">
+                    <input type="radio" name="payment_method" value="Koko" onchange="handlePaymentChange('Koko');" />
+                    <span class="custom-radio"></span>
+                  </div>
+                  <div class="pg-text-col">
+                    <span class="pg-title">Koko: Buy Now Pay Later</span>
+                  </div>
+                  <div class="pg-icons-col">
+                    <!-- Visa Icon -->
+                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block; vertical-align: middle;">
+                      <rect width="120" height="80" rx="4" fill="white"/>
+                      <g transform="translate(15, 26) scale(0.69)">
+                        <path d="M32.4128 41.0541H21.1928L12.7791 8.95549C12.3798 7.47895 11.5319 6.17361 10.2846 5.55839C7.17185 4.01231 3.74183 2.78186 0 2.16129V0.925493H18.0746C20.5691 0.925493 22.4401 2.78186 22.7519 4.93782L27.1174 28.0916L38.3319 0.925493H49.2401L32.4128 41.0541ZM55.4767 41.0541H44.8803L53.6058 0.925493H64.2022L55.4767 41.0541ZM77.9109 12.0423C78.2227 9.88101 80.0936 8.64522 82.2763 8.64522C85.7063 8.33493 89.4427 8.9555 92.5609 10.4962L94.4318 1.85637C91.3136 0.620572 87.8836 0 84.7709 0C74.4863 0 67.0026 5.5584 67.0026 13.2728C67.0026 19.1415 72.3036 22.2229 76.0454 24.0793C80.0936 25.9303 81.6527 27.1661 81.3409 29.0171C81.3409 31.7936 78.2227 33.0294 75.11 33.0294C71.3681 33.0294 67.6263 32.1039 64.2017 30.5578L62.3308 39.2031C66.0727 40.7438 70.1208 41.3644 73.8627 41.3644C85.3945 41.6693 92.5609 36.1163 92.5609 27.7813C92.5609 17.2851 77.9109 16.6699 77.9109 12.0423V12.0423ZM129.646 41.0541L121.232 0.925493H112.195C110.324 0.925493 108.453 2.16129 107.83 4.01231L92.2495 41.0541H103.158L105.335 35.1907H118.738L119.985 41.0541H129.646ZM113.754 11.732L116.867 26.8558H108.141L113.754 11.732Z" fill="#1A1F71"/>
+                      </g>
+                    </svg>
+                    <!-- Mastercard Icon -->
+                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block;">
+                      <rect width="120" height="80" rx="4" fill="white"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M97.5288 54.6562V53.7384H97.289L97.0137 54.3698L96.7378 53.7384H96.498V54.6562H96.6675V53.9637L96.9257 54.5609H97.1011L97.36 53.9624V54.6562H97.5288ZM96.0111 54.6562V53.8947H96.318V53.7397H95.5361V53.8947H95.843V54.6562H96.0111Z" fill="#F79E1B"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M49.6521 58.595H70.3479V21.4044H49.6521V58.595Z" fill="#FF5F00"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M98.2675 40.0003C98.2675 53.063 87.6791 63.652 74.6171 63.652C69.0996 63.652 64.0229 61.7624 60 58.5956C65.5011 54.2646 69.0339 47.5448 69.0339 40.0003C69.0339 32.4552 65.5011 25.7354 60 21.4044C64.0229 18.2376 69.0996 16.348 74.6171 16.348C87.6791 16.348 98.2675 26.937 98.2675 40.0003Z" fill="#F79E1B"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M50.966 40.0003C50.966 32.4552 54.4988 25.7354 59.9999 21.4044C55.977 18.2376 50.9003 16.348 45.3828 16.348C32.3208 16.348 21.7324 26.937 21.7324 40.0003C21.7324 53.063 32.3208 63.652 45.3828 63.652C50.9003 63.652 55.977 61.7624 59.9999 58.5956C54.4988 54.2646 50.966 47.5448 50.966 40.0003Z" fill="#EB001B"/>
+                    </svg>
+                  </div>
+                </label>
+                <div class="pg-expanded-content" id="expanded-koko" style="display: none;">
+                  <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 14px 16px; border-radius: 8px; font-size: 13px; color: #856404; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px;">
+                    <span style="font-size: 16px; line-height: 1;">⚡</span>
+                    <div>
+                      <strong>Flash Sale Offer Notice:</strong> Special Flash Sale promotional prices apply exclusively to <strong>Cash on Delivery (COD)</strong> &amp; <strong>Bank Transfer</strong> payments. Regular prices apply for Koko installment purchases.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Option 4: Bank Transfer -->
+              <div class="payment-gateway-row-container" id="row-container-bank">
+                <label class="payment-gateway-row">
+                  <div class="pg-radio-col">
+                    <input type="radio" name="payment_method" value="Bank Transfer" onchange="handlePaymentChange('Bank Transfer');" />
+                    <span class="custom-radio"></span>
+                  </div>
+                  <div class="pg-text-col">
+                    <span class="pg-title">Bank Transfer</span>
+                  </div>
+                  <div class="pg-icons-col"></div>
+                </label>
+                <div class="pg-expanded-content" id="expanded-bank">
+                  <div style="background: #fff; border: 1px solid #eaeaea; padding: 16px; border-radius: 6px; text-align: left; font-size: 13.5px; color: #333; line-height: 1.6;">
+                    <strong>Acc No:</strong> 87727168<br/><strong>Name:</strong> SMNP Jayarathne<br/><strong>Bank:</strong> BOC
+                    <div style="margin-top: 15px;">
+                      <a href="https://wa.me/94766190550" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: bold; font-family: var(--font-sans);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
+                        Send Slip via WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option 5: Cash on Delivery (COD) -->
+              <div class="payment-gateway-row-container" id="row-container-cod">
+                <label class="payment-gateway-row">
+                  <div class="pg-radio-col">
+                    <input type="radio" name="payment_method" value="Cash on Delivery" onchange="handlePaymentChange('Cash on Delivery');" />
+                    <span class="custom-radio"></span>
+                  </div>
+                  <div class="pg-text-col">
+                    <span class="pg-title">Cash on Delivery (COD)</span>
+                  </div>
+                  <div class="pg-icons-col"></div>
+                </label>
+                <div id="expanded-cod" style="display: none;"></div>
+              </div>
+              
+            </div>
+          </div>
+
+          <!-- Billing Address Section -->
+          <div class="chk-section" style="margin-top: 30px;">
+            <h3 class="payment-section-title">Billing address</h3>
+            <p class="payment-section-subtitle">Select the address that matches your card or payment method.</p>
+            
+            <div class="billing-address-box">
+              <!-- Row 1: Same as shipping address -->
+              <div class="billing-row-container active-row" id="billing-container-same">
+                <label class="billing-row">
+                  <div class="pg-radio-col">
+                    <input type="radio" name="billing_address_option" value="same" checked onchange="handleBillingChange('same');" />
+                    <span class="custom-radio"></span>
+                  </div>
+                  <div class="pg-text-col">
+                    <span class="pg-title">Same as shipping address</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Row 2: Use a different billing address -->
+              <div class="billing-row-container" id="billing-container-diff">
+                <label class="billing-row">
+                  <div class="pg-radio-col">
+                    <input type="radio" name="billing_address_option" value="different" onchange="handleBillingChange('different');" />
+                    <span class="custom-radio"></span>
+                  </div>
+                  <div class="pg-text-col">
+                    <span class="pg-title">Use a different billing address</span>
+                  </div>
+                </label>
+                <div class="billing-expanded-content" id="billing-diff-form">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-grp"><input type="text" id="b-fname" placeholder="First Name" /></div>
+                    <div class="input-grp"><input type="text" id="b-lname" placeholder="Last Name" /></div>
+                    <div class="input-grp form-group-full"><input type="text" id="b-address" placeholder="Address" /></div>
+                    <div class="input-grp"><input type="text" id="b-city" placeholder="City" /></div>
+                    <div class="input-grp"><input type="text" id="b-district" placeholder="District" /></div>
+                    <div class="input-grp form-group-full"><input type="text" id="b-phone" placeholder="Phone" /></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn-pay-now" id="btn-master-submit">Pay now</button>
+        </form>
       </div>
 
-      <!-- TWO DISTINCT LUXURY CARDS WITH SHADES -->
-      <div class="chk-two-col-grid">
-        
-        <!-- LEFT CARD: Contact, Delivery & Payment Method (with soft multi-layer shadow) -->
-        <div class="chk-glass-card chk-form-card">
-          <form id="checkout-form" onsubmit="return false;">
-            
-            <div class="card-header-clean">
-              <div class="step-num-pill">1</div>
-              <div>
-                <h2 class="card-main-title">Delivery &amp; Contact Details</h2>
-                <p class="card-main-subtitle">Please enter your shipping address and contact info.</p>
-              </div>
-            </div>
-
-            <div class="form-fields-stack">
-              <!-- Full Name -->
-              <div class="field-item">
-                <label class="field-label">Customer Name *</label>
-                <div class="input-container-modern">
-                  <span class="input-icon-svg">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                  </span>
-                  <input type="text" id="c-fullname" class="input-modern" placeholder="e.g. Sandun Perera" required />
-                  <input type="hidden" id="c-fname" />
-                  <input type="hidden" id="c-lname" />
-                </div>
-              </div>
-
-              <!-- Phone & Email (Split 2-Col) -->
-              <div class="field-grid-2">
-                <div class="field-item">
-                  <label class="field-label">Mobile Phone *</label>
-                  <div class="input-container-modern">
-                    <span class="input-icon-svg">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    </span>
-                    <input type="tel" id="c-phone" class="input-modern" placeholder="07X XXX XXXX" required />
-                  </div>
-                </div>
-
-                <div class="field-item">
-                  <label class="field-label">Email Address *</label>
-                  <div class="input-container-modern">
-                    <span class="input-icon-svg">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    </span>
-                    <input type="email" id="c-email" class="input-modern" placeholder="name@example.com" required />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Street Address -->
-              <div class="field-item">
-                <label class="field-label">Delivery Address (Street / House No) *</label>
-                <div class="input-container-modern">
-                  <span class="input-icon-svg">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  </span>
-                  <input type="text" id="c-address" class="input-modern" placeholder="No, Street Name, Town" required />
-                </div>
-              </div>
-
-              <!-- City & District (Split 2-Col) -->
-              <div class="field-grid-2">
-                <div class="field-item">
-                  <label class="field-label">City *</label>
-                  <div class="input-container-modern">
-                    <input type="text" id="c-city" class="input-modern no-icon" placeholder="e.g. Colombo" required />
-                  </div>
-                </div>
-
-                <div class="field-item">
-                  <label class="field-label">District *</label>
-                  <div class="input-container-modern">
-                    <select id="c-district" class="input-modern select-modern no-icon" required>
-                      <option value="" disabled selected>Select District</option>
-                      <option value="Colombo">Colombo</option>
-                      <option value="Gampaha">Gampaha</option>
-                      <option value="Kalutara">Kalutara</option>
-                      <option value="Kandy">Kandy</option>
-                      <option value="Matale">Matale</option>
-                      <option value="Nuwara Eliya">Nuwara Eliya</option>
-                      <option value="Galle">Galle</option>
-                      <option value="Matara">Matara</option>
-                      <option value="Hambantota">Hambantota</option>
-                      <option value="Jaffna">Jaffna</option>
-                      <option value="Kilinochchi">Kilinochchi</option>
-                      <option value="Mannar">Mannar</option>
-                      <option value="Vavuniya">Vavuniya</option>
-                      <option value="Mullaitivu">Mullaitivu</option>
-                      <option value="Batticaloa">Batticaloa</option>
-                      <option value="Ampara">Ampara</option>
-                      <option value="Trincomalee">Trincomalee</option>
-                      <option value="Kurunegala">Kurunegala</option>
-                      <option value="Puttalam">Puttalam</option>
-                      <option value="Anuradhapura">Anuradhapura</option>
-                      <option value="Polonnaruwa">Polonnaruwa</option>
-                      <option value="Badulla">Badulla</option>
-                      <option value="Monaragala">Monaragala</option>
-                      <option value="Ratnapura">Ratnapura</option>
-                      <option value="Kegalle">Kegalle</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Payment Method Selection -->
-            <div style="margin-top: 32px; padding-top: 26px; border-top: 1px solid #f1f5f9;">
-              <div class="card-header-clean" style="margin-bottom: 16px;">
-                <div class="step-num-pill">2</div>
-                <div>
-                  <h3 class="card-main-title" style="font-size: 17px;">Payment Method</h3>
-                  <p class="card-main-subtitle">Choose your preferred payment option.</p>
-                </div>
-              </div>
-
-              <div class="payment-cards-group">
-                <!-- 1. Cash on Delivery Tile -->
-                <div class="pay-tile active-tile" id="tile-cod" onclick="selectPaymentOption('Cash on Delivery')">
-                  <div class="tile-left">
-                    <span class="tile-radio-circle"></span>
-                    <span class="tile-icon-badge cod-badge">💵</span>
-                    <div>
-                      <div class="tile-title">Cash on Delivery (COD)</div>
-                      <div class="tile-desc">Pay cash upon delivery at your doorstep</div>
-                    </div>
-                  </div>
-                  <div class="tile-price" id="tile-cod-price">Rs. 0</div>
-                </div>
-
-                <!-- 2. Bank Transfer Tile -->
-                <div class="pay-tile" id="tile-bank" onclick="selectPaymentOption('Bank Transfer')">
-                  <div class="tile-left">
-                    <span class="tile-radio-circle"></span>
-                    <span class="tile-icon-badge bank-badge">🏦</span>
-                    <div>
-                      <div class="tile-title">Direct Bank Transfer</div>
-                      <div class="tile-desc">Deposit to BOC &amp; send slip via WhatsApp</div>
-                    </div>
-                  </div>
-                  <div class="tile-price" id="tile-bank-price">Rs. 0</div>
-                </div>
-
-                <!-- 3. Koko BNPL Tile -->
-                <div class="pay-tile" id="tile-koko" onclick="selectPaymentOption('Koko')">
-                  <div class="tile-left">
-                    <span class="tile-radio-circle"></span>
-                    <span class="tile-icon-badge koko-badge">
-                      <img src="koko-logo.png" alt="Koko" />
-                    </span>
-                    <div>
-                      <div class="tile-title">Koko (3 Installments)</div>
-                      <div class="tile-desc">Pay in 3 monthly installments with Card</div>
-                    </div>
-                  </div>
-                  <div class="tile-price" id="tile-koko-price">3 x Rs. 0.00</div>
-                </div>
-              </div>
-
-              <!-- Hidden input radios for script compatibility -->
-              <input type="radio" name="payment_method" value="Cash on Delivery" checked style="display: none;" />
-              <input type="radio" name="payment_method" value="Bank Transfer" style="display: none;" />
-              <input type="radio" name="payment_method" value="Koko" style="display: none;" />
-
-              <!-- Dynamic Panels for selected method -->
-              <div id="tile-details-cod" class="tile-expanded-box cod-expanded" style="display: block;">
-                <div class="reassurance-row">
-                  <span class="reassurance-icon">🚚</span>
-                  <span><strong>Doorstep Cash Collection:</strong> Inspect your parcel and pay cash to the courier agent upon delivery anywhere in Sri Lanka.</span>
-                </div>
-              </div>
-
-              <div id="tile-details-bank" class="tile-expanded-box bank-expanded" style="display: none;">
-                <div class="bank-info-card">
-                  <div class="bank-info-header">
-                    <strong>Bank of Ceylon (BOC)</strong>
-                    <span class="badge-account">Direct Deposit</span>
-                  </div>
-                  <div class="bank-details-grid">
-                    <div>Account Number: <strong>87727168</strong></div>
-                    <div>Account Name: <strong>SMNP Jayarathne</strong></div>
-                  </div>
-                  <a href="https://wa.me/94766190550" target="_blank" class="btn-whatsapp-slip-glow">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
-                    Send Deposit Slip via WhatsApp
-                  </a>
-                </div>
-              </div>
-
-              <div id="tile-details-koko" class="tile-expanded-box koko-expanded" style="display: none;">
-                <div id="koko-live-panel"></div>
-              </div>
-            </div>
-
-          </form>
-        </div>
-
-        <!-- RIGHT CARD: Order Summary & Instant Checkout (with sticky luxury shadow) -->
-        <div class="chk-glass-card chk-summary-card">
-          <div class="card-header-clean" style="justify-content: space-between;">
-            <div>
-              <h2 class="card-main-title">Order Summary</h2>
-              <p class="card-main-subtitle">Review items &amp; total in your bag</p>
-            </div>
-            <span id="summ-item-count" class="summary-count-badge">0 items</span>
-          </div>
-
-          <!-- Items List -->
-          <div id="summ-items" class="cart-items-luxury-list"></div>
-
-          <!-- Promo / Coupon Code Section -->
-          <div class="promo-code-container">
-            <label class="field-label" style="margin-bottom: 6px;">Discount Code</label>
-            <div class="promo-input-wrap">
-              <span class="promo-icon">%</span>
-              <input type="text" id="coupon-input" class="promo-input" placeholder="Enter coupon code" />
-              <button type="button" class="promo-btn-apply" onclick="handleCouponApply()">Apply</button>
-            </div>
-            <div id="coupon-msg" style="font-size: 11.5px; margin-top: 5px; display: none;"></div>
-          </div>
-
-          <!-- Financial Breakdown -->
-          <div class="financial-breakdown">
-            <div class="breakdown-row">
-              <span class="b-label">Product Subtotal</span>
-              <span class="b-value" id="summ-subtotal">Rs. 0</span>
-            </div>
-
-            <div class="breakdown-row discount-row-green" id="summ-discount-row" style="display: none;">
-              <span class="b-label" id="summ-discount-label">Offer Discount (40% OFF)</span>
-              <span class="b-value" id="summ-discount">-Rs. 0</span>
-            </div>
-
-            <div class="breakdown-row" id="summ-discounted-subtotal-row" style="display: none;">
-              <span class="b-label">Price After Discount</span>
-              <span class="b-value" id="summ-discounted-subtotal">Rs. 0</span>
-            </div>
-
-            <div class="breakdown-row">
-              <span class="b-label" style="display: inline-flex; align-items: center; gap: 6px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                Island-wide Delivery
-              </span>
-              <span class="b-value" id="summ-shipping">Rs. 450</span>
-            </div>
-
-            <div class="breakdown-divider-line"></div>
-
-            <!-- Total Payable -->
-            <div class="breakdown-row total-row-grand">
-              <div>
-                <div class="grand-total-label">Total Payable</div>
-                <div class="grand-total-sub" id="summ-active-method-label">(Cash on Delivery)</div>
-              </div>
-              <span class="grand-total-amount" id="summ-total">Rs. 0</span>
-            </div>
-          </div>
-
-          <!-- Big Glowing Luxury Action Button -->
-          <button type="button" class="btn-master-submit-glow" id="btn-master-submit">
-            Place Order &bull; Rs. 0
-          </button>
-
-          <div class="security-guarantee-note">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            <span>Guaranteed 100% Secure Checkout &amp; Authentic Quality</span>
+      <div class="chk-right">
+        <div class="summary-box">
+          <h2 class="summ-title">Order Summary</h2>
+          <div class="summ-items" id="summ-items"></div>
+          <div class="summ-totals">
+            <div class="summ-row"><span>Subtotal</span><span id="summ-subtotal">Rs. 0</span></div>
+            <div class="summ-row" id="summ-discount-row" style="display: none; color: var(--gold);"><span>Discount</span><span id="summ-discount" style="color: var(--gold);">-Rs. 0</span></div>
+            <div class="summ-row"><span>Shipping</span><span id="summ-shipping">Rs. 350</span></div>
+            <div class="summ-row total"><span>Total</span><span id="summ-total">Rs. 0</span></div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=510"></script>
+  <script src="products.js?v=412"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1150,55 +984,39 @@
     if ($('cart-close')) $('cart-close').onclick = closeAll;
     if (overlay) overlay.onclick = closeAll;
 
-    let selectedPaymentMethod = 'Cash on Delivery';
-
-    
-    
-    window.handleCouponApply = function() {
-      const code = ($('coupon-input')?.value || '').trim();
-      const msgEl = $('coupon-msg');
-      if (!msgEl) return;
-      msgEl.style.display = 'block';
-      if (!code) {
-        msgEl.style.color = '#ef4444';
-        msgEl.textContent = 'Please enter a coupon code.';
-        return;
-      }
-      msgEl.style.color = '#eab308';
-      msgEl.textContent = 'Coupon code "' + code + '" is invalid or expired.';
-    };
-    
-    window.selectPaymentOption = function(method) {
-      const radio = document.querySelector(`input[name="payment_method"][value="${method}"]`);
-      if (radio) {
-        radio.checked = true;
-      }
-      handlePaymentChange(method);
-    };
+    let selectedPaymentMethod = 'Card Payment';
 
     function handlePaymentChange(method) {
       selectedPaymentMethod = method;
-      
-      const tileCod = $('tile-cod');
-      const tileBank = $('tile-bank');
-      const tileKoko = $('tile-koko');
+      const methods = ['Card Payment', 'Koko', 'Bank Transfer', 'Cash on Delivery'];
+      const containers = {
+        'Card Payment': 'row-container-card',
+        'Koko': 'row-container-koko',
+        'Bank Transfer': 'row-container-bank',
+        'Cash on Delivery': 'row-container-cod'
+      };
+      const panels = {
+        'Card Payment': 'expanded-card',
+        'Koko': 'expanded-koko',
+        'Bank Transfer': 'expanded-bank',
+        'Cash on Delivery': 'expanded-cod'
+      };
 
-      if (tileCod) tileCod.classList.toggle('active-tile', method === 'Cash on Delivery');
-      if (tileBank) tileBank.classList.toggle('active-tile', method === 'Bank Transfer');
-      if (tileKoko) tileKoko.classList.toggle('active-tile', method === 'Koko');
-
-      const detCod = $('tile-details-cod');
-      const detBank = $('tile-details-bank');
-      const detKoko = $('tile-details-koko');
-
-      if (detCod) detCod.style.display = (method === 'Cash on Delivery') ? 'block' : 'none';
-      if (detBank) detBank.style.display = (method === 'Bank Transfer') ? 'block' : 'none';
-      if (detKoko) detKoko.style.display = (method === 'Koko') ? 'block' : 'none';
+      methods.forEach(m => {
+        const container = $(containers[m]);
+        const panel = $(panels[m]);
+        if (m === method) {
+          if (container) container.classList.add('active-row');
+          if (panel) panel.style.display = 'block';
+        } else {
+          if (container) container.classList.remove('active-row');
+          if (panel) panel.style.display = 'none';
+        }
+      });
 
       if (typeof window.renderOrderSummary === 'function') {
         window.renderOrderSummary();
       }
-    }
     }
 
     function handleBillingChange(option) {
@@ -1218,7 +1036,7 @@
     }
 
     // Initialize layout state
-    handlePaymentChange('Cash on Delivery');
+    handlePaymentChange('Card Payment');
     handleBillingChange('same');
 
     // Helper to evaluate live flash sale offer discount in checkout
@@ -1252,6 +1070,7 @@
 
     window.renderOrderSummary = function() {
       let localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
+      // Refresh items with current live offer discount so the active offer price is locked in
       let cartChanged = false;
       localCart.forEach(item => {
         const eff = getCheckoutEffectiveDiscount(item);
@@ -1273,185 +1092,62 @@
       }
 
       let originalSubtotal = 0;
-      let codDiscountedSubtotal = 0;
-      let kokoDiscountedSubtotal = 0;
-      let totalQty = 0;
-      let primaryDiscountPercent = 0;
+      let discountedSubtotal = 0;
+      let totalDiscount = 0;
       const isKoko = (selectedPaymentMethod === 'Koko');
 
       itemsContainer.innerHTML = localCart.map(item => {
-        const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
-          ? getCheckoutEffectiveDiscount(item) 
-          : Number(item.discount || 0);
+        const discount = isKoko ? 0 : Number(item.discount || 0);
+        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
         
-        if (effDisc > primaryDiscountPercent) {
-          primaryDiscountPercent = effDisc;
-        }
+        originalSubtotal += (item.price * item.qty);
+        discountedSubtotal += (discountedPrice * item.qty);
+        totalDiscount += ((item.price - discountedPrice) * item.qty);
 
-        const lineOriginal = item.price * item.qty;
-        const codDiscountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
-        const kokoDiscountedPrice = (effDisc > 12) ? Math.round(codDiscountedPrice * 1.12) : codDiscountedPrice;
+        const priceHTML = discount > 0 
+            ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
+                 <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
+                 <span style="text-decoration:line-through; color:#88888b; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                 <span class="discount-badge" style="background:rgba(198, 151, 90, 0.12); color:#c6975a; font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px; text-transform:uppercase;">${discount}% OFF</span>
+               </div>`
+            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
 
-        originalSubtotal += lineOriginal;
-        codDiscountedSubtotal += (codDiscountedPrice * item.qty);
-        kokoDiscountedSubtotal += (kokoDiscountedPrice * item.qty);
-        totalQty += item.qty;
-
-        const currentItemPrice = isKoko ? kokoDiscountedPrice : codDiscountedPrice;
-        const lineTotal = currentItemPrice * item.qty;
-        const imgUrl = item.img || (item.images && item.images[0]) || 'favicon.png';
-
-        return `
-          <div class="luxury-item-card">
-            <div class="lux-img-box">
-              <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" alt="${item.name}">
-            </div>
-            <div class="lux-item-details">
-              <h4 class="lux-item-title">${item.qty} &times; ${item.name}</h4>
-              <div class="lux-stepper-wrap">
-                <span class="lux-qty-lbl">Qty:</span>
-                <div class="lux-stepper-pill">
-                  <button type="button" class="lux-stepper-btn" onclick="updateQtyCheckout('${item.id}', -1)" title="Decrease">&minus;</button>
-                  <span class="lux-stepper-val">${item.qty}</span>
-                  <button type="button" class="lux-stepper-btn" onclick="updateQtyCheckout('${item.id}', 1)" title="Increase">&plus;</button>
+        return `<div class="summ-item" style="justify-content: space-between; width: 100%;">
+            <div style="display: flex; gap: 15px; align-items: center; flex-grow: 1;">
+              <div class="img-wrap">
+                <img src="${item.img}">
+                <span class="qty-badge">${item.qty}</span>
+              </div>
+              <div class="summ-details">
+                <h4>${item.name}</h4>
+                <div class="qty-adjust" style="margin-top: 5px; align-self: flex-start; display: inline-flex;">
+                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)">-</button>
+                  <span class="qty-val">${item.qty}</span>
+                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)">+</button>
                 </div>
               </div>
             </div>
-            <div class="lux-item-price">
-              Rs. ${lineTotal.toLocaleString()}
+            <div class="price-container" style="text-align: right; min-width: 90px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0;">
+              ${priceHTML}
             </div>
-          </div>
-        `;
+          </div>`;
       }).join('');
 
-      const fee = window._shippingFee != null ? Number(window._shippingFee) : 450;
-      const itemCountEl = $('summ-item-count');
-      if (itemCountEl) {
-        itemCountEl.textContent = `${totalQty} ${totalQty === 1 ? 'item' : 'items'}`;
-      }
-
-      // Calculations
-      const fullDiscount = originalSubtotal - codDiscountedSubtotal;
-      const kokoFee = kokoDiscountedSubtotal - codDiscountedSubtotal; // Exactly the 12% difference!
-      const codTotal = codDiscountedSubtotal + fee;
-      const kokoTotal = kokoDiscountedSubtotal + fee;
-      const kokoInstallment = (kokoTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                  // Line 1: Product Price (Subtotal)
+      const fee = window._shippingFee || 350;
       $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
       
-      // Line 2: Offer Discount (Green)
       const discountRow = $('summ-discount-row');
-      const discountLabel = $('summ-discount-label');
-      if (fullDiscount > 0) {
-        if (discountLabel) {
-          discountLabel.textContent = primaryDiscountPercent > 0 
-            ? `Offer Discount (${primaryDiscountPercent}% OFF)` 
-            : `Offer Discount`;
-          discountLabel.style.color = '#16a34a';
-        }
-        if (discountRow) {
-          const dEl = $('summ-discount');
-          dEl.textContent = `-Rs. ${fullDiscount.toLocaleString()}`;
-          dEl.style.color = '#16a34a';
-          discountRow.style.display = 'flex';
-        }
+      if (totalDiscount > 0 && !isKoko) {
+        $('summ-discount').textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
+        discountRow.style.display = 'flex';
       } else {
-        if (discountRow) discountRow.style.display = 'none';
+        discountRow.style.display = 'none';
       }
 
-      // Line 3: Price After Discount (Clean, bold, non-cluttered)
-      const discountedSubtotalRow = $('summ-discounted-subtotal-row');
-      const discountedSubtotalEl = $('summ-discounted-subtotal');
-      if (fullDiscount > 0) {
-        if (discountedSubtotalEl) {
-          discountedSubtotalEl.textContent = `Rs. ${codDiscountedSubtotal.toLocaleString()}`;
-        }
-        if (discountedSubtotalRow) discountedSubtotalRow.style.display = 'flex';
-      } else {
-        if (discountedSubtotalRow) discountedSubtotalRow.style.display = 'none';
-      }
-
-      // Line 4: Delivery Fee
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
-
-      // Update Payment Tile Prices
-      const codPriceEl = $('tile-cod-price');
-      if (codPriceEl) codPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
-
-      const bankPriceEl = $('tile-bank-price');
-      if (bankPriceEl) bankPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
-
-      const kokoPriceEl = $('tile-koko-price');
-      if (kokoPriceEl) kokoPriceEl.textContent = `3 x Rs. ${kokoInstallment}`;
-
-      // Line 8: Final Total Payable
-      const activeTotal = isKoko ? kokoTotal : codTotal;
-      $('summ-total').textContent = `Rs. ${activeTotal.toLocaleString()}`;
-      window.currentOrderTotal = activeTotal;
-
-      const activeLabel = $('summ-active-method-label');
-      if (activeLabel) {
-        if (isKoko) {
-          activeLabel.textContent = `(Koko 3x • 1st: Rs. ${kokoInstallment})`;
-        } else if (selectedPaymentMethod === 'Bank Transfer') {
-          activeLabel.textContent = `(Bank Transfer)`;
-        } else {
-          activeLabel.textContent = `(Cash on Delivery)`;
-        }
-      }
-
-      // Dynamic submit button text (Place Order • Rs. X or Pay with Koko)
-      const btnMaster = $('btn-master-submit');
-      if (btnMaster && !btnMaster.disabled) {
-        if (isKoko) {
-          btnMaster.innerHTML = `Pay with Koko &bull; 1st: Rs. ${kokoInstallment}`;
-          btnMaster.classList.add('koko-btn');
-        } else if (selectedPaymentMethod === 'Bank Transfer') {
-          btnMaster.innerHTML = `Place Order (Bank Transfer) &bull; Rs. ${codTotal.toLocaleString()}`;
-          btnMaster.classList.remove('koko-btn');
-        } else {
-          btnMaster.innerHTML = `Place Order (Cash on Delivery) &bull; Rs. ${codTotal.toLocaleString()}`;
-          btnMaster.classList.remove('koko-btn');
-        }
-      }
-
-// Update Koko live panel on left payment options with clear calculated breakdown
-      const kokoLivePanel = $('koko-live-panel');
-      if (kokoLivePanel) {
-        kokoLivePanel.innerHTML = `
-          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #581c87;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 600;">Pay in 3 monthly installments:</span>
-              <strong style="font-size: 14.5px; color: #7e22ce;">3 x Rs. ${kokoInstallment}</strong>
-            </div>
-            ${kokoFee > 0 ? `
-              <div style="font-size: 11.5px; color: #6b21a8; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #d8b4fe; line-height: 1.5;">
-                <div>Offer Price: <strong>Rs. ${codDiscountedSubtotal.toLocaleString()}</strong> (${primaryDiscountPercent}% OFF)</div>
-                <div>+ 12% Koko Fee: <strong>+Rs. ${kokoFee.toLocaleString()}</strong> &bull; Delivery: <strong>Rs. ${fee.toLocaleString()}</strong></div>
-                <div style="font-weight: 700; color: #581c87; margin-top: 3px; font-size: 12px;">Total Order Amount with Koko: Rs. ${kokoTotal.toLocaleString()}</div>
-              </div>
-            ` : `
-              <div style="font-size: 11.5px; color: #6b21a8; margin-top: 6px; padding-top: 6px; border-top: 1px dashed #d8b4fe;">
-                0% Interest with Debit/Credit Card &bull; Total: <strong>Rs. ${kokoTotal.toLocaleString()}</strong>
-              </div>
-            `}
-          </div>`;
-      }
-
-      // Update COD live panel on left payment options
-      const codLivePanel = $('cod-live-panel');
-      if (codLivePanel) {
-        codLivePanel.innerHTML = `
-          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #166534;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span>Pay cash at doorstep:</span>
-              <strong style="font-size: 13px; color: #14532d;">Rs. ${codTotal.toLocaleString()}</strong>
-            </div>
-          </div>`;
-      }
-
-
+      const finalSubtotal = isKoko ? originalSubtotal : discountedSubtotal;
+      $('summ-total').textContent = `Rs. ${(finalSubtotal + fee).toLocaleString()}`;
+      window.currentOrderTotal = finalSubtotal + fee;
     };
 
     window.updateQtyCheckout = function(id, change) {
@@ -1555,38 +1251,14 @@
         });
       }
 
-      
-      const fullNameInput = $('c-fullname');
-      if (fullNameInput) {
-        fullNameInput.addEventListener('input', (e) => {
-          const val = e.target.value.trim();
-          const parts = val.split(' ');
-          const f = parts[0] || '';
-          const l = parts.slice(1).join(' ') || f;
-          if ($('c-fname')) $('c-fname').value = f;
-          if ($('c-lname')) $('c-lname').value = l;
-        });
-      }
-    
-      const handleOrderSubmit = async (e) => {
-          if (e && e.preventDefault) e.preventDefault();
-          const btn1 = $('btn-master-submit');
-          const btn2 = $('btn-summary-submit');
-          const setBtnState = (disabled, text) => {
-            if (btn1) { btn1.disabled = disabled; if (text) btn1.textContent = text; }
-            if (btn2) { btn2.disabled = disabled; if (text) btn2.textContent = text; }
-          };
+      $('btn-master-submit').onclick = async (e) => {
+          e.preventDefault();
           const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
           if (currentCart.length === 0) return;
 
-          const fullNameVal = ($('c-fullname')?.value || '').trim();
-          const nameParts = fullNameVal.split(' ');
-          const fName = $('c-fname')?.value.trim() || nameParts[0] || '';
-          const lName = $('c-lname')?.value.trim() || nameParts.slice(1).join(' ') || fName;
-
           const fields = {
-            firstName: fName,
-            lastName: lName,
+            firstName: $('c-fname').value.trim(),
+            lastName: $('c-lname').value.trim(),
             email: $('c-email').value.trim(),
             address: $('c-address').value.trim(),
             city: $('c-city').value.trim(),
@@ -1641,8 +1313,8 @@
              return;
           }
 
-          setBtnState(true, 'Processing...');
-          
+          $('btn-master-submit').textContent = 'Processing...';
+          $('btn-master-submit').disabled = true;
           const userInfo = JSON.parse(localStorage.getItem('userInfo'));
           const orderData = {
             user: userInfo ? userInfo._id : null,
@@ -1651,11 +1323,9 @@
               const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
                 ? getCheckoutEffectiveDiscount(i) 
                 : Number(i.discount || 0);
-              const codPrice = effDisc > 0 ? Math.round(i.price * (1 - effDisc / 100)) : i.price;
-              const finalPrice = (paymentMethod === 'Koko' && effDisc > 12)
-                ? Math.round(codPrice * 1.12)
-                : codPrice;
-              return { product: i.id, name: i.name, qty: i.qty, price: finalPrice };
+              const discount = (paymentMethod === 'Koko') ? 0 : effDisc;
+              const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
+              return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
             }),
             shippingPrice: window._shippingFee || 450,
             totalPrice: window.currentOrderTotal,
@@ -1675,7 +1345,7 @@
 
               // Check if payment method is Koko
               if (paymentMethod === 'Koko') {
-                setBtnState(true, 'Preparing Koko Payment...');
+                $('btn-master-submit').textContent = 'Preparing Koko Payment...';
                 // Redirect directly to the server-side Koko gateway page
                 // This is a direct navigation to ensure mobile browser deep-links work properly
                 window.location.href = `${BASE}/payments/koko/redirect/${createdOrder._id}`;
@@ -1704,18 +1374,16 @@
               }
             } else {
                alert('Order creation failed');
-               setBtnState(false, 'Complete Order');
-               
+               $('btn-master-submit').textContent = 'Complete Order';
+               $('btn-master-submit').disabled = false;
             }
           } catch (err) { 
             console.error('Order Submission Error:', err);
             alert('An error occurred during order submission.');
-            setBtnState(false, 'Complete Order');
+            $('btn-master-submit').textContent = 'Complete Order';
+            $('btn-master-submit').disabled = false;
           }
       };
-
-      $('btn-master-submit').onclick = handleOrderSubmit;
-      if ($('btn-summary-submit')) $('btn-summary-submit').onclick = handleOrderSubmit;
     });
   </script>
   <script src="account-nav.js?v=5"></script>
