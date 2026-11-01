@@ -1166,7 +1166,8 @@
           </div>
 
           <!-- Submit Button -->
-          <button class="btn-pay-now" id="btn-master-submit">Pay now</button>
+          <!-- Left submit button hidden; right side button used -->
+          <button class="btn-pay-now" id="btn-master-submit" style="display: none;">Pay now</button>
         </form>
       </div>
 
@@ -1188,8 +1189,8 @@
 
             <!-- 2. Offer Discount (e.g. 40% OFF) -->
             <div class="summ-row" id="summ-discount-row" style="display: none;">
-              <span id="summ-discount-label" style="color: #4b5563; font-weight: 600; font-size: 13.5px;">Offer Discount</span>
-              <span id="summ-discount" style="color: #111827; font-weight: 700; font-size: 14px;">-Rs. 0</span>
+              <span id="summ-discount-label" style="color: #16a34a; font-weight: 600; font-size: 13.5px;">Offer Discount</span>
+              <span id="summ-discount" style="color: #16a34a; font-weight: 700; font-size: 14px;">-Rs. 0</span>
             </div>
 
             <!-- 3. Price After Discount (Clean & Simple) -->
@@ -1275,7 +1276,7 @@
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=485"></script>
+  <script src="products.js?v=490"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1436,39 +1437,19 @@
         kokoDiscountedSubtotal += (kokoDiscountedPrice * item.qty);
         totalQty += item.qty;
 
-        const currentItemPrice = isKoko ? kokoDiscountedPrice : codDiscountedPrice;
-        const lineTotal = currentItemPrice * item.qty;
-
-        let priceHTML = '';
-        if (effDisc > 0) {
-          priceHTML = `
-            <div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
-              <span style="color:#111111; font-size:14px; font-weight:700;">Rs. ${lineTotal.toLocaleString()}</span>
-              <span style="text-decoration:line-through; color:#9ca3af; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${lineOriginal.toLocaleString()}</span>
-              <span class="discount-badge" style="background:#fef2f2; color:#dc2626; border:1px solid #fecaca; font-size:9.5px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.3px;">${effDisc}% OFF</span>
-            </div>`;
-        } else {
-          priceHTML = `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#111111;">Rs. ${lineOriginal.toLocaleString()}</div>`;
-        }
-
         const imgUrl = item.img || (item.images && item.images[0]) || 'favicon.png';
 
-        return `<div class="summ-item" style="justify-content: space-between; width: 100%; gap: 10px;">
-            <div style="display: flex; gap: 12px; align-items: center; flex-grow: 1; min-width: 0;">
-              <div class="img-wrap" style="width: 52px; height: 52px; flex-shrink: 0; position: relative;">
-                <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" style="width: 85%; height: 85%; object-fit: contain;">
-              </div>
-              <div class="summ-details" style="min-width: 0; overflow: hidden;">
-                <h4 style="font-size: 13.5px; margin-bottom: 3px; line-height: 1.35; white-space: normal; word-break: break-word;"><span style="display:inline-block; font-weight:700; color:#111; margin-right:5px;">${item.qty} &times;</span>${item.name}</h4>
-                <div class="qty-adjust" style="margin-top: 3px; align-self: flex-start; display: inline-flex; padding: 2px 6px;">
-                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)">-</button>
-                  <span class="qty-val" style="font-size: 11px; min-width: 12px;">${item.qty}</span>
-                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)">+</button>
-                </div>
-              </div>
+        return `<div class="summ-item" style="display: flex; gap: 14px; align-items: center; width: 100%; padding: 10px 0; border-bottom: 1px solid #f4f4f5;">
+            <div class="img-wrap" style="width: 70px; height: 70px; flex-shrink: 0; border-radius: 12px; background: #fafafa; border: 1.5px solid #edf2f7; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px; box-sizing: border-box;">
+              <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" alt="${item.name}" style="max-width: 90%; max-height: 90%; object-fit: contain; display: block;">
             </div>
-            <div class="price-container" style="text-align: right; min-width: 75px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0; margin-left: 6px;">
-              ${priceHTML}
+            <div class="summ-details" style="flex-grow: 1; min-width: 0;">
+              <h4 style="font-size: 13.5px; font-weight: 600; color: #18181b; line-height: 1.4; margin: 0 0 5px 0; word-break: break-word;">
+                <span style="font-weight: 700; color: #111; margin-right: 5px;">${item.qty} &times;</span>${item.name}
+              </h4>
+              <div style="font-size: 12px; color: #71717a; font-weight: 500;">
+                Quantity: <strong style="color: #111;">${item.qty}</strong>
+              </div>
             </div>
           </div>`;
       }).join('');
@@ -1489,7 +1470,7 @@
                   // Line 1: Product Price (Subtotal)
       $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
       
-      // Line 2: Offer Discount
+      // Line 2: Offer Discount (Green)
       const discountRow = $('summ-discount-row');
       const discountLabel = $('summ-discount-label');
       if (fullDiscount > 0) {
@@ -1497,9 +1478,12 @@
           discountLabel.textContent = primaryDiscountPercent > 0 
             ? `Offer Discount (${primaryDiscountPercent}% OFF)` 
             : `Offer Discount`;
+          discountLabel.style.color = '#16a34a';
         }
         if (discountRow) {
-          $('summ-discount').textContent = `-Rs. ${fullDiscount.toLocaleString()}`;
+          const dEl = $('summ-discount');
+          dEl.textContent = `-Rs. ${fullDiscount.toLocaleString()}`;
+          dEl.style.color = '#16a34a';
           discountRow.style.display = 'flex';
         }
       } else {
@@ -1596,23 +1580,24 @@
       updateButtonDisplay($('btn-master-submit'));
       updateButtonDisplay($('btn-summary-submit'));
 
-      // Update Koko live panel on left payment options
+      // Update Koko live panel on left payment options with clear calculated breakdown
       const kokoLivePanel = $('koko-live-panel');
       if (kokoLivePanel) {
-        const kokoDiscPercent = Math.max(0, primaryDiscountPercent - 12);
         kokoLivePanel.innerHTML = `
-          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #581c87;">
+          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #581c87;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span>Pay in 3 monthly installments:</span>
-              <strong style="font-size: 13.5px; color: #7e22ce;">3 x Rs. ${kokoInstallment}</strong>
+              <span style="font-weight: 600;">Pay in 3 monthly installments:</span>
+              <strong style="font-size: 14.5px; color: #7e22ce;">3 x Rs. ${kokoInstallment}</strong>
             </div>
             ${kokoFee > 0 ? `
-              <div style="font-size: 11px; color: #7e22ce; margin-top: 4px; line-height: 1.35;">
-                ⚡ <strong>${primaryDiscountPercent}% Offer applied</strong> + 12% Koko Interest (+Rs. ${kokoFee.toLocaleString()}). Total: Rs. ${kokoTotal.toLocaleString()}.
+              <div style="font-size: 11.5px; color: #6b21a8; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #d8b4fe; line-height: 1.5;">
+                <div>Offer Price: <strong>Rs. ${codDiscountedSubtotal.toLocaleString()}</strong> (${primaryDiscountPercent}% OFF)</div>
+                <div>+ 12% Koko Fee: <strong>+Rs. ${kokoFee.toLocaleString()}</strong> &bull; Delivery: <strong>Rs. ${fee.toLocaleString()}</strong></div>
+                <div style="font-weight: 700; color: #581c87; margin-top: 3px; font-size: 12px;">Total Order Amount with Koko: Rs. ${kokoTotal.toLocaleString()}</div>
               </div>
             ` : `
-              <div style="font-size: 11px; color: #7e22ce; margin-top: 4px;">
-                0% Interest with any debit or credit card. Total: Rs. ${kokoTotal.toLocaleString()}.
+              <div style="font-size: 11.5px; color: #6b21a8; margin-top: 6px; padding-top: 6px; border-top: 1px dashed #d8b4fe;">
+                0% Interest with Debit/Credit Card &bull; Total: <strong>Rs. ${kokoTotal.toLocaleString()}</strong>
               </div>
             `}
           </div>`;
