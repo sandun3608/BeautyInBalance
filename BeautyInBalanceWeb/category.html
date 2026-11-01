@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Category | Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="styles.css?v=305">
+  <link rel="stylesheet" href="styles.css?v=463479">
   <style>
     /* ── PREMIUM CATEGORY OVERRIDES ── */
     :root {
@@ -248,7 +248,7 @@
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
-      background: rgba(227, 30, 36, 0.95) !important;
+      background: var(--badge-theme-color, #c21b0f) !important;
       backdrop-filter: blur(4px) !important;
       -webkit-backdrop-filter: blur(4px) !important;
       color: #ffffff !important;
@@ -292,7 +292,7 @@
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
     <div class="ann-track">
-      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-5 Business Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
 
@@ -303,7 +303,7 @@
       <div class="nav-left">
         <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <span class="ic-label mobile-only">Menu</span>
+            
         </button>
         <!-- Mobile Social Icon -->
         <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
@@ -320,7 +320,7 @@
               <li><a href="shop.html?cat=retinoids">Retinoids</a></li>
             </ul>
           </li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li class="has-drop">
             <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
@@ -346,7 +346,7 @@
         <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
-            <span class="ic-label mobile-only">Bag</span>
+            
         </button>
 
         <!-- Mobile User Icon -->
@@ -398,9 +398,9 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="about.html">ABOUT US</a></li>
+            <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
-            <li><a href="shop.html?filter=offers">🛍️ SHOPPING FESTIVAL</a></li>
+            
             <li><a href="account.html">ORDER STATUS</a></li>
             <li><a href="cart.html">♡ WISHLIST</a></li>
         </ul>
@@ -466,12 +466,80 @@
     </div>
   </main>
 
-  <footer class="site-footer" id="site-footer">
-    <!-- Common Footer Placeholder -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col footer-brand-col">
+        <a href="index.html" class="footer-logo">BEAUTY IN BALANCE</a>
+        <p>Your destination for 100% authentic, high-quality skincare in Sri Lanka.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61562806591629" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://instagram.com/beautyinbalance_sl" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://wa.me/94766190550" target="_blank" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col footer-col-desktop-only">
+        <h3>CATEGORIES</h3>
+        <ul>
+          <li><a href="shop.html?filter=cleansers">Cleansers & Washes</a></li>
+          <li><a href="shop.html?filter=serums">Serums & Essences</a></li>
+          <li><a href="shop.html?filter=moisturizers">Moisturizers & Creams</a></li>
+          <li><a href="shop.html?filter=sunscreen">Sunscreens & SPF</a></li>
+          <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+          <li><a href="shop.html?filter=retinoids">Retinoids & Anti-Aging</a></li>
+          <li><a href="shop.html?filter=body">Body & Hair Care</a></li>
+          <li><a href="shop.html?filter=targeted">Targeted & Eye Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-desktop-only">
+        <h3>TOP BRANDS</h3>
+        <ul>
+          <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+          <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+          <li><a href="shop.html?cat=la%20roche-posay">La Roche-Posay</a></li>
+          <li><a href="shop.html?cat=cosrx">COSRX</a></li>
+          <li><a href="shop.html?cat=vaseline">Vaseline</a></li>
+          <li><a href="shop.html?cat=dr.%20rashel">Dr. Rashel</a></li>
+          <li><a href="shop.html?cat=celimax">Celimax</a></li>
+          <li><a href="shop.html?cat=manee">Manee & Cool-Vita</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>QUICK LINKS</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop All Collection</a></li>
+          <li><a href="offers.html">Special Offers ⚡</a></li>
+          <li><a href="account.html">Track Order Status</a></li>
+          <li><a href="cart.html">Shopping Bag</a></li>
+          <li><a href="login.html">Customer Account</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>SUPPORT & INFO</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="policies.html">Shipping & Delivery</a></li>
+          <li><a href="refund-policy.html">Refund & Return Policy</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+          <li><a href="https://wa.me/94766190550" target="_blank">WhatsApp Help Desk</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>100% Authentic UK &amp; CA Imports &bull; Island-Wide Delivery (2-5 Business Days) &bull; KOKO &amp; COD Available</p>
+      <p>&copy; 2026 BEAUTY IN BALANCE. ALL RIGHTS RESERVED.</p>
+    </div>
   </footer>
 
   <script src="category-data.js"></script>
-  <script src="products.js?v=410"></script>
+  <script src="products.js?v=421"></script>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -538,7 +606,7 @@
 
         const discount = Number(p.discount || 0);
         const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
-        const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+        const soldOutBadge = '';
         const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
         const basePrice = Number(p.price || 0);
@@ -548,7 +616,7 @@
             : `Rs. ${basePrice.toLocaleString()}`;
 
         return `
-        <div class="premium-card" onclick="window.location.href='product.html?id=${p.id}'">
+        <div class="premium-card ${isOutOfStock ? 'is-sold-out' : ''}" onclick="window.location.href='product.html?id=${p.id}'">
           <div class="pc-image" style="position: relative;">
             ${badgesHTML}
             <img src="${p.img}" alt="${p.name}">

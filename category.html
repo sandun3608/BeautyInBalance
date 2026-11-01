@@ -606,7 +606,7 @@
 
         const discount = Number(p.discount || 0);
         const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
-        const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+        const soldOutBadge = '';
         const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
         const basePrice = Number(p.price || 0);

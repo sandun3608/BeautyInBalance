@@ -12180,3 +12180,9 @@ body.loading-active .floating-email {
 .rec-card.is-sold-out:hover {
   transform: none !important;
 }
+
+
+/* Global hide for old top-corner black SOLD OUT text */
+.sold-out-badge {
+  display: none !important;
+}
