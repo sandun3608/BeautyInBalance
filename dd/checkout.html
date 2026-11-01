@@ -967,7 +967,7 @@
             </div>
             <div class="summ-row" id="summ-koko-fee-row" style="display: none;">
               <span style="color: #4b5563; font-weight: 500;">koko fees</span>
-              <span id="summ-koko-fee" style="font-weight: 600; color: #111827;">+Rs. 0</span>
+              <span id="summ-koko-fee" style="font-weight: 600; color: #111827;">12%</span>
             </div>
             <div class="summ-row summ-shipping-row" style="border-top: 1px dashed #d4d4d8; border-bottom: 1px dashed #d4d4d8; padding: 10px 0; margin: 4px 0; align-items: center;">
               <span style="color: #374151; font-size: 13.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;">
@@ -1222,7 +1222,7 @@
 
         if (kokoFeeRow && kokoFeeValEl) {
           if (primaryDiscountPercent > 12 && kokoFeeAmount > 0) {
-            kokoFeeValEl.textContent = `+Rs. ${kokoFeeAmount.toLocaleString()}`;
+            kokoFeeValEl.textContent = '12%';
             kokoFeeRow.style.display = 'flex';
           } else {
             kokoFeeRow.style.display = 'none';
