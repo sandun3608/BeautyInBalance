@@ -14,265 +14,553 @@
   <script src="config.js?v=18"></script>
   <style>
     :root {
-      --bg-neutral: #f4f5f7;
+      --bg-page: #f8fafc;
       --card-white: #ffffff;
-      --text-dark: #111827;
-      --text-gray: #4b5563;
-      --text-muted: #9ca3af;
-      --border-light: #edf0f5;
-      --green-primary: #10b981;
-      --green-bg: #ecfdf5;
+      --dark-primary: #18181b;
+      --dark-secondary: #27272a;
+      --brand-brown: #2D1B12;
+      --brand-gold: #C6975A;
+      --green-accent: #10b981;
+      --green-dark: #059669;
+      --green-subtle: #ecfdf5;
       --koko-purple: #7e22ce;
+      --border-soft: #e2e8f0;
+      --border-card: rgba(226, 232, 240, 0.9);
+      --shadow-luxury: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 25px 55px -12px rgba(15, 23, 42, 0.12);
     }
 
     body {
-      background-color: var(--bg-neutral) !important;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color: var(--text-dark);
+      color: #0f172a;
       margin: 0;
       padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Outer Wrapper */
-    .so-checkout-container {
-      max-width: 1140px;
+    /* Container */
+    .chk-container-two-col {
+      max-width: 1200px;
       margin: 125px auto 60px;
-      padding: 0 20px;
-    }
-
-    /* Main Floating Card */
-    .so-checkout-card {
-      background: var(--card-white);
-      border-radius: 28px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      padding: 38px 46px;
-      box-sizing: border-box;
+      padding: 0 24px;
     }
 
     @media (max-width: 900px) {
-      .so-checkout-container {
+      .chk-container-two-col {
         margin: 95px auto 40px;
-        padding: 0 12px;
+        padding: 0 14px;
       }
-      .so-checkout-card {
-        padding: 24px 18px;
+    }
+
+    /* Top Breadcrumbs / Trust Bar */
+    .chk-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 0 4px;
+    }
+    .chk-brand-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .chk-brand-title {
+      font-family: var(--font-serif), Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e1b18;
+      letter-spacing: 0.5px;
+    }
+    .chk-brand-divider {
+      color: #cbd5e1;
+      font-size: 16px;
+    }
+    .chk-brand-sub {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .chk-trust-badges {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      backdrop-filter: blur(8px);
+    }
+
+    @media (max-width: 768px) {
+      .chk-top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .chk-trust-badges {
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+    }
+
+    /* Two Distinct Cards Grid */
+    .chk-two-col-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .chk-two-col-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    /* Luxury Glass Cards with Multi-layer Shadow */
+    .chk-glass-card {
+      background: var(--card-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-luxury);
+      border: 1px solid var(--border-card);
+      padding: 36px 34px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    @media (max-width: 600px) {
+      .chk-glass-card {
+        padding: 22px 18px;
         border-radius: 20px;
       }
     }
 
-    /* Header with Steps */
-    .so-header-bar {
+    .chk-summary-card {
+      position: sticky;
+      top: 100px;
+    }
+
+    /* Card Section Headers */
+    .card-header-clean {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border-light);
-      margin-bottom: 30px;
-    }
-
-    .so-header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .so-brand-name {
-      font-family: var(--font-serif), Georgia, serif;
-      font-size: 21px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #1a1311;
-    }
-    .so-header-divider {
-      color: #d1d5db;
-      font-size: 16px;
-      font-weight: 300;
-    }
-    .so-header-sub {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-gray);
-    }
-
-    .so-steps {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 12.5px;
-    }
-    .so-step {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-    .so-step.done {
-      color: var(--green-primary);
-    }
-    .so-step.active {
-      color: var(--text-dark);
-      font-weight: 700;
-    }
-    .so-step-line {
-      width: 24px;
-      height: 1px;
-      border-top: 1px dashed #d1d5db;
-    }
-
-    @media (max-width: 768px) {
-      .so-header-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding-bottom: 18px;
-        margin-bottom: 22px;
-      }
-      .so-steps {
-        font-size: 11.5px;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-      .so-step-line {
-        width: 16px;
-      }
-    }
-
-    /* 2-Column Grid: Left (Your Order) | Right (Payment Details) */
-    .so-main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 46px;
-      align-items: start;
-    }
-
-    @media (max-width: 900px) {
-      .so-main-grid {
-        grid-template-columns: 1fr;
-        gap: 36px;
-      }
-    }
-
-    /* Section Headings */
-    .so-sec-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin: 0 0 6px 0;
-      letter-spacing: -0.3px;
-    }
-    .so-sec-subtitle {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin: 0 0 20px 0;
-      line-height: 1.4;
-    }
-
-    /* LEFT: Your Order Box */
-    .so-order-items-box {
-      border: 1.5px solid var(--border-light);
-      border-radius: 16px;
-      padding: 16px;
-      background: #ffffff;
-      margin-bottom: 20px;
-    }
-
-    .so-item-row {
-      display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 14px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f4f5f7;
+      margin-bottom: 22px;
     }
-    .so-item-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .so-item-row:first-child {
-      padding-top: 0;
-    }
-
-    .so-img-box {
-      width: 72px;
-      height: 72px;
-      border-radius: 12px;
-      background: #f8fafc;
-      border: 1px solid #edf0f5;
+    .step-num-pill {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #18181b;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
       flex-shrink: 0;
-      overflow: visible;
-      padding: 4px;
+      margin-top: 1px;
+    }
+    .card-main-title {
+      font-size: 18.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 3px 0;
+      letter-spacing: -0.3px;
+    }
+    .card-main-subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .summary-count-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* Form Fields */
+    .form-fields-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .field-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 520px) {
+      .field-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .field-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .input-container-modern {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-icon-svg {
+      position: absolute;
+      left: 14px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      color: #94a3b8;
+    }
+    .input-modern {
+      width: 100%;
+      padding: 13.5px 16px 13.5px 44px;
+      background: #fafbfc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      font-size: 14px;
+      color: #0f172a;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       box-sizing: border-box;
     }
-    .so-img-box img {
+    .input-modern.no-icon {
+      padding-left: 16px !important;
+    }
+    .input-modern:focus {
+      background: #ffffff;
+      border-color: #18181b;
+      box-shadow: 0 0 0 4px rgba(24, 24, 27, 0.06);
+    }
+    .input-modern::placeholder {
+      color: #94a3b8;
+    }
+    .select-modern {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+      cursor: pointer;
+      padding-right: 38px !important;
+    }
+
+    /* Payment Tiles */
+    .payment-cards-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pay-tile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+    .pay-tile:hover {
+      border-color: #cbd5e1;
+      background: #fafbfc;
+      transform: translateY(-1px);
+    }
+    .pay-tile.active-tile {
+      border-color: #18181b;
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+    .pay-tile.active-tile#tile-cod {
+      border-color: #10b981;
+      background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+    }
+    .pay-tile.active-tile#tile-bank {
+      border-color: #2563eb;
+      background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
+    }
+    .pay-tile.active-tile#tile-koko {
+      border-color: #7e22ce;
+      background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
+      box-shadow: 0 4px 16px rgba(126, 34, 206, 0.14);
+    }
+
+    .tile-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex-grow: 1;
+    }
+    .tile-radio-circle {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .active-tile .tile-radio-circle {
+      border-color: #18181b;
+      background: #18181b;
+    }
+    .active-tile#tile-cod .tile-radio-circle {
+      border-color: #10b981;
+      background: #10b981;
+    }
+    .active-tile#tile-bank .tile-radio-circle {
+      border-color: #2563eb;
+      background: #2563eb;
+    }
+    .active-tile#tile-koko .tile-radio-circle {
+      border-color: #7e22ce;
+      background: #7e22ce;
+    }
+    .active-tile .tile-radio-circle::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .tile-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 3px 6px;
+      height: 22px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .cod-badge { border: 1px solid #bbf7d0; font-size: 13px; }
+    .bank-badge { border: 1px solid #bfdbfe; font-size: 13px; }
+    .koko-badge { border: 1px solid #e9d5ff; padding: 2px 6px; }
+    .koko-badge img {
+      height: 12px;
+      width: auto;
+      max-width: 36px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .tile-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .tile-desc {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 1px;
+    }
+    .active-tile#tile-cod .tile-desc { color: #166534; font-weight: 500; }
+    .active-tile#tile-bank .tile-desc { color: #1e40af; font-weight: 500; }
+    .active-tile#tile-koko .tile-desc { color: #6b21a8; font-weight: 500; }
+
+    .tile-price {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0f172a;
+      white-space: nowrap;
+      text-align: right;
+      flex-shrink: 0;
+      padding-left: 10px;
+    }
+    .active-tile#tile-cod .tile-price { color: #10b981; }
+    .active-tile#tile-bank .tile-price { color: #2563eb; }
+    .active-tile#tile-koko .tile-price { color: #7e22ce; }
+
+    .tile-expanded-box {
+      margin-top: 10px;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .cod-expanded .reassurance-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: #166534;
+      line-height: 1.45;
+    }
+    .reassurance-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .bank-info-card {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #1e40af;
+      line-height: 1.55;
+    }
+    .bank-info-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .badge-account {
+      font-size: 11px;
+      font-weight: 700;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .bank-details-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .btn-whatsapp-slip-glow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #25D366;
+      color: #ffffff !important;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 12px;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.28);
+      transition: all 0.2s;
+    }
+    .btn-whatsapp-slip-glow:hover {
+      background: #20bd5a;
+      transform: translateY(-1px);
+    }
+
+    /* RIGHT: Order Summary Card Styles */
+    .cart-items-luxury-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .luxury-item-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+      border: 1.5px solid #f1f5f9;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+    .luxury-item-card:hover {
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .lux-img-box {
+      width: 76px;
+      height: 76px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 4px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .lux-img-box img {
       max-width: 90%;
       max-height: 90%;
       object-fit: contain;
       display: block;
     }
-    .so-qty-badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 1.5px solid #d1d5db;
-      color: #374151;
-      font-size: 10.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
 
-    .so-item-details {
+    .lux-item-details {
       flex-grow: 1;
       min-width: 0;
     }
-    .so-item-title {
+    .lux-item-title {
       font-size: 13.5px;
       font-weight: 600;
-      color: var(--text-dark);
+      color: #0f172a;
       margin: 0 0 6px 0;
       line-height: 1.35;
       word-break: break-word;
     }
 
-    /* Quantity Stepper Pill */
-    .so-stepper-wrap {
+    .lux-stepper-wrap {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
     }
-    .so-qty-lbl {
-      font-size: 11.5px;
-      color: var(--text-muted);
+    .lux-qty-lbl {
+      font-size: 12px;
+      color: #64748b;
       font-weight: 500;
     }
-    .so-stepper-pill {
+    .lux-stepper-pill {
       display: inline-flex;
       align-items: center;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 1px 6px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 1px 7px;
       background: #ffffff;
-      gap: 3px;
+      gap: 4px;
     }
-    .so-stepper-btn {
-      width: 20px;
-      height: 20px;
+    .lux-stepper-btn {
+      width: 22px;
+      height: 22px;
       border: none;
       background: transparent;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
-      color: #4b5563;
+      color: #475569;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -282,407 +570,178 @@
       line-height: 1;
       transition: all 0.15s;
     }
-    .so-stepper-btn:hover {
-      background: #f3f4f6;
-      color: #111;
+    .lux-stepper-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
     }
-    .so-stepper-val {
-      font-size: 12px;
+    .lux-stepper-val {
+      font-size: 12.5px;
       font-weight: 700;
-      color: var(--text-dark);
-      min-width: 14px;
+      color: #0f172a;
+      min-width: 16px;
       text-align: center;
     }
 
-    .so-item-price {
+    .lux-item-price {
       font-size: 14.5px;
       font-weight: 700;
-      color: var(--text-dark);
+      color: #0f172a;
       white-space: nowrap;
       text-align: right;
       flex-shrink: 0;
       padding-left: 8px;
     }
 
-    /* Discount Code Input Box */
-    .so-coupon-box {
-      margin-bottom: 24px;
+    /* Promo Code Container */
+    .promo-code-container {
+      margin-bottom: 20px;
     }
-    .so-coupon-lbl {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-      display: block;
-    }
-    .so-coupon-input-wrap {
+    .promo-input-wrap {
       display: flex;
       align-items: center;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 12px;
-      background: #fafafa;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      background: #fafbfc;
       padding: 4px 6px 4px 14px;
       transition: all 0.2s ease;
     }
-    .so-coupon-input-wrap:focus-within {
+    .promo-input-wrap:focus-within {
       background: #ffffff;
-      border-color: #111827;
-      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.05);
+      border-color: #18181b;
+      box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.06);
     }
-    .so-coupon-icon {
+    .promo-icon {
+      font-size: 14px;
+      font-weight: 700;
+      color: #94a3b8;
       margin-right: 10px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
+      user-select: none;
     }
-    .so-coupon-input {
+    .promo-input {
       flex-grow: 1;
       border: none;
       background: transparent;
       outline: none;
       font-size: 13.5px;
       font-family: inherit;
-      color: var(--text-dark);
+      color: #0f172a;
     }
-    .so-coupon-input::placeholder {
-      color: var(--text-muted);
+    .promo-input::placeholder {
+      color: #94a3b8;
     }
-    .so-coupon-btn {
+    .promo-btn-apply {
       border: none;
       background: transparent;
       color: var(--green-primary);
       font-weight: 700;
       font-size: 13.5px;
       cursor: pointer;
-      padding: 8px 12px;
+      padding: 8px 14px;
       transition: opacity 0.2s;
     }
-    .so-coupon-btn:hover {
+    .promo-btn-apply:hover {
       opacity: 0.8;
     }
 
-    /* Breakdown Rows */
-    .so-breakdown-list {
+    /* Financial Breakdown */
+    .financial-breakdown {
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      margin-bottom: 20px;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+      margin-bottom: 22px;
     }
-    .so-breakdown-row {
+    .breakdown-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 13.5px;
-      color: var(--text-gray);
     }
-    .so-breakdown-row .val {
+    .b-label {
+      color: #64748b;
+      font-weight: 500;
+    }
+    .b-value {
+      color: #0f172a;
       font-weight: 600;
-      color: var(--text-dark);
     }
-    .so-breakdown-row.discount-row {
-      color: var(--green-primary);
+    .discount-row-green .b-label {
+      color: #10b981;
       font-weight: 600;
     }
-    .so-breakdown-row.discount-row .val {
-      color: var(--green-primary);
+    .discount-row-green .b-value {
+      color: #10b981;
       font-weight: 700;
     }
+    .breakdown-divider-line {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 4px 0;
+    }
 
-    /* Payment Overview Cards in Order Summary */
-    .checkout-pay-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1.5px solid #edf0f5;
-      background: #ffffff;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-sizing: border-box;
-      margin-bottom: 7px;
+    .total-row-grand {
+      padding-top: 6px;
     }
-    .checkout-pay-card:hover {
-      border-color: #cbd5e1;
-      background: #fafafa;
-    }
-    .checkout-pay-card.active-cod {
-      border-color: #16a34a;
-      background: #f0fdf4;
-      box-shadow: 0 2px 8px rgba(22, 163, 74, 0.1);
-    }
-    .checkout-pay-card.active-bank {
-      border-color: #2563eb;
-      background: #eff6ff;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
-    }
-    .checkout-pay-card.active-koko {
-      border-color: #7e22ce;
-      background: #faf5ff;
-      box-shadow: 0 2px 8px rgba(126, 34, 206, 0.1);
-    }
-    .cpc-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-      flex-grow: 1;
-    }
-    .cpc-title {
-      font-size: 13px;
+    .grand-total-label {
+      font-size: 16px;
       font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.25;
+      color: #0f172a;
     }
-    .active-cod .cpc-title { color: #166534; }
-    .active-bank .cpc-title { color: #1e40af; }
-    .active-koko .cpc-title { color: #6b21a8; }
-    .cpc-sub {
-      font-size: 10.5px;
-      color: var(--text-muted);
-      margin-top: 2px;
+    .grand-total-sub {
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 500;
+      margin-top: 1px;
     }
-    .active-cod .cpc-sub { color: #15803d; font-weight: 500; }
-    .active-bank .cpc-sub { color: #2563eb; font-weight: 500; }
-    .active-koko .cpc-sub { color: #7e22ce; font-weight: 500; }
-
-    .cpc-price {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--text-dark);
-      white-space: nowrap;
-      text-align: right;
-      flex-shrink: 0;
-    }
-    .active-cod .cpc-price { color: #15803d; }
-    .active-bank .cpc-price { color: #1e40af; }
-    .active-koko .cpc-price { color: #7e22ce; }
-
-    .cpc-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffffff;
-      border-radius: 6px;
-      padding: 2px 6px;
-      height: 22px;
-      flex-shrink: 0;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-      box-sizing: border-box;
-    }
-    .cpc-badge-cod { border: 1px solid #bbf7d0; font-size: 12px; }
-    .cpc-badge-bank { border: 1px solid #bfdbfe; font-size: 12px; }
-    .cpc-badge-koko { border: 1px solid #e9d5ff; padding: 2px 5px; }
-    .cpc-badge-koko img {
-      height: 12px !important;
-      width: auto !important;
-      max-width: 34px !important;
-      object-fit: contain !important;
-      display: block !important;
-    }
-
-    /* Final Total Row */
-    .so-total-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding-top: 14px;
-      border-top: 1.5px solid #111827;
-      margin-top: 10px;
-    }
-    .so-total-row .lbl {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-    .so-total-row .val {
+    .grand-total-amount {
       font-size: 22px;
       font-weight: 800;
-      color: var(--text-dark);
+      color: #0f172a;
     }
 
-    /* RIGHT: Payment Details Form */
-    .so-form-grp {
-      margin-bottom: 16px;
-    }
-    .so-form-grp:last-child {
-      margin-bottom: 0;
-    }
-    .so-form-lbl {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-gray);
-      margin-bottom: 7px;
-    }
-    .so-lbl-sublink {
-      font-size: 12px;
-      color: var(--text-gray);
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    /* Inputs with Icons and Green Checkmark */
-    .so-input-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .so-in-icon {
-      position: absolute;
-      left: 14px;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      color: var(--text-muted);
-    }
-    .so-in-field {
+    /* Big Glowing Submit Button */
+    .btn-master-submit-glow {
       width: 100%;
-      padding: 13px 42px 13px 42px;
-      background: #fafafa;
-      border: 1.5px solid #edf0f5;
-      border-radius: 12px;
-      font-size: 14px;
-      color: var(--text-dark);
-      font-family: inherit;
-      outline: none;
-      transition: all 0.2s ease;
-      box-sizing: border-box;
-    }
-    .so-in-field:focus {
-      background: #ffffff;
-      border-color: #111827;
-      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.05);
-    }
-    .so-in-field::placeholder {
-      color: var(--text-muted);
-    }
-    .so-in-check {
-      position: absolute;
-      right: 14px;
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      background: #ecfdf5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .so-input-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .so-select-field {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 14px;
-      cursor: pointer;
-      padding-right: 36px !important;
-    }
-
-    /* Payment Method Tabs/Pills in Right Column */
-    .so-payment-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .so-pay-tab {
-      padding: 10px 8px;
-      border: 1.5px solid #edf0f5;
-      border-radius: 12px;
-      background: #fafafa;
-      text-align: center;
-      cursor: pointer;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-gray);
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      user-select: none;
-    }
-    .so-pay-tab:hover {
-      border-color: #cbd5e1;
-    }
-    .so-pay-tab.active-tab {
-      border-color: #111827;
-      background: #ffffff;
-      color: #111827;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-    .so-pay-tab.active-tab#tab-koko {
-      border-color: var(--koko-purple);
-      background: #faf5ff;
-      color: var(--koko-purple);
-    }
-
-    .so-tab-details {
-      animation: fadeIn 0.2s ease-out;
-      margin-bottom: 14px;
-    }
-
-    /* Checkbox */
-    .so-checkbox-wrap {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin: 18px 0 24px 0;
-      font-size: 13px;
-      color: var(--text-gray);
-      cursor: pointer;
-      user-select: none;
-    }
-    .so-checkbox-wrap input[type="checkbox"] {
-      width: 17px;
-      height: 17px;
-      accent-color: #111827;
-      cursor: pointer;
-    }
-
-    /* Full-Width Pay Button */
-    .so-btn-pay {
-      width: 100%;
-      padding: 16px;
-      background: #111827;
+      padding: 17px 24px;
+      background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
       color: #ffffff;
       border: none;
-      border-radius: 12px;
-      font-size: 15.5px;
+      border-radius: 16px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 0.3px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.15);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 25px rgba(24, 24, 27, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       display: block;
       text-align: center;
       box-sizing: border-box;
     }
-    .so-btn-pay:hover {
-      background: #27272a;
-      transform: translateY(-1.5px);
-      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.22);
+    .btn-master-submit-glow:hover {
+      background: linear-gradient(135deg, #27272a 0%, #18181b 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(24, 24, 27, 0.35);
     }
-    .so-btn-pay.koko-btn {
+    .btn-master-submit-glow.koko-btn {
       background: linear-gradient(135deg, #7e22ce 0%, #581c87 100%);
-      box-shadow: 0 4px 16px rgba(126, 34, 206, 0.28);
+      box-shadow: 0 10px 25px rgba(126, 34, 206, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
-    .so-btn-pay.koko-btn:hover {
+    .btn-master-submit-glow.koko-btn:hover {
       background: linear-gradient(135deg, #6b21a8 0%, #4c1d95 100%);
-      box-shadow: 0 6px 22px rgba(126, 34, 206, 0.38);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(126, 34, 206, 0.42);
+    }
+
+    .security-guarantee-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-size: 11.5px;
+      color: #64748b;
+      margin-top: 14px;
+      text-align: center;
     }
 
     @keyframes fadeIn {
@@ -778,255 +837,103 @@
   </div>
 
   <div id="checkout-root">
-    <div class="so-checkout-container">
-      <div class="so-checkout-card">
-        
-        <!-- Header: Brand | Order Overview  +  Step Progress -->
-        <div class="so-header-bar">
-          <div class="so-header-left">
-            <span class="so-brand-name">Beauty in Balance</span>
-            <span class="so-header-divider">|</span>
-            <span class="so-header-sub">Order Overview</span>
-          </div>
-          <div class="so-steps">
-            <span class="so-step done">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              1 Information
-            </span>
-            <span class="so-step-line"></span>
-            <span class="so-step active">
-              2 Payment Details
-            </span>
-            <span class="so-step-line"></span>
-            <span class="so-step pending">
-              3 Complete Order
-            </span>
-          </div>
+    <div class="chk-container-two-col">
+      
+      <!-- Top Breadcrumb & Trust Bar -->
+      <div class="chk-top-bar">
+        <div class="chk-brand-wrap">
+          <span class="chk-brand-title">Beauty in Balance</span>
+          <span class="chk-brand-divider">/</span>
+          <span class="chk-brand-sub">Secure Checkout</span>
         </div>
+        <div class="chk-trust-badges">
+          <span class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            100% Authentic Quality
+          </span>
+          <span class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            Island-wide Delivery
+          </span>
+        </div>
+      </div>
 
-        <!-- 2-Column Grid -->
-        <div class="so-main-grid">
-          
-          <!-- LEFT COLUMN: Your Order -->
-          <div class="so-col-left">
-            <h2 class="so-sec-title">Your Order</h2>
-            <div class="so-sec-subtitle">Review items and discounts in your bag.</div>
-
-            <!-- Items Container -->
-            <div class="so-order-items-box">
-              <div id="summ-items"></div>
-            </div>
-
-            <!-- Discount Code Section (exact match to reference image) -->
-            <div class="so-coupon-box">
-              <label class="so-coupon-lbl">Discount Code</label>
-              <div class="so-coupon-input-wrap">
-                <span class="so-coupon-icon">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
-                </span>
-                <input type="text" id="coupon-input" class="so-coupon-input" placeholder="Enter coupon code" />
-                <button type="button" class="so-coupon-btn" onclick="handleCouponApply()">Apply</button>
-              </div>
-              <div id="coupon-msg" style="font-size: 11.5px; margin-top: 5px; display: none;"></div>
-            </div>
-
-            <!-- Cost Breakdown -->
-            <div class="so-breakdown-list">
-              <div class="so-breakdown-row">
-                <span>Subtotal</span>
-                <span class="val" id="summ-subtotal">Rs. 0</span>
-              </div>
-              <div class="so-breakdown-row">
-                <span>Shipping Cost</span>
-                <span class="val" id="summ-shipping">Rs. 450</span>
-              </div>
-              <div class="so-breakdown-row discount-row" id="summ-discount-row" style="display: none;">
-                <span id="summ-discount-label">Offer Discount (40% OFF)</span>
-                <span class="val" id="summ-discount">-Rs. 0</span>
-              </div>
-              <div class="so-breakdown-row" id="summ-discounted-subtotal-row" style="display: none;">
-                <span>Price After Discount</span>
-                <span class="val" id="summ-discounted-subtotal">Rs. 0</span>
+      <!-- TWO DISTINCT LUXURY CARDS WITH SHADES -->
+      <div class="chk-two-col-grid">
+        
+        <!-- LEFT CARD: Contact, Delivery & Payment Method (with soft multi-layer shadow) -->
+        <div class="chk-glass-card chk-form-card">
+          <form id="checkout-form" onsubmit="return false;">
+            
+            <div class="card-header-clean">
+              <div class="step-num-pill">1</div>
+              <div>
+                <h2 class="card-main-title">Delivery &amp; Contact Details</h2>
+                <p class="card-main-subtitle">Please enter your shipping address and contact info.</p>
               </div>
             </div>
 
-            <!-- Payment Options Breakdown Cards -->
-            <div style="margin-top: 15px; margin-bottom: 12px;">
-              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #888; margin-bottom: 7px;">
-                Payment Options:
-              </div>
-
-              <div class="checkout-pay-card" id="summ-cod-box" onclick="selectPaymentOption('Cash on Delivery')">
-                <div class="cpc-left">
-                  <span class="cpc-badge cpc-badge-cod">💵</span>
-                  <div>
-                    <div class="cpc-title">Cash on Delivery</div>
-                    <div class="cpc-sub" id="summ-cod-subtext">Pay cash at doorstep</div>
-                  </div>
-                </div>
-                <div class="cpc-price" id="summ-cod-price">Rs. 0</div>
-              </div>
-
-              <div class="checkout-pay-card" id="summ-bank-box" onclick="selectPaymentOption('Bank Transfer')">
-                <div class="cpc-left">
-                  <span class="cpc-badge cpc-badge-bank">🏦</span>
-                  <div>
-                    <div class="cpc-title">Bank Transfer</div>
-                    <div class="cpc-sub" id="summ-bank-subtext">Direct deposit / online transfer</div>
-                  </div>
-                </div>
-                <div class="cpc-price" id="summ-bank-price">Rs. 0</div>
-              </div>
-
-              <div class="checkout-pay-card" id="summ-koko-box" onclick="selectPaymentOption('Koko')">
-                <div class="cpc-left">
-                  <span class="cpc-badge cpc-badge-koko">
-                    <img src="koko-logo.png" alt="Koko">
+            <div class="form-fields-stack">
+              <!-- Full Name -->
+              <div class="field-item">
+                <label class="field-label">Customer Name *</label>
+                <div class="input-container-modern">
+                  <span class="input-icon-svg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                   </span>
-                  <div>
-                    <div class="cpc-title">Koko (3 Installments)</div>
-                    <div class="cpc-sub" id="summ-koko-subtext">3 monthly installments</div>
-                  </div>
-                </div>
-                <div class="cpc-price" id="summ-koko-price">3 x Rs. 0.00</div>
-              </div>
-            </div>
-
-            <!-- Final Total Line -->
-            <div class="so-total-row">
-              <span class="lbl">Total</span>
-              <span class="val" id="summ-total">Rs. 0</span>
-            </div>
-            <div style="font-size: 11.5px; color: #71717a; text-align: right; margin-top: 2px;" id="summ-active-method-label">
-              (Cash on Delivery)
-            </div>
-
-          </div>
-
-          <!-- RIGHT COLUMN: Payment Details -->
-          <div class="so-col-right">
-            <h2 class="so-sec-title">Payment Details</h2>
-            <div class="so-sec-subtitle">Complete Your Purchase Item By Providing Payment Details .</div>
-
-            <form id="checkout-form" onsubmit="return false;">
-              
-              <!-- 1. Email Address -->
-              <div class="so-form-grp">
-                <label class="so-form-lbl">Email Address</label>
-                <div class="so-input-box">
-                  <span class="so-in-icon">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                  </span>
-                  <input type="email" id="c-email" class="so-in-field" placeholder="email@example.com" required />
-                  <span class="so-in-check">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </span>
-                </div>
-              </div>
-
-              <!-- 2. Full Name -->
-              <div class="so-form-grp">
-                <label class="so-form-lbl">Customer Name</label>
-                <div class="so-input-box">
-                  <span class="so-in-icon">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                  </span>
-                  <input type="text" id="c-fullname" class="so-in-field" placeholder="First and Last Name" required />
+                  <input type="text" id="c-fullname" class="input-modern" placeholder="e.g. Sandun Perera" required />
                   <input type="hidden" id="c-fname" />
                   <input type="hidden" id="c-lname" />
-                  <span class="so-in-check">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </span>
                 </div>
               </div>
 
-              <!-- 3. Phone Number -->
-              <div class="so-form-grp">
-                <label class="so-form-lbl">Phone Number</label>
-                <div class="so-input-box">
-                  <span class="so-in-icon">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                  </span>
-                  <input type="tel" id="c-phone" class="so-in-field" placeholder="07X XXX XXXX" required />
-                  <span class="so-in-check">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </span>
+              <!-- Phone & Email (Split 2-Col) -->
+              <div class="field-grid-2">
+                <div class="field-item">
+                  <label class="field-label">Mobile Phone *</label>
+                  <div class="input-container-modern">
+                    <span class="input-icon-svg">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </span>
+                    <input type="tel" id="c-phone" class="input-modern" placeholder="07X XXX XXXX" required />
+                  </div>
+                </div>
+
+                <div class="field-item">
+                  <label class="field-label">Email Address *</label>
+                  <div class="input-container-modern">
+                    <span class="input-icon-svg">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </span>
+                    <input type="email" id="c-email" class="input-modern" placeholder="name@example.com" required />
+                  </div>
                 </div>
               </div>
 
-              <!-- 4. Payment Method Selector (matching reference image) -->
-              <div class="so-form-grp">
-                <div class="so-form-lbl">
-                  <span>Payment Method</span>
-                  <span class="so-lbl-sublink">3 Options Available</span>
-                </div>
-                
-                <div class="so-payment-tabs">
-                  <div class="so-pay-tab active-tab" id="tab-cod" onclick="selectPaymentOption('Cash on Delivery')">
-                    <span style="font-size: 16px;">💵</span>
-                    <span>COD</span>
-                  </div>
-                  <div class="so-pay-tab" id="tab-bank" onclick="selectPaymentOption('Bank Transfer')">
-                    <span style="font-size: 16px;">🏦</span>
-                    <span>Bank</span>
-                  </div>
-                  <div class="so-pay-tab" id="tab-koko" onclick="selectPaymentOption('Koko')">
-                    <span style="font-size: 16px;">💜</span>
-                    <span>Koko 3x</span>
-                  </div>
-                </div>
-
-                <!-- Hidden actual radios for compatibility -->
-                <input type="radio" name="payment_method" value="Cash on Delivery" checked style="display: none;" />
-                <input type="radio" name="payment_method" value="Bank Transfer" style="display: none;" />
-                <input type="radio" name="payment_method" value="Koko" style="display: none;" />
-
-                <!-- Details for selected payment option -->
-                <div class="so-tab-details" id="tab-details-cod" style="display: block;">
-                  <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 11px 14px; font-size: 12px; color: #166534;">
-                    🚚 <strong>Pay cash at doorstep:</strong> Pay cash upon delivery island-wide across Sri Lanka.
-                  </div>
-                </div>
-
-                <div class="so-tab-details" id="tab-details-bank" style="display: none;">
-                  <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #1e40af; line-height: 1.55;">
-                    <strong>Bank Account Details:</strong><br/>
-                    Bank: <strong>Bank of Ceylon (BOC)</strong><br/>
-                    Account No: <strong>87727168</strong><br/>
-                    Name: <strong>SMNP Jayarathne</strong>
-                    <div style="margin-top: 10px;">
-                      <a href="https://wa.me/94766190550" target="_blank" style="display: inline-flex; align-items: center; gap: 7px; background: #25D366; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700;">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
-                        Send Slip via WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="so-tab-details" id="tab-details-koko" style="display: none;">
-                  <div id="koko-live-panel"></div>
+              <!-- Street Address -->
+              <div class="field-item">
+                <label class="field-label">Delivery Address (Street / House No) *</label>
+                <div class="input-container-modern">
+                  <span class="input-icon-svg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </span>
+                  <input type="text" id="c-address" class="input-modern" placeholder="No, Street Name, Town" required />
                 </div>
               </div>
 
-              <!-- 5. Billing / Delivery Address -->
-              <div class="so-form-grp">
-                <label class="so-form-lbl">Billing Address</label>
-                <div class="so-input-box" style="margin-bottom: 12px;">
-                  <span class="so-in-icon">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  </span>
-                  <input type="text" id="c-address" class="so-in-field" placeholder="Street Address, House No" required />
-                  <span class="so-in-check">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </span>
+              <!-- City & District (Split 2-Col) -->
+              <div class="field-grid-2">
+                <div class="field-item">
+                  <label class="field-label">City *</label>
+                  <div class="input-container-modern">
+                    <input type="text" id="c-city" class="input-modern no-icon" placeholder="e.g. Colombo" required />
+                  </div>
                 </div>
 
-                <div class="so-input-row">
-                  <div class="so-input-box">
-                    <input type="text" id="c-city" class="so-in-field" style="padding-left: 16px;" placeholder="Enter City" required />
-                  </div>
-                  <div class="so-input-box">
-                    <select id="c-district" class="so-in-field so-select-field" style="padding-left: 16px;" required>
+                <div class="field-item">
+                  <label class="field-label">District *</label>
+                  <div class="input-container-modern">
+                    <select id="c-district" class="input-modern select-modern no-icon" required>
                       <option value="" disabled selected>Select District</option>
                       <option value="Colombo">Colombo</option>
                       <option value="Gampaha">Gampaha</option>
@@ -1057,25 +964,177 @@
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- 6. Billing Address Same Checkbox -->
-              <label class="so-checkbox-wrap">
-                <input type="checkbox" checked />
-                <span>Billing address is same as shipping</span>
-              </label>
+            <!-- Payment Method Selection -->
+            <div style="margin-top: 32px; padding-top: 26px; border-top: 1px solid #f1f5f9;">
+              <div class="card-header-clean" style="margin-bottom: 16px;">
+                <div class="step-num-pill">2</div>
+                <div>
+                  <h3 class="card-main-title" style="font-size: 17px;">Payment Method</h3>
+                  <p class="card-main-subtitle">Choose your preferred payment option.</p>
+                </div>
+              </div>
 
-              <!-- 7. Pay Button (Full Width Dark Pill matching reference image) -->
-              <button type="button" class="so-btn-pay" id="btn-master-submit">Pay Rs. 0</button>
-            </form>
+              <div class="payment-cards-group">
+                <!-- 1. Cash on Delivery Tile -->
+                <div class="pay-tile active-tile" id="tile-cod" onclick="selectPaymentOption('Cash on Delivery')">
+                  <div class="tile-left">
+                    <span class="tile-radio-circle"></span>
+                    <span class="tile-icon-badge cod-badge">💵</span>
+                    <div>
+                      <div class="tile-title">Cash on Delivery (COD)</div>
+                      <div class="tile-desc">Pay cash upon delivery at your doorstep</div>
+                    </div>
+                  </div>
+                  <div class="tile-price" id="tile-cod-price">Rs. 0</div>
+                </div>
+
+                <!-- 2. Bank Transfer Tile -->
+                <div class="pay-tile" id="tile-bank" onclick="selectPaymentOption('Bank Transfer')">
+                  <div class="tile-left">
+                    <span class="tile-radio-circle"></span>
+                    <span class="tile-icon-badge bank-badge">🏦</span>
+                    <div>
+                      <div class="tile-title">Direct Bank Transfer</div>
+                      <div class="tile-desc">Deposit to BOC &amp; send slip via WhatsApp</div>
+                    </div>
+                  </div>
+                  <div class="tile-price" id="tile-bank-price">Rs. 0</div>
+                </div>
+
+                <!-- 3. Koko BNPL Tile -->
+                <div class="pay-tile" id="tile-koko" onclick="selectPaymentOption('Koko')">
+                  <div class="tile-left">
+                    <span class="tile-radio-circle"></span>
+                    <span class="tile-icon-badge koko-badge">
+                      <img src="koko-logo.png" alt="Koko" />
+                    </span>
+                    <div>
+                      <div class="tile-title">Koko (3 Installments)</div>
+                      <div class="tile-desc">Pay in 3 monthly installments with Card</div>
+                    </div>
+                  </div>
+                  <div class="tile-price" id="tile-koko-price">3 x Rs. 0.00</div>
+                </div>
+              </div>
+
+              <!-- Hidden input radios for script compatibility -->
+              <input type="radio" name="payment_method" value="Cash on Delivery" checked style="display: none;" />
+              <input type="radio" name="payment_method" value="Bank Transfer" style="display: none;" />
+              <input type="radio" name="payment_method" value="Koko" style="display: none;" />
+
+              <!-- Dynamic Panels for selected method -->
+              <div id="tile-details-cod" class="tile-expanded-box cod-expanded" style="display: block;">
+                <div class="reassurance-row">
+                  <span class="reassurance-icon">🚚</span>
+                  <span><strong>Doorstep Cash Collection:</strong> Inspect your parcel and pay cash to the courier agent upon delivery anywhere in Sri Lanka.</span>
+                </div>
+              </div>
+
+              <div id="tile-details-bank" class="tile-expanded-box bank-expanded" style="display: none;">
+                <div class="bank-info-card">
+                  <div class="bank-info-header">
+                    <strong>Bank of Ceylon (BOC)</strong>
+                    <span class="badge-account">Direct Deposit</span>
+                  </div>
+                  <div class="bank-details-grid">
+                    <div>Account Number: <strong>87727168</strong></div>
+                    <div>Account Name: <strong>SMNP Jayarathne</strong></div>
+                  </div>
+                  <a href="https://wa.me/94766190550" target="_blank" class="btn-whatsapp-slip-glow">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
+                    Send Deposit Slip via WhatsApp
+                  </a>
+                </div>
+              </div>
+
+              <div id="tile-details-koko" class="tile-expanded-box koko-expanded" style="display: none;">
+                <div id="koko-live-panel"></div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- RIGHT CARD: Order Summary & Instant Checkout (with sticky luxury shadow) -->
+        <div class="chk-glass-card chk-summary-card">
+          <div class="card-header-clean" style="justify-content: space-between;">
+            <div>
+              <h2 class="card-main-title">Order Summary</h2>
+              <p class="card-main-subtitle">Review items &amp; total in your bag</p>
+            </div>
+            <span id="summ-item-count" class="summary-count-badge">0 items</span>
           </div>
 
+          <!-- Items List -->
+          <div id="summ-items" class="cart-items-luxury-list"></div>
+
+          <!-- Promo / Coupon Code Section -->
+          <div class="promo-code-container">
+            <label class="field-label" style="margin-bottom: 6px;">Discount Code</label>
+            <div class="promo-input-wrap">
+              <span class="promo-icon">%</span>
+              <input type="text" id="coupon-input" class="promo-input" placeholder="Enter coupon code" />
+              <button type="button" class="promo-btn-apply" onclick="handleCouponApply()">Apply</button>
+            </div>
+            <div id="coupon-msg" style="font-size: 11.5px; margin-top: 5px; display: none;"></div>
+          </div>
+
+          <!-- Financial Breakdown -->
+          <div class="financial-breakdown">
+            <div class="breakdown-row">
+              <span class="b-label">Product Subtotal</span>
+              <span class="b-value" id="summ-subtotal">Rs. 0</span>
+            </div>
+
+            <div class="breakdown-row discount-row-green" id="summ-discount-row" style="display: none;">
+              <span class="b-label" id="summ-discount-label">Offer Discount (40% OFF)</span>
+              <span class="b-value" id="summ-discount">-Rs. 0</span>
+            </div>
+
+            <div class="breakdown-row" id="summ-discounted-subtotal-row" style="display: none;">
+              <span class="b-label">Price After Discount</span>
+              <span class="b-value" id="summ-discounted-subtotal">Rs. 0</span>
+            </div>
+
+            <div class="breakdown-row">
+              <span class="b-label" style="display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                Island-wide Delivery
+              </span>
+              <span class="b-value" id="summ-shipping">Rs. 450</span>
+            </div>
+
+            <div class="breakdown-divider-line"></div>
+
+            <!-- Total Payable -->
+            <div class="breakdown-row total-row-grand">
+              <div>
+                <div class="grand-total-label">Total Payable</div>
+                <div class="grand-total-sub" id="summ-active-method-label">(Cash on Delivery)</div>
+              </div>
+              <span class="grand-total-amount" id="summ-total">Rs. 0</span>
+            </div>
+          </div>
+
+          <!-- Big Glowing Luxury Action Button -->
+          <button type="button" class="btn-master-submit-glow" id="btn-master-submit">
+            Place Order &bull; Rs. 0
+          </button>
+
+          <div class="security-guarantee-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>Guaranteed 100% Secure Checkout &amp; Authentic Quality</span>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=500"></script>
+  <script src="products.js?v=510"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1120,17 +1179,17 @@
     function handlePaymentChange(method) {
       selectedPaymentMethod = method;
       
-      const tabCod = $('tab-cod');
-      const tabBank = $('tab-bank');
-      const tabKoko = $('tab-koko');
+      const tileCod = $('tile-cod');
+      const tileBank = $('tile-bank');
+      const tileKoko = $('tile-koko');
 
-      if (tabCod) tabCod.classList.toggle('active-tab', method === 'Cash on Delivery');
-      if (tabBank) tabBank.classList.toggle('active-tab', method === 'Bank Transfer');
-      if (tabKoko) tabKoko.classList.toggle('active-tab', method === 'Koko');
+      if (tileCod) tileCod.classList.toggle('active-tile', method === 'Cash on Delivery');
+      if (tileBank) tileBank.classList.toggle('active-tile', method === 'Bank Transfer');
+      if (tileKoko) tileKoko.classList.toggle('active-tile', method === 'Koko');
 
-      const detCod = $('tab-details-cod');
-      const detBank = $('tab-details-bank');
-      const detKoko = $('tab-details-koko');
+      const detCod = $('tile-details-cod');
+      const detBank = $('tile-details-bank');
+      const detKoko = $('tile-details-koko');
 
       if (detCod) detCod.style.display = (method === 'Cash on Delivery') ? 'block' : 'none';
       if (detBank) detBank.style.display = (method === 'Bank Transfer') ? 'block' : 'none';
@@ -1139,6 +1198,7 @@
       if (typeof window.renderOrderSummary === 'function') {
         window.renderOrderSummary();
       }
+    }
     }
 
     function handleBillingChange(option) {
@@ -1242,23 +1302,22 @@
         const imgUrl = item.img || (item.images && item.images[0]) || 'favicon.png';
 
         return `
-          <div class="so-item-row">
-            <div class="so-img-box">
+          <div class="luxury-item-card">
+            <div class="lux-img-box">
               <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" alt="${item.name}">
-              <span class="so-qty-badge">${item.qty}</span>
             </div>
-            <div class="so-item-details">
-              <h4 class="so-item-title">${item.qty} &times; ${item.name}</h4>
-              <div class="so-stepper-wrap">
-                <span class="so-qty-lbl">Qty:</span>
-                <div class="so-stepper-pill">
-                  <button type="button" class="so-stepper-btn" onclick="updateQtyCheckout('${item.id}', -1)" title="Decrease">&minus;</button>
-                  <span class="so-stepper-val">${item.qty}</span>
-                  <button type="button" class="so-stepper-btn" onclick="updateQtyCheckout('${item.id}', 1)" title="Increase">&plus;</button>
+            <div class="lux-item-details">
+              <h4 class="lux-item-title">${item.qty} &times; ${item.name}</h4>
+              <div class="lux-stepper-wrap">
+                <span class="lux-qty-lbl">Qty:</span>
+                <div class="lux-stepper-pill">
+                  <button type="button" class="lux-stepper-btn" onclick="updateQtyCheckout('${item.id}', -1)" title="Decrease">&minus;</button>
+                  <span class="lux-stepper-val">${item.qty}</span>
+                  <button type="button" class="lux-stepper-btn" onclick="updateQtyCheckout('${item.id}', 1)" title="Increase">&plus;</button>
                 </div>
               </div>
             </div>
-            <div class="so-item-price">
+            <div class="lux-item-price">
               Rs. ${lineTotal.toLocaleString()}
             </div>
           </div>
@@ -1316,47 +1375,15 @@
       // Line 4: Delivery Fee
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
 
-      // Line 5: COD Card (Cash on Delivery)
-      const codPriceEl = $('summ-cod-price');
-      if (codPriceEl) {
-        codPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
-      }
-      const codSubtextEl = $('summ-cod-subtext');
-      if (codSubtextEl) {
-        codSubtextEl.textContent = fullDiscount > 0
-          ? `Full ${primaryDiscountPercent}% Offer applied • Pay at doorstep`
-          : `Pay cash at doorstep`;
-      }
+      // Update Payment Tile Prices
+      const codPriceEl = $('tile-cod-price');
+      if (codPriceEl) codPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
 
-      // Line 6: Bank Transfer Card
-      const bankPriceEl = $('summ-bank-price');
-      if (bankPriceEl) {
-        bankPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
-      }
-      const bankSubtextEl = $('summ-bank-subtext');
-      if (bankSubtextEl) {
-        bankSubtextEl.textContent = `Direct deposit / online transfer`;
-      }
+      const bankPriceEl = $('tile-bank-price');
+      if (bankPriceEl) bankPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
 
-      // Line 7: Koko Card (3 Installments)
-      const kokoPriceEl = $('summ-koko-price');
-      if (kokoPriceEl) {
-        kokoPriceEl.textContent = `3 x Rs. ${kokoInstallment}`;
-      }
-      const kokoSubtextEl = $('summ-koko-subtext');
-      if (kokoSubtextEl) {
-        kokoSubtextEl.textContent = kokoFee > 0
-          ? `Total: Rs. ${kokoTotal.toLocaleString()} (Includes 12% fee +Rs. ${kokoFee.toLocaleString()})`
-          : `Total: Rs. ${kokoTotal.toLocaleString()} (0% Interest with Card)`;
-      }
-
-      // Highlight active card
-      const codBox = $('summ-cod-box');
-      const bankBox = $('summ-bank-box');
-      const kokoBox = $('summ-koko-box');
-      if (codBox) codBox.className = 'checkout-pay-card' + (selectedPaymentMethod === 'Cash on Delivery' ? ' active-cod' : '');
-      if (bankBox) bankBox.className = 'checkout-pay-card' + (selectedPaymentMethod === 'Bank Transfer' ? ' active-bank' : '');
-      if (kokoBox) kokoBox.className = 'checkout-pay-card' + (selectedPaymentMethod === 'Koko' ? ' active-koko' : '');
+      const kokoPriceEl = $('tile-koko-price');
+      if (kokoPriceEl) kokoPriceEl.textContent = `3 x Rs. ${kokoInstallment}`;
 
       // Line 8: Final Total Payable
       const activeTotal = isKoko ? kokoTotal : codTotal;
@@ -1374,19 +1401,22 @@
         }
       }
 
-      // Dynamic submit button text matching reference image (Pay Rs. X)
+      // Dynamic submit button text (Place Order • Rs. X or Pay with Koko)
       const btnMaster = $('btn-master-submit');
       if (btnMaster && !btnMaster.disabled) {
         if (isKoko) {
           btnMaster.innerHTML = `Pay with Koko &bull; 1st: Rs. ${kokoInstallment}`;
           btnMaster.classList.add('koko-btn');
+        } else if (selectedPaymentMethod === 'Bank Transfer') {
+          btnMaster.innerHTML = `Place Order (Bank Transfer) &bull; Rs. ${codTotal.toLocaleString()}`;
+          btnMaster.classList.remove('koko-btn');
         } else {
-          btnMaster.innerHTML = `Pay Rs. ${activeTotal.toLocaleString()}`;
+          btnMaster.innerHTML = `Place Order (Cash on Delivery) &bull; Rs. ${codTotal.toLocaleString()}`;
           btnMaster.classList.remove('koko-btn');
         }
       }
 
-      // Update Koko live panel on left payment options with clear calculated breakdown
+// Update Koko live panel on left payment options with clear calculated breakdown
       const kokoLivePanel = $('koko-live-panel');
       if (kokoLivePanel) {
         kokoLivePanel.innerHTML = `
