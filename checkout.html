@@ -323,6 +323,97 @@
       transform: translateY(-2px);
     }
 
+    /* Clean Line-by-Line Summary & Mobile Responsive */
+    .summ-divider {
+      border-top: 1px dashed #e2e2e5;
+      margin: 12px 0;
+    }
+    .summ-row-highlight {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 14px;
+      border-radius: 10px;
+      margin: 6px 0;
+      transition: all 0.25s ease;
+      box-sizing: border-box;
+    }
+    .summ-row-highlight.cod-row {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+    }
+    .summ-row-highlight.koko-row {
+      background: #fbf7ff;
+      border: 1.5px solid #d8b4fe;
+    }
+    .summ-row-highlight .hl-label {
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .summ-row-highlight.cod-row .hl-label {
+      color: #166534;
+    }
+    .summ-row-highlight.koko-row .hl-label {
+      color: #581c87;
+    }
+    .summ-row-highlight .hl-value {
+      font-size: 15.5px;
+      font-weight: 800;
+    }
+    .summ-row-highlight.cod-row .hl-value {
+      color: #14532d;
+    }
+    .summ-row-highlight.koko-row .hl-value {
+      color: #7e22ce;
+    }
+
+    @media (max-width: 600px) {
+      .checkout-wrap {
+        padding: 0 12px !important;
+        margin-top: 90px !important;
+      }
+      .chk-left, .summary-box {
+        padding: 20px 15px !important;
+        border-radius: 14px !important;
+      }
+      .summ-title {
+        font-size: 20px !important;
+      }
+      .summ-row {
+        font-size: 13px !important;
+      }
+      .summ-row-highlight {
+        padding: 9px 12px !important;
+      }
+      .summ-row-highlight .hl-label {
+        font-size: 12px !important;
+      }
+      .summ-row-highlight .hl-value {
+        font-size: 14px !important;
+      }
+      .summ-row.total {
+        font-size: 16px !important;
+        margin-top: 10px !important;
+        padding-top: 12px !important;
+      }
+      .summ-row.total span:last-child {
+        font-size: 20px !important;
+      }
+      .btn-pay-now {
+        font-size: 14px !important;
+        padding: 15px 12px !important;
+        letter-spacing: 0.5px !important;
+      }
+    }
+
+        .btn-place-order:hover {
+      background: #b58646;
+      transform: translateY(-2px);
+    }
+
     /* Enhanced Summary Breakdown Styles */
     .summ-row-muted {
       font-size: 11px;
@@ -897,96 +988,67 @@
         </form>
       </div>
 
-            <div class="chk-right">
+                  <div class="chk-right">
         <div class="summary-box">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 25px; border-bottom: 1px solid #f0f0f2; padding-bottom: 15px; position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; border-bottom: 1px solid #f0f0f2; padding-bottom: 12px; position: relative;">
             <h2 class="summ-title" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Order Summary</h2>
-            <span id="summ-item-count" style="font-size: 13px; color: #888; font-family: var(--font-sans); font-weight: 500;">0 items</span>
+            <span id="summ-item-count" style="font-size: 12.5px; color: #888; font-family: var(--font-sans); font-weight: 500;">0 items</span>
           </div>
           
-          <div class="summ-items" id="summ-items"></div>
+          <div class="summ-items" id="summ-items" style="margin-bottom: 20px;"></div>
 
-          <div class="summ-totals">
+          <div class="summ-totals" style="padding-top: 15px; gap: 9px;">
             <!-- 1. Product Price (Subtotal) -->
             <div class="summ-row">
-              <span style="font-weight: 500; color: #444;">Product Price (Subtotal)</span>
+              <span style="color: #555;">Product Price (Subtotal)</span>
               <span id="summ-subtotal" style="font-weight: 700; color: #111;">Rs. 0</span>
             </div>
 
-            <!-- 2. Offer Discount -->
+            <!-- 2. Offer Discount (e.g. 40% OFF) -->
             <div class="summ-row" id="summ-discount-row" style="display: none;">
-              <span style="color: #15803d; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                Offer Discount
-              </span>
+              <span id="summ-discount-label" style="color: #15803d; font-weight: 600;">Offer Discount</span>
               <span id="summ-discount" style="color: #15803d; font-weight: 700;">-Rs. 0</span>
             </div>
 
-            <!-- Savings Banner -->
-            <div id="summ-savings-callout" class="savings-pill" style="display: none;">
-              <span style="display: flex; align-items: center; gap: 6px;">
-                <span>🎉</span> <span>You Save with Today's Offer:</span>
-              </span>
-              <span id="summ-savings-amount" style="font-weight: 800; color: #047857;">Save Rs. 0</span>
+            <!-- 3. Subtotal After Discount -->
+            <div class="summ-row" id="summ-discounted-subtotal-row" style="display: none;">
+              <span style="color: #333; font-weight: 500;">Price After Discount</span>
+              <span id="summ-discounted-subtotal" style="font-weight: 700; color: #111;">Rs. 0</span>
             </div>
 
-            <!-- 3. Delivery Fee -->
+            <!-- 4. Delivery Fee -->
             <div class="summ-row">
-              <span style="display: flex; align-items: center; gap: 6px; color: #555;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#666;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                Delivery (Island-wide)
-              </span>
+              <span style="color: #555;">Delivery (Island-wide)</span>
               <span id="summ-shipping" style="font-weight: 600; color: #111;">Rs. 450</span>
             </div>
 
-            <div style="border-top: 1px dashed #e2e2e5; margin: 10px 0 12px;"></div>
+            <div class="summ-divider"></div>
 
-            <!-- 4. COD Price Card -->
-            <div id="summ-cod-box" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1.5px solid #86efac; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; transition: all 0.25s ease;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-weight: 700; color: #166534; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
-                  <span style="font-size: 16px;">💵</span> COD Price (Cash on Delivery):
-                </span>
-                <span id="summ-cod-price" style="font-size: 16.5px; font-weight: 800; color: #14532d;">Rs. 0</span>
-              </div>
-              <div id="summ-cod-desc" style="font-size: 11px; color: #15803d; margin-top: 4px; line-height: 1.35;">
-                Includes offer discount + Rs. 450 delivery. Pay cash at your doorstep.
+            <!-- 5. COD Price Line -->
+            <div class="summ-row-highlight cod-row" id="summ-cod-box">
+              <span class="hl-label">💵 COD Total (Cash on Delivery)</span>
+              <span class="hl-value" id="summ-cod-price">Rs. 0</span>
+            </div>
+
+            <!-- 6. Koko Price Line -->
+            <div class="summ-row-highlight koko-row" id="summ-koko-box">
+              <span class="hl-label">
+                <img src="koko-logo.png" alt="Koko" style="height: 14px; vertical-align: middle; margin-right: 3px;">
+                Koko (3 Installments)
+              </span>
+              <div style="text-align: right;">
+                <span class="hl-value" id="summ-koko-price">3 x Rs. 0.00</span>
+                <span id="summ-koko-total" style="display: block; font-size: 10.5px; color: #7e22ce; font-weight: 600; margin-top: 1px;">Total: Rs. 0</span>
               </div>
             </div>
 
-            <!-- 5. Koko Price Card -->
-            <div id="summ-koko-box" style="background: linear-gradient(135deg, #fbf7ff 0%, #f5edff 100%); border: 1.5px solid #d8b4fe; border-radius: 12px; padding: 12px 14px; transition: all 0.25s ease;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-weight: 700; color: #581c87; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
-                  <img src="koko-logo.png" alt="Koko" style="height: 16px; object-fit: contain;"> Koko Price (3x Installments):
-                </span>
-                <span id="summ-koko-price" style="font-size: 16px; font-weight: 800; color: #7e22ce;">3 x Rs. 0.00</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; font-size: 11px; color: #6b21a8;">
-                <span>Pay in 3 equal monthly installments</span>
-                <strong id="summ-koko-total" style="font-size: 11.5px; color: #581c87;">Total: Rs. 0</strong>
-              </div>
-              <div id="summ-koko-schedule" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px;">
-                <div style="background:#fff; border:1px solid #d8b4fe; border-radius:6px; padding:5px 4px; text-align:center; font-size:10px;">
-                  <div style="color:#7e22ce; font-weight:700;">1st (Today)</div>
-                  <div id="koko-sch-1" style="font-weight:800; color:#1e1b4b; margin-top:2px;">Rs. 0</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.7); border:1px solid #e9d5ff; border-radius:6px; padding:5px 4px; text-align:center; font-size:10px;">
-                  <div style="color:#7e22ce; font-weight:600;">2nd (30d)</div>
-                  <div id="koko-sch-2" style="font-weight:700; color:#555; margin-top:2px;">Rs. 0</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.7); border:1px solid #e9d5ff; border-radius:6px; padding:5px 4px; text-align:center; font-size:10px;">
-                  <div style="color:#7e22ce; font-weight:600;">3rd (60d)</div>
-                  <div id="koko-sch-3" style="font-weight:700; color:#555; margin-top:2px;">Rs. 0</div>
-                </div>
-              </div>
-            </div>
+            <div class="summ-divider"></div>
 
-            <!-- Total Row (Currently Selected Payment Total) -->
-            <div class="summ-row total" style="margin-top: 15px; padding-top: 15px; border-top: 1.5px solid #1a1a1e;">
-              <div style="display: flex; flex-direction: column;">
-                <span>Total Payable</span>
-                <span id="summ-active-method-label" style="font-size: 11.5px; color: #888; font-weight: normal; font-family: var(--font-sans); margin-top: 2px;">(Cash on Delivery)</span>
+            <!-- 7. Final Total Line -->
+            <div class="summ-row total" style="margin-top: 8px; padding-top: 12px; border-top: 1.5px solid #1a1a1e;">
+              <div>
+                <span style="display: block; font-size: 16px; font-weight: 700; color: #111;">Total Payable</span>
+                <span id="summ-active-method-label" style="font-size: 11px; color: #777; font-weight: normal; font-family: var(--font-sans);">(Cash on Delivery)</span>
               </div>
               <span id="summ-total">Rs. 0</span>
             </div>
@@ -1123,6 +1185,7 @@
       let discountedSubtotal = 0;
       let potentialDiscount = 0;
       let totalQty = 0;
+      let primaryDiscountPercent = 0;
       const isKoko = (selectedPaymentMethod === 'Koko');
 
       itemsContainer.innerHTML = localCart.map(item => {
@@ -1130,6 +1193,10 @@
           ? getCheckoutEffectiveDiscount(item) 
           : Number(item.discount || 0);
         
+        if (effDisc > primaryDiscountPercent) {
+          primaryDiscountPercent = effDisc;
+        }
+
         const lineOriginal = item.price * item.qty;
         const discountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
         const lineDiscounted = discountedPrice * item.qty;
@@ -1144,9 +1211,9 @@
         if (effDisc > 0) {
           priceHTML = `
             <div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
-              <span style="color:#000000; font-size:14.5px; font-weight:700;">Rs. ${lineDiscounted.toLocaleString()}</span>
+              <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${lineDiscounted.toLocaleString()}</span>
               <span style="text-decoration:line-through; color:#9ca3af; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${lineOriginal.toLocaleString()}</span>
-              <span class="discount-badge" style="background:#ecfdf5; color:#059669; border: 1px solid #a7f3d0; font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px; text-transform:uppercase;">${effDisc}% OFF</span>
+              <span class="discount-badge" style="background:#ecfdf5; color:#059669; border: 1px solid #a7f3d0; font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px;">${effDisc}% OFF</span>
             </div>`;
         } else {
           priceHTML = `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${lineOriginal.toLocaleString()}</div>`;
@@ -1154,22 +1221,22 @@
 
         const imgUrl = item.img || (item.images && item.images[0]) || 'favicon.png';
 
-        return `<div class="summ-item" style="justify-content: space-between; width: 100%;">
-            <div style="display: flex; gap: 15px; align-items: center; flex-grow: 1;">
-              <div class="img-wrap">
-                <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';">
-                <span class="qty-badge">${item.qty}</span>
+        return `<div class="summ-item" style="justify-content: space-between; width: 100%; gap: 10px;">
+            <div style="display: flex; gap: 12px; align-items: center; flex-grow: 1; min-width: 0;">
+              <div class="img-wrap" style="width: 52px; height: 52px; flex-shrink: 0;">
+                <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" style="width: 78%; height: 78%; object-fit: contain;">
+                <span class="qty-badge" style="width: 18px; height: 18px; font-size: 10px; top: -6px; right: -6px;">${item.qty}</span>
               </div>
-              <div class="summ-details">
-                <h4>${item.name}</h4>
-                <div class="qty-adjust" style="margin-top: 5px; align-self: flex-start; display: inline-flex;">
+              <div class="summ-details" style="min-width: 0; overflow: hidden;">
+                <h4 style="font-size: 13px; margin-bottom: 3px; line-height: 1.35; white-space: normal; word-break: break-word;">${item.name}</h4>
+                <div class="qty-adjust" style="margin-top: 3px; align-self: flex-start; display: inline-flex; padding: 2px 6px;">
                   <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)">-</button>
-                  <span class="qty-val">${item.qty}</span>
+                  <span class="qty-val" style="font-size: 11px; min-width: 12px;">${item.qty}</span>
                   <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)">+</button>
                 </div>
               </div>
             </div>
-            <div class="price-container" style="text-align: right; min-width: 90px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0;">
+            <div class="price-container" style="text-align: right; min-width: 75px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0; margin-left: 6px;">
               ${priceHTML}
             </div>
           </div>`;
@@ -1181,43 +1248,45 @@
         itemCountEl.textContent = `${totalQty} ${totalQty === 1 ? 'item' : 'items'}`;
       }
 
-      // 1. Product Price (Subtotal)
+      // Line 1: Product Price (Subtotal)
       $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
       
-      // 2. Offer Discount
+      // Line 2 & 3: Offer Discount and Discounted Subtotal
       const discountRow = $('summ-discount-row');
-      const savingsCallout = $('summ-savings-callout');
+      const discountLabel = $('summ-discount-label');
+      const discountedSubtotalRow = $('summ-discounted-subtotal-row');
+      const discountedSubtotalEl = $('summ-discounted-subtotal');
+
       if (potentialDiscount > 0) {
+        if (discountLabel) {
+          discountLabel.textContent = primaryDiscountPercent > 0 
+            ? `Offer Discount (${primaryDiscountPercent}% OFF)` 
+            : `Offer Discount`;
+        }
         if (discountRow) {
           $('summ-discount').textContent = `-Rs. ${potentialDiscount.toLocaleString()}`;
           discountRow.style.display = 'flex';
         }
-        if (savingsCallout) {
-          $('summ-savings-amount').textContent = `Save Rs. ${potentialDiscount.toLocaleString()}`;
-          savingsCallout.style.display = 'flex';
+        if (discountedSubtotalRow && discountedSubtotalEl) {
+          discountedSubtotalEl.textContent = `Rs. ${(originalSubtotal - potentialDiscount).toLocaleString()}`;
+          discountedSubtotalRow.style.display = 'flex';
         }
       } else {
         if (discountRow) discountRow.style.display = 'none';
-        if (savingsCallout) savingsCallout.style.display = 'none';
+        if (discountedSubtotalRow) discountedSubtotalRow.style.display = 'none';
       }
 
-      // 3. Delivery Fee
+      // Line 4: Delivery Fee
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
       
-      // 4. COD Price Calculation
+      // Line 5: COD Total Calculation (Discounted Price + Delivery)
       const codTotal = (originalSubtotal - potentialDiscount) + fee;
       const codPriceEl = $('summ-cod-price');
       if (codPriceEl) {
         codPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
       }
-      const codDescEl = $('summ-cod-desc');
-      if (codDescEl) {
-        codDescEl.textContent = potentialDiscount > 0 
-          ? `Includes Rs. ${potentialDiscount.toLocaleString()} offer discount + Rs. ${fee} delivery. Pay cash at your doorstep.`
-          : `Includes Rs. ${fee} delivery. Pay cash at your doorstep.`;
-      }
 
-      // 5. Koko Price Calculation (3 installments based on regular price + delivery)
+      // Line 6: Koko Total Calculation (Regular Price + Delivery split by 3)
       const kokoTotal = originalSubtotal + fee;
       const kokoInstallment = (kokoTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const kokoPriceEl = $('summ-koko-price');
@@ -1228,37 +1297,31 @@
       if (kokoTotalEl) {
         kokoTotalEl.textContent = `Total: Rs. ${kokoTotal.toLocaleString()}`;
       }
-      const sch1 = $('koko-sch-1');
-      const sch2 = $('koko-sch-2');
-      const sch3 = $('koko-sch-3');
-      if (sch1) sch1.textContent = `Rs. ${kokoInstallment}`;
-      if (sch2) sch2.textContent = `Rs. ${kokoInstallment}`;
-      if (sch3) sch3.textContent = `Rs. ${kokoInstallment}`;
 
-      // Highlight the card of the currently active payment method
+      // Highlight active row subtly
       const codBox = $('summ-cod-box');
       const kokoBox = $('summ-koko-box');
       if (isKoko) {
         if (kokoBox) {
           kokoBox.style.border = '2px solid #7e22ce';
-          kokoBox.style.boxShadow = '0 4px 14px rgba(126, 34, 206, 0.15)';
+          kokoBox.style.boxShadow = '0 2px 8px rgba(126, 34, 206, 0.12)';
         }
         if (codBox) {
-          codBox.style.border = '1px solid #d1fae5';
+          codBox.style.border = '1.5px solid #86efac';
           codBox.style.boxShadow = 'none';
         }
       } else {
         if (codBox) {
           codBox.style.border = '2px solid #16a34a';
-          codBox.style.boxShadow = '0 4px 14px rgba(22, 163, 74, 0.15)';
+          codBox.style.boxShadow = '0 2px 8px rgba(22, 163, 74, 0.12)';
         }
         if (kokoBox) {
-          kokoBox.style.border = '1px solid #f3e8ff';
+          kokoBox.style.border = '1.5px solid #d8b4fe';
           kokoBox.style.boxShadow = 'none';
         }
       }
 
-      // Final Total Payable (Active Selection)
+      // Line 7: Final Total Payable (Active Selection)
       const activeTotal = isKoko ? kokoTotal : codTotal;
       $('summ-total').textContent = `Rs. ${activeTotal.toLocaleString()}`;
       window.currentOrderTotal = activeTotal;
@@ -1268,9 +1331,9 @@
         if (isKoko) {
           activeLabel.textContent = `(Koko 3x • 1st: Rs. ${kokoInstallment})`;
         } else if (selectedPaymentMethod === 'Bank Transfer') {
-          activeLabel.textContent = `(Bank Transfer • Full Discount)`;
+          activeLabel.textContent = `(Bank Transfer)`;
         } else {
-          activeLabel.textContent = `(Cash on Delivery • Full Discount)`;
+          activeLabel.textContent = `(Cash on Delivery)`;
         }
       }
 
@@ -1278,24 +1341,9 @@
       const kokoLivePanel = $('koko-live-panel');
       if (kokoLivePanel) {
         kokoLivePanel.innerHTML = `
-          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 10px; padding: 14px; font-size: 12.5px; color: #581c87;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-weight: 700; font-size: 13px;">Koko 3-Part Installment Breakdown:</span>
-              <span style="font-weight: 800; font-size: 13.5px; color: #7e22ce;">3 x Rs. ${kokoInstallment}</span>
-            </div>
-            <div style="background: #ffffff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; display: flex; justify-content: space-between;">
-              <span>1st installment due today:</span>
-              <strong style="color: #9333ea;">Rs. ${kokoInstallment}</strong>
-            </div>
-            ${potentialDiscount > 0 ? `
-              <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 8px 10px; border-radius: 6px; font-size: 11px; color: #856404; line-height: 1.4;">
-                ⚡ <strong>Flash Sale Offer Notice:</strong> Special promotional discount prices apply exclusively to <strong>Cash on Delivery (COD)</strong> &amp; <strong>Bank Transfer</strong>. Regular prices apply for Koko 3x installment purchases.
-              </div>
-            ` : `
-              <div style="font-size: 11px; color: #7e22ce; line-height: 1.4;">
-                Split into 3 equal monthly payments with any debit or credit card. 0% interest.
-              </div>
-            `}
+          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #581c87; display: flex; justify-content: space-between; align-items: center;">
+            <span>Pay in 3 monthly installments:</span>
+            <strong style="font-size: 13px; color: #7e22ce;">3 x Rs. ${kokoInstallment} (0% Interest)</strong>
           </div>`;
       }
 
@@ -1303,20 +1351,9 @@
       const codLivePanel = $('cod-live-panel');
       if (codLivePanel) {
         codLivePanel.innerHTML = `
-          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 14px; font-size: 12.5px; color: #166534;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-weight: 700; font-size: 13px;">Doorstep Cash Payment:</span>
-              <span style="font-weight: 800; font-size: 14px; color: #14532d;">Rs. ${codTotal.toLocaleString()}</span>
-            </div>
-            ${potentialDiscount > 0 ? `
-              <div style="background: #ffffff; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; display: flex; justify-content: space-between; font-size: 11.5px;">
-                <span>🎉 Full Flash Offer Discount:</span>
-                <strong style="color: #15803d;">-Rs. ${potentialDiscount.toLocaleString()} applied!</strong>
-              </div>
-            ` : ''}
-            <div style="font-size: 11px; color: #166534; line-height: 1.4;">
-              🚚 Pay cash directly to the courier rider upon parcel handover at your doorstep.
-            </div>
+          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #166534; display: flex; justify-content: space-between; align-items: center;">
+            <span>Pay cash at doorstep:</span>
+            <strong style="font-size: 13px; color: #14532d;">Rs. ${codTotal.toLocaleString()}</strong>
           </div>`;
       }
 
