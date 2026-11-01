@@ -513,32 +513,145 @@
       font-size: 20px;
     }
 
-    @media (max-width: 600px) {
+    .price-container {
+      min-width: 95px;
+    }
+
+    @media (max-width: 900px) {
       .checkout-wrap {
-        padding: 0 15px !important;
-        margin-top: 100px !important;
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        margin-top: 110px !important;
+        padding: 0 20px !important;
+      }
+      .chk-left {
+        padding: 35px 25px !important;
+      }
+      .summary-box {
+        padding: 35px 25px !important;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        overflow-x: hidden !important;
+      }
+      .checkout-wrap {
+        padding: 0 12px !important;
+        margin-top: 85px !important;
+        margin-bottom: 50px !important;
+        gap: 20px !important;
         width: 100% !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
       }
       .chk-left, .summary-box {
-        padding: 25px 20px !important;
-        border-radius: 15px !important;
+        padding: 20px 14px !important;
+        border-radius: 16px !important;
         width: 100% !important;
         box-sizing: border-box !important;
       }
       .chk-header {
-        font-size: 28px !important;
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
+        padding-bottom: 12px !important;
+      }
+      .chk-section {
+        margin-bottom: 22px !important;
+      }
+      .chk-section-title {
+        font-size: 16px !important;
+        margin-bottom: 12px !important;
       }
       .form-grid {
         grid-template-columns: 1fr !important;
-        gap: 15px !important;
+        gap: 12px !important;
       }
       .form-group-full {
         grid-column: span 1 !important;
       }
-      body {
-        overflow-x: hidden !important;
+      .input-grp input, .input-grp select {
+        font-size: 14px !important;
+        padding: 12px 14px !important;
+      }
+      .payment-gateway-row, .billing-row {
+        padding: 13px 10px !important;
+        gap: 8px !important;
+      }
+      .pg-title {
+        font-size: 13px !important;
+      }
+      .pg-icons-col img {
+        height: 18px !important;
+      }
+      .card-form-container {
+        padding: 12px !important;
+        gap: 10px !important;
+      }
+      .summ-title {
+        font-size: 20px !important;
+        margin-bottom: 16px !important;
+      }
+      .summ-items {
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+        padding: 4px 0 !important;
+        max-height: none !important;
+      }
+      .summ-item {
+        gap: 10px !important;
+      }
+      .summ-item-left {
+        gap: 10px !important;
+      }
+      .img-wrap {
+        width: 64px !important;
+        height: 64px !important;
+        min-width: 64px !important;
+        border-radius: 10px !important;
+        padding: 4px !important;
+      }
+      .qty-badge {
+        width: 19px !important;
+        height: 19px !important;
+        font-size: 10px !important;
+        line-height: 17px !important;
+        top: -5px !important;
+        right: -5px !important;
+      }
+      .summ-details h4 {
+        font-size: 12.5px !important;
+        line-height: 1.35 !important;
+      }
+      .price-container {
+        min-width: auto !important;
+        margin-left: 6px !important;
+      }
+      .summ-price span:first-child {
+        font-size: 15px !important;
+      }
+      .summ-price span:last-child {
+        font-size: 12px !important;
+      }
+      .summ-totals {
+        padding-top: 16px !important;
+        gap: 10px !important;
+      }
+      .summ-row {
+        font-size: 13px !important;
+      }
+      .summ-row.total {
+        font-size: 17px !important;
+      }
+      #summ-koko-installment-row {
+        padding: 10px 12px !important;
+        margin-top: 12px !important;
+      }
+      .btn-pay-now {
+        padding: 16px !important;
+        font-size: 15px !important;
+        margin-top: 18px !important;
+        letter-spacing: 1px !important;
       }
     }
 
@@ -947,8 +1060,6 @@
             </div>
           </div>
 
-          <!-- Submit Button -->
-          <button class="btn-pay-now" id="btn-master-submit">Pay now</button>
         </form>
       </div>
 
@@ -1000,6 +1111,9 @@
                 <span id="summ-koko-total-val" style="font-size: 11px; color: #4b5563; font-weight: 600;">Total: Rs. 0</span>
               </div>
             </div>
+
+            <!-- Submit Button (Directly below Subtotal and Koko) -->
+            <button class="btn-pay-now" id="btn-master-submit" type="button">Pay now</button>
           </div>
         </div>
       </div>
@@ -1171,7 +1285,7 @@
             : `<div class="summ-price" style="font-family:var(--font-sans); font-size:18px; font-weight:800; color:#111827; letter-spacing:-0.3px;">Rs. ${lineOriginal.toLocaleString()}</div>`;
 
         return `<div class="summ-item" style="justify-content: space-between; width: 100%;">
-            <div style="display: flex; gap: 16px; align-items: center; flex-grow: 1; min-width: 0;">
+            <div class="summ-item-left" style="display: flex; gap: 14px; align-items: center; flex-grow: 1; min-width: 0;">
               <div class="img-wrap">
                 <img src="${item.img}" alt="${item.name}">
                 <span class="qty-badge">${item.qty}</span>
@@ -1191,7 +1305,7 @@
                 </div>
               </div>
             </div>
-            <div class="price-container" style="text-align: right; min-width: 110px; display: flex; flex-direction: column; align-items: flex-end; align-self: center; flex-shrink: 0;">
+            <div class="price-container" style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; align-self: center; flex-shrink: 0;">
               ${priceHTML}
             </div>
           </div>`;
