@@ -12119,3 +12119,8 @@ body.loading-active .floating-email {
   .site-footer .footer-bottom { padding: 8px 16px 10px !important; }
   .site-footer .footer-bottom p { font-size: 9.5px !important; }
 }
+
+/* FOOTER DESKTOP v5 (a bit more line spacing) */
+@media (min-width: 901px) {
+  .site-footer .footer-col ul li a { padding: 4px 0 !important; line-height: 1.3 !important; }
+}
