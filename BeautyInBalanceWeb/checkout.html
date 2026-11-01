@@ -13,715 +13,398 @@
   <link rel="stylesheet" href="styles.css?v=463479" />
   <script src="config.js?v=18"></script>
   <style>
+    :root {
+      --bg-neutral: #f4f5f7;
+      --card-white: #ffffff;
+      --text-dark: #111827;
+      --text-gray: #4b5563;
+      --text-muted: #9ca3af;
+      --border-light: #edf0f5;
+      --green-primary: #10b981;
+      --green-bg: #ecfdf5;
+      --koko-purple: #7e22ce;
+    }
+
     body {
-      background-color: #faf9f7;
-    }
-    .checkout-wrap {
-      max-width: 1200px;
-      margin: 160px auto 100px;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-    @media (max-width: 900px) {
-      .checkout-wrap { grid-template-columns: 1fr; gap: 40px; margin-top: 140px; }
+      background-color: var(--bg-neutral) !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
     }
 
-    /* Left Side: Forms */
-    .chk-left {
-      background: #fff;
-      padding: 50px;
-      border-radius: 20px;
-      box-shadow: 0 5px 30px rgba(0,0,0,0.03);
+    /* Outer Wrapper */
+    .so-checkout-container {
+      max-width: 1140px;
+      margin: 125px auto 60px;
+      padding: 0 20px;
     }
 
-    .chk-header {
-      font-family: var(--font-serif);
-      font-size: 36px;
-      color: var(--brown);
-      margin-bottom: 30px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 20px;
-    }
-
-    .chk-section {
-      margin-bottom: 40px;
-    }
-    .chk-section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 20px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .form-group-full {
-      grid-column: span 2;
-    }
-
-    .input-grp input, .input-grp select {
-      width: 100%;
-      padding: 15px;
-      background: #f9f9f9;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      font-family: var(--font-sans);
-      font-size: 15px;
-      transition: all 0.3s;
+    /* Main Floating Card */
+    .so-checkout-card {
+      background: var(--card-white);
+      border-radius: 28px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 38px 46px;
       box-sizing: border-box;
     }
-    .input-grp input:focus, .input-grp select:focus {
-      outline: none;
-      border-color: var(--gold);
-      background: #fff;
-    }
 
-    /* Right Side: Order Summary */
-    .chk-right {
-      position: -webkit-sticky;
-      position: sticky;
-      top: 120px;
-      z-index: 10;
-      align-self: start;
-    }
-
-    @media (min-width: 901px) {
-      html, body {
-        overflow: visible !important;
+    @media (max-width: 900px) {
+      .so-checkout-container {
+        margin: 95px auto 40px;
+        padding: 0 12px;
+      }
+      .so-checkout-card {
+        padding: 24px 18px;
+        border-radius: 20px;
       }
     }
 
-    .summary-box {
-      background: #ffffff;
-      color: #1a1a1e;
-      padding: 40px 35px;
-      border-radius: 24px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
-      position: relative;
-      overflow: hidden;
-    }
-    .summary-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--brown) 0%, var(--gold) 50%, var(--brown) 100%);
-    }
-
-    .summ-title {
-      font-family: var(--font-serif);
-      font-size: 24px;
-      margin-bottom: 30px;
-      color: #000000;
-      font-weight: 600;
-      border-bottom: 1px solid #f0f0f2;
-      padding-bottom: 15px;
-      position: relative;
-    }
-    .summ-title::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 50px;
-      height: 2px;
-      background: var(--gold);
-    }
-
-    .summ-items {
+    /* Header with Steps */
+    .so-header-bar {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 30px;
-      max-height: 350px;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-    .summ-items::-webkit-scrollbar {
-      width: 6px;
-    }
-    .summ-items::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .summ-items::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-    }
-    .summ-items::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .summ-item {
-      display: flex;
-      gap: 15px;
+      justify-content: space-between;
       align-items: center;
-      transition: transform 0.2s ease;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 30px;
     }
-    .summ-item:hover {
-      transform: translateX(4px);
+
+    .so-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .img-wrap {
-      width: 64px;
-      height: 64px;
+    .so-brand-name {
+      font-family: var(--font-serif), Georgia, serif;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #1a1311;
+    }
+    .so-header-divider {
+      color: #d1d5db;
+      font-size: 16px;
+      font-weight: 300;
+    }
+    .so-header-sub {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-gray);
+    }
+
+    .so-steps {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12.5px;
+    }
+    .so-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .so-step.done {
+      color: var(--green-primary);
+    }
+    .so-step.active {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    .so-step-line {
+      width: 24px;
+      height: 1px;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    @media (max-width: 768px) {
+      .so-header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding-bottom: 18px;
+        margin-bottom: 22px;
+      }
+      .so-steps {
+        font-size: 11.5px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .so-step-line {
+        width: 16px;
+      }
+    }
+
+    /* 2-Column Grid: Left (Your Order) | Right (Payment Details) */
+    .so-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 46px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .so-main-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    /* Section Headings */
+    .so-sec-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0 0 6px 0;
+      letter-spacing: -0.3px;
+    }
+    .so-sec-subtitle {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 0 0 20px 0;
+      line-height: 1.4;
+    }
+
+    /* LEFT: Your Order Box */
+    .so-order-items-box {
+      border: 1.5px solid var(--border-light);
+      border-radius: 16px;
+      padding: 16px;
       background: #ffffff;
-      border: 1px solid #eef0f2;
+      margin-bottom: 20px;
+    }
+
+    .so-item-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f4f5f7;
+    }
+    .so-item-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .so-item-row:first-child {
+      padding-top: 0;
+    }
+
+    .so-img-box {
+      width: 72px;
+      height: 72px;
       border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #edf0f5;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: border-color 0.2s ease;
+      flex-shrink: 0;
+      overflow: visible;
+      padding: 4px;
+      box-sizing: border-box;
     }
-    .summ-item:hover .img-wrap {
-      border-color: var(--gold);
-    }
-    .img-wrap img {
-      width: 80%;
-      height: 80%;
+    .so-img-box img {
+      max-width: 90%;
+      max-height: 90%;
       object-fit: contain;
+      display: block;
     }
-    .qty-badge {
+    .so-qty-badge {
       position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--brown);
-      color: #fff;
+      top: -6px;
+      right: -6px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1.5px solid #d1d5db;
+      color: #374151;
+      font-size: 10.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .so-item-details {
+      flex-grow: 1;
+      min-width: 0;
+    }
+    .so-item-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 6px 0;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    /* Quantity Stepper Pill */
+    .so-stepper-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .so-qty-lbl {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .so-stepper-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 1px 6px;
+      background: #ffffff;
+      gap: 3px;
+    }
+    .so-stepper-btn {
       width: 20px;
       height: 20px;
-      border-radius: 50%;
-      font-size: 11px;
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+      color: #4b5563;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      border: 2px solid #ffffff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      padding: 0;
+      line-height: 1;
+      transition: all 0.15s;
     }
-
-    .summ-details {
-      flex-grow: 1;
+    .so-stepper-btn:hover {
+      background: #f3f4f6;
+      color: #111;
     }
-    .summ-details h4 {
-      font-size: 14px;
-      font-weight: 500;
-      color: #1a1a1e;
-      margin-bottom: 5px;
-      line-height: 1.4;
-      font-family: var(--font-sans);
-      transition: color 0.2s ease;
-    }
-    .summ-item:hover .summ-details h4 {
-      color: #000000;
-    }
-    .summ-price {
-      font-weight: bold;
-      color: var(--brown);
-    }
-
-    /* Qty controls styled classes */
-    .qty-adjust {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #f5f5f7;
-      border: 1px solid #e2e2e5;
-      padding: 3px 8px;
-      border-radius: 6px;
-      transition: border-color 0.2s ease;
-    }
-    .qty-adjust:hover {
-      border-color: rgba(198, 151, 90, 0.4);
-    }
-    .qty-btn {
-      border: none;
-      background: transparent;
-      color: #555558;
-      cursor: pointer;
+    .so-stepper-val {
+      font-size: 12px;
       font-weight: 700;
-      font-size: 12px;
-      padding: 0 4px;
-      transition: color 0.2s ease, transform 0.1s ease;
-    }
-    .qty-btn:hover {
-      color: var(--gold);
-      transform: scale(1.2);
-    }
-    .qty-val {
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 600;
-      color: #000000;
+      color: var(--text-dark);
       min-width: 14px;
       text-align: center;
     }
 
-    .summ-totals {
-      border-top: 1px solid #f0f0f2;
-      padding-top: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .summ-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #555558;
-      font-family: var(--font-sans);
-    }
-    .summ-row span:last-child {
-      color: #000000;
-      font-weight: 500;
-    }
-
-    .summ-row.total {
-      font-size: 22px;
-      color: #000000;
+    .so-item-price {
+      font-size: 14.5px;
       font-weight: 700;
-      margin-top: 15px;
-      padding-top: 20px;
-      border-top: 1px dashed #e2e2e5;
-      font-family: var(--font-serif);
-    }
-    .summ-row.total span:last-child {
-      color: var(--brown);
-      font-size: 24px;
-      font-weight: 800;
-      font-family: var(--font-sans);
-    }
-
-    .btn-place-order {
-      width: 100%;
-      padding: 18px;
-      background: var(--gold);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-family: var(--font-sans);
-      font-size: 16px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-top: 30px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn-place-order:hover {
-      background: #b58646;
-      transform: translateY(-2px);
-    }
-
-    /* Clean Line-by-Line Summary & Mobile Responsive */
-    .summ-divider {
-      border-top: 1px dashed #e2e2e5;
-      margin: 12px 0;
-    }
-    .summ-row-highlight {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 11px 14px;
-      border-radius: 10px;
-      margin: 6px 0;
-      transition: all 0.25s ease;
-      box-sizing: border-box;
-    }
-    .summ-row-highlight.cod-row {
-      background: #f0fdf4;
-      border: 1.5px solid #86efac;
-    }
-    .summ-row-highlight.koko-row {
-      background: #fbf7ff;
-      border: 1.5px solid #d8b4fe;
-    }
-    .summ-row-highlight .hl-label {
-      font-size: 13.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .summ-row-highlight.cod-row .hl-label {
-      color: #166534;
-    }
-    .summ-row-highlight.koko-row .hl-label {
-      color: #581c87;
-    }
-    .summ-row-highlight .hl-value {
-      font-size: 15.5px;
-      font-weight: 800;
-    }
-    .summ-row-highlight.cod-row .hl-value {
-      color: #14532d;
-    }
-    .summ-row-highlight.koko-row .hl-value {
-      color: #7e22ce;
-    }
-
-    @media (max-width: 600px) {
-      .checkout-wrap {
-        padding: 0 12px !important;
-        margin-top: 90px !important;
-      }
-      .chk-left, .summary-box {
-        padding: 20px 15px !important;
-        border-radius: 14px !important;
-      }
-      .summ-title {
-        font-size: 20px !important;
-      }
-      .summ-row {
-        font-size: 13px !important;
-      }
-      .summ-row-highlight {
-        padding: 9px 12px !important;
-      }
-      .summ-row-highlight .hl-label {
-        font-size: 12px !important;
-      }
-      .summ-row-highlight .hl-value {
-        font-size: 14px !important;
-      }
-      .summ-row.total {
-        font-size: 16px !important;
-        margin-top: 10px !important;
-        padding-top: 12px !important;
-      }
-      .summ-row.total span:last-child {
-        font-size: 20px !important;
-      }
-      .btn-pay-now {
-        font-size: 14px !important;
-        padding: 15px 12px !important;
-        letter-spacing: 0.5px !important;
-      }
-    }
-
-        .btn-place-order:hover {
-      background: #b58646;
-      transform: translateY(-2px);
-    }
-
-    /* Enhanced Summary Breakdown Styles */
-    .summ-row-muted {
-      font-size: 11px;
-      color: #88888b;
-      margin-top: 1px;
-      font-weight: 400;
-    }
-    .savings-pill {
-      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-      border: 1px solid #a7f3d0;
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 12px;
-      color: #065f46;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.08);
-      margin: 2px 0;
-    }
-    .koko-notice-pill {
-      background: #faf5ff;
-      border: 1px solid #e9d5ff;
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 11.5px;
-      color: #6b21a8;
-      line-height: 1.45;
-      margin: 2px 0;
-    }
-
-    /* Shopify-style Payment and Billing Boxes */
-    .payment-section-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 4px;
-      text-align: left;
-    }
-    .payment-section-subtitle {
-      font-size: 13px;
-      color: #777;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .payment-gateway-box, .billing-address-box {
-      border: 1px solid #d9d9d9;
-      border-radius: 5px;
-      background: #fff;
-      overflow: hidden;
-      margin-bottom: 20px;
-      box-sizing: border-box;
-      width: 100%;
-    }
-    .payment-gateway-row-container, .billing-row-container {
-      border-bottom: 1px solid #d9d9d9;
-      transition: background-color 0.2s ease, border-left-color 0.2s ease;
-      background-color: #fff;
-      border-left: 3px solid transparent;
-    }
-    .payment-gateway-row-container:last-child, .billing-row-container:last-child {
-      border-bottom: none;
-    }
-    .payment-gateway-row, .billing-row {
-      display: flex;
-      align-items: center;
-      padding: 16px 15px;
-      cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
-      user-select: none;
-      margin: 0 !important;
-      background: transparent !important;
-      border: none !important;
-      border-radius: 0 !important;
-      gap: 12px;
-      transform: none !important;
-      box-shadow: none !important;
-      transition: none !important;
-    }
-    .payment-gateway-row-container.active-row, .billing-row-container.active-row {
-      background-color: #fafafa;
-      border-left-color: var(--brown);
-    }
-    
-    /* Custom Radio Buttons */
-    .pg-radio-col {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .pg-radio-col input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      width: 18px;
-      height: 18px;
-      margin: 0;
-      z-index: 2;
-    }
-    .custom-radio {
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid #d9d9d9;
-      border-radius: 50%;
-      display: inline-block;
-      position: relative;
-      box-sizing: border-box;
-      background-color: #fff;
-      transition: border-color 0.2s, background-color 0.2s;
-    }
-    .pg-radio-col input[type="radio"]:checked + .custom-radio {
-      border-color: var(--brown);
-      background-color: var(--brown);
-    }
-    .pg-radio-col input[type="radio"]:checked + .custom-radio::after {
-      content: "";
-      width: 6px;
-      height: 6px;
-      background-color: #fff;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    
-    .pg-text-col {
-      flex-grow: 1;
-      text-align: left;
-    }
-    .pg-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: #333;
-    }
-    .pg-icons-col {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .pg-icons-col svg {
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      color: var(--text-dark);
+      white-space: nowrap;
+      text-align: right;
       flex-shrink: 0;
+      padding-left: 8px;
     }
-    .pg-expanded-content {
-      border-top: 1px solid #d9d9d9;
-      background-color: #f9f9f9;
-      padding: 24px 16px;
-      display: none;
+
+    /* Discount Code Input Box */
+    .so-coupon-box {
+      margin-bottom: 24px;
     }
-    .billing-expanded-content {
-      border-top: 1px solid #d9d9d9;
-      background-color: #f9f9f9;
-      padding: 20px 16px;
-      display: none;
-    }
-    .pg-redirect-msg {
-      font-size: 14px;
-      color: #555;
-      text-align: center;
-      line-height: 1.5;
-    }
-    
-    /* Pay now button */
-    .btn-pay-now {
-      width: 100%;
-      padding: 18px;
-      background: #000000;
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      font-family: var(--font-sans);
-      font-size: 16px;
+    .so-coupon-lbl {
+      font-size: 13px;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .so-coupon-input-wrap {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+      padding: 4px 6px 4px 14px;
+      transition: all 0.2s ease;
+    }
+    .so-coupon-input-wrap:focus-within {
+      background: #ffffff;
+      border-color: #111827;
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.05);
+    }
+    .so-coupon-icon {
+      margin-right: 10px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+    }
+    .so-coupon-input {
+      flex-grow: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13.5px;
+      font-family: inherit;
+      color: var(--text-dark);
+    }
+    .so-coupon-input::placeholder {
+      color: var(--text-muted);
+    }
+    .so-coupon-btn {
+      border: none;
+      background: transparent;
+      color: var(--green-primary);
+      font-weight: 700;
+      font-size: 13.5px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 25px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 8px 12px;
+      transition: opacity 0.2s;
     }
-    .btn-pay-now:hover {
-      background: var(--brown);
-      box-shadow: 0 8px 25px rgba(45, 27, 18, 0.25);
-      transform: translateY(-2px);
+    .so-coupon-btn:hover {
+      opacity: 0.8;
     }
 
-    @media (max-width: 480px) {
-      .pg-title {
-        font-size: 13px;
-      }
-      .payment-gateway-row, .billing-row {
-        padding: 14px 10px;
-        gap: 8px;
-      }
-      .pg-icons-col svg {
-        width: 28px;
-        height: 18.6px;
-      }
-    }
-
-    .empty-cart-msg {
-      text-align: center;
-      padding: 100px;
-      font-size: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .checkout-wrap {
-        padding: 0 15px !important;
-        margin-top: 100px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        overflow-x: hidden !important;
-      }
-      .chk-left, .summary-box {
-        padding: 25px 20px !important;
-        border-radius: 15px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-      }
-      .chk-header {
-        font-size: 28px !important;
-      }
-      .form-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-      }
-      .form-group-full {
-        grid-column: span 1 !important;
-      }
-      body {
-        overflow-x: hidden !important;
-      }
-    }
-
-    /* Premium Credit Card Inputs Styling */
-    .card-form-container {
+    /* Breakdown Rows */
+    .so-breakdown-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 5px;
-      background: #fcfcfc;
-      border: 1px solid #e5e5e5;
-      padding: 16px;
-      border-radius: 6px;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.01);
+      gap: 9px;
+      margin-bottom: 20px;
     }
-    .card-input-wrapper {
-      position: relative;
+    .so-breakdown-row {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      width: 100%;
+      font-size: 13.5px;
+      color: var(--text-gray);
     }
-    .card-input-wrapper input {
-      width: 100%;
-      padding: 12px 12px 12px 38px;
-      background: #ffffff;
-      border: 1px solid #d9d9d9;
-      border-radius: 5px;
-      font-size: 14px;
-      font-family: var(--font-sans);
-      box-sizing: border-box;
-      color: #333;
-      transition: border-color 0.2s, box-shadow 0.2s;
+    .so-breakdown-row .val {
+      font-weight: 600;
+      color: var(--text-dark);
     }
-    .card-input-wrapper input::placeholder {
-      color: #999;
+    .so-breakdown-row.discount-row {
+      color: var(--green-primary);
+      font-weight: 600;
     }
-    .card-input-wrapper input:focus {
-      outline: none;
-      border-color: #1b1b1e;
-      box-shadow: 0 0 0 1px #1b1b1e;
+    .so-breakdown-row.discount-row .val {
+      color: var(--green-primary);
+      font-weight: 700;
     }
-    .card-input-svg {
-      position: absolute;
-      left: 12px;
-      color: #999;
-      pointer-events: none;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card-input-wrapper input:focus + .card-input-svg {
-      color: #1b1b1e;
-    }
-  
-    /* Sleek Modern Payment Option Cards in Summary */
+
+    /* Payment Overview Cards in Order Summary */
     .checkout-pay-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
       padding: 10px 14px;
-      border-radius: 10px;
-      border: 1.5px solid #e4e4e7;
+      border-radius: 12px;
+      border: 1.5px solid #edf0f5;
       background: #ffffff;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s ease;
       box-sizing: border-box;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
     .checkout-pay-card:hover {
-      border-color: #a1a1aa;
+      border-color: #cbd5e1;
       background: #fafafa;
     }
     .checkout-pay-card.active-cod {
@@ -747,36 +430,30 @@
       flex-grow: 1;
     }
     .cpc-title {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
-      color: #18181b;
-      display: flex;
-      align-items: center;
+      color: var(--text-dark);
       line-height: 1.25;
-      letter-spacing: -0.1px;
     }
     .active-cod .cpc-title { color: #166534; }
     .active-bank .cpc-title { color: #1e40af; }
     .active-koko .cpc-title { color: #6b21a8; }
-
     .cpc-sub {
-      font-size: 11px;
-      color: #71717a;
+      font-size: 10.5px;
+      color: var(--text-muted);
       margin-top: 2px;
-      line-height: 1.3;
     }
     .active-cod .cpc-sub { color: #15803d; font-weight: 500; }
     .active-bank .cpc-sub { color: #2563eb; font-weight: 500; }
     .active-koko .cpc-sub { color: #7e22ce; font-weight: 500; }
 
     .cpc-price {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 800;
-      color: #18181b;
+      color: var(--text-dark);
       white-space: nowrap;
       text-align: right;
       flex-shrink: 0;
-      font-family: var(--font-sans);
     }
     .active-cod .cpc-price { color: #15803d; }
     .active-bank .cpc-price { color: #1e40af; }
@@ -791,22 +468,12 @@
       padding: 2px 6px;
       height: 22px;
       flex-shrink: 0;
-      vertical-align: middle;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
       box-sizing: border-box;
     }
-    .cpc-badge-cod {
-      border: 1px solid #bbf7d0;
-      font-size: 12px;
-    }
-    .cpc-badge-bank {
-      border: 1px solid #bfdbfe;
-      font-size: 12px;
-    }
-    .cpc-badge-koko {
-      border: 1px solid #e9d5ff;
-      padding: 2px 5px;
-    }
+    .cpc-badge-cod { border: 1px solid #bbf7d0; font-size: 12px; }
+    .cpc-badge-bank { border: 1px solid #bfdbfe; font-size: 12px; }
+    .cpc-badge-koko { border: 1px solid #e9d5ff; padding: 2px 5px; }
     .cpc-badge-koko img {
       height: 12px !important;
       width: auto !important;
@@ -815,78 +482,214 @@
       display: block !important;
     }
 
-    /* Right Summary Action Button */
-    .btn-summary-pay {
+    /* Final Total Row */
+    .so-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 14px;
+      border-top: 1.5px solid #111827;
+      margin-top: 10px;
+    }
+    .so-total-row .lbl {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .so-total-row .val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    /* RIGHT: Payment Details Form */
+    .so-form-grp {
+      margin-bottom: 16px;
+    }
+    .so-form-grp:last-child {
+      margin-bottom: 0;
+    }
+    .so-form-lbl {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-gray);
+      margin-bottom: 7px;
+    }
+    .so-lbl-sublink {
+      font-size: 12px;
+      color: var(--text-gray);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Inputs with Icons and Green Checkmark */
+    .so-input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .so-in-icon {
+      position: absolute;
+      left: 14px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      color: var(--text-muted);
+    }
+    .so-in-field {
+      width: 100%;
+      padding: 13px 42px 13px 42px;
+      background: #fafafa;
+      border: 1.5px solid #edf0f5;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-dark);
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    .so-in-field:focus {
+      background: #ffffff;
+      border-color: #111827;
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.05);
+    }
+    .so-in-field::placeholder {
+      color: var(--text-muted);
+    }
+    .so-in-check {
+      position: absolute;
+      right: 14px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #ecfdf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .so-input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .so-select-field {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+      cursor: pointer;
+      padding-right: 36px !important;
+    }
+
+    /* Payment Method Tabs/Pills in Right Column */
+    .so-payment-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .so-pay-tab {
+      padding: 10px 8px;
+      border: 1.5px solid #edf0f5;
+      border-radius: 12px;
+      background: #fafafa;
+      text-align: center;
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-gray);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      user-select: none;
+    }
+    .so-pay-tab:hover {
+      border-color: #cbd5e1;
+    }
+    .so-pay-tab.active-tab {
+      border-color: #111827;
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .so-pay-tab.active-tab#tab-koko {
+      border-color: var(--koko-purple);
+      background: #faf5ff;
+      color: var(--koko-purple);
+    }
+
+    .so-tab-details {
+      animation: fadeIn 0.2s ease-out;
+      margin-bottom: 14px;
+    }
+
+    /* Checkbox */
+    .so-checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 18px 0 24px 0;
+      font-size: 13px;
+      color: var(--text-gray);
+      cursor: pointer;
+      user-select: none;
+    }
+    .so-checkbox-wrap input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: #111827;
+      cursor: pointer;
+    }
+
+    /* Full-Width Pay Button */
+    .so-btn-pay {
       width: 100%;
       padding: 16px;
-      background: #111111;
+      background: #111827;
       color: #ffffff;
       border: none;
       border-radius: 12px;
-      font-family: var(--font-sans);
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       cursor: pointer;
-      transition: all 0.25s ease;
-      margin-top: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.15);
       display: block;
       text-align: center;
       box-sizing: border-box;
     }
-    .btn-summary-pay:hover {
+    .so-btn-pay:hover {
       background: #27272a;
       transform: translateY(-1.5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.22);
     }
-    .btn-summary-pay.koko-btn {
+    .so-btn-pay.koko-btn {
       background: linear-gradient(135deg, #7e22ce 0%, #581c87 100%);
-      box-shadow: 0 6px 20px rgba(126, 34, 206, 0.25);
+      box-shadow: 0 4px 16px rgba(126, 34, 206, 0.28);
     }
-    .btn-summary-pay.koko-btn:hover {
+    .so-btn-pay.koko-btn:hover {
       background: linear-gradient(135deg, #6b21a8 0%, #4c1d95 100%);
-      transform: translateY(-1.5px);
-      box-shadow: 0 8px 24px rgba(126, 34, 206, 0.35);
+      box-shadow: 0 6px 22px rgba(126, 34, 206, 0.38);
     }
 
-    @media (max-width: 600px) {
-      .checkout-pay-card {
-        padding: 9px 10px !important;
-        gap: 8px !important;
-        border-radius: 9px !important;
-        margin-bottom: 6px !important;
-      }
-      .cpc-left {
-        gap: 8px !important;
-      }
-      .cpc-title {
-        font-size: 12.5px !important;
-      }
-      .cpc-sub {
-        font-size: 10px !important;
-        line-height: 1.25 !important;
-      }
-      .cpc-price {
-        font-size: 13.5px !important;
-      }
-      .cpc-badge {
-        height: 18px !important;
-        padding: 1px 4px !important;
-      }
-      .cpc-badge-koko img {
-        height: 10px !important;
-        max-width: 28px !important;
-      }
-      .btn-summary-pay {
-        padding: 14px 12px !important;
-        font-size: 14px !important;
-        border-radius: 10px !important;
-        margin-top: 14px !important;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-  </style>
+    </style>
 </head>
 <body>
 
@@ -975,308 +778,304 @@
   </div>
 
   <div id="checkout-root">
-    <div class="checkout-wrap">
-      <div class="chk-left">
-        <h1 class="chk-header">Secure Checkout</h1>
-        <form id="checkout-form">
-          <div class="chk-section">
-            <h3 class="chk-section-title">Contact Information</h3>
-            <div class="input-grp form-group-full">
-              <input type="email" id="c-email" placeholder="Email Address" required />
-            </div>
+    <div class="so-checkout-container">
+      <div class="so-checkout-card">
+        
+        <!-- Header: Brand | Order Overview  +  Step Progress -->
+        <div class="so-header-bar">
+          <div class="so-header-left">
+            <span class="so-brand-name">Beauty in Balance</span>
+            <span class="so-header-divider">|</span>
+            <span class="so-header-sub">Order Overview</span>
           </div>
-          <div class="chk-section">
-            <h3 class="chk-section-title">Shipping Address</h3>
-            <div class="form-grid">
-              <div class="input-grp">
-                <input type="text" id="c-fname" placeholder="First Name" required />
+          <div class="so-steps">
+            <span class="so-step done">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              1 Information
+            </span>
+            <span class="so-step-line"></span>
+            <span class="so-step active">
+              2 Payment Details
+            </span>
+            <span class="so-step-line"></span>
+            <span class="so-step pending">
+              3 Complete Order
+            </span>
+          </div>
+        </div>
+
+        <!-- 2-Column Grid -->
+        <div class="so-main-grid">
+          
+          <!-- LEFT COLUMN: Your Order -->
+          <div class="so-col-left">
+            <h2 class="so-sec-title">Your Order</h2>
+            <div class="so-sec-subtitle">Review items and discounts in your bag.</div>
+
+            <!-- Items Container -->
+            <div class="so-order-items-box">
+              <div id="summ-items"></div>
+            </div>
+
+            <!-- Discount Code Section (exact match to reference image) -->
+            <div class="so-coupon-box">
+              <label class="so-coupon-lbl">Discount Code</label>
+              <div class="so-coupon-input-wrap">
+                <span class="so-coupon-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                </span>
+                <input type="text" id="coupon-input" class="so-coupon-input" placeholder="Enter coupon code" />
+                <button type="button" class="so-coupon-btn" onclick="handleCouponApply()">Apply</button>
               </div>
-              <div class="input-grp">
-                <input type="text" id="c-lname" placeholder="Last Name" required />
+              <div id="coupon-msg" style="font-size: 11.5px; margin-top: 5px; display: none;"></div>
+            </div>
+
+            <!-- Cost Breakdown -->
+            <div class="so-breakdown-list">
+              <div class="so-breakdown-row">
+                <span>Subtotal</span>
+                <span class="val" id="summ-subtotal">Rs. 0</span>
               </div>
-              <div class="input-grp form-group-full">
-                <input type="text" id="c-address" placeholder="Street Address" required />
+              <div class="so-breakdown-row">
+                <span>Shipping Cost</span>
+                <span class="val" id="summ-shipping">Rs. 450</span>
               </div>
-              <div class="input-grp">
-                <input type="text" id="c-city" placeholder="City" required />
+              <div class="so-breakdown-row discount-row" id="summ-discount-row" style="display: none;">
+                <span id="summ-discount-label">Offer Discount (40% OFF)</span>
+                <span class="val" id="summ-discount">-Rs. 0</span>
               </div>
-              <div class="input-grp">
-                <select id="c-district" required>
-                  <option value="" disabled selected>Select District</option>
-                  <option value="Ampara">Ampara</option>
-                  <option value="Anuradhapura">Anuradhapura</option>
-                  <option value="Badulla">Badulla</option>
-                  <option value="Batticaloa">Batticaloa</option>
-                  <option value="Colombo">Colombo</option>
-                  <option value="Galle">Galle</option>
-                  <option value="Gampaha">Gampaha</option>
-                  <option value="Hambantota">Hambantota</option>
-                  <option value="Jaffna">Jaffna</option>
-                  <option value="Kalutara">Kalutara</option>
-                  <option value="Kandy">Kandy</option>
-                  <option value="Kegalle">Kegalle</option>
-                  <option value="Kilinochchi">Kilinochchi</option>
-                  <option value="Kurunegala">Kurunegala</option>
-                  <option value="Mannar">Mannar</option>
-                  <option value="Matale">Matale</option>
-                  <option value="Matara">Matara</option>
-                  <option value="Monaragala">Monaragala</option>
-                  <option value="Mullaitivu">Mullaitivu</option>
-                  <option value="Nuwara Eliya">Nuwara Eliya</option>
-                  <option value="Polonnaruwa">Polonnaruwa</option>
-                  <option value="Puttalam">Puttalam</option>
-                  <option value="Ratnapura">Ratnapura</option>
-                  <option value="Trincomalee">Trincomalee</option>
-                  <option value="Vavuniya">Vavuniya</option>
-                </select>
-              </div>
-              <div class="input-grp form-group-full">
-                <input type="tel" id="c-phone" placeholder="Mobile Phone" required />
+              <div class="so-breakdown-row" id="summ-discounted-subtotal-row" style="display: none;">
+                <span>Price After Discount</span>
+                <span class="val" id="summ-discounted-subtotal">Rs. 0</span>
               </div>
             </div>
+
+            <!-- Payment Options Breakdown Cards -->
+            <div style="margin-top: 15px; margin-bottom: 12px;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #888; margin-bottom: 7px;">
+                Payment Options:
+              </div>
+
+              <div class="checkout-pay-card" id="summ-cod-box" onclick="selectPaymentOption('Cash on Delivery')">
+                <div class="cpc-left">
+                  <span class="cpc-badge cpc-badge-cod">💵</span>
+                  <div>
+                    <div class="cpc-title">Cash on Delivery</div>
+                    <div class="cpc-sub" id="summ-cod-subtext">Pay cash at doorstep</div>
+                  </div>
+                </div>
+                <div class="cpc-price" id="summ-cod-price">Rs. 0</div>
+              </div>
+
+              <div class="checkout-pay-card" id="summ-bank-box" onclick="selectPaymentOption('Bank Transfer')">
+                <div class="cpc-left">
+                  <span class="cpc-badge cpc-badge-bank">🏦</span>
+                  <div>
+                    <div class="cpc-title">Bank Transfer</div>
+                    <div class="cpc-sub" id="summ-bank-subtext">Direct deposit / online transfer</div>
+                  </div>
+                </div>
+                <div class="cpc-price" id="summ-bank-price">Rs. 0</div>
+              </div>
+
+              <div class="checkout-pay-card" id="summ-koko-box" onclick="selectPaymentOption('Koko')">
+                <div class="cpc-left">
+                  <span class="cpc-badge cpc-badge-koko">
+                    <img src="koko-logo.png" alt="Koko">
+                  </span>
+                  <div>
+                    <div class="cpc-title">Koko (3 Installments)</div>
+                    <div class="cpc-sub" id="summ-koko-subtext">3 monthly installments</div>
+                  </div>
+                </div>
+                <div class="cpc-price" id="summ-koko-price">3 x Rs. 0.00</div>
+              </div>
+            </div>
+
+            <!-- Final Total Line -->
+            <div class="so-total-row">
+              <span class="lbl">Total</span>
+              <span class="val" id="summ-total">Rs. 0</span>
+            </div>
+            <div style="font-size: 11.5px; color: #71717a; text-align: right; margin-top: 2px;" id="summ-active-method-label">
+              (Cash on Delivery)
+            </div>
+
           </div>
-          <!-- Payment Section -->
-          <div class="chk-section" style="margin-top: 30px;">
-            <h3 class="payment-section-title">Payment</h3>
-            <p class="payment-section-subtitle">All transactions are secure and encrypted.</p>
-            
-            <div class="payment-gateway-box">
+
+          <!-- RIGHT COLUMN: Payment Details -->
+          <div class="so-col-right">
+            <h2 class="so-sec-title">Payment Details</h2>
+            <div class="so-sec-subtitle">Complete Your Purchase Item By Providing Payment Details .</div>
+
+            <form id="checkout-form" onsubmit="return false;">
               
-              <!-- Option 2: Koko: Buy Now Pay Later -->
-              <div class="payment-gateway-row-container" id="row-container-koko">
-                <label class="payment-gateway-row">
-                  <div class="pg-radio-col">
-                    <input type="radio" name="payment_method" value="Koko" onchange="handlePaymentChange('Koko');" />
-                    <span class="custom-radio"></span>
+              <!-- 1. Email Address -->
+              <div class="so-form-grp">
+                <label class="so-form-lbl">Email Address</label>
+                <div class="so-input-box">
+                  <span class="so-in-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </span>
+                  <input type="email" id="c-email" class="so-in-field" placeholder="email@example.com" required />
+                  <span class="so-in-check">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- 2. Full Name -->
+              <div class="so-form-grp">
+                <label class="so-form-lbl">Customer Name</label>
+                <div class="so-input-box">
+                  <span class="so-in-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  </span>
+                  <input type="text" id="c-fullname" class="so-in-field" placeholder="First and Last Name" required />
+                  <input type="hidden" id="c-fname" />
+                  <input type="hidden" id="c-lname" />
+                  <span class="so-in-check">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- 3. Phone Number -->
+              <div class="so-form-grp">
+                <label class="so-form-lbl">Phone Number</label>
+                <div class="so-input-box">
+                  <span class="so-in-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </span>
+                  <input type="tel" id="c-phone" class="so-in-field" placeholder="07X XXX XXXX" required />
+                  <span class="so-in-check">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- 4. Payment Method Selector (matching reference image) -->
+              <div class="so-form-grp">
+                <div class="so-form-lbl">
+                  <span>Payment Method</span>
+                  <span class="so-lbl-sublink">3 Options Available</span>
+                </div>
+                
+                <div class="so-payment-tabs">
+                  <div class="so-pay-tab active-tab" id="tab-cod" onclick="selectPaymentOption('Cash on Delivery')">
+                    <span style="font-size: 16px;">💵</span>
+                    <span>COD</span>
                   </div>
-                  <div class="pg-text-col">
-                    <span class="pg-title">Koko: Buy Now Pay Later</span>
+                  <div class="so-pay-tab" id="tab-bank" onclick="selectPaymentOption('Bank Transfer')">
+                    <span style="font-size: 16px;">🏦</span>
+                    <span>Bank</span>
                   </div>
-                  <div class="pg-icons-col">
-                    <!-- Visa Icon -->
-                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block; vertical-align: middle;">
-                      <rect width="120" height="80" rx="4" fill="white"/>
-                      <g transform="translate(15, 26) scale(0.69)">
-                        <path d="M32.4128 41.0541H21.1928L12.7791 8.95549C12.3798 7.47895 11.5319 6.17361 10.2846 5.55839C7.17185 4.01231 3.74183 2.78186 0 2.16129V0.925493H18.0746C20.5691 0.925493 22.4401 2.78186 22.7519 4.93782L27.1174 28.0916L38.3319 0.925493H49.2401L32.4128 41.0541ZM55.4767 41.0541H44.8803L53.6058 0.925493H64.2022L55.4767 41.0541ZM77.9109 12.0423C78.2227 9.88101 80.0936 8.64522 82.2763 8.64522C85.7063 8.33493 89.4427 8.9555 92.5609 10.4962L94.4318 1.85637C91.3136 0.620572 87.8836 0 84.7709 0C74.4863 0 67.0026 5.5584 67.0026 13.2728C67.0026 19.1415 72.3036 22.2229 76.0454 24.0793C80.0936 25.9303 81.6527 27.1661 81.3409 29.0171C81.3409 31.7936 78.2227 33.0294 75.11 33.0294C71.3681 33.0294 67.6263 32.1039 64.2017 30.5578L62.3308 39.2031C66.0727 40.7438 70.1208 41.3644 73.8627 41.3644C85.3945 41.6693 92.5609 36.1163 92.5609 27.7813C92.5609 17.2851 77.9109 16.6699 77.9109 12.0423V12.0423ZM129.646 41.0541L121.232 0.925493H112.195C110.324 0.925493 108.453 2.16129 107.83 4.01231L92.2495 41.0541H103.158L105.335 35.1907H118.738L119.985 41.0541H129.646ZM113.754 11.732L116.867 26.8558H108.141L113.754 11.732Z" fill="#1A1F71"/>
-                      </g>
-                    </svg>
-                    <!-- Mastercard Icon -->
-                    <svg width="34" height="22.6" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0e0e0; border-radius: 3px; background: #fff; display: inline-block;">
-                      <rect width="120" height="80" rx="4" fill="white"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M97.5288 54.6562V53.7384H97.289L97.0137 54.3698L96.7378 53.7384H96.498V54.6562H96.6675V53.9637L96.9257 54.5609H97.1011L97.36 53.9624V54.6562H97.5288ZM96.0111 54.6562V53.8947H96.318V53.7397H95.5361V53.8947H95.843V54.6562H96.0111Z" fill="#F79E1B"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M49.6521 58.595H70.3479V21.4044H49.6521V58.595Z" fill="#FF5F00"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M98.2675 40.0003C98.2675 53.063 87.6791 63.652 74.6171 63.652C69.0996 63.652 64.0229 61.7624 60 58.5956C65.5011 54.2646 69.0339 47.5448 69.0339 40.0003C69.0339 32.4552 65.5011 25.7354 60 21.4044C64.0229 18.2376 69.0996 16.348 74.6171 16.348C87.6791 16.348 98.2675 26.937 98.2675 40.0003Z" fill="#F79E1B"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M50.966 40.0003C50.966 32.4552 54.4988 25.7354 59.9999 21.4044C55.977 18.2376 50.9003 16.348 45.3828 16.348C32.3208 16.348 21.7324 26.937 21.7324 40.0003C21.7324 53.063 32.3208 63.652 45.3828 63.652C50.9003 63.652 55.977 61.7624 59.9999 58.5956C54.4988 54.2646 50.966 47.5448 50.966 40.0003Z" fill="#EB001B"/>
-                    </svg>
+                  <div class="so-pay-tab" id="tab-koko" onclick="selectPaymentOption('Koko')">
+                    <span style="font-size: 16px;">💜</span>
+                    <span>Koko 3x</span>
                   </div>
-                </label>
-                <div class="pg-expanded-content" id="expanded-koko" style="display: none;">
-                  <div id="koko-live-panel"></div>
                 </div>
 
-              </div>
+                <!-- Hidden actual radios for compatibility -->
+                <input type="radio" name="payment_method" value="Cash on Delivery" checked style="display: none;" />
+                <input type="radio" name="payment_method" value="Bank Transfer" style="display: none;" />
+                <input type="radio" name="payment_method" value="Koko" style="display: none;" />
 
-              <!-- Option 4: Bank Transfer -->
-              <div class="payment-gateway-row-container" id="row-container-bank">
-                <label class="payment-gateway-row">
-                  <div class="pg-radio-col">
-                    <input type="radio" name="payment_method" value="Bank Transfer" onchange="handlePaymentChange('Bank Transfer');" />
-                    <span class="custom-radio"></span>
+                <!-- Details for selected payment option -->
+                <div class="so-tab-details" id="tab-details-cod" style="display: block;">
+                  <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 11px 14px; font-size: 12px; color: #166534;">
+                    🚚 <strong>Pay cash at doorstep:</strong> Pay cash upon delivery island-wide across Sri Lanka.
                   </div>
-                  <div class="pg-text-col">
-                    <span class="pg-title">Bank Transfer</span>
-                  </div>
-                  <div class="pg-icons-col"></div>
-                </label>
-                <div class="pg-expanded-content" id="expanded-bank">
-                  <div style="background: #fff; border: 1px solid #eaeaea; padding: 16px; border-radius: 6px; text-align: left; font-size: 13.5px; color: #333; line-height: 1.6;">
-                    <strong>Acc No:</strong> 87727168<br/><strong>Name:</strong> SMNP Jayarathne<br/><strong>Bank:</strong> BOC
-                    <div style="margin-top: 15px;">
-                      <a href="https://wa.me/94766190550" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: bold; font-family: var(--font-sans);">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
+                </div>
+
+                <div class="so-tab-details" id="tab-details-bank" style="display: none;">
+                  <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: #1e40af; line-height: 1.55;">
+                    <strong>Bank Account Details:</strong><br/>
+                    Bank: <strong>Bank of Ceylon (BOC)</strong><br/>
+                    Account No: <strong>87727168</strong><br/>
+                    Name: <strong>SMNP Jayarathne</strong>
+                    <div style="margin-top: 10px;">
+                      <a href="https://wa.me/94766190550" target="_blank" style="display: inline-flex; align-items: center; gap: 7px; background: #25D366; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.81 11.81 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 0 0-3.48-8.413z"/></svg>
                         Send Slip via WhatsApp
                       </a>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Option 5: Cash on Delivery (COD) -->
-              <div class="payment-gateway-row-container active-row" id="row-container-cod">
-                <label class="payment-gateway-row">
-                  <div class="pg-radio-col">
-                    <input type="radio" name="payment_method" value="Cash on Delivery" checked onchange="handlePaymentChange('Cash on Delivery');" />
-                    <span class="custom-radio"></span>
-                  </div>
-                  <div class="pg-text-col">
-                    <span class="pg-title">Cash on Delivery (COD)</span>
-                  </div>
-                  <div class="pg-icons-col"></div>
-                </label>
-                <div class="pg-expanded-content" id="expanded-cod" style="display: none;">
-                  <div id="cod-live-panel"></div>
+                <div class="so-tab-details" id="tab-details-koko" style="display: none;">
+                  <div id="koko-live-panel"></div>
                 </div>
               </div>
-              
-            </div>
+
+              <!-- 5. Billing / Delivery Address -->
+              <div class="so-form-grp">
+                <label class="so-form-lbl">Billing Address</label>
+                <div class="so-input-box" style="margin-bottom: 12px;">
+                  <span class="so-in-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </span>
+                  <input type="text" id="c-address" class="so-in-field" placeholder="Street Address, House No" required />
+                  <span class="so-in-check">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                </div>
+
+                <div class="so-input-row">
+                  <div class="so-input-box">
+                    <input type="text" id="c-city" class="so-in-field" style="padding-left: 16px;" placeholder="Enter City" required />
+                  </div>
+                  <div class="so-input-box">
+                    <select id="c-district" class="so-in-field so-select-field" style="padding-left: 16px;" required>
+                      <option value="" disabled selected>Select District</option>
+                      <option value="Colombo">Colombo</option>
+                      <option value="Gampaha">Gampaha</option>
+                      <option value="Kalutara">Kalutara</option>
+                      <option value="Kandy">Kandy</option>
+                      <option value="Matale">Matale</option>
+                      <option value="Nuwara Eliya">Nuwara Eliya</option>
+                      <option value="Galle">Galle</option>
+                      <option value="Matara">Matara</option>
+                      <option value="Hambantota">Hambantota</option>
+                      <option value="Jaffna">Jaffna</option>
+                      <option value="Kilinochchi">Kilinochchi</option>
+                      <option value="Mannar">Mannar</option>
+                      <option value="Vavuniya">Vavuniya</option>
+                      <option value="Mullaitivu">Mullaitivu</option>
+                      <option value="Batticaloa">Batticaloa</option>
+                      <option value="Ampara">Ampara</option>
+                      <option value="Trincomalee">Trincomalee</option>
+                      <option value="Kurunegala">Kurunegala</option>
+                      <option value="Puttalam">Puttalam</option>
+                      <option value="Anuradhapura">Anuradhapura</option>
+                      <option value="Polonnaruwa">Polonnaruwa</option>
+                      <option value="Badulla">Badulla</option>
+                      <option value="Monaragala">Monaragala</option>
+                      <option value="Ratnapura">Ratnapura</option>
+                      <option value="Kegalle">Kegalle</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6. Billing Address Same Checkbox -->
+              <label class="so-checkbox-wrap">
+                <input type="checkbox" checked />
+                <span>Billing address is same as shipping</span>
+              </label>
+
+              <!-- 7. Pay Button (Full Width Dark Pill matching reference image) -->
+              <button type="button" class="so-btn-pay" id="btn-master-submit">Pay Rs. 0</button>
+            </form>
           </div>
 
-          <!-- Billing Address Section -->
-          <div class="chk-section" style="margin-top: 30px;">
-            <h3 class="payment-section-title">Billing address</h3>
-            <p class="payment-section-subtitle">Select the address that matches your card or payment method.</p>
-            
-            <div class="billing-address-box">
-              <!-- Row 1: Same as shipping address -->
-              <div class="billing-row-container active-row" id="billing-container-same">
-                <label class="billing-row">
-                  <div class="pg-radio-col">
-                    <input type="radio" name="billing_address_option" value="same" checked onchange="handleBillingChange('same');" />
-                    <span class="custom-radio"></span>
-                  </div>
-                  <div class="pg-text-col">
-                    <span class="pg-title">Same as shipping address</span>
-                  </div>
-                </label>
-              </div>
-
-              <!-- Row 2: Use a different billing address -->
-              <div class="billing-row-container" id="billing-container-diff">
-                <label class="billing-row">
-                  <div class="pg-radio-col">
-                    <input type="radio" name="billing_address_option" value="different" onchange="handleBillingChange('different');" />
-                    <span class="custom-radio"></span>
-                  </div>
-                  <div class="pg-text-col">
-                    <span class="pg-title">Use a different billing address</span>
-                  </div>
-                </label>
-                <div class="billing-expanded-content" id="billing-diff-form">
-                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="input-grp"><input type="text" id="b-fname" placeholder="First Name" /></div>
-                    <div class="input-grp"><input type="text" id="b-lname" placeholder="Last Name" /></div>
-                    <div class="input-grp form-group-full"><input type="text" id="b-address" placeholder="Address" /></div>
-                    <div class="input-grp"><input type="text" id="b-city" placeholder="City" /></div>
-                    <div class="input-grp"><input type="text" id="b-district" placeholder="District" /></div>
-                    <div class="input-grp form-group-full"><input type="text" id="b-phone" placeholder="Phone" /></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <!-- Left submit button hidden; right side button used -->
-          <button class="btn-pay-now" id="btn-master-submit" style="display: none;">Pay now</button>
-        </form>
-      </div>
-
-                  <div class="chk-right">
-        <div class="summary-box">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; border-bottom: 1px solid #f0f0f2; padding-bottom: 12px; position: relative;">
-            <h2 class="summ-title" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Order Summary</h2>
-            <span id="summ-item-count" style="font-size: 12.5px; color: #888; font-family: var(--font-sans); font-weight: 500;">0 items</span>
-          </div>
-          
-          <div class="summ-items" id="summ-items" style="margin-bottom: 20px;"></div>
-
-                              <div class="summ-totals" style="padding-top: 15px; display: flex; flex-direction: column; gap: 7px;">
-            <!-- 1. Product Price (Subtotal) -->
-            <div class="summ-row">
-              <span style="color: #666; font-size: 13.5px;">Product Price (Subtotal)</span>
-              <span id="summ-subtotal" style="font-weight: 600; color: #111; font-size: 14px;">Rs. 0</span>
-            </div>
-
-            <!-- 2. Offer Discount (e.g. 40% OFF) -->
-            <div class="summ-row" id="summ-discount-row" style="display: none;">
-              <span id="summ-discount-label" style="color: #16a34a; font-weight: 600; font-size: 13.5px;">Offer Discount</span>
-              <span id="summ-discount" style="color: #16a34a; font-weight: 700; font-size: 14px;">-Rs. 0</span>
-            </div>
-
-            <!-- 3. Price After Discount (Clean & Simple) -->
-            <div class="summ-row" id="summ-discounted-subtotal-row" style="display: none;">
-              <span style="color: #111; font-weight: 600; font-size: 13.5px;">Price After Discount</span>
-              <span id="summ-discounted-subtotal" style="font-weight: 700; color: #111827; font-size: 14.5px;">Rs. 0</span>
-            </div>
-
-            <!-- 4. Delivery Fee (With dashed lines and delivery icon) -->
-            <div class="summ-row" style="border-top: 1px dashed #d4d4d8; border-bottom: 1px dashed #d4d4d8; padding: 8px 0; margin: 4px 0 6px 0; align-items: center;">
-              <span style="color: #374151; font-size: 13.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 7px;">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle;">
-                  <rect x="1" y="3" width="15" height="13"></rect>
-                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                </svg>
-                Delivery (Island-wide)
-              </span>
-              <span id="summ-shipping" style="font-weight: 700; color: #111; font-size: 14px;">Rs. 450</span>
-            </div>
-
-            <!-- Payment Options Heading -->
-            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #888; margin-top: 4px; margin-bottom: 3px;">
-              Payment Options:
-            </div>
-
-            <!-- Option 1: Cash on Delivery Card -->
-            <div class="checkout-pay-card" id="summ-cod-box" onclick="selectPaymentOption('Cash on Delivery')">
-              <div class="cpc-left">
-                <span class="cpc-badge cpc-badge-cod">💵</span>
-                <div>
-                  <div class="cpc-title">Cash on Delivery</div>
-                  <div class="cpc-sub" id="summ-cod-subtext">Pay cash at doorstep</div>
-                </div>
-              </div>
-              <div class="cpc-price" id="summ-cod-price">Rs. 0</div>
-            </div>
-
-            <!-- Option 2: Bank Transfer Card -->
-            <div class="checkout-pay-card" id="summ-bank-box" onclick="selectPaymentOption('Bank Transfer')">
-              <div class="cpc-left">
-                <span class="cpc-badge cpc-badge-bank">🏦</span>
-                <div>
-                  <div class="cpc-title">Bank Transfer</div>
-                  <div class="cpc-sub" id="summ-bank-subtext">Direct deposit / online transfer</div>
-                </div>
-              </div>
-              <div class="cpc-price" id="summ-bank-price">Rs. 0</div>
-            </div>
-
-            <!-- Option 3: Koko (3 Installments) Card -->
-            <div class="checkout-pay-card" id="summ-koko-box" onclick="selectPaymentOption('Koko')">
-              <div class="cpc-left">
-                <span class="cpc-badge cpc-badge-koko">
-                  <img src="koko-logo.png" alt="Koko">
-                </span>
-                <div>
-                  <div class="cpc-title">Koko (3 Installments)</div>
-                  <div class="cpc-sub" id="summ-koko-subtext">3 monthly installments</div>
-                </div>
-              </div>
-              <div class="cpc-price" id="summ-koko-price">3 x Rs. 0.00</div>
-            </div>
-
-            <div class="summ-divider" style="margin: 8px 0 4px 0;"></div>
-
-            <!-- Final Total Line -->
-            <div class="summ-row total" style="margin-top: 2px; padding-top: 6px; border-top: 1.5px solid #1a1a1e;">
-              <div>
-                <span style="display: block; font-size: 16px; font-weight: 700; color: #111;">Total Payable</span>
-                <span id="summ-active-method-label" style="font-size: 11px; color: #777; font-weight: normal; font-family: var(--font-sans);">(Cash on Delivery)</span>
-              </div>
-              <span id="summ-total" style="font-size: 20px; font-weight: 800; color: #111;">Rs. 0</span>
-            </div>
-
-            <!-- Submit / Pay Button in Right Summary -->
-            <button type="button" class="btn-summary-pay" id="btn-summary-submit">Place Order</button>
-          </div></div>
         </div>
       </div>
     </div>
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=495"></script>
+  <script src="products.js?v=500"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1295,6 +1094,21 @@
     let selectedPaymentMethod = 'Cash on Delivery';
 
     
+    
+    window.handleCouponApply = function() {
+      const code = ($('coupon-input')?.value || '').trim();
+      const msgEl = $('coupon-msg');
+      if (!msgEl) return;
+      msgEl.style.display = 'block';
+      if (!code) {
+        msgEl.style.color = '#ef4444';
+        msgEl.textContent = 'Please enter a coupon code.';
+        return;
+      }
+      msgEl.style.color = '#eab308';
+      msgEl.textContent = 'Coupon code "' + code + '" is invalid or expired.';
+    };
+    
     window.selectPaymentOption = function(method) {
       const radio = document.querySelector(`input[name="payment_method"][value="${method}"]`);
       if (radio) {
@@ -1305,31 +1119,22 @@
 
     function handlePaymentChange(method) {
       selectedPaymentMethod = method;
-      const methods = ['Card Payment', 'Koko', 'Bank Transfer', 'Cash on Delivery'];
-      const containers = {
-        'Card Payment': 'row-container-card',
-        'Koko': 'row-container-koko',
-        'Bank Transfer': 'row-container-bank',
-        'Cash on Delivery': 'row-container-cod'
-      };
-      const panels = {
-        'Card Payment': 'expanded-card',
-        'Koko': 'expanded-koko',
-        'Bank Transfer': 'expanded-bank',
-        'Cash on Delivery': 'expanded-cod'
-      };
+      
+      const tabCod = $('tab-cod');
+      const tabBank = $('tab-bank');
+      const tabKoko = $('tab-koko');
 
-      methods.forEach(m => {
-        const container = $(containers[m]);
-        const panel = $(panels[m]);
-        if (m === method) {
-          if (container) container.classList.add('active-row');
-          if (panel) panel.style.display = 'block';
-        } else {
-          if (container) container.classList.remove('active-row');
-          if (panel) panel.style.display = 'none';
-        }
-      });
+      if (tabCod) tabCod.classList.toggle('active-tab', method === 'Cash on Delivery');
+      if (tabBank) tabBank.classList.toggle('active-tab', method === 'Bank Transfer');
+      if (tabKoko) tabKoko.classList.toggle('active-tab', method === 'Koko');
+
+      const detCod = $('tab-details-cod');
+      const detBank = $('tab-details-bank');
+      const detKoko = $('tab-details-koko');
+
+      if (detCod) detCod.style.display = (method === 'Cash on Delivery') ? 'block' : 'none';
+      if (detBank) detBank.style.display = (method === 'Bank Transfer') ? 'block' : 'none';
+      if (detKoko) detKoko.style.display = (method === 'Koko') ? 'block' : 'none';
 
       if (typeof window.renderOrderSummary === 'function') {
         window.renderOrderSummary();
@@ -1424,12 +1229,7 @@
         }
 
         const lineOriginal = item.price * item.qty;
-        
-        // 1. Discounted Price (COD price) = Price - Discount %
         const codDiscountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
-        
-        // 2. Koko price: If discount > 12%, add 12% TO the discounted price (e.g. 1000 - 30% = 700 + 12% = 784)
-        // If discount <= 12% or no discount: no change!
         const kokoDiscountedPrice = (effDisc > 12) ? Math.round(codDiscountedPrice * 1.12) : codDiscountedPrice;
 
         originalSubtotal += lineOriginal;
@@ -1437,26 +1237,32 @@
         kokoDiscountedSubtotal += (kokoDiscountedPrice * item.qty);
         totalQty += item.qty;
 
+        const currentItemPrice = isKoko ? kokoDiscountedPrice : codDiscountedPrice;
+        const lineTotal = currentItemPrice * item.qty;
         const imgUrl = item.img || (item.images && item.images[0]) || 'favicon.png';
 
-        return `<div class="summ-item" style="display: flex; gap: 14px; align-items: center; width: 100%; padding: 10px 0; border-bottom: 1px solid #f4f4f5;">
-            <div class="img-wrap" style="width: 70px; height: 70px; flex-shrink: 0; border-radius: 12px; background: #fafafa; border: 1.5px solid #edf2f7; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px; box-sizing: border-box;">
-              <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" alt="${item.name}" style="max-width: 90%; max-height: 90%; object-fit: contain; display: block;">
+        return `
+          <div class="so-item-row">
+            <div class="so-img-box">
+              <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';" alt="${item.name}">
+              <span class="so-qty-badge">${item.qty}</span>
             </div>
-            <div class="summ-details" style="flex-grow: 1; min-width: 0;">
-              <h4 style="font-size: 13.5px; font-weight: 600; color: #18181b; line-height: 1.4; margin: 0 0 5px 0; word-break: break-word;">
-                <span style="font-weight: 700; color: #111; margin-right: 5px;">${item.qty} &times;</span>${item.name}
-              </h4>
-              <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
-                <span style="font-size: 12px; color: #71717a; font-weight: 500;">Quantity:</span>
-                <div style="display: inline-flex; align-items: center; border: 1.5px solid #e4e4e7; border-radius: 20px; padding: 2px 6px; background: #ffffff; gap: 4px;">
-                  <button type="button" onclick="updateQtyCheckout('${item.id}', -1)" title="Decrease" style="width: 22px; height: 22px; border: none; background: transparent; font-size: 14px; font-weight: 700; color: #52525b; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 50%; padding: 0; line-height: 1; transition: background 0.15s;">&minus;</button>
-                  <span style="font-size: 12.5px; font-weight: 700; color: #111; min-width: 16px; text-align: center;">${item.qty}</span>
-                  <button type="button" onclick="updateQtyCheckout('${item.id}', 1)" title="Increase" style="width: 22px; height: 22px; border: none; background: transparent; font-size: 14px; font-weight: 700; color: #52525b; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 50%; padding: 0; line-height: 1; transition: background 0.15s;">&plus;</button>
+            <div class="so-item-details">
+              <h4 class="so-item-title">${item.qty} &times; ${item.name}</h4>
+              <div class="so-stepper-wrap">
+                <span class="so-qty-lbl">Qty:</span>
+                <div class="so-stepper-pill">
+                  <button type="button" class="so-stepper-btn" onclick="updateQtyCheckout('${item.id}', -1)" title="Decrease">&minus;</button>
+                  <span class="so-stepper-val">${item.qty}</span>
+                  <button type="button" class="so-stepper-btn" onclick="updateQtyCheckout('${item.id}', 1)" title="Increase">&plus;</button>
                 </div>
               </div>
             </div>
-          </div>`;
+            <div class="so-item-price">
+              Rs. ${lineTotal.toLocaleString()}
+            </div>
+          </div>
+        `;
       }).join('');
 
       const fee = window._shippingFee != null ? Number(window._shippingFee) : 450;
@@ -1568,22 +1374,17 @@
         }
       }
 
-      // Dynamic submit button text for both buttons (left form button & right summary button)
-      const updateButtonDisplay = (btn) => {
-        if (!btn || btn.disabled) return;
+      // Dynamic submit button text matching reference image (Pay Rs. X)
+      const btnMaster = $('btn-master-submit');
+      if (btnMaster && !btnMaster.disabled) {
         if (isKoko) {
-          btn.innerHTML = `Pay with Koko &bull; 1st: Rs. ${kokoInstallment}`;
-          btn.classList.add('koko-btn');
-        } else if (selectedPaymentMethod === 'Bank Transfer') {
-          btn.innerHTML = `Place Order (Bank Transfer) &bull; Rs. ${codTotal.toLocaleString()}`;
-          btn.classList.remove('koko-btn');
+          btnMaster.innerHTML = `Pay with Koko &bull; 1st: Rs. ${kokoInstallment}`;
+          btnMaster.classList.add('koko-btn');
         } else {
-          btn.innerHTML = `Place Order (Cash on Delivery) &bull; Rs. ${codTotal.toLocaleString()}`;
-          btn.classList.remove('koko-btn');
+          btnMaster.innerHTML = `Pay Rs. ${activeTotal.toLocaleString()}`;
+          btnMaster.classList.remove('koko-btn');
         }
-      };
-      updateButtonDisplay($('btn-master-submit'));
-      updateButtonDisplay($('btn-summary-submit'));
+      }
 
       // Update Koko live panel on left payment options with clear calculated breakdown
       const kokoLivePanel = $('koko-live-panel');
@@ -1724,6 +1525,19 @@
         });
       }
 
+      
+      const fullNameInput = $('c-fullname');
+      if (fullNameInput) {
+        fullNameInput.addEventListener('input', (e) => {
+          const val = e.target.value.trim();
+          const parts = val.split(' ');
+          const f = parts[0] || '';
+          const l = parts.slice(1).join(' ') || f;
+          if ($('c-fname')) $('c-fname').value = f;
+          if ($('c-lname')) $('c-lname').value = l;
+        });
+      }
+    
       const handleOrderSubmit = async (e) => {
           if (e && e.preventDefault) e.preventDefault();
           const btn1 = $('btn-master-submit');
@@ -1735,9 +1549,14 @@
           const currentCart = JSON.parse(localStorage.getItem('bib_cart')) || [];
           if (currentCart.length === 0) return;
 
+          const fullNameVal = ($('c-fullname')?.value || '').trim();
+          const nameParts = fullNameVal.split(' ');
+          const fName = $('c-fname')?.value.trim() || nameParts[0] || '';
+          const lName = $('c-lname')?.value.trim() || nameParts.slice(1).join(' ') || fName;
+
           const fields = {
-            firstName: $('c-fname').value.trim(),
-            lastName: $('c-lname').value.trim(),
+            firstName: fName,
+            lastName: lName,
             email: $('c-email').value.trim(),
             address: $('c-address').value.trim(),
             city: $('c-city').value.trim(),
