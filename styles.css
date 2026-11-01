@@ -12103,3 +12103,19 @@ body.loading-active .floating-email {
   .site-footer .footer-bottom { padding: 4px 16px 5px !important; }
   .site-footer .footer-bottom p { font-size: 8.5px !important; line-height: 1.25 !important; }
 }
+
+/* FOOTER DESKTOP v4 (slightly larger than v3) */
+@media (min-width: 901px) {
+  .site-footer .footer-top { padding: 18px 28px 8px !important; gap: 10px 20px !important; }
+  .site-footer .footer-logo { font-size: 19px !important; }
+  .site-footer .footer-brand-col p,
+  .site-footer .footer-col:has(.footer-logo) p { font-size: 11.5px !important; margin: 2px auto 8px !important; }
+  .site-footer .footer-social a { width: 28px !important; height: 28px !important; }
+  .site-footer .footer-social a svg { width: 14px !important; height: 14px !important; }
+  .site-footer .footer-col h3,
+  .site-footer .footer-col h4,
+  .site-footer .footer-col h5 { font-size: 10.5px !important; margin-bottom: 5px !important; padding-bottom: 3px !important; }
+  .site-footer .footer-col ul li a { font-size: 12px !important; line-height: 1.25 !important; padding: 2px 0 !important; }
+  .site-footer .footer-bottom { padding: 8px 16px 10px !important; }
+  .site-footer .footer-bottom p { font-size: 9.5px !important; }
+}
