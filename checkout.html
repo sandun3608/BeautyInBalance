@@ -1068,7 +1068,7 @@
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=440"></script>
+  <script src="products.js?v=445"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1206,7 +1206,7 @@
           primaryDiscountPercent = effDisc;
         }
 
-        const kokoDisc = effDisc > 12 ? (effDisc - 12) : 0;
+        const kokoDisc = effDisc > 12 ? (effDisc - 12) : effDisc;
         const lineOriginal = item.price * item.qty;
         
         const codDiscountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
@@ -1306,7 +1306,7 @@
       if (fullDiscount > 0) {
         if (discountedSubtotalLabel) {
           const kokoDiscPercent = Math.max(0, primaryDiscountPercent - 12);
-          discountedSubtotalLabel.textContent = isKoko 
+          discountedSubtotalLabel.textContent = (isKoko && kokoFee > 0)
             ? `Price After Discount (${kokoDiscPercent}% OFF Net)`
             : `Price After Discount (${primaryDiscountPercent}% OFF)`;
         }
@@ -1340,7 +1340,7 @@
       const kokoNoteEl = $('summ-koko-note');
       if (kokoNoteEl) {
         const kokoDiscPercent = Math.max(0, primaryDiscountPercent - 12);
-        kokoNoteEl.textContent = fullDiscount > 0
+        kokoNoteEl.textContent = kokoFee > 0
           ? `${kokoDiscPercent}% Discount (${primaryDiscountPercent}% Offer - 12% Koko Interest)`
           : `0% Interest Installments`;
       }
@@ -1394,9 +1394,9 @@
               <span>Pay in 3 monthly installments:</span>
               <strong style="font-size: 13.5px; color: #7e22ce;">3 x Rs. ${kokoInstallment}</strong>
             </div>
-            ${fullDiscount > 0 ? `
+            ${kokoFee > 0 ? `
               <div style="font-size: 11px; color: #7e22ce; margin-top: 4px; line-height: 1.35;">
-                ⚡ <strong>${kokoDiscPercent}% Discount applied</strong> (${primaryDiscountPercent}% Offer - 12% Koko Interest). Total: Rs. ${kokoTotal.toLocaleString()}.
+                ⚡ <strong>${kokoDiscPercent}% Net Discount</strong> (${primaryDiscountPercent}% Offer - 12% Koko Interest added). Total: Rs. ${kokoTotal.toLocaleString()}.
               </div>
             ` : `
               <div style="font-size: 11px; color: #7e22ce; margin-top: 4px;">
@@ -1604,7 +1604,7 @@
               const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
                 ? getCheckoutEffectiveDiscount(i) 
                 : Number(i.discount || 0);
-              const kokoDisc = effDisc > 12 ? (effDisc - 12) : 0;
+              const kokoDisc = effDisc > 12 ? (effDisc - 12) : effDisc;
               const discount = (paymentMethod === 'Koko') ? kokoDisc : effDisc;
               const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
               return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
