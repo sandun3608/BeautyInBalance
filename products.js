@@ -2393,7 +2393,7 @@ window.renderHomeAllProducts = function() {
                 ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
                 : `Rs. ${basePrice.toLocaleString()}`;
 
-            const kokoDiscount = discount > 0 ? Math.max(0, discount - 12) : 0;
+            const kokoDiscount = discount > 12 ? (discount - 12) : 0;
             const kokoPrice = kokoDiscount > 0 ? Math.round(basePrice * (1 - kokoDiscount / 100)) : basePrice;
             const kokoAmount = (kokoPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
             const kokoInstallmentHTML = `

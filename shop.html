@@ -1559,7 +1559,7 @@
 
   
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=428"></script>
+  <script src="products.js?v=435"></script>
   <script>
     window.handleThumbError = window.handleThumbError || function(imgEl) {
       if (!imgEl) return;
@@ -1713,7 +1713,7 @@
           ? `<span class="shop-card-price-curr">Rs. ${discountedPrice.toLocaleString()}</span><span class="shop-card-price-old">Rs. ${basePrice.toLocaleString()}</span>`
           : (basePrice > 0 ? `<span class="shop-card-price-curr">Rs. ${basePrice.toLocaleString()}</span>` : `<span class="shop-card-price-curr" style="color:#888; font-size:13px;">Price on selection</span>`);
 
-        const kokoDisc = discount > 0 ? Math.max(0, discount - 12) : 0;
+        const kokoDisc = discount > 12 ? (discount - 12) : 0;
         const kokoPrc = kokoDisc > 0 ? Math.round(basePrice * (1 - kokoDisc / 100)) : basePrice;
         const kokoAmount = (kokoPrc / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const kokoHTML = (basePrice > 0)

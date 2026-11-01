@@ -1068,7 +1068,7 @@
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=412"></script>
+  <script src="products.js?v=435"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1206,7 +1206,7 @@
           primaryDiscountPercent = effDisc;
         }
 
-        const kokoDisc = effDisc > 0 ? Math.max(0, effDisc - 12) : 0;
+        const kokoDisc = effDisc > 12 ? (effDisc - 12) : 0;
         const lineOriginal = item.price * item.qty;
         
         const codDiscountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
@@ -1604,7 +1604,7 @@
               const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
                 ? getCheckoutEffectiveDiscount(i) 
                 : Number(i.discount || 0);
-              const kokoDisc = effDisc > 0 ? Math.max(0, effDisc - 12) : 0;
+              const kokoDisc = effDisc > 12 ? (effDisc - 12) : 0;
               const discount = (paymentMethod === 'Koko') ? kokoDisc : effDisc;
               const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
               return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };

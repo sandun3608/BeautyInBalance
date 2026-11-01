@@ -1476,7 +1476,7 @@
 
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=428"></script>
+  <script src="products.js?v=435"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1564,7 +1564,7 @@
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         
         const priceHTML = 'Rs. ' + discountedPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        const kokoDisc = discount > 0 ? Math.max(0, discount - 12) : 0;
+        const kokoDisc = discount > 12 ? (discount - 12) : 0;
         const kokoPrc = kokoDisc > 0 ? Math.round(basePrice * (1 - kokoDisc / 100)) : basePrice;
         const kokoAmount = (kokoPrc / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         
@@ -1652,7 +1652,7 @@
         const soldOutBadge = '';
         const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
-        const kokoDisc = discount > 0 ? Math.max(0, discount - 12) : 0;
+        const kokoDisc = discount > 12 ? (discount - 12) : 0;
         const kokoPrc = kokoDisc > 0 ? Math.round(basePrice * (1 - kokoDisc / 100)) : basePrice;
         const kokoAmount = (kokoPrc / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         const kokoInstallmentHTML = `
