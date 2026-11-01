@@ -987,7 +987,7 @@
       const isOutOfStock = stockLeft <= 0;
 
       const discountBadge = discount > 0 ? `<span class="rec-discount-badge">${discount}% OFF</span>` : '';
-      const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+      const soldOutBadge = ''; // sold-out state is shown on the buttons
       const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
       const basePrice = Number(product.price || 0);
