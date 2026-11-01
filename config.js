@@ -160,7 +160,7 @@ function submitMobileSearch() {
                 .offer-badge,
                 .shop-discount-pill,
                 .p-price-tag .discount-pill,
-                .td-deal-triangle,
+                .td-deal-triangle::before,
                 .product-badges .hap-discount-badge,
                 .product-badges .fp-discount-badge,
                 .product-badges .rec-discount-badge {

@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=306" />
+  <link rel="stylesheet" href="styles.css?v=463479" />
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -313,6 +313,53 @@
       left: 0 !important;
     }
   </style>
+
+  <!-- PURE BRIGHT WHITE & ZERO SHADOW OVERRIDE -->
+  <style>
+    html, 
+    body, 
+    main,
+    section,
+    .home-all-products-section,
+    .hap-tabs-wrapper,
+    .hap-tabs,
+    .hap-card,
+    .hap-card-img,
+    .hap-grid,
+    .brands-section,
+    .brands-marquee,
+    .featured-gallery,
+    .discovery-section,
+    .round-list-section,
+    .round-list-track,
+    .round-item {
+      background-color: #ffffff !important;
+      background: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    /* Completely eliminate dark/dim drop shadows around product images */
+    .hap-card-img img,
+    .hap-card:hover .hap-card-img img,
+    .round-img img,
+    .round-item:hover .round-img img,
+    .brand-item img,
+    .fg-img-wrap img,
+    .product-card img,
+    .la-card img {
+      filter: none !important;
+      -webkit-filter: none !important;
+      box-shadow: none !important;
+      mix-blend-mode: normal !important;
+    }
+
+    /* Keep tabs clean and bright */
+    .hap-tabs {
+      background: #ffffff !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+      border: 1px solid #f0f0f0 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -342,7 +389,7 @@
   <!-- ===== ANNOUNCEMENT BAR ===== -->
   <div class="ann-bar">
     <div class="ann-track">
-      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-4 Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
+      <span>✨ 100% Authentic Imports - Straight from CA & GB. &nbsp;&nbsp;&nbsp; 🚚 Island-wide Delivery within 2-5 Business Days. &nbsp;&nbsp;&nbsp; 🛍️ Cash on Delivery (COD) & Bank Transfer Available. &nbsp;&nbsp;&nbsp; ✨ FREE Shipping for Orders over Rs. 15,000! &nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>
 
@@ -353,7 +400,7 @@
       <div class="nav-left">
         <button class="ic-btn ham-btn" id="ham-open" aria-label="Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <span class="ic-label mobile-only">Menu</span>
+            
         </button>
         <!-- Mobile Social Icon -->
         <a href="https://instagram.com" target="_blank" class="ic-btn m-social-icon" aria-label="Instagram">
@@ -373,7 +420,7 @@
               <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
             </ul>
           </li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li class="has-drop">
             <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
@@ -399,7 +446,7 @@
         <button class="ic-btn cart-ic" id="cart-open" aria-label="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span class="cart-badge">0</span>
-            <span class="ic-label mobile-only">Bag</span>
+            
         </button>
 
         <!-- Mobile User Icon -->
@@ -430,6 +477,43 @@
     </div>
   </header>
 
+  <!-- ===== STICKY FLOATING LIVE OFFER TIMER (FIXED TOP RIGHT) ===== -->
+  <div class="sticky-timer-widget" id="sticky-timer-widget" onclick="window.location.href='offers.html'" style="display: none;">
+    <button class="stk-close-btn" id="stk-close-btn" onclick="event.preventDefault(); event.stopPropagation(); const w=document.getElementById('sticky-timer-widget'); if(w){w.classList.remove('active'); w.style.display='none';} sessionStorage.setItem('stk_dismissed','1');" ontouchstart="event.preventDefault(); event.stopPropagation(); const w=document.getElementById('sticky-timer-widget'); if(w){w.classList.remove('active'); w.style.display='none';} sessionStorage.setItem('stk_dismissed','1');" aria-label="Close">&#10005;</button>
+    <div class="stk-header">
+      <div class="stk-title" id="stk-title-text">END OF SEASON SALE</div>
+    </div>
+    <div class="stk-body">
+      <!-- DAYS -->
+      <div class="stk-group">
+        <div class="stk-digits-row">
+          <div class="stk-tile" id="stk-d0"><span class="stk-tile-inner">0</span></div>
+          <div class="stk-tile" id="stk-d1"><span class="stk-tile-inner">0</span></div>
+        </div>
+        <div class="stk-lbl">days</div>
+      </div>
+      <span class="stk-colon">:</span>
+      <!-- HOURS -->
+      <div class="stk-group">
+        <div class="stk-digits-row">
+          <div class="stk-tile" id="stk-h0"><span class="stk-tile-inner">0</span></div>
+          <div class="stk-tile" id="stk-h1"><span class="stk-tile-inner">0</span></div>
+        </div>
+        <div class="stk-lbl">hours</div>
+      </div>
+      <span class="stk-colon">:</span>
+      <!-- MINS -->
+      <div class="stk-group">
+        <div class="stk-digits-row">
+          <div class="stk-tile" id="stk-m0"><span class="stk-tile-inner">0</span></div>
+          <div class="stk-tile" id="stk-m1"><span class="stk-tile-inner">0</span></div>
+        </div>
+        <div class="stk-lbl">minutes</div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="overlay" id="overlay"></div>
 
   <!-- ===== MOBILE DRAWER ===== -->
@@ -451,9 +535,9 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="about.html">ABOUT US</a></li>
+            <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
-            <li><a href="shop.html?filter=offers">🛍️ SHOPPING FESTIVAL</a></li>
+            
             <li><a href="account.html">ORDER STATUS</a></li>
             <li><a href="cart.html">♡ WISHLIST</a></li>
         </ul>
@@ -590,6 +674,16 @@
       </div>
     </section>
 
+    <!-- ===== SECTION: MID-PAGE PROMO BANNER (BELOW ENTIRE COLLECTION) ===== -->
+    <section class="home-collection-banner-section" id="home-collection-banner-section">
+      <div class="hcb-container">
+        <a href="shop.html" class="hcb-card" id="hcb-banner-link">
+          <img id="hcb-img-desktop" class="hcb-img hcb-desktop-img" src="https://i.postimg.cc/63Kpw7GS/Untitled-design-(22).png" alt="Collection Banner" loading="lazy" decoding="async" />
+          <img id="hcb-img-mobile" class="hcb-img hcb-mobile-img" src="https://i.postimg.cc/5Nr9yKCF/Chat-GPT-Image-Jun-6-2026-10-45-31-PM.png" alt="Collection Banner" loading="lazy" decoding="async" />
+        </a>
+      </div>
+    </section>
+
 
 
 
@@ -645,151 +739,6 @@
       </div>
     </section>
 
-
-    <!-- ===== SECTION: SHOP THE LOOK (PURITY LOOKBOOK) ===== -->
-    <section class="lookbook-section">
-      <div class="look-container">
-        <!-- Left: Model Visual with Interactive Dots -->
-        <div class="look-visual" id="look-visual">
-          <img src="t2/hero_1.png" alt="Editorial Look">
-          
-          <!-- Lip Dot -->
-          <div class="look-hotspot" style="top:60%; left:50%;" onclick="showLookProduct('ord-ha-30', event)">
-            <div class="hotspot-pulse"></div>
-          </div>
-          <!-- Face/Cheek Dot -->
-          <div class="look-hotspot" style="top:45%; left:35%;" onclick="showLookProduct('ord-nmf-30', event)">
-            <div class="hotspot-pulse"></div>
-          </div>
-          <!-- Eye/Lash Dot -->
-          <div class="look-hotspot" style="top:35%; left:55%;" onclick="showLookProduct('ord-lash-brow-5', event)">
-            <div class="hotspot-pulse"></div>
-          </div>
-
-          <!-- Product Popup (Small Box) -->
-          <div class="look-popup" id="look-popup" onclick="handlePopupClick()">
-            <div class="lp-close" onclick="event.stopPropagation(); closeLookPopup();">&times;</div>
-            <div class="lp-inner" id="lp-single-container">
-              <!-- Single Item with small image and name injected here -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Bundled Items -->
-        <div class="look-details">
-          <div class="look-list">
-            <!-- Item 1 -->
-            <div class="look-item" id="item-ord-lash-brow-5" onclick="showLookProduct('ord-lash-brow-5')">
-              <div class="look-item-img"><img src="the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png" alt="Mascara"></div>
-              <div class="look-item-info">
-                <h4>Lash & Brow Serum</h4>
-                <p>Rs. 4,800.00</p>
-                <span class="look-variant">Volume: 5ml</span>
-              </div>
-            </div>
-            <!-- Item 2 -->
-            <div class="look-item" id="item-ord-nmf-30" onclick="showLookProduct('ord-nmf-30')">
-              <div class="look-item-img"><img src="the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png" alt="Blush"></div>
-              <div class="look-item-info">
-                <h4>Moisturizing Factors</h4>
-                <p>Rs. 8,000.00</p>
-                <span class="look-variant">Finish: Dewy</span>
-              </div>
-            </div>
-            <!-- Item 3 -->
-            <div class="look-item" id="item-ord-ha-30" onclick="showLookProduct('ord-ha-30')">
-              <div class="look-item-img"><img src="the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png" alt="Lip"></div>
-              <div class="look-item-info">
-                <h4>Hyaluronic Acid</h4>
-                <p>Rs. 4,800.00</p>
-                <span class="look-variant">Focus: Deep Hydration</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="look-footer">
-            <button class="look-bundle-btn" onclick="addLookToBag()">
-              Add all to Bag — Rs. 17,600.00
-            </button>
-            <a href="#" class="look-guide-link">View Usage Guide</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      const lookData = {
-        'ord-lash-brow-5': { 
-          title: 'Lash & Brow Serum', 
-          price: 'Rs. 4,800.00', 
-          attr: 'Volume: 5ml',
-          img: 'the%20ordinary/Multi-Peptide%20Lash%20And%20Brow%20Serum%205ml%20%20rs%204800.png' 
-        },
-        'ord-nmf-30': { 
-          title: 'Natural Moisturizing Factors + HA', 
-          price: 'Rs. 8,000.00', 
-          attr: 'Finish: Dewy',
-          img: 'the%20ordinary/Natural%20moisturizing%20factors%20%2B%20ha%20(30ml)%20Rs.8000.png' 
-        },
-        'ord-ha-30': { 
-          title: 'Hyaluronic Acid 2% + B5', 
-          price: 'Rs. 4,800.00', 
-          attr: 'Hydrating',
-          img: 'the%20ordinary/Hyaluronic%20Acid%20(30ml)%20Rs.4800.png' 
-        }
-      };
-
-      let currentPopupProductId = '';
-
-      function showLookProduct(id, event) {
-        const prod = lookData[id];
-        const popup = document.getElementById('look-popup');
-        const container = document.getElementById('lp-single-container');
-        if(!prod || !popup || !container) return;
-        
-        currentPopupProductId = id;
-        container.innerHTML = `
-            <img src="${prod.img}" alt="${prod.title}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 4px; background: #f9f9f9;">
-            <div style="flex: 1; text-align: left;">
-                <h6 style="margin: 0; font-size: 11px; font-weight: 700; line-height: 1.2; color: #1a1a1a;">${prod.title}</h6>
-                <p style="margin: 2px 0 0; font-size: 10px; color: #CFA56A; font-weight: 600;">${prod.price}</p>
-            </div>
-        `;
-
-        // Positioning logic
-        if (event) {
-          const rect = document.getElementById('look-visual').getBoundingClientRect();
-          const x = event.clientX - rect.left;
-          const y = event.clientY - rect.top;
-          
-          let finalX = x;
-          if (x + 180 > rect.width) finalX = rect.width - 190;
-
-          popup.style.left = `${finalX}px`;
-          popup.style.top = `${y}px`;
-          popup.classList.add('active');
-        }
-      }
-
-      function handlePopupClick() {
-          if(currentPopupProductId) {
-              // Extract simple ID for link
-              let cleanId = currentPopupProductId.replace('ord-', '').replace('-5', '').replace('-30', '');
-              // Or just use the full ID if your product.html expects it
-              location.href = `product.html?id=${currentPopupProductId}`;
-          }
-      }
-
-      function closeLookPopup() {
-        const popup = document.getElementById('look-popup');
-        if(popup) popup.classList.remove('active');
-      }
-
-      function addLookToBag() {
-        ['ord-lash-brow-5', 'ord-nmf-30', 'ord-ha-30'].forEach(id => addToCart(id));
-        showToast("Look bundle added to bag!");
-      }
-    </script>
 
     <!-- ===== SECTION: FEATURED GALLERY (SCREENSHOT REPLICATE) ===== -->
     <section class="featured-gallery mobile-hidden">
@@ -1022,29 +971,101 @@
 
 
     <!-- ===== SECTION 8: VIDEO HIGHLIGHTS ===== -->
-    <section class="video-highlights-section">
-      <div class="vh-container">
-        <!-- Row 1 -->
-        <div class="vh-row">
-          <div class="vh-media vh-media-wide"><video data-src="vedio/1.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
+    <section class="video-highlights-section" id="video-highlights-section">
+      <div class="vh-container" id="vh-carousel-container">
+        <!-- Row 1 (Starts Center) -->
+        <div class="vh-row pos-center" id="vh-row-1" data-index="0" onclick="window.handleVhCardClick(0, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-1" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-1" onclick="window.toggleVhPlay(1, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
           <div class="vh-info">
-            <span class="vh-tag">SKINCARE SECRETS</span>
-            <h2 class="vh-title">Master the Art of Layering</h2>
-            <p>Learn how to apply your products for maximum absorption and effectiveness.</p>
-            <a href="#" class="vh-link">WATCH FULL GUIDE</a>
+            <span class="vh-tag" id="vh-tag-1">SKINCARE SECRETS</span>
+            <h2 class="vh-title" id="vh-title-1">Master the Art of Layering</h2>
+            <p id="vh-desc-1">Learn how to apply your products for maximum absorption and effectiveness.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-1">WATCH FULL GUIDE</a>
           </div>
         </div>
 
-        <!-- Row 2 -->
-        <div class="vh-row vh-reverse">
-          <div class="vh-media vh-media-wide"><video data-src="vedio/2.mp4" preload="none" muted loop playsinline class="lazy-video"></video></div>
+        <!-- Row 2 (Starts Right Blurred) -->
+        <div class="vh-row vh-reverse pos-right" id="vh-row-2" data-index="1" onclick="window.handleVhCardClick(1, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-2" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-2" onclick="window.toggleVhPlay(2, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
           <div class="vh-info">
-            <span class="vh-tag">LUXURY CARE</span>
-            <h2 class="vh-title">The Perfect Day Routine</h2>
-            <p>A step-by-step guide to protecting and hydrating your skin throughout the day.</p>
-            <a href="#" class="vh-link">DISCOVER MORE</a>
+            <span class="vh-tag" id="vh-tag-2">LUXURY CARE</span>
+            <h2 class="vh-title" id="vh-title-2">The Perfect Day Routine</h2>
+            <p id="vh-desc-2">A step-by-step guide to protecting and hydrating your skin throughout the day.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-2">DISCOVER MORE</a>
           </div>
         </div>
+
+        <!-- Row 3 (Starts Hidden Right) -->
+        <div class="vh-row pos-hidden-right" id="vh-row-3" data-index="2" onclick="window.handleVhCardClick(2, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-3" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-3" onclick="window.toggleVhPlay(3, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="vh-info">
+            <span class="vh-tag" id="vh-tag-3">EVENING RITUAL</span>
+            <h2 class="vh-title" id="vh-title-3">Overnight Skin Recovery</h2>
+            <p id="vh-desc-3">Wake up with radiant, deeply replenished skin with our curated nighttime treatment.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-3">EXPLORE NIGHT CARE</a>
+          </div>
+        </div>
+
+        <!-- Row 4 (Starts Hidden Left) -->
+        <div class="vh-row vh-reverse pos-hidden-left" id="vh-row-4" data-index="3" onclick="window.handleVhCardClick(3, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-4" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-4" onclick="window.toggleVhPlay(4, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="vh-info">
+            <span class="vh-tag" id="vh-tag-4">DEEP HYDRATION</span>
+            <h2 class="vh-title" id="vh-title-4">Unlock Your Natural Glow</h2>
+            <p id="vh-desc-4">Nourish and strengthen your skin barrier with science-backed active ingredients.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-4">SHOP SERUMS</a>
+          </div>
+        </div>
+
+        <!-- Row 5 (Starts Left Blurred) -->
+        <div class="vh-row pos-left" id="vh-row-5" data-index="4" onclick="window.handleVhCardClick(4, event)">
+          <div class="vh-media vh-media-wide">
+            <video id="vh-video-5" preload="none" muted loop playsinline></video>
+            <button type="button" class="vh-play-btn" id="vh-play-btn-5" onclick="window.toggleVhPlay(5, event)" aria-label="Play/Pause Video">
+              <svg class="vh-icon-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <svg class="vh-icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <div class="vh-info">
+            <span class="vh-tag" id="vh-tag-5">PURE RADIANCE</span>
+            <h2 class="vh-title" id="vh-title-5">Targeted Blemish Control</h2>
+            <p id="vh-desc-5">Gentle yet powerful formulations designed for clear, balanced, and healthy skin.</p>
+            <a href="shop.html" class="vh-link" id="vh-link-5">VIEW COLLECTION</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Dots Navigation (5 Dots) -->
+      <div class="vh-dots-wrap mobile-only" id="vh-dots-wrap">
+        <span class="vh-dot active" onclick="window.setVhActiveIndex(0)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(1)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(2)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(3)"></span>
+        <span class="vh-dot" onclick="window.setVhActiveIndex(4)"></span>
       </div>
     </section>
 
@@ -1067,7 +1088,7 @@
 
 
     <!-- ===== SECTION 5: BEFORE & AFTER SLIDER ===== -->
-    <section class="ba-slider-section">
+    <section class="ba-slider-section" id="ba-slider-section" style="display: none;">
       <div class="ba-container">
         <div class="ba-after-wrap">
           <img src="before after section new/Brighting boost.png" alt="After" />
@@ -1094,7 +1115,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h15v13H1V3zM16 8l5 2v6h-5V8zM3 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0M17 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h4>FAST DELIVERY</h4>
-          <p>Island-wide shipping within 48 hours.</p>
+          <p>Island-wide shipping within 2-5 business days.</p>
         </div>
         <!-- Authentic -->
         <div class="feature-item">
@@ -1133,64 +1154,234 @@
 
 
 
-    <!-- ===== SECTION 10: CUSTOMER FEEDBACK (FINAL REFINEMENT) ===== -->
-    <section class="feedback-section">
-      <div class="fb-inner-header fp-header">
-        <span class="fp-script">Local Reviews</span>
-        <h2 class="fp-title">Verified Experiences</h2>
+    <!-- ===== SECTION: TODAY'S DEALS / CLEARANCE SLIDER (ABOVE GOOGLE REVIEWS) ===== -->
+    <section class="today-deals-section" id="today-deals-section">
+      <div class="td-inner">
+        <!-- Left Intro Block -->
+        <div class="td-left">
+          <span class="td-kicker" id="td-kicker">TODAY'S DEALS</span>
+          <h2 class="td-heading">
+            <span id="td-title-main">Special Clearance</span>
+            <span class="td-accent" id="td-title-accent">Packed With Value</span>
+          </h2>
+          <p class="td-desc" id="td-desc">
+            Grab 100% authentic skincare essentials with minor outer-box wear or daily clearance markdowns — the exact same pure formula inside at unbeatable special prices.
+          </p>
+          <div class="td-cta-row">
+            <a href="offers.html" class="td-cta-btn" id="td-cta-btn">
+              <span id="td-cta-text">VIEW ALL DEALS</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <div class="td-nav-btns">
+              <button type="button" class="td-nav-btn" id="td-prev-btn" aria-label="Previous Deals">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button type="button" class="td-nav-btn" id="td-next-btn" aria-label="Next Deals">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Horizontal Product Slider -->
+        <div class="td-right">
+          <div class="td-track" id="td-cards-track">
+            <!-- Populated dynamically by JS -->
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="fb-container">
-        <!-- Review 1 -->
-        <div class="fb-card">
-          <div class="fb-card-top">
-            <div class="fb-stars">★★★★★</div>
-            <p class="fb-text">"The Ordinary products really changed my skin. I'm finally glowing and my dark spots are fading!"</p>
-          </div>
-          <div class="fb-user">
-            <div class="fb-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            </div>
-            <div class="fb-user-details">
-              <h4>Hirushika Fernando</h4>
-              <span>Verified Buyer</span>
-            </div>
-          </div>
+    <!-- ===== SECTION 10: GOOGLE REVIEWS (DYNAMIC ADMIN MANAGED) ===== -->
+    <section class="google-reviews-section" id="google-reviews-section">
+      <div class="gr-container">
+        <div class="fb-inner-header fp-header" style="margin-bottom: 26px;">
+          <span class="fp-script">Verified Customer Trust</span>
+          <h2 class="fp-title">Google Reviews</h2>
         </div>
 
-        <!-- Review 2 -->
-        <div class="fb-card">
-          <div class="fb-card-top">
-            <div class="fb-stars">★★★★★</div>
-            <p class="fb-text">"Authentic products and very fast delivery in Sri Lanka. My routine has never been more consistent."</p>
-          </div>
-          <div class="fb-user">
-            <div class="fb-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <!-- Google Reviews Summary Header Card -->
+        <div class="gr-summary-bar">
+          <div class="gr-summary-left">
+            <div class="gr-google-logo-row">
+              <!-- Official 4-Color Google G SVG -->
+              <svg class="gr-main-g-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+              <div class="gr-wordmark" aria-label="Google Reviews">
+                <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+                <span class="gr-wordmark-sub">Reviews</span>
+              </div>
             </div>
-            <div class="fb-user-details">
-              <h4>Imaansha Dahami</h4>
-              <span>Verified Buyer</span>
+            <div class="gr-rating-meta">
+              <span class="gr-score-num" id="gr-overall-score">4.9</span>
+              <div class="gr-summary-stars" id="gr-overall-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <span class="gr-count-text" id="gr-overall-count">Based on 128 reviews</span>
             </div>
           </div>
+
+          <a href="https://www.google.com/search?q=Beauty+in+Balance+Sri+Lanka" target="_blank" rel="noopener noreferrer" class="gr-write-btn" id="gr-write-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81Z"/>
+            </svg>
+            <span>Review us on Google</span>
+          </a>
         </div>
 
-        <!-- Review 3 -->
-        <div class="fb-card">
-          <div class="fb-card-top">
-            <div class="fb-stars">★★★★★</div>
-            <p class="fb-text">"Perfect customer support and even better results. Beauty in Balance is my only go-to for skincare!"</p>
-          </div>
-          <div class="fb-user">
-            <div class="fb-avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <!-- Google Reviews Grid (Desktop 3-col / Mobile Snap Carousel) -->
+        <div class="gr-grid" id="gr-cards-track">
+          <!-- Default Review 1 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #1a73e8;">H</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Hirushika Fernando</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">2 weeks ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
             </div>
-            <div class="fb-user-details">
-              <h4>Aloka Perera</h4>
-              <span>Verified Buyer</span>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+              <span class="gr-new-badge">NEW</span>
             </div>
-          </div>
+            <p class="gr-text">Ordered The Ordinary Niacinamide and CeraVe Cleanser from Beauty in Balance. 100% authentic products with batch codes intact! Delivered within 2 days to Colombo. Highly recommend!</p>
+          </article>
+
+          <!-- Default Review 2 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #1e8e3e;">I</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Imaansha Dahami</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">1 month ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Best place in Sri Lanka to buy original skincare. Packaging was super secure and customer service on WhatsApp helped me pick the right routine for my sensitive skin.</p>
+          </article>
+
+          <!-- Default Review 3 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #9334e6;">A</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Aloka Perera</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">3 weeks ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Been buying my Cetaphil and La Roche-Posay essentials from here for 6 months now. Genuine products, fair prices, and KOKO payment option makes it so convenient!</p>
+          </article>
+
+          <!-- Default Review 4 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #d93025;">N</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Nethmi Wijesinghe</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">1 week ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+              <span class="gr-new-badge">NEW</span>
+            </div>
+            <p class="gr-text">Super fast delivery! I placed my order on Monday morning and received it by Wednesday afternoon. Everything was sealed properly and my skin is loving the Beauty of Joseon sunscreen.</p>
+          </article>
+
+          <!-- Default Review 5 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #00897b;">K</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Kavindi Silva</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">2 months ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Finally found a trustworthy skincare store in SL that doesn't sell replicas. Checked the barcodes and textures—everything is 100% genuine. Will definitely order again!</p>
+          </article>
+
+          <!-- Default Review 6 -->
+          <article class="gr-card">
+            <div class="gr-card-head">
+              <div class="gr-avatar" style="background-color: #e37400;">D</div>
+              <div class="gr-author-meta">
+                <div class="gr-author-name-row">
+                  <h4>Dilushi Rajapaksha</h4>
+                  <svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <span class="gr-time">3 weeks ago</span>
+              </div>
+              <svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+              </svg>
+            </div>
+            <div class="gr-stars-row">
+              <span class="gr-stars">★★★★★</span>
+            </div>
+            <p class="gr-text">Amazing service and authentic UK/US imported skincare. Their team guided me step by step and my acne marks have faded so much in just 4 weeks!</p>
+          </article>
         </div>
+
+        <!-- Mobile Carousel Dots -->
+        <div class="gr-dots-wrap" id="gr-dots-wrap" aria-label="Review carousel navigation"></div>
       </div>
     </section>
 
@@ -1204,26 +1395,9 @@
   
   <footer class="site-footer">
     <div class="footer-top">
-      <div class="footer-col">
-        <h3>SHOP</h3>
-        <ul>
-          <li><a href="shop.html">Best Sellers</a></li>
-          <li><a href="shop.html">New Arrivals</a></li>
-          <li><a href="shop.html">Special Offers</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>SUPPORT</h3>
-        <ul>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="refund-policy.html">Refund Policy</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <a href="index.html" class="footer-logo">Beauty in Balance</a>
-        <p>Your destination for authentic, high-quality skincare in Sri Lanka.</p>
+      <div class="footer-col footer-brand-col">
+        <a href="index.html" class="footer-logo">BEAUTY IN BALANCE</a>
+        <p>Your destination for 100% authentic, high-quality skincare in Sri Lanka.</p>
         <div class="footer-social">
           <a href="https://www.facebook.com/profile.php?id=61562806591629" target="_blank" aria-label="Facebook">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -1236,9 +1410,58 @@
           </a>
         </div>
       </div>
+      <div class="footer-col footer-col-desktop-only">
+        <h3>CATEGORIES</h3>
+        <ul>
+          <li><a href="shop.html?filter=cleansers">Cleansers & Washes</a></li>
+          <li><a href="shop.html?filter=serums">Serums & Essences</a></li>
+          <li><a href="shop.html?filter=moisturizers">Moisturizers & Creams</a></li>
+          <li><a href="shop.html?filter=sunscreen">Sunscreens & SPF</a></li>
+          <li><a href="shop.html?filter=acids">Acids & Exfoliants</a></li>
+          <li><a href="shop.html?filter=retinoids">Retinoids & Anti-Aging</a></li>
+          <li><a href="shop.html?filter=body">Body & Hair Care</a></li>
+          <li><a href="shop.html?filter=targeted">Targeted & Eye Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-desktop-only">
+        <h3>TOP BRANDS</h3>
+        <ul>
+          <li><a href="shop.html?cat=ordinary">The Ordinary</a></li>
+          <li><a href="shop.html?cat=cerave">CeraVe</a></li>
+          <li><a href="shop.html?cat=la%20roche-posay">La Roche-Posay</a></li>
+          <li><a href="shop.html?cat=cosrx">COSRX</a></li>
+          <li><a href="shop.html?cat=vaseline">Vaseline</a></li>
+          <li><a href="shop.html?cat=dr.%20rashel">Dr. Rashel</a></li>
+          <li><a href="shop.html?cat=celimax">Celimax</a></li>
+          <li><a href="shop.html?cat=manee">Manee & Cool-Vita</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>QUICK LINKS</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop All Collection</a></li>
+          <li><a href="offers.html">Special Offers ⚡</a></li>
+          <li><a href="account.html">Track Order Status</a></li>
+          <li><a href="cart.html">Shopping Bag</a></li>
+          <li><a href="login.html">Customer Account</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>SUPPORT & INFO</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="policies.html">Shipping & Delivery</a></li>
+          <li><a href="refund-policy.html">Refund & Return Policy</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+          <li><a href="https://wa.me/94766190550" target="_blank">WhatsApp Help Desk</a></li>
+        </ul>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Beauty in Balance. All Rights Reserved.</p>
+      <p>100% Authentic UK &amp; CA Imports &bull; Island-Wide Delivery (2-5 Business Days) &bull; KOKO &amp; COD Available</p>
+      <p>&copy; 2026 BEAUTY IN BALANCE. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
 
@@ -1252,8 +1475,8 @@
 
 
 
-  <script src="config.js?v=21"></script>
-  <script src="products.js?v=412"></script>
+  <script src="config.js?v=18"></script>
+  <script src="products.js?v=428"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1334,7 +1557,9 @@
       const shuffled = [...productsData].sort(() => 0.5 - Math.random());
       const selected = shuffled.slice(0, 8);
       track.innerHTML = selected.map(p => {
-        const discount = Number(p.discount || 0);
+        const discount = (typeof getEffectiveProductDiscount === 'function')
+          ? getEffectiveProductDiscount(p)
+          : Number(p.discount || 0);
         const basePrice = Number(p.price || 0);
         const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
         
@@ -1433,7 +1658,7 @@
         `;
 
         return `
-        <div class="fp-item">
+        <div class="fp-item ${isOutOfStock ? 'is-sold-out' : ''}">
           <div class="fp-img-box" style="cursor: pointer;" onclick="location.href='product.html?id=${p.id || p._id}'">
              ${badgesHTML}
              <div class="fp-img-wrap">
@@ -1553,7 +1778,7 @@
           if (!container) return;
           
           // Remove fallback slides
-          container.querySelectorAll('[data-fallback]').forEach(el => el.remove());
+          container.innerHTML = ''; // Clear hardcoded slides so uploaded DB slides display immediately
           
           // Build dynamic slides
           const isMobile = window.innerWidth <= 900;
@@ -1705,6 +1930,67 @@
     </div>
   </div>
 
+  <!-- ===== FLASH SALE POPUP MODAL ===== -->
+  <div class="flash-sale-modal-overlay" id="flash-sale-modal-overlay">
+    <div class="flash-sale-modal-card">
+      <button class="flash-sale-close-btn" id="flash-sale-close-btn" aria-label="Close modal">&times;</button>
+      
+      <div class="flash-sale-header-brand">
+        <span class="flash-sale-brand-name">Beauty in Balance</span>
+      </div>
+
+      <div class="flash-sale-title-container">
+        <div class="flash-sale-title-wrap">
+          <svg class="lightning-svg" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 0L0 20H11L8 36L24 14H13L14 0Z" fill="#FFCA28" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <h2 class="flash-sale-title" id="fs-modal-title">FLASH SALE</h2>
+          <svg class="lightning-svg" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 0L0 20H11L8 36L24 14H13L14 0Z" fill="#FFCA28" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="flash-sale-discount-tag" id="fs-modal-subtitle">UP TO 70% OFF!</div>
+      </div>
+
+      <div class="flash-sale-timer-box">
+        <div class="flash-sale-timer-label">SALE ENDS IN:</div>
+        <div class="flash-sale-countdown-digits">
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-days">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">DAYS</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-hours">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">HOURS</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-mins">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">MINUTES</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <div class="countdown-digit-pair" id="fs-secs">
+              <div class="countdown-card-digit">0</div><div class="countdown-card-digit">0</div>
+            </div>
+            <span class="countdown-lbl">SECONDS</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="shop.html?sale=true" class="flash-sale-cta-btn" id="fs-modal-cta">
+        Shop Now Before It's Too Late!
+      </a>
+    </div>
+  </div>
+
   <!-- ===== NEWSLETTER POPUP MODAL ===== -->
   <div class="newsletter-modal-overlay" id="newsletter-modal-overlay">
     <div class="newsletter-modal-card">
@@ -1750,49 +2036,200 @@
   </script>
 
   <script>
-    // --- NEWSLETTER POPUP TRIGGER LOGIC ---
-    document.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById('newsletter-modal-overlay');
-      const closeBtn = document.getElementById('newsletter-close-btn');
-      const noThanksBtn = document.getElementById('newsletter-no-thanks-btn');
-      const form = document.getElementById('newsletter-signup-form');
-      const emailInp = document.getElementById('newsletter-email-inp');
-      const submitBtn = document.getElementById('newsletter-submit-btn');
+          // Add bulletproof close listener for sticky timer widget
+      document.addEventListener('DOMContentLoaded', () => {
+        const stkCloseBtn = document.getElementById('stk-close-btn');
+        if (stkCloseBtn) {
+          const closeTimer = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const widget = document.getElementById('sticky-timer-widget');
+            if (widget) {
+              widget.classList.remove('active');
+              widget.style.display = 'none';
+              widget.style.visibility = 'hidden';
+            }
+            sessionStorage.setItem('stk_dismissed', '1');
+          };
+          stkCloseBtn.addEventListener('click', closeTimer);
+          stkCloseBtn.addEventListener('touchstart', closeTimer, {passive: false});
+        }
+      });
+      // --- DYNAMIC POPUP CONTROLLER (FLASH SALE vs NEWSLETTER) ---
+    document.addEventListener('DOMContentLoaded', async () => {
+      const flashModal = document.getElementById('flash-sale-modal-overlay');
+      const flashCloseBtn = document.getElementById('flash-sale-close-btn');
+      const newsModal = document.getElementById('newsletter-modal-overlay');
+      const newsCloseBtn = document.getElementById('newsletter-close-btn');
+      const newsNoThanksBtn = document.getElementById('newsletter-no-thanks-btn');
+      const newsForm = document.getElementById('newsletter-signup-form');
+      const newsEmailInp = document.getElementById('newsletter-email-inp');
+      const newsSubmitBtn = document.getElementById('newsletter-submit-btn');
 
-      if (!modal) return;
+      let countdownInterval = null;
 
-      const today = new Date().toDateString();
-      const lastShown = localStorage.getItem('newsletter_last_shown');
-      const isSubscribed = localStorage.getItem('newsletter_subscribed');
-
-      // Show popup after 1.5 seconds if not subscribed and not shown today
-      if (!isSubscribed && lastShown !== today) {
-        const showPopup = () => setTimeout(() => modal.classList.add('active'), 1500);
-        if (window.isPreloaderFinished) showPopup();
-        else window.addEventListener('PreloaderFinished', showPopup);
+      function renderDigits(elementId, value) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const str = String(value).padStart(2, '0');
+        const d1 = str.charAt(0);
+        const d2 = str.charAt(1);
+        el.innerHTML = `<div class="countdown-card-digit">${d1}</div><div class="countdown-card-digit">${d2}</div>`;
       }
 
-      const closeModal = () => {
-        modal.classList.remove('active');
+      function updateCountdown(endDateStr) {
+        const end = new Date(endDateStr).getTime();
+        const now = new Date().getTime();
+        const diff = end - now;
+
+        if (isNaN(end) || diff <= 0) {
+          if (countdownInterval) clearInterval(countdownInterval);
+          if (flashModal) flashModal.classList.remove('active');
+          const widget = document.getElementById('sticky-timer-widget');
+          if (widget) {
+            widget.classList.remove('active');
+            widget.style.display = 'none';
+          }
+          // Revert to newsletter modal if applicable
+          triggerNewsletterModal();
+          return;
+        }
+
+        const widget = document.getElementById('sticky-timer-widget');
+        // Don't show sticky widget on offers page — it has its own countdown
+        // Don't show if user dismissed it this session
+        const isOffersPage = window.location.pathname.includes('offers');
+        const isDismissed = sessionStorage.getItem('stk_dismissed');
+        if (widget && !isOffersPage && !isDismissed) {
+          widget.style.display = 'flex';
+          widget.classList.add('active');
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        renderDigits('fs-days', days);
+        renderDigits('fs-hours', hours);
+        renderDigits('fs-mins', mins);
+        renderDigits('fs-secs', secs);
+        // Update floating sticky timer tiles with flip animation
+        function setTile(id, digit) {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const inner = el.querySelector('.stk-tile-inner');
+          if (!inner) return;
+          const newVal = String(digit);
+          if (inner.textContent !== newVal) {
+            el.classList.remove('flipping');
+            void el.offsetWidth;
+            el.classList.add('flipping');
+            inner.textContent = newVal;
+            setTimeout(() => el.classList.remove('flipping'), 380);
+          }
+        }
+        const ds = String(days).padStart(2,'0');
+        const hs = String(hours).padStart(2,'0');
+        const ms = String(mins).padStart(2,'0');
+        setTile('stk-d0', ds[0]); setTile('stk-d1', ds[1]);
+        setTile('stk-h0', hs[0]); setTile('stk-h1', hs[1]);
+        setTile('stk-m0', ms[0]); setTile('stk-m1', ms[1]);
+      }
+
+      function applySaleToUI(sale, showPopupIfAllowed) {
+        if (!sale || sale.enabled === false) return false;
+        const now = new Date();
+        const end = new Date(sale.endDate);
+        if (isNaN(end.getTime()) || now > end) return false;
+
+        if (sale.title) {
+          const fsTitle = document.getElementById('fs-modal-title');
+          if (fsTitle) fsTitle.textContent = sale.title;
+          const stkTitle = document.getElementById('stk-title-text') || document.querySelector('#sticky-timer-widget .stk-title');
+          if (stkTitle) stkTitle.textContent = sale.title;
+        }
+        if (sale.subtitle) {
+          const fsSub = document.getElementById('fs-modal-subtitle');
+          if (fsSub) fsSub.textContent = sale.subtitle;
+        }
+
+        const ctaEl = document.getElementById('fs-modal-cta');
+        if (ctaEl) {
+          ctaEl.setAttribute('href', 'offers.html');
+          if (sale.ctaText) ctaEl.textContent = sale.ctaText;
+        }
+
+        if (showPopupIfAllowed) {
+          const isDismissed = sessionStorage.getItem('flash_sale_dismissed');
+          if (!isDismissed) {
+            const showFlashPopup = () => setTimeout(() => {
+              if (flashModal) flashModal.classList.add('active');
+            }, 1000);
+            if (window.isPreloaderFinished) showFlashPopup();
+            else window.addEventListener('PreloaderFinished', showFlashPopup);
+          }
+        }
+
+        if (countdownInterval) clearInterval(countdownInterval);
+        updateCountdown(sale.endDate);
+        countdownInterval = setInterval(() => updateCountdown(sale.endDate), 1000);
+        return true;
+      }
+
+      function triggerNewsletterModal() {
+        if (!newsModal) return;
+        const today = new Date().toDateString();
+        const lastShown = localStorage.getItem('newsletter_last_shown');
+        const isSubscribed = localStorage.getItem('newsletter_subscribed');
+
+        if (!isSubscribed && lastShown !== today) {
+          const showPopup = () => setTimeout(() => newsModal.classList.add('active'), 1200);
+          if (window.isPreloaderFinished) showPopup();
+          else window.addEventListener('PreloaderFinished', showPopup);
+        }
+      }
+
+      // Close events for Flash Sale Modal (attached immediately so close button (X) always works!)
+      if (flashCloseBtn) {
+        flashCloseBtn.addEventListener('click', () => {
+          if (flashModal) flashModal.classList.remove('active');
+          sessionStorage.setItem('flash_sale_dismissed', 'true');
+        });
+      }
+      if (flashModal) {
+        flashModal.addEventListener('click', (e) => {
+          if (e.target === flashModal) {
+            flashModal.classList.remove('active');
+            sessionStorage.setItem('flash_sale_dismissed', 'true');
+          }
+        });
+      }
+
+      // Close events for Newsletter Modal
+      const closeNewsModal = () => {
+        if (newsModal) newsModal.classList.remove('active');
         localStorage.setItem('newsletter_last_shown', new Date().toDateString());
       };
 
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (noThanksBtn) noThanksBtn.addEventListener('click', closeModal);
+      if (newsCloseBtn) newsCloseBtn.addEventListener('click', closeNewsModal);
+      if (newsNoThanksBtn) newsNoThanksBtn.addEventListener('click', closeNewsModal);
+      if (newsModal) {
+        newsModal.addEventListener('click', (e) => {
+          if (e.target === newsModal) closeNewsModal();
+        });
+      }
 
-      // Close on clicking outside the card
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-
-      if (form) {
-        form.addEventListener('submit', async (e) => {
+      if (newsForm) {
+        newsForm.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const email = emailInp ? emailInp.value.trim() : '';
+          const email = newsEmailInp ? newsEmailInp.value.trim() : '';
           if (!email) return;
 
-          submitBtn.textContent = 'SIGNING UP...';
-          submitBtn.disabled = true;
+          if (newsSubmitBtn) {
+            newsSubmitBtn.textContent = 'SIGNING UP...';
+            newsSubmitBtn.disabled = true;
+          }
 
           try {
             const apiBase = window.BASE_URL || '/api';
@@ -1805,9 +2242,8 @@
             const data = await response.json();
 
             if (response.ok) {
-              // Save to localStorage and close immediately — no thank you message
               localStorage.setItem('newsletter_subscribed', 'true');
-              closeModal();
+              closeNewsModal();
             } else {
               if (typeof showToast === 'function') {
                 showToast(data.message || 'Failed to sign up.', 'error');
@@ -1823,11 +2259,49 @@
               alert('Connection error. Please try again.');
             }
           } finally {
-            submitBtn.textContent = 'SIGN UP';
-            submitBtn.disabled = false;
+            if (newsSubmitBtn) {
+              newsSubmitBtn.textContent = 'SIGN UP';
+              newsSubmitBtn.disabled = false;
+            }
           }
         });
       }
+
+      // 1. Instant 0ms render from cached sale if available
+      try {
+        const cachedSaleStr = localStorage.getItem('bib_active_sale');
+        if (cachedSaleStr) {
+          const cachedSale = JSON.parse(cachedSaleStr);
+          applySaleToUI(cachedSale, false);
+        }
+      } catch (e) {}
+
+      // 2. Check Flash Sale status from backend API
+      try {
+        const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
+        const res = await fetch(`${apiBase}/settings/flash_sale?t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          const sale = data.value;
+          if (applySaleToUI(sale, true)) {
+            try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
+            return; // Stop here so newsletter modal is suppressed
+          } else {
+            try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
+            if (countdownInterval) clearInterval(countdownInterval);
+            const widget = document.getElementById('sticky-timer-widget');
+            if (widget) {
+              widget.classList.remove('active');
+              widget.style.display = 'none';
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch flash sale settings:', err);
+      }
+
+      // Fallback: If no active flash sale, trigger normal newsletter modal
+      triggerNewsletterModal();
     });
   </script>
 
@@ -1881,6 +2355,340 @@
       }, 1000);
     });
 
+    // Dynamic Home Video Highlights from Admin Settings (IndexedDB Cache + Zero Old-Video Flash)
+    (function() {
+      const TOTAL_VH = 5;
+      let currentVhIndex = 0;
+      let isVhSectionVisible = false;
+      let hasFetchedRemoteVideos = false;
+      let hasAppliedAnyVideoData = false;
+
+      const FALLBACK_VIDEOS = {
+        video1: { src: 'vedio/1.mp4', tag: 'SKINCARE SECRETS', title: 'Master the Art of Layering', desc: 'Learn how to apply your products for maximum absorption and effectiveness.', linkText: 'WATCH FULL GUIDE', linkUrl: 'shop.html' },
+        video2: { src: 'vedio/2.mp4', tag: 'LUXURY CARE', title: 'The Perfect Day Routine', desc: 'A step-by-step guide to protecting and hydrating your skin throughout the day.', linkText: 'DISCOVER MORE', linkUrl: 'shop.html' },
+        video3: { src: 'vedio/1.mp4', tag: 'EVENING RITUAL', title: 'Overnight Skin Recovery', desc: 'Wake up with radiant, deeply replenished skin with our curated nighttime treatment.', linkText: 'EXPLORE NIGHT CARE', linkUrl: 'shop.html' },
+        video4: { src: 'vedio/2.mp4', tag: 'DEEP HYDRATION', title: 'Unlock Your Natural Glow', desc: 'Nourish and strengthen your skin barrier with science-backed active ingredients.', linkText: 'SHOP SERUMS', linkUrl: 'shop.html' },
+        video5: { src: 'vedio/1.mp4', tag: 'PURE RADIANCE', title: 'Targeted Blemish Control', desc: 'Gentle yet powerful formulations designed for clear, balanced, and healthy skin.', linkText: 'VIEW COLLECTION', linkUrl: 'shop.html' }
+      };
+
+      // IndexedDB helper for caching large uploaded MP4 videos (bypasses localStorage 5MB limit)
+      function openVhDb() {
+        return new Promise((resolve, reject) => {
+          if (!('indexedDB' in window)) return reject(new Error('No IDB'));
+          const req = indexedDB.open('bib_media_cache_db', 1);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('settings')) {
+              db.createObjectStore('settings');
+            }
+          };
+          req.onsuccess = (e) => resolve(e.target.result);
+          req.onerror = (e) => reject(e.target.error);
+        });
+      }
+
+      function getCachedHomeVideos() {
+        return openVhDb().then(db => new Promise((resolve) => {
+          const tx = db.transaction('settings', 'readonly');
+          const req = tx.objectStore('settings').get('home_videos');
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => resolve(null);
+        })).catch(() => {
+          try {
+            const s = localStorage.getItem('bib_home_videos');
+            return s ? JSON.parse(s) : null;
+          } catch(e) { return null; }
+        });
+      }
+
+      function setCachedHomeVideos(val) {
+        try { localStorage.setItem('bib_home_videos', JSON.stringify(val)); } catch(e) {}
+        openVhDb().then(db => {
+          const tx = db.transaction('settings', 'readwrite');
+          tx.objectStore('settings').put(val, 'home_videos');
+        }).catch(() => {});
+      }
+
+      // Helper: Append #t=0.1 to video URL so mobile browsers render the starting frame ("mula hariya") immediately when metadata loads
+      function withStartFrame(url) {
+        if (!url) return '';
+        if (url.startsWith('data:') || url.includes('#t=')) return url;
+        return url + '#t=0.1';
+      }
+
+      // Prime a single video element's first frame ONLY after the user has scrolled near the video section
+      function primeVideoFirstFrame(num) {
+        if (!isVhSectionVisible || !hasAppliedAnyVideoData) return;
+        const vid = document.getElementById('vh-video-' + num);
+        if (!vid) return;
+        const rawSrc = vid.dataset.src;
+        if (!rawSrc) return;
+
+        const targetSrc = withStartFrame(rawSrc);
+        if (!vid.getAttribute('src') || vid.dataset.loadedRawSrc !== rawSrc) {
+          vid.preload = 'metadata';
+          vid.src = targetSrc;
+          vid.dataset.loadedRawSrc = rawSrc;
+          vid.addEventListener('loadedmetadata', function onMeta() {
+            if (vid.paused && vid.currentTime === 0) {
+              try { vid.currentTime = 0.1; } catch(e) {}
+            }
+          }, { once: true });
+          vid.load();
+        }
+      }
+
+      // Load only the videos that are currently visible in the viewport (and ONLY after Admin/Cached video data is ready)
+      function loadCurrentlyVisibleVideos() {
+        if (!isVhSectionVisible || !hasAppliedAnyVideoData) return;
+        if (window.innerWidth > 900) {
+          // Desktop only shows Video 1 and Video 2; auto-play them when scrolled into view
+          [1, 2].forEach(n => {
+            const vid = document.getElementById('vh-video-' + n);
+            if (vid && vid.dataset.src) {
+              if (!vid.getAttribute('src') || vid.dataset.loadedRawSrc !== vid.dataset.src) {
+                vid.preload = 'metadata';
+                vid.src = vid.dataset.src;
+                vid.dataset.loadedRawSrc = vid.dataset.src;
+                vid.load();
+              }
+              vid.play().catch(() => {});
+            }
+          });
+        } else {
+          // Mobile 3D Stack: Prime the center, left, and right cards so their starting frame is visible
+          const leftIdx = (currentVhIndex - 1 + TOTAL_VH) % TOTAL_VH;
+          const rightIdx = (currentVhIndex + 1) % TOTAL_VH;
+          [currentVhIndex + 1, leftIdx + 1, rightIdx + 1].forEach(num => {
+            primeVideoFirstFrame(num);
+          });
+        }
+      }
+
+      function applyHomeVideos(vData) {
+        if (!vData) return;
+        hasAppliedAnyVideoData = true;
+        for (let num = 1; num <= TOTAL_VH; num++) {
+          const v = vData['video' + num] || (Array.isArray(vData) ? vData[num - 1] : null);
+          if (!v) continue;
+
+          const vid = document.getElementById('vh-video-' + num);
+          if (vid && v.src) {
+            vid.dataset.src = v.src;
+          }
+          if (v.tag) {
+            const el = document.getElementById('vh-tag-' + num);
+            if (el) el.textContent = v.tag;
+          }
+          if (v.title) {
+            const el = document.getElementById('vh-title-' + num);
+            if (el) el.textContent = v.title;
+          }
+          if (v.desc) {
+            const el = document.getElementById('vh-desc-' + num);
+            if (el) el.textContent = v.desc;
+          }
+          if (v.linkText) {
+            const el = document.getElementById('vh-link-' + num);
+            if (el) el.textContent = v.linkText;
+          }
+          if (v.linkUrl) {
+            const el = document.getElementById('vh-link-' + num);
+            if (el) el.href = v.linkUrl;
+          }
+        }
+
+        // Only load actual video media if the user has already scrolled near the section
+        if (isVhSectionVisible) {
+          loadCurrentlyVisibleVideos();
+        }
+      }
+
+      // 1. Read cached Admin videos from IndexedDB / localStorage (0 network requests, sets text & data-src without loading video bytes yet)
+      getCachedHomeVideos().then(cached => {
+        if (cached && !hasFetchedRemoteVideos) {
+          applyHomeVideos(cached);
+        }
+      });
+
+      // 2. Fetch remote video settings & load video frames ONLY when user scrolls near #video-highlights-section
+      function triggerVhSectionLoad() {
+        if (isVhSectionVisible) return;
+        isVhSectionVisible = true;
+
+        // If IndexedDB cache already populated data-src, show immediately
+        if (hasAppliedAnyVideoData) {
+          loadCurrentlyVisibleVideos();
+        }
+
+        if (!hasFetchedRemoteVideos) {
+          hasFetchedRemoteVideos = true;
+          const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+          fetch(`${apiBase}/settings/home_videos?cb=${Date.now()}`)
+            .then(r => r.json())
+            .then(d => {
+              if (d && d.value) {
+                setCachedHomeVideos(d.value);
+                applyHomeVideos(d.value);
+              } else if (!hasAppliedAnyVideoData) {
+                applyHomeVideos(FALLBACK_VIDEOS);
+              }
+            })
+            .catch(() => {
+              if (!hasAppliedAnyVideoData) {
+                applyHomeVideos(FALLBACK_VIDEOS);
+              }
+            });
+        }
+      }
+
+      // 3. Mobile 3D Blurred Stack Carousel (5 Videos) & Play/Pause Controller
+      function pauseAllVhVideos(exceptNum) {
+        for (let n = 1; n <= TOTAL_VH; n++) {
+          if (n !== exceptNum) {
+            const v = document.getElementById('vh-video-' + n);
+            const b = document.getElementById('vh-play-btn-' + n);
+            if (v && !v.paused) v.pause();
+            if (b) {
+              b.classList.remove('is-playing');
+              const pi = b.querySelector('.vh-icon-play');
+              const pau = b.querySelector('.vh-icon-pause');
+              if (pi) pi.style.display = 'block';
+              if (pau) pau.style.display = 'none';
+            }
+          }
+        }
+      }
+
+      window.setVhActiveIndex = function(newIdx) {
+        currentVhIndex = ((newIdx % TOTAL_VH) + TOTAL_VH) % TOTAL_VH;
+        const leftIdx = (currentVhIndex - 1 + TOTAL_VH) % TOTAL_VH;
+        const rightIdx = (currentVhIndex + 1) % TOTAL_VH;
+        const hiddenRightIdx = (currentVhIndex + 2) % TOTAL_VH;
+        const hiddenLeftIdx = (currentVhIndex + 3) % TOTAL_VH;
+
+        for (let i = 0; i < TOTAL_VH; i++) {
+          const row = document.getElementById('vh-row-' + (i + 1));
+          if (!row) continue;
+          row.classList.remove('pos-center', 'pos-left', 'pos-right', 'pos-hidden-left', 'pos-hidden-right');
+          if (i === currentVhIndex) row.classList.add('pos-center');
+          else if (i === leftIdx) row.classList.add('pos-left');
+          else if (i === rightIdx) row.classList.add('pos-right');
+          else if (i === hiddenRightIdx) row.classList.add('pos-hidden-right');
+          else if (i === hiddenLeftIdx) row.classList.add('pos-hidden-left');
+        }
+
+        const dots = document.querySelectorAll('#vh-dots-wrap .vh-dot');
+        dots.forEach((dot, i) => {
+          if (i === currentVhIndex) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+
+        if (window.innerWidth <= 900) {
+          pauseAllVhVideos(null);
+          loadCurrentlyVisibleVideos();
+        }
+      };
+
+      window.toggleVhPlay = function(num, event) {
+        if (event) { event.stopPropagation(); event.preventDefault(); }
+        const targetIdx = num - 1;
+        if (window.innerWidth <= 900 && targetIdx !== currentVhIndex) {
+          window.setVhActiveIndex(targetIdx);
+          return;
+        }
+
+        isVhSectionVisible = true;
+        const vid = document.getElementById('vh-video-' + num);
+        const btn = document.getElementById('vh-play-btn-' + num);
+        if (!vid) return;
+
+        if (!vid.getAttribute('src') && vid.dataset.src) {
+          vid.preload = 'auto';
+          vid.src = vid.dataset.src;
+          vid.dataset.loadedRawSrc = vid.dataset.src;
+          vid.load();
+        }
+
+        const playIcon = btn ? btn.querySelector('.vh-icon-play') : null;
+        const pauseIcon = btn ? btn.querySelector('.vh-icon-pause') : null;
+
+        if (vid.paused) {
+          pauseAllVhVideos(num);
+          vid.play().then(() => {
+            if (btn) btn.classList.add('is-playing');
+            if (playIcon) playIcon.style.display = 'none';
+            if (pauseIcon) pauseIcon.style.display = 'block';
+          }).catch(() => {});
+        } else {
+          vid.pause();
+          if (btn) btn.classList.remove('is-playing');
+          if (playIcon) playIcon.style.display = 'block';
+          if (pauseIcon) pauseIcon.style.display = 'none';
+        }
+      };
+
+      window.handleVhCardClick = function(idx, event) {
+        if (window.innerWidth > 900) return;
+        if (event.target.closest('.vh-info a')) return;
+        if (idx !== currentVhIndex) {
+          if (event) { event.stopPropagation(); event.preventDefault(); }
+          window.setVhActiveIndex(idx);
+        } else {
+          window.toggleVhPlay(idx + 1, event);
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Observe #video-highlights-section so videos ONLY load when the user scrolls near this section
+        const vhSection = document.getElementById('video-highlights-section');
+        if (vhSection && 'IntersectionObserver' in window) {
+          const vhObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                triggerVhSectionLoad();
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: '160px 0px' });
+          vhObserver.observe(vhSection);
+        } else {
+          window.addEventListener('scroll', function onFirstScroll() {
+            triggerVhSectionLoad();
+            window.removeEventListener('scroll', onFirstScroll);
+          }, { passive: true });
+        }
+
+        const container = document.getElementById('vh-carousel-container');
+        if (!container) return;
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        container.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length > 0) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+          if (window.innerWidth > 900) return;
+          if (!e.changedTouches || e.changedTouches.length === 0) return;
+          const dx = e.changedTouches[0].clientX - touchStartX;
+          const dy = e.changedTouches[0].clientY - touchStartY;
+
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) {
+              window.setVhActiveIndex(currentVhIndex + 1);
+            } else {
+              window.setVhActiveIndex(currentVhIndex - 1);
+            }
+          }
+        }, { passive: true });
+      });
+    })();
+
     // Lazy load MP4 videos only when scrolled into viewport (Saves 3.0MB initial bandwidth)
     document.addEventListener('DOMContentLoaded', () => {
       const lazyVideos = document.querySelectorAll('.lazy-video');
@@ -1892,7 +2700,10 @@
               if (!video.src && video.dataset.src) {
                 video.src = video.dataset.src;
               }
-              video.play().catch(() => {});
+              const isVhVideo = video.id && video.id.startsWith('vh-video-');
+              if (!isVhVideo || window.innerWidth > 900) {
+                video.play().catch(() => {});
+              }
               observer.unobserve(video);
             }
           });
@@ -1905,6 +2716,390 @@
         });
       }
     });
+
+    // Dynamic Mid-Page Collection Banner from Admin Settings (Desktop + Mobile Resolutions & Turn-Off Tick)
+    (function() {
+      function applyMidBanner(bData) {
+        if (!bData) return;
+
+        // Before & After Section visibility toggle (Default: OFF / hidden unless explicitly enabled)
+        const baSec = document.getElementById('ba-slider-section');
+        if (baSec) {
+          baSec.style.display = (bData.showBeforeAfter === true) ? 'block' : 'none';
+        }
+
+        const sec = document.getElementById('home-collection-banner-section');
+        if (!sec) return;
+
+        const isOff = bData.disabled === true || bData.enabled === false;
+        if (isOff) {
+          sec.style.display = 'none';
+          return;
+        }
+        sec.style.display = 'block';
+
+        const dImg = document.getElementById('hcb-img-desktop');
+        const mImg = document.getElementById('hcb-img-mobile');
+        const link = document.getElementById('hcb-banner-link');
+
+        if (dImg && bData.desktopImage) dImg.src = bData.desktopImage;
+        if (mImg && (bData.mobileImage || bData.desktopImage)) mImg.src = bData.mobileImage || bData.desktopImage;
+        if (link && bData.linkUrl) link.href = bData.linkUrl;
+      }
+
+      // 1. Instant render from localStorage if cached
+      try {
+        const cached = localStorage.getItem('bib_home_mid_banner');
+        if (cached) applyMidBanner(JSON.parse(cached));
+      } catch(e) {}
+
+      // 2. Fetch live settings from backend API
+      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+      fetch(`${apiBase}/settings/home_mid_banner?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_home_mid_banner', JSON.stringify(d.value)); } catch(e) {}
+            applyMidBanner(d.value);
+          }
+        })
+        .catch(() => {});
+    })();
+
+    // --- Dynamic Google Reviews Loader & Mobile Carousel ---
+    (function initDynamicGoogleReviews() {
+      const G_BADGE_SVG = '<svg class="gr-g-badge" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>';
+      const VERIFIED_SVG = '<svg class="gr-verified-icon" viewBox="0 0 24 24" width="15" height="15" title="Verified Google Review"><path fill="#1a73e8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>';
+      const COLORS = ['#1a73e8', '#1e8e3e', '#9334e6', '#d93025', '#00897b', '#e37400'];
+
+      function escHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function setupMobileDots() {
+        const track = document.getElementById('gr-cards-track');
+        const dotsWrap = document.getElementById('gr-dots-wrap');
+        if (!track || !dotsWrap) return;
+        const cards = Array.from(track.querySelectorAll('.gr-card'));
+        if (cards.length <= 1) {
+          dotsWrap.innerHTML = '';
+          return;
+        }
+        dotsWrap.innerHTML = cards.map((_, idx) =>
+          `<button type="button" class="gr-dot ${idx === 0 ? 'active' : ''}" data-idx="${idx}" aria-label="Go to review ${idx + 1}"></button>`
+        ).join('');
+
+        const dots = Array.from(dotsWrap.querySelectorAll('.gr-dot'));
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const i = parseInt(dot.getAttribute('data-idx'), 10) || 0;
+            if (cards[i]) {
+              const left = cards[i].offsetLeft - (track.clientWidth - cards[i].clientWidth) / 2;
+              track.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+            }
+          });
+        });
+
+        if (!track._grScrollBound) {
+          track._grScrollBound = true;
+          track.addEventListener('scroll', () => {
+            const currentCards = Array.from(track.querySelectorAll('.gr-card'));
+            const currentDots = Array.from(dotsWrap.querySelectorAll('.gr-dot'));
+            if (!currentCards.length || !currentDots.length) return;
+            const center = track.scrollLeft + track.clientWidth / 2;
+            let bestIdx = 0;
+            let minDiff = Infinity;
+            currentCards.forEach((c, idx) => {
+              const cCenter = c.offsetLeft + c.clientWidth / 2;
+              const diff = Math.abs(cCenter - center);
+              if (diff < minDiff) {
+                minDiff = diff;
+                bestIdx = idx;
+              }
+            });
+            currentDots.forEach((d, idx) => d.classList.toggle('active', idx === bestIdx));
+          }, { passive: true });
+        }
+      }
+
+      function applyGoogleReviews(data) {
+        if (!data || typeof data !== 'object') return;
+        const sec = document.getElementById('google-reviews-section');
+        if (sec) {
+          if (data.enabled === false) {
+            sec.style.display = 'none';
+            return;
+          }
+          sec.style.display = '';
+        }
+
+        const scoreEl = document.getElementById('gr-overall-score');
+        const countEl = document.getElementById('gr-overall-count');
+        const writeBtn = document.getElementById('gr-write-btn');
+        const track = document.getElementById('gr-cards-track');
+
+        if (scoreEl && data.overallScore) scoreEl.textContent = data.overallScore;
+        if (countEl && data.totalCountText) countEl.textContent = data.totalCountText;
+        if (writeBtn && data.reviewLinkUrl) writeBtn.href = data.reviewLinkUrl;
+
+        if (track && Array.isArray(data.reviews) && data.reviews.length > 0) {
+          track.innerHTML = data.reviews.map((rev, i) => {
+            const name = String(rev.name || 'Google User').trim();
+            const initial = escHtml(name.charAt(0).toUpperCase() || 'G');
+            const color = rev.avatarColor || COLORS[i % COLORS.length];
+            const rating = Math.max(1, Math.min(5, parseInt(rev.rating, 10) || 5));
+            const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+            const avatarHtml = rev.avatarUrl
+              ? `<div class="gr-avatar gr-avatar-img"><img src="${escHtml(rev.avatarUrl)}" alt="${escHtml(name)}" loading="lazy" /></div>`
+              : `<div class="gr-avatar" style="background-color: ${escHtml(color)};">${initial}</div>`;
+            const newBadge = rev.isNew ? '<span class="gr-new-badge">NEW</span>' : '';
+
+            return `
+              <article class="gr-card">
+                <div class="gr-card-head">
+                  ${avatarHtml}
+                  <div class="gr-author-meta">
+                    <div class="gr-author-name-row">
+                      <h4>${escHtml(name)}</h4>
+                      ${VERIFIED_SVG}
+                    </div>
+                    <span class="gr-time">${escHtml(rev.timeAgo || 'Recently')}</span>
+                  </div>
+                  ${G_BADGE_SVG}
+                </div>
+                <div class="gr-stars-row">
+                  <span class="gr-stars">${stars}</span>
+                  ${newBadge}
+                </div>
+                <p class="gr-text">${escHtml(rev.text || '')}</p>
+              </article>
+            `;
+          }).join('');
+        }
+
+        setupMobileDots();
+      }
+
+      // Initialize mobile dots for default cards immediately
+      setupMobileDots();
+
+      // 1. Instant render from localStorage if cached
+      try {
+        const cached = localStorage.getItem('bib_google_reviews');
+        if (cached) applyGoogleReviews(JSON.parse(cached));
+      } catch (e) {}
+
+      // 2. Fetch live Google Reviews from backend API
+      const apiBase = (typeof getApiUrl === 'function' ? getApiUrl() : 'https://beautyinbalance.onrender.com') + '/api';
+      fetch(`${apiBase}/settings/google_reviews?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_google_reviews', JSON.stringify(d.value)); } catch (e) {}
+            applyGoogleReviews(d.value);
+          }
+        })
+        .catch(() => {});
+
+      /* ── TODAY'S DEALS / CLEARANCE SLIDER LOADER ── */
+      let currentDealsConfig = null;
+      let autoSlideTimer = null;
+      let isPaused = false;
+
+      function getCatalogProducts() {
+        if (window.productsData && Array.isArray(window.productsData) && window.productsData.length > 0) {
+          return window.productsData;
+        }
+        if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts) && defaultProducts.length > 0) {
+          return defaultProducts;
+        }
+        return [];
+      }
+
+      function renderTodayDeals(cfg) {
+        const sec = document.getElementById('today-deals-section');
+        const track = document.getElementById('td-cards-track');
+        if (!sec || !track) return;
+
+        if (cfg && typeof cfg === 'object') {
+          currentDealsConfig = cfg;
+        }
+        const data = currentDealsConfig || {};
+
+        if (data.enabled === false) {
+          sec.style.display = 'none';
+          return;
+        }
+        sec.style.display = '';
+
+        const kickerEl = document.getElementById('td-kicker');
+        const mainTitleEl = document.getElementById('td-title-main');
+        const accentTitleEl = document.getElementById('td-title-accent');
+        const descEl = document.getElementById('td-desc');
+        const ctaBtn = document.getElementById('td-cta-btn');
+        const ctaText = document.getElementById('td-cta-text');
+
+        if (kickerEl && data.kicker) kickerEl.textContent = data.kicker;
+        if (mainTitleEl && data.titleMain) mainTitleEl.textContent = data.titleMain;
+        if (accentTitleEl && data.titleAccent !== undefined) accentTitleEl.textContent = data.titleAccent;
+        if (descEl && data.description) descEl.textContent = data.description;
+        if (ctaText && data.ctaText) ctaText.textContent = data.ctaText;
+        if (ctaBtn && data.ctaLink) ctaBtn.href = data.ctaLink;
+
+        const allProds = getCatalogProducts();
+        if (!allProds.length) return;
+
+        let chosenProds = [];
+        const savedIds = Array.isArray(data.productIds) ? data.productIds.map(String) : null;
+
+        if (savedIds && savedIds.length > 0) {
+          const idSet = new Set(savedIds);
+          chosenProds = allProds.filter(p => {
+            const id1 = String(p.id || '');
+            const id2 = String(p._id || '');
+            return (id1 && idSet.has(id1)) || (id2 && idSet.has(id2));
+          });
+        }
+
+        if (!chosenProds.length) {
+          const discounted = allProds.filter(p => Number(p.discount || 0) > 0);
+          chosenProds = (discounted.length >= 4 ? discounted : allProds).slice(0, 8);
+        }
+
+        const overrides = (data.productMeta && typeof data.productMeta === 'object')
+          ? data.productMeta
+          : ((data.dealOverrides && typeof data.dealOverrides === 'object') ? data.dealOverrides : {});
+
+        track.innerHTML = chosenProds.map(p => {
+          const pid = String(p.id || p._id || '');
+          const ov = overrides[pid] || overrides[String(p._id || '')] || overrides[String(p.id || '')] || {};
+          const img = p.img || (Array.isArray(p.images) && p.images[0]) || 'favicon.png';
+          const brand = (p.cat || 'Skincare').toUpperCase();
+          const name = p.name || 'Skincare Essential';
+
+          let origPrice = Number(p.price || 0);
+          if (!origPrice && Array.isArray(p.variants) && p.variants.length > 0) {
+            const vp = p.variants.find(v => Number(v.price) > 0);
+            if (vp) origPrice = Number(vp.price);
+          }
+
+          const customDealPrice = ov.dealPrice ? Number(ov.dealPrice) : 0;
+          const prodDisc = (typeof getEffectiveProductDiscount === 'function')
+            ? getEffectiveProductDiscount(p)
+            : Number(p.discount || 0);
+
+          let finalPrice = origPrice;
+
+          if (customDealPrice > 0 && customDealPrice < origPrice) {
+            finalPrice = customDealPrice;
+          } else if (prodDisc > 0) {
+            finalPrice = Math.round(origPrice * (1 - prodDisc / 100));
+          }
+
+          const noteHtml = ov.dealNote
+            ? `<span class="td-card-note">${escHtml(ov.dealNote)}</span>`
+            : '';
+
+          const priceHtml = (finalPrice < origPrice && origPrice > 0)
+            ? `<span class="td-price-curr">Rs. ${finalPrice.toLocaleString()}</span><span class="td-price-old">Rs. ${origPrice.toLocaleString()}</span>`
+            : `<span class="td-price-curr">Rs. ${finalPrice.toLocaleString()}</span>`;
+
+          return `
+            <a href="product.html?id=${encodeURIComponent(pid)}" class="td-card">
+              <div class="td-card-img-box">
+                <div class="td-deal-triangle"><span>DEAL</span></div>
+                <img src="${img}" alt="${escHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='favicon.png';" />
+              </div>
+              <div class="td-card-body">
+                <span class="td-card-brand">${escHtml(brand)}</span>
+                <h4 class="td-card-title" title="${escHtml(name)}">${escHtml(name)}</h4>
+                ${noteHtml}
+                <div class="td-card-footer">
+                  <div class="td-price-wrap">${priceHtml}</div>
+                  <span class="td-circle-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+
+      function setupSliderControls() {
+        const track = document.getElementById('td-cards-track');
+        const prevBtn = document.getElementById('td-prev-btn');
+        const nextBtn = document.getElementById('td-next-btn');
+        if (!track) return;
+
+        function slideStep(dir) {
+          const card = track.querySelector('.td-card');
+          const step = card ? (card.offsetWidth + 20) : 260;
+          const maxScroll = track.scrollWidth - track.clientWidth;
+          if (dir > 0) {
+            if (track.scrollLeft >= maxScroll - 10) {
+              track.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              track.scrollBy({ left: step, behavior: 'smooth' });
+            }
+          } else {
+            if (track.scrollLeft <= 10) {
+              track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+            } else {
+              track.scrollBy({ left: -step, behavior: 'smooth' });
+            }
+          }
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => slideStep(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => slideStep(1));
+
+        track.addEventListener('mouseenter', () => { isPaused = true; });
+        track.addEventListener('mouseleave', () => { isPaused = false; });
+        track.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+        track.addEventListener('touchend', () => {
+          setTimeout(() => { isPaused = false; }, 2500);
+        }, { passive: true });
+
+        if (autoSlideTimer) clearInterval(autoSlideTimer);
+        autoSlideTimer = setInterval(() => {
+          if (!isPaused && document.visibilityState !== 'hidden') {
+            slideStep(1);
+          }
+        }, 3800);
+      }
+
+      try {
+        const cachedDeals = localStorage.getItem('bib_today_deals');
+        if (cachedDeals) {
+          currentDealsConfig = JSON.parse(cachedDeals);
+        }
+      } catch (e) {}
+
+      renderTodayDeals(currentDealsConfig);
+      setupSliderControls();
+
+      setTimeout(() => renderTodayDeals(currentDealsConfig), 900);
+      setTimeout(() => renderTodayDeals(currentDealsConfig), 2400);
+
+      fetch(`${apiBase}/settings/home_today_deals?cb=${Date.now()}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d && d.value) {
+            try { localStorage.setItem('bib_today_deals', JSON.stringify(d.value)); } catch (e) {}
+            renderTodayDeals(d.value);
+          }
+        })
+        .catch(() => {});
+    })();
   </script>
 </body>
 </html>
+
+
+
+

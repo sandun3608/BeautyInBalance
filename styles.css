@@ -828,8 +828,6 @@ img {
   color: var(--gold);
 }
 
-
-
 .drawer-contact {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
@@ -4167,7 +4165,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 }
 
-
 /* â”€â”€ FEATURED HIGHLIGHT SECTION â”€â”€ */
 .highlight-section {
   padding: 100px 48px;
@@ -4832,7 +4829,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
 /* â”€â”€ SHOP THE LOOK (HOTSPOTS) â”€â”€ */
 
-
 /* â”€â”€ PREMIUM SHADE FINDER (THEME PURITY V2) â”€â”€ */
 .premium-shade-finder {
   padding: 100px 48px;
@@ -5081,7 +5077,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   flex: 1;
   width: 100%;
 }
-
 
 @media (max-width: 600px) {
   .ps-products-grid {
@@ -5374,8 +5369,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     grid-template-columns: 1fr;
   }
 }
-
-
 
 /* â”€â”€ RECOMMENDED BADGE â”€â”€ */
 .sc-prod-card {
@@ -5874,7 +5867,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   /* Mobile Navigation Space Cleaned */
 
-
   /* Beautiful Mobile Search Ribbon (Below Nav) */
   .mobile-search-row {
     background: #fff !important;
@@ -5918,7 +5910,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 
   /* Transparent Header for Mobile (Initially) */
   /* Removed Transparent Header Overrides */
-
 
   .hero-section {
     margin: 0 !important;
@@ -8110,8 +8101,6 @@ body:has(.cart-drawer.open) .mobile-search-bar {
 .floating-wa { bottom: 95px; width: 50px; height: 50px; }
 .floating-email { bottom: 160px; width: 50px; height: 50px; }
 
-
-
 .floating-email svg,
 .floating-wa svg,
 .floating-ig svg,
@@ -8348,7 +8337,6 @@ main {
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
   }
-
 
   /* Force white and bold footer topics/headers on mobile */
   .site-footer h3,
@@ -9563,7 +9551,6 @@ body:not(.drawer-open) .floating-fb {
   }
 }
 
-
 /* Original vs Discounted Prices styling */
 .original-price {
   text-decoration: line-through;
@@ -10074,7 +10061,6 @@ body.loading-active .floating-email {
     color: #2e71d3 !important;
 }
 
-
 /* ============================================================
    ULTRA-OPTIMIZED MOBILE PRODUCT GRID (MAX-WIDTH: 768PX)
    ============================================================ */
@@ -10576,9 +10562,6 @@ body.loading-active .floating-email {
   }
 }
 
-
-
-
 /* ==========================================================================
    STICKY FLOATING LIVE OFFER TIMER — Compact Minimal Design
    ========================================================================== */
@@ -10777,12 +10760,6 @@ body.loading-active .floating-email {
     right: -12px !important;
   }
 }
-
-
-
-
-
-
 
 /* ===== SOLD OUT 14% BLUR STYLING ===== */
 .is-sold-out img,
@@ -11721,11 +11698,14 @@ body.loading-active .floating-email {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
-  width: 68px !important;
-  height: 68px !important;
+  width: 44px !important;
+  height: 44px !important;
   overflow: hidden !important;
   z-index: 3 !important;
   pointer-events: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 .td-deal-triangle::before {
@@ -11735,27 +11715,28 @@ body.loading-active .floating-email {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background: linear-gradient(135deg, #E12D1B 0%, #B91C1C 100%) !important;
+  background: var(--badge-theme-color, linear-gradient(135deg, #E12D1B 0%, #B91C1C 100%)) !important;
   clip-path: polygon(0 0, 100% 0, 0 100%) !important;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12)) !important;
+  -webkit-clip-path: polygon(0 0, 100% 0, 0 100%) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)) !important;
 }
 
 .td-deal-triangle span {
   position: absolute !important;
-  top: 15px !important;
-  left: -15px !important;
-  width: 72px !important;
+  top: 9px !important;
+  left: -7px !important;
+  width: 46px !important;
   text-align: center !important;
   transform: rotate(-45deg) !important;
   transform-origin: center center !important;
-  font-family: var(--font-sans, sans-serif) !important;
-  font-size: 9.5px !important;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif) !important;
+  font-size: 7.5px !important;
   font-weight: 900 !important;
   letter-spacing: 0.1em !important;
   color: #ffffff !important;
   text-transform: uppercase !important;
   line-height: 1 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
 }
 
 .td-card-body {
@@ -11928,15 +11909,17 @@ body.loading-active .floating-email {
   }
 
   .td-deal-triangle {
-    width: 54px !important;
-    height: 54px !important;
+    width: 38px !important;
+    height: 38px !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
   .td-deal-triangle span {
-    top: 11px !important;
-    left: -13px !important;
-    width: 60px !important;
-    font-size: 8px !important;
+    top: 7px !important;
+    left: -7px !important;
+    width: 40px !important;
+    font-size: 6.5px !important;
     letter-spacing: 0.08em !important;
   }
 
@@ -11980,9 +11963,6 @@ body.loading-active .floating-email {
     height: 12px !important;
   }
 }
-
-
-
 
 /* ==========================================================================
    COMPACT FOOTER OVERRIDE (smaller height + smaller text)
