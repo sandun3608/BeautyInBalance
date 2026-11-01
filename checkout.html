@@ -323,6 +323,38 @@
       transform: translateY(-2px);
     }
 
+    /* Enhanced Summary Breakdown Styles */
+    .summ-row-muted {
+      font-size: 11px;
+      color: #88888b;
+      margin-top: 1px;
+      font-weight: 400;
+    }
+    .savings-pill {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12px;
+      color: #065f46;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.08);
+      margin: 2px 0;
+    }
+    .koko-notice-pill {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 11.5px;
+      color: #6b21a8;
+      line-height: 1.45;
+      margin: 2px 0;
+    }
+
     /* Shopify-style Payment and Billing Boxes */
     .payment-section-title {
       font-size: 20px;
@@ -850,12 +882,7 @@
                   </div>
                 </label>
                 <div class="pg-expanded-content" id="expanded-koko" style="display: none;">
-                  <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 14px 16px; border-radius: 8px; font-size: 13px; color: #856404; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px;">
-                    <span style="font-size: 16px; line-height: 1;">⚡</span>
-                    <div>
-                      <strong>Flash Sale Offer Notice:</strong> Special Flash Sale promotional prices apply exclusively to <strong>Cash on Delivery (COD)</strong> &amp; <strong>Bank Transfer</strong> payments. Regular prices apply for Koko installment purchases.
-                    </div>
-                  </div>
+                  <div id="koko-live-panel"></div>
                 </div>
 
               </div>
@@ -897,7 +924,9 @@
                   </div>
                   <div class="pg-icons-col"></div>
                 </label>
-                <div id="expanded-cod" style="display: none;"></div>
+                <div class="pg-expanded-content" id="expanded-cod" style="display: none;">
+                  <div id="cod-live-panel"></div>
+                </div>
               </div>
               
             </div>
@@ -954,13 +983,72 @@
 
       <div class="chk-right">
         <div class="summary-box">
-          <h2 class="summ-title">Order Summary</h2>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 25px; border-bottom: 1px solid #f0f0f2; padding-bottom: 15px; position: relative;">
+            <h2 class="summ-title" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Order Summary</h2>
+            <span id="summ-item-count" style="font-size: 13px; color: #888; font-family: var(--font-sans); font-weight: 500;">0 items</span>
+          </div>
           <div class="summ-items" id="summ-items"></div>
           <div class="summ-totals">
-            <div class="summ-row"><span>Subtotal</span><span id="summ-subtotal">Rs. 0</span></div>
-            <div class="summ-row" id="summ-discount-row" style="display: none; color: var(--gold);"><span>Discount</span><span id="summ-discount" style="color: var(--gold);">-Rs. 0</span></div>
-            <div class="summ-row"><span>Shipping</span><span id="summ-shipping">Rs. 350</span></div>
-            <div class="summ-row total"><span>Total</span><span id="summ-total">Rs. 0</span></div>
+            <!-- Products Subtotal (Regular Price) -->
+            <div class="summ-row">
+              <span style="display: flex; flex-direction: column;">
+                <span>Products Subtotal</span>
+                <span id="summ-subtotal-sublabel" class="summ-row-muted">Regular Price</span>
+              </span>
+              <span id="summ-subtotal">Rs. 0</span>
+            </div>
+
+            <!-- Offer Discount Row (Visible for COD, Card, Bank when offer active) -->
+            <div class="summ-row" id="summ-discount-row" style="display: none;">
+              <span style="color: #15803d; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                Offer Discount
+              </span>
+              <span id="summ-discount" style="color: #15803d; font-weight: 700;">-Rs. 0</span>
+            </div>
+
+            <!-- Savings Highlight Callout -->
+            <div id="summ-savings-callout" class="savings-pill" style="display: none;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <span>🎉</span> <span>You Save with this Offer:</span>
+              </span>
+              <span id="summ-savings-amount" style="font-weight: 800; color: #047857;">Rs. 0</span>
+            </div>
+
+            <!-- Koko Offer Notice (Visible when Koko selected & offer products exist) -->
+            <div id="summ-koko-notice-row" class="koko-notice-pill" style="display: none;">
+              <div style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; margin-bottom: 3px;">
+                <span style="display: flex; align-items: center; gap: 5px;">
+                  <img src="koko-logo.png" alt="Koko" style="height: 14px;"> Regular Price on Koko
+                </span>
+                <span id="summ-koko-diff" style="color: #6b21a8; font-weight: 800;">+Rs. 0</span>
+              </div>
+              <div>Flash Sale discounts are exclusive to COD &amp; Bank Transfer. Koko 3x installment purchases are billed at regular price.</div>
+            </div>
+
+            <!-- Delivery / Shipping Row -->
+            <div class="summ-row">
+              <span style="display: flex; flex-direction: column;">
+                <span style="display: flex; align-items: center; gap: 6px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#666;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                  Delivery
+                </span>
+                <span class="summ-row-muted">Island-wide tracked courier (2-4 days)</span>
+              </span>
+              <span id="summ-shipping">Rs. 450</span>
+            </div>
+
+            <!-- Total Row -->
+            <div class="summ-row total">
+              <div style="display: flex; flex-direction: column;">
+                <span>Total</span>
+                <span id="summ-total-subtext" style="font-size: 11px; color: #88888b; font-weight: normal; font-family: var(--font-sans); margin-top: 3px;">Inclusive of all taxes &amp; delivery</span>
+              </div>
+              <span id="summ-total">Rs. 0</span>
+            </div>
+
+            <!-- Dynamic Payment Breakdown Card -->
+            <div id="summ-payment-card" style="margin-top: 15px;"></div>
           </div>
         </div>
       </div>
@@ -1093,29 +1181,62 @@
 
       let originalSubtotal = 0;
       let discountedSubtotal = 0;
-      let totalDiscount = 0;
+      let potentialDiscount = 0;
+      let totalQty = 0;
       const isKoko = (selectedPaymentMethod === 'Koko');
 
       itemsContainer.innerHTML = localCart.map(item => {
-        const discount = isKoko ? 0 : Number(item.discount || 0);
-        const discountedPrice = discount > 0 ? Math.round(item.price * (1 - discount / 100)) : item.price;
-        
-        originalSubtotal += (item.price * item.qty);
-        discountedSubtotal += (discountedPrice * item.qty);
-        totalDiscount += ((item.price - discountedPrice) * item.qty);
+        const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
+          ? getCheckoutEffectiveDiscount(item) 
+          : Number(item.discount || 0);
+        const itemDiscount = isKoko ? 0 : effDisc;
+        const discountedPrice = itemDiscount > 0 ? Math.round(item.price * (1 - itemDiscount / 100)) : item.price;
+        const effDiscountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
 
-        const priceHTML = discount > 0 
-            ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
-                 <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${(discountedPrice * item.qty).toLocaleString()}</span>
-                 <span style="text-decoration:line-through; color:#88888b; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${(item.price * item.qty).toLocaleString()}</span>
-                 <span class="discount-badge" style="background:rgba(198, 151, 90, 0.12); color:#c6975a; font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px; text-transform:uppercase;">${discount}% OFF</span>
-               </div>`
-            : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
+        const lineOriginal = item.price * item.qty;
+        const lineDiscounted = discountedPrice * item.qty;
+        const linePotentialDiscount = (item.price - effDiscountedPrice) * item.qty;
+
+        originalSubtotal += lineOriginal;
+        discountedSubtotal += lineDiscounted;
+        potentialDiscount += linePotentialDiscount;
+        totalQty += item.qty;
+
+        let priceHTML = '';
+        if (isKoko) {
+          if (effDisc > 0) {
+            priceHTML = `
+              <div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
+                <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${lineOriginal.toLocaleString()}</span>
+                <span style="background:#f3e8ff; color:#7e22ce; font-size:9.5px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block;">3 x Rs. ${(lineOriginal / 3).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                <span style="color:#88888b; font-size:10px; margin-top:2px;">(Regular price)</span>
+              </div>`;
+          } else {
+            priceHTML = `
+              <div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
+                <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${lineOriginal.toLocaleString()}</span>
+                <span style="background:#f3e8ff; color:#7e22ce; font-size:9.5px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block;">3 x Rs. ${(lineOriginal / 3).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+              </div>`;
+          }
+        } else {
+          if (effDisc > 0) {
+            priceHTML = `
+              <div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
+                <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${lineDiscounted.toLocaleString()}</span>
+                <span style="text-decoration:line-through; color:#9ca3af; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${lineOriginal.toLocaleString()}</span>
+                <span class="discount-badge" style="background:#ecfdf5; color:#059669; border: 1px solid #a7f3d0; font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px; text-transform:uppercase;">${effDisc}% OFF</span>
+              </div>`;
+          } else {
+            priceHTML = `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${lineOriginal.toLocaleString()}</div>`;
+          }
+        }
+
+        const imgUrl = item.img || (item.images && item.images[0]) || 'favicon.png';
 
         return `<div class="summ-item" style="justify-content: space-between; width: 100%;">
             <div style="display: flex; gap: 15px; align-items: center; flex-grow: 1;">
               <div class="img-wrap">
-                <img src="${item.img}">
+                <img src="${imgUrl}" onerror="this.onerror=null; this.src='favicon.png';">
                 <span class="qty-badge">${item.qty}</span>
               </div>
               <div class="summ-details">
@@ -1133,21 +1254,217 @@
           </div>`;
       }).join('');
 
-      const fee = window._shippingFee || 350;
+      const fee = window._shippingFee != null ? Number(window._shippingFee) : 450;
+      const itemCountEl = $('summ-item-count');
+      if (itemCountEl) {
+        itemCountEl.textContent = `${totalQty} ${totalQty === 1 ? 'item' : 'items'}`;
+      }
+
       $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
       
       const discountRow = $('summ-discount-row');
-      if (totalDiscount > 0 && !isKoko) {
-        $('summ-discount').textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
-        discountRow.style.display = 'flex';
+      const savingsCallout = $('summ-savings-callout');
+      const kokoNoticeRow = $('summ-koko-notice-row');
+
+      if (isKoko) {
+        if (discountRow) discountRow.style.display = 'none';
+        if (savingsCallout) savingsCallout.style.display = 'none';
+        if (kokoNoticeRow) {
+          if (potentialDiscount > 0) {
+            const diffEl = $('summ-koko-diff');
+            if (diffEl) diffEl.textContent = `+Rs. ${potentialDiscount.toLocaleString()}`;
+            kokoNoticeRow.style.display = 'block';
+          } else {
+            kokoNoticeRow.style.display = 'none';
+          }
+        }
       } else {
-        discountRow.style.display = 'none';
+        if (kokoNoticeRow) kokoNoticeRow.style.display = 'none';
+        if (potentialDiscount > 0) {
+          if (discountRow) {
+            $('summ-discount').textContent = `-Rs. ${potentialDiscount.toLocaleString()}`;
+            discountRow.style.display = 'flex';
+          }
+          if (savingsCallout) {
+            $('summ-savings-amount').textContent = `Save Rs. ${potentialDiscount.toLocaleString()}`;
+            savingsCallout.style.display = 'flex';
+          }
+        } else {
+          if (discountRow) discountRow.style.display = 'none';
+          if (savingsCallout) savingsCallout.style.display = 'none';
+        }
       }
 
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
+      
       const finalSubtotal = isKoko ? originalSubtotal : discountedSubtotal;
-      $('summ-total').textContent = `Rs. ${(finalSubtotal + fee).toLocaleString()}`;
-      window.currentOrderTotal = finalSubtotal + fee;
+      const finalTotal = finalSubtotal + fee;
+      $('summ-total').textContent = `Rs. ${finalTotal.toLocaleString()}`;
+      window.currentOrderTotal = finalTotal;
+
+      const kokoInstallmentVal = (finalTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      // Update Dynamic Payment Breakdown Card in Order Summary
+      const paymentCard = $('summ-payment-card');
+      if (paymentCard) {
+        if (isKoko) {
+          paymentCard.innerHTML = `
+            <div style="background: linear-gradient(135deg, #fbf7ff 0%, #f5edff 100%); border: 1.5px solid #d8b4fe; border-radius: 14px; padding: 15px; box-shadow: 0 4px 14px rgba(110, 60, 188, 0.07);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 7px;">
+                  <img src="koko-logo.png" alt="Koko" style="height: 18px; object-fit: contain;">
+                  <span style="font-weight: 800; color: #581c87; font-size: 13px;">Koko 3-Part Installments</span>
+                </div>
+                <span style="background: #e9d5ff; color: #581c87; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">0% INTEREST</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-bottom: 10px;">
+                <div style="background: #ffffff; border: 1.5px solid #9333ea; border-radius: 9px; padding: 8px 4px; text-align: center; box-shadow: 0 2px 6px rgba(147, 51, 234, 0.12);">
+                  <div style="font-size: 9.5px; font-weight: 800; color: #9333ea; text-transform: uppercase;">1st (Today)</div>
+                  <div style="font-size: 12.5px; font-weight: 800; color: #1e1b4b; margin-top: 3px;">Rs. ${kokoInstallmentVal}</div>
+                  <div style="font-size: 9px; color: #059669; font-weight: 700; margin-top: 1px;">Pay Now</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.75); border: 1px solid #e9d5ff; border-radius: 9px; padding: 8px 4px; text-align: center;">
+                  <div style="font-size: 9.5px; font-weight: 700; color: #6b21a8; text-transform: uppercase;">2nd (30 Days)</div>
+                  <div style="font-size: 12.5px; font-weight: 700; color: #374151; margin-top: 3px;">Rs. ${kokoInstallmentVal}</div>
+                  <div style="font-size: 9px; color: #88888b; margin-top: 1px;">Auto debit</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.75); border: 1px solid #e9d5ff; border-radius: 9px; padding: 8px 4px; text-align: center;">
+                  <div style="font-size: 9.5px; font-weight: 700; color: #6b21a8; text-transform: uppercase;">3rd (60 Days)</div>
+                  <div style="font-size: 12.5px; font-weight: 700; color: #374151; margin-top: 3px;">Rs. ${kokoInstallmentVal}</div>
+                  <div style="font-size: 9px; color: #88888b; margin-top: 1px;">Auto debit</div>
+                </div>
+              </div>
+              <div style="font-size: 11px; color: #6b21a8; line-height: 1.45; display: flex; align-items: flex-start; gap: 5px;">
+                <span>💡</span>
+                <span>Total <strong>Rs. ${finalTotal.toLocaleString()}</strong> split into 3 monthly payments. Pay 1st installment today with any card.</span>
+              </div>
+            </div>`;
+        } else if (selectedPaymentMethod === 'Cash on Delivery') {
+          paymentCard.innerHTML = `
+            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1.5px solid #86efac; border-radius: 14px; padding: 15px; box-shadow: 0 4px 14px rgba(22, 101, 52, 0.07);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 7px;">
+                  <span style="font-size: 18px;">💵</span>
+                  <span style="font-weight: 800; color: #166534; font-size: 13px;">Cash on Delivery (COD)</span>
+                </div>
+                <span style="background: #bbf7d0; color: #14532d; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">DOORSTEP PAY</span>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #bbf7d0; border-radius: 9px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div>
+                  <div style="font-size: 11px; color: #555; font-weight: 600;">Total Cash to Pay Courier:</div>
+                  ${potentialDiscount > 0 ? `<div style="font-size: 10.5px; color: #15803d; font-weight: 700;">Includes Rs. ${potentialDiscount.toLocaleString()} Offer Discount!</div>` : ''}
+                </div>
+                <div style="font-size: 17px; font-weight: 800; color: #14532d;">Rs. ${finalTotal.toLocaleString()}</div>
+              </div>
+              <div style="font-size: 11px; color: #166534; line-height: 1.45; display: flex; align-items: flex-start; gap: 5px;">
+                <span>🚚</span>
+                <span>No advance card payment needed. Hand over cash to the courier rider upon delivery.</span>
+              </div>
+            </div>`;
+        } else if (selectedPaymentMethod === 'Bank Transfer') {
+          paymentCard.innerHTML = `
+            <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 1.5px solid #fde68a; border-radius: 14px; padding: 15px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: 7px;">
+                  <span style="font-size: 18px;">🏦</span>
+                  <span style="font-weight: 800; color: #92400e; font-size: 13px;">Bank Transfer (BOC)</span>
+                </div>
+                <span style="background: #fde68a; color: #78350f; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">BOC ACCOUNT</span>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #fde68a; border-radius: 9px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div>
+                  <div style="font-size: 11px; color: #555; font-weight: 600;">Amount to Transfer:</div>
+                  ${potentialDiscount > 0 ? `<div style="font-size: 10.5px; color: #b45309; font-weight: 700;">Includes Rs. ${potentialDiscount.toLocaleString()} Offer Discount!</div>` : ''}
+                </div>
+                <div style="font-size: 17px; font-weight: 800; color: #92400e;">Rs. ${finalTotal.toLocaleString()}</div>
+              </div>
+              <div style="font-size: 11px; color: #92400e; line-height: 1.45;">
+                Transfer to <strong>BOC Acc: 87727168</strong> and send slip via WhatsApp.
+              </div>
+            </div>`;
+        } else {
+          paymentCard.innerHTML = `
+            <div style="background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%); border: 1.5px solid #bae6fd; border-radius: 14px; padding: 15px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: 7px;">
+                  <span style="font-size: 18px;">💳</span>
+                  <span style="font-weight: 800; color: #0369a1; font-size: 13px;">Card Payment (onepay)</span>
+                </div>
+                <span style="background: #bae6fd; color: #0c4a6e; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">SECURE SSL</span>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #bae6fd; border-radius: 9px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div>
+                  <div style="font-size: 11px; color: #555; font-weight: 600;">Amount to Charge Card:</div>
+                  ${potentialDiscount > 0 ? `<div style="font-size: 10.5px; color: #0284c7; font-weight: 700;">Offer Discount Rs. ${potentialDiscount.toLocaleString()} applied!</div>` : ''}
+                </div>
+                <div style="font-size: 17px; font-weight: 800; color: #0369a1;">Rs. ${finalTotal.toLocaleString()}</div>
+              </div>
+            </div>`;
+        }
+      }
+
+      // Update Koko live panel on left payment options
+      const kokoLivePanel = $('koko-live-panel');
+      if (kokoLivePanel) {
+        const kokoCartTotal = originalSubtotal + fee;
+        const kokoInstStr = (kokoCartTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        kokoLivePanel.innerHTML = `
+          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 10px; padding: 14px; font-size: 12.5px; color: #581c87;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 700; font-size: 13px;">Koko 3-Part Installment Breakdown:</span>
+              <span style="font-weight: 800; font-size: 13px; color: #7e22ce;">3 x Rs. ${kokoInstStr}</span>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; display: flex; justify-content: space-between;">
+              <span>First payment due today:</span>
+              <strong style="color: #9333ea;">Rs. ${kokoInstStr}</strong>
+            </div>
+            ${potentialDiscount > 0 ? `
+              <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 8px 10px; border-radius: 6px; font-size: 11px; color: #856404; line-height: 1.4;">
+                ⚡ <strong>Flash Sale Offer Notice:</strong> Special promotional discount prices apply exclusively to <strong>Cash on Delivery (COD)</strong> &amp; <strong>Bank Transfer</strong>. Regular prices apply for Koko 3x installment purchases (+Rs. ${potentialDiscount.toLocaleString()}).
+              </div>
+            ` : `
+              <div style="font-size: 11px; color: #7e22ce; line-height: 1.4;">
+                Split into 3 equal monthly payments with any debit or credit card. No extra interest or hidden fees.
+              </div>
+            `}
+          </div>`;
+      }
+
+      // Update COD live panel on left payment options
+      const codLivePanel = $('cod-live-panel');
+      if (codLivePanel) {
+        const codCartTotal = (originalSubtotal - potentialDiscount) + fee;
+        codLivePanel.innerHTML = `
+          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 14px; font-size: 12.5px; color: #166534;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 700; font-size: 13px;">Doorstep Cash Payment:</span>
+              <span style="font-weight: 800; font-size: 14px; color: #14532d;">Rs. ${codCartTotal.toLocaleString()}</span>
+            </div>
+            ${potentialDiscount > 0 ? `
+              <div style="background: #ffffff; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; display: flex; justify-content: space-between; font-size: 11.5px;">
+                <span>🎉 Full Flash Offer Discount:</span>
+                <strong style="color: #15803d;">-Rs. ${potentialDiscount.toLocaleString()} applied!</strong>
+              </div>
+            ` : ''}
+            <div style="font-size: 11px; color: #166534; line-height: 1.4;">
+              🚚 Pay cash directly to the courier rider upon parcel handover. Inspect before paying.
+            </div>
+          </div>`;
+      }
+
+      // Dynamic submit button text
+      const btnSubmit = $('btn-master-submit');
+      if (btnSubmit && !btnSubmit.disabled) {
+        if (isKoko) {
+          btnSubmit.innerHTML = `Pay with Koko • 1st: Rs. ${kokoInstallmentVal}`;
+        } else if (selectedPaymentMethod === 'Cash on Delivery') {
+          btnSubmit.innerHTML = `Place Order (Cash on Delivery) • Rs. ${finalTotal.toLocaleString()}`;
+        } else if (selectedPaymentMethod === 'Bank Transfer') {
+          btnSubmit.innerHTML = `Place Order (Bank Transfer) • Rs. ${finalTotal.toLocaleString()}`;
+        } else {
+          btnSubmit.innerHTML = `Pay with Card • Rs. ${finalTotal.toLocaleString()}`;
+        }
+      }
     };
 
     window.updateQtyCheckout = function(id, change) {
