@@ -1010,13 +1010,19 @@
               <span id="summ-discount" style="color: #15803d; font-weight: 700;">-Rs. 0</span>
             </div>
 
-            <!-- 3. Subtotal After Discount -->
+            <!-- 3. Koko 12% Interest Row (Visible when Koko selected and offer exists) -->
+            <div class="summ-row" id="summ-koko-fee-row" style="display: none;">
+              <span style="color: #7e22ce; font-weight: 600;">Koko Interest / Surcharge (12%)</span>
+              <span id="summ-koko-fee" style="color: #7e22ce; font-weight: 700;">+Rs. 0</span>
+            </div>
+
+            <!-- 4. Price After Discount -->
             <div class="summ-row" id="summ-discounted-subtotal-row" style="display: none;">
-              <span style="color: #333; font-weight: 500;">Price After Discount</span>
+              <span id="summ-discounted-subtotal-label" style="color: #333; font-weight: 500;">Price After Discount</span>
               <span id="summ-discounted-subtotal" style="font-weight: 700; color: #111;">Rs. 0</span>
             </div>
 
-            <!-- 4. Delivery Fee -->
+            <!-- 5. Delivery Fee -->
             <div class="summ-row">
               <span style="color: #555;">Delivery (Island-wide)</span>
               <span id="summ-shipping" style="font-weight: 600; color: #111;">Rs. 450</span>
@@ -1024,18 +1030,21 @@
 
             <div class="summ-divider"></div>
 
-            <!-- 5. COD Price Line -->
+            <!-- 6. COD Price Line -->
             <div class="summ-row-highlight cod-row" id="summ-cod-box">
               <span class="hl-label">💵 COD Total (Cash on Delivery)</span>
               <span class="hl-value" id="summ-cod-price">Rs. 0</span>
             </div>
 
-            <!-- 6. Koko Price Line -->
+            <!-- 7. Koko Price Line -->
             <div class="summ-row-highlight koko-row" id="summ-koko-box">
-              <span class="hl-label">
-                <img src="koko-logo.png" alt="Koko" style="height: 14px; vertical-align: middle; margin-right: 3px;">
-                Koko (3 Installments)
-              </span>
+              <div>
+                <span class="hl-label">
+                  <img src="koko-logo.png" alt="Koko" style="height: 14px; vertical-align: middle; margin-right: 3px;">
+                  Koko (3 Installments)
+                </span>
+                <span id="summ-koko-note" style="display: block; font-size: 10.5px; color: #7e22ce; font-weight: 500; margin-top: 1px;">28% Discount (Offer - 12% Koko Fee)</span>
+              </div>
               <div style="text-align: right;">
                 <span class="hl-value" id="summ-koko-price">3 x Rs. 0.00</span>
                 <span id="summ-koko-total" style="display: block; font-size: 10.5px; color: #7e22ce; font-weight: 600; margin-top: 1px;">Total: Rs. 0</span>
@@ -1182,8 +1191,8 @@
       }
 
       let originalSubtotal = 0;
-      let discountedSubtotal = 0;
-      let potentialDiscount = 0;
+      let codDiscountedSubtotal = 0;
+      let kokoDiscountedSubtotal = 0;
       let totalQty = 0;
       let primaryDiscountPercent = 0;
       const isKoko = (selectedPaymentMethod === 'Koko');
@@ -1197,23 +1206,28 @@
           primaryDiscountPercent = effDisc;
         }
 
+        const kokoDisc = effDisc > 0 ? Math.max(0, effDisc - 12) : 0;
         const lineOriginal = item.price * item.qty;
-        const discountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
-        const lineDiscounted = discountedPrice * item.qty;
-        const linePotentialDiscount = (item.price - discountedPrice) * item.qty;
+        
+        const codDiscountedPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
+        const kokoDiscountedPrice = kokoDisc > 0 ? Math.round(item.price * (1 - kokoDisc / 100)) : item.price;
 
         originalSubtotal += lineOriginal;
-        discountedSubtotal += lineDiscounted;
-        potentialDiscount += linePotentialDiscount;
+        codDiscountedSubtotal += (codDiscountedPrice * item.qty);
+        kokoDiscountedSubtotal += (kokoDiscountedPrice * item.qty);
         totalQty += item.qty;
 
+        const currentDiscount = isKoko ? kokoDisc : effDisc;
+        const currentItemPrice = isKoko ? kokoDiscountedPrice : codDiscountedPrice;
+        const lineTotal = currentItemPrice * item.qty;
+
         let priceHTML = '';
-        if (effDisc > 0) {
+        if (currentDiscount > 0) {
           priceHTML = `
             <div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans); line-height:1.2;">
-              <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${lineDiscounted.toLocaleString()}</span>
+              <span style="color:#000000; font-size:14px; font-weight:700;">Rs. ${lineTotal.toLocaleString()}</span>
               <span style="text-decoration:line-through; color:#9ca3af; font-size:11px; font-weight:400; margin-top:2px;">Rs. ${lineOriginal.toLocaleString()}</span>
-              <span class="discount-badge" style="background:#ecfdf5; color:#059669; border: 1px solid #a7f3d0; font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px;">${effDisc}% OFF</span>
+              <span class="discount-badge" style="background:${isKoko ? '#f3e8ff' : '#ecfdf5'}; color:${isKoko ? '#7e22ce' : '#059669'}; border: 1px solid ${isKoko ? '#d8b4fe' : '#a7f3d0'}; font-size:9px; font-weight:700; padding:2px 5px; border-radius:4px; margin-top:3px; display:inline-block; letter-spacing:0.5px;">${currentDiscount}% OFF${isKoko ? ' (Koko)' : ''}</span>
             </div>`;
         } else {
           priceHTML = `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${lineOriginal.toLocaleString()}</div>`;
@@ -1248,47 +1262,73 @@
         itemCountEl.textContent = `${totalQty} ${totalQty === 1 ? 'item' : 'items'}`;
       }
 
+      // Calculations
+      const fullDiscount = originalSubtotal - codDiscountedSubtotal;
+      const kokoFee = kokoDiscountedSubtotal - codDiscountedSubtotal; // Exactly the 12% difference!
+      const codTotal = codDiscountedSubtotal + fee;
+      const kokoTotal = kokoDiscountedSubtotal + fee;
+      const kokoInstallment = (kokoTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       // Line 1: Product Price (Subtotal)
       $('summ-subtotal').textContent = `Rs. ${originalSubtotal.toLocaleString()}`;
       
-      // Line 2 & 3: Offer Discount and Discounted Subtotal
+      // Line 2: Offer Discount
       const discountRow = $('summ-discount-row');
       const discountLabel = $('summ-discount-label');
-      const discountedSubtotalRow = $('summ-discounted-subtotal-row');
-      const discountedSubtotalEl = $('summ-discounted-subtotal');
-
-      if (potentialDiscount > 0) {
+      if (fullDiscount > 0) {
         if (discountLabel) {
           discountLabel.textContent = primaryDiscountPercent > 0 
             ? `Offer Discount (${primaryDiscountPercent}% OFF)` 
             : `Offer Discount`;
         }
         if (discountRow) {
-          $('summ-discount').textContent = `-Rs. ${potentialDiscount.toLocaleString()}`;
+          $('summ-discount').textContent = `-Rs. ${fullDiscount.toLocaleString()}`;
           discountRow.style.display = 'flex';
-        }
-        if (discountedSubtotalRow && discountedSubtotalEl) {
-          discountedSubtotalEl.textContent = `Rs. ${(originalSubtotal - potentialDiscount).toLocaleString()}`;
-          discountedSubtotalRow.style.display = 'flex';
         }
       } else {
         if (discountRow) discountRow.style.display = 'none';
+      }
+
+      // Line 3: Koko 12% Interest Row (When Koko is selected and offer items exist)
+      const kokoFeeRow = $('summ-koko-fee-row');
+      const kokoFeeEl = $('summ-koko-fee');
+      if (isKoko && kokoFee > 0) {
+        if (kokoFeeEl) kokoFeeEl.textContent = `+Rs. ${kokoFee.toLocaleString()}`;
+        if (kokoFeeRow) kokoFeeRow.style.display = 'flex';
+      } else {
+        if (kokoFeeRow) kokoFeeRow.style.display = 'none';
+      }
+
+      // Line 4: Price After Discount
+      const discountedSubtotalRow = $('summ-discounted-subtotal-row');
+      const discountedSubtotalLabel = $('summ-discounted-subtotal-label');
+      const discountedSubtotalEl = $('summ-discounted-subtotal');
+      if (fullDiscount > 0) {
+        if (discountedSubtotalLabel) {
+          const kokoDiscPercent = Math.max(0, primaryDiscountPercent - 12);
+          discountedSubtotalLabel.textContent = isKoko 
+            ? `Price After Discount (${kokoDiscPercent}% OFF Net)`
+            : `Price After Discount (${primaryDiscountPercent}% OFF)`;
+        }
+        if (discountedSubtotalEl) {
+          const activeSubtotal = isKoko ? kokoDiscountedSubtotal : codDiscountedSubtotal;
+          discountedSubtotalEl.textContent = `Rs. ${activeSubtotal.toLocaleString()}`;
+        }
+        if (discountedSubtotalRow) discountedSubtotalRow.style.display = 'flex';
+      } else {
         if (discountedSubtotalRow) discountedSubtotalRow.style.display = 'none';
       }
 
-      // Line 4: Delivery Fee
+      // Line 5: Delivery Fee
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
       
-      // Line 5: COD Total Calculation (Discounted Price + Delivery)
-      const codTotal = (originalSubtotal - potentialDiscount) + fee;
+      // Line 6: COD Total (Discounted Price + Delivery)
       const codPriceEl = $('summ-cod-price');
       if (codPriceEl) {
         codPriceEl.textContent = `Rs. ${codTotal.toLocaleString()}`;
       }
 
-      // Line 6: Koko Total Calculation (Regular Price + Delivery split by 3)
-      const kokoTotal = originalSubtotal + fee;
-      const kokoInstallment = (kokoTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      // Line 7: Koko Total & 3 Installments (Net 28% discount + Delivery split by 3)
       const kokoPriceEl = $('summ-koko-price');
       if (kokoPriceEl) {
         kokoPriceEl.textContent = `3 x Rs. ${kokoInstallment}`;
@@ -1297,8 +1337,15 @@
       if (kokoTotalEl) {
         kokoTotalEl.textContent = `Total: Rs. ${kokoTotal.toLocaleString()}`;
       }
+      const kokoNoteEl = $('summ-koko-note');
+      if (kokoNoteEl) {
+        const kokoDiscPercent = Math.max(0, primaryDiscountPercent - 12);
+        kokoNoteEl.textContent = fullDiscount > 0
+          ? `${kokoDiscPercent}% Discount (${primaryDiscountPercent}% Offer - 12% Koko Interest)`
+          : `0% Interest Installments`;
+      }
 
-      // Highlight active row subtly
+      // Highlight active row
       const codBox = $('summ-cod-box');
       const kokoBox = $('summ-koko-box');
       if (isKoko) {
@@ -1321,7 +1368,7 @@
         }
       }
 
-      // Line 7: Final Total Payable (Active Selection)
+      // Line 8: Final Total Payable
       const activeTotal = isKoko ? kokoTotal : codTotal;
       $('summ-total').textContent = `Rs. ${activeTotal.toLocaleString()}`;
       window.currentOrderTotal = activeTotal;
@@ -1340,10 +1387,22 @@
       // Update Koko live panel on left payment options
       const kokoLivePanel = $('koko-live-panel');
       if (kokoLivePanel) {
+        const kokoDiscPercent = Math.max(0, primaryDiscountPercent - 12);
         kokoLivePanel.innerHTML = `
-          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #581c87; display: flex; justify-content: space-between; align-items: center;">
-            <span>Pay in 3 monthly installments:</span>
-            <strong style="font-size: 13px; color: #7e22ce;">3 x Rs. ${kokoInstallment} (0% Interest)</strong>
+          <div style="background: #fbf7ff; border: 1.5px solid #d8b4fe; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #581c87;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Pay in 3 monthly installments:</span>
+              <strong style="font-size: 13.5px; color: #7e22ce;">3 x Rs. ${kokoInstallment}</strong>
+            </div>
+            ${fullDiscount > 0 ? `
+              <div style="font-size: 11px; color: #7e22ce; margin-top: 4px; line-height: 1.35;">
+                ⚡ <strong>${kokoDiscPercent}% Discount applied</strong> (${primaryDiscountPercent}% Offer - 12% Koko Interest). Total: Rs. ${kokoTotal.toLocaleString()}.
+              </div>
+            ` : `
+              <div style="font-size: 11px; color: #7e22ce; margin-top: 4px;">
+                0% Interest with any debit or credit card. Total: Rs. ${kokoTotal.toLocaleString()}.
+              </div>
+            `}
           </div>`;
       }
 
@@ -1351,9 +1410,11 @@
       const codLivePanel = $('cod-live-panel');
       if (codLivePanel) {
         codLivePanel.innerHTML = `
-          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #166534; display: flex; justify-content: space-between; align-items: center;">
-            <span>Pay cash at doorstep:</span>
-            <strong style="font-size: 13px; color: #14532d;">Rs. ${codTotal.toLocaleString()}</strong>
+          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #166534;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Pay cash at doorstep:</span>
+              <strong style="font-size: 13px; color: #14532d;">Rs. ${codTotal.toLocaleString()}</strong>
+            </div>
           </div>`;
       }
 
@@ -1543,7 +1604,8 @@
               const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
                 ? getCheckoutEffectiveDiscount(i) 
                 : Number(i.discount || 0);
-              const discount = (paymentMethod === 'Koko') ? 0 : effDisc;
+              const kokoDisc = effDisc > 0 ? Math.max(0, effDisc - 12) : 0;
+              const discount = (paymentMethod === 'Koko') ? kokoDisc : effDisc;
               const discountedPrice = discount > 0 ? Math.round(i.price * (1 - discount / 100)) : i.price;
               return { product: i.id, name: i.name, qty: i.qty, price: discountedPrice };
             }),
