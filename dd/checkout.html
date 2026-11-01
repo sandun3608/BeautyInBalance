@@ -983,7 +983,7 @@
             </div>
 
             <!-- Koko 3 Installments Row with Shipping -->
-            <div id="summ-koko-installment-row" style="margin-top: 14px; padding: 12px 16px; background: #faf5ff; border: 1.5px solid #d8b4fe; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans);">
+            <div id="summ-koko-installment-row" style="margin-top: 14px; padding: 12px 16px; background: #faf5ff; border: 1.5px solid #d8b4fe; border-radius: 12px; display: none; justify-content: space-between; align-items: center; font-family: var(--font-sans);">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <img src="koko-logo.png" alt="Koko" style="height: 18px; width: auto; vertical-align: middle;">
                 <div>
@@ -1198,17 +1198,26 @@
       const totalDiscount = originalSubtotal - activeDiscountedSubtotal;
       
       const discountRow = $('summ-discount-row');
-      if (totalDiscount > 0) {
-        const labelEl = $('summ-discount-label');
+      const labelEl = $('summ-discount-label');
+      const discountValEl = $('summ-discount');
+
+      if (isKoko && primaryDiscountPercent > 0) {
         if (labelEl) {
-          if (isKoko && primaryDiscountPercent > 12) {
-            const netDisc = primaryDiscountPercent - 12;
-            labelEl.innerHTML = `Discount <span style="color: #16a34a; font-weight: 600; font-size: 12.5px; margin-left: 2px;">(${netDisc}% OFF)</span><span style="font-size: 10.5px; color: #7e22ce; font-weight: 500; display: block; margin-top: 1px;">(${primaryDiscountPercent}% Offer - 12% Koko Fee)</span>`;
-          } else {
-            labelEl.innerHTML = `Discount <span style="color: #16a34a; font-weight: 600; font-size: 12.5px; margin-left: 2px;">(${primaryDiscountPercent}% OFF)</span>`;
-          }
+          labelEl.textContent = 'Price with discount';
         }
-        $('summ-discount').textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
+        if (discountValEl) {
+          discountValEl.textContent = `Rs. ${kokoSubtotal.toLocaleString()}`;
+          discountValEl.style.color = '#16a34a';
+        }
+        discountRow.style.display = 'flex';
+      } else if (!isKoko && totalDiscount > 0) {
+        if (labelEl) {
+          labelEl.innerHTML = `Discount <span style="color: #16a34a; font-weight: 600; font-size: 12.5px; margin-left: 2px;">(${primaryDiscountPercent}% OFF)</span>`;
+        }
+        if (discountValEl) {
+          discountValEl.textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
+          discountValEl.style.color = '#16a34a';
+        }
         discountRow.style.display = 'flex';
       } else {
         discountRow.style.display = 'none';
@@ -1225,6 +1234,10 @@
       const kokoFeeAmount = kokoSubtotal - codSubtotal;
 
       // Update right side Order Summary Koko box (below Total)
+      const summKokoRow = $('summ-koko-installment-row');
+      if (summKokoRow) {
+        summKokoRow.style.display = isKoko ? 'flex' : 'none';
+      }
       const summKokoInstallVal = $('summ-koko-install-val');
       if (summKokoInstallVal) {
         summKokoInstallVal.textContent = `3 x Rs. ${kokoInstallment}`;
