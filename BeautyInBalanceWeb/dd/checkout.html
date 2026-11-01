@@ -848,12 +848,12 @@
                   </div>
                 </label>
                 <div class="pg-expanded-content" id="expanded-koko" style="display: none;">
-                  <div style="background: #faf5ff; border: 1.5px solid #d8b4fe; padding: 15px 18px; border-radius: 12px; font-family: var(--font-sans); color: #581c87; margin-top: 10px;">
+                  <div style="background: #faf5ff; border: 1.5px solid #d8b4fe; padding: 15px 18px; border-radius: 12px; font-family: var(--font-sans); color: #111827; margin-top: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
-                      <span style="font-size: 13.5px; font-weight: 700; color: #6b21a8; display: inline-flex; align-items: center; gap: 6px;"><img src="koko-logo.png" alt="Koko" style="height: 15px; width: auto; vertical-align: middle;"> Pay in 3 monthly installments:</span>
-                      <span id="koko-install-header" style="font-size: 16px; font-weight: 800; color: #581c87;">3 x Rs. 0.00</span>
+                      <span style="font-size: 13.5px; font-weight: 700; color: #111827; display: inline-flex; align-items: center; gap: 6px;"><img src="koko-logo.png" alt="Koko" style="height: 15px; width: auto; vertical-align: middle;"> Pay in 3 monthly installments:</span>
+                      <span id="koko-install-header" style="font-size: 16px; font-weight: 800; color: #111827;">3 x Rs. 0.00</span>
                     </div>
-                    <div id="koko-calc-details" style="font-size: 12px; color: #7e22ce; border-top: 1px dashed #e9d5ff; padding-top: 8px; line-height: 1.5;">
+                    <div id="koko-calc-details" style="font-size: 12px; color: #374151; border-top: 1px dashed #d8b4fe; padding-top: 8px; line-height: 1.5;">
                     </div>
                   </div>
                 </div>
@@ -986,20 +986,18 @@
               <span id="summ-total">Rs. 0</span>
             </div>
 
-            <!-- Koko 3 Installments Row with Shipping (Black Box) -->
-            <div id="summ-koko-installment-row" style="margin-top: 14px; padding: 13px 16px; background: #000000; border-radius: 12px; display: none; justify-content: space-between; align-items: center; font-family: var(--font-sans); box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="background: #ffffff; padding: 4px 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;">
-                  <img src="koko-logo.png" alt="Koko" style="height: 15px; width: auto; display: block;">
-                </div>
+            <!-- Koko 3 Installments Row with Shipping -->
+            <div id="summ-koko-installment-row" style="margin-top: 14px; padding: 12px 16px; background: #faf5ff; border: 1.5px solid #d8b4fe; border-radius: 12px; display: none; justify-content: space-between; align-items: center; font-family: var(--font-sans);">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="koko-logo.png" alt="Koko" style="height: 18px; width: auto; vertical-align: middle;">
                 <div>
-                  <span style="font-size: 13px; font-weight: 700; color: #ffffff; display: block; letter-spacing: -0.2px;">Koko (3 Installments)</span>
-                  <span id="summ-koko-shipping-note" style="font-size: 11px; color: #a1a1aa; font-weight: 500;">Includes shipping & fees</span>
+                  <span style="font-size: 13px; font-weight: 700; color: #111827; display: block;">Koko (3 Installments)</span>
+                  <span id="summ-koko-shipping-note" style="font-size: 11px; color: #4b5563; font-weight: 500;">Includes shipping & fees</span>
                 </div>
               </div>
               <div style="text-align: right;">
-                <span id="summ-koko-install-val" style="font-size: 16px; font-weight: 800; color: #ffffff; display: block; letter-spacing: -0.3px;">3 x Rs. 0.00</span>
-                <span id="summ-koko-total-val" style="font-size: 11px; color: #a1a1aa; font-weight: 600;">Total: Rs. 0</span>
+                <span id="summ-koko-install-val" style="font-size: 16px; font-weight: 800; color: #111827; display: block;">3 x Rs. 0.00</span>
+                <span id="summ-koko-total-val" style="font-size: 11px; color: #4b5563; font-weight: 600;">Total: Rs. 0</span>
               </div>
             </div>
           </div>
@@ -1304,7 +1302,7 @@
               <span>Delivery:</span>
               <span style="font-weight: 600;">Rs. ${fee.toLocaleString()}</span>
             </div>
-            <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #581c87;">
+            <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #111827;">
               <span>Total with Koko:</span>
               <span>Rs. ${kokoTotal.toLocaleString()}</span>
             </div>
@@ -1319,7 +1317,7 @@
               <span>Delivery:</span>
               <span style="font-weight: 600;">Rs. ${fee.toLocaleString()}</span>
             </div>
-            <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #581c87;">
+            <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #111827;">
               <span>Total with Koko:</span>
               <span>Rs. ${kokoTotal.toLocaleString()}</span>
             </div>
