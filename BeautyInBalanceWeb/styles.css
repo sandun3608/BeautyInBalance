@@ -9186,6 +9186,45 @@ body:not(.drawer-open) .floating-fb {
 }
 
 
+/* ===== SOLD OUT: blurred image + centered label + disabled actions ===== */
+:has(> .product-badges > .sold-out-badge) > img {
+  filter: blur(3px) grayscale(0.5);
+  opacity: 0.55;
+}
+
+.product-badges:has(.sold-out-badge) {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-badges:has(.sold-out-badge) .hap-discount-badge,
+.product-badges:has(.sold-out-badge) .fp-discount-badge,
+.product-badges:has(.sold-out-badge) .rec-discount-badge {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+}
+
+.product-badges .sold-out-badge {
+  background: rgba(17, 17, 17, 0.88) !important;
+  color: #fff !important;
+  font-size: 13px !important;
+  padding: 8px 18px !important;
+  border-radius: 4px !important;
+  letter-spacing: 2px !important;
+  margin: 0 !important;
+}
+
+:has(> .product-badges > .sold-out-badge) .h-icon,
+:has(> .product-badges > .sold-out-badge) .hap-card-actions {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 /* Original vs Discounted Prices styling */
 .original-price {
   text-decoration: line-through;
