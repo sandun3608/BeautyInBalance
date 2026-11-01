@@ -17,12 +17,12 @@
       background-color: #faf9f7;
     }
     .checkout-wrap {
-      max-width: 1200px;
+      max-width: 1260px;
       margin: 160px auto 100px;
       padding: 0 40px;
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 60px;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 50px;
       align-items: start;
     }
     @media (max-width: 900px) {
@@ -100,10 +100,10 @@
     .summary-box {
       background: #ffffff;
       color: #1a1a1e;
-      padding: 40px 35px;
+      padding: 40px 36px;
       border-radius: 24px;
       border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
       position: relative;
       overflow: hidden;
     }
@@ -170,54 +170,63 @@
       transform: translateX(4px);
     }
     .img-wrap {
-      width: 64px;
-      height: 64px;
+      width: 82px;
+      height: 82px;
       background: #ffffff;
-      border: 1px solid #eef0f2;
-      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       transition: border-color 0.2s ease;
+      flex-shrink: 0;
+      padding: 6px;
     }
     .summ-item:hover .img-wrap {
       border-color: var(--gold);
     }
     .img-wrap img {
-      width: 80%;
-      height: 80%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
     }
     .qty-badge {
       position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--brown);
+      top: -7px;
+      right: -7px;
+      background: #1f2937;
       color: #fff;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
+      font-weight: 700;
       border: 2px solid #ffffff;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .summ-details {
       flex-grow: 1;
+      min-width: 0;
     }
     .summ-details h4 {
       font-size: 14px;
-      font-weight: 500;
-      color: #1a1a1e;
-      margin-bottom: 5px;
-      line-height: 1.4;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+      line-height: 1.35;
       font-family: var(--font-sans);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
       transition: color 0.2s ease;
     }
     .summ-item:hover .summ-details h4 {
@@ -1113,21 +1122,24 @@
             : `<div class="summ-price" style="font-family:var(--font-sans); font-size:14px; font-weight:700; color:#000000;">Rs. ${(item.price * item.qty).toLocaleString()}</div>`;
 
         return `<div class="summ-item" style="justify-content: space-between; width: 100%;">
-            <div style="display: flex; gap: 15px; align-items: center; flex-grow: 1;">
+            <div style="display: flex; gap: 15px; align-items: center; flex-grow: 1; min-width: 0;">
               <div class="img-wrap">
-                <img src="${item.img}">
+                <img src="${item.img}" alt="${item.name}">
                 <span class="qty-badge">${item.qty}</span>
               </div>
               <div class="summ-details">
-                <h4>${item.name}</h4>
-                <div class="qty-adjust" style="margin-top: 5px; align-self: flex-start; display: inline-flex;">
-                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)">-</button>
-                  <span class="qty-val">${item.qty}</span>
-                  <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)">+</button>
+                <h4 title="${item.name}">${item.name}</h4>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+                  <span style="font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Qty:</span>
+                  <div class="qty-adjust" style="display: inline-flex;">
+                    <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', -1)" aria-label="Decrease quantity">-</button>
+                    <span class="qty-val">${item.qty}</span>
+                    <button type="button" class="qty-btn" onclick="updateQtyCheckout('${item.id}', 1)" aria-label="Increase quantity">+</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="price-container" style="text-align: right; min-width: 90px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0;">
+            <div class="price-container" style="text-align: right; min-width: 95px; display: flex; flex-direction: column; gap: 2px; align-self: center; flex-shrink: 0;">
               ${priceHTML}
             </div>
           </div>`;
