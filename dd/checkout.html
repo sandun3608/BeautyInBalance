@@ -1179,7 +1179,10 @@
                 <span class="qty-badge">${item.qty}</span>
               </div>
               <div class="summ-details">
-                <h4 title="${item.name}">${item.name}</h4>
+                <div style="display: flex; align-items: flex-start; gap: 6px;">
+                  <h4 title="${item.name}" style="margin-bottom: 0;">${item.name}</h4>
+                  ${itemHasDiscount ? `<span style="background: #dc2626; color: #ffffff; font-size: 10px; font-weight: 700; padding: 1.5px 6px; border-radius: 4px; letter-spacing: 0.3px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; line-height: 1.2; margin-top: 1px;">${effDisc}% OFF</span>` : ''}
+                </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
                   <span style="font-size: 11px; color: #71717a; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">QTY:</span>
                   <div class="qty-adjust" style="display: inline-flex;">
