@@ -1292,7 +1292,7 @@
           <div class="gallery-wrap">
             <div class="main-visual ${isOutOfStock ? 'is-sold-out' : ''}" style="position: relative;">
               ${badgesHTML}
-              <img id="main-view" src="${product.img}" alt="${product.name}">
+              <img id="main-view" class="${isOutOfStock ? 'is-sold-out' : ''}" src="${product.img}" alt="${product.name}" style="${isOutOfStock ? 'filter: blur(4px) grayscale(0.25) !important; opacity: 0.65 !important; pointer-events: none;' : ''}">
             </div>
             <div class="thumbs-container" style="${thumbs ? '' : 'display:none;'}">${thumbs}</div>
           </div>

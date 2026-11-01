@@ -2214,7 +2214,7 @@ background: #0a0a0a;
   transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.3s ease;
 }
 
-.fp-item:hover .fp-img-wrap img {
+.fp-item:not(.is-sold-out):hover .fp-img-wrap img {
   transform: scale(1.06);
   filter: none !important;
 }
@@ -7556,7 +7556,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   transition: transform 0.5s ease, filter 0.3s ease;
 }
 
-.fg-card:hover .fg-img-wrap img {
+.fg-card:not(.is-sold-out):hover .fg-img-wrap img {
   transform: scale(1.05);
   filter: none !important;
 }
@@ -8589,7 +8589,7 @@ main {
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease;
 }
 
-.hap-card:hover .hap-card-img img {
+.hap-card:not(.is-sold-out):hover .hap-card-img img {
   transform: scale(1.05);
   filter: none !important;
 }
@@ -12142,4 +12142,61 @@ body.loading-active .floating-email {
 .is-sold-out .offer-card-img img {
   filter: blur(2.5px) grayscale(0.25) !important;
   opacity: 0.75 !important;
+}
+
+/* ============================================================
+   PERMANENT SOLD-OUT BLUR RULE (STAYS BLURRED EVEN ON HOVER)
+   ============================================================ */
+.is-sold-out img,
+.is-sold-out:hover img,
+.is-sold-out:focus img,
+.is-sold-out:active img,
+.shop-card.is-sold-out img,
+.shop-card.is-sold-out:hover img,
+.shop-card.is-sold-out .shop-card-img-box img,
+.shop-card.is-sold-out:hover .shop-card-img-box img,
+.hap-card.is-sold-out img,
+.hap-card.is-sold-out:hover img,
+.hap-card.is-sold-out .hap-card-img img,
+.hap-card.is-sold-out:hover .hap-card-img img,
+.fg-card.is-sold-out img,
+.fg-card.is-sold-out:hover img,
+.fg-card.is-sold-out .fg-img-wrap img,
+.fg-card.is-sold-out:hover .fg-img-wrap img,
+.fp-item.is-sold-out img,
+.fp-item.is-sold-out:hover img,
+.fp-item.is-sold-out .fp-img-wrap img,
+.fp-item.is-sold-out:hover .fp-img-wrap img,
+.fp-item.is-sold-out .fp-img-box img,
+.fp-item.is-sold-out:hover .fp-img-box img,
+.offer-card.is-sold-out img,
+.offer-card.is-sold-out:hover img,
+.offer-card.is-sold-out .offer-card-img img,
+.offer-card.is-sold-out:hover .offer-card-img img,
+.rec-card.is-sold-out img,
+.rec-card.is-sold-out:hover img,
+.rec-card.is-sold-out .rec-img-wrap img,
+.rec-card.is-sold-out:hover .rec-img-wrap img,
+.main-visual.is-sold-out img,
+.main-visual.is-sold-out:hover img,
+.main-visual.is-sold-out #main-view,
+.main-visual.is-sold-out:hover #main-view,
+#main-view.is-sold-out,
+#main-view.is-sold-out:hover {
+  filter: blur(4px) grayscale(0.25) !important;
+  -webkit-filter: blur(4px) grayscale(0.25) !important;
+  opacity: 0.65 !important;
+  transform: none !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+.is-sold-out:hover,
+.shop-card.is-sold-out:hover,
+.hap-card.is-sold-out:hover,
+.fg-card.is-sold-out:hover,
+.fp-item.is-sold-out:hover,
+.offer-card.is-sold-out:hover,
+.rec-card.is-sold-out:hover {
+  transform: none !important;
 }
