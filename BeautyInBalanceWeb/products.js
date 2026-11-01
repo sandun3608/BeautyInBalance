@@ -1502,6 +1502,101 @@ try {
 // Global products data used by the UI - Instant 0ms initial load
 window.productsData = (cachedProducts && cachedProducts.length > 0) ? cachedProducts : (typeof defaultProducts !== 'undefined' ? [...defaultProducts] : []);
 
+// Helper to get effective discount (Flash Sale offer completely overrides inventory discount)
+function isProductInActiveSale(productId, sale) {
+    if (!sale || sale.enabled === false) return false;
+    if (sale.endDate) {
+        const now = new Date();
+        const end = new Date(sale.endDate);
+        if (isNaN(end.getTime()) || now > end) return false;
+    }
+    const pid = String(productId || '').trim().toLowerCase();
+    if (!pid) return false;
+    const saleIds = Array.isArray(sale.productIds) ? sale.productIds : [];
+    return saleIds.some(id => String(id || '').trim().toLowerCase() === pid);
+}
+
+function getEffectiveProductDiscount(product) {
+    if (!product) return 0;
+    try {
+        let sale = window.activeFlashSale;
+        if (!sale) {
+            const saleStr = localStorage.getItem('bib_active_sale');
+            if (saleStr) {
+                sale = JSON.parse(saleStr);
+                window.activeFlashSale = sale;
+            }
+        }
+        if (sale && sale.enabled !== false) {
+            const pidMongo = String(product._id || '').trim().toLowerCase();
+            const pidCustom = String(product.id || '').trim().toLowerCase();
+            if (isProductInActiveSale(pidMongo, sale) || isProductInActiveSale(pidCustom, sale)) {
+                return Number(sale.discountPercent || 0);
+            }
+        }
+    } catch (e) {}
+    return Number(product.discount || 0);
+}
+window.isProductInActiveSale = isProductInActiveSale;
+window.getEffectiveProductDiscount = getEffectiveProductDiscount;
+
+// Synchronize existing cart items with active flash sale offers
+function syncCartWithActiveSale() {
+    try {
+        const cartStr = localStorage.getItem('bib_cart');
+        if (!cartStr) return;
+        const cart = JSON.parse(cartStr);
+        if (!Array.isArray(cart) || cart.length === 0) return;
+        let changed = false;
+        cart.forEach(item => {
+            const effDiscount = getEffectiveProductDiscount(item);
+            if (Number(item.discount || 0) !== effDiscount) {
+                item.discount = effDiscount;
+                changed = true;
+            }
+        });
+        if (changed) {
+            localStorage.setItem('bib_cart', JSON.stringify(cart));
+            if (typeof shoppingCart !== 'undefined' && Array.isArray(shoppingCart)) {
+                shoppingCart = cart;
+            }
+            if (typeof renderCart === 'function') renderCart();
+        }
+    } catch(e) {}
+}
+window.syncCartWithActiveSale = syncCartWithActiveSale;
+
+// Background fetch for flash sale settings to always stay synchronized
+async function fetchActiveFlashSale() {
+    try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+        const res = await fetch(`${BASE}/settings/flash_sale?t=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && data.value && data.value.enabled !== false) {
+                const sale = data.value;
+                const now = new Date();
+                const end = new Date(sale.endDate);
+                if (!isNaN(end.getTime()) && now <= end) {
+                    window.activeFlashSale = sale;
+                    try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
+                    syncCartWithActiveSale();
+                    return sale;
+                }
+            }
+        }
+        // Sale is inactive or expired
+        window.activeFlashSale = null;
+        try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
+        syncCartWithActiveSale();
+        return null;
+    } catch (e) {
+        return null;
+    }
+}
+window.fetchActiveFlashSale = fetchActiveFlashSale;
+fetchActiveFlashSale();
+
 // Fetch from Database
 async function fetchDatabaseProducts() {
     window.fetchDatabaseProducts = fetchDatabaseProducts;
@@ -1597,7 +1692,7 @@ async function fetchDatabaseProducts() {
         const renderFuncs = [
             'renderInventory', 'renderRoundCategories', 'renderLatestArrivals', 'renderFeaturedProducts',
             'renderCategoryProducts', 'renderProduct', 'renderProducts', 
-            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts',
+            'renderAvuruduSale', 'renderAvuruduBannerUI', 'updateRightSidebar', 'renderHomeAllProducts', 'renderShop', 'renderShop',
             'updateMobileNavCategories', 'updateDesktopNavCategories'
         ];
         
@@ -1722,7 +1817,7 @@ function saveCart() {
     renderCart();
 }
 
-function addToCart(prodId, qty = 1, openDrawer = true) {
+function addToCart(prodId, qty = 1, openDrawer = true, selectedVariant = null) {
     const product = window.productsData.find(p => p.id === prodId || p.name === prodId);
     if (!product) {
        console.error("Product not found to add:", prodId);
@@ -1730,17 +1825,28 @@ function addToCart(prodId, qty = 1, openDrawer = true) {
     }
     
     const qtyInt = parseInt(qty);
-    const existing = shoppingCart.find(item => item.id === product.id);
-    
+    // If variant is selected, create composite cart id so different variants are separate items
+    const cartItemId = selectedVariant ? `${product.id}__var__${selectedVariant.name.replace(/\s+/g, '_')}` : product.id;
+    const itemPrice = (selectedVariant && selectedVariant.price) ? Number(selectedVariant.price) : Number(product.price);
+    const itemName = selectedVariant ? `${product.name} (${selectedVariant.name})` : product.name;
+
+    const existing = shoppingCart.find(item => item.id === cartItemId);
+    const effectiveDiscount = getEffectiveProductDiscount(product);
+
     if (existing) {
         existing.qty += qtyInt;
-        existing.discount = product.discount || 0;
+        existing.discount = effectiveDiscount;
+        existing.price = itemPrice;
+        if (selectedVariant) existing.variant = selectedVariant;
     } else {
         shoppingCart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            discount: product.discount || 0,
+            id: cartItemId,
+            productId: product.id,
+            name: itemName,
+            baseName: product.name,
+            variant: selectedVariant || null,
+            price: itemPrice,
+            discount: effectiveDiscount,
             img: product.img,
             qty: qtyInt
         });
@@ -1762,8 +1868,8 @@ function addToCart(prodId, qty = 1, openDrawer = true) {
     }
 }
 
-function buyItNow(prodId, qty = 1) {
-    addToCart(prodId, qty, false);
+function buyItNow(prodId, qty = 1, selectedVariant = null) {
+    addToCart(prodId, qty, false, selectedVariant);
     window.location.href = 'checkout.html';
 }
 
@@ -1797,6 +1903,13 @@ function getCartTotal() {
 window.getCartTotal = getCartTotal;
 
 function renderCart() {
+    try {
+        // Refresh items with current effective discount (in case sale changed or item was added elsewhere)
+        shoppingCart.forEach(item => {
+            const prod = window.productsData ? window.productsData.find(p => p.id === (item.productId || item.id) || p.name === (item.baseName || item.name)) : null;
+            item.discount = prod ? getEffectiveProductDiscount(prod) : getEffectiveProductDiscount(item);
+        });
+    } catch(e) {}
     // Update all cart badges across the nav bar
     const badges = document.querySelectorAll('.cart-badge');
     const totalItems = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
@@ -1867,10 +1980,9 @@ function renderCart() {
         if (discount > 0) {
             const unitPriceHTML = `
                 <div style="display:flex; align-items:center; gap:6px; font-family:var(--font-sans); white-space:nowrap; justify-content:flex-end;">
-                    <span style="color:#2D1B12; font-size:12.5px; font-weight:600;">Rs. ${discountedPrice.toLocaleString()}</span>
-                    <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${item.price.toLocaleString()}</span>
+                    <span style="color:#2D1B12; font-size:13px; font-weight:700;">Rs. ${discountedPrice.toLocaleString()}</span>
+                    <span style="text-decoration:line-through; color:#88888b; font-size:11px; font-weight:400;">Rs. ${item.price.toLocaleString()}</span>
                 </div>
-                <div style="margin-top:2px;"><span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.2); font-size:8px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.2px; text-transform:uppercase;">${discount}% OFF</span></div>
             `;
 
             const lineTotalHTML = `<div style="font-size:13px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * qty).toLocaleString()}</div>`;
@@ -1898,10 +2010,13 @@ function renderCart() {
                 </div>
                 <div style="flex-grow:1; display:flex; flex-direction:column; gap:4px; min-width:0;">
                     <div style="font-size:13.5px; font-weight:600; font-family:var(--font-sans); color:#2D1B12; line-height:1.35; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; max-height:36px;">${item.name}</div>
-                    <div style="display:inline-flex; align-items:center; gap:10px; background:#f5f5f7; border:1px solid #e2e2e5; padding:2px 8px; border-radius:6px; width:fit-content; height:26px; box-sizing:border-box; margin-top:2px;">
-                        <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:11px; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">-</button>
-                        <span style="font-family:var(--font-sans); font-size:11.5px; font-weight:700; color:#000000; min-width:12px; text-align:center;">${item.qty}</span>
-                        <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:11px; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">+</button>
+                    <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+                        <div style="display:inline-flex; align-items:center; gap:10px; background:#f5f5f7; border:1px solid #e2e2e5; padding:2px 8px; border-radius:6px; width:fit-content; height:26px; box-sizing:border-box;">
+                            <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:11px; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">-</button>
+                            <span style="font-family:var(--font-sans); font-size:11.5px; font-weight:700; color:#000000; min-width:12px; text-align:center;">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:11px; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">+</button>
+                        </div>
+                        ${discount > 0 ? `<span class="discount-badge" style="background:#dc2626 !important; color:#ffffff !important; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; display:inline-flex; align-items:center; height:26px; box-sizing:border-box; letter-spacing:0.3px; text-transform:uppercase; line-height:1;">${discount}% OFF</span>` : ''}
                     </div>
                 </div>
             </div>
@@ -1987,10 +2102,9 @@ function renderCart() {
                 if (discount > 0) {
                     const unitPriceHTML = `
                         <div style="display:flex; align-items:center; gap:6px; font-family:var(--font-sans); white-space:nowrap; justify-content:flex-end;">
-                            <span style="color:#2D1B12; font-size:13.5px; font-weight:600;">Rs. ${discountedPrice.toLocaleString()}</span>
-                            <span style="text-decoration:line-through; color:#88888b; font-size:10.5px; font-weight:400;">Rs. ${item.price.toLocaleString()}</span>
+                            <span style="color:#2D1B12; font-size:14px; font-weight:700;">Rs. ${discountedPrice.toLocaleString()}</span>
+                            <span style="text-decoration:line-through; color:#88888b; font-size:11px; font-weight:400;">Rs. ${item.price.toLocaleString()}</span>
                         </div>
-                        <div style="margin-top:2px;"><span class="discount-badge" style="background:rgba(198, 151, 90, 0.1); color:#c6975a; border:1px solid rgba(198, 151, 90, 0.2); font-size:8px; font-weight:700; padding:1px 4px; border-radius:3px; display:inline-block; letter-spacing:0.2px; text-transform:uppercase;">${discount}% OFF</span></div>
                     `;
 
                     const lineTotalHTML = `<div style="font-size:14px; font-weight:700; color:#2D1B12; font-family:var(--font-sans);">Rs. ${(discountedPrice * qty).toLocaleString()}</div>`;
@@ -2016,10 +2130,13 @@ function renderCart() {
                         <div class="cart-item-img" style="background:#ffffff; border:1px solid #eef0f2; box-shadow:0 2px 8px rgba(0,0,0,0.04); border-radius:12px; padding:10px; width:80px; height:80px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><img src="${item.img}" style="max-width:100%; max-height:100%; object-fit:contain;"></div>
                         <div class="cart-item-info" style="display:flex; flex-direction:column; gap:6px; min-width:0;">
                             <div class="cart-item-name" style="font-weight:600; color:var(--dark); font-size:15px; font-family:var(--font-sans);">${item.name}</div>
-                            <div class="cart-item-qty" style="display:inline-flex; align-items:center; gap:8px; background:#f5f5f7; border:1px solid #e2e2e5; padding:3px 8px; border-radius:6px; width:fit-content; height:28px; box-sizing:border-box; margin-top:2px;">
-                                <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">-</span>
-                                <span style="font-family:var(--font-sans); font-size:12px; font-weight:600; color:#000000; min-width:14px; text-align:center;">${item.qty}</span>
-                                <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%; font-weight:700;">+</span>
+                            <div style="display:flex; align-items:center; gap:10px; margin-top:4px;">
+                                <div class="cart-item-qty" style="display:inline-flex; align-items:center; gap:8px; background:#f5f5f7; border:1px solid #e2e2e5; padding:3px 8px; border-radius:6px; width:fit-content; height:28px; box-sizing:border-box;">
+                                    <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">-</span>
+                                    <span style="font-family:var(--font-sans); font-size:12px; font-weight:600; color:#000000; min-width:14px; text-align:center;">${item.qty}</span>
+                                    <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%; font-weight:700;">+</span>
+                                </div>
+                                ${discount > 0 ? `<span class="discount-badge" style="background:#dc2626 !important; color:#ffffff !important; font-size:11px; font-weight:700; padding:2.5px 8px; border-radius:4px; display:inline-flex; align-items:center; height:28px; box-sizing:border-box; letter-spacing:0.3px; text-transform:uppercase; line-height:1;">${discount}% OFF</span>` : ''}
                             </div>
                         </div>
                     </div>
@@ -2082,6 +2199,87 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- HOME ALL PRODUCTS GRID ---
+let _homeAllSelectedIds = (() => {
+    try {
+        const cached = localStorage.getItem('bib_home_all_ids');
+        if (cached) {
+            const arr = JSON.parse(cached);
+            if (Array.isArray(arr) && arr.length > 0) return new Set(arr.map(String));
+        }
+    } catch(e) {}
+    return null;
+})();
+
+async function fetchHomeAllProductsSetting() {
+    try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+        const res = await fetch(`${BASE}/settings/home_all_products?cb=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data.value) && data.value.length > 0) {
+                _homeAllSelectedIds = new Set(data.value.map(String));
+                try { localStorage.setItem('bib_home_all_ids', JSON.stringify(data.value)); } catch(e) {}
+                if (typeof window.renderHomeAllProducts === 'function') {
+                    window.renderHomeAllProducts();
+                }
+            } else if (data && (data.value === null || (Array.isArray(data.value) && data.value.length === 0))) {
+                _homeAllSelectedIds = null;
+                try { localStorage.removeItem('bib_home_all_ids'); } catch(e) {}
+            }
+        }
+    } catch(e) {
+        console.warn('Could not fetch home_all_products setting:', e);
+    }
+}
+try { fetchHomeAllProductsSetting(); } catch(e) {}
+
+// Global Image Swapper for Mini Card Thumbnails
+window.handleThumbError = function(imgEl) {
+    if (!imgEl) return;
+    const btn = imgEl.closest('.t-btn, .card-thumb-btn');
+    if (!btn) return;
+    const container = btn.closest('.thumbs-container, .card-thumb-gallery');
+    const wasActive = btn.classList.contains('active');
+    btn.remove();
+    if (container) {
+        const remaining = container.querySelectorAll('.t-btn, .card-thumb-btn');
+        if (remaining.length <= 1) {
+            container.style.display = 'none';
+            if (container.classList.contains('card-thumb-gallery')) container.remove();
+        } else if (wasActive && remaining.length > 0) {
+            remaining[0].classList.add('active');
+            const firstImg = remaining[0].querySelector('img');
+            if (firstImg && firstImg.src) {
+                const card = container.closest('.hap-card, .shop-card');
+                if (card) {
+                    const mainImg = card.querySelector('.hap-card-img img, .shop-card-img-box img');
+                    if (mainImg) mainImg.src = firstImg.src;
+                }
+            }
+        }
+    }
+};
+
+window.swapCardImg = function(btn) {
+    if (!btn) return;
+    const thumbImg = btn.querySelector('img');
+    if (!thumbImg || !thumbImg.src) return;
+    
+    const card = btn.closest('.hap-card, .shop-card');
+    if (!card) return;
+    
+    const mainImg = card.querySelector('.hap-card-img img, .shop-card-img-box img');
+    if (mainImg) {
+        mainImg.src = thumbImg.src;
+    }
+    
+    const gallery = btn.closest('.card-thumb-gallery');
+    if (gallery) {
+        gallery.querySelectorAll('.card-thumb-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+};
+
 window.renderHomeAllProducts = function() {
     const grid = document.getElementById('hap-grid');
     if (!grid) return;
@@ -2132,31 +2330,44 @@ window.renderHomeAllProducts = function() {
     // Get up to 12 or 28 products
     const displayProducts = (category) => {
         let filtered = [];
+        let isCustomAll = false;
+
         if (!category || category === 'all') {
-            // Group products by category and interleave (round-robin) so products come from every category
-            const catGroups = {};
-            const order = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
-            
-            (window.productsData || []).forEach(p => {
-                const c = (p.cat || 'others').toLowerCase();
-                if (!catGroups[c]) catGroups[c] = [];
-                catGroups[c].push(p);
-            });
+            if (_homeAllSelectedIds && _homeAllSelectedIds.size > 0) {
+                // Admin selected custom products for Home 'ALL'
+                const allList = window.productsData || [];
+                filtered = allList.filter(p => {
+                    const id1 = String(p.id || '');
+                    const id2 = String(p._id || '');
+                    return (id1 && _homeAllSelectedIds.has(id1)) || (id2 && _homeAllSelectedIds.has(id2));
+                });
+                isCustomAll = true;
+            } else {
+                // Group products by category and interleave (round-robin) so products come from every category
+                const catGroups = {};
+                const order = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
+                
+                (window.productsData || []).forEach(p => {
+                    const c = (p.cat || 'others').toLowerCase();
+                    if (!catGroups[c]) catGroups[c] = [];
+                    catGroups[c].push(p);
+                });
 
-            const catKeys = Object.keys(catGroups).sort((a, b) => {
-                const indexA = order.indexOf(a);
-                const indexB = order.indexOf(b);
-                if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                if (indexA !== -1) return -1;
-                if (indexB !== -1) return 1;
-                return a.localeCompare(b);
-            });
+                const catKeys = Object.keys(catGroups).sort((a, b) => {
+                    const indexA = order.indexOf(a);
+                    const indexB = order.indexOf(b);
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+                    return a.localeCompare(b);
+                });
 
-            const maxItems = Math.max(...catKeys.map(k => catGroups[k].length), 0);
-            for (let i = 0; i < maxItems; i++) {
-                for (const k of catKeys) {
-                    if (catGroups[k][i]) {
-                        filtered.push(catGroups[k][i]);
+                const maxItems = Math.max(...catKeys.map(k => catGroups[k].length), 0);
+                for (let i = 0; i < maxItems; i++) {
+                    for (const k of catKeys) {
+                        if (catGroups[k][i]) {
+                            filtered.push(catGroups[k][i]);
+                        }
                     }
                 }
             }
@@ -2164,8 +2375,8 @@ window.renderHomeAllProducts = function() {
             filtered = (window.productsData || []).filter(p => (p.cat || 'others').toLowerCase() === category);
         }
         
-        // Take up to 12 items for 'all', or up to 28 items for specific categories
-        const limit = (!category || category === 'all') ? 12 : 28;
+        // Take all items if custom 'all', up to 12 items for default 'all', or up to 28 items for specific categories
+        const limit = (!category || category === 'all') ? (isCustomAll ? filtered.length : 12) : 28;
         const productsToShow = filtered.slice(0, limit);
         
         grid.innerHTML = productsToShow.map(prod => {
@@ -2174,9 +2385,9 @@ window.renderHomeAllProducts = function() {
             const stockNum = (prod.stock !== undefined && prod.stock !== null && prod.stock !== '') ? Number(prod.stock) : (prod.inStock === false ? 0 : 1);
             const isOutOfStock = stockNum <= 0;
 
-            const discount = Number(prod.discount || 0);
+            const discount = getEffectiveProductDiscount(prod);
             const discountBadge = discount > 0 ? `<span class="hap-discount-badge">${discount}% OFF</span>` : '';
-            const soldOutBadge = isOutOfStock ? `<span class="sold-out-badge">SOLD OUT</span>` : '';
+            const soldOutBadge = ''; // hidden — shown only via SOLD OUT button below
             const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
             
             const basePrice = Number(prod.price || 0);
@@ -2186,15 +2397,53 @@ window.renderHomeAllProducts = function() {
                 ? `<span class="original-price">Rs. ${basePrice.toLocaleString()}</span> <span class="discounted-price">Rs. ${discountedPrice.toLocaleString()}</span>`
                 : `Rs. ${basePrice.toLocaleString()}`;
 
-            const kokoAmount = (basePrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            // Koko installment on product cards displays directly on discounted price
+            const kokoAmount = (discountedPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
             const kokoInstallmentHTML = `
                 <div class="koko-installment">
                     <span class="koko-or">or</span><span class="koko-pay-text">pay in 3 x Rs ${kokoAmount} with</span><span class="koko-logo-wrapper"><img src="koko-logo.png" alt="Koko" class="koko-logo-img"><svg onclick="event.stopPropagation(); window.open('https://paykoko.com/customer-education', '_blank')" class="koko-info-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span>
                 </div>
             `;
 
+            const buyButtonHTML = isOutOfStock
+                ? `<button class="btn-buy-animated" disabled style="opacity: 0.6; cursor: not-allowed; background: #888 !important; box-shadow: none !important;">SOLD OUT</button>`
+                : `<button class="btn-buy-animated" onclick="event.preventDefault(); event.stopPropagation(); buyItNow('${prod.id}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px;"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>Buy It Now</button>`;
+
+            // Mini Thumbnail Gallery (Under main product image, above brand name)
+            const rawCand = [
+                ...(Array.isArray(prod.images) ? prod.images : []),
+                prod.img
+            ];
+            const seenCand = new Set();
+            const uniqueImages = [];
+            for (const s of rawCand) {
+                if (typeof s === 'string' && s.trim().length > 5 && !seenCand.has(s.trim())) {
+                    seenCand.add(s.trim());
+                    uniqueImages.push(s.trim());
+                }
+            }
+
+            // Only show thumbnail switcher if there are 2 or more images! (image ekak witarak tiyena ewata one naha)
+            const thumbnailsHTML = uniqueImages.length >= 2 ? `
+                <div class="card-thumb-gallery" onclick="event.preventDefault(); event.stopPropagation();">
+                    ${uniqueImages.slice(0, 5).map((thumbSrc, idx) => `
+                        <button type="button" 
+                                class="card-thumb-btn ${idx === 0 ? 'active' : ''}" 
+                                style="display:none;"
+                                onclick="event.preventDefault(); event.stopPropagation(); swapCardImg(this);" 
+                                onmouseenter="swapCardImg(this);" 
+                                aria-label="View product image ${idx + 1}" 
+                                title="View image ${idx + 1}">
+                            <img src="${thumbSrc}" alt="Thumbnail ${idx + 1}" loading="lazy" 
+                                 onload="const b=this.closest('.card-thumb-btn');if(b)b.style.display='inline-flex';" 
+                                 onerror="handleThumbError(this)">
+                        </button>
+                    `).join('')}
+                </div>
+            ` : '';
+
             return `
-            <a href="product.html?id=${prod.id}" class="hap-card" style="text-decoration: none;">
+            <a href="product.html?id=${prod.id}" class="hap-card ${isOutOfStock ? 'is-sold-out' : ''} ${uniqueImages.length >= 2 ? 'has-thumbs' : ''}" style="text-decoration: none;">
                 <div class="hap-card-img">
                     ${badgesHTML}
                     <img src="${prod.img || 'images/placeholder.png'}" alt="${prod.name}">
@@ -2207,13 +2456,27 @@ window.renderHomeAllProducts = function() {
                         </span>
                     </div>
                 </div>
+                ${thumbnailsHTML}
                 <div class="hap-card-brand">${brandDisplay}</div>
                 <div class="hap-card-title" style="font-weight: 700 !important; color: #111111;">${prod.name}</div>
                 <div class="hap-card-price">${priceHTML}</div>
                 ${kokoInstallmentHTML}
+                ${buyButtonHTML}
             </a>
             `;
         }).join('');
+
+        // Ensure loaded/cached thumbnails display immediately and remove broken ones
+        grid.querySelectorAll('.card-thumb-btn img').forEach(img => {
+            if (img.complete) {
+                const b = img.closest('.card-thumb-btn');
+                if (img.naturalWidth > 0) {
+                    if (b) b.style.display = 'inline-flex';
+                } else {
+                    if (b) b.remove();
+                }
+            }
+        });
     };
 
     // Initial render
