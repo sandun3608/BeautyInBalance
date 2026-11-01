@@ -710,8 +710,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      padding: 11px 14px;
+      gap: 10px;
+      padding: 10px 13px;
       border-radius: 10px;
       border: 1.5px solid #e4e4e7;
       background: #ffffff;
@@ -735,12 +735,13 @@
     .cpc-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       min-width: 0;
+      flex-grow: 1;
     }
     .cpc-radio {
-      width: 17px;
-      height: 17px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 2px solid #d4d4d8;
       background: #fff;
@@ -780,6 +781,7 @@
       display: flex;
       align-items: center;
       line-height: 1.25;
+      letter-spacing: -0.1px;
     }
     .cpc-sub {
       font-size: 11px;
@@ -802,12 +804,76 @@
       white-space: nowrap;
       text-align: right;
       flex-shrink: 0;
+      font-family: var(--font-sans);
     }
     .active-cod .cpc-price {
       color: #15803d;
     }
     .active-koko .cpc-price {
       color: #7e22ce;
+    }
+    .cpc-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 4px;
+      padding: 1px 5px;
+      height: 18px;
+      margin-right: 5px;
+      flex-shrink: 0;
+      vertical-align: middle;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      box-sizing: border-box;
+    }
+    .cpc-badge-cod {
+      border: 1px solid #bbf7d0;
+      font-size: 11px;
+    }
+    .cpc-badge-koko {
+      border: 1px solid #e9d5ff;
+    }
+    .cpc-badge-koko img {
+      height: 11px !important;
+      width: auto !important;
+      max-width: 32px !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+
+    @media (max-width: 600px) {
+      .checkout-pay-card {
+        padding: 9px 10px !important;
+        gap: 6px !important;
+        border-radius: 8px !important;
+      }
+      .cpc-left {
+        gap: 7px !important;
+      }
+      .cpc-radio {
+        width: 14px !important;
+        height: 14px !important;
+        border-width: 1.5px !important;
+      }
+      .cpc-title {
+        font-size: 12px !important;
+      }
+      .cpc-sub {
+        font-size: 9.5px !important;
+        line-height: 1.25 !important;
+      }
+      .cpc-price {
+        font-size: 13px !important;
+      }
+      .cpc-badge {
+        height: 16px !important;
+        padding: 1px 4px !important;
+        margin-right: 4px !important;
+      }
+      .cpc-badge-koko img {
+        height: 9.5px !important;
+        max-width: 26px !important;
+      }
     }
 
   </style>
@@ -1140,7 +1206,10 @@
               <div class="cpc-left">
                 <div class="cpc-radio"></div>
                 <div>
-                  <div class="cpc-title">💵 Cash on Delivery</div>
+                  <div class="cpc-title">
+                    <span class="cpc-badge cpc-badge-cod">💵</span>
+                    Cash on Delivery
+                  </div>
                   <div class="cpc-sub" id="summ-cod-subtext">Pay cash at doorstep</div>
                 </div>
               </div>
@@ -1153,7 +1222,9 @@
                 <div class="cpc-radio"></div>
                 <div>
                   <div class="cpc-title">
-                    <img src="koko-logo.png" alt="Koko" style="height: 14px; vertical-align: middle; margin-right: 4px;">
+                    <span class="cpc-badge cpc-badge-koko">
+                      <img src="koko-logo.png" alt="Koko">
+                    </span>
                     Koko (3 Installments)
                   </div>
                   <div class="cpc-sub" id="summ-koko-subtext">0% Interest with Debit/Credit Card</div>
@@ -1179,7 +1250,7 @@
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=460"></script>
+  <script src="products.js?v=465"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
