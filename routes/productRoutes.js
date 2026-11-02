@@ -165,6 +165,7 @@ router.post('/', protect, async (req, res) => {
             name: String(v.name || '').trim(),
             type: String(v.type || 'ml').trim(),
             price: Number(v.price) || 0,
+            cost: Number(v.cost) || 0,
             stock: Number(v.stock) || 0
         })).filter(v => v.name) : [];
 
@@ -173,6 +174,7 @@ router.post('/', protect, async (req, res) => {
             cat: req.body.cat || 'others',
             filter: req.body.filter || '',
             price: Number(req.body.price) || 0,
+            cost: Number(req.body.cost) || 0,
             img: req.body.img ? decodeURIComponent(req.body.img) : '',
             images: req.body.images ? req.body.images.map(img => decodeURIComponent(img)) : (req.body.img ? [decodeURIComponent(req.body.img)] : []),
             stock: Number(req.body.stock) || 50,
@@ -204,6 +206,7 @@ router.put('/:id', protect, async (req, res) => {
         updateData.images = updateData.images.map(img => decodeURIComponent(img));
     }
     if (updateData.price !== undefined) updateData.price = Number(updateData.price);
+    if (updateData.cost !== undefined) updateData.cost = Number(updateData.cost);
     if (updateData.stock !== undefined) updateData.stock = Number(updateData.stock);
     if (updateData.discount !== undefined) updateData.discount = Number(updateData.discount);
     if (updateData.variants !== undefined && Array.isArray(updateData.variants)) {
@@ -211,6 +214,7 @@ router.put('/:id', protect, async (req, res) => {
             name: String(v.name || '').trim(),
             type: String(v.type || 'ml').trim(),
             price: Number(v.price) || 0,
+            cost: Number(v.cost) || 0,
             stock: Number(v.stock) || 0
         })).filter(v => v.name);
     }
@@ -224,6 +228,7 @@ router.put('/:id', protect, async (req, res) => {
             if (item) {
                 if (updateData.stock !== undefined) item.stock = Number(updateData.stock);
                 if (updateData.price !== undefined) item.price = Number(updateData.price);
+                if (updateData.cost !== undefined) item.cost = Number(updateData.cost);
                 if (updateData.discount !== undefined) item.discount = Number(updateData.discount);
             }
         }

@@ -5,6 +5,7 @@ const productSchema = new mongoose.Schema({
     cat: { type: String, required: true },
     filter: { type: String, required: false },
     price: { type: Number, required: true, default: 0 },
+    cost: { type: Number, default: 0 },
     img: { type: String, required: true },
     images: { type: [String], required: false },
     stock: { type: Number, required: true, default: 0 },
@@ -18,6 +19,7 @@ const productSchema = new mongoose.Schema({
         name: { type: String, required: false },
         type: { type: String, default: 'ml' }, // ml, tablets, size, colours, gm, shade
         price: { type: Number, default: 0 },
+        cost: { type: Number, default: 0 },
         stock: { type: Number, default: 0 }
     }]
 }, { timestamps: true });

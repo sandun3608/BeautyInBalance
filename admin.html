@@ -1006,9 +1006,14 @@
     }
     .genrubs-stat-triplet {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       align-items: stretch;
+    }
+    @media (max-width: 1200px) {
+      .genrubs-stat-triplet {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     .genrubs-mini-card {
       box-sizing: border-box;
@@ -1475,6 +1480,21 @@
                             </div>
                         </div>
 
+                        <!-- Stat 3: Net Profit -->
+                        <div class="genrubs-mini-card" style="border: 1.5px solid rgba(16, 185, 129, 0.25); background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);">
+                            <div class="card-title" style="color: #059669; font-weight: 700; display: flex; align-items: center; justify-content: space-between;">
+                              <span>Net Profit</span>
+                              <span style="font-size: 11px;">💰</span>
+                            </div>
+                            <div class="card-val">
+                                <span id="stat-profit" style="font-size: 22px; color: #10B981; font-weight: 800;">Rs. 0</span>
+                                <span class="genrubs-badge badge-emerald" id="stat-profit-badge">0% Margin</span>
+                            </div>
+                            <div class="genrubs-progress-bar">
+                                <div class="genrubs-progress-fill" id="stat-profit-bar" style="width: 50%; background: #10B981;"></div>
+                            </div>
+                        </div>
+
                         <!-- Stat 3: Avg Transaction / Clients -->
                         <div class="genrubs-mini-card">
                             <div class="card-title">Avg Order Value</div>
@@ -1510,13 +1530,20 @@
                 <div class="genrubs-card">
                     <div class="genrubs-card-head">
                         <div>
-                            <h3 class="genrubs-card-title">Product Daily Sales Trend</h3>
-                            <div style="font-size: 12px; color: var(--admin-muted); margin-top: 2px;">Daily sales breakdown for top products & overall momentum</div>
+                            <h3 class="genrubs-card-title">Product Daily Sales & Profit Trend</h3>
+                            <div style="font-size: 12px; color: var(--admin-muted); margin-top: 2px;">Daily revenue & net profit breakdown for store & top products</div>
                         </div>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="chart-tab active" id="tab-prod-sales-7d" onclick="filterProductSalesTrend(7, this)">7D</button>
-                            <button class="chart-tab" id="tab-prod-sales-14d" onclick="filterProductSalesTrend(14, this)">14D</button>
-                            <button class="chart-tab" id="tab-prod-sales-30d" onclick="filterProductSalesTrend(30, this)">30D</button>
+                        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                            <div style="display: flex; background: #FAF9FB; border: 1.5px solid #E5E1EE; border-radius: 20px; padding: 2px;">
+                                <button type="button" class="chart-tab active" id="tab-trend-mode-all" onclick="window.setTrendMetricMode('all', this)" style="padding: 4px 12px; font-size: 11px; border-radius: 16px;">All (Sales & Profit)</button>
+                                <button type="button" class="chart-tab" id="tab-trend-mode-sales" onclick="window.setTrendMetricMode('sales', this)" style="padding: 4px 12px; font-size: 11px; border-radius: 16px;">Sales Only</button>
+                                <button type="button" class="chart-tab" id="tab-trend-mode-profit" onclick="window.setTrendMetricMode('profit', this)" style="padding: 4px 12px; font-size: 11px; border-radius: 16px; color: #10B981;">Profit Only</button>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="chart-tab active" id="tab-prod-sales-7d" onclick="filterProductSalesTrend(7, this)">7D</button>
+                                <button class="chart-tab" id="tab-prod-sales-14d" onclick="filterProductSalesTrend(14, this)">14D</button>
+                                <button class="chart-tab" id="tab-prod-sales-30d" onclick="filterProductSalesTrend(30, this)">30D</button>
+                            </div>
                         </div>
                     </div>
                     <div style="position: relative; height: 280px; width: 100%;">
@@ -1659,7 +1686,7 @@
               </div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 130px;">Brand</th><th style="width: 130px;">Sub Category</th><th style="width: 100px;">Value</th><th style="width: 80px;">Disc.</th><th style="width: 80px;">Stock</th><th style="width: 150px;">Manage</th></tr></thead>
+                  <thead><tr><th>Showcase</th><th>Identity</th><th style="width: 130px;">Brand</th><th style="width: 130px;">Sub Category</th><th style="width: 110px;">Selling Price</th><th style="width: 110px;">Cost Price</th><th style="width: 70px;">Disc.</th><th style="width: 70px;">Stock</th><th style="width: 140px;">Manage</th></tr></thead>
                   <tbody id="inventory-table"></tbody>
                 </table>
               </div>
@@ -1672,7 +1699,7 @@
               <div class="admin-sec-head" style="margin-bottom: 30px;"><h3 style="margin:0;">Live Acquisitions</h3></div>
               <div class="admin-table-wrap">
                 <table class="admin-table">
-                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th>Payment</th><th>Time</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
+                  <thead><tr><th>Order ID</th><th>Customer</th><th>Manifest</th><th>Total Price</th><th style="width: 95px;">Cost</th><th style="width: 120px;">Profit</th><th>Payment</th><th>Time</th><th>State</th><th style="width: 240px;">Refine</th></tr></thead>
 
                   <tbody id="orders-table"></tbody>
                 </table>
@@ -1947,6 +1974,56 @@
           <!-- ANALYTICS TAB - Redesigned to match modern dashboard UI -->
           <div id="tab-analytics" class="admin-content">
 
+            <!-- ═══ EXECUTIVE ROW: Store Profitability & Financial Health ═══ -->
+            <div class="admin-section" style="padding: 26px; margin-bottom: 22px; border: 1.5px solid rgba(16, 185, 129, 0.25); background: linear-gradient(135deg, #FAFDFB 0%, #ffffff 100%);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; background: #10B981; color: #fff; border-radius: 10px; font-size: 16px;">💰</span>
+                  <div>
+                    <h4 style="margin:0; font-size:17px; font-weight:800; color:#1E1B29;">Store Profitability & Margin Intelligence</h4>
+                    <span style="font-size: 11.5px; color: #7E7890;">Real-time analysis of gross revenue, product cost, and net realized profit</span>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <span id="ins-profit-status-badge" style="background: #ECFDF5; color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 700;">Healthy Margins</span>
+                </div>
+              </div>
+
+              <!-- 4 Financial Metrics Grid -->
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+                <div style="background: #ffffff; border: 1px solid #EBE7F3; border-radius: 14px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                  <div style="font-size: 11px; font-weight: 700; color: #7E7890; text-transform: uppercase;">Gross Sales Revenue</div>
+                  <div id="ins-fin-sales" style="font-size: 20px; font-weight: 800; color: #1E1B29; margin-top: 6px;">Rs. 0</div>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #EBE7F3; border-radius: 14px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                  <div style="font-size: 11px; font-weight: 700; color: #7E7890; text-transform: uppercase;">Product Cost (COGS)</div>
+                  <div id="ins-fin-cost" style="font-size: 20px; font-weight: 800; color: #64748b; margin-top: 6px;">Rs. 0</div>
+                </div>
+                <div style="background: #ffffff; border: 1.5px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.05); background: #FAFDFB;">
+                  <div style="font-size: 11px; font-weight: 800; color: #047857; text-transform: uppercase;">Net Profit</div>
+                  <div id="ins-fin-profit" style="font-size: 20px; font-weight: 800; color: #10B981; margin-top: 6px;">Rs. 0</div>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #EBE7F3; border-radius: 14px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                  <div style="font-size: 11px; font-weight: 700; color: #7E7890; text-transform: uppercase;">Profit Margin</div>
+                  <div id="ins-fin-margin" style="font-size: 20px; font-weight: 800; color: #6C38A5; margin-top: 6px;">0%</div>
+                </div>
+              </div>
+
+              <!-- Profit vs Revenue Comparison Chart -->
+              <div style="background: #ffffff; border: 1px solid #EBE7F3; border-radius: 14px; padding: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <span style="font-size: 12px; font-weight: 700; color: #1E1B29;">Revenue vs Profit Momentum (Past 14 Days)</span>
+                  <div style="display: flex; gap: 14px; font-size: 11px; font-weight: 700;">
+                    <span style="display: inline-flex; align-items: center; gap: 5px; color: #2B163B;"><span style="width: 8px; height: 8px; background: #2B163B; border-radius: 50%;"></span> Revenue</span>
+                    <span style="display: inline-flex; align-items: center; gap: 5px; color: #10B981;"><span style="width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></span> Net Profit</span>
+                  </div>
+                </div>
+                <div style="height: 180px; position: relative;">
+                  <canvas id="ins-profit-trend-chart"></canvas>
+                </div>
+              </div>
+            </div>
+
             <!-- ═══ ROW 1: Sales Rings + Orders Bar Chart ═══ -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 22px;">
 
@@ -2147,6 +2224,103 @@
               }
             }
 
+            let insProfitChartInst = null;
+            function renderInsightProfitAnalytics(orders) {
+              let totalRev = 0, totalCost = 0;
+              orders.forEach(o => {
+                const fin = typeof window.calculateOrderFinancials === 'function' 
+                  ? window.calculateOrderFinancials(o) 
+                  : { totalRevenue: Number(o.totalPrice || 0), totalCost: 0, profit: Number(o.totalPrice || 0) };
+                totalRev += fin.totalRevenue;
+                totalCost += fin.totalCost;
+              });
+
+              const netProfit = Math.max(0, totalRev - totalCost);
+              const margin = totalRev > 0 ? ((netProfit / totalRev) * 100).toFixed(1) : 0;
+
+              const sEl = document.getElementById('ins-fin-sales');
+              const cEl = document.getElementById('ins-fin-cost');
+              const pEl = document.getElementById('ins-fin-profit');
+              const mEl = document.getElementById('ins-fin-margin');
+              if (sEl) sEl.textContent = 'Rs. ' + totalRev.toLocaleString();
+              if (cEl) cEl.textContent = 'Rs. ' + totalCost.toLocaleString();
+              if (pEl) pEl.textContent = 'Rs. ' + netProfit.toLocaleString();
+              if (mEl) mEl.textContent = margin + '%';
+
+              // Build 14-day daily revenue & profit curve
+              const days = 14;
+              const labels = [], revData = [], profitData = [];
+              for (let i = days - 1; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const ds = d.toISOString().slice(0, 10);
+                labels.push(ds.slice(5));
+                let dRev = 0, dProfit = 0;
+                orders.filter(o => (o.createdAt || '').slice(0, 10) === ds).forEach(o => {
+                  const fin = typeof window.calculateOrderFinancials === 'function' ? window.calculateOrderFinancials(o) : { totalRevenue: Number(o.totalPrice || 0), profit: Number(o.totalPrice || 0) };
+                  dRev += fin.totalRevenue;
+                  dProfit += fin.profit;
+                });
+                revData.push(dRev);
+                profitData.push(dProfit);
+              }
+
+              const ctx = document.getElementById('ins-profit-trend-chart');
+              if (!ctx || typeof Chart === 'undefined') return;
+              if (insProfitChartInst) insProfitChartInst.destroy();
+              insProfitChartInst = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels,
+                  datasets: [
+                    {
+                      label: 'Sales Revenue',
+                      data: revData,
+                      borderColor: '#2B163B',
+                      backgroundColor: 'rgba(43, 22, 59, 0.04)',
+                      borderWidth: 2.5,
+                      fill: false,
+                      tension: 0.35,
+                      pointRadius: 3
+                    },
+                    {
+                      label: 'Net Profit',
+                      data: profitData,
+                      borderColor: '#10B981',
+                      backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                      borderWidth: 3,
+                      fill: true,
+                      tension: 0.35,
+                      pointBackgroundColor: '#10B981',
+                      pointRadius: 4
+                    }
+                  ]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                      callbacks: {
+                        label: ctx => ctx.dataset.label + ': Rs. ' + Number(ctx.raw || 0).toLocaleString()
+                      }
+                    }
+                  },
+                  scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#aaa' } },
+                    y: { 
+                      grid: { color: '#f5f5f5' }, 
+                      ticks: { 
+                        font: { size: 10 }, 
+                        color: '#aaa',
+                        callback: val => 'Rs. ' + (val >= 1000 ? (val/1000).toFixed(0) + 'k' : val)
+                      } 
+                    }
+                  }
+                }
+              });
+            }
+
             // ── SVG Ring ─────────────────────────────────────────────────────
             function setRing(id, pct) {
               const circ = 251.2;
@@ -2168,6 +2342,7 @@
                 setRing('ring-cod',  (cod  / total) * 100);
                 setRing('ring-koko', (koko / total) * 100);
                 setRing('ring-bank', (bank / total) * 100);
+                if (typeof renderInsightProfitAnalytics === 'function') renderInsightProfitAnalytics(orders);
               });
             }
 
@@ -5474,11 +5649,18 @@
             </td>
             <td data-label="Brand" style="text-transform: capitalize; color: var(--gold);">${prod.cat || 'Uncategorized'}</td>
             <td data-label="Sub Category" style="text-transform: capitalize; color: var(--admin-text); font-weight: 500;">${prod.filter || 'None'}</td>
-            <td data-label="Value" style="font-weight: 600;">
+            <td data-label="Selling Price" style="font-weight: 700; color: #1E1B29;">
               ${(Array.isArray(prod.variants) && prod.variants.length > 0 && (!prod.price || prod.price === 0)) ?
                 `Rs. ${Number(prod.variants[0].price || 0).toLocaleString()} <span style="font-size: 10px; color: #888; font-weight: 400; display: block;">(from variant)</span>` :
                 `Rs. ${(prod.price || 0).toLocaleString()}`
               }
+            </td>
+            <td data-label="Cost Price" style="font-weight: 600; color: #047857;">
+              Rs. ${Number(prod.cost || 0).toLocaleString()}
+              ${(prod.price && prod.cost) ? `
+                <div style="font-size: 10px; font-weight: 700; color: ${(prod.price - prod.cost) >= 0 ? '#10B981' : '#ef4444'}; margin-top: 2px;">
+                  ${(prod.price - prod.cost) >= 0 ? '+' : ''}Rs. ${(prod.price - prod.cost).toLocaleString()}
+                </div>` : ''}
             </td>
             <td data-label="Disc." style="text-align: center;">${prod.discount || 0}%</td>
             <td data-label="Stock" style="text-align: center;"><span style="color: ${(prod.stock || 0) < 10 ? '#d32f2f' : '#4caf50'}; font-weight: 700;">${prod.stock || 0}</span></td>
@@ -5557,39 +5739,40 @@
     // ═══════════════════════════════════════════════════════════════
     // 💎 PRODUCT VARIATION BUILDER (ml, tablets, colours, gm, size)
     // ═══════════════════════════════════════════════════════════════
-    window.addVariantRow = function(name = '', type = 'ml', price = '', stock = '') {
+    window.addVariantRow = function(name = '', type = 'ml', price = '', stock = '', cost = '') {
         const container = document.getElementById('p-variants-container');
         if (!container) return;
         const rowId = 'var-row-' + Date.now() + '-' + Math.floor(Math.random()*1000);
         const row = document.createElement('div');
         row.id = rowId;
         row.className = 'variant-row-item';
-        row.style.cssText = 'display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1fr 40px; gap: 8px; align-items: center; background: #fff; padding: 10px 12px; border-radius: 10px; border: 1px solid #E5E1EE;';
-
-        row.style.cssText = 'display: grid; grid-template-columns: 2.2fr 1.3fr 1.3fr 1fr 40px; gap: 10px; align-items: center; background: #ffffff; padding: 12px 14px; border-radius: 14px; border: 1px solid #EBE7F3; box-shadow: 0 2px 8px rgba(43,22,59,0.03); transition: all 0.2s;';
+        row.style.cssText = 'display: grid; grid-template-columns: 2fr 1.1fr 1.1fr 1.1fr 1fr 36px; gap: 8px; align-items: center; background: #ffffff; padding: 12px 14px; border-radius: 14px; border: 1px solid #EBE7F3; box-shadow: 0 2px 8px rgba(43,22,59,0.03); transition: all 0.2s;';
 
         row.innerHTML = `
             <div>
-                <input type="text" class="v-name" value="${name}" placeholder="e.g. 30ml or 60 Tablets" style="width: 100%; padding: 10px 12px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 13px; font-weight: 600; color: #1E1B29; box-sizing: border-box; background: #FAF9FB;" onfocus="this.style.borderColor='#6C38A5'; this.style.background='#fff';" onblur="this.style.borderColor='#E8E5EE'; this.style.background='#FAF9FB';">
+                <input type="text" class="v-name" value="${name}" placeholder="e.g. 30 Tablets or 60ml" style="width: 100%; padding: 10px 10px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 13px; font-weight: 600; color: #1E1B29; box-sizing: border-box; background: #FAF9FB;" onfocus="this.style.borderColor='#6C38A5'; this.style.background='#fff';" onblur="this.style.borderColor='#E8E5EE'; this.style.background='#FAF9FB';">
             </div>
             <div>
-                <select class="v-type" style="width: 100%; padding: 10px 8px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 12.5px; font-weight: 700; color: #4B1A66; box-sizing: border-box; background: #FAF9FB; cursor: pointer;">
-                    <option value="ml" ${type === 'ml' ? 'selected' : ''}>💧 ml</option>
+                <select class="v-type" style="width: 100%; padding: 10px 6px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 12px; font-weight: 700; color: #4B1A66; box-sizing: border-box; background: #FAF9FB; cursor: pointer;">
                     <option value="tablets" ${type === 'tablets' ? 'selected' : ''}>💊 Tablets</option>
+                    <option value="ml" ${type === 'ml' ? 'selected' : ''}>💧 ml</option>
                     <option value="pack" ${type === 'pack' ? 'selected' : ''}>📦 Pack</option>
                     <option value="gm" ${type === 'gm' ? 'selected' : ''}>⚖️ gm (Grams)</option>
-                    <option value="size" ${type === 'size' ? 'selected' : ''}>📏 Size (S, M, L)</option>
-                    <option value="colours" ${type === 'colours' ? 'selected' : ''}>🎨 Colours / Shades</option>
+                    <option value="size" ${type === 'size' ? 'selected' : ''}>📏 Size</option>
+                    <option value="colours" ${type === 'colours' ? 'selected' : ''}>🎨 Shade</option>
                 </select>
             </div>
             <div>
-                <input type="number" class="v-price" value="${price}" placeholder="e.g. 3500" style="width: 100%; padding: 10px 12px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 13px; font-weight: 700; color: #1E1B29; box-sizing: border-box; background: #FAF9FB;" onfocus="this.style.borderColor='#6C38A5'; this.style.background='#fff';" onblur="this.style.borderColor='#E8E5EE'; this.style.background='#FAF9FB';">
+                <input type="number" class="v-price" value="${price}" placeholder="Selling (Rs)" style="width: 100%; padding: 10px 8px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 13px; font-weight: 700; color: #1E1B29; box-sizing: border-box; background: #FAF9FB;" onfocus="this.style.borderColor='#6C38A5'; this.style.background='#fff';" onblur="this.style.borderColor='#E8E5EE'; this.style.background='#FAF9FB';">
             </div>
             <div>
-                <input type="number" class="v-stock" value="${stock}" placeholder="e.g. 50" style="width: 100%; padding: 10px 12px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 13px; font-weight: 600; color: #10B981; box-sizing: border-box; background: #FAF9FB;" onfocus="this.style.borderColor='#6C38A5'; this.style.background='#fff';" onblur="this.style.borderColor='#E8E5EE'; this.style.background='#FAF9FB';">
+                <input type="number" class="v-cost" value="${cost || ''}" placeholder="Cost (Rs)" style="width: 100%; padding: 10px 8px; border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 10px; font-size: 13px; font-weight: 600; color: #047857; box-sizing: border-box; background: #F0FDF4;" onfocus="this.style.borderColor='#10B981'; this.style.background='#fff';" onblur="this.style.borderColor='rgba(16, 185, 129, 0.35)'; this.style.background='#F0FDF4';">
+            </div>
+            <div>
+                <input type="number" class="v-stock" value="${stock}" placeholder="Stock" style="width: 100%; padding: 10px 8px; border: 1.5px solid #E8E5EE; border-radius: 10px; font-size: 13px; font-weight: 600; color: #10B981; box-sizing: border-box; background: #FAF9FB;" onfocus="this.style.borderColor='#6C38A5'; this.style.background='#fff';" onblur="this.style.borderColor='#E8E5EE'; this.style.background='#FAF9FB';">
             </div>
             <div style="text-align: center;">
-                <button type="button" title="Remove" onclick="document.getElementById('${rowId}').remove()" style="background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15); width: 34px; height: 34px; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ef4444'; this.style.color='#fff';" onmouseout="this.style.background='rgba(239, 68, 68, 0.08)'; this.style.color='#ef4444';">✕</button>
+                <button type="button" title="Remove" onclick="document.getElementById('${rowId}').remove()" style="background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#ef4444'; this.style.color='#fff';" onmouseout="this.style.background='rgba(239, 68, 68, 0.08)'; this.style.color='#ef4444';">✕</button>
             </div>
         `;
         container.appendChild(row);
@@ -5602,9 +5785,10 @@
             const name = r.querySelector('.v-name')?.value?.trim();
             const type = r.querySelector('.v-type')?.value?.trim() || 'ml';
             const price = Number(r.querySelector('.v-price')?.value) || 0;
+            const cost = Number(r.querySelector('.v-cost')?.value) || 0;
             const stock = Number(r.querySelector('.v-stock')?.value) || 0;
             if (name) {
-                list.push({ name, type, price, stock });
+                list.push({ name, type, price, cost, stock });
             }
         });
         return list;
@@ -5616,7 +5800,7 @@
         container.innerHTML = '';
         if (Array.isArray(variants) && variants.length > 0) {
             variants.forEach(v => {
-                window.addVariantRow(v.name || '', v.type || 'ml', v.price || '', v.stock || '');
+                window.addVariantRow(v.name || '', v.type || 'ml', v.price || '', v.stock || '', v.cost || '');
             });
         }
     };
@@ -5667,6 +5851,7 @@
             'p-cat': prod.cat,
             'p-filter': prod.filter,
             'p-price': prod.price,
+            'p-cost': prod.cost || 0,
             'p-id-field': prod.id,
             'p-discount': prod.discount,
             'p-img': prod.img || (prod.images && prod.images[0]) || '',
@@ -5744,6 +5929,7 @@
                   images: imagesArray,
                   desc: document.getElementById('p-desc').value,
                   howToUse: document.getElementById('p-how-to-use').value || '',
+                  cost: Number(document.getElementById('p-cost')?.value) || 0,
                   variants: (function() {
                       const v = window.collectVariants();
                       console.log('📦 Submitting variants:', v);
@@ -5928,6 +6114,48 @@
         }
     };
 
+    // 💰 Financial calculation helper: Selling Price, Cost Price, Profit, Margin
+    window.calculateOrderFinancials = function(order) {
+      if (!order) return { totalRevenue: 0, totalCost: 0, profit: 0, margin: 0 };
+      const products = Array.isArray(window.productsData) ? window.productsData : [];
+      let totalCost = 0;
+      const items = Array.isArray(order.orderItems) ? order.orderItems : [];
+      
+      items.forEach(item => {
+        const pName = (item.name || '').trim().toLowerCase();
+        const pId = item.product || item.productId;
+        
+        // Find matching product in memory
+        const prod = products.find(p => {
+          if (!p) return false;
+          if (pId && (p._id === pId || p.id === pId)) return true;
+          if (p.name && p.name.trim().toLowerCase() === pName) return true;
+          return false;
+        });
+
+        let unitCost = 0;
+        if (prod) {
+          // Check if order item matches a specific variant with custom cost
+          if (Array.isArray(prod.variants) && prod.variants.length > 0) {
+            const vMatch = prod.variants.find(v => {
+              if (!v || !v.name) return false;
+              const vn = v.name.toLowerCase();
+              return pName.includes(vn) || (item.variant && String(item.variant).toLowerCase() === vn);
+            });
+            if (vMatch && Number(vMatch.cost) > 0) unitCost = Number(vMatch.cost);
+          }
+          if (!unitCost) unitCost = Number(prod.cost || 0);
+        }
+
+        totalCost += unitCost * (Number(item.qty) || 1);
+      });
+
+      const totalRevenue = Number(order.totalPrice || 0);
+      const profit = totalRevenue - totalCost;
+      const margin = totalRevenue > 0 ? Number(((profit / totalRevenue) * 100).toFixed(1)) : 0;
+      return { totalRevenue, totalCost, profit, margin };
+    };
+
     async function fetchOrders() {
       const ordersTable = document.getElementById('orders-table');
       if (!ordersTable) return;
@@ -6044,7 +6272,20 @@
                 ${itemsSummary}
               </div>
             </td>
-            <td style="font-weight: 700;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td>
+            ${(function() {
+              const fin = window.calculateOrderFinancials(order);
+              const isProfitPositive = fin.profit >= 0;
+              return `
+                <td style="font-weight: 700; color: #1E1B29;">Rs. ${(order.totalPrice || 0).toLocaleString()}</td>
+                <td style="font-weight: 600; color: #047857; font-size: 12px;">Rs. ${fin.totalCost.toLocaleString()}</td>
+                <td>
+                  <span style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; font-weight: 800; font-size: 11px; background: ${isProfitPositive ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)'}; color: ${isProfitPositive ? '#10B981' : '#ef4444'};">
+                    ${isProfitPositive ? '▲' : '▼'} Rs. ${Math.abs(fin.profit).toLocaleString()}
+                    <span style="font-size: 9px; opacity: 0.85;">(${fin.margin}%)</span>
+                  </span>
+                </td>
+              `;
+            })()}
             <td><span style="background: ${pmBg}; color: ${pmColor}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap;">${pmLabel}</span>${paymentStatusHtml}</td>
             <td style="font-size: 12px; white-space: nowrap;">${timeStr}</td>
             <td><span style="background: ${order.isDelivered ? '#ecfdf5' : '#fffbeb'}; color:${order.isDelivered ? '#10b981' : '#d97706'}; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;">${order.isDelivered ? 'Delivered' : 'Processing'}</span></td>
@@ -6094,14 +6335,54 @@
             timeEl.innerText = orderDate.toLocaleDateString('en-LK', { year: 'numeric', month: 'long', day: 'numeric' }) + ' at ' + orderDate.toLocaleTimeString('en-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
         }
         
+        const fin = window.calculateOrderFinancials ? window.calculateOrderFinancials(order) : { totalRevenue: order.totalPrice || 0, totalCost: 0, profit: order.totalPrice || 0, margin: 100 };
+        const revEl = document.getElementById('view-order-revenue');
+        const costEl = document.getElementById('view-order-cost');
+        const profitEl = document.getElementById('view-order-profit');
+        if (revEl) revEl.innerText = 'Rs. ' + Number(fin.totalRevenue || 0).toLocaleString();
+        if (costEl) costEl.innerText = 'Rs. ' + Number(fin.totalCost || 0).toLocaleString();
+        if (profitEl) {
+          profitEl.innerText = (fin.profit >= 0 ? '+' : '-') + 'Rs. ' + Math.abs(fin.profit).toLocaleString() + ' (' + fin.margin + '%)';
+          profitEl.style.color = fin.profit >= 0 ? '#10B981' : '#ef4444';
+        }
+
         const itemsDiv = document.getElementById('view-cust-items');
         const orderItems = Array.isArray(order.orderItems) ? order.orderItems : [];
-        itemsDiv.innerHTML = orderItems.map(item => `
-            <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <span>${item.qty || 1}x ${item.name || 'Product'}</span>
-                <span style="color:var(--admin-accent); font-weight: 600;">Rs. ${( (item.price || 0) * (item.qty || 1) ).toLocaleString()}</span>
+        const prods = Array.isArray(window.productsData) ? window.productsData : [];
+        
+        itemsDiv.innerHTML = orderItems.map(item => {
+            const pName = (item.name || '').trim().toLowerCase();
+            const pId = item.product || item.productId;
+            const matchedP = prods.find(p => (pId && (p._id === pId || p.id === pId)) || (p.name && p.name.trim().toLowerCase() === pName));
+            let unitCost = 0;
+            if (matchedP) {
+              if (Array.isArray(matchedP.variants)) {
+                const vm = matchedP.variants.find(v => v && v.name && pName.includes(v.name.toLowerCase()));
+                if (vm && vm.cost) unitCost = Number(vm.cost);
+              }
+              if (!unitCost) unitCost = Number(matchedP.cost || 0);
+            }
+            const itemTotalRevenue = (item.price || 0) * (item.qty || 1);
+            const itemTotalCost = unitCost * (item.qty || 1);
+            const itemProfit = itemTotalRevenue - itemTotalCost;
+
+            return `
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                <div>
+                  <div style="font-weight: 600; color: #1E1B29;">${item.qty || 1}x ${item.name || 'Product'}</div>
+                  <div style="font-size: 11px; color: #7E7890; margin-top: 2px;">
+                    Cost: Rs. ${unitCost.toLocaleString()} each • Total Cost: Rs. ${itemTotalCost.toLocaleString()}
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <span style="color:var(--admin-accent); font-weight: 700; font-size: 13px;">Rs. ${itemTotalRevenue.toLocaleString()}</span>
+                  <div style="font-size: 11px; font-weight: 700; color: ${itemProfit >= 0 ? '#10B981' : '#ef4444'};">
+                    ${itemProfit >= 0 ? '+' : ''}Rs. ${itemProfit.toLocaleString()} profit
+                  </div>
+                </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
         
         document.getElementById('customer-modal').style.display = 'flex';
     };
@@ -6424,6 +6705,28 @@
               
               animateValue('stat-sales', 0, sales, 1500, "Rs. ");
               animateValue('stat-orders', 0, orders, 1500);
+
+              // Update Net Profit Card
+              let profit = data.totalProfit !== undefined ? data.totalProfit : 0;
+              let margin = data.profitMargin !== undefined ? data.profitMargin : 0;
+
+              // If backend hasn't populated profit yet, calculate dynamically from orders & productsData
+              if (profit === 0 && Array.isArray(window.allOrders) && window.allOrders.length > 0 && typeof window.calculateOrderFinancials === 'function') {
+                let calcCost = 0;
+                window.allOrders.forEach(o => {
+                  const fin = window.calculateOrderFinancials(o);
+                  calcCost += fin.totalCost;
+                });
+                profit = Math.max(0, sales - calcCost);
+                margin = sales > 0 ? Number(((profit / sales) * 100).toFixed(1)) : 0;
+              }
+
+              const profitEl = document.getElementById('stat-profit');
+              if (profitEl) animateValue('stat-profit', 0, profit, 1500, "Rs. ");
+              const profitBadge = document.getElementById('stat-profit-badge');
+              if (profitBadge) profitBadge.textContent = margin + '% Margin';
+              const profitBar = document.getElementById('stat-profit-bar');
+              if (profitBar) profitBar.style.width = Math.min(100, Math.max(10, margin)) + '%';
               
               // Find and update Client and Inquiry stats (mapping from data)
               const statCards = document.querySelectorAll('.admin-stat-card .val');
@@ -6757,12 +7060,25 @@
             .sort((a, b) => productTotals[b] - productTotals[a])
             .slice(0, 3);
 
-        // Daily series for top products + overall total sales
+        // Daily series for overall sales and net profit
         const overallDailySales = days.map(day => {
             return orders
                 .filter(o => o.createdAt && o.createdAt.startsWith(day))
                 .reduce((sum, o) => sum + Number(o.totalPrice || 0), 0);
         });
+
+        const overallDailyProfit = days.map(day => {
+            let dayProfit = 0;
+            orders.filter(o => o.createdAt && o.createdAt.startsWith(day)).forEach(o => {
+                const fin = typeof window.calculateOrderFinancials === 'function' 
+                  ? window.calculateOrderFinancials(o) 
+                  : { profit: Number(o.totalPrice || 0) };
+                dayProfit += fin.profit;
+            });
+            return dayProfit;
+        });
+
+        const metricMode = window.trendMetricMode || 'all';
 
         const colorPalette = [
             { border: '#2B163B', bg: 'rgba(43, 22, 59, 0.08)' },    // Deep Plum
@@ -6773,22 +7089,43 @@
 
         const datasets = [];
 
-        // Dataset 1: Total Store Sales
-        datasets.push({
-            label: 'Total Store Sales',
-            data: overallDailySales,
-            borderColor: '#2B163B',
-            backgroundColor: 'rgba(43, 22, 59, 0.05)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4,
-            pointBackgroundColor: '#2B163B',
-            pointRadius: 4,
-            pointHoverRadius: 6
-        });
+        // Dataset 1: Total Store Sales (if mode is 'all' or 'sales')
+        if (metricMode === 'all' || metricMode === 'sales') {
+          datasets.push({
+              label: 'Total Sales (Revenue)',
+              data: overallDailySales,
+              borderColor: '#2B163B',
+              backgroundColor: 'rgba(43, 22, 59, 0.04)',
+              borderWidth: 3,
+              fill: metricMode === 'sales',
+              tension: 0.4,
+              pointBackgroundColor: '#2B163B',
+              pointRadius: 4,
+              pointHoverRadius: 6
+          });
+        }
+
+        // Dataset 2: Total Store Net Profit (if mode is 'all' or 'profit')
+        if (metricMode === 'all' || metricMode === 'profit') {
+          datasets.push({
+              label: 'Net Profit 💰',
+              data: overallDailyProfit,
+              borderColor: '#10B981',
+              backgroundColor: 'rgba(16, 185, 129, 0.12)',
+              borderWidth: 3.5,
+              fill: true,
+              tension: 0.4,
+              pointBackgroundColor: '#10B981',
+              pointBorderColor: '#ffffff',
+              pointBorderWidth: 2,
+              pointRadius: 5,
+              pointHoverRadius: 7
+          });
+        }
 
         // Datasets for Top Products
         topProductNames.forEach((prodName, idx) => {
+            if (metricMode === 'profit') return; // In profit-only view, show clean net profit
             const col = colorPalette[(idx + 1) % colorPalette.length];
             const dailyData = days.map(day => {
                 let daySum = 0;
@@ -6875,6 +7212,16 @@
             }
         });
     }
+
+    window.setTrendMetricMode = function(mode, btn) {
+        window.trendMetricMode = mode;
+        ['tab-trend-mode-all', 'tab-trend-mode-sales', 'tab-trend-mode-profit'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('active');
+        });
+        if (btn) btn.classList.add('active');
+        renderProductSalesTrendChart();
+    };
 
     window.filterProductSalesTrend = function(daysCount, btn) {
         trendDayLimit = daysCount;
@@ -7440,7 +7787,8 @@
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Sub Category</label>
                     <input type="text" id="p-filter" list="p-filter-list" required placeholder="Select or type new..." style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;">
                     <datalist id="p-filter-list"></datalist></div>
-                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Price (LKR)</label><input type="number" id="p-price" required style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Selling Price (LKR)</label><input type="number" id="p-price" required placeholder="e.g. 5400" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
+                    <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: #10B981; display: block; margin-bottom: 8px; font-weight: 700;">Cost Price (LKR) — for Profit</label><input type="number" id="p-cost" value="0" placeholder="e.g. 3800" style="width: 100%; padding: 12px; border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 8px; background: #FAFDFB;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Stock</label><input type="number" id="p-stock" value="50" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <div class="form-group"><label style="font-size: 11px; text-transform: uppercase; color: var(--admin-muted); display: block; margin-bottom: 8px;">Discount %</label><input type="number" id="p-discount" value="0" style="width: 100%; padding: 12px; border: 1px solid var(--admin-border); border-radius: 8px;"></div>
                     <!-- IMAGERY 4-GRID -->
@@ -7523,10 +7871,11 @@
                         </div>
 
                         <!-- Column Headers for Crystal Clarity -->
-                        <div style="display: grid; grid-template-columns: 2.2fr 1.3fr 1.3fr 1fr 40px; gap: 10px; padding: 0 14px 8px 14px; font-size: 10.5px; font-weight: 800; color: #7E7890; text-transform: uppercase; letter-spacing: 0.05em;">
+                        <div style="display: grid; grid-template-columns: 2fr 1.1fr 1.1fr 1.1fr 1fr 36px; gap: 8px; padding: 0 14px 8px 14px; font-size: 10.5px; font-weight: 800; color: #7E7890; text-transform: uppercase; letter-spacing: 0.05em;">
                             <span>Variation Name</span>
                             <span>Type</span>
                             <span>Price (Rs.)</span>
+                            <span style="color: #059669;">Cost (Rs.)</span>
                             <span>Stock</span>
                             <span></span>
                         </div>
@@ -7588,8 +7937,24 @@
             <div><label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--admin-muted);">Order Time</label><p id="view-cust-time" style="font-size: 14px; margin: 5px 0 0 0;"></p></div>
           </div>
 
-          <div style="margin-top:35px; border-top: 1px solid var(--admin-border); padding-top: 25px;">
-            <label style="font-size:10px; text-transform:uppercase; color:var(--admin-muted); letter-spacing:0.1em; display:block; margin-bottom:15px;">Itemized Manifest</label>
+          <!-- Order Profit & Cost Summary Card -->
+          <div style="margin-top: 25px; padding: 14px 18px; background: #F0FDF4; border: 1.5px solid rgba(16, 185, 129, 0.3); border-radius: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div>
+              <span style="font-size: 10px; text-transform: uppercase; color: #7E7890; font-weight: 700; display: block;">Total Selling</span>
+              <span id="view-order-revenue" style="font-size: 15px; font-weight: 800; color: #1E1B29;">Rs. 0</span>
+            </div>
+            <div>
+              <span style="font-size: 10px; text-transform: uppercase; color: #7E7890; font-weight: 700; display: block;">Total Cost</span>
+              <span id="view-order-cost" style="font-size: 15px; font-weight: 700; color: #047857;">Rs. 0</span>
+            </div>
+            <div>
+              <span style="font-size: 10px; text-transform: uppercase; color: #059669; font-weight: 800; display: block;">Net Profit</span>
+              <span id="view-order-profit" style="font-size: 15px; font-weight: 800; color: #10B981;">Rs. 0</span>
+            </div>
+          </div>
+
+          <div style="margin-top:25px; border-top: 1px solid var(--admin-border); padding-top: 20px;">
+            <label style="font-size:10px; text-transform:uppercase; color:var(--admin-muted); letter-spacing:0.1em; display:block; margin-bottom:15px;">Itemized Manifest & Cost Breakdown</label>
             <div id="view-cust-items" style="display: flex; flex-direction: column; gap: 12px;"></div>
           </div>
         </div>

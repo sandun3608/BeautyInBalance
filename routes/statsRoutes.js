@@ -64,6 +64,53 @@ router.get('/summary', protect, async (req, res) => {
         const orders = await Order.find({});
         const totalSales = orders.reduce((acc, current) => acc + (current.totalPrice || 0), 0);
 
+        // Fetch products to compute cost and net profit
+        const products = await Product.find({});
+        const productLookup = {};
+        products.forEach(prod => {
+            if (prod._id) productLookup[String(prod._id)] = prod;
+            if (prod.id) productLookup[String(prod.id)] = prod;
+            if (prod.name) productLookup[String(prod.name).trim().toLowerCase()] = prod;
+        });
+
+        let totalCost = 0;
+        const dailyProfitMap = {};
+
+        orders.forEach(o => {
+            const dayStr = o.createdAt ? new Date(o.createdAt).toISOString().slice(0, 10) : null;
+            if (dayStr && !dailyProfitMap[dayStr]) {
+                dailyProfitMap[dayStr] = { sales: 0, cost: 0, profit: 0 };
+            }
+
+            let orderCost = 0;
+            if (Array.isArray(o.orderItems)) {
+                o.orderItems.forEach(item => {
+                    const prodKey = item.product || item.productId || (item.name ? item.name.trim().toLowerCase() : '');
+                    const matchedProd = productLookup[prodKey] || productLookup[item.name ? item.name.trim().toLowerCase() : ''];
+                    let unitCost = 0;
+                    if (matchedProd) {
+                        if (item.variant && Array.isArray(matchedProd.variants)) {
+                            const varMatch = matchedProd.variants.find(v => v.name && v.name.toLowerCase() === String(item.variant).toLowerCase());
+                            if (varMatch && varMatch.cost) unitCost = Number(varMatch.cost);
+                        }
+                        if (!unitCost) unitCost = Number(matchedProd.cost) || 0;
+                    }
+                    const itemCost = unitCost * (Number(item.qty) || 1);
+                    orderCost += itemCost;
+                });
+            }
+            totalCost += orderCost;
+
+            if (dayStr) {
+                dailyProfitMap[dayStr].sales += Number(o.totalPrice) || 0;
+                dailyProfitMap[dayStr].cost += orderCost;
+                dailyProfitMap[dayStr].profit += (Number(o.totalPrice) || 0) - orderCost;
+            }
+        });
+
+        const totalProfit = Math.max(0, totalSales - totalCost);
+        const profitMargin = totalSales > 0 ? Number(((totalProfit / totalSales) * 100).toFixed(1)) : 0;
+
         // Product Analysis (most popular products in orders)
         // Let's count items across all orders
         let itemCounts = {};
@@ -141,8 +188,17 @@ router.get('/summary', protect, async (req, res) => {
             recentActivity,
             graphData: {
                 dailyVisits,
-                dailyOrders
-            }
+                dailyOrders: dailyOrders.map(d => ({
+                    _id: d._id,
+                    count: d.count,
+                    sales: d.sales,
+                    cost: dailyProfitMap[d._id] ? dailyProfitMap[d._id].cost : 0,
+                    profit: dailyProfitMap[d._id] ? dailyProfitMap[d._id].profit : d.sales
+                }))
+            },
+            totalCost,
+            totalProfit,
+            profitMargin
         });
     } catch (error) {
         console.error("Stats fetch error:", error);
