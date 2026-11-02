@@ -1075,8 +1075,8 @@
       el.closest('.tab-item').classList.toggle('active');
     }
 
-    function buyItNow(prodId, qty = 1) {
-      addToCart(prodId, qty, false);
+    function buyItNow(prodId, qty = 1, variantObj = null) {
+      addToCart(prodId, qty, false, variantObj);
       window.location.href = 'checkout.html';
     }
 
@@ -1126,25 +1126,48 @@
       if (!v) return;
       window.selectedVariantObj = v;
 
+      const prod = window.currentProductObj;
+      const vStock = (v.stock !== undefined && v.stock !== null && v.stock !== '')
+        ? Number(v.stock)
+        : Number(prod.stock || 0);
+      const isVarSoldOut = vStock <= 0;
+
       // Update active styling on pills
       document.querySelectorAll('.var-pill-btn').forEach((btn, idx) => {
+        const isSoldOut = btn.getAttribute('data-soldout') === '1';
         if (idx === index) {
-          btn.style.background = '#2D1B12';
-          btn.style.color = '#ffffff';
-          btn.style.borderColor = '#2D1B12';
+          btn.classList.add('active');
+          if (isSoldOut) {
+            btn.style.background = '#e5e7eb';
+            btn.style.color = '#4b5563';
+            btn.style.borderColor = '#9ca3af';
+          } else {
+            btn.style.background = '#2D1B12';
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#2D1B12';
+          }
         } else {
-          btn.style.background = '#ffffff';
-          btn.style.color = '#2D1B12';
-          btn.style.borderColor = '#e2e2e5';
+          btn.classList.remove('active');
+          if (isSoldOut) {
+            btn.style.background = '#f3f4f6';
+            btn.style.color = '#9ca3af';
+            btn.style.borderColor = '#e5e7eb';
+          } else {
+            btn.style.background = '#ffffff';
+            btn.style.color = '#2D1B12';
+            btn.style.borderColor = '#e2e2e5';
+          }
         }
       });
 
       // Update variant label
       const label = document.getElementById('selected-variant-label');
-      if (label) label.textContent = v.name;
+      if (label) {
+        label.textContent = v.name + (isVarSoldOut ? ' (Sold Out)' : '');
+        label.style.color = isVarSoldOut ? '#ef4444' : '#6C38A5';
+      }
 
       // Calculate price with product discount
-      const prod = window.currentProductObj;
       const effectiveDiscount = (typeof getEffectiveProductDiscount === 'function')
         ? getEffectiveProductDiscount(prod)
         : Number(prod.discount || 0);
@@ -1168,20 +1191,123 @@
       // Update Koko 3x installment
       const kokoAmtEl = document.getElementById('koko-installment-amt');
       if (kokoAmtEl) {
-        // Koko installment displays directly on discounted price
-        kokoAmtEl.textContent = (finalDiscountedPrice / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        kokoAmtEl.textContent = (discountedPrice / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      // Update Stock bar & urgency
+      const stockContainer = document.getElementById('p-stock-indicator');
+      if (stockContainer) {
+        const stockPercent = isVarSoldOut ? 0 : Math.min(100, Math.round((vStock / 20) * 100));
+        const urgencyColor = isVarSoldOut ? '#ef4444' : (vStock <= 5 ? '#ef4444' : vStock <= 10 ? '#f59e0b' : '#0d7a2f');
+        const urgencyLabel = isVarSoldOut ? 'Out of Stock' : (vStock <= 5 ? 'Almost Gone!' : vStock <= 10 ? 'Selling Fast' : 'In Stock');
+        const stockText = isVarSoldOut ? '' : `&mdash; ${vStock} left`;
+        stockContainer.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="display: inline-block; width: 8px; height: 8px; background: ${urgencyColor}; border-radius: 50%; box-shadow: 0 0 8px ${urgencyColor}80; ${isVarSoldOut ? '' : 'animation: stockPulse 1.8s infinite ease-in-out;'}"></span>
+            <span style="font-size: 12px; font-weight: 800; color: ${urgencyColor}; font-family: var(--font-sans); letter-spacing: 0.5px; text-transform: uppercase;">${urgencyLabel}</span>
+            <span style="font-size: 12px; font-weight: 600; color: #888; font-family: var(--font-sans);">${stockText}</span>
+          </div>
+          <div style="width: 100%; height: 4px; background: rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden;">
+            <div style="width: ${stockPercent}%; height: 100%; background: ${urgencyColor}; border-radius: 10px; transition: width 1s ease;"></div>
+          </div>
+        `;
+      }
+
+      // Update Qty input
+      const qtyInput = document.getElementById('p-qty');
+      if (qtyInput) {
+        qtyInput.max = isVarSoldOut ? 0 : vStock;
+        if (isVarSoldOut) {
+          qtyInput.value = 0;
+        } else if (parseInt(qtyInput.value) > vStock) {
+          qtyInput.value = vStock;
+        } else if (parseInt(qtyInput.value) < 1) {
+          qtyInput.value = 1;
+        }
+      }
+
+      // Update Buy It Now button
+      const buyBtn = document.getElementById('p-buy-btn') || document.querySelector('.product-page-buy-btn');
+      if (buyBtn) {
+        if (isVarSoldOut) {
+          buyBtn.disabled = true;
+          buyBtn.onclick = null;
+          buyBtn.style.background = '#e0e0e0';
+          buyBtn.style.color = '#a0a0a0';
+          buyBtn.style.cursor = 'not-allowed';
+          buyBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
+            Sold Out
+          `;
+        } else {
+          buyBtn.disabled = false;
+          buyBtn.onclick = window.executeBuyItNow;
+          buyBtn.style.background = 'var(--btn-theme-color, #C6975A)';
+          buyBtn.style.color = '#fff';
+          buyBtn.style.cursor = 'pointer';
+          buyBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
+            Buy It Now
+          `;
+        }
+      }
+
+      // Update Add to Bag button
+      const cartBtn = document.getElementById('p-cart-btn') || document.querySelector('.product-page-cart-btn');
+      if (cartBtn) {
+        if (isVarSoldOut) {
+          cartBtn.disabled = true;
+          cartBtn.onclick = null;
+          cartBtn.style.borderColor = '#e0e0e0';
+          cartBtn.style.color = '#a0a0a0';
+          cartBtn.style.cursor = 'not-allowed';
+          cartBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Sold Out
+          `;
+        } else {
+          cartBtn.disabled = false;
+          cartBtn.onclick = window.executeAddToCart;
+          cartBtn.style.borderColor = '#2D1B12';
+          cartBtn.style.color = '#2D1B12';
+          cartBtn.style.cursor = 'pointer';
+          cartBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Add to Bag
+          `;
+        }
       }
     };
 
     window.executeAddToCart = function() {
       if (!window.currentProductObj) return;
+      const v = window.selectedVariantObj;
+      if (v) {
+        const varStock = (v.stock !== undefined && v.stock !== null && v.stock !== '') 
+          ? Number(v.stock) 
+          : Number(window.currentProductObj.stock || 0);
+        if (varStock <= 0) return;
+      } else if (Number(window.currentProductObj.stock || 0) <= 0) {
+        return;
+      }
       const qty = parseInt(document.getElementById('p-qty')?.value || 1);
+      if (qty < 1) return;
       addToCart(window.currentProductObj.id, qty, true, window.selectedVariantObj);
     };
 
     window.executeBuyItNow = function() {
       if (!window.currentProductObj) return;
+      const v = window.selectedVariantObj;
+      if (v) {
+        const varStock = (v.stock !== undefined && v.stock !== null && v.stock !== '') 
+          ? Number(v.stock) 
+          : Number(window.currentProductObj.stock || 0);
+        if (varStock <= 0) return;
+      } else if (Number(window.currentProductObj.stock || 0) <= 0) {
+        return;
+      }
       const qty = parseInt(document.getElementById('p-qty')?.value || 1);
+      if (qty < 1) return;
       buyItNow(window.currentProductObj.id, qty, window.selectedVariantObj);
     };
 
@@ -1208,7 +1334,17 @@
 
       document.title = product.name + " | Beauty in Balance";
       window.currentProductObj = product;
-      window.selectedVariantObj = (product.variants && product.variants.length > 0) ? product.variants[0] : null;
+      // Select initial variant (prefer in-stock variant if available)
+      let initialVarIdx = 0;
+      if (product.variants && Array.isArray(product.variants) && product.variants.length > 0) {
+        const inStockIdx = product.variants.findIndex(v => {
+          const s = (v.stock !== undefined && v.stock !== null && v.stock !== '') ? Number(v.stock) : Number(product.stock || 0);
+          return s > 0;
+        });
+        if (inStockIdx >= 0) initialVarIdx = inStockIdx;
+      }
+      const activeVariant = (product.variants && product.variants.length > 0) ? product.variants[initialVarIdx] : null;
+      window.selectedVariantObj = activeVariant;
 
       let discount = Number(product.discount || 0);
       let isFlashSaleOffer = false;
@@ -1230,14 +1366,17 @@
           }
         }
       }
-      const stockLeft = (product.stock !== undefined && product.stock !== null && product.stock !== '') ? Number(product.stock) : ((product.name.length % 12) + 8);
+      const prodStockFallback = (product.stock !== undefined && product.stock !== null && product.stock !== '') ? Number(product.stock) : ((product.name.length % 12) + 8);
+      const stockLeft = (activeVariant && activeVariant.stock !== undefined && activeVariant.stock !== null && activeVariant.stock !== '')
+        ? Number(activeVariant.stock)
+        : prodStockFallback;
       const isOutOfStock = stockLeft <= 0;
 
       const discountBadge = discount > 0 ? `<span class="rec-discount-badge">${discount}% OFF</span>` : '';
       const soldOutBadge = ''; // Sold out text removed from top
       const badgesHTML = (discountBadge || soldOutBadge) ? `<div class="product-badges">${discountBadge}${soldOutBadge}</div>` : '';
 
-      const basePrice = Number(product.price || 0);
+      const basePrice = Number((activeVariant && activeVariant.price) || product.price || 0);
       const discountedPrice = discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice;
       const priceHTML = discount > 0 
           ? `<span class="original-price" style="font-size: 0.6em; margin-right: 10px; color: #999; text-decoration: line-through;">Rs. ${basePrice.toLocaleString()}</span> Rs. ${discountedPrice.toLocaleString()}`
@@ -1249,7 +1388,7 @@
       const stockText = isOutOfStock ? '' : `&mdash; ${stockLeft} left`;
       
       const stockHTML = `
-        <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px;">
+        <div id="p-stock-indicator" style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 160px;">
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="display: inline-block; width: 8px; height: 8px; background: ${urgencyColor}; border-radius: 50%; box-shadow: 0 0 8px ${urgencyColor}80; ${isOutOfStock ? '' : 'animation: stockPulse 1.8s infinite ease-in-out;'}"></span>
             <span style="font-size: 12px; font-weight: 800; color: ${urgencyColor}; font-family: var(--font-sans); letter-spacing: 0.5px; text-transform: uppercase;">${urgencyLabel}</span>
@@ -1328,19 +1467,39 @@
                   <span style="font-size: 13px; font-weight: 700; color: #2D1B12; text-transform: uppercase; letter-spacing: 0.5px;">
                     Select ${product.variants[0].type ? product.variants[0].type.toUpperCase() : 'OPTION'}:
                   </span>
-                  <span id="selected-variant-label" style="font-size: 12px; font-weight: 700; color: #6C38A5;">${product.variants[0].name}</span>
+                  <span id="selected-variant-label" style="font-size: 12px; font-weight: 700; color: ${isOutOfStock ? '#ef4444' : '#6C38A5'};">${activeVariant ? activeVariant.name + (isOutOfStock ? ' (Sold Out)' : '') : ''}</span>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                  ${product.variants.map((v, idx) => `
+                  ${product.variants.map((v, idx) => {
+                    const vStock = (v.stock !== undefined && v.stock !== null && v.stock !== '') ? Number(v.stock) : Number(product.stock || 0);
+                    const isVarSold = vStock <= 0;
+                    const isActive = (idx === initialVarIdx);
+                    
+                    let bg = '#ffffff';
+                    let col = '#2D1B12';
+                    let border = '#e2e2e5';
+
+                    if (isVarSold) {
+                      bg = isActive ? '#e5e7eb' : '#f3f4f6';
+                      col = isActive ? '#4b5563' : '#9ca3af';
+                      border = isActive ? '#9ca3af' : '#e5e7eb';
+                    } else if (isActive) {
+                      bg = '#2D1B12';
+                      col = '#ffffff';
+                      border = '#2D1B12';
+                    }
+
+                    return `
                     <button type="button" 
-                      class="var-pill-btn ${idx === 0 ? 'active' : ''}" 
+                      class="var-pill-btn ${isActive ? 'active' : ''} ${isVarSold ? 'is-sold-out' : ''}" 
                       data-idx="${idx}"
+                      data-soldout="${isVarSold ? '1' : '0'}"
                       onclick="window.selectProductVariant(${idx})"
-                      style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid ${idx === 0 ? '#2D1B12' : '#e2e2e5'}; background: ${idx === 0 ? '#2D1B12' : '#ffffff'}; color: ${idx === 0 ? '#ffffff' : '#2D1B12'};">
-                      ${v.name}
-                      ${(v.price && v.price !== product.price) ? `<span style="font-size: 11px; opacity: 0.85; margin-left: 4px;">- Rs. ${Number(v.price).toLocaleString()}</span>` : ''}
+                      style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid ${border}; background: ${bg}; color: ${col};">
+                      ${v.name}${isVarSold ? ' - Sold Out' : ''}
                     </button>
-                  `).join('')}
+                    `;
+                  }).join('')}
                 </div>
               </div>
               ` : ''}
@@ -1384,11 +1543,11 @@
 
               <!-- Sleek Rounded Buttons vertically stacked -->
               <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-                 <button class="product-page-buy-btn" ${isOutOfStock ? 'disabled' : 'onclick="window.executeBuyItNow()"'} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: ${isOutOfStock ? '#e0e0e0' : 'var(--btn-theme-color, #C6975A)'}; border: none; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#fff'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: all 0.25s; font-family: var(--font-sans);">
+                 <button id="p-buy-btn" class="product-page-buy-btn" ${isOutOfStock ? 'disabled' : 'onclick="window.executeBuyItNow()"'} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: ${isOutOfStock ? '#e0e0e0' : 'var(--btn-theme-color, #C6975A)'}; border: none; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#fff'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: all 0.25s; font-family: var(--font-sans);">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V2L4 14h7v8l9-12h-7z"/></svg>
                     ${isOutOfStock ? "Sold Out" : "Buy It Now"}
                  </button>
-                 <button ${isOutOfStock ? 'disabled' : `onclick="window.executeAddToCart()" onmouseover="this.style.background='rgba(45,27,18,0.03)'" onmouseout="this.style.background='#fff'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: #fff; border: 1.5px solid ${isOutOfStock ? '#e0e0e0' : '#2D1B12'}; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#2D1B12'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
+                 <button id="p-cart-btn" class="product-page-cart-btn" ${isOutOfStock ? 'disabled' : `onclick="window.executeAddToCart()" onmouseover="if(!this.disabled)this.style.background='rgba(45,27,18,0.03)'" onmouseout="if(!this.disabled)this.style.background='#fff'"`} style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 48px; background: #fff; border: 1.5px solid ${isOutOfStock ? '#e0e0e0' : '#2D1B12'}; border-radius: 8px; color: ${isOutOfStock ? '#a0a0a0' : '#2D1B12'}; font-size: 14px; font-weight: 700; cursor: ${isOutOfStock ? 'not-allowed' : 'pointer'}; transition: background 0.25s; font-family: var(--font-sans);">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                     ${isOutOfStock ? "Sold Out" : "Add to Bag"}
                  </button>
