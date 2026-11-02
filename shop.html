@@ -1652,26 +1652,56 @@
         if (!b) return 'others';
         const lower = String(b).toLowerCase().trim();
         if (lower === 'ordinary' || lower === 'the ordinary') return 'ordinary';
-        if (lower === 'dr. rashel' || lower === 'dr rashel') return 'dr. rashel';
+        if (lower === 'dr. rashel' || lower === 'dr rashel' || lower === 'dr.rashel') return 'dr. rashel';
         if (lower === 'cool-vita' || lower === 'cool vita') return 'cool-vita';
         if (lower === 'nutrogena' || lower === 'neutrogena') return 'neutrogena';
+        if (lower === 'vaseline' || lower === 'vaseling') return 'vaseline';
+        if (lower === 'la roche-posay' || lower === 'laroche posay') return 'la roche-posay';
+        if (lower === 'joseon' || lower.includes('joseon')) return 'joseon';
         return lower;
       }
 
       if (currentBrand !== 'all') currentBrand = normalizeBrandKey(currentBrand);
 
+      function getActiveBrandOrderConfig() {
+        let list = window._homeBrandOrder;
+        if (!list) {
+          try {
+            const cached = localStorage.getItem('bib_home_brand_order');
+            if (cached) list = JSON.parse(cached);
+          } catch(e) {}
+        }
+        return (Array.isArray(list) && list.length > 0) ? list : null;
+      }
+
       function formatBrandName(b) {
         if (!b) return 'Others';
         const lower = normalizeBrandKey(b);
+
+        // Check if custom name is defined in admin brand sequence setting
+        const customConfig = getActiveBrandOrderConfig();
+        if (customConfig) {
+          const found = customConfig.find(item => {
+            const k = normalizeBrandKey(typeof item === 'object' ? (item.key || item.name || '') : String(item));
+            return k === lower;
+          });
+          if (found && typeof found === 'object' && found.name) return found.name;
+        }
+
         if (lower === 'ordinary') return 'The Ordinary';
         if (lower === 'cerave') return 'CeraVe';
         if (lower === 'cetaphil') return 'Cetaphil';
-        if (lower === 'dr. rashel') return 'Dr. Rashel';
-        if (lower === 'cool-vita') return 'Cool-Vita';
+        if (lower === 'dr. rashel') return 'DR. RASHEL';
+        if (lower === 'cool-vita') return 'COOL-VITA';
         if (lower === 'la roche-posay') return 'La Roche-Posay';
         if (lower === 'cosrx') return 'COSRX';
         if (lower === 'neutrogena') return 'Neutrogena';
-        if (lower === 'centellian24') return 'Centellian24';
+        if (lower === 'centellian24') return 'CENTELLIAN24';
+        if (lower === 'vaseline') return 'VASELINE';
+        if (lower === 'manee') return 'MANEE';
+        if (lower === 'celimax') return 'CELIMAX';
+        if (lower === 'perfectil') return 'PERFECTIL';
+        if (lower === 'joseon') return 'Beauty of Joseon';
         return lower.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
       }
 
@@ -1905,13 +1935,44 @@
         if ($('count-instock')) $('count-instock').textContent = inStockTotal;
         if ($('count-offers')) $('count-offers').textContent = offersTotal;
 
-        const priority = ['ordinary', 'cerave', 'cetaphil', 'vaseline', 'vatika', 'vitabiotics', 'manee', 'dr. rashel', 'cosrx', 'celimax', 'centellian24', 'cool-vita', 'perfectil', 'la roche-posay', 'neutrogena'];
-        const sortedBrands = Object.keys(brandCounts).sort((a, b) => {
-          const iA = priority.indexOf(a);
-          const iB = priority.indexOf(b);
-          if (iA !== -1 && iB !== -1) return iA - iB;
-          if (iA !== -1) return -1;
-          if (iB !== -1) return 1;
+        // Read admin brand order sequence
+        const customOrderConfig = getActiveBrandOrderConfig();
+        let customOrderKeys = null;
+        let hiddenBrandKeys = new Set();
+
+        if (customOrderConfig) {
+          customOrderKeys = customOrderConfig.map(item => {
+            const rawKey = typeof item === 'object' ? (item.key || item.name || '') : String(item);
+            return normalizeBrandKey(rawKey);
+          });
+
+          hiddenBrandKeys = new Set(
+            customOrderConfig
+              .filter(item => typeof item === 'object' && item.visible === false)
+              .map(item => normalizeBrandKey(item.key || item.name || ''))
+          );
+        }
+
+        const fallbackPriority = ['ordinary', 'cerave', 'cetaphil', 'vaseline', 'vatika', 'vitabiotics', 'manee', 'dr. rashel', 'cosrx', 'celimax', 'centellian24', 'cool-vita', 'perfectil', 'la roche-posay', 'neutrogena'];
+
+        let brandKeys = Object.keys(brandCounts);
+        if (hiddenBrandKeys.size > 0) {
+          brandKeys = brandKeys.filter(b => !hiddenBrandKeys.has(b));
+        }
+
+        const sortedBrands = brandKeys.sort((a, b) => {
+          if (customOrderKeys) {
+            const iA = customOrderKeys.indexOf(a);
+            const iB = customOrderKeys.indexOf(b);
+            if (iA !== -1 && iB !== -1) return iA - iB;
+            if (iA !== -1) return -1;
+            if (iB !== -1) return 1;
+          }
+          const fA = fallbackPriority.indexOf(a);
+          const fB = fallbackPriority.indexOf(b);
+          if (fA !== -1 && fB !== -1) return fA - fB;
+          if (fA !== -1) return -1;
+          if (fB !== -1) return 1;
           return (brandCounts[b] || 0) - (brandCounts[a] || 0);
         });
 

@@ -2257,6 +2257,9 @@ async function fetchHomeBrandOrderSetting() {
                 if (typeof window.renderHomeAllProducts === 'function' && document.querySelector('.hap-tabs')) {
                     window.renderHomeAllProducts();
                 }
+                if (typeof window.renderShop === 'function') {
+                    window.renderShop();
+                }
             }
         }
     } catch(e) {
