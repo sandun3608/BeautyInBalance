@@ -1369,6 +1369,7 @@
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-subscribers" class="admin-nav-link" onclick="window.switchTab('subscribers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Subscribers</div></li>
             <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-offers" class="admin-nav-link" onclick="window.switchTab('offers', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Offer Maintaining</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-all" class="admin-nav-link" onclick="window.switchTab('home-all', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home 'ALL' Products</div></li>
+          <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-brand-order" class="admin-nav-link" onclick="window.switchTab('brand-order', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="7" cy="6" r="1.5" fill="currentColor"/><circle cx="7" cy="12" r="1.5" fill="currentColor"/><circle cx="7" cy="18" r="1.5" fill="currentColor"/></svg> Home Brand Order</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-today-deals" class="admin-nav-link" onclick="window.switchTab('today-deals', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Today's Deals</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-videos" class="admin-nav-link" onclick="window.switchTab('home-videos', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg> Home Videos</div></li>
           <li style="border-bottom: 1px solid rgba(255,255,255,0.03);"><div id="nav-home-banner" class="admin-nav-link" onclick="window.switchTab('home-banner', this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" ry="3"/><circle cx="8.5" cy="10.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Home Banner</div></li>
@@ -2874,6 +2875,7 @@
         window.switchTab = function(tabName, el) {
             origSwitchTabBrand(tabName, el);
             if (tabName === 'brands') fetchAdminBrands();
+      if (tabName === 'brand-order' && typeof window.loadBrandOrderTab === 'function') window.loadBrandOrderTab();
         };
     </script>
     
@@ -2895,7 +2897,10 @@
         <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">These products will appear when a visitor clicks "ALL" on the home page.</div>
       </div>
     </div>
-    <div style="display:flex; align-items:center; gap:12px;">
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <button type="button" onclick="window.switchTab('brand-order', document.getElementById('nav-brand-order'))" style="background:rgba(255,255,255,0.12); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:10px 16px; border-radius:12px; font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:6px;">
+        🏷️ Change Brand Tabs Order
+      </button>
       <span id="home-all-count-pill" style="background:rgba(16,185,129,0.2);color:#10b981;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:800;">0 Selected</span>
       <button id="home-all-save-btn" onclick="window.saveHomeAllProducts(this)" style="background:linear-gradient(135deg,#c5965a,#a87c48);color:#fff;border:none;padding:12px 24px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 6px 18px rgba(197,150,90,0.35);">
         💾 Save to Website
@@ -3130,6 +3135,478 @@
   };
 
   window.loadHomeAllTab = loadHomeAllTab;
+})();
+</script>
+
+<!-- ===== TAB: HOME PAGE BRAND TABS ORDER (පිළිවෙළ) ===== -->
+<div id="tab-brand-order" class="admin-content" style="padding-bottom: 120px; display:none;">
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <div>
+      <h2 style="margin:0 0 6px 0; font-size:26px; font-weight:800; color:var(--admin-text); display: flex; align-items: center; gap: 10px;">
+        <span>🏷️</span> Home Page Brand Tabs Order (පිළිවෙළ)
+      </h2>
+      <p style="margin:0; color:#888; font-size:13px;">Arrange the sequence of brand filter tabs (ALL, The Ordinary, CeraVe, etc.) shown on the Home Page product grid. Use Up / Down arrows or Drag to reorder, then click Save.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+      <button type="button" onclick="window.resetBrandOrderDefaults()" style="background:#fff; border:1px solid #ddd; padding:11px 18px; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;">
+        🔄 Reset Defaults
+      </button>
+      <button type="button" id="brand-order-save-btn" onclick="window.saveHomeBrandOrder(this)" style="background:linear-gradient(135deg,#c5965a,#a87c48); color:#fff; border:none; padding:12px 24px; border-radius:12px; font-weight:800; font-size:14px; cursor:pointer; box-shadow:0 6px 18px rgba(197,150,90,0.35); display:flex; align-items:center; gap:8px;">
+        💾 Save Brand Order to Website
+      </button>
+    </div>
+  </div>
+
+  <!-- Live Simulation Preview -->
+  <div style="background: #ffffff; border: 1.5px solid #E5E1EE; border-radius: 18px; padding: 20px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="display: inline-block; width: 8px; height: 8px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px #10B981;"></span>
+        <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #7E7890;">Live Home Page Preview:</span>
+      </div>
+      <span style="font-size: 11.5px; color: #888;">(Shows how the tabs will appear to customers on the homepage)</span>
+    </div>
+    <div id="brand-order-live-preview" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; align-items: center;">
+      <!-- Real-time pills rendered here -->
+    </div>
+  </div>
+
+  <!-- Add New Brand Quick Input -->
+  <div style="background: #FAF9FD; border: 1.5px dashed rgba(108, 56, 165, 0.25); border-radius: 14px; padding: 14px 20px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 280px;">
+      <span style="font-size: 13px; font-weight: 700; color: #2D143D;">Add / Include Brand:</span>
+      <input type="text" id="add-brand-order-input" placeholder="Type brand name (e.g. Skin1004, Anua, Axis-Y...)" style="flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 13px;">
+      <button type="button" onclick="window.addBrandToOrderList()" style="background: #2D143D; color: #fff; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 12.5px; cursor: pointer;">+ Add to Order</button>
+    </div>
+    <div style="font-size: 12px; color: #7E7890;">
+      💡 Tip: Click <b>▲</b> or <b>▼</b> or drag the cards to set the exact order you want.
+    </div>
+  </div>
+
+  <!-- Reorderable List of Brand Cards -->
+  <div id="brand-order-items-list" style="display: flex; flex-direction: column; gap: 10px;">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- Save Notification Message -->
+  <div id="brand-order-msg" style="margin-top: 18px; font-size: 14px; font-weight: 700; display: none; padding: 14px 20px; border-radius: 12px;"></div>
+</div>
+
+<script>
+(function() {
+  const SETTING_KEY = 'home_brand_order';
+  const DEFAULT_ORDER = [
+    'ordinary', 
+    'cerave', 
+    'vaseline', 
+    'manee', 
+    'cool-vita', 
+    'celimax', 
+    'centellian24', 
+    'cosrx', 
+    'dr. rashel', 
+    'perfectil', 
+    'la roche-posay'
+  ];
+
+  let brandOrderItems = []; // Array of { key, name, visible, count }
+  let draggedIndex = null;
+
+  function getApiBase() {
+    return window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+  }
+
+  function formatBrandName(key, originalName) {
+    if (originalName) return originalName;
+    const k = String(key || '').trim().toLowerCase();
+    if (k === 'ordinary') return 'The Ordinary';
+    if (k === 'cerave') return 'CeraVe';
+    if (k === 'vaseline') return 'VASELINE';
+    if (k === 'manee') return 'MANEE';
+    if (k === 'cool-vita') return 'COOL-VITA';
+    if (k === 'celimax') return 'CELIMAX';
+    if (k === 'centellian24') return 'CENTELLIAN24';
+    if (k === 'cosrx') return 'COSRX';
+    if (k === 'dr. rashel' || k === 'dr.rashel') return 'DR. RASHEL';
+    if (k === 'perfectil') return 'PERFECTIL';
+    if (k === 'la roche-posay') return 'La Roche-Posay';
+    // Title Case default
+    return k.charAt(0).toUpperCase() + k.slice(1);
+  }
+
+  // Load Brand Order Data
+  async function loadBrandOrderTab() {
+    const listContainer = document.getElementById('brand-order-items-list');
+    if (listContainer && (!brandOrderItems || brandOrderItems.length === 0)) {
+      listContainer.innerHTML = '<div style="text-align:center; padding:40px; color:#888;">⏳ Loading brand order...</div>';
+    }
+
+    try {
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
+      const res = await fetch(`${getApiBase()}/settings/${SETTING_KEY}?cb=${Date.now()}`);
+      let savedOrder = null;
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.value) && data.value.length > 0) {
+          savedOrder = data.value;
+        }
+      }
+
+      // Products currently in store
+      const products = Array.isArray(window.productsData) ? window.productsData : [];
+      const storeBrandCounts = {};
+      const storeBrandOriginalNames = {};
+
+      products.forEach(p => {
+        const cat = (p.cat || '').trim();
+        if (cat) {
+          const key = cat.toLowerCase();
+          storeBrandCounts[key] = (storeBrandCounts[key] || 0) + 1;
+          if (!storeBrandOriginalNames[key]) storeBrandOriginalNames[key] = cat;
+        }
+      });
+
+      // Construct master list
+      const rawList = savedOrder || DEFAULT_ORDER;
+      const seenKeys = new Set();
+      brandOrderItems = [];
+
+      // 1. Add configured brands in order
+      rawList.forEach(item => {
+        const key = (typeof item === 'object' ? String(item.key || item.name || '') : String(item)).trim().toLowerCase();
+        if (!key || seenKeys.has(key)) return;
+        seenKeys.add(key);
+
+        const customName = typeof item === 'object' && item.name ? item.name : null;
+        const name = formatBrandName(key, customName || storeBrandOriginalNames[key]);
+        const visible = (typeof item === 'object' && item.visible !== undefined) ? !!item.visible : true;
+        const count = storeBrandCounts[key] || 0;
+
+        brandOrderItems.push({ key, name, visible, count });
+      });
+
+      // 2. Append any brands from products that weren't in saved order
+      Object.keys(storeBrandCounts).forEach(key => {
+        if (!seenKeys.has(key)) {
+          seenKeys.add(key);
+          const name = formatBrandName(key, storeBrandOriginalNames[key]);
+          brandOrderItems.push({ key, name, visible: true, count: storeBrandCounts[key] });
+        }
+      });
+
+      renderBrandOrderUI();
+    } catch (err) {
+      console.error('Error loading brand order:', err);
+      if (listContainer) {
+        listContainer.innerHTML = `<div style="color:#ef4444; padding:20px; text-align:center;">Failed to load brand order: ${err.message}</div>`;
+      }
+    }
+  }
+
+  // Render UI and Live Preview
+  function renderBrandOrderUI() {
+    renderLivePreview();
+    renderBrandCards();
+  }
+
+  // Live simulation of Home Page .hap-tabs
+  function renderLivePreview() {
+    const previewEl = document.getElementById('brand-order-live-preview');
+    if (!previewEl) return;
+
+    let html = `<button type="button" style="padding:8px 18px; border-radius:30px; font-size:12px; font-weight:800; background:#2D1B12; color:#fff; border:none; cursor:default; white-space:nowrap; letter-spacing:0.04em;">ALL (Active)</button>`;
+
+    brandOrderItems.forEach(b => {
+      if (!b.visible) return;
+      html += `<button type="button" style="padding:8px 18px; border-radius:30px; font-size:12px; font-weight:700; background:#fff; color:#2D1B12; border:1px solid #e2e2e5; cursor:default; white-space:nowrap; letter-spacing:0.02em; box-shadow:0 1px 3px rgba(0,0,0,0.03);">${b.name}</button>`;
+    });
+
+    previewEl.innerHTML = html;
+  }
+
+  // Render Reorderable Cards
+  function renderBrandCards() {
+    const container = document.getElementById('brand-order-items-list');
+    if (!container) return;
+
+    if (brandOrderItems.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">No brands found. Click "Reset Defaults" above.</div>';
+      return;
+    }
+
+    container.innerHTML = brandOrderItems.map((b, idx) => {
+      const isFirst = idx === 0;
+      const isLast = idx === brandOrderItems.length - 1;
+
+      return `
+        <div class="brand-order-card" 
+             draggable="true" 
+             data-index="${idx}" 
+             ondragstart="window.handleBrandDragStart(event, ${idx})"
+             ondragover="window.handleBrandDragOver(event, ${idx})"
+             ondragleave="window.handleBrandDragLeave(event)"
+             ondrop="window.handleBrandDrop(event, ${idx})"
+             ondragend="window.handleBrandDragEnd(event)"
+             style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1.5px solid ${b.visible ? '#EBE7F3' : '#f3f4f6'}; border-radius: 14px; padding: 14px 18px; box-shadow: 0 2px 8px rgba(43,22,59,0.02); transition: all 0.2s; opacity: ${b.visible ? '1' : '0.6'};">
+          
+          <!-- Left: Drag Handle, Number Badge, Brand Name -->
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="cursor: grab; color: #A09BAE; font-size: 18px; user-select: none;" title="Drag to reorder">⠿</span>
+            
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: ${b.visible ? 'linear-gradient(135deg, #2D143D, #6C38A5)' : '#9ca3af'}; color: #fff; border-radius: 10px; font-size: 12px; font-weight: 800;">
+              #${idx + 1}
+            </span>
+
+            <div>
+              <div style="font-size: 14.5px; font-weight: 800; color: #1E1B29; display: flex; align-items: center; gap: 8px;">
+                <span>${b.name}</span>
+                <span style="font-size: 10.5px; font-weight: 600; color: #7E7890; background: #F3F0F7; padding: 2px 8px; border-radius: 6px;">${b.key}</span>
+              </div>
+              <div style="font-size: 11.5px; color: #7E7890; margin-top: 2px;">
+                ${b.count > 0 ? `${b.count} products currently in store` : 'No products under this brand yet'}
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Visibility Toggle & Move Up/Down Controls -->
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" 
+                    onclick="window.toggleBrandVisibility(${idx})"
+                    style="display: inline-flex; align-items: center; gap: 5px; padding: 7px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid ${b.visible ? '#10B981' : '#d1d5db'}; background: ${b.visible ? '#ECFDF5' : '#f9fafb'}; color: ${b.visible ? '#059669' : '#6b7280'};">
+              ${b.visible ? '👁️ Visible' : '🚫 Hidden'}
+            </button>
+
+            <button type="button" 
+                    title="Move to Top"
+                    onclick="window.moveBrandToExtreme(${idx}, 'top')"
+                    ${isFirst ? 'disabled' : ''}
+                    style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid #E5E1EE; background: #fff; color: #2D143D; font-weight: 800; font-size: 12px; cursor: ${isFirst ? 'not-allowed' : 'pointer'}; opacity: ${isFirst ? '0.3' : '1'};">
+              ⏫
+            </button>
+
+            <button type="button" 
+                    title="Move Up"
+                    onclick="window.moveBrandStep(${idx}, -1)"
+                    ${isFirst ? 'disabled' : ''}
+                    style="width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid #E5E1EE; background: #FAF9FB; color: #2D143D; font-weight: 800; font-size: 13px; cursor: ${isFirst ? 'not-allowed' : 'pointer'}; opacity: ${isFirst ? '0.3' : '1'};">
+              ▲
+            </button>
+
+            <button type="button" 
+                    title="Move Down"
+                    onclick="window.moveBrandStep(${idx}, 1)"
+                    ${isLast ? 'disabled' : ''}
+                    style="width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid #E5E1EE; background: #FAF9FB; color: #2D143D; font-weight: 800; font-size: 13px; cursor: ${isLast ? 'not-allowed' : 'pointer'}; opacity: ${isLast ? '0.3' : '1'};">
+              ▼
+            </button>
+
+            <button type="button" 
+                    title="Move to Bottom"
+                    onclick="window.moveBrandToExtreme(${idx}, 'bottom')"
+                    ${isLast ? 'disabled' : ''}
+                    style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid #E5E1EE; background: #fff; color: #2D143D; font-weight: 800; font-size: 12px; cursor: ${isLast ? 'not-allowed' : 'pointer'}; opacity: ${isLast ? '0.3' : '1'};">
+              ⏬
+            </button>
+
+            <button type="button" 
+                    title="Remove from Order"
+                    onclick="window.removeBrandFromOrderList(${idx})"
+                    style="background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.15); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 12px; margin-left: 4px;">
+              ✕
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Move operations
+  window.moveBrandStep = function(fromIndex, step) {
+    const toIndex = fromIndex + step;
+    if (toIndex < 0 || toIndex >= brandOrderItems.length) return;
+    const item = brandOrderItems.splice(fromIndex, 1)[0];
+    brandOrderItems.splice(toIndex, 0, item);
+    renderBrandOrderUI();
+  };
+
+  window.moveBrandToExtreme = function(fromIndex, extreme) {
+    const item = brandOrderItems.splice(fromIndex, 1)[0];
+    if (extreme === 'top') {
+      brandOrderItems.unshift(item);
+    } else {
+      brandOrderItems.push(item);
+    }
+    renderBrandOrderUI();
+  };
+
+  window.toggleBrandVisibility = function(index) {
+    if (!brandOrderItems[index]) return;
+    brandOrderItems[index].visible = !brandOrderItems[index].visible;
+    renderBrandOrderUI();
+  };
+
+  window.removeBrandFromOrderList = function(index) {
+    if (!confirm('Remove "' + brandOrderItems[index].name + '" from the home tabs order?')) return;
+    brandOrderItems.splice(index, 1);
+    renderBrandOrderUI();
+  };
+
+  window.addBrandToOrderList = function() {
+    const input = document.getElementById('add-brand-order-input');
+    if (!input || !input.value.trim()) return;
+    const rawVal = input.value.trim();
+    const key = rawVal.toLowerCase();
+
+    // Check if already in list
+    const existing = brandOrderItems.find(b => b.key === key);
+    if (existing) {
+      alert('Brand "' + existing.name + '" is already in the order list at position #' + (brandOrderItems.indexOf(existing) + 1));
+      input.value = '';
+      return;
+    }
+
+    const name = formatBrandName(key, rawVal);
+    brandOrderItems.push({ key, name, visible: true, count: 0 });
+    input.value = '';
+    renderBrandOrderUI();
+  };
+
+  window.resetBrandOrderDefaults = function() {
+    if (!confirm('Reset the brand tabs order back to original default sequence?')) return;
+    const products = Array.isArray(window.productsData) ? window.productsData : [];
+    const storeBrandCounts = {};
+    const storeBrandOriginalNames = {};
+
+    products.forEach(p => {
+      const cat = (p.cat || '').trim();
+      if (cat) {
+        const k = cat.toLowerCase();
+        storeBrandCounts[k] = (storeBrandCounts[k] || 0) + 1;
+        if (!storeBrandOriginalNames[k]) storeBrandOriginalNames[k] = cat;
+      }
+    });
+
+    brandOrderItems = DEFAULT_ORDER.map(key => ({
+      key,
+      name: formatBrandName(key, storeBrandOriginalNames[key]),
+      visible: true,
+      count: storeBrandCounts[key] || 0
+    }));
+
+    // Append any extra brands from store
+    Object.keys(storeBrandCounts).forEach(key => {
+      if (!DEFAULT_ORDER.includes(key)) {
+        brandOrderItems.push({
+          key,
+          name: formatBrandName(key, storeBrandOriginalNames[key]),
+          visible: true,
+          count: storeBrandCounts[key]
+        });
+      }
+    });
+
+    renderBrandOrderUI();
+  };
+
+  // Drag & Drop handlers
+  window.handleBrandDragStart = function(e, index) {
+    draggedIndex = index;
+    e.dataTransfer.effectAllowed = 'move';
+    e.currentTarget.style.opacity = '0.4';
+  };
+
+  window.handleBrandDragOver = function(e, index) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = '#6C38A5';
+    e.currentTarget.style.background = '#FAF7FF';
+  };
+
+  window.handleBrandDragLeave = function(e) {
+    e.currentTarget.style.borderColor = '#EBE7F3';
+    e.currentTarget.style.background = '#ffffff';
+  };
+
+  window.handleBrandDrop = function(e, dropIndex) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = '#EBE7F3';
+    e.currentTarget.style.background = '#ffffff';
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
+
+    const item = brandOrderItems.splice(draggedIndex, 1)[0];
+    brandOrderItems.splice(dropIndex, 0, item);
+    draggedIndex = null;
+    renderBrandOrderUI();
+  };
+
+  window.handleBrandDragEnd = function(e) {
+    e.currentTarget.style.opacity = '1';
+    draggedIndex = null;
+  };
+
+  // Save brand order to backend
+  window.saveHomeBrandOrder = async function(btn) {
+    const origText = btn ? btn.innerHTML : 'Save';
+    const msg = document.getElementById('brand-order-msg');
+    if (btn) { btn.innerHTML = '⏳ Saving to Website...'; btn.disabled = true; }
+
+    try {
+      const token = localStorage.getItem('userToken') || localStorage.getItem('token') || localStorage.getItem('adminToken');
+      if (!token) {
+        alert('Session expired. Please log in again.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Save list of { key, name, visible }
+      const payload = brandOrderItems.map(b => ({
+        key: b.key,
+        name: b.name,
+        visible: b.visible
+      }));
+
+      const res = await fetch(`${getApiBase()}/settings/${SETTING_KEY}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ value: payload })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || ('Server error ' + res.status));
+      }
+
+      // Update localStorage & window variable immediately
+      window._homeBrandOrder = payload;
+      try { localStorage.setItem('bib_home_brand_order', JSON.stringify(payload)); } catch(e) {}
+
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(16,185,129,0.12)';
+        msg.style.color = '#10b981';
+        msg.style.border = '1px solid rgba(16,185,129,0.3)';
+        msg.innerHTML = '✓ <b>Success!</b> Brand tabs order saved successfully. Your home page now displays brands in this exact sequence!';
+        setTimeout(() => { msg.style.display = 'none'; }, 5000);
+      }
+
+      renderBrandOrderUI();
+    } catch(err) {
+      console.error('Error saving brand order:', err);
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(239,68,68,0.12)';
+        msg.style.color = '#ef4444';
+        msg.style.border = '1px solid rgba(239,68,68,0.3)';
+        msg.innerHTML = '❌ <b>Failed to save:</b> ' + err.message;
+      }
+    } finally {
+      if (btn) { btn.innerHTML = origText; btn.disabled = false; }
+    }
+  };
+
+  window.loadBrandOrderTab = loadBrandOrderTab;
 })();
 </script>
 
@@ -5540,6 +6017,7 @@
         'support': 'Customer Support',
         'brands': 'Brand Logos',
         'home-all': "Home 'ALL' Products Customizer",
+        'brand-order': "Home Page Brand Tabs Order (පිළිවෙළ)",
         'today-deals': "Today's Deals & Clearance Slider",
         'home-videos': "Homepage Video Highlights",
         'home-banner': "Homepage Collection Banner",

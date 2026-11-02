@@ -2233,6 +2233,38 @@ async function fetchHomeAllProductsSetting() {
 }
 try { fetchHomeAllProductsSetting(); } catch(e) {}
 
+// --- HOME BRAND ORDER SETTING ---
+window._homeBrandOrder = (() => {
+    try {
+        const cached = localStorage.getItem('bib_home_brand_order');
+        if (cached) {
+            const arr = JSON.parse(cached);
+            if (Array.isArray(arr) && arr.length > 0) return arr;
+        }
+    } catch(e) {}
+    return null;
+})();
+
+async function fetchHomeBrandOrderSetting() {
+    try {
+        const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
+        const res = await fetch(`${BASE}/settings/home_brand_order?cb=${Date.now()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data.value) && data.value.length > 0) {
+                window._homeBrandOrder = data.value;
+                try { localStorage.setItem('bib_home_brand_order', JSON.stringify(data.value)); } catch(e) {}
+                if (typeof window.renderHomeAllProducts === 'function' && document.querySelector('.hap-tabs')) {
+                    window.renderHomeAllProducts();
+                }
+            }
+        }
+    } catch(e) {
+        console.warn('Could not fetch home_brand_order setting:', e);
+    }
+}
+try { fetchHomeBrandOrderSetting(); } catch(e) {}
+
 // Global Image Swapper for Mini Card Thumbnails
 window.handleThumbError = function(imgEl) {
     if (!imgEl) return;
@@ -2297,14 +2329,29 @@ window.renderHomeAllProducts = function() {
         return;
     }
 
-    // Dynamically generate tabs
+    // Dynamically generate tabs according to customized brand order
     const tabsWrapper = document.querySelector('.hap-tabs');
     if (tabsWrapper && window.productsData && window.productsData.length > 0) {
         let categories = [...new Set(window.productsData.map(p => (p.cat || 'others').toLowerCase()))];
         
-        // Define exact custom order
-        const customOrder = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
+        // Read saved brand order from setting or defaults
+        const rawBrandOrder = (Array.isArray(window._homeBrandOrder) && window._homeBrandOrder.length > 0)
+            ? window._homeBrandOrder
+            : ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
         
+        const customOrder = rawBrandOrder.map(item => typeof item === 'object' ? String(item.key || item.name || '').toLowerCase() : String(item).toLowerCase());
+        
+        // Filter out any brands hidden by admin
+        const hiddenBrandKeys = new Set(
+            rawBrandOrder
+                .filter(item => typeof item === 'object' && item.visible === false)
+                .map(item => String(item.key || item.name || '').toLowerCase())
+        );
+
+        if (hiddenBrandKeys.size > 0) {
+            categories = categories.filter(c => !hiddenBrandKeys.has(c));
+        }
+
         categories.sort((a, b) => {
             const indexA = customOrder.indexOf(a);
             const indexB = customOrder.indexOf(b);
@@ -2320,7 +2367,13 @@ window.renderHomeAllProducts = function() {
         let tabsHTML = `<button class="hap-tab ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">ALL</button>`;
         
         categories.forEach(cat => {
-            let displayName = cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : cat.toUpperCase());
+            let customName = null;
+            if (Array.isArray(rawBrandOrder)) {
+                const found = rawBrandOrder.find(item => typeof item === 'object' && String(item.key || '').toLowerCase() === cat);
+                if (found && found.name) customName = found.name;
+            }
+            const origProd = window.productsData.find(p => (p.cat || '').toLowerCase() === cat);
+            let displayName = customName || (cat === 'ordinary' ? 'The Ordinary' : (cat === 'cerave' ? 'CeraVe' : (cat === 'la roche-posay' ? 'La Roche-Posay' : (origProd ? origProd.cat : cat.toUpperCase()))));
             tabsHTML += `<button class="hap-tab ${currentFilter === cat ? 'active' : ''}" data-filter="${cat}">${displayName}</button>`;
         });
 
@@ -2345,7 +2398,10 @@ window.renderHomeAllProducts = function() {
             } else {
                 // Group products by category and interleave (round-robin) so products come from every category
                 const catGroups = {};
-                const order = ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
+                const rawOrder = (Array.isArray(window._homeBrandOrder) && window._homeBrandOrder.length > 0)
+                    ? window._homeBrandOrder
+                    : ['ordinary', 'cerave', 'vaseline', 'manee', 'cool-vita', 'celimax', 'centellian24', 'cosrx', 'dr. rashel', 'perfectil', 'la roche-posay'];
+                const order = rawOrder.map(item => typeof item === 'object' ? String(item.key || item.name || '').toLowerCase() : String(item).toLowerCase());
                 
                 (window.productsData || []).forEach(p => {
                     const c = (p.cat || 'others').toLowerCase();
