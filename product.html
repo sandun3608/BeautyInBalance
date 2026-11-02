@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=463480" />
+  <link rel="stylesheet" href="styles.css?v=463481" />
 
   <style>
     @keyframes spin {
@@ -1137,8 +1137,8 @@
       if (mainImg) {
         if (isVarSoldOut) {
           mainImg.classList.add('is-sold-out');
-          mainImg.style.setProperty('filter', 'blur(0.8px) grayscale(0.1)', 'important');
-          mainImg.style.setProperty('opacity', '0.93', 'important');
+          mainImg.style.setProperty('filter', 'blur(1.2px) saturate(0.88) grayscale(0.12)', 'important');
+          mainImg.style.setProperty('opacity', '0.90', 'important');
         } else {
           mainImg.classList.remove('is-sold-out');
           mainImg.style.removeProperty('filter');
@@ -1446,7 +1446,7 @@
           <div class="gallery-wrap">
             <div class="main-visual ${isOutOfStock ? 'is-sold-out' : ''}" style="position: relative;">
               ${badgesHTML}
-              <img id="main-view" class="${isOutOfStock ? 'is-sold-out' : ''}" src="${product.img}" alt="${product.name}" style="${isOutOfStock ? 'filter: blur(0.8px) grayscale(0.1) !important; opacity: 0.93 !important; pointer-events: none;' : ''}">
+              <img id="main-view" class="${isOutOfStock ? 'is-sold-out' : ''}" src="${product.img}" alt="${product.name}" style="${isOutOfStock ? 'filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important; opacity: 0.90 !important; pointer-events: none;' : ''}">
             </div>
             <div class="thumbs-container" style="${thumbs ? '' : 'display:none;'}">${thumbs}</div>
           </div>

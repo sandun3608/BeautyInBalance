@@ -10769,8 +10769,8 @@ body.loading-active .floating-email {
 .is-sold-out .fp-img-wrap img,
 .is-sold-out .pc-image img,
 .is-sold-out .offer-card-img img {
-  filter: blur(0.8px) grayscale(0.1) !important;
-  opacity: 0.93 !important;
+  filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important;
+  opacity: 0.90 !important;
   transition: filter 0.3s ease, opacity 0.3s ease !important;
 }
 
@@ -10781,8 +10781,8 @@ body.loading-active .floating-email {
 .is-sold-out:hover .fp-img-wrap img,
 .is-sold-out:hover .pc-image img,
 .is-sold-out:hover .offer-card-img img {
-  filter: blur(0.8px) grayscale(0.1) !important;
-  opacity: 0.93 !important;
+  filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important;
+  opacity: 0.90 !important;
 }
 
 /* ── PRODUCT CARD MINI THUMBNAIL GALLERY (UNDER MAIN IMAGE, ABOVE BRAND) ── */
@@ -12108,8 +12108,8 @@ body.loading-active .floating-email {
 /* ===== SOLD OUT BLUR & DISABLED BUTTONS ===== */
 .main-visual.is-sold-out #main-view,
 .main-visual.is-sold-out img {
-  filter: blur(0.8px) grayscale(0.1) !important;
-  opacity: 0.93 !important;
+  filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important;
+  opacity: 0.90 !important;
   transition: all 0.3s ease !important;
 }
 
@@ -12120,8 +12120,8 @@ body.loading-active .floating-email {
 .is-sold-out .fp-img-wrap img,
 .is-sold-out .pc-image img,
 .is-sold-out .offer-card-img img {
-  filter: blur(0.8px) grayscale(0.1) !important;
-  opacity: 0.93 !important;
+  filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important;
+  opacity: 0.90 !important;
 }
 
 /* ============================================================
@@ -12163,9 +12163,9 @@ body.loading-active .floating-email {
 .main-visual.is-sold-out:hover #main-view,
 #main-view.is-sold-out,
 #main-view.is-sold-out:hover {
-  filter: blur(0.8px) grayscale(0.1) !important;
-  -webkit-filter: blur(0.8px) grayscale(0.1) !important;
-  opacity: 0.93 !important;
+  filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important;
+  -webkit-filter: blur(1.2px) saturate(0.88) grayscale(0.12) !important;
+  opacity: 0.90 !important;
   transform: none !important;
   pointer-events: none !important;
   transition: none !important;
