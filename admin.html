@@ -823,20 +823,22 @@
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
-        max-width: 100vw !important;
+        max-width: 100% !important;
         overflow-x: hidden !important;
+        box-sizing: border-box !important;
       }
       .admin-main {
         grid-template-columns: 1fr !important;
         margin: 0 !important;
         height: auto !important;
-        min-height: calc(100vh - 60px) !important;
+        min-height: calc(100vh - 56px) !important;
         border-radius: 0 !important;
         width: 100% !important;
-        max-width: 100vw !important;
+        max-width: 100% !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
         box-shadow: none !important;
+        box-sizing: border-box !important;
       }
       .main-body {
         padding: 8px 10px 80px 10px !important;
@@ -873,6 +875,15 @@
         top: 0 !important;
         z-index: 10001 !important;
         box-shadow: 0 6px 20px rgba(10, 6, 20, 0.45) !important;
+        transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.2s ease !important;
+      }
+      /* HIDE TOP NAV BAR WITH STORE NAME WHEN SIDEBAR DRAWER IS OPEN */
+      body.sidebar-is-open .admin-mobile-header,
+      .admin-sidebar.sidebar-open ~ .admin-mobile-header {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transform: translateY(-100%) !important;
       }
       #mobile-menu-toggle {
         display: flex !important;
@@ -897,7 +908,7 @@
         height: 100dvh !important;
         width: 290px !important;
         max-width: 86vw !important;
-        z-index: 9999 !important;
+        z-index: 10005 !important;
         transform: translateX(-100%) !important;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         box-shadow: 15px 0 45px rgba(0,0,0,0.55) !important;
@@ -913,9 +924,9 @@
       #sidebar-overlay {
         position: fixed !important;
         inset: 0 !important;
-        background: rgba(10, 6, 16, 0.65) !important;
-        backdrop-filter: blur(4px) !important;
-        z-index: 9998 !important;
+        background: rgba(10, 6, 16, 0.7) !important;
+        backdrop-filter: blur(5px) !important;
+        z-index: 10004 !important;
       }
       .admin-sidebar .admin-logo {
         padding: 10px 0 16px 0 !important;
@@ -992,6 +1003,9 @@
         flex-wrap: wrap !important;
         gap: 8px !important;
       }
+
+      /* Global Canvas Protection */
+      canvas { max-width: 100% !important; }
 
       /* 6. Overview Dashboard Components Mobile */
       .genrubs-hero-card {
@@ -1108,22 +1122,20 @@
         text-overflow: ellipsis !important;
       }
 
+      /* 4-Box 2x2 Grid for Mobile Overview: Orders, Revenue, Net Profit, Activity */
       .genrubs-hero-main {
-        grid-template-columns: 1fr !important;
-        gap: 10px !important;
-      }
-
-      /* 4-Box 2x2 Grid for Mobile Overview Stats - Zero Clipping */
-      .genrubs-stat-triplet {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 8px !important;
         width: 100% !important;
+        max-width: 100% !important;
         box-sizing: border-box !important;
       }
+      .genrubs-stat-triplet {
+        display: contents !important;
+      }
       .genrubs-card-4 {
-        display: flex !important;
-        flex-direction: column !important;
+        display: none !important;
       }
       .genrubs-mini-card {
         padding: 10px 9px !important;
@@ -1136,6 +1148,32 @@
         justify-content: space-between !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
         gap: 4px !important;
+        background: #ffffff !important;
+      }
+      /* Activity 7D Box as the 4th mini card (anith kotu thuna wage) */
+      .genrubs-spark-box {
+        padding: 10px 9px !important;
+        border-radius: 14px !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+        background: #ffffff !important;
+        gap: 3px !important;
+        margin: 0 !important;
+      }
+      .genrubs-spark-box div[style*="height: 65px"] {
+        height: 38px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+      .genrubs-spark-box canvas {
+        height: 38px !important;
+        max-width: 100% !important;
+        width: 100% !important;
       }
       .genrubs-mini-card .card-title {
         font-size: 11px !important;
@@ -1946,35 +1984,22 @@
                             </div>
                         </div>
 
-                        <!-- Stat 4: Store Products (Mobile 4th Box, hidden on desktop) -->
-                        <div class="genrubs-mini-card genrubs-card-4" style="border: 1.5px solid rgba(139, 92, 246, 0.25); background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);">
-                            <div class="card-title" style="color: #7C3AED; font-weight: 700; display: flex; align-items: center; justify-content: space-between;">
-                              <span>Store Products</span>
-                              <span style="font-size: 11px;">📦</span>
-                            </div>
-                            <div class="card-val">
-                                <span id="stat-products-count" style="font-size: 22px; color: #7C3AED; font-weight: 800;">64</span>
-                                <span class="genrubs-badge badge-purple" id="stat-products-badge">In Stock</span>
-                            </div>
-                            <div class="genrubs-progress-bar">
-                                <div class="genrubs-progress-fill" id="stat-products-bar" style="width: 85%; background: linear-gradient(90deg, #7C3AED, #EC4899);"></div>
-                            </div>
-                        </div>
+
 
 
                     </div>
 
-                    <!-- Right mini spark: Activity / Orders Velocity (White Card) -->
+                    <!-- Right mini spark: Activity / Orders Velocity (Box 4) -->
                     <div class="genrubs-spark-box">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span style="font-size: 11px; color: #7E7890; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Activity (7 Days)</span>
-                            <span class="genrubs-badge badge-emerald" style="font-size: 10px;">● Active</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <span style="font-size: 11px; color: #6B7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Activity (7D)</span>
+                            <span class="genrubs-badge badge-emerald" style="font-size: 9.5px; padding: 1.5px 6px;">● Active</span>
                         </div>
-                        <div style="height: 65px; width: 100%;">
-                            <canvas id="miniSparkCanvas" height="65"></canvas>
+                        <div style="height: 40px; width: 100%; max-width: 100%; overflow: hidden; position: relative;">
+                            <canvas id="miniSparkCanvas" height="40" style="width: 100% !important; max-width: 100% !important; height: 40px !important;"></canvas>
                         </div>
-                        <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 10px; font-weight: 600; color: #A09BAE;">
-                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        <div style="display: flex; justify-content: space-between; margin-top: 2px; font-size: 8.5px; font-weight: 600; color: #9CA3AF;">
+                            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
                         </div>
                     </div>
                 </div>
@@ -8489,10 +8514,10 @@
                 datasets: [{
                     data: dayCounts,
                     backgroundColor: 'rgba(108, 56, 165, 0.2)',
-                    hoverBackgroundColor: '#6C38A5',
                     hoverBackgroundColor: '#EC4899',
-                    borderRadius: 4,
-                    barThickness: 14
+                    borderRadius: 3,
+                    barPercentage: 0.65,
+                    maxBarThickness: 10
                 }]
             },
             options: {
@@ -9458,6 +9483,7 @@
       menuToggle?.addEventListener('click', () => {
         if (sidebar && overlay) {
           sidebar.classList.add('sidebar-open');
+          document.body.classList.add('sidebar-is-open');
           overlay.style.display = 'block';
           document.body.style.overflow = 'hidden';
         }
@@ -9466,6 +9492,7 @@
       const closeSidebarDrawer = () => {
         if (sidebar && overlay) {
           sidebar.classList.remove('sidebar-open');
+          document.body.classList.remove('sidebar-is-open');
           overlay.style.display = 'none';
           document.body.style.overflow = '';
         }
