@@ -1006,13 +1006,13 @@
     }
     .genrubs-stat-triplet {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       align-items: stretch;
     }
-    @media (max-width: 1200px) {
+    @media (max-width: 900px) {
       .genrubs-stat-triplet {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
       }
     }
     .genrubs-mini-card {
@@ -1496,17 +1496,7 @@
                             </div>
                         </div>
 
-                        <!-- Stat 3: Avg Transaction / Clients -->
-                        <div class="genrubs-mini-card">
-                            <div class="card-title">Avg Order Value</div>
-                            <div class="card-val">
-                                <span id="stat-avg-trans" style="font-size: 22px;">Rs. 0</span>
-                                <span class="genrubs-badge badge-rose" id="stat-avg-badge">+15.3%</span>
-                            </div>
-                            <div class="genrubs-progress-bar">
-                                <div class="genrubs-progress-fill" style="width: 52%; background: #EC4899;"></div>
-                            </div>
-                        </div>
+
                     </div>
 
                     <!-- Right mini spark: Activity / Orders Velocity (White Card) -->
