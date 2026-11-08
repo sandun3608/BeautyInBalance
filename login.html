@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Login  Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,14 +18,27 @@
       --font-sans: 'DM Sans', sans-serif;
     }
 
+    html, body {
+      overflow-x: clip !important;
+      touch-action: pan-y !important;
+      overscroll-behavior-x: none !important;
+      -webkit-text-size-adjust: 100% !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+    }
+
     body {
       min-height: 100vh;
+      min-height: 100dvh;
       font-family: var(--font-sans);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
+      overflow-y: auto !important;
+      overflow-x: clip !important;
+      padding: 20px 0;
+      box-sizing: border-box;
     }
 
     /* -- Full-Screen Background -- */
@@ -63,9 +76,9 @@
     .login-card {
       position: relative;
       z-index: 5;
-      width: 100%;
+      width: calc(100% - 32px);
       max-width: 420px;
-      margin: 20px;
+      margin: 16px auto;
       padding: 50px 42px 44px;
       border-radius: 20px;
       background: rgba(30, 18, 10, 0.28);
@@ -150,10 +163,11 @@
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 10px;
       font-family: var(--font-sans);
-      font-size: 15px;
+      font-size: 16px;
       color: white;
       transition: border-color 0.3s, background 0.3s;
       outline: none;
+      box-sizing: border-box;
     }
     .input-wrap input::placeholder { color: rgba(255,255,255,0.35); }
     .input-wrap input:focus {
@@ -264,20 +278,30 @@
     .toast-message { font-size: 12px; opacity: 0.7; }
 
     /* -- Mobile -- */
+    @media (max-width: 600px) {
+      body {
+        padding: 16px 0 !important;
+        overflow-y: auto !important;
+        overflow-x: clip !important;
+      }
+      .login-card {
+        padding: 34px 20px 28px !important;
+        margin: 12px auto !important;
+        width: calc(100% - 24px) !important;
+        border-radius: 18px !important;
+      }
+      .brand h1 { font-size: 32px !important; }
+      .input-wrap input {
+        font-size: 16px !important;
+        padding: 13px 14px !important;
+        padding-right: 44px !important;
+      }
+    }
     @media (max-width: 480px) {
       .bg-image {
         background-image: url('mobile view login.jpg');
         background-position: center top;
       }
-      .login-card {
-        background: rgba(15, 8, 3, 0.15);
-        backdrop-filter: blur(16px) saturate(1.2);
-        -webkit-backdrop-filter: blur(16px) saturate(1.2);
-        padding: 38px 22px 34px;
-        margin: 16px;
-        border-radius: 18px;
-      }
-      .brand h1 { font-size: 34px; }
     }
   </style>
 </head>
@@ -341,6 +365,52 @@
 
   <script src="config.js?v=18"></script>
   <script>
+    // --- Dynamic Login Background Loader ---
+    let currentLoginBgData = { desktop: 'login.jpg', mobile: 'mobile view login.jpg' };
+    
+    try {
+      const cached = localStorage.getItem('bib_login_bg');
+      if (cached) {
+        currentLoginBgData = Object.assign(currentLoginBgData, JSON.parse(cached));
+      }
+    } catch(e) {}
+
+    function applyLoginBackground() {
+      const bgEl = document.querySelector('.bg-image');
+      if (!bgEl) return;
+      const isMobile = window.innerWidth <= 768;
+      let targetImg = isMobile ? (currentLoginBgData.mobile || currentLoginBgData.desktop) : (currentLoginBgData.desktop || currentLoginBgData.mobile);
+      if (!targetImg) targetImg = isMobile ? 'mobile view login.jpg' : 'login.jpg';
+      
+      const imgUrl = targetImg.startsWith('data:') || targetImg.startsWith('http') ? `url("${targetImg}")` : `url('${targetImg}')`;
+      bgEl.style.backgroundImage = imgUrl;
+      bgEl.style.backgroundPosition = isMobile ? 'center top' : 'center center';
+    }
+
+    applyLoginBackground();
+    window.addEventListener('resize', applyLoginBackground);
+
+    // Fetch live settings from backend in background
+    (async function fetchLiveLoginBg() {
+      try {
+        const base = (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.BASE_URL || '/api'));
+        const res = await fetch(`${base}/settings/login_bg_images?cb=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.value && (data.value.desktop || data.value.mobile)) {
+            currentLoginBgData = {
+              desktop: data.value.desktop || 'login.jpg',
+              mobile: data.value.mobile || 'mobile view login.jpg'
+            };
+            try { localStorage.setItem('bib_login_bg', JSON.stringify(currentLoginBgData)); } catch(e) {}
+            applyLoginBackground();
+          }
+        }
+      } catch(err) {
+        // Fallback to cache/defaults
+      }
+    })();
+
     // Password toggle
     const toggleBtn = document.getElementById('toggle-pw');
     const pwInput   = document.getElementById('password');
