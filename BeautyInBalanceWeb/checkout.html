@@ -1662,7 +1662,8 @@
               } else {
                 finalPrice = effDisc > 0 ? Math.round(i.price * (1 - effDisc / 100)) : i.price;
               }
-              return { product: i.id, name: i.name, qty: i.qty, price: finalPrice };
+              const itemImg = i.img || i.image || (Array.isArray(i.images) && i.images[0]) || '';
+              return { product: i.id, name: i.name, qty: i.qty, price: finalPrice, image: itemImg };
             }),
             shippingPrice: window._shippingFee || 450,
             totalPrice: window.currentOrderTotal,

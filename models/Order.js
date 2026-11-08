@@ -20,7 +20,8 @@ const orderSchema = new mongoose.Schema({
             name: { type: String, required: true },
             qty: { type: Number, required: true },
             price: { type: Number, required: true },
-            product: { type: String, required: true } // Can be ID or name since some are old hardware-coded texts
+            product: { type: String, required: true }, // Can be ID or name since some are old hardware-coded texts
+            image: { type: String, required: false }
         }
     ],
     shippingPrice: {
