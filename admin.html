@@ -6,9 +6,6 @@
   if (!token || token === 'null' || token === 'undefined') {
     localStorage.removeItem('userToken');
     window.location.href = 'login.html';
-  } else {
-    // Initial Lock State Check
-    document.documentElement.style.overflow = 'hidden'; 
   }
 </script>
 
@@ -156,6 +153,7 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      display: none !important;
     }
 
     .lock-card {
@@ -804,28 +802,37 @@
        Note: STRICTLY applies only to screens <= 900px. Desktop (>900px) is 100% untouched!
        ========================================================================== */
     @media (max-width: 900px) {
-      /* 1. Global Viewport & Container */
-      html, body {
+      /* 1. Global Viewport & Container Mobile Scroll Engine */
+      html {
         overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100% !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      body, body.admin-body {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100% !important;
+        display: block !important;
+        position: relative !important;
         width: 100% !important;
         max-width: 100% !important;
-      }
-      .admin-body {
-        height: 100% !important;
-        min-height: 100vh !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        display: block !important;
+        box-sizing: border-box !important;
+        -webkit-overflow-scrolling: touch !important;
       }
       .admin-container {
         grid-template-columns: 1fr !important;
         height: auto !important;
-        min-height: 100vh !important;
+        min-height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
         max-width: 100% !important;
+        overflow: visible !important;
         overflow-x: hidden !important;
+        overflow-y: visible !important;
         box-sizing: border-box !important;
       }
       .admin-main {
@@ -836,19 +843,28 @@
         border-radius: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+        overflow: visible !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
         box-shadow: none !important;
         box-sizing: border-box !important;
+        display: block !important;
       }
       .main-body {
         padding: 8px 10px 80px 10px !important;
         height: auto !important;
+        min-height: 100% !important;
         max-width: 100% !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        overflow: visible !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .admin-content {
+        height: auto !important;
+        overflow: visible !important;
       }
       /* Hide redundant admin-header on mobile dashboard to eliminate excessive top space */
       body.tab-is-dashboard .admin-header {
@@ -9442,6 +9458,8 @@
         if (pinInput.value === MASTER_PIN) {
           localStorage.setItem('bib_admin_locked', 'false');
           document.body.classList.add('system-unlocked');
+          document.documentElement.style.overflow = '';
+          document.body.style.overflow = '';
         } else {
           errorMsg.classList.add('show');
           pinInput.value = '';
@@ -9452,6 +9470,8 @@
       // Check Session State Immediately
       if (localStorage.getItem('bib_admin_locked') === 'false') {
         document.body.classList.add('system-unlocked');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
       }
 
       unlockBtn.addEventListener('click', attemptUnlock);
@@ -9487,6 +9507,7 @@
           document.body.classList.add('sidebar-is-open');
           overlay.style.display = 'block';
           document.body.style.overflow = 'hidden';
+          document.documentElement.style.overflow = 'hidden';
         }
       });
 
@@ -9496,6 +9517,7 @@
           document.body.classList.remove('sidebar-is-open');
           overlay.style.display = 'none';
           document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
         }
       };
       
