@@ -7,7 +7,7 @@
   <meta name="description" content="View your cart and proceed to checkout. Secure your 100% original skincare products with Beauty in Balance Sri Lanka." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="styles.css?v=463481">
+  <link rel="stylesheet" href="styles.css?v=463482">
   <style>
     .cart-page { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; }
     .cart-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; }
@@ -52,29 +52,45 @@
         box-sizing: border-box !important;
       }
       .cart-item {
-        padding: 14px 0 !important;
+        padding: 16px 0 !important;
         width: 100% !important;
         box-sizing: border-box !important;
         gap: 12px !important;
+        flex-wrap: wrap !important;
       }
       .cart-item > div:first-child {
         gap: 12px !important;
+        width: 100% !important;
       }
       .cart-item-img {
-        width: 62px !important;
-        height: 62px !important;
+        width: 64px !important;
+        height: 64px !important;
         padding: 6px !important;
         border-radius: 10px !important;
         flex-shrink: 0 !important;
       }
       .cart-item-name {
-        font-size: 13.5px !important;
-        line-height: 1.3 !important;
+        font-size: 14px !important;
+        line-height: 1.35 !important;
         word-break: break-word !important;
+        color: var(--dark) !important;
       }
       .price-container {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding-top: 10px !important;
+        margin-top: 6px !important;
+        border-top: 1px dashed rgba(0,0,0,0.08) !important;
         min-width: auto !important;
-        font-size: 13px !important;
+        font-size: 13.5px !important;
+        box-sizing: border-box !important;
+      }
+      .discount-badge {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
       }
       .cart-summary {
         padding: 24px 18px !important;
@@ -104,24 +120,6 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .cart-item {
-        flex-wrap: wrap !important;
-      }
-      .cart-item > div:first-child {
-        width: 100% !important;
-      }
-      .price-container {
-        width: 100% !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding-top: 10px !important;
-        margin-top: 6px !important;
-        border-top: 1px dashed rgba(0,0,0,0.08) !important;
       }
     }
   </style>
@@ -401,8 +399,8 @@
     });
 
   </script>
-  <script src="config.js?v=18"></script>
-  <script src="products.js?v=412"></script>
+  <script src="config.js?v=19"></script>
+  <script src="products.js?v=413"></script>
 </body>
 </html>
 

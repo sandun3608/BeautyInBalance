@@ -3518,8 +3518,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .cart-drawer {
-    width: 70vw !important;
-    max-width: 70vw !important;
+    width: min(420px, 92vw) !important;
+    max-width: 92vw !important;
     height: calc(100vh - 60px) !important;
     height: calc(100dvh - 60px) !important;
     max-height: calc(100dvh - 60px) !important;
@@ -3531,7 +3531,12 @@ body:has(.cart-drawer.open) .mobile-search-bar {
     margin: 0 !important;
     background: #ffffff !important;
     z-index: 2000000 !important;
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.18) !important;
     padding-top: env(safe-area-inset-top);
+  }
+
+  #cart-items-container {
+    padding: 16px 14px !important;
   }
 
   /* Ensure the checkout button is always visible and clickable at the bottom */
@@ -12206,4 +12211,118 @@ body.loading-active .floating-email {
 /* Global hide for old top-corner black SOLD OUT text */
 .sold-out-badge {
   display: none !important;
+}
+
+/* ============================================================
+   RESPONSIVE CART & DISCOUNT BADGE REFINEMENTS
+   ============================================================ */
+.discount-badge {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  font-family: var(--font-sans, sans-serif) !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
+}
+
+.cart-drawer-item {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 16px !important;
+  padding-bottom: 16px !important;
+  border-bottom: 1px solid #f0f0f2 !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.cart-drawer-thumb {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 10px !important;
+  border: 1px solid #eaeaea !important;
+  background: #ffffff !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cart-drawer-thumb img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.cart-drawer-content {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+.cart-drawer-title-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.cart-drawer-title {
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  font-family: var(--font-sans, sans-serif) !important;
+  color: #2D1B12 !important;
+  line-height: 1.35 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  word-break: break-word !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.cart-drawer-remove {
+  background: transparent !important;
+  border: none !important;
+  color: #a1a1aa !important;
+  cursor: pointer !important;
+  padding: 0 4px !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  transition: color 0.2s !important;
+}
+
+.cart-drawer-remove:hover {
+  color: #dc2626 !important;
+}
+
+.cart-drawer-price-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  font-family: var(--font-sans, sans-serif) !important;
+  width: 100% !important;
+}
+
+.cart-drawer-bottom-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  margin-top: 3px !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
 }
