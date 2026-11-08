@@ -11,7 +11,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Admin Dashboard — Beauty in Balance</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <!-- Navigation Logic - Head Placement for Immediate Interactivity -->
@@ -802,17 +802,26 @@
        Note: STRICTLY applies only to screens <= 900px. Desktop (>900px) is 100% untouched!
        ========================================================================== */
     @media (max-width: 900px) {
-      /* 1. Global Viewport & Container Mobile Scroll Engine */
+      /* 1. Global Viewport & Container Mobile Scroll Engine (Rock-Solid App-Like Horizontal Lock) */
       html {
+        overflow-x: clip !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
+        overscroll-behavior-x: none !important;
+        overscroll-behavior-y: auto !important;
         height: auto !important;
         min-height: 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
         -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
       }
       body, body.admin-body {
+        overflow-x: clip !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
+        overscroll-behavior-x: none !important;
+        overscroll-behavior-y: auto !important;
         height: auto !important;
         min-height: 100% !important;
         display: block !important;
@@ -821,6 +830,7 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
         -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
       }
       .admin-container {
         grid-template-columns: 1fr !important;
@@ -830,10 +840,12 @@
         flex-direction: column !important;
         width: 100% !important;
         max-width: 100% !important;
-        overflow: visible !important;
+        overflow-x: clip !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
         box-sizing: border-box !important;
+        touch-action: pan-y !important;
+        position: relative !important;
       }
       .admin-main {
         grid-template-columns: 1fr !important;
@@ -843,12 +855,14 @@
         border-radius: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
-        overflow: visible !important;
+        overflow-x: clip !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
         box-shadow: none !important;
         box-sizing: border-box !important;
         display: block !important;
+        touch-action: pan-y !important;
+        position: relative !important;
       }
       .main-body {
         padding: 8px 10px 80px 10px !important;
@@ -857,14 +871,31 @@
         max-width: 100% !important;
         width: 100% !important;
         box-sizing: border-box !important;
-        overflow: visible !important;
+        overflow-x: clip !important;
         overflow-x: hidden !important;
         overflow-y: visible !important;
         -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        position: relative !important;
       }
       .admin-content {
         height: auto !important;
-        overflow: visible !important;
+        overflow-x: clip !important;
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      /* Allow horizontal scroll only inside dedicated horizontal scroll wrappers */
+      .admin-table-wrap, 
+      [style*="overflow-x: auto"] {
+        touch-action: pan-x pan-y !important;
+        overscroll-behavior-x: contain !important;
+      }
+      /* Ensure no media, SVG or canvas overflows viewport width */
+      img, svg, canvas, video {
+        max-width: 100% !important;
       }
       /* Hide redundant admin-header on mobile dashboard to eliminate excessive top space */
       body.tab-is-dashboard .admin-header {
@@ -927,16 +958,20 @@
         max-width: 86vw !important;
         z-index: 10005 !important;
         transform: translateX(-100%) !important;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s !important;
         box-shadow: 15px 0 45px rgba(0,0,0,0.55) !important;
         background: #1A1324 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 16px 14px 40px 14px !important;
         box-sizing: border-box !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
       }
       .admin-sidebar.sidebar-open {
         transform: translateX(0) !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
       }
       #sidebar-overlay {
         position: fixed !important;
