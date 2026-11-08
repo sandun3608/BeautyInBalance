@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1076,7 +1076,7 @@
               <span id="summ-discount-label" style="color: #4b5563; font-weight: 500;">Discount</span>
               <span id="summ-discount" style="color: #16a34a; font-weight: 700; font-size: 14.5px;">-Rs. 0</span>
             </div>
-            <div class="summ-row" id="summ-koko-fee-row" style="display: none;">
+            <div class="summ-row" id="summ-koko-fee-row" style="display: none !important;">
               <span style="color: #4b5563; font-weight: 500;">koko fees</span>
               <span id="summ-koko-fee" style="font-weight: 600; color: #111827;">12%</span>
             </div>
@@ -1121,7 +1121,7 @@
   </div>
 
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=412"></script>
+  <script src="products.js?v=520"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1245,8 +1245,7 @@
       }
 
       let originalSubtotal = 0;
-      let codSubtotal = 0;
-      let kokoSubtotal = 0;
+      let activeSubtotal = 0;
       let primaryDiscountPercent = 0;
       const isKoko = (selectedPaymentMethod === 'Koko');
 
@@ -1254,28 +1253,34 @@
         const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
           ? getCheckoutEffectiveDiscount(item) 
           : Number(item.discount || 0);
-        
-        if (effDisc > primaryDiscountPercent) {
-          primaryDiscountPercent = effDisc;
+
+        // Koko vs Standard (COD / Card / Bank) calculation:
+        // 1. When Koko is selected:
+        //    - If discount > 12%: Koko discount = (effDisc - 12)% (e.g. 40% -> 28%)
+        //    - If discount <= 12%: NO discount (0%), price is original item.price, discount badge is removed!
+        // 2. When Standard (COD / Card / Bank):
+        //    - Normal discount effDisc% applies
+        let itemDiscPercent = 0;
+        if (isKoko) {
+          itemDiscPercent = effDisc > 12 ? (effDisc - 12) : 0;
+        } else {
+          itemDiscPercent = effDisc > 0 ? effDisc : 0;
+        }
+
+        if (itemDiscPercent > primaryDiscountPercent) {
+          primaryDiscountPercent = itemDiscPercent;
         }
 
         const lineOriginal = item.price * item.qty;
-        
-        // 1. Discounted price for COD / Bank / Card (full offer discount)
-        const codItemPrice = effDisc > 0 ? Math.round(item.price * (1 - effDisc / 100)) : item.price;
-        
-        // 2. Koko price: If discount > 12%, add 12% to the discounted price (e.g. 6800 - 40% = 4080 + 12% = 4570)
-        // If discount <= 12% or no discount: same as codItemPrice!
-        const kokoItemPrice = (effDisc > 12) ? Math.round(codItemPrice * 1.12) : codItemPrice;
+        const activeItemPrice = itemDiscPercent > 0 
+          ? Math.round(item.price * (1 - itemDiscPercent / 100)) 
+          : item.price;
+        const lineTotal = activeItemPrice * item.qty;
 
         originalSubtotal += lineOriginal;
-        codSubtotal += (codItemPrice * item.qty);
-        kokoSubtotal += (kokoItemPrice * item.qty);
+        activeSubtotal += lineTotal;
 
-        // Item price next to item name always reflects the pure discounted price
-        const activeItemPrice = codItemPrice;
-        const lineTotal = activeItemPrice * item.qty;
-        const itemHasDiscount = effDisc > 0;
+        const itemHasDiscount = itemDiscPercent > 0;
 
         const priceHTML = itemHasDiscount
             ? `<div class="summ-price" style="display:flex; flex-direction:column; align-items:flex-end; font-family:var(--font-sans);">
@@ -1293,7 +1298,7 @@
               <div class="summ-details">
                 <div style="display: flex; align-items: flex-start; gap: 6px;">
                   <h4 title="${item.name}" style="margin-bottom: 0;">${item.name}</h4>
-                  ${itemHasDiscount ? `<span style="background: #dc2626; color: #ffffff; font-size: 10px; font-weight: 700; padding: 1.5px 6px; border-radius: 4px; letter-spacing: 0.3px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; line-height: 1.2; margin-top: 1px;">${effDisc}% OFF</span>` : ''}
+                  ${itemHasDiscount ? `<span style="background: #dc2626; color: #ffffff; font-size: 10px; font-weight: 700; padding: 1.5px 6px; border-radius: 4px; letter-spacing: 0.3px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; line-height: 1.2; margin-top: 1px;">${itemDiscPercent}% OFF</span>` : ''}
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
                   <span style="font-size: 11px; color: #71717a; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">QTY:</span>
@@ -1318,62 +1323,34 @@
       const labelEl = $('summ-discount-label');
       const discountValEl = $('summ-discount');
       const kokoFeeRow = $('summ-koko-fee-row');
-      const kokoFeeValEl = $('summ-koko-fee');
 
-      const kokoFeeAmount = kokoSubtotal - codSubtotal;
+      // Hide koko fee row completely from checkout summary
+      if (kokoFeeRow) {
+        kokoFeeRow.style.display = 'none';
+      }
 
-      if (isKoko) {
-        // Koko selected: Total -> Price with discount -> koko fees -> shipping -> subtotal
-        if (primaryDiscountPercent > 0) {
-          if (labelEl) labelEl.textContent = 'Price with discount';
-          if (discountValEl) {
-            discountValEl.textContent = `Rs. ${codSubtotal.toLocaleString()}`;
-            discountValEl.style.color = '#16a34a';
-          }
-          discountRow.style.display = 'flex';
-        } else {
-          discountRow.style.display = 'none';
+      const totalDiscount = originalSubtotal - activeSubtotal;
+      if (totalDiscount > 0) {
+        if (labelEl) {
+          labelEl.innerHTML = `Discount ${primaryDiscountPercent > 0 ? `<span style="color: #16a34a; font-weight: 600; font-size: 12.5px; margin-left: 2px;">(${primaryDiscountPercent}% OFF)</span>` : ''}`;
         }
-
-        if (kokoFeeRow && kokoFeeValEl) {
-          if (primaryDiscountPercent > 12 && kokoFeeAmount > 0) {
-            kokoFeeValEl.textContent = '12%';
-            kokoFeeRow.style.display = 'flex';
-          } else {
-            kokoFeeRow.style.display = 'none';
-          }
+        if (discountValEl) {
+          discountValEl.textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
+          discountValEl.style.color = '#16a34a';
         }
+        if (discountRow) discountRow.style.display = 'flex';
       } else {
-        // COD / Bank Transfer / Card: Total -> Discount (40% OFF) -> shipping -> subtotal
-        const totalDiscount = originalSubtotal - codSubtotal;
-        if (totalDiscount > 0) {
-          if (labelEl) {
-            labelEl.innerHTML = `Discount <span style="color: #16a34a; font-weight: 600; font-size: 12.5px; margin-left: 2px;">(${primaryDiscountPercent}% OFF)</span>`;
-          }
-          if (discountValEl) {
-            discountValEl.textContent = `-Rs. ${totalDiscount.toLocaleString()}`;
-            discountValEl.style.color = '#16a34a';
-          }
-          discountRow.style.display = 'flex';
-        } else {
-          discountRow.style.display = 'none';
-        }
-
-        // Hide Koko fee row on COD / Bank / Card
-        if (kokoFeeRow) {
-          kokoFeeRow.style.display = 'none';
-        }
+        if (discountRow) discountRow.style.display = 'none';
       }
 
       $('summ-shipping').textContent = `Rs. ${fee.toLocaleString()}`;
       
-      const activeDiscountedSubtotal = isKoko ? kokoSubtotal : codSubtotal;
-      const finalTotal = activeDiscountedSubtotal + fee;
+      const finalTotal = activeSubtotal + fee;
       $('summ-total').textContent = `Rs. ${finalTotal.toLocaleString()}`;
       window.currentOrderTotal = finalTotal;
 
       // Update Koko 3 Installments calculation box
-      const kokoTotal = kokoSubtotal + fee;
+      const kokoTotal = finalTotal;
       const kokoInstallment = (kokoTotal / 3).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       // Update right side Order Summary Koko box (below Subtotal)
@@ -1392,7 +1369,7 @@
       }
       const summKokoShippingNote = $('summ-koko-shipping-note');
       if (summKokoShippingNote) {
-        summKokoShippingNote.textContent = `Includes shipping & fees`;
+        summKokoShippingNote.textContent = `Includes shipping & discount`;
       }
 
       const kokoInstallHeader = $('koko-install-header');
@@ -1402,41 +1379,30 @@
 
       const kokoCalcDetails = $('koko-calc-details');
       if (kokoCalcDetails) {
-        if (primaryDiscountPercent > 12 && kokoFeeAmount > 0) {
-          kokoCalcDetails.innerHTML = `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
-              <span>Offer Price (${primaryDiscountPercent}% OFF):</span>
-              <span style="font-weight: 600;">Rs. ${codSubtotal.toLocaleString()}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
-              <span>+ 12% Koko Fee:</span>
-              <span style="font-weight: 600;">+Rs. ${kokoFeeAmount.toLocaleString()}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-              <span>Delivery:</span>
-              <span style="font-weight: 600;">Rs. ${fee.toLocaleString()}</span>
-            </div>
-            <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #111827;">
-              <span>Total with Koko:</span>
-              <span>Rs. ${kokoTotal.toLocaleString()}</span>
-            </div>
-          `;
-        } else {
-          kokoCalcDetails.innerHTML = `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
-              <span>Order Subtotal:</span>
-              <span style="font-weight: 600;">Rs. ${codSubtotal.toLocaleString()}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-              <span>Delivery:</span>
-              <span style="font-weight: 600;">Rs. ${fee.toLocaleString()}</span>
-            </div>
-            <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #111827;">
-              <span>Total with Koko:</span>
-              <span>Rs. ${kokoTotal.toLocaleString()}</span>
+        let discHTML = '';
+        if (totalDiscount > 0) {
+          discHTML = `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px; color: #16a34a;">
+              <span>Discount (${primaryDiscountPercent}% OFF):</span>
+              <span style="font-weight: 600;">-Rs. ${totalDiscount.toLocaleString()}</span>
             </div>
           `;
         }
+        kokoCalcDetails.innerHTML = `
+          <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+            <span>Subtotal:</span>
+            <span style="font-weight: 600;">Rs. ${originalSubtotal.toLocaleString()}</span>
+          </div>
+          ${discHTML}
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span>Delivery:</span>
+            <span style="font-weight: 600;">Rs. ${fee.toLocaleString()}</span>
+          </div>
+          <div style="border-top: 1px dashed #d8b4fe; padding-top: 5px; margin-top: 3px; display: flex; justify-content: space-between; font-weight: 700; color: #111827;">
+            <span>Total with Koko:</span>
+            <span>Rs. ${kokoTotal.toLocaleString()}</span>
+          </div>
+        `;
       }
     };
 
@@ -1613,9 +1579,13 @@
               const effDisc = (typeof getCheckoutEffectiveDiscount === 'function') 
                 ? getCheckoutEffectiveDiscount(i) 
                 : Number(i.discount || 0);
-              const codPrice = effDisc > 0 ? Math.round(i.price * (1 - effDisc / 100)) : i.price;
-              const kokoPrice = (effDisc > 12) ? Math.round(codPrice * 1.12) : codPrice;
-              const finalPrice = (paymentMethod === 'Koko') ? kokoPrice : codPrice;
+              let finalPrice;
+              if (paymentMethod === 'Koko') {
+                const kokoDisc = effDisc > 12 ? (effDisc - 12) : 0;
+                finalPrice = kokoDisc > 0 ? Math.round(i.price * (1 - kokoDisc / 100)) : i.price;
+              } else {
+                finalPrice = effDisc > 0 ? Math.round(i.price * (1 - effDisc / 100)) : i.price;
+              }
               return { product: i.id, name: i.name, qty: i.qty, price: finalPrice };
             }),
             shippingPrice: window._shippingFee || 450,

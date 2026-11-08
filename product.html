@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1066,7 +1066,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="config.js?v=18"></script>
-  <script src="products.js?v=510"></script>
+  <script src="products.js?v=520"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const prodId = params.get('id');
@@ -1205,7 +1205,9 @@
       // Update Koko 3x installment
       const kokoAmtEl = document.getElementById('koko-installment-amt');
       if (kokoAmtEl) {
-        kokoAmtEl.textContent = (discountedPrice / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const effKokoDisc = effectiveDiscount > 12 ? (effectiveDiscount - 12) : 0;
+        const kokoItemPrice = effKokoDisc > 0 ? Math.round(basePrice * (1 - effKokoDisc / 100)) : basePrice;
+        kokoAmtEl.textContent = (kokoItemPrice / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
 
       // Update Stock bar & urgency
@@ -1645,7 +1647,9 @@
         else brandName = brandName.replace(/-/g, ' ').toUpperCase();
 
         const imgSrc = p.img || 'favicon.png';
-        const kokoAmount = (((discount > 0 ? Math.round(basePrice * (1 - discount / 100)) : basePrice)) / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const effKokoDisc = discount > 12 ? (discount - 12) : 0;
+        const kokoItemPrice = effKokoDisc > 0 ? Math.round(basePrice * (1 - effKokoDisc / 100)) : basePrice;
+        const kokoAmount = (kokoItemPrice / 3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
         const card = document.createElement('div');
         card.className = `rec-card ${isOutOfStock ? 'is-sold-out' : ''}`;
