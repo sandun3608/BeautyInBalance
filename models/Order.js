@@ -52,6 +52,11 @@ const orderSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    isEmailSent: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 }, { timestamps: true });
 

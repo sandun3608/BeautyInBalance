@@ -52,64 +52,15 @@ router.post('/', async (req, res) => {
 
         const createdOrder = await order.save();
 
+        const isOnlinePayment = ['Koko', 'Card Payment'].includes(createdOrder.paymentMethod);
+
         // --- EMAIL NOTIFICATIONS (BACKGROUND) ---
-        if (process.env.RESEND_API_KEY || (process.env.EMAIL_USER && (process.env.GOOGLE_CLIENT_ID || process.env.EMAIL_PASS))) {
-            const sendEmail = require('../utils/mailer');
-            
-            try {
-                const itemsList = (createdOrder.orderItems || []).map(i => `<li>${i.qty}x ${i.name} - Rs. ${i.price.toLocaleString()}</li>`).join('');
-                const customerName = `${createdOrder.customerInfo?.firstName || 'Customer'} ${createdOrder.customerInfo?.lastName || ''}`;
-
-                // 1. Notify Admin (Background)
-                sendEmail({
-                    email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-                    subject: `🛍️ New Order Received! #${createdOrder._id.toString().slice(-6).toUpperCase()}`,
-                    html: `
-                        <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                            <h2 style="color: #b58646;">New Order Notification</h2>
-                            <p>You have received a new order from <strong>${customerName}</strong>.</p>
-                            <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Order Details</h3>
-                            <ul>${itemsList}</ul>
-                            <p><strong>Total Price:</strong> Rs. ${createdOrder.totalPrice.toLocaleString()}</p>
-                            <p><strong>Payment Method:</strong> ${createdOrder.paymentMethod}</p>
-                            <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Customer Contact</h3>
-                            <p><strong>Email:</strong> ${createdOrder.customerInfo.email}</p>
-                            <p><strong>Phone:</strong> ${createdOrder.customerInfo.phone}</p>
-                            <p><strong>Address:</strong> ${createdOrder.customerInfo.address}, ${createdOrder.customerInfo.city}</p>
-                        </div>
-                    `
-                }).then(() => console.log(`📧 Admin notified for order ${createdOrder._id}`)).catch(err => console.error("📧 Admin email error:", err));
-
-                // 2. Notify Customer (Background)
-                sendEmail({
-                    email: createdOrder.customerInfo.email,
-                    subject: `Confirmation: Your Beauty in Balance Order #${createdOrder._id.toString().slice(-6).toUpperCase()}`,
-                    html: `
-                        <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px; margin: 0 auto;">
-                            <h1 style="color: #b58646; text-align: center;">Thank You for Your Order!</h1>
-                            <p>Hi ${createdOrder.customerInfo.firstName},</p>
-                            <p>We've received your order and are getting it ready for shipment.</p>
-                            <div style="background: #fdfbf7; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                                <h3 style="margin-top: 0; color: #1b1b1e;">Order Summary</h3>
-                                <ul style="list-style: none; padding: 0;">
-                                    ${(createdOrder.orderItems || []).map(i => `
-                                        <li style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
-                                            <span>${i.qty}x ${i.name}</span>
-                                            <span style="font-weight: bold;">Rs. ${(i.price * i.qty).toLocaleString()}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                                <div style="display: flex; justify-content: space-between; padding-top: 15px; font-weight: bold; font-size: 18px;">
-                                    <span>Total</span>
-                                    <span style="color: #b58646;">Rs. ${createdOrder.totalPrice.toLocaleString()}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `
-                }).then(() => console.log(`📧 Customer notified for order ${createdOrder._id}`)).catch(err => console.error("📧 Customer email error:", err));
-            } catch (emailBuildErr) {
-                console.error("❌ Failed to build order email:", emailBuildErr);
-            }
+        // For online payments (Koko / Card), hold confirmation emails until payment is confirmed as PAID
+        if (!isOnlinePayment || createdOrder.isPaid) {
+            const { sendOrderConfirmation } = require('../utils/mailer');
+            sendOrderConfirmation(createdOrder);
+        } else {
+            console.log(`ℹ️ Order ${createdOrder._id} is ${createdOrder.paymentMethod} (unpaid). Confirmation emails held until payment is confirmed.`);
         }
 
         // --- WHATSAPP NOTIFICATIONS (Green API / UltraMsg / CallMeBot) ---
@@ -121,7 +72,6 @@ router.post('/', async (req, res) => {
         const ultraMsgToken = process.env.ULTRAMSG_TOKEN;
         const wpApiKey = process.env.WHATSAPP_API_KEY;
 
-        const isOnlinePayment = ['Koko', 'Card Payment'].includes(createdOrder.paymentMethod);
         if (wpPhones.length > 0 && (!isOnlinePayment || createdOrder.isPaid)) {
             const axios = require('axios');
             const customerName = `${createdOrder.customerInfo?.firstName || 'Customer'} ${createdOrder.customerInfo?.lastName || ''}`;

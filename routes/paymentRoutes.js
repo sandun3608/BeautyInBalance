@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const crypto = require('crypto');
+const { sendOrderConfirmation } = require('../utils/mailer');
 
 // Helper function to format Sri Lankan phone numbers for WhatsApp
 const formatWhatsAppPhone = (phone) => {
@@ -293,6 +294,7 @@ fr01xf7lBG3bGqNXZkdXb0txnoXSmPya+B4oGqZc+KWNrKTntY3sNKD6k4tdOeoX
                     await sendWhatsAppNotification(order);
                     await sendCustomerWhatsAppNotification(order, 'placed');
                     await reduceProductStock(order);
+                    await sendOrderConfirmation(order);
                 } else {
                     console.log(`Order ${order._id} is already marked as paid.`);
                 }
@@ -335,6 +337,7 @@ router.get('/koko/callback', async (req, res) => {
                     await sendWhatsAppNotification(order);
                     await sendCustomerWhatsAppNotification(order, 'placed');
                     await reduceProductStock(order);
+                    await sendOrderConfirmation(order);
                 }
                 return res.redirect('/checkout.html?payment=success');
             }
@@ -371,6 +374,7 @@ router.get('/koko/return', async (req, res) => {
                     await sendWhatsAppNotification(order);
                     await sendCustomerWhatsAppNotification(order, 'placed');
                     await reduceProductStock(order);
+                    await sendOrderConfirmation(order);
                 }
             }
         }
