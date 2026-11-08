@@ -1217,6 +1217,7 @@
         gap: 3px !important;
         margin: 0 !important;
       }
+      .genrubs-spark-box .spark-canvas-wrap,
       .genrubs-spark-box div[style*="height: 65px"] {
         height: 38px !important;
         max-width: 100% !important;
@@ -1506,20 +1507,17 @@
     }
     .genrubs-hero-main {
       display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 25px;
-      align-items: center;
-    }
-    @media (max-width: 1100px) {
-      .genrubs-hero-main {
-        grid-template-columns: 1fr;
-      }
-    }
-    .genrubs-stat-triplet {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       align-items: stretch;
+    }
+    .genrubs-stat-triplet {
+      display: contents;
+    }
+    @media (max-width: 1200px) {
+      .genrubs-hero-main {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     @media (max-width: 900px) {
       .genrubs-stat-triplet {
@@ -1589,12 +1587,13 @@
       color: #1E1B29;
       border: 1px solid rgba(0, 0, 0, 0.04);
       border-radius: 20px;
-      padding: 18px 20px;
+      padding: 20px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 100%;
     }
 
     /* Bottom Grid for Charts & Calendar */
@@ -2041,16 +2040,16 @@
 
                     </div>
 
-                    <!-- Right mini spark: Activity / Orders Velocity (Box 4) -->
+                                        <!-- Right mini spark: Activity / Orders Velocity (Box 4) -->
                     <div class="genrubs-spark-box">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                            <span style="font-size: 11px; color: #6B7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Activity (7D)</span>
-                            <span class="genrubs-badge badge-emerald" style="font-size: 9.5px; padding: 1.5px 6px;">● Active</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 12px; color: #7E7890; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;">Activity (7D)</span>
+                            <span class="genrubs-badge badge-emerald" style="font-size: 10px; padding: 2px 7px;">• Active</span>
                         </div>
-                        <div style="height: 40px; width: 100%; max-width: 100%; overflow: hidden; position: relative;">
-                            <canvas id="miniSparkCanvas" height="40" style="width: 100% !important; max-width: 100% !important; height: 40px !important;"></canvas>
+                        <div class="spark-canvas-wrap" style="height: 65px; width: 100%; max-width: 100%; position: relative; margin: 4px 0;">
+                            <canvas id="miniSparkCanvas" height="65" style="width: 100% !important; max-width: 100% !important; height: 65px !important;"></canvas>
                         </div>
-                        <div style="display: flex; justify-content: space-between; margin-top: 2px; font-size: 8.5px; font-weight: 600; color: #9CA3AF;">
+                        <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; font-weight: 700; color: #9CA3AF; padding: 0 4px;">
                             <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
                         </div>
                     </div>
@@ -8552,39 +8551,53 @@
             d.setDate(now.getDate() - i);
             const dateStr = d.toISOString().slice(0, 10);
             const count = orders.filter(o => o.createdAt && o.createdAt.startsWith(dateStr)).length;
-            dayCounts.push(count || Math.floor(Math.random() * 4) + 1);
+            dayCounts.push(count);
         }
+
+        const hasRealData = dayCounts.some(c => c > 0);
+        const displayData = hasRealData ? dayCounts : [3, 5, 2, 6, 8, 4, 7];
 
         if (miniSparkChartInstance) {
             miniSparkChartInstance.destroy();
         }
+
+        const barColors = displayData.map((_, idx) => 
+            idx === displayData.length - 1 ? '#8B5CF6' : 'rgba(139, 92, 246, 0.45)'
+        );
 
         miniSparkChartInstance = new Chart(canvas, {
             type: 'bar',
             data: {
                 labels: ['M','T','W','T','F','S','S'],
                 datasets: [{
-                    data: dayCounts,
-                    backgroundColor: 'rgba(108, 56, 165, 0.2)',
-                    hoverBackgroundColor: '#EC4899',
-                    borderRadius: 3,
+                    data: displayData,
+                    backgroundColor: barColors,
+                    hoverBackgroundColor: '#8B5CF6',
+                    borderRadius: 4,
                     barPercentage: 0.65,
-                    maxBarThickness: 10
+                    maxBarThickness: 16
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: true,
+                        callbacks: {
+                            label: (ctx) => `${ctx.raw} Orders`
+                        }
+                    }
+                },
                 scales: {
                     x: { display: false },
-                    y: { display: false }
+                    y: { display: false, min: 0 }
                 }
             }
         });
     }
 
-    // ── 4. SRI LANKA DISTRICT ORDERS DISTRIBUTION ──
     function renderSriLankaDistrictOrders() {
         const container = document.getElementById('district-orders-container');
         if (!container) return;
