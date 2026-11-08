@@ -62,6 +62,18 @@
 }
 
 @media (max-width: 768px) {
+  /* Prevent mobile browsers from auto-zooming on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
   .product-badges {
     top: 6px !important;
     left: 6px !important;
@@ -90,6 +102,15 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  html,
+  body {
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
+    -webkit-text-size-adjust: 100%;
+  }
 }
 
 main {

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Shop Authentic Skincare | The Ordinary & CeraVe Sri Lanka - Beauty in Balance</title>
   <meta name="description"
     content="Browse our curated collection of 100% original skincare products in Sri Lanka. Buy The Ordinary serums, CeraVe cleansers, and cosmetics. Authentic imports from CA & GB." />
@@ -22,7 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=463481" />
+  <link rel="stylesheet" href="styles.css?v=463490" />
 
   <style>
 
@@ -1086,9 +1086,20 @@
     }
 
     @media (max-width: 768px) {
+      html, body {
+        overflow-x: clip !important;
+        touch-action: pan-y !important;
+        overscroll-behavior-x: none !important;
+        -webkit-text-size-adjust: 100% !important;
+      }
       .shop-container {
         padding: 16px 12px 60px !important;
         box-sizing: border-box !important;
+      }
+      .sidebar-search-box input,
+      #shop-sidebar-search,
+      .shop-sort-select {
+        font-size: 16px !important;
       }
     }
 
