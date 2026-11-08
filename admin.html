@@ -1518,7 +1518,7 @@
     }
     .genrubs-hero-main {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 0.95fr)) minmax(0, 1.7fr);
       gap: 16px;
       align-items: stretch;
     }
@@ -1550,7 +1550,7 @@
       background: #ffffff;
       color: #1E1B29;
       border-radius: 20px;
-      padding: 20px;
+      padding: 18px 18px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       position: relative;
     }
@@ -1562,14 +1562,16 @@
       text-transform: capitalize;
     }
     .genrubs-mini-card .card-val {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       color: #1E1B29;
       letter-spacing: -0.5px;
       margin-bottom: 12px;
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
     }
     .genrubs-badge {
       font-size: 10px;
@@ -2067,8 +2069,8 @@
                             <span id="stat-activity-total" style="font-size: 22px; font-weight: 800; color: #8B5CF6; letter-spacing: -0.5px;">-- Orders</span>
                             <span class="genrubs-badge badge-purple" style="font-size: 9.5px; font-weight: 700;">Last 7 Days</span>
                         </div>
-                        <div class="spark-canvas-wrap" style="height: 60px; width: 100%; max-width: 100%; position: relative; margin: 2px 0;">
-                            <canvas id="miniSparkCanvas" height="60" style="width: 100% !important; max-width: 100% !important; height: 60px !important;"></canvas>
+                        <div class="spark-canvas-wrap" style="height: 65px; width: 100%; max-width: 100%; position: relative; margin: 2px 0;">
+                            <canvas id="miniSparkCanvas" height="65" style="width: 100% !important; max-width: 100% !important; height: 65px !important;"></canvas>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; font-weight: 700; color: #9CA3AF; padding: 0 4px;">
                             <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
@@ -8701,9 +8703,9 @@
                     data: displayData,
                     backgroundColor: barColors,
                     hoverBackgroundColor: '#7C3AED',
-                    borderRadius: 5,
-                    barPercentage: 0.72,
-                    maxBarThickness: 22,
+                    borderRadius: 6,
+                    barPercentage: 0.75,
+                    maxBarThickness: 34,
                     minBarLength: 5
                 }]
             },
