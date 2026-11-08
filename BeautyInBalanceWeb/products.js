@@ -2010,13 +2010,13 @@ function renderCart() {
                 </div>
                 <div style="flex-grow:1; display:flex; flex-direction:column; gap:4px; min-width:0;">
                     <div style="font-size:13.5px; font-weight:600; font-family:var(--font-sans); color:#2D1B12; line-height:1.35; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; max-height:36px;">${item.name}</div>
-                    <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-                        <div style="display:inline-flex; align-items:center; gap:10px; background:#f5f5f7; border:1px solid #e2e2e5; padding:2px 8px; border-radius:6px; width:fit-content; height:26px; box-sizing:border-box;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+                        <div style="display:inline-flex; align-items:center; gap:10px; background:#f5f5f7; border:1px solid #e2e2e5; padding:0 8px; border-radius:6px; width:fit-content; height:26px; box-sizing:border-box; margin:0 !important; vertical-align:middle;">
                             <button onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:11px; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">-</button>
-                            <span style="font-family:var(--font-sans); font-size:11.5px; font-weight:700; color:#000000; min-width:12px; text-align:center;">${item.qty}</span>
+                            <span style="font-family:var(--font-sans); font-size:11.5px; font-weight:700; color:#000000; min-width:12px; text-align:center; line-height:26px;">${item.qty}</span>
                             <button onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="border:none; background:transparent; color:#555558; cursor:pointer; font-weight:700; font-size:11px; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">+</button>
                         </div>
-                        ${discount > 0 ? `<span class="discount-badge" style="background:#dc2626 !important; color:#ffffff !important; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; display:inline-flex; align-items:center; height:26px; box-sizing:border-box; letter-spacing:0.3px; text-transform:uppercase; line-height:1;">${discount}% OFF</span>` : ''}
+                        ${discount > 0 ? `<span class="discount-badge" style="background:#dc2626 !important; color:#ffffff !important; font-size:11px; font-weight:700; padding:0 8px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; height:26px; box-sizing:border-box; letter-spacing:0.3px; text-transform:uppercase; line-height:26px; margin:0 !important; vertical-align:middle;">${discount}% OFF</span>` : ''}
                     </div>
                 </div>
             </div>
@@ -2130,13 +2130,13 @@ function renderCart() {
                         <div class="cart-item-img" style="background:#ffffff; border:1px solid #eef0f2; box-shadow:0 2px 8px rgba(0,0,0,0.04); border-radius:12px; padding:10px; width:80px; height:80px; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><img src="${item.img}" style="max-width:100%; max-height:100%; object-fit:contain;"></div>
                         <div class="cart-item-info" style="display:flex; flex-direction:column; gap:6px; min-width:0;">
                             <div class="cart-item-name" style="font-weight:600; color:var(--dark); font-size:15px; font-family:var(--font-sans);">${item.name}</div>
-                            <div style="display:flex; align-items:center; gap:10px; margin-top:4px;">
-                                <div class="cart-item-qty" style="display:inline-flex; align-items:center; gap:8px; background:#f5f5f7; border:1px solid #e2e2e5; padding:3px 8px; border-radius:6px; width:fit-content; height:28px; box-sizing:border-box;">
+                            <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+                                <div class="cart-item-qty" style="display:inline-flex; align-items:center; gap:8px; background:#f5f5f7; border:1px solid #e2e2e5; padding:0 8px; border-radius:6px; width:fit-content; height:28px; box-sizing:border-box; margin:0 !important; vertical-align:middle;">
                                     <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty - 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%;">-</span>
-                                    <span style="font-family:var(--font-sans); font-size:12px; font-weight:600; color:#000000; min-width:14px; text-align:center;">${item.qty}</span>
+                                    <span style="font-family:var(--font-sans); font-size:12px; font-weight:600; color:#000000; min-width:14px; text-align:center; line-height:28px;">${item.qty}</span>
                                     <span class="cart-item-qty-btn" onclick="updateCartQty('${item.id}', ${item.qty + 1})" style="cursor:pointer; font-weight:700; font-size:12px; color:#555558; padding:0 4px; display:flex; align-items:center; justify-content:center; height:100%; font-weight:700;">+</span>
                                 </div>
-                                ${discount > 0 ? `<span class="discount-badge" style="background:#dc2626 !important; color:#ffffff !important; font-size:11px; font-weight:700; padding:2.5px 8px; border-radius:4px; display:inline-flex; align-items:center; height:28px; box-sizing:border-box; letter-spacing:0.3px; text-transform:uppercase; line-height:1;">${discount}% OFF</span>` : ''}
+                                ${discount > 0 ? `<span class="discount-badge" style="background:#dc2626 !important; color:#ffffff !important; font-size:11px; font-weight:700; padding:0 8px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; height:28px; box-sizing:border-box; letter-spacing:0.3px; text-transform:uppercase; line-height:28px; margin:0 !important; vertical-align:middle;">${discount}% OFF</span>` : ''}
                             </div>
                         </div>
                     </div>
