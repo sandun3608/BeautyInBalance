@@ -3518,8 +3518,8 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   .cart-drawer {
-    width: min(420px, 92vw) !important;
-    max-width: 92vw !important;
+    width: 75vw !important;
+    max-width: 75vw !important;
     height: calc(100vh - 60px) !important;
     height: calc(100dvh - 60px) !important;
     max-height: calc(100dvh - 60px) !important;
@@ -3536,7 +3536,7 @@ body:has(.cart-drawer.open) .mobile-search-bar {
   }
 
   #cart-items-container {
-    padding: 16px 14px !important;
+    padding: 14px 10px !important;
   }
 
   /* Ensure the checkout button is always visible and clickable at the bottom */
@@ -12240,8 +12240,8 @@ body.loading-active .floating-email {
 }
 
 .cart-drawer-thumb {
-  width: 64px !important;
-  height: 64px !important;
+  width: 58px !important;
+  height: 58px !important;
   border-radius: 10px !important;
   border: 1px solid #eaeaea !important;
   background: #ffffff !important;
