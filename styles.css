@@ -12326,3 +12326,20 @@ body.loading-active .floating-email {
   flex-wrap: wrap !important;
   width: 100% !important;
 }
+
+/* =========================================================
+   OFFERS PAGE & NAV VISIBILITY (ZERO-FLICKER GUARD)
+   Hidden by default until html.bib-offers-active is set by config.js
+   ========================================================= */
+html:not(.bib-offers-active) .nav-offer-item,
+html:not(.bib-offers-active) .nav-main li:has(> a[href*="offers.html"]),
+html:not(.bib-offers-active) .nav-main li:has(> a[href="/offers"]),
+html:not(.bib-offers-active) .m-sidebar-list li:has(> a[href*="offers.html"]),
+html:not(.bib-offers-active) .m-sidebar-list li:has(> a[href="/offers"]),
+html:not(.bib-offers-active) .footer-col li:has(> a[href*="offers.html"]),
+html:not(.bib-offers-active) .footer-col li:has(> a[href="/offers"]),
+html:not(.bib-offers-active) #offers-hero-section,
+html:not(.bib-offers-active) .offers-body {
+  display: none !important;
+}
+

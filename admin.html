@@ -104,7 +104,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=463483" />
+  <link rel="stylesheet" href="styles.css?v=463495" />
   <style>
     /* Admin Premium - Beauty in Balance Branding */
     /* Modern Deep Plum & Soft Violet Theme (Matching UI Design) */
@@ -2474,14 +2474,14 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
                   <div>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                      <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></span>
-                      <h3 style="margin: 0; font-size: 19px; font-weight: 800; color: var(--admin-text);">Currently Active Offer Products</h3>
+                      <span id="active-offer-dot" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></span>
+                      <h3 id="active-offer-heading" style="margin: 0; font-size: 19px; font-weight: 800; color: var(--admin-text);">Currently Active Offer Products</h3>
                     </div>
-                    <p style="margin: 4px 0 0 20px; font-size: 13px; color: #777;">These items are currently live with special discounts on the customer storefront &amp; offers page.</p>
+                    <p id="active-offer-sub" style="margin: 4px 0 0 20px; font-size: 13px; color: #777;">These items are currently live with special discounts on the customer storefront &amp; offers page.</p>
                   </div>
                   <div style="display: flex; gap: 10px; align-items: center;">
                     <span id="active-offer-count-pill" style="background: #e0f2fe; color: #0284c7; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800;">0 Products</span>
-                    <a href="offers.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #fafafa; border: 1px solid #ddd; padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; color: #333; text-decoration: none;">
+                    <a id="admin-view-live-offers-btn" href="offers.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #fafafa; border: 1px solid #ddd; padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; color: #333; text-decoration: none;">
                       View Live Offers Page &rarr;
                     </a>
                   </div>
@@ -6835,8 +6835,8 @@
       </main>
     </div>
 
-  <script src="config.js?v=20"></script>
-  <script src="products.js?v=423"></script>
+  <script src="config.js?v=21"></script>
+  <script src="products.js?v=533"></script>
   <script>
     console.log("BiB Admin: DOM Logic Attached");
     let editingId = null;
@@ -9880,6 +9880,7 @@
         curSale.mobileBgBanner = window.currentOfferBgMobile || '';
         if (!Array.isArray(curSale.productIds)) {
           curSale.productIds = Array.from(selectedOfferProductIds);
+          if (curSale.productIds.length === 0) curSale.enabled = false;
         }
 
         const putRes = await fetch(`${getApiBaseUrl()}/settings/flash_sale`, {
@@ -9896,7 +9897,13 @@
           throw new Error(err.message || 'Status ' + putRes.status);
         }
 
-        try { localStorage.setItem('bib_active_sale', JSON.stringify(curSale)); } catch(e) {}
+        try {
+          if (typeof window.isBibFlashSaleActive === 'function' ? window.isBibFlashSaleActive(curSale) : (curSale && curSale.enabled !== false && curSale.endDate && Date.now() <= new Date(curSale.endDate).getTime() && Array.isArray(curSale.productIds) && curSale.productIds.length > 0)) {
+            localStorage.setItem('bib_active_sale', JSON.stringify(curSale));
+          } else {
+            localStorage.removeItem('bib_active_sale');
+          }
+        } catch(e) {}
         if (typeof showToast === 'function') {
           showToast('✅ Offers Page Countdown Banner saved successfully!');
         } else {
@@ -10033,12 +10040,13 @@
       const startInput = document.getElementById('offer-start-date');
       const endInput = document.getElementById('offer-end-date');
 
-      if (startInput && !startInput.value) {
+      const isEndExpiredOrEmpty = !endInput || !endInput.value || isNaN(new Date(endInput.value).getTime()) || new Date(endInput.value).getTime() <= Date.now();
+      if (startInput && (!startInput.value || isEndExpiredOrEmpty)) {
         const now = new Date();
         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
         startInput.value = now.toISOString().slice(0, 16);
       }
-      if (endInput && !endInput.value) {
+      if (endInput && isEndExpiredOrEmpty) {
         const future = new Date();
         future.setDate(future.getDate() + 3);
         future.setMinutes(future.getMinutes() - future.getTimezoneOffset());
@@ -10113,7 +10121,7 @@
             const now = new Date();
             const end = sale.endDate ? new Date(sale.endDate) : null;
             const start = sale.startDate ? new Date(sale.startDate) : null;
-            const isLive = sale.enabled && end && now <= end;
+            const isLive = sale.enabled !== false && end && !isNaN(end.getTime()) && now <= end && selectedOfferProductIds.size > 0;
 
             if (discEl) discEl.textContent = (sale.discountPercent || 0) + '% OFF';
             if (countEl) countEl.textContent = selectedOfferProductIds.size + ' Products';
@@ -10135,8 +10143,24 @@
               const diffMins = Math.floor((diffMs / (1000 * 60)) % 60);
               if (remEl) remEl.textContent = `${diffDays}d ${diffHours}h ${diffMins}m left`;
 
+              const pDot = document.getElementById('active-offer-dot');
+              const pHead = document.getElementById('active-offer-heading');
+              const pSub = document.getElementById('active-offer-sub');
+              const pLiveBtn = document.getElementById('admin-view-live-offers-btn');
+              if (pDot) pDot.style.background = '#10b981';
+              if (pHead) pHead.textContent = 'Currently Active Offer Products';
+              if (pSub) pSub.textContent = 'These items are currently live with special discounts on the customer storefront & offers page.';
+              if (pLiveBtn) pLiveBtn.style.display = 'inline-flex';
               try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
             } else {
+              const pDot = document.getElementById('active-offer-dot');
+              const pHead = document.getElementById('active-offer-heading');
+              const pSub = document.getElementById('active-offer-sub');
+              const pLiveBtn = document.getElementById('admin-view-live-offers-btn');
+              if (pDot) pDot.style.background = '#ef4444';
+              if (pHead) pHead.textContent = selectedOfferProductIds.size > 0 ? 'Previously Selected Offer Products (Offer Ended / Inactive)' : 'No Active Offer Products';
+              if (pSub) pSub.textContent = 'Offers page & navigation bar links are currently hidden from customers until you activate a new offer.';
+              if (pLiveBtn) pLiveBtn.style.display = 'none';
               if (badge) {
                 badge.innerHTML = '<span style="width: 7px; height: 7px; border-radius: 50%; background: #fff; display: inline-block;"></span> INACTIVE';
                 badge.style.background = '#ef4444';
@@ -10256,6 +10280,15 @@
 
       if (!startDateVal || !endDateVal) {
         alert('Please choose both Start Date and End Date for the offer!');
+        return;
+      }
+      const endMsCheck = new Date(endDateVal).getTime();
+      if (isNaN(endMsCheck) || endMsCheck <= Date.now()) {
+        alert('Please choose a future End Date & Time so the offer is active!');
+        return;
+      }
+      if (selectedOfferProductIds.size === 0) {
+        alert('Please select at least 1 product to include in the offer!');
         return;
       }
 

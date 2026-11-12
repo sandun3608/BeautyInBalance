@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=463492" />
-  <script src="config.js?v=20"></script>
+  <link rel="stylesheet" href="styles.css?v=463495" />
+  <script src="config.js?v=21"></script>
   <style>
     html, body {
       overflow-x: clip !important;
@@ -797,7 +797,7 @@
         <ul class="nav-main">
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop All</a></li>
-          <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
+          <li class="nav-offer-item"><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -835,7 +835,7 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
+            <li class="nav-offer-item"><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
             
             <li><a href="account.html">ORDER STATUS</a></li>
@@ -1196,8 +1196,7 @@
     </div>
   </div>
 
-  <script src="config.js?v=20"></script>
-  <script src="products.js?v=522"></script>
+  <script src="products.js?v=533"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -1272,30 +1271,38 @@
     function getCheckoutEffectiveDiscount(item) {
       if (!item) return 0;
       try {
-        let sale = window.activeFlashSale;
-        if (!sale) {
-          const saleStr = localStorage.getItem('bib_active_sale');
-          if (saleStr) sale = JSON.parse(saleStr);
-        }
-        if (sale && sale.enabled !== false) {
-          const now = new Date();
-          const end = sale.endDate ? new Date(sale.endDate) : null;
-          if (!end || now <= end) {
-            const pIdMongo = String(item._id || '').trim().toLowerCase();
-            const pIdCustom = String(item.id || '').trim().toLowerCase();
-            const saleIds = Array.isArray(sale.productIds) ? sale.productIds : [];
-            const isMatch = saleIds.some(id => {
-              const s = String(id || '').trim().toLowerCase();
-              return (pIdMongo && s === pIdMongo) || (pIdCustom && s === pIdCustom);
-            });
-            if (isMatch) {
-              return Number(sale.discountPercent || 0);
-            }
+        let catalog = [];
+        if (Array.isArray(window.productsData) && window.productsData.length > 0) {
+          catalog = window.productsData;
+        } else {
+          try {
+            const cStr = localStorage.getItem('koko_products_cache');
+            if (cStr) catalog = JSON.parse(cStr) || [];
+          } catch (e) {}
+          if ((!catalog || catalog.length === 0) && typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts)) {
+            catalog = defaultProducts;
           }
         }
-      } catch(e) {}
+        const itemIds = [item.productId, item.id, item._id].filter(Boolean).map(v => String(v).trim().toLowerCase());
+        const itemName = String(item.name || '').trim().toLowerCase();
+        const catalogProd = Array.isArray(catalog) ? catalog.find(p => {
+          const p1 = String(p._id || '').trim().toLowerCase();
+          const p2 = String(p.id || '').trim().toLowerCase();
+          if ((p1 && itemIds.includes(p1)) || (p2 && itemIds.includes(p2))) return true;
+          return itemName && String(p.name || '').trim().toLowerCase() === itemName;
+        }) : null;
+        if (typeof window.getEffectiveProductDiscount === 'function') {
+          if (catalogProd) return window.getEffectiveProductDiscount(catalogProd);
+          if (Array.isArray(catalog) && catalog.length > 0) {
+            return window.getEffectiveProductDiscount({ ...item, discount: 0 });
+          }
+        }
+      } catch (e) {}
       return Number(item.discount || 0);
     }
+    window.addEventListener('bib:flash-sale-updated', () => {
+      if (typeof window.renderOrderSummary === 'function') window.renderOrderSummary();
+    });
 
     window.renderOrderSummary = function() {
       let localCart = JSON.parse(localStorage.getItem('bib_cart')) || [];

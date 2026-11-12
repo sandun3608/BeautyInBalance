@@ -1503,13 +1503,19 @@ try {
 window.productsData = (cachedProducts && cachedProducts.length > 0) ? cachedProducts : (typeof defaultProducts !== 'undefined' ? [...defaultProducts] : []);
 
 // Helper to get effective discount (Flash Sale offer completely overrides inventory discount)
-function isProductInActiveSale(productId, sale) {
-    if (!sale || sale.enabled === false) return false;
-    if (sale.endDate) {
-        const now = new Date();
-        const end = new Date(sale.endDate);
-        if (isNaN(end.getTime()) || now > end) return false;
+function _isValidBibSaleObj(sale) {
+    if (typeof window.isBibFlashSaleActive === 'function') {
+        return window.isBibFlashSaleActive(sale);
     }
+    if (!sale || typeof sale !== 'object' || sale.enabled === false) return false;
+    if (!sale.endDate) return false;
+    const end = new Date(sale.endDate);
+    if (isNaN(end.getTime()) || Date.now() > end.getTime()) return false;
+    return Array.isArray(sale.productIds) && sale.productIds.length > 0;
+}
+
+function isProductInActiveSale(productId, sale) {
+    if (!_isValidBibSaleObj(sale)) return false;
     const pid = String(productId || '').trim().toLowerCase();
     if (!pid) return false;
     const saleIds = Array.isArray(sale.productIds) ? sale.productIds : [];
@@ -1524,21 +1530,47 @@ function getEffectiveProductDiscount(product) {
             const saleStr = localStorage.getItem('bib_active_sale');
             if (saleStr) {
                 sale = JSON.parse(saleStr);
-                window.activeFlashSale = sale;
             }
         }
-        if (sale && sale.enabled !== false) {
+        if (_isValidBibSaleObj(sale)) {
+            window.activeFlashSale = sale;
             const pidMongo = String(product._id || '').trim().toLowerCase();
             const pidCustom = String(product.id || '').trim().toLowerCase();
-            if (isProductInActiveSale(pidMongo, sale) || isProductInActiveSale(pidCustom, sale)) {
+            const pidRef = String(product.productId || '').trim().toLowerCase();
+            if (isProductInActiveSale(pidMongo, sale) || isProductInActiveSale(pidCustom, sale) || isProductInActiveSale(pidRef, sale)) {
                 return Number(sale.discountPercent || 0);
             }
+        } else {
+            window.activeFlashSale = null;
+            try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
         }
     } catch (e) {}
     return Number(product.discount || 0);
 }
 window.isProductInActiveSale = isProductInActiveSale;
 window.getEffectiveProductDiscount = getEffectiveProductDiscount;
+
+function _getCatalogPoolForCartSync() {
+    if (Array.isArray(window.productsData) && window.productsData.length > 0) return window.productsData;
+    try {
+        const cached = localStorage.getItem('koko_products_cache');
+        if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+    } catch (e) {}
+    if (typeof defaultProducts !== 'undefined' && Array.isArray(defaultProducts)) return defaultProducts;
+    return [];
+}
+
+function _triggerSaleDependentRenders() {
+    const fnNames = ['renderHomeAllProducts', 'renderFeaturedProducts', 'renderLatestArrivals', 'renderCategoryProducts', 'renderShop', 'renderProduct'];
+    fnNames.forEach(fnName => {
+        if (typeof window[fnName] === 'function') {
+            try { window[fnName](); } catch (e) {}
+        }
+    });
+}
 
 // Synchronize existing cart items with active flash sale offers
 function syncCartWithActiveSale() {
@@ -1547,9 +1579,20 @@ function syncCartWithActiveSale() {
         if (!cartStr) return;
         const cart = JSON.parse(cartStr);
         if (!Array.isArray(cart) || cart.length === 0) return;
+        const catalog = _getCatalogPoolForCartSync();
         let changed = false;
         cart.forEach(item => {
-            const effDiscount = getEffectiveProductDiscount(item);
+            const itemIds = [item.productId, item.id, item._id].filter(Boolean).map(v => String(v).trim().toLowerCase());
+            const itemName = String(item.name || '').trim().toLowerCase();
+            const catalogProd = catalog.find(p => {
+                const p1 = String(p._id || '').trim().toLowerCase();
+                const p2 = String(p.id || '').trim().toLowerCase();
+                if ((p1 && itemIds.includes(p1)) || (p2 && itemIds.includes(p2))) return true;
+                return itemName && String(p.name || '').trim().toLowerCase() === itemName;
+            });
+            if (!catalogProd && catalog.length === 0) return;
+            const sourceProd = catalogProd || { ...item, discount: 0 };
+            const effDiscount = getEffectiveProductDiscount(sourceProd);
             if (Number(item.discount || 0) !== effDiscount) {
                 item.discount = effDiscount;
                 changed = true;
@@ -1562,33 +1605,38 @@ function syncCartWithActiveSale() {
             }
             if (typeof renderCart === 'function') renderCart();
         }
-    } catch(e) {}
+    } catch (e) {}
 }
 window.syncCartWithActiveSale = syncCartWithActiveSale;
 
 // Background fetch for flash sale settings to always stay synchronized
 async function fetchActiveFlashSale() {
+    const wasActive = _isValidBibSaleObj(window.activeFlashSale);
     try {
+        if (typeof window.fetchBibFlashSale === 'function') {
+            const res = await window.fetchBibFlashSale(false);
+            const sale = (res && res.active) ? res.sale : null;
+            syncCartWithActiveSale();
+            if (wasActive !== Boolean(sale)) _triggerSaleDependentRenders();
+            return sale;
+        }
         const BASE = window.BASE_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api');
-        const res = await fetch(`${BASE}/settings/flash_sale?t=${Date.now()}`);
+        const res = await fetch(`${BASE}/settings/flash_sale?t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
             const data = await res.json();
-            if (data && data.value && data.value.enabled !== false) {
+            if (data && _isValidBibSaleObj(data.value)) {
                 const sale = data.value;
-                const now = new Date();
-                const end = new Date(sale.endDate);
-                if (!isNaN(end.getTime()) && now <= end) {
-                    window.activeFlashSale = sale;
-                    try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
-                    syncCartWithActiveSale();
-                    return sale;
-                }
+                window.activeFlashSale = sale;
+                try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
+                syncCartWithActiveSale();
+                if (!wasActive) _triggerSaleDependentRenders();
+                return sale;
             }
         }
-        // Sale is inactive or expired
         window.activeFlashSale = null;
         try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
         syncCartWithActiveSale();
+        if (wasActive) _triggerSaleDependentRenders();
         return null;
     } catch (e) {
         return null;
@@ -1596,6 +1644,10 @@ async function fetchActiveFlashSale() {
 }
 window.fetchActiveFlashSale = fetchActiveFlashSale;
 fetchActiveFlashSale();
+
+window.addEventListener('bib:flash-sale-updated', () => {
+    syncCartWithActiveSale();
+});
 
 // Fetch from Database
 async function fetchDatabaseProducts() {
@@ -1682,6 +1734,7 @@ async function fetchDatabaseProducts() {
             });
 
             window.productsData = updatedProductsData;
+            syncCartWithActiveSale();
             try { localStorage.setItem('koko_products_cache', JSON.stringify(updatedProductsData)); } catch(e) {}
         } else {
             console.log("ℹ️ Database returned invalid format, using defaults.");

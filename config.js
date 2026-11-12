@@ -1,4 +1,4 @@
-const getApiUrl = () => {
+var getApiUrl = () => {
   const host = window.location.hostname;
   if (host === 'localhost' || host === '127.0.0.1') {
     return 'http://localhost:5000';
@@ -6,8 +6,8 @@ const getApiUrl = () => {
   return 'https://beautyinbalance.onrender.com';
 };
 
-const GLOBAL_API_URL = getApiUrl();
-const BASE_URL = GLOBAL_API_URL + '/api';
+var GLOBAL_API_URL = getApiUrl();
+var BASE_URL = GLOBAL_API_URL + '/api';
 
 window.GLOBAL_API_URL = GLOBAL_API_URL;
 window.BASE_URL = BASE_URL;
@@ -198,4 +198,167 @@ function submitMobileSearch() {
             applyBibThemeColors(colors);
         }
     }).catch(() => {});
+})();
+
+// Global Flash Sale & Offers Visibility Controller
+(function() {
+    var FLASH_SALE_CACHE_KEY = 'bib_active_sale';
+    var expiryTimer = null;
+    var inflightPromise = null;
+
+    function isAdminPage() {
+        try {
+            return /(?:^|\/)admin(?:\.html)?$/i.test(window.location.pathname || '');
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function isOfferHref(href) {
+        if (!href) return false;
+        var clean = String(href).trim();
+        return /(?:^|\/)offers(?:\.html)?(?:[?#]|$)/i.test(clean);
+    }
+
+    window.isBibFlashSaleActive = function(sale) {
+        if (!sale || typeof sale !== 'object') return false;
+        if (sale.enabled === false) return false;
+        if (!sale.endDate) return false;
+        var endMs = new Date(sale.endDate).getTime();
+        if (isNaN(endMs) || Date.now() > endMs) return false;
+        return Array.isArray(sale.productIds) && sale.productIds.length > 0;
+    };
+
+    window.getBibCachedFlashSale = function() {
+        try {
+            var raw = localStorage.getItem(FLASH_SALE_CACHE_KEY);
+            if (!raw) return null;
+            var parsed = JSON.parse(raw);
+            if (window.isBibFlashSaleActive(parsed)) return parsed;
+            localStorage.removeItem(FLASH_SALE_CACHE_KEY);
+        } catch (e) {}
+        return null;
+    };
+
+    function scheduleExpiryCheck(sale) {
+        if (expiryTimer) {
+            clearTimeout(expiryTimer);
+            expiryTimer = null;
+        }
+        if (!window.isBibFlashSaleActive(sale)) return;
+        var remaining = new Date(sale.endDate).getTime() - Date.now();
+        if (remaining <= 0) {
+            try { localStorage.removeItem(FLASH_SALE_CACHE_KEY); } catch (e) {}
+            window.syncBibOffersVisibility(null);
+            return;
+        }
+        var delay = Math.min(remaining + 250, 2147483647);
+        expiryTimer = setTimeout(function() {
+            if (window.isBibFlashSaleActive(sale)) {
+                scheduleExpiryCheck(sale);
+            } else {
+                try { localStorage.removeItem(FLASH_SALE_CACHE_KEY); } catch (e) {}
+                window.syncBibOffersVisibility(null);
+            }
+        }, delay);
+    }
+
+    function applyOfferDomState(isActive) {
+        if (!document.body) return;
+        var items = document.querySelectorAll('.nav-offer-item');
+        items.forEach(function(el) {
+            el.style.display = isActive ? '' : 'none';
+        });
+
+        var anchors = document.querySelectorAll('.nav-main a, .m-sidebar-list a, .footer-col a');
+        anchors.forEach(function(a) {
+            if (!isOfferHref(a.getAttribute('href'))) return;
+            var host = a.closest('li') || a;
+            host.style.display = isActive ? '' : 'none';
+        });
+
+        if (!isActive) {
+            var sticky = document.getElementById('sticky-timer-widget');
+            if (sticky) sticky.style.display = 'none';
+            var modal = document.getElementById('flash-sale-modal-overlay');
+            if (modal) modal.style.display = 'none';
+        }
+
+        var ctaBtn = document.getElementById('td-cta-btn');
+        if (ctaBtn) {
+            if (!ctaBtn.dataset.origHref) {
+                var currentHref = ctaBtn.getAttribute('href') || '';
+                ctaBtn.dataset.origHref = currentHref || 'offers.html';
+            }
+            if (isActive) {
+                ctaBtn.setAttribute('href', ctaBtn.dataset.origHref);
+            } else if (isOfferHref(ctaBtn.dataset.origHref) || isOfferHref(ctaBtn.getAttribute('href'))) {
+                ctaBtn.setAttribute('href', 'shop.html');
+            }
+        }
+    }
+
+    window.syncBibOffersVisibility = function(sale) {
+        var isActive = window.isBibFlashSaleActive(sale);
+        window.activeFlashSale = isActive ? sale : null;
+
+        if (isAdminPage()) {
+            return isActive;
+        }
+
+        document.documentElement.classList.toggle('bib-offers-active', isActive);
+        scheduleExpiryCheck(isActive ? sale : null);
+        applyOfferDomState(isActive);
+
+        try {
+            window.dispatchEvent(new CustomEvent('bib:flash-sale-updated', {
+                detail: { active: isActive, sale: isActive ? sale : null }
+            }));
+        } catch (e) {}
+
+        return isActive;
+    };
+
+    window.fetchBibFlashSale = function(forceRefresh) {
+        if (inflightPromise && !forceRefresh) {
+            return inflightPromise;
+        }
+
+        var req = (async function() {
+            try {
+                var res = await fetch(BASE_URL + '/settings/flash_sale?t=' + Date.now(), { cache: 'no-store' });
+                if (res.ok) {
+                    var data = await res.json();
+                    var rawSale = (data && data.value) ? data.value : null;
+                    if (window.isBibFlashSaleActive(rawSale)) {
+                        try { localStorage.setItem(FLASH_SALE_CACHE_KEY, JSON.stringify(rawSale)); } catch (e) {}
+                        window.syncBibOffersVisibility(rawSale);
+                        return { ok: true, active: true, sale: rawSale, rawSale: rawSale };
+                    }
+                    try { localStorage.removeItem(FLASH_SALE_CACHE_KEY); } catch (e) {}
+                    window.syncBibOffersVisibility(null);
+                    return { ok: true, active: false, sale: null, rawSale: rawSale };
+                }
+            } catch (e) {}
+
+            var cached = window.getBibCachedFlashSale();
+            window.syncBibOffersVisibility(cached);
+            return { ok: false, active: !!cached, sale: cached, rawSale: null };
+        })();
+
+        inflightPromise = req;
+        req.finally(function() {
+            if (inflightPromise === req) inflightPromise = null;
+        });
+        return req;
+    };
+
+    if (!isAdminPage()) {
+        var initialCached = window.getBibCachedFlashSale();
+        window.syncBibOffersVisibility(initialCached);
+        document.addEventListener('DOMContentLoaded', function() {
+            window.syncBibOffersVisibility(window.activeFlashSale || window.getBibCachedFlashSale());
+        });
+        window.fetchBibFlashSale(false);
+    }
 })();

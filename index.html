@@ -56,7 +56,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=463483" />
+  <link rel="stylesheet" href="styles.css?v=463495" />
+  <script src="config.js?v=21"></script>
   <style>
     /* Absolute Force Override for Mobile Header Cleanup */
     @media (max-width: 900px) {
@@ -420,7 +421,7 @@
               <li><a href="shop.html?filter=sunscreen">Sunscreen</a></li>
             </ul>
           </li>
-          <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
+          <li class="nav-offer-item"><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ Offers</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li class="has-drop">
             <a href="policies.html">Policies <svg class="chevron-icon" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></a>
@@ -535,7 +536,7 @@
         <ul class="m-sidebar-list" id="m-tab-menu">
             <li><a href="index.html" class="blue-text">HOME</a></li>
             <li><a href="shop.html" class="blue-text">SHOP</a></li>
-            <li><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
+            <li class="nav-offer-item"><a href="offers.html" style="color: #E75328; font-weight: 700;">⚡ OFFERS</a></li>
             <li><a href="contact.html">CONTACT US</a></li>
             
             <li><a href="account.html">ORDER STATUS</a></li>
@@ -1441,7 +1442,7 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="shop.html">Shop All Collection</a></li>
-          <li><a href="offers.html">Special Offers ⚡</a></li>
+          <li class="nav-offer-item"><a href="offers.html">Special Offers ⚡</a></li>
           <li><a href="account.html">Track Order Status</a></li>
           <li><a href="cart.html">Shopping Bag</a></li>
           <li><a href="login.html">Customer Account</a></li>
@@ -1475,8 +1476,8 @@
 
 
 
-  <script src="config.js?v=20"></script>
-  <script src="products.js?v=532"></script>
+
+  <script src="products.js?v=533"></script>
   <script>
     const $ = id => document.getElementById(id);
     const overlay = $('overlay');
@@ -2085,8 +2086,10 @@
         const diff = end - now;
 
         if (isNaN(end) || diff <= 0) {
-          if (countdownInterval) clearInterval(countdownInterval);
+          if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
           if (flashModal) flashModal.classList.remove('active');
+          try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
+          if (typeof window.syncBibOffersVisibility === 'function') window.syncBibOffersVisibility(null);
           const widget = document.getElementById('sticky-timer-widget');
           if (widget) {
             widget.classList.remove('active');
@@ -2140,10 +2143,10 @@
       }
 
       function applySaleToUI(sale, showPopupIfAllowed) {
-        if (!sale || sale.enabled === false) return false;
-        const now = new Date();
-        const end = new Date(sale.endDate);
-        if (isNaN(end.getTime()) || now > end) return false;
+        const isSaleValid = (typeof window.isBibFlashSaleActive === 'function')
+          ? window.isBibFlashSaleActive(sale)
+          : Boolean(sale && sale.enabled !== false && sale.endDate && !isNaN(new Date(sale.endDate).getTime()) && Date.now() <= new Date(sale.endDate).getTime() && Array.isArray(sale.productIds) && sale.productIds.length > 0);
+        if (!isSaleValid) return false;
 
         if (sale.title) {
           const fsTitle = document.getElementById('fs-modal-title');
@@ -2270,32 +2273,25 @@
       }
 
       // 1. Instant 0ms render from cached sale if available
-      try {
-        const cachedSaleStr = localStorage.getItem('bib_active_sale');
-        if (cachedSaleStr) {
-          const cachedSale = JSON.parse(cachedSaleStr);
-          applySaleToUI(cachedSale, false);
-        }
-      } catch (e) {}
+      const initialCachedSale = (typeof window.getBibCachedFlashSale === 'function') ? window.getBibCachedFlashSale() : null;
+      if (initialCachedSale) {
+        applySaleToUI(initialCachedSale, false);
+      }
 
-      // 2. Check Flash Sale status from backend API
+      // 2. Check Flash Sale status from backend API via centralized helper
       try {
-        const apiBase = (typeof window !== 'undefined' && window.BASE_URL) || (typeof BASE_URL !== 'undefined' ? BASE_URL : (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://beautyinbalance.onrender.com/api'));
-        const res = await fetch(`${apiBase}/settings/flash_sale?t=${Date.now()}`);
-        if (res.ok) {
-          const data = await res.json();
-          const sale = data.value;
-          if (applySaleToUI(sale, true)) {
-            try { localStorage.setItem('bib_active_sale', JSON.stringify(sale)); } catch (e) {}
-            return; // Stop here so newsletter modal is suppressed
-          } else {
-            try { localStorage.removeItem('bib_active_sale'); } catch (e) {}
-            if (countdownInterval) clearInterval(countdownInterval);
-            const widget = document.getElementById('sticky-timer-widget');
-            if (widget) {
-              widget.classList.remove('active');
-              widget.style.display = 'none';
-            }
+        const res = (typeof window.fetchBibFlashSale === 'function')
+          ? await window.fetchBibFlashSale(false)
+          : { ok: false, active: false, sale: null };
+        if (res && res.active && applySaleToUI(res.sale, true)) {
+          return; // Stop here so newsletter modal is suppressed
+        } else {
+          if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+          if (flashModal) flashModal.classList.remove('active');
+          const widget = document.getElementById('sticky-timer-widget');
+          if (widget) {
+            widget.classList.remove('active');
+            widget.style.display = 'none';
           }
         }
       } catch (err) {
@@ -2950,7 +2946,12 @@
         if (accentTitleEl && data.titleAccent !== undefined) accentTitleEl.textContent = data.titleAccent;
         if (descEl && data.description) descEl.textContent = data.description;
         if (ctaText && data.ctaText) ctaText.textContent = data.ctaText;
-        if (ctaBtn && data.ctaLink) ctaBtn.href = data.ctaLink;
+        if (ctaBtn && data.ctaLink) {
+          ctaBtn.dataset.origHref = data.ctaLink;
+          const hasOffer = (typeof window.isBibFlashSaleActive === 'function') && window.isBibFlashSaleActive(window.activeFlashSale || (typeof window.getBibCachedFlashSale === 'function' ? window.getBibCachedFlashSale() : null));
+          const pointsToOffers = /(?:^|\/)offers(?:\.html)?(?:[?#]|$)/i.test(String(data.ctaLink).trim());
+          ctaBtn.href = (!hasOffer && pointsToOffers) ? 'shop.html' : data.ctaLink;
+        }
 
         const allProds = getCatalogProducts();
         if (!allProds.length) return;
