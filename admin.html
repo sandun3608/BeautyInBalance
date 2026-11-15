@@ -7620,7 +7620,7 @@
             <td>
                <div style="display:flex; gap:8px; min-width: 240px;">
                   <button class="admin-btn" style="background:rgba(108, 140, 255, 0.1); color:var(--admin-accent); padding: 6px 12px; border: 1px solid rgba(108, 140, 255, 0.2); font-size: 11px;" onclick="viewCustomerDetails('${order._id}')">Details</button>
-                  ${!order.isDelivered ? `<button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="markDelivered('${order._id}')">Deliver</button>` : '<span style="color:#10b981; font-weight:bold; align-self:center; font-size: 11px; letter-spacing: 0.05em;">COMPLETED</span>'}
+                  ${!order.isDelivered ? `<button class="admin-btn" style="padding: 6px 12px; font-size: 11px;" onclick="markDelivered('${order._id}')">Ship / Deliver</button>` : '<span style="color:#10b981; font-weight:bold; align-self:center; font-size: 11px; letter-spacing: 0.05em;">COMPLETED</span>'}
                   <button class="admin-btn" style="background:rgba(255, 0, 0, 0.05); color:#ef4444; border: 1px solid rgba(255, 0, 0, 0.1); padding: 6px 12px; font-size: 11px;" onclick="deleteOrder('${order._id}')">Delete</button>
                </div>
             </td>
