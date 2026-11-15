@@ -198,35 +198,28 @@ router.put('/:id/deliver', protect, async (req, res) => {
                             <div style="background-color: #F8F6F2; padding: 25px 15px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
                                 <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #ECE5DC;">
                                     
-                                    <!-- Brand Official Logo Header -->
-                                    <div style="background-color: #ffffff; text-align: center; padding: 22px 20px 18px 20px; border-bottom: 1px solid #F2ECE5;">
-                                        <a href="https://www.beautyinbalance.lk" target="_blank" style="text-decoration: none; display: inline-block;">
-                                            <img src="${siteUrl}/favicon.png" alt="Beauty in Balance" style="width: 120px; max-width: 120px; height: auto; display: block; margin: 0 auto;" />
-                                        </a>
-                                    </div>
-
-                                    <!-- Minimalist White Marble Header Banner -->
-                                    <div style="background: #ffffff; text-align: center;">
-                                        <img src="${siteUrl}/thank-you-banner.jpg" alt="Thank You • Beauty in Balance" style="width: 100%; max-width: 600px; height: auto; display: block;" />
-                                    </div>
-
                                     <!-- Main Content Card -->
-                                    <div style="padding: 30px 25px;">
+                                    <div style="padding: 35px 25px 30px 25px;">
                                         
                                         <!-- Status Badge -->
-                                        <div style="text-align: center; margin-bottom: 18px;">
-                                            <span style="display: inline-block; background: #F8F5F0; color: #B58646; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 30px; border: 1px solid #EAE2D8;">
+                                        <div style="text-align: center; margin-bottom: 12px;">
+                                            <span style="display: inline-block; background: #F8F5F0; color: #B58646; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 30px; border: 1px solid #EAE2D8;">
                                                 📦 Order Shipped • On The Way
                                             </span>
                                         </div>
 
-                                        <!-- Title -->
+                                        <!-- Topic / Title -->
                                         <h1 style="color: #2D2727; font-size: 24px; font-weight: 700; text-align: center; margin: 0 0 6px 0; letter-spacing: 0.3px;">
                                             Your Order Has Been Shipped!
                                         </h1>
-                                        <p style="text-align: center; color: #8C827A; font-size: 13px; margin: 0 0 25px 0;">
+                                        <p style="text-align: center; color: #8C827A; font-size: 13px; margin: 0 0 18px 0;">
                                             Beauty in Balance • Island-wide Authentic Skincare
                                         </p>
+
+                                        <!-- Centered Card Image (Slightly smaller, right after topic) -->
+                                        <div style="text-align: center; margin: 0 auto 25px auto;">
+                                            <img src="${siteUrl}/order-shipped-card.jpg" alt="Thank You • Your order has shipped!" style="width: 100%; max-width: 320px; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.04);" />
+                                        </div>
 
                                         <!-- Greeting -->
                                         <p style="font-size: 15px; color: #4A4440; line-height: 1.6; margin: 0 0 12px 0;">
@@ -281,12 +274,15 @@ router.put('/:id/deliver', protect, async (req, res) => {
                                             </p>
                                         </div>
 
-                                        <!-- Footer / Need Help -->
-                                        <div style="text-align: center; border-top: 1px solid #EFEAE3; padding-top: 20px; color: #8F847D; font-size: 12px; line-height: 1.6;">
+                                        <!-- Footer with Brand Logo at the Bottom -->
+                                        <div style="text-align: center; border-top: 1px solid #EFEAE3; padding-top: 25px; color: #8F847D; font-size: 12px; line-height: 1.6;">
+                                            <a href="https://www.beautyinbalance.lk" target="_blank" style="text-decoration: none; display: inline-block; margin-bottom: 12px;">
+                                                <img src="${siteUrl}/favicon.png" alt="Beauty in Balance" style="width: 75px; max-width: 75px; height: auto; display: block; margin: 0 auto;" />
+                                            </a>
                                             <p style="margin: 0 0 6px 0;">
                                                 Have questions about your delivery? We are always here to help.
                                             </p>
-                                            <p style="margin: 0 0 15px 0;">
+                                            <p style="margin: 0 0 14px 0;">
                                                 Contact us at <a href="mailto:${process.env.EMAIL_USER || 'support@beautyinbalance.lk'}" style="color: #B58646; text-decoration: underline; font-weight: 700;">${process.env.EMAIL_USER || 'support@beautyinbalance.lk'}</a>
                                             </p>
                                             <p style="margin: 0; font-size: 11px; color: #B0A59E;">
