@@ -193,14 +193,21 @@ router.put('/:id/deliver', protect, async (req, res) => {
 
                     sendEmail({
                         email: updatedOrder.customerInfo.email,
-                        subject: `Your Order Has Been Shipped! #${orderIdShort} 💖🚚`,
+                        subject: `Your Order Has Been Shipped! #${orderIdShort} 📦✨`,
                         html: `
-                            <div style="background-color: #FAF6F0; padding: 25px 15px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-                                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #F0E8DD;">
+                            <div style="background-color: #F8F6F2; padding: 25px 15px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                                <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #ECE5DC;">
                                     
-                                    <!-- Aesthetic Thank You Banner Image -->
-                                    <div style="background: #FDFBF7; text-align: center;">
-                                        <img src="${siteUrl}/thank-you-banner.jpg" alt="Thank You ❤️ Beauty in Balance" style="width: 100%; max-width: 600px; height: auto; display: block;" />
+                                    <!-- Brand Official Logo Header -->
+                                    <div style="background-color: #ffffff; text-align: center; padding: 22px 20px 18px 20px; border-bottom: 1px solid #F2ECE5;">
+                                        <a href="https://www.beautyinbalance.lk" target="_blank" style="text-decoration: none; display: inline-block;">
+                                            <img src="${siteUrl}/favicon.png" alt="Beauty in Balance" style="width: 120px; max-width: 120px; height: auto; display: block; margin: 0 auto;" />
+                                        </a>
+                                    </div>
+
+                                    <!-- Minimalist White Marble Header Banner -->
+                                    <div style="background: #ffffff; text-align: center;">
+                                        <img src="${siteUrl}/thank-you-banner.jpg" alt="Thank You • Beauty in Balance" style="width: 100%; max-width: 600px; height: auto; display: block;" />
                                     </div>
 
                                     <!-- Main Content Card -->
@@ -208,17 +215,17 @@ router.put('/:id/deliver', protect, async (req, res) => {
                                         
                                         <!-- Status Badge -->
                                         <div style="text-align: center; margin-bottom: 18px;">
-                                            <span style="display: inline-block; background: #FFF4E5; color: #B58646; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 18px; border-radius: 30px; border: 1px solid #F5DDC2;">
-                                                📦 Shipped & On The Way 💖
+                                            <span style="display: inline-block; background: #F8F5F0; color: #B58646; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 30px; border: 1px solid #EAE2D8;">
+                                                📦 Order Shipped • On The Way
                                             </span>
                                         </div>
 
                                         <!-- Title -->
-                                        <h1 style="color: #2D2727; font-size: 24px; font-weight: 700; text-align: center; margin: 0 0 8px 0; letter-spacing: 0.3px;">
-                                            Your Order Has Been Shipped! 🚚✨
+                                        <h1 style="color: #2D2727; font-size: 24px; font-weight: 700; text-align: center; margin: 0 0 6px 0; letter-spacing: 0.3px;">
+                                            Your Order Has Been Shipped!
                                         </h1>
-                                        <p style="text-align: center; color: #9A8D85; font-size: 13px; margin: 0 0 25px 0;">
-                                            Handcrafted & Packed with Love ❤️ • Ready to Glow
+                                        <p style="text-align: center; color: #8C827A; font-size: 13px; margin: 0 0 25px 0;">
+                                            Beauty in Balance • Island-wide Authentic Skincare
                                         </p>
 
                                         <!-- Greeting -->
@@ -226,49 +233,64 @@ router.put('/:id/deliver', protect, async (req, res) => {
                                             Hi <strong>${updatedOrder.customerInfo?.firstName || 'Valued Customer'}</strong>,
                                         </p>
                                         <p style="font-size: 15px; color: #554F4B; line-height: 1.7; margin: 0 0 25px 0;">
-                                            Exciting news! Your Beauty in Balance order <span style="background: #FAF0E6; color: #B58646; padding: 2px 8px; border-radius: 6px; font-weight: 700;">#${orderIdShort}</span> has been packed with love 💕 and is officially on its way to you!
+                                            Exciting news! Your Beauty in Balance order <span style="background: #FAF0E6; color: #B58646; padding: 3px 8px; border-radius: 6px; font-weight: 700; border: 1px solid #F0DFCE;">#${orderIdShort}</span> has been packed with care and is now officially on its way to you!
                                         </p>
 
                                         <!-- Order Summary Card -->
-                                        <div style="background: #FDFBF7; border: 1px solid #EFE8DE; border-radius: 14px; padding: 20px 22px; margin-bottom: 25px;">
-                                            <div style="border-bottom: 1px solid #ECE3D6; padding-bottom: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                                <span style="font-size: 15px; font-weight: 700; color: #2D2727;">🛍️ Order Summary</span>
-                                                <span style="font-size: 12px; font-weight: 700; color: #B58646;">#${orderIdShort}</span>
-                                            </div>
+                                        <div style="background: #FAF9F6; border: 1px solid #EFEAE3; border-radius: 14px; padding: 20px 22px; margin-bottom: 25px;">
                                             
-                                            <table style="width: 100%; border-collapse: collapse;">
+                                            <!-- Header Row with Table -->
+                                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-bottom: 1px solid #ECE3D6; padding-bottom: 12px; margin-bottom: 14px;">
+                                                <tr>
+                                                    <td align="left" style="font-size: 15px; font-weight: 700; color: #2D2727; vertical-align: middle;">
+                                                        🛍️ Order Summary
+                                                    </td>
+                                                    <td align="right" style="font-size: 13px; font-weight: 700; vertical-align: middle;">
+                                                        <span style="background: #F3ECE4; color: #B58646; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #E5D8CA; letter-spacing: 0.5px;">#${orderIdShort}</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                            <!-- Items Table -->
+                                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
                                                 <tbody>
                                                     ${itemsHtml}
                                                 </tbody>
                                             </table>
 
-                                            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 15px; margin-top: 10px; border-top: 1px solid #ECE3D6; font-size: 15px;">
-                                                <span style="font-weight: 700; color: #2D2727;">Total Paid</span>
-                                                <span style="font-weight: 800; color: #B58646; font-size: 18px;">Rs. ${Number(updatedOrder.totalPrice).toLocaleString()}</span>
-                                            </div>
+                                            <!-- Total Paid Table -->
+                                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; margin-top: 14px; border-top: 1px solid #ECE3D6; padding-top: 14px;">
+                                                <tr>
+                                                    <td align="left" style="font-size: 15px; font-weight: 700; color: #2D2727; vertical-align: middle;">
+                                                        Total Paid:
+                                                    </td>
+                                                    <td align="right" style="font-size: 19px; font-weight: 800; color: #B58646; vertical-align: middle;">
+                                                        Rs. ${Number(updatedOrder.totalPrice).toLocaleString()}
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
 
-                                        <!-- Aesthetic Love & Thank You Box -->
-                                        <div style="background: #FFF9F8; border: 1px dashed #F2C7C4; border-radius: 14px; padding: 20px; text-align: center; margin-bottom: 25px;">
-                                            <div style="font-size: 24px; margin-bottom: 8px;">💖 🌸 💖</div>
-                                            <p style="margin: 0; color: #A45053; font-weight: 700; font-size: 16px;">
-                                                Thank You for Choosing Beauty in Balance!
+                                        <!-- Elegant Minimalist Thank You Box -->
+                                        <div style="background: #FAFAF8; border: 1px solid #EFEAE3; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
+                                            <p style="margin: 0; color: #2D2727; font-weight: 700; font-size: 15px; letter-spacing: 0.3px;">
+                                                Thank You for Choosing Beauty in Balance
                                             </p>
-                                            <p style="margin: 6px 0 0 0; color: #7A6665; font-size: 13px; line-height: 1.6;">
-                                                Every product is curated with care to help your natural radiance shine. We hope you fall in love with your new skincare routine! ✨❤️
+                                            <p style="margin: 8px 0 0 0; color: #6E6762; font-size: 13px; line-height: 1.6;">
+                                                Every product is 100% authentic and handled with care to bring out your skin's natural radiance. We hope you enjoy your new skincare essentials! ✨
                                             </p>
                                         </div>
 
                                         <!-- Footer / Need Help -->
-                                        <div style="text-align: center; border-top: 1px solid #EFE8DE; padding-top: 20px; color: #8F847D; font-size: 12px; line-height: 1.6;">
+                                        <div style="text-align: center; border-top: 1px solid #EFEAE3; padding-top: 20px; color: #8F847D; font-size: 12px; line-height: 1.6;">
                                             <p style="margin: 0 0 6px 0;">
-                                                Have questions about your delivery? We are always here for you! 💕
+                                                Have questions about your delivery? We are always here to help.
                                             </p>
                                             <p style="margin: 0 0 15px 0;">
                                                 Contact us at <a href="mailto:${process.env.EMAIL_USER || 'support@beautyinbalance.lk'}" style="color: #B58646; text-decoration: underline; font-weight: 700;">${process.env.EMAIL_USER || 'support@beautyinbalance.lk'}</a>
                                             </p>
                                             <p style="margin: 0; font-size: 11px; color: #B0A59E;">
-                                                © ${new Date().getFullYear()} Beauty in Balance. Handcrafted with love ❤️ for your skin.
+                                                © ${new Date().getFullYear()} Beauty in Balance. 100% Authentic Skincare & Cosmetics.
                                             </p>
                                         </div>
 
@@ -369,8 +391,8 @@ const sendCustomerWhatsAppNotification = async (order, type) => {
                         `*Beauty in Balance*`;
         } else if (type === 'delivered') {
             wpMessage = `Hello ${customerName},\n\n` +
-                        `Great news! Your *Beauty in Balance* order *#${orderIdShort}* has been shipped and is on the way! 🚚💖\n` +
-                        `Thank you for trusting Beauty in Balance! Handcrafted & packed with love for your skin. ✨❤️\n\n` +
+                        `Great news! Your *Beauty in Balance* order *#${orderIdShort}* has been shipped and is on the way! 🚚✨\n` +
+                        `Thank you for choosing Beauty in Balance. 100% authentic skincare curated for you.\n\n` +
                         `Best regards,\n` +
                         `*Beauty in Balance*`;
         }
