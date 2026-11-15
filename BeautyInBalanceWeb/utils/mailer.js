@@ -186,29 +186,33 @@ const sendOrderConfirmation = async (order) => {
                                     </table>
                                 </div>
 
-                                <!-- Elegant Minimalist Thank You Box -->
-                                <div style="background: #FAFAF8; border: 1px solid #EFEAE3; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px;">
-                                    <p style="margin: 0; color: #2D2727; font-weight: 700; font-size: 15px; letter-spacing: 0.3px;">
-                                        Thank You for Choosing Beauty in Balance
-                                    </p>
-                                    <p style="margin: 8px 0 0 0; color: #6E6762; font-size: 13px; line-height: 1.6;">
-                                        Every product is 100% authentic and handled with care to bring out your skin's natural radiance. We hope you enjoy your new skincare routine! ✨
-                                    </p>
-                                </div>
-
-                                <!-- Footer with Brand Logo at the Bottom -->
-                                <div style="text-align: center; border-top: 1px solid #EFEAE3; padding-top: 25px; color: #8F847D; font-size: 12px; line-height: 1.6;">
+                                <!-- Seamless Footer Section with Logo Above Thank You & No Box Border -->
+                                <div style="text-align: center; border-top: 1px solid #EFEAE3; padding-top: 28px; margin-top: 10px; color: #8F847D; font-size: 13px; line-height: 1.6;">
+                                    
+                                    <!-- Logo right above 'Thank You for Choosing Beauty in Balance' -->
                                     <a href="https://www.beautyinbalance.lk" target="_blank" style="text-decoration: none; display: inline-block; margin-bottom: 12px;">
                                         <img src="${siteUrl}/favicon.png" alt="Beauty in Balance" style="width: 75px; max-width: 75px; height: auto; display: block; margin: 0 auto;" />
                                     </a>
-                                    <p style="margin: 0 0 6px 0;">
+
+                                    <!-- Thank You text (No box border) -->
+                                    <p style="margin: 0 0 6px 0; color: #2D2727; font-weight: 700; font-size: 15px; letter-spacing: 0.3px;">
+                                        Thank You for Choosing Beauty in Balance
+                                    </p>
+                                    <p style="margin: 0 0 18px 0; color: #6E6762; font-size: 13px; line-height: 1.6; max-width: 440px; margin-left: auto; margin-right: auto;">
+                                        Every product is 100% authentic and handled with care to bring out your skin's natural radiance. We hope you enjoy your new skincare routine! ✨
+                                    </p>
+
+                                    <!-- Support Info -->
+                                    <p style="margin: 0 0 5px 0; color: #8F847D; font-size: 12px;">
                                         Have questions about your order? We are always here to help.
                                     </p>
-                                    <p style="margin: 0 0 14px 0;">
+                                    <p style="margin: 0 0 16px 0; font-size: 13px;">
                                         Contact us at <a href="mailto:${process.env.EMAIL_USER || 'support@beautyinbalance.lk'}" style="color: #B58646; text-decoration: underline; font-weight: 700;">${process.env.EMAIL_USER || 'support@beautyinbalance.lk'}</a>
                                     </p>
+
+                                    <!-- Copyright End -->
                                     <p style="margin: 0; font-size: 11px; color: #B0A59E;">
-                                        © ${new Date().getFullYear()} Beauty in Balance. 100% Authentic Skincare & Cosmetics.
+                                        © 2026 Beauty in Balance. 100% Authentic Skincare & Cosmetics.
                                     </p>
                                 </div>
 
