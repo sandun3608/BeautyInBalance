@@ -110,9 +110,6 @@ const sendOrderConfirmation = async (order) => {
                     <td style="padding: 10px 0; color: #4A4440; font-size: 14px; border-bottom: 1px dashed #EDE5D9;">
                         <span style="font-weight: 700; color: #2D2727;">${i.qty}x</span> ${i.name}
                     </td>
-                    <td style="padding: 10px 0; text-align: right; font-weight: 700; color: #2D2727; font-size: 14px; border-bottom: 1px dashed #EDE5D9; white-space: nowrap;">
-                        Rs. ${(Number(i.price) * (i.qty || 1)).toLocaleString()}
-                    </td>
                 </tr>
             `).join('');
 
@@ -187,12 +184,6 @@ const sendOrderConfirmation = async (order) => {
                                             </td>
                                         </tr>
                                     </table>
-
-                                    <!-- Payment Info -->
-                                    <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #EDE5D9; font-size: 13px; color: #777;">
-                                        <span>Payment: <strong>${order.paymentMethod || 'Cash on Delivery'}</strong></span> • 
-                                        <span>Status: <strong style="color: ${order.isPaid ? '#10b981' : '#d97706'};">${paymentStatusText}</strong></span>
-                                    </div>
                                 </div>
 
                                 <!-- Elegant Minimalist Thank You Box -->

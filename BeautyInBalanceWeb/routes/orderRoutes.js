@@ -185,9 +185,6 @@ router.put('/:id/deliver', protect, async (req, res) => {
                             <td style="padding: 10px 0; color: #4A4440; font-size: 14px; border-bottom: 1px dashed #EDE5D9;">
                                 <span style="font-weight: 700; color: #2D2727;">${i.qty}x</span> ${i.name}
                             </td>
-                            <td style="padding: 10px 0; text-align: right; font-weight: 700; color: #2D2727; font-size: 14px; border-bottom: 1px dashed #EDE5D9;">
-                                Rs. ${(Number(i.price) * (i.qty || 1)).toLocaleString()}
-                            </td>
                         </tr>
                     `).join('');
 
